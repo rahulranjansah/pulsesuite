@@ -1,0 +1,14 @@
+.true.    ! Optics
+.false.   ! Excitons
+.true.    ! EHs
+.false.   ! Screened
+.false.   ! Phonon
+.false.   ! DCTrans
+.false.   ! LF
+.false.   ! DiagDph
+.false.   ! OffDiagDph
+.false.   ! Recomb
+.false.   ! PLSpec
+.false.   ! Ignorewire
+.false.   ! Xqwparams
+.false.   ! LorentzDelta

@@ -1,0 +1,207 @@
+%%{init: {"flowchart": {"nodeSpacing": 80, "rankSpacing": 80}}}%%
+graph LR
+
+  subgraph "0 dependencies"
+    ._phonons[._phonons]
+    ._pstd[._pstd]
+    ._pstd3[._pstd3]
+    ._sbes[._sbes]
+    calcrhou[calcrhou]
+    errfun[errfun]
+  end
+
+  subgraph "4 dependencies"
+    dephasing[dephasing]
+    phost[phost]
+    typespace[typespace]
+    usefulsubs[usefulsubs]
+  end
+
+  subgraph "6 dependencies"
+    coulomb[coulomb]
+    dcfield[dcfield]
+    emission[emission]
+    helpchiqw[helpchiqw]
+    phonons[phonons]
+    qwoptics[qwoptics]
+  end
+
+  subgraph "7 dependencies"
+    epsrtl[epsrtl]
+  end
+
+  subgraph "8 dependencies"
+    testfft[testfft]
+  end
+
+  subgraph "9 dependencies"
+    correlations[correlations]
+  end
+
+  subgraph "10 dependencies"
+    pstd[pstd]
+    pstd3[pstd3]
+  end
+
+  subgraph "14 dependencies"
+    sbes[sbes]
+  end
+
+  pstd --> phost
+  pstd --> sbes
+  pstd --> usefulsubs
+  pstd --> constants
+  pstd --> fftw
+  pstd --> helpers
+  pstd --> propagator
+  pstd --> pscommandline
+  pstd --> stdlog
+  pstd --> types
+  pstd3 --> phost
+  pstd3 --> sbes
+  pstd3 --> usefulsubs
+  pstd3 --> constants
+  pstd3 --> fftw
+  pstd3 --> helpers
+  pstd3 --> propagator
+  pstd3 --> pscommandline
+  pstd3 --> stdlog
+  pstd3 --> types
+  sbes --> coulomb
+  sbes --> dcfield
+  sbes --> dephasing
+  sbes --> emission
+  sbes --> epsrtl
+  sbes --> phonons
+  sbes --> qwoptics
+  sbes --> usefulsubs
+  sbes --> constants
+  sbes --> fftw
+  sbes --> helpers
+  sbes --> spliner
+  sbes --> strings
+  sbes --> types
+  dephasing --> usefulsubs
+  dephasing --> constants
+  dephasing --> helpers
+  dephasing --> types
+  phost --> constants
+  phost --> fftw
+  phost --> helpers
+  phost --> types
+  typespace --> constants
+  typespace --> fileio
+  typespace --> helpers
+  typespace --> logger
+  usefulsubs --> constants
+  usefulsubs --> fftw
+  usefulsubs --> helpers
+  usefulsubs --> types
+  coulomb --> usefulsubs
+  coulomb --> constants
+  coulomb --> fftw
+  coulomb --> helpers
+  coulomb --> spliner
+  coulomb --> types
+  dcfield --> usefulsubs
+  dcfield --> constants
+  dcfield --> fftw
+  dcfield --> helpers
+  dcfield --> spliner
+  dcfield --> types
+  emission --> usefulsubs
+  emission --> constants
+  emission --> fftw
+  emission --> helpers
+  emission --> spliner
+  emission --> types
+  helpchiqw --> constants
+  helpchiqw --> helpers
+  helpchiqw --> propagator
+  helpchiqw --> pscommandline
+  helpchiqw --> stdlog
+  helpchiqw --> strings
+  phonons --> usefulsubs
+  phonons --> constants
+  phonons --> fftw
+  phonons --> helpers
+  phonons --> spliner
+  phonons --> types
+  qwoptics --> usefulsubs
+  qwoptics --> constants
+  qwoptics --> fftw
+  qwoptics --> helpers
+  qwoptics --> spliner
+  qwoptics --> types
+  epsrtl --> coulomb
+  epsrtl --> qwoptics
+  epsrtl --> usefulsubs
+  epsrtl --> constants
+  epsrtl --> fftw
+  epsrtl --> helpers
+  epsrtl --> types
+  testfft --> usefulsubs
+  testfft --> constants
+  testfft --> fftw
+  testfft --> helpers
+  testfft --> propagator
+  testfft --> pscommandline
+  testfft --> stdlog
+  testfft --> types
+  correlations --> constants
+  correlations --> fftw
+  correlations --> helpers
+  correlations --> propagator
+  correlations --> pscommandline
+  correlations --> spliner
+  correlations --> stdlog
+  correlations --> strings
+  correlations --> types
+
+  %% arrows from correlations → #1f77b4
+  linkStyle 101,102,103,104,105,106,107,108,109 stroke:#1f77b4,color:#1f77b4
+
+  %% arrows from coulomb → #1f77b4
+  linkStyle 50,51,52,53,54,55 stroke:#1f77b4,color:#1f77b4
+
+  %% arrows from dcfield → #ff7f0e
+  linkStyle 56,57,58,59,60,61 stroke:#ff7f0e,color:#ff7f0e
+
+  %% arrows from dephasing → #1f77b4
+  linkStyle 34,35,36,37 stroke:#1f77b4,color:#1f77b4
+
+  %% arrows from emission → #2ca02c
+  linkStyle 62,63,64,65,66,67 stroke:#2ca02c,color:#2ca02c
+
+  %% arrows from epsrtl → #1f77b4
+  linkStyle 86,87,88,89,90,91,92 stroke:#1f77b4,color:#1f77b4
+
+  %% arrows from helpchiqw → #d62728
+  linkStyle 68,69,70,71,72,73 stroke:#d62728,color:#d62728
+
+  %% arrows from phonons → #9467bd
+  linkStyle 74,75,76,77,78,79 stroke:#9467bd,color:#9467bd
+
+  %% arrows from phost → #ff7f0e
+  linkStyle 38,39,40,41 stroke:#ff7f0e,color:#ff7f0e
+
+  %% arrows from pstd → #1f77b4
+  linkStyle 0,1,2,3,4,5,6,7,8,9 stroke:#1f77b4,color:#1f77b4
+
+  %% arrows from pstd3 → #ff7f0e
+  linkStyle 10,11,12,13,14,15,16,17,18,19 stroke:#ff7f0e,color:#ff7f0e
+
+  %% arrows from qwoptics → #8c564b
+  linkStyle 80,81,82,83,84,85 stroke:#8c564b,color:#8c564b
+
+  %% arrows from sbes → #1f77b4
+  linkStyle 20,21,22,23,24,25,26,27,28,29,30,31,32,33 stroke:#1f77b4,color:#1f77b4
+
+  %% arrows from testfft → #1f77b4
+  linkStyle 93,94,95,96,97,98,99,100 stroke:#1f77b4,color:#1f77b4
+
+  %% arrows from typespace → #2ca02c
+  linkStyle 42,43,44,45 stroke:#2ca02c,color:#2ca02c
+
+  %% arrows from usefulsubs → #d62728
+  linkStyle 46,47,48,49 stroke:#d62728,color:#d62728

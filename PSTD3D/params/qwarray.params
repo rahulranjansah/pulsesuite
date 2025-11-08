@@ -1,0 +1,4 @@
+.false.  ! QW:   Include quantum wire calculations
+1       ! Nw:   number of quantum wires
+0d-9    ! y0:   quantum wire placement along x-axis
+100d-9  ! dxqw: quantum wire spacing
