@@ -1,0 +1,19 @@
+2		!dimensions
+3.01662d0	!n0 The background dielectric index (3.01662 for AlAs)
+800d-9		!lam Fundamental laser wavelength (m), 480
+1.25d8   	!E00 7 The initial peak electric field value
+33.3d-15        !tw0 Pulsewidth (s)
+0d27            !chirp Pulse chirp (rad/s^2)
+1d0             !xw Initial beam width (m) [2D]
+0.2d-12         !Tpeak1 Time for Pulse 1 Peak at (Xstart, Ystart)
+-2.5d-6         !Ystart Starting Y pulse position (m)
+0.0d0           !Xstart Starting X beam  position (m) [2D]
+400             !Nt / Toc
+400             !Ny / lambda
+800             !Nx / lambda 
+100             !Nt The total # of optical cycles to run sim in time
+8.192d-6	!Ywin Width of Y-Window (m)
+100d-9	        !Xwin Width of X-Window (m) [2D]
+1000            !jmax
+25000           !nmax
+.false.         !Restart (true or false)
