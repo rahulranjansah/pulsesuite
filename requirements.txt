@@ -1,0 +1,14 @@
+# Core dependencies
+numpy==1.26.4
+scipy==1.15.2
+matplotlib==3.10.0
+
+# Testing
+pytest==8.3.4
+
+# High-performance FFT (recommended for production)
+pyfftw==0.15.0
+
+# Optional: JIT compilation acceleration
+numba==0.61.2
+
