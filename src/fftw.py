@@ -225,8 +225,12 @@ except Exception as _e:  # pragma: no cover
 try:  # optional pyFFTW acceleration
     import pyfftw  # type: ignore
     _HAS_PYFFTW = True
+    # Enable pyFFTW multithreading and wisdom caching
+    pyfftw.interfaces.cache.enable()
+    _FFTW_THREADS = int(os.environ.get('OMP_NUM_THREADS', os.cpu_count() or 1))
 except Exception:
     _HAS_PYFFTW = False
+    _FFTW_THREADS = 1
 
 _dp = np.float64
 _dc = np.complex128
@@ -266,7 +270,9 @@ def _fft1(a: NDArray[_dc], inverse: bool = False) -> NDArray[_dc]:
         # Create aligned arrays for pyFFTW; overwrite_input is safe with a scratch copy
         ain = pyfftw.byte_align(a.astype(_dc, copy=False, order='F'))
         out = pyfftw.empty_aligned(ain.shape, dtype=_dc, order='F')
-        fft_obj = pyfftw.FFTW(ain, out, direction='FFTW_BACKWARD' if inverse else 'FFTW_FORWARD')
+        fft_obj = pyfftw.FFTW(ain, out,
+                              direction='FFTW_BACKWARD' if inverse else 'FFTW_FORWARD',
+                              threads=_FFTW_THREADS)
         fft_obj()
         if inverse:
             out /= out.shape[-1]
@@ -285,7 +291,8 @@ def _fftn(a: NDArray[_dc], axes: Tuple[int, ...], inverse: bool = False) -> NDAr
         fft_obj = pyfftw.FFTW(
             ain, out,
             axes=axes,
-            direction='FFTW_BACKWARD' if inverse else 'FFTW_FORWARD'
+            direction='FFTW_BACKWARD' if inverse else 'FFTW_FORWARD',
+            threads=_FFTW_THREADS
         )
         fft_obj()
         if inverse:
