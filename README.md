@@ -1,6 +1,6 @@
 # PulseSuite
 
-PulseSuite is a high-performance computational physics toolkit for simulating ultrafast laser-matter interactions in semiconductor quantum structures. It implements the Semiconductor Bloch Equations (SBEs) coupled with Pseudo-Spectral Time Domain (PSTD) electromagnetic field propagation methods to model quantum wire and quantum well systems under intense optical excitation.
+PulseSuite is a high-performance computational physics toolkit for simulating ultrafast laser-matter interactions in semiconductor quantum structures. It implements the Semiconductor Bloch Equations (SBEs) coupled with Pseudo-Spectral Time Domain (PSTD) electromagnetic field propagation methods to model quantum wire and quantum well systems under intense optical excitation. This code inherits from the my professor advisor [Jeremy R. Gulley](https://www.furman.edu/people/jeremy-r-gulley/) and his collaborators codebase orginally written in Fortran. (Work in progress not the complete codebase)
 
 ## Core Physics
 
@@ -13,7 +13,7 @@ This codebase enables simulation of coherent light-matter interactions in low-di
 - **Dephasing**: Diagonal and off-diagonal dephasing mechanisms
 - **Spontaneous Emission**: Radiative recombination and photoluminescence
 
-The code is a complete Python port of production Fortran simulation tools, optimized for HPC environments using NumPy, accelerated FFTs (scipy/pyFFTW), and optional Numba JIT compilation.
+The code is a *working in progress* Python port of production Fortran simulation tools, optimized for HPC environments using NumPy, accelerated FFTs (scipy/pyFFTW), and optional Numba JIT compilation.
 
 ## Quick Start
 
@@ -289,6 +289,11 @@ wavelength = 2*np.pi*c0 / omega  # Wavelength (m)
 4. Follow existing code style (NumPy docstrings, type hints)
 5. Ensure all tests pass: `pytest PSTD3D/tests/ -v`
 6. Submit pull request with clear description
+
+## Collaborators
+- Jeremy R. Gulley - Dept. of Physics, Furman University
+- Emily Hatten - Dept. of Physics, Furman University
+- Rahul Ranjan Sah - Dept. of Physics, Furman University
 
 ## Contact
 
