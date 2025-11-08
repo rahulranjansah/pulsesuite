@@ -1,0 +1,145 @@
+
+TEST Guidelines
+
+<testing_directive>
+<core_principle>
+Tests define the intended behavior based on mathematical truth and physical reality. They are the authoritative specification that the implementation must satisfy. Never write tests that simply mirror buggy code behavior.
+
+Example: If a function should compute the average of [2, 4] as 3, write `assert average([2, 4]) == 3` even if the current buggy implementation returns 6. The test defines the correct outcome.
+</core_principle>
+
+<test_coverage_requirements>
+- Test all input variations: even/odd/prime lengths, empty arrays, single elements
+  Example: Test FFT with arrays of length 64 (power of 2), 100 (even), 101 (odd), 97 (prime), and [] (empty)
+- Include special values: None, NaN, inf, -inf, extreme values
+  Example: `test_matrix_inverse_with_nan_input()`, `test_solver_with_infinity_values()`
+- Test across dimensions: 1D, 2D, 3D arrays
+  Example: Test convolution function with 1D signal, 2D image, and 3D volumetric data
+- Cover all supported dtypes: float32/64, complex64/128
+  Example: Run same algorithm with `np.float32` and `np.float64` and verify precision expectations
+- Test different memory layouts: C-order, F-order arrays
+  Example: `assert np.allclose(process(c_array), process(f_array))` for C vs F contiguous arrays
+- Use parameterized testing for comprehensive coverage
+  Example: `@pytest.mark.parametrize("size", [0, 1, 2, 100, 101, 1024])`
+</test_coverage_requirements>
+
+<test_infrastructure>
+<isolation>
+- Each test must be completely independent
+  Example: Use `setup_method()` to create fresh data for each test
+- Use temporary directories per test
+  Example: `with tempfile.TemporaryDirectory() as tmpdir:`
+- Block network access by default
+  Example: Mock `requests.get` to raise Exception if accidentally called
+- Sandbox all file operations to tmp paths
+  Example: `assert tmp_path.exists()` and `assert not Path("/etc/passwd").exists()`
+</isolation>
+
+<determinism>
+- Use fixed seed: np.random.default_rng(0)
+  Example: `rng = np.random.default_rng(42)` for reproducible random data
+- Rotate seeds in CI (25+ variations) to detect flakiness
+  Example: Run test suite with seeds 0-24 in nightly CI builds
+- Mock time, random functions, environment variables
+  Example: `@patch('time.time', return_value=1234567890)`
+- Ensure deterministic outputs for identical inputs
+  Example: `assert result1 == result2` when running same function twice
+</determinism>
+
+<organization>
+- Tag tests appropriately: slow, gpu, io, hpc, requires_mkl
+  Example: `@pytest.mark.slow`, `@pytest.mark.gpu`
+- Keep unit tests fast and focused
+  Example: Unit tests should complete in <100ms each
+- Run heavy tests only in nightly CI
+  Example: Mark 3-hour simulation test as `@pytest.mark.nightly`
+- Maintain clear test taxonomy
+  Example: Organize tests as `test/unit/`, `test/integration/`, `test/performance/`
+</organization>
+</test_infrastructure>
+
+<numerical_validation>
+<tolerances>
+- Algebraic operations: rtol=1e-12, atol=1e-12 (float64)
+  Example: `np.allclose(matrix_product, expected, rtol=1e-12, atol=1e-12)`
+- Spectral/FFT operations: rtol=1e-10, atol=1e-12
+  Example: FFT-iFFT round-trip should preserve original signal within these tolerances
+- PDE/long-running: rtol<=1e-6 (focus on stability)
+  Example: 10,000-step simulation should maintain energy conservation within 1e-6
+- Always use both rtol and atol in np.allclose
+  Example: `np.allclose(actual, expected, rtol=1e-10, atol=1e-12)`
+</tolerances>
+
+<validation_methods>
+- Compare against reference implementations (NumPy/SciPy/FORTRAN)
+  Example: `assert our_fft(signal) ≈ np.fft.fft(signal)` within tolerance
+- Use symbolic validation with sympy for small cases
+  Example: Compare numerical derivative against sympy's symbolic derivative
+- Maintain golden datasets with hash verification
+  Example: Store `sha256` of expected output for complex simulation result
+- Include condition number tests for linear algebra
+  Example: Test solver with ill-conditioned Hilbert matrix
+- Add unit checking where applicable
+  Example: Use `pint` to verify `result.units == meters/second`
+</validation_methods>
+</numerical_validation>
+
+<advanced_testing>
+<property_based>
+- Use hypothesis for generating thousands of test cases
+  Example: `@given(arrays(dtype=float64, shape=array_shapes()))`
+- Test mathematical properties that must always hold:
+  * norm(x) == norm(ifft(fft(x)))
+  * a @ solve(a, b) ≈ b
+  * Shape preservation invariants
+  * Mathematical identity verification
+  Example: For all arrays x, ensure `ifft(fft(x)) ≈ x` within numerical precision
+</property_based>
+
+<concurrency>
+- Test thread safety for parallel functions
+  Example: Call `parallel_function` from 16 concurrent threads
+- Verify deterministic results across runs
+  Example: Run parallel algorithm 10 times, ensure identical results
+- Test with multiple concurrent threads
+  Example: Use `ThreadPoolExecutor` to stress-test thread safety
+- Check for race conditions in parallel code
+  Example: Run with TSAN (Thread Sanitizer) in CI
+</concurrency>
+</advanced_testing>
+
+<mocking_requirements>
+- Use monkeypatching for external dependencies
+  Example: `@patch('database.connect')` to mock database calls
+- Mock all sensitive values and credentials
+  Example: Replace real API keys with `"test_key_123"` in tests
+- Replace time-based functions with deterministic versions
+  Example: Mock `time.sleep` to immediately return without waiting
+- Mock external services and APIs
+  Example: Create mock HTTP responses for web service calls
+- Isolate tests from environment variations
+  Example: Mock `os.environ` to provide consistent environment variables
+</mocking_requirements>
+
+<oracle_references>
+- Trust documentation and docstrings as truth sources
+  Example: If docstring says "returns energy in joules", test for correct units
+- Refer to natural world physics and mathematics
+  Example: Test that pendulum simulation respects conservation of energy
+- Use legacy FORTRAN behavior as numerical reference
+  Example: Compare against original FORTRAN code output for regression testing
+- Consult domain experts for validation criteria
+  Example: Physicist verifies that simulation results match theoretical predictions
+- Treat tests as executable specifications
+  Example: Tests should read like requirements: `test_energy_is_conserved()`
+</oracle_references>
+
+<misc>Numba JIT compilation must be thoroughly tested to ensure no hidden failures. Compilation errors, type inference failures, and runtime errors must be explicitly caught and validated.Look out for no-python errors</misc>
+
+<philosophy>
+The tests are always right. If the implementation disagrees with the tests, the implementation is wrong. Tests must encode the intended physical and mathematical behavior, not the current code's potentially flawed implementation.
+
+Example: When porting FORTRAN code, if the test says the result should be 3.14159 based on mathematical truth, but the FORTRAN code outputs 3.14 due to a precision bug, fix the Python implementation to output 3.14159 and note the FORTRAN bug in documentation.
+</philosophy>
+</testing_directive>
+
