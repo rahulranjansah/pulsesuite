@@ -1,0 +1,15 @@
+.true.    ! Optics
+.false.   ! Excitons
+.false.    ! EHs
+.false.   ! Screened
+.false.   ! Phonon
+.false.   ! DCTrans
+.false.   ! LF (Plasmonics)
+.false.   ! Free Potential
+.false.   ! DiagDph
+.false.   ! OffDiagDph
+.false.   ! Recomb
+.false.   ! PLSpec
+.false.   ! Ignorewire
+.false.   ! Xqwparams
+.false.   ! LorentzDelta
