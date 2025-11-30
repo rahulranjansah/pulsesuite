@@ -1,0 +1,15 @@
+1          # Optics
+0          # Excitons
+0          # EHs
+0          # Screened
+0          # Phonon
+0          # DCTrans
+0          # LF (Plasmonics)
+0          # Free Potential
+0          # DiagDph
+0          # OffDiagDph
+0          # Recomb
+0          # PLSpec
+0          # Ignorewire
+0          # Xqwparams
+0          # LorentzDelta  # all bools 0 - false, 1 true

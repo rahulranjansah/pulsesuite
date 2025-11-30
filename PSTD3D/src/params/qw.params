@@ -1,0 +1,15 @@
+100e-9     # L      # Length of quantum wire (m)
+5e-9       # Delta0 # z-thickness of quantum wire (m)
+1.5        # gap    # Band gap (in eV)
+0.07       # me     # Electron effective mass (in me0)
+0.45       # mh     # Electron effective mass (in me0)
+100e-3     # HO     # Energy level separation (in eV)
+1e12       # gam_e  # Electron lifetime frequency (Hz)
+1e12       # gam_h  # Hole lifetime frequency (Hz)
+1e12       # gam_eh # Energy level broadening rate (Hz), gam_eh = (gam_e + gam_h)/2
+9.1        # epsr   # Background dielectric constant
+36e-3      # Oph    # Phonon frequency (eV/hbar)
+3e-3       # Gph    # Inverse phonon lifetime (eV/hbar)
+0.0        # Edc    # Background DC field in +y-direction (V/m)
+500        # jmax   # Print data files every jmax t-steps
+20000      # ntmax  # t-step interval to backup data
