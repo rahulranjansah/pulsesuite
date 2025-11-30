@@ -1,0 +1,8 @@
+3          # Dimensions
+256        # Nx
+64         # Ny
+64         # Nz
+2e-9       # dx
+2e-9       # dy
+2e-9       # dz
+9.1        # epsilon_r (AlAs default)

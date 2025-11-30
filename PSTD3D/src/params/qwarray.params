@@ -1,0 +1,6 @@
+1          # QW:   Include quantum wire calculations
+4          # Nw:   number of quantum wires
+0.0e-9     # y0:   quantum wire placement along x-axis
+0.0e-9     # dxqw: quantum wire spacing along x(m)
+5.0e-9     # a0: SHO oscillator length in y (m)
+5.0e-9     # a0: SHO oscillator length in z (m)
