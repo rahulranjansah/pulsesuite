@@ -203,27 +203,6 @@ Veh0, Vee0, Vhh0 = CalcCoulombArrays(
 
 ## Performance Optimization
 
-### Threading
-
-The code uses multithreaded FFT and linear algebra operations. Thread counts are controlled via environment variables that must be set **before importing** the modules:
-
-```bash
-# Set thread counts for parallel FFT and linear algebra
-export OMP_NUM_THREADS=8       # For pyFFTW, OpenBLAS, and FFTW
-export MKL_NUM_THREADS=8        # For Intel MKL (if using MKL-backed NumPy/SciPy)
-export NUMBA_NUM_THREADS=8      # For Numba JIT compilation (if used)
-```
-
-**In Python scripts:**
-```python
-import os
-# Must set BEFORE importing fftw
-os.environ['OMP_NUM_THREADS'] = '8'
-
-from fftw import fft_3D, _FFTW_THREADS
-print(f"Using {_FFTW_THREADS} threads")  # Should show 8
-```
-
 **Test Parralelization and threading performance:**
 ### FFT Acceleration
 The code automatically selects the fastest FFT backend available:
@@ -281,6 +260,27 @@ plt.ylabel('Absorption')
 
 **Threading performance workflow needs to be optimized**
 ```bash
+
+### Threading
+
+The code uses multithreaded FFT and linear algebra operations. Thread counts are controlled via environment variables that must be set **before importing** the modules:
+
+```bash
+# Set thread counts for parallel FFT and linear algebra
+export OMP_NUM_THREADS=8       # For pyFFTW, OpenBLAS, and FFTW
+export MKL_NUM_THREADS=8        # For Intel MKL (if using MKL-backed NumPy/SciPy)
+export NUMBA_NUM_THREADS=8      # For Numba JIT compilation (if used)
+```
+
+**In Python scripts:**
+```python
+import os
+# Must set BEFORE importing fftw
+os.environ['OMP_NUM_THREADS'] = '8'
+
+from fftw import fft_3D, _FFTW_THREADS
+print(f"Using {_FFTW_THREADS} threads")  # Should show 8
+```
 python test_threading.py  # Benchmarks different thread counts
 ```
 
