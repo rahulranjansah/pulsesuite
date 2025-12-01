@@ -24,15 +24,15 @@ import numpy as np
 import sys
 sys.path.append('PSTD3D/src')
 
-from qwopticspythonic import InitializeQWOptics, Prop2QW, QWPolarization3
-from constants import eV, hbar
+from qwoptics import InitializeQWOptics, Prop2QW, QWPolarization3
+from scipy.constants import eV as eV_SI, hbar as hbar_SI
 
 # Define quantum wire parameters
 Nr = 64                    # Spatial grid points
 Nk = 32                    # Momentum grid points
 L = 100e-9                 # Wire length (m)
 area = 1e-16               # Cross-sectional area (m^2)
-gap = 1.5 * eV             # Band gap energy
+gap = 1.5 * eV_SI             # Band gap energy
 dcv = 1.0 + 0.5j           # Dipole matrix element
 
 # Create coordinate grids
@@ -44,8 +44,8 @@ Qr = np.linspace(-2e7, 2e7, Nr)        # QW momentum space
 # Energy bands (parabolic approximation)
 me = 0.07 * 9.1e-31        # Electron effective mass
 mh = 0.45 * 9.1e-31        # Hole effective mass
-Ee = (hbar * kr)**2 / (2 * me)
-Eh = (hbar * kr)**2 / (2 * mh)
+Ee = (hbar_SI * kr)**2 / (2 * me)
+Eh = (hbar_SI * kr)**2 / (2 * mh)
 
 # Initialize QW optics module
 InitializeQWOptics(RR, L, dcv, kr, Qr, Ee, Eh, ehint=1.0, area=area, gap=gap)
@@ -64,7 +64,7 @@ print(f"QW field amplitude: {np.max(np.abs(Ex)):.3e}")
 ### Semiconductor Bloch Equations Time Evolution
 
 ```python
-from SBEspythonic import InitializeSBE, dpdt, dCdt, dDdt
+from SBEs import InitializeSBE, dpdt, dCdt, dDdt
 import numpy as np
 
 # Initialize SBE solver
@@ -102,7 +102,7 @@ print(f"Electron density change: {np.max(np.abs(dC)):.3e}")
 ### Accelerated FFT Operations
 
 ```python
-from fftw import fft_3D, ifft_3D, Transform, HankelTransform, CreateHT
+from fft import fft_3D, ifft_3D, Transform, HankelTransform, CreateHT
 import numpy as np
 
 # Standard 3D FFT (uses pyFFTW if available, scipy.fft otherwise)
@@ -130,7 +130,7 @@ pip install -r requirements.txt
 ## Module Structure
 
 ### Core Modules (`src/`)
-- **`fftw.py`**: Accelerated FFT library with 1D/2D/3D transforms, centered FFTs, and Hankel transforms for cylindrical symmetry
+- **`fft.py`**: Accelerated FFT library with 1D/2D/3D transforms, centered FFTs, and Hankel transforms for cylindrical symmetry
 - **`constants.py`**: Physical constants (e, ħ, c, ε₀, μ₀) and mathematical constants
 - **`rungekutta.py`**: Adaptive Runge-Kutta integrators for SBE time evolution
 - **`type_*.py`**: Type definitions for plasma, lens, medium, and two-photon absorption media
@@ -138,28 +138,28 @@ pip install -r requirements.txt
 ### PSTD3D Package (`PSTD3D/src/`)
 
 **Quantum Optics**
-- **`qwopticspythonic.py`**: Quantum well optics core - field transformations (Prop2QW, QW2Prop), polarization calculation, density matrices
+- **`qwoptics.py`**: Quantum well optics core - field transformations (Prop2QW, QW2Prop), polarization calculation, density matrices
 
 **Many-Body Physics**
-- **`coulombpythonic.py`**: Coulomb interaction matrices with screening, exchange, and correlation effects
+- **`coulomb.py`**: Coulomb interaction matrices with screening, exchange, and correlation effects
 - **`coulomb.py`**: Core Coulomb interaction functions converted from Fortran:
   - `Vint(Qyk, y, alphae, alphah, Delta0)`: Momentum difference interaction integral with JIT acceleration
   - `Vehint(k, q, y, ky, alphae, alphah, Delta0)`: Electron-hole interaction integral
   - `CalcCoulombArrays(y, ky, er, alphae, alphah, L, Delta0, Qy, kkp)`: Constructs unscreened Coulomb collision arrays (Veh0, Vee0, Vhh0)
-- **`phononspythonic.py`**: Longitudinal optical phonon scattering rates and matrix elements
-- **`dcfieldpythonic.py`**: DC electric field effects, carrier drift, and field-induced tunneling
-- **`dephasingpythonic.py`**: T₁ and T₂ dephasing, diagonal and off-diagonal relaxation
-- **`emissionpythonic.py`**: Spontaneous emission, photoluminescence spectra
+- **`phonons.py`**: Longitudinal optical phonon scattering rates and matrix elements
+- **`dcfield.py`**: DC electric field effects, carrier drift, and field-induced tunneling
+- **`dephasing.py`**: T₁ and T₂ dephasing, diagonal and off-diagonal relaxation
+- **`emission.py`**: Spontaneous emission, photoluminescence spectra
 
 **Semiconductor Bloch Equations**
-- **`SBEspythonic.py`**: Complete SBE solver with density matrix evolution (dpdt, dCdt, dDdt)
-- **`SBETestpythonic.py`**: Production test harness for SBE simulations
+- **`SBEs.py`**: Complete SBE solver with density matrix evolution (dpdt, dCdt, dDdt)
+- **`SBETest.py`**: Production test harness for SBE simulations
 
 **Utilities**
-- **`usefulsubspythonic.py`**: FFT wrappers, array printing, I/O utilities
-- **`helperspythonic.py`**: Spatial/momentum grids, array locators, magnitude calculations
-- **`splinerpythonic.py`**: Cubic spline interpolation for density/field interpolation
-- **`epsrtlpythonic.py`**: Dielectric function calculations with Lorentz oscillators
+- **`usefulsubs.py`**: FFT wrappers, array printing, I/O utilities
+- **`helpers.py`**: Spatial/momentum grids, array locators, magnitude calculations
+- **`spliner.py`**: Cubic spline interpolation for density/field interpolation
+- **`epsrtl.py`**: Dielectric function calculations with Lorentz oscillators
 
 ### Parameter Files (`PSTD3D/params/`)
 - **`qw.params`**: Quantum wire/well parameters (length, band gap, effective masses, dephasing rates)
@@ -224,25 +224,7 @@ from fftw import fft_3D, _FFTW_THREADS
 print(f"Using {_FFTW_THREADS} threads")  # Should show 8
 ```
 
-**Test threading performance:**
-```bash
-python test_threading.py  # Benchmarks different thread counts
-```
-
-**Best practices:**
-- Start with `OMP_NUM_THREADS = number_of_physical_cores`
-- Don't set higher than physical core count (causes slowdown)
-- For HPC nodes with 32+ cores, 16 threads often gives best efficiency
-- Hyperthreading (2x threads) usually doesn't help FFT performance
-
-### Array Layout
-All arrays are Fortran-contiguous (`order='F'`) for cache-friendly access patterns matching the original Fortran code:
-
-```python
-# Efficient allocation
-field = np.zeros((Nx, Ny, Nt), dtype=np.complex128, order='F')
-```
-
+**Test Parralelization and threading performance:**
 ### FFT Acceleration
 The code automatically selects the fastest FFT backend available:
 1. **pyFFTW** (fastest, multithreaded FFTW)
@@ -297,6 +279,23 @@ plt.ylabel('Absorption')
 - Use Fortran-contiguous arrays: `np.asfortranarray(arr)`
 - Set thread counts: `export OMP_NUM_THREADS=8`
 
+**Threading performance workflow needs to be optimized**
+```bash
+python test_threading.py  # Benchmarks different thread counts
+```
+
+**Best practices:**
+- Start with `OMP_NUM_THREADS = number_of_physical_cores`
+- Don't set higher than physical core count (causes slowdown)
+- For HPC nodes with 32+ cores, 16 threads often gives best efficiency
+- Hyperthreading (2x threads) usually doesn't help FFT performance
+
+```python
+# Efficient allocation
+field = np.zeros((Nx, Ny, Nt), dtype=np.complex128, order='F')
+```
+
+
 **I/O could be optimized to VELOC-style checkpointing**
 - Current implementation uses direct file writes
 - Consider implementing asynchronous I/O for large-scale HPC runs
@@ -323,16 +322,6 @@ All quantities in SI units unless specified:
 - Frequency: Hertz (Hz)
 - Electric field: V/m
 - Momentum: kg⋅m/s or m⁻¹ (wavevector)
-
-Use `constants.py` for unit conversions:
-```python
-from PSTD3D.src.constants import eV, hbar, c0, me0
-
-gap_eV = 1.5              # Band gap in eV
-gap_J = gap_eV * eV       # Convert to Joules
-omega = gap_J / hbar      # Corresponding frequency (rad/s)
-wavelength = 2*np.pi*c0 / omega  # Wavelength (m)
-```
 
 ## Contributing
 
