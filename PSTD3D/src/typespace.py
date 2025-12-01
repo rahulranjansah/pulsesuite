@@ -5,6 +5,7 @@ This module provides the spatial grid structure (ss type) and associated
 functions for reading, writing, and accessing spatial grid parameters.
 Supports 1D, 2D, and 3D grids with configurable pixel sizes and dielectric constants.
 
+Author: Rahul R. Sah
 """
 
 import sys

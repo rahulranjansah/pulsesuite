@@ -5,6 +5,8 @@ Implements array/matrix utilities, polynomial evaluation, and more, using NumPy 
 All functions use camelCase. Designed for use in HPC and large-scale data processing.
 
 Dependencies: constants.py, logger.py, numerictypes.py
+
+Author: Rahul R. Sah
 """
 import numpy as np
 from numba import njit, prange

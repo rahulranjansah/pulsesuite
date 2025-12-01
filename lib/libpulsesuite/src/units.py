@@ -1,3 +1,6 @@
+"""
+Author: Rahul R. Sah
+"""
 import math
 from typing import Optional, Tuple
 from numerictypes import NumericTypes

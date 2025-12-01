@@ -5,7 +5,7 @@ This module converts Maxwell electric fields from propagation space
 to quantum wire (QW) electric fields, and vice versa. It also calculates
 QW polarization and charge densities.
 
-Converted from qwoptics.f90 (lines 33-674).
+Author: Rahul R. Sah
 """
 
 import numpy as np

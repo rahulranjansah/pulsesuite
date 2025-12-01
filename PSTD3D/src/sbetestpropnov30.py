@@ -6,7 +6,7 @@ quantum wire response to plane wave electromagnetic fields with complete
 longitudinal field analysis. It tracks E-fields from polarization (P), charge
 density (Rho), and their combination (P+Rho).
 
-Converted from SBETest.new.f90 (lines 809-1348).
+Author: Rahul R. Sah
 """
 
 import numpy as np
