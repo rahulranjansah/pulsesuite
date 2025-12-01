@@ -14,7 +14,7 @@ import shutil
 from pathlib import Path
 
 # Add pythonic directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'pythonic'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 import phonons
 from scipy.constants import hbar as hbar_SI, k as kB_SI

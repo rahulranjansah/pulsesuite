@@ -11,7 +11,7 @@ import sys
 import os
 
 # Add pythonic directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'pythonic'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 import coulomb
 from scipy.constants import e as e0, epsilon_0 as eps0, hbar as hbar_SI

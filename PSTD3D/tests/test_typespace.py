@@ -14,7 +14,7 @@ from pathlib import Path
 from io import StringIO, BytesIO
 
 # Import the module to test
-sys.path.insert(0, '/mnt/hardisk/pstdjuly246pmElongseplookinggood/pythonic')
+sys.path.insert(0, '../src')
 import typespace as ts
 
 
