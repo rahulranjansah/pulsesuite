@@ -14,7 +14,7 @@ from pathlib import Path
 
 # Import the module to test
 import sys
-sys.path.insert(0, '/mnt/hardisk/pstdjuly246pmElongseplookinggood/pythonic')
+sys.path.insert(0, '../src')
 import usefulsubs as us
 
 

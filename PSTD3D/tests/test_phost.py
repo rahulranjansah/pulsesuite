@@ -15,7 +15,7 @@ import shutil
 from pathlib import Path
 
 # Add pythonic directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'pythonic'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 import phost
 from scipy.constants import e as e0, epsilon_0 as eps0, m_e as me0, c as c0

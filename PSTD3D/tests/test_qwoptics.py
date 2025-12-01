@@ -15,7 +15,7 @@ from unittest.mock import patch, MagicMock
 
 # Import the module to test
 import sys
-sys.path.insert(0, '/mnt/hardisk/pstdjuly246pmElongseplookinggood/pythonic')
+sys.path.insert(0, '../src')
 import qwoptics as qw
 from scipy.constants import e as e0, c as c0_SI, hbar as hbar_SI, epsilon_0 as eps0_SI
 from libpulsesuite.spliner import rescale_1D
