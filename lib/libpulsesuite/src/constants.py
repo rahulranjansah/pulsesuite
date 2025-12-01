@@ -3,6 +3,8 @@ Physical and mathematical constants for scientific computing, matching Fortran's
 
 Optimized for high-performance and HPC use. All constants use NumPy types for speed and compatibility.
 Fortran-specific file path constants (stdin, stdout, stderr) are omitted as Python uses sys.stdin, sys.stdout, sys.stderr.
+
+Author: Rahul R. Sah
 """
 import numpy as np
 

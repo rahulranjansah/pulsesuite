@@ -3,11 +3,9 @@ Integrator module (Python version)
 ==================================
 High-performance ODE integrators for scientific computing, ported from Fortran.
 
-Dependencies: numpy, numba, logger, nrutils, constants, helpers
-
 Implements: odeint, rkqs, rkck, rk4, idiot, 3D-versions and related routines.
 
-Author: @Rahul_Ranjan_Sah
+Author: Rahul R. Sah
 """
 # Standard imports
 import numpy as np

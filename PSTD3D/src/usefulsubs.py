@@ -4,6 +4,8 @@ Useful subroutines for quantum wire simulations.
 This module provides utility functions for array manipulation and
 derivative calculations using FFT methods.
 
+Author: Rahul R. Sah
+
 Bug fixes:
     Fortran cshift(array, -1): shifts right (wraps left to right)
     NumPy np.roll(array, 1): shifts left (wraps right to left)

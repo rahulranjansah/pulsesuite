@@ -3,8 +3,7 @@ Emission calculations for quantum wire simulations.
 
 This module calculates spontaneous emission and photoluminescence spectrum
 for quantum wire systems in support of propagation simulations.
-
-Converted from emission.f90.
+Author: Rahul R. Sah
 """
 
 import numpy as np

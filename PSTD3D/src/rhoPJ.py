@@ -5,7 +5,7 @@ This module handles the interface between 1D quantum wire calculations and 3D
 Maxwell field propagation, including polarization placement, current density
 calculation, and longitudinal field computation from charge density.
 
-Converted from rhoPJ.f90 (lines 1173-1726).
+Author: Rahul R. Sah
 """
 
 import numpy as np

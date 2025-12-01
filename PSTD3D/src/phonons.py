@@ -5,7 +5,7 @@ This module calculates the many-body electron-hole phonon contribution
 to the Semiconductor Bloch equations in support of propagation simulations
 for a quantum wire.
 
-Converted from phonons.f90 (lines 30-176).
+Author: Rahul R. Sah
 """
 
 import numpy as np

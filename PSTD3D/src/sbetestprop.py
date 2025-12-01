@@ -5,6 +5,8 @@ This program performs time-evolution of the SBEs for quantum wire systems,
 calculating polarization responses to time-varying electric fields.
 
 Converted from Fortran program SBETest.
+
+Author: Rahul R. Sah
 """
 
 import numpy as np

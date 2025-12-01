@@ -2,6 +2,8 @@
 Provides high-performance integer and double length calculation utilities, matching Fortran's intlength module, using NumPy, Numba, and NumericTypes.
 
 This module is optimized for scientific computing and high-performance clusters, supporting batch operations on large arrays.
+
+Author: Rahul R. Sah
 """
 from numerictypes import NumericTypes
 from typing import Any, Optional, Union, ContextManager

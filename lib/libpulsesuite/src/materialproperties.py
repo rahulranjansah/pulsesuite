@@ -1,3 +1,6 @@
+"""
+Author: Rahul R. Sah
+"""
 import configparser
 from pathlib import Path
 import warnings
