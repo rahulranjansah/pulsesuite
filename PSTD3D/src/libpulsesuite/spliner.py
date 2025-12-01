@@ -5,7 +5,7 @@ This module provides routines for interpolation of arrays using cubic splines
 and polynomial interpolation methods. Supports both real and complex arrays,
 1D and 2D rescaling, and multi-dimensional interpolation.
 
-Converted from spliner.F90 (lines 34-258).
+Author: Rahul R. Sah
 """
 
 import numpy as np

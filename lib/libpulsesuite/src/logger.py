@@ -1,3 +1,6 @@
+"""
+Author: Rahul R. Sah
+"""
 import sys
 import threading
 from contextlib import ContextDecorator

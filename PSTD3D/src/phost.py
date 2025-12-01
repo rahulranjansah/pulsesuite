@@ -4,7 +4,7 @@ Host material polarization calculations for quantum wire simulations.
 This module calculates the host material polarization response
 for propagation simulations.
 
-Converted from phost.f90 (lines 33-653).
+Author: Rahul R. Sah
 """
 
 import numpy as np

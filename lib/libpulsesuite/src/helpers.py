@@ -3,6 +3,8 @@ helpers.py
 
 Object-oriented conversion of the Fortran `helpers` module into Python classes.
 Provides vectorized utilities optimized for HPC workloads, with optional Numba JIT compilation.
+
+Author: Rahul R. Sah
 """
 # Standard imports
 import numpy as np

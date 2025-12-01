@@ -8,7 +8,7 @@ Dependencies: numpy, numba, guardrails, nrutils
 Implements: Adaptive-step integrators for real (float64) and complex (complex128) ODEs,
 including Cash–Karp RKQS single-step routines and dummy Jacobians.
 
-Author: @Rahul_Ranjan_Sah
+Author: Rahul R. Sah
 """
 
 # Standard imports

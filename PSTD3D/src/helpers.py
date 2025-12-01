@@ -5,6 +5,8 @@ Mostly useful functions that did not fit anywhere else.
 
 This module provides utility functions for mathematical operations,
 interpolation, and field conversions.
+
+Author: Rahul R. Sah
 """
 
 import numpy as np

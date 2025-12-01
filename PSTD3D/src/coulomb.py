@@ -6,6 +6,8 @@ collision integrals and other carrier-optical related calculations required
 for the Semiconductor Bloch Equations in support of simulations of pulse
 propagation through a quantum wire.
 
+Author: Rahul R. Sah
+
 """
 
 import numpy as np

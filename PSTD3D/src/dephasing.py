@@ -4,6 +4,8 @@ Dephasing calculations for quantum wire simulations.
 This module calculates dephasing rates for electrons and holes due to
 carrier-carrier interactions in the Semiconductor Bloch equations.
 
+Author: Rahul R. Sah
+
 Bugs:
 Why Lrtz jit here? -> tackle nopython=True in the future
 """

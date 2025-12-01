@@ -1,3 +1,6 @@
+"""
+Author: Rahul R. Sah
+"""
 # pulsegenerator.py
 
 import numpy as np

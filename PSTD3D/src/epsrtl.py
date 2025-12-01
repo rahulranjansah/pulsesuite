@@ -4,7 +4,7 @@ Dielectric permittivity calculations for quantum wire simulations.
 This module calculates longitudinal and transverse permittivity
 for quantum wire systems.
 
-Converted from epsrtl.f90
+Author: Rahul R. Sah
 """
 
 import numpy as np

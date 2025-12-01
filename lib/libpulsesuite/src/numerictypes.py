@@ -1,5 +1,7 @@
 """
 Numeric type aliases for high-performance scientific computing, matching Fortran kind parameters, using NumPy.
+
+Author: Rahul R. Sah
 """
 from typing import Type
 import numpy as np

@@ -1,3 +1,6 @@
+"""
+Author: Rahul R. Sah
+"""
 import numpy as np
 from typing import List, Optional, Tuple
 from calcintlength import IntLengthCalculator
