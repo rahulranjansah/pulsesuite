@@ -10,7 +10,7 @@ Author: Rahul R. Sah
 
 import numpy as np
 import os
-from numba import jit
+from numba import jit, prange
 from usefulsubs import FFTG, iFFTG, printIT, printIT2D, GetArray0Index
 from libpulsesuite.spliner import rescale_1D_dp, rescale_1D_dpc, rescale_1D
 from scipy.constants import e as e0, c as c0_SI, hbar as hbar_SI, epsilon_0 as eps0_SI
@@ -332,27 +332,27 @@ def QWPolarization3(y, ky, p, ehint, area, L, Px, Py, Pz, xxx, w):
     FFTG(Pz)
 
 
-@jit(nopython=True)
+@jit(nopython=True, parallel=True)
 def _QWPolarization3_jit(y, ky, p, Xvc0, Yvc0, Zvc0, Expikr, Expikrc, QWWindow, yw_val, w, Px, Py, Pz):
     """JIT-compiled version of QWPolarization3 inner loops."""
     Nr = len(y)
     Nk = len(ky)
 
-    for r in range(Nr):
+    for r in prange(Nr):
         for ke in range(Nk):
             for kh in range(Nk):
                 # Px component
                 prod = p[kh, ke] * (+Xvc0[kh, ke]) * Expikr[ke, r] * Expikrc[kh, r]
                 Px[r] = Px[r] + prod.real * QWWindow[r]
 
-    for r in range(Nr):
+    for r in prange(Nr):
         for ke in range(Nk):
             for kh in range(Nk):
                 # Py component
                 prod = p[kh, ke] * (+Yvc0[kh, ke]) * Expikr[ke, r] * Expikrc[kh, r]
                 Py[r] = Py[r] + prod.real * QWWindow[r] * yw_val
 
-    for r in range(Nr):
+    for r in prange(Nr):
         for ke in range(Nk):
             for kh in range(Nk):
                 # Pz component
@@ -744,10 +744,10 @@ def QWRho5(Qr, kr, R, L, kkp, p, CC, DD, ne, nh, re, rh, xxx, jjj):
     FFTG(rh)
 
 
-@jit(nopython=True)
+@jit(nopython=True, parallel=True)
 def _QWRho5_jit(Nr, Nk, CC, DD, Expikr, Expikrc, QWWindow, L, re, rh):
     """JIT-compiled version of QWRho5 inner loops."""
-    for ri in range(Nr):
+    for ri in prange(Nr):
         for k2 in range(Nk):
             for k1 in range(Nk):
                 re[ri] = re[ri] + CC[k1, k2] * Expikrc[k1, ri] * Expikr[k2, ri] * QWWindow[ri] / (2.0 * L)
@@ -792,17 +792,17 @@ def printIT3D(Dx, z, n, file):
     Files are written to 'dataQW/' directory.
     Each line contains real and imaginary parts of one array element.
     """
-    import os
-
     filename = f'dataQW/{file}{n:06d}.dat'
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
-    with open(filename, 'w', encoding='utf-8') as f:
-        for k in range(Dx.shape[2]):
-            for j in range(Dx.shape[1]):
-                for i in range(Dx.shape[0]):
-                    f.write(f'{np.float32(np.real(Dx[i, j, k]))} {np.float32(np.imag(Dx[i, j, k]))}\n')
+    Dx_ordered = Dx.transpose(2, 1, 0)
 
+    # Flatten and save as binary or text
+    data = np.column_stack([
+        np.real(Dx.flatten()),
+        np.imag(Dx.flatten())
+    ])
+    np.savetxt(filename, data, fmt='%.6e')
 
 def printITReal(Dx, z, n, file):
     """
@@ -997,38 +997,11 @@ def InitializeQWOptics(RR, L, dcv, kr, Qr, Ee, Eh, ehint, area, gap):
 
 
 def CalcExpikr(y, ky):
-    """
-    Calculate exp(ikr) arrays.
-
-    Computes the exponential phase factors exp(i * y * ky) and their
-    complex conjugates for Fourier transform operations.
-
-    Parameters
-    ----------
-    y : ndarray
-        Spatial coordinate array, 1D array
-    ky : ndarray
-        Momentum coordinate array, 1D array
-
-    Returns
-    -------
-    None
-
-    Notes
-    -----
-    Modifies module-level variables _Expikr and _Expikrc.
-    _Expikr[k, r] = exp(i * y[r] * ky[k])
-    _Expikrc = conjugate(_Expikr)
-    """
+    """Vectorized version (potentially faster than JIT for large arrays)."""
     global _Expikr, _Expikrc
 
-    _Expikr = np.zeros((len(ky), len(y)), dtype=complex)
-    _Expikrc = np.zeros((len(ky), len(y)), dtype=complex)
-
-    for r in range(len(y)):
-        for k in range(len(ky)):
-            _Expikr[k, r] = np.exp(ii * y[r] * ky[k])
-
+    # Vectorized computation (NumPy handles this efficiently)
+    _Expikr = np.exp(1j * np.outer(ky, y))  # Shape: (Nk, Nr)
     _Expikrc = np.conj(_Expikr)
 
 def Xcv(k, kp):
@@ -1168,21 +1141,21 @@ def GetVn1n2(kr, rcv, Hcc, Hhh, Hcv, Vcc, Vvv, Vcv, Vvc):
     Vvc[:] = np.conj(Vcv.T)
 
 
-@jit(nopython=True)
+@jit(nopython=True, parallel=True)
 def _GetVn1n2_jit(Nk, rcv, Hcc, Hvv, Hcv, Hvc, rvc, Vcc, Vvv, Vcv, Vvc, ii_val, hbar_val):
     """JIT-compiled version of GetVn1n2 inner loops."""
     # Calculate Vcv
-    for k2 in range(Nk):
+    for k2 in prange(Nk):
         for k1 in range(Nk):
             Vcv[k1, k2] = (-ii_val / hbar_val) * (rcv[k1] * Hvv[k1, k2] - Hcc[k1, k2] * rcv[k2])
 
     # Calculate Vcc
-    for k2 in range(Nk):
+    for k2 in prange(Nk):
         for k1 in range(Nk):
             Vcc[k1, k2] = (-ii_val / hbar_val) * (rcv[k1] * Hvc[k1, k2] - Hcv[k1, k2] * rvc[k2])
 
     # Calculate Vvv
-    for k2 in range(Nk):
+    for k2 in prange(Nk):
         for k1 in range(Nk):
             Vvv[k1, k2] = (-ii_val / hbar_val) * (rvc[k1] * Hcv[k1, k2] - Hvc[k1, k2] * rcv[k2])
 

@@ -19,7 +19,7 @@ from typespace import GetSpaceArray, GetKArray
 from libpulsesuite.spliner import locate
 
 
-from numba import jit
+from numba import jit, prange, cuda
 import os
 
 # Physical constants
@@ -1543,13 +1543,13 @@ def dpdt(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP):
         return _dpdt_fallback(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP)
 
 
-@jit(nopython=True, cache=True)
+@jit(nopython=True, cache=True, parallel=True)
 def _dpdt_jit(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP, ii_val, hbar_val):
     """JIT-compiled dpdt calculation."""
     Nk = p.shape[0]
     dpdt_result = np.zeros((Nk, Nk), dtype=np.complex128)
 
-    for ke in range(Nk):
+    for ke in prange(Nk):
         for kh in range(Nk):
             term1 = np.sum(Hhh[kh, :] * p[:, ke])
             term2 = np.sum(Hee[ke, :] * p[kh, :])
@@ -1667,7 +1667,7 @@ def dCdt(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE):
         return _dCdt_fallback(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE)
 
 
-@jit(nopython=True, cache=True)
+@jit(nopython=True, cache=True, parallel=True)
 def _dCdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE, ii_val, hbar_val):
     """JIT-compiled dCdt calculation."""
     Nk = Cee.shape[0]
@@ -1676,7 +1676,7 @@ def _dCdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE, ii_val, hbar_val):
     Hhe = np.conj(Heh.T)
     Peh = np.conj(Phe.T)
 
-    for k2 in range(Nk):
+    for k2 in prange(Nk):
         for k1 in range(Nk):
             term1 = np.sum(Hee[k2, :] * Cee[k1, :])
             term2 = np.sum(Hee[:, k1] * Cee[:, k2])
@@ -1798,7 +1798,7 @@ def dDdt(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH):
         return _dDdt_fallback(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH)
 
 
-@jit(nopython=True, cache=True)
+@jit(nopython=True, cache=True, parallel=True)
 def _dDdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH, ii_val, hbar_val):
     """JIT-compiled dDdt calculation."""
     Nk = Dhh.shape[0]
@@ -1807,7 +1807,7 @@ def _dDdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH, ii_val, hbar_val):
     Peh = np.conj(Phe.T)
     Hhe = np.conj(Heh.T)
 
-    for k2 in range(Nk):
+    for k2 in prange(Nk):
         for k1 in range(Nk):
             term1 = np.sum(Hhh[k2, :] * Dhh[k1, :])
             term2 = np.sum(Hhh[:, k1] * Dhh[:, k2])
@@ -2691,6 +2691,18 @@ def GetArrays(x, qx, kx):
     # Find index where qx is closest to zero
     _NQ0 = GetArray0Index(qx)
 
+@jit(nopython=True, parallel=True)
+def _MakeKKP_jit(Nk, kr, dkr, NQ0, kkp):
+    """JIT-compiled parallel version of MakeKKP computation."""
+    from numba import prange
+
+    # Fill mapping array - kkp is passed in and modified in-place
+    for k in prange(Nk):  # ✅ Parallel over k
+        for kp in range(Nk):
+            # Calculate momentum difference
+            q = kr[k] - kr[kp]
+            # Map to nearest grid index
+            kkp[k, kp] = int(np.round(q / dkr)) + NQ0
 
 def MakeKKP():
     """
@@ -2763,18 +2775,18 @@ def MakeKKP():
     """
     global _Nk, _kr, _dkr, _NQ0, _kkp
 
-    # Allocate kkp array
+    # Allocate kkp array (Python side - not JIT)
     _kkp = np.zeros((_Nk, _Nk), dtype=int)
 
-    # Fill mapping array
-    for k in range(_Nk):
-        for kp in range(_Nk):
-            # Calculate momentum difference
-            q = _kr[k] - _kr[kp]
-
-            # Map to nearest grid index
-            _kkp[k, kp] = int(np.round(q / _dkr)) + _NQ0
-
+    # Call JIT-compiled function to fill it (pass array, modify in-place)
+    try:
+        _MakeKKP_jit(_Nk, _kr, _dkr, _NQ0, _kkp)
+    except Exception:
+        # Fallback to pure Python
+        for k in range(_Nk):
+            for kp in range(_Nk):
+                q = _kr[k] - _kr[kp]
+                _kkp[k, kp] = int(np.round(q / _dkr)) + _NQ0
 
 def kindex(k):
     """
