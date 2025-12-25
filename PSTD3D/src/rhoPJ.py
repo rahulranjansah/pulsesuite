@@ -63,14 +63,32 @@ def read_qw_parameters(filename):
     """
     global _QW, _Nw, _x0, _dxqw, _ay, _az
 
+    def parse_line(line):
+        """Parse a line, stripping comments and whitespace."""
+        # Remove comments (# style)
+        if '#' in line:
+            line = line.split('#')[0]
+        # Strip whitespace
+        return line.strip()
+
     try:
         with open(filename, 'r', encoding='utf-8') as f:
-            _QW = bool(int(f.readline().strip()))
-            _Nw = int(f.readline().strip())
-            _x0 = float(f.readline().strip())
-            _dxqw = float(f.readline().strip())
-            _ay = float(f.readline().strip())
-            _az = float(f.readline().strip())
+            # Read and parse each line, skipping empty lines
+            lines = []
+            for line in f:
+                parsed = parse_line(line)
+                if parsed:  # Skip empty lines
+                    lines.append(parsed)
+
+            if len(lines) < 6:
+                raise ValueError(f"Expected 6 parameters, found {len(lines)}")
+
+            _QW = bool(int(lines[0]))
+            _Nw = int(lines[1])
+            _x0 = float(lines[2])
+            _dxqw = float(lines[3])
+            _ay = float(lines[4])
+            _az = float(lines[5])
         return 0
     except IOError as e:
         print(f"Error opening quantum wire parameters file: {e}")
