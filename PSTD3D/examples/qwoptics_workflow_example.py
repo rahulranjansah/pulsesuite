@@ -236,7 +236,8 @@ print(f"  - Time steps: {Nt}")
 
 print(f"\nField analysis:")
 print(f"  - Maximum field amplitude: {np.max([r['max_field'] for r in results.values()]):.2e} V/m")
-print(f"  - Average field evolution: {[f'{r[\"Edc\"]:.2e}' for r in results.values()]}")
+avg_evolution = [f'{r["Edc"]:.2e}' for r in results.values()]
+print(f"  - Average field evolution: {avg_evolution}")
 
 print(f"\nPolarization analysis:")
 print(f"  - Maximum polarization: {np.max([r['max_polarization'] for r in results.values()]):.2e} C/m²")

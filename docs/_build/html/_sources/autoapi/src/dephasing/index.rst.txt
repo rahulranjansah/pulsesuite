@@ -1,0 +1,390 @@
+src.dephasing
+=============
+
+.. py:module:: src.dephasing
+
+.. autoapi-nested-parse::
+
+   Dephasing calculations for quantum wire simulations.
+
+   This module calculates dephasing rates for electrons and holes due to
+   carrier-carrier interactions in the Semiconductor Bloch equations.
+
+   Author: Rahul R. Sah
+
+   Bugs:
+   Why Lrtz jit here? -> tackle nopython=True in the future
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   src.dephasing.pi
+   src.dephasing.hbar
+   src.dephasing.ii
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.dephasing.InitializeDephasing
+   src.dephasing.Vxx2
+   src.dephasing.CalcGammaE
+   src.dephasing.CalcGammaH
+   src.dephasing.CalcOffDiagDeph_E
+   src.dephasing.CalcOffDiagDeph_H
+   src.dephasing.OffDiagDephasing
+   src.dephasing.CalcOffDiagDeph_E2
+   src.dephasing.CalcOffDiagDeph_H2
+   src.dephasing.OffDiagDephasing2
+   src.dephasing.printGam
+   src.dephasing.WriteDephasing
+
+
+Module Contents
+---------------
+
+.. py:data:: pi
+
+.. py:data:: hbar
+
+.. py:data:: ii
+   :value: 1j
+
+
+.. py:function:: InitializeDephasing(ky, me, mh)
+
+   Initialize the dephasing module.
+
+   Sets up all module-level arrays required for dephasing calculations.
+   Allocates and initializes momentum index arrays and opens output files.
+
+   :param ky: Momentum coordinates of quantum wire (1/m), 1D array
+   :type ky: ndarray
+   :param me: Effective electron mass (kg)
+   :type me: float
+   :param mh: Effective hole mass (kg)
+   :type mh: float
+
+   :returns: All arrays are stored as module-level variables.
+   :rtype: None
+
+
+.. py:function:: Vxx2(q, V)
+
+   Calculate squared interaction matrix elements.
+
+   Computes V(1+iq, 1)^2 for each momentum q, where iq is the rounded
+   index corresponding to abs(q/dq).
+
+   :param q: Momentum coordinates (1/m), 1D array
+   :type q: ndarray
+   :param V: Interaction matrix (J), 2D array
+   :type V: ndarray
+
+   :returns: Squared interaction matrix elements, 1D array of length len(q)
+   :rtype: ndarray
+
+
+.. py:function:: CalcGammaE(ky, ne0, nh0, VC, GammaE)
+
+   Calculate electron dephasing rate.
+
+   Computes the dephasing rate for electrons due to electron-electron
+   and electron-hole interactions.
+
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param ne0: Electron occupation numbers (complex), 1D array
+   :type ne0: ndarray
+   :param nh0: Hole occupation numbers (complex), 1D array
+   :type nh0: ndarray
+   :param VC: Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,1] for e-e
+   :type VC: ndarray
+   :param GammaE: Output electron dephasing rate (modified in-place), 1D array
+   :type GammaE: ndarray
+
+   :returns: GammaE array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The function computes dephasing from:
+   1. Electron-electron interactions
+   2. Electron-hole interactions
+   Uses extended arrays (with boundary points) for indexing safety.
+
+
+.. py:function:: CalcGammaH(ky, ne0, nh0, VC, GammaH)
+
+   Calculate hole dephasing rate.
+
+   Computes the dephasing rate for holes due to hole-hole
+   and electron-hole interactions.
+
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param ne0: Electron occupation numbers (complex), 1D array
+   :type ne0: ndarray
+   :param nh0: Hole occupation numbers (complex), 1D array
+   :type nh0: ndarray
+   :param VC: Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,2] for h-h
+   :type VC: ndarray
+   :param GammaH: Output hole dephasing rate (modified in-place), 1D array
+   :type GammaH: ndarray
+
+   :returns: GammaH array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The function computes dephasing from:
+   1. Hole-hole interactions
+   2. Electron-hole interactions
+   Uses extended arrays (with boundary points) for indexing safety.
+
+
+.. py:function:: CalcOffDiagDeph_E(ne0, nh0, ky, Ee0, Eh0, gee, geh, VC)
+
+   Calculate off-diagonal dephasing matrix for electrons.
+
+   Computes the off-diagonal dephasing matrix D(k,q) for electrons due to
+   electron-electron and electron-hole interactions.
+
+   :param ne0: Electron occupation numbers (complex), 1D array
+   :type ne0: ndarray
+   :param nh0: Hole occupation numbers (complex), 1D array
+   :type nh0: ndarray
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param Ee0: Electron energies (J), 1D array
+   :type Ee0: ndarray
+   :param Eh0: Hole energies (J), 1D array
+   :type Eh0: ndarray
+   :param gee: Electron-electron dephasing rate (Hz)
+   :type gee: float
+   :param geh: Electron-hole dephasing rate (Hz)
+   :type geh: float
+   :param VC: Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,1] for e-e
+   :type VC: ndarray
+
+   :returns: Off-diagonal dephasing matrix (J), 2D array of shape (Nk, Nk)
+   :rtype: ndarray
+
+
+.. py:function:: CalcOffDiagDeph_H(ne0, nh0, ky, Ee0, Eh0, ghh, geh, VC)
+
+   Calculate off-diagonal dephasing matrix for holes.
+
+   Computes the off-diagonal dephasing matrix D(k,q) for holes due to
+   hole-hole and electron-hole interactions.
+
+   :param ne0: Electron occupation numbers (complex), 1D array
+   :type ne0: ndarray
+   :param nh0: Hole occupation numbers (complex), 1D array
+   :type nh0: ndarray
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param Ee0: Electron energies (J), 1D array
+   :type Ee0: ndarray
+   :param Eh0: Hole energies (J), 1D array
+   :type Eh0: ndarray
+   :param ghh: Hole-hole dephasing rate (Hz)
+   :type ghh: float
+   :param geh: Electron-hole dephasing rate (Hz)
+   :type geh: float
+   :param VC: Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,2] for h-h
+   :type VC: ndarray
+
+   :returns: Off-diagonal dephasing matrix (J), 2D array of shape (Nk, Nk)
+   :rtype: ndarray
+
+
+.. py:function:: OffDiagDephasing(ne, nh, p, ky, Ee, Eh, g, VC, x)
+
+   Calculate off-diagonal dephasing contribution.
+
+   Computes the off-diagonal dephasing contribution to the polarization equation
+   due to carrier-carrier interactions.
+
+   :param ne: Electron occupation numbers (complex), 1D array
+   :type ne: ndarray
+   :param nh: Hole occupation numbers (complex), 1D array
+   :type nh: ndarray
+   :param p: Polarization matrix (complex), 2D array
+   :type p: ndarray
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param Ee: Electron energies (J), 1D array
+   :type Ee: ndarray
+   :param Eh: Hole energies (J), 1D array
+   :type Eh: ndarray
+   :param g: Dephasing rates (Hz), 1D array [gee, ghh, geh]
+   :type g: ndarray
+   :param VC: Interaction matrix (J), 3D array
+   :type VC: ndarray
+   :param x: Output dephasing contribution (modified in-place), 2D array
+   :type x: ndarray
+
+   :returns: x array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The function computes dephasing from electron-electron, hole-hole,
+   and electron-hole interactions. Note that the matrix k_p_q is symmetric.
+
+
+.. py:function:: CalcOffDiagDeph_E2(ne, nh, ky, Ee, Eh, gee, geh, VC, Nk)
+
+   Calculate off-diagonal dephasing matrix for electrons (version 2).
+
+   Computes the off-diagonal dephasing matrix D(q,k) for electrons using
+   a different algorithm with negative indexing support.
+
+   :param ne: Electron occupation numbers (complex), 1D array
+   :type ne: ndarray
+   :param nh: Hole occupation numbers (complex), 1D array
+   :type nh: ndarray
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param Ee: Electron energies (J), 1D array
+   :type Ee: ndarray
+   :param Eh: Hole energies (J), 1D array
+   :type Eh: ndarray
+   :param gee: Electron-electron dephasing rate (Hz)
+   :type gee: float
+   :param geh: Electron-hole dephasing rate (Hz)
+   :type geh: float
+   :param VC: Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,1] for e-e
+   :type VC: ndarray
+   :param Nk: Number of momentum points
+   :type Nk: int
+
+   :returns: Off-diagonal dephasing matrix (J), 2D array of shape (2*Nk+1, Nk)
+             First dimension uses shifted indexing: D[q+Nk, k] corresponds to D(q,k) where q can be negative
+   :rtype: ndarray
+
+
+.. py:function:: CalcOffDiagDeph_H2(ne, nh, ky, Ee, Eh, ghh, geh, VC, Nk)
+
+   Calculate off-diagonal dephasing matrix for holes (version 2).
+
+   Computes the off-diagonal dephasing matrix D(q,k) for holes using
+   a different algorithm with negative indexing support.
+
+   :param ne: Electron occupation numbers (complex), 1D array
+   :type ne: ndarray
+   :param nh: Hole occupation numbers (complex), 1D array
+   :type nh: ndarray
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param Ee: Electron energies (J), 1D array
+   :type Ee: ndarray
+   :param Eh: Hole energies (J), 1D array
+   :type Eh: ndarray
+   :param ghh: Hole-hole dephasing rate (Hz)
+   :type ghh: float
+   :param geh: Electron-hole dephasing rate (Hz)
+   :type geh: float
+   :param VC: Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,2] for h-h
+   :type VC: ndarray
+   :param Nk: Number of momentum points
+   :type Nk: int
+
+   :returns: Off-diagonal dephasing matrix (J), 2D array of shape (2*Nk+1, Nk)
+             First dimension uses shifted indexing: D[q+Nk, k] corresponds to D(q,k) where q can be negative
+   :rtype: ndarray
+
+
+.. py:function:: OffDiagDephasing2(ne, nh, p, ky, Ee, Eh, g, VC, t, x)
+
+   Calculate off-diagonal dephasing contribution (version 2).
+
+   Computes the off-diagonal dephasing contribution to the polarization equation
+   using version 2 algorithm with negative indexing support.
+
+   :param ne: Electron occupation numbers (complex), 1D array
+   :type ne: ndarray
+   :param nh: Hole occupation numbers (complex), 1D array
+   :type nh: ndarray
+   :param p: Polarization matrix (complex), 2D array
+   :type p: ndarray
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param Ee: Electron energies (J), 1D array
+   :type Ee: ndarray
+   :param Eh: Hole energies (J), 1D array
+   :type Eh: ndarray
+   :param g: Dephasing rates (Hz), 1D array [gee, ghh, geh]
+   :type g: ndarray
+   :param VC: Interaction matrix (J), 3D array
+   :type VC: ndarray
+   :param t: Time (s)
+   :type t: float
+   :param x: Output dephasing contribution (modified in-place), 2D array
+   :type x: ndarray
+
+   :returns: x array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The function computes dephasing from electron-electron, hole-hole,
+   and electron-hole interactions. Writes max/min values to output files.
+
+
+.. py:function:: printGam(Dx, z, n, file)
+
+   Print dephasing rate to file with index number.
+
+   Writes a real 1Dvxx dephasing rate array to a file with index number in filename.
+
+   :param Dx: Dephasing rate array (real), 1D array
+   :type Dx: ndarray
+   :param z: Spatial coordinates (real), 1D array
+   :type z: ndarray
+   :param n: Index number for filename
+   :type n: int
+   :param file: Base filename (without extension and index)
+   :type file: str
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The file is written to 'dataQW/{file}{n:05d}.dat'.
+   Each line contains: z(i), Dx(i)
+
+
+.. py:function:: WriteDephasing(ky, gamE, gamH, w, xxx)
+
+   Write dephasing rates to files.
+
+   Writes electron and hole dephasing rates to files with wire index.
+
+   :param ky: Quantum wire momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param gamE: Electron diagonal dephasing rate (Hz), 1D array
+   :type gamE: ndarray
+   :param gamH: Hole diagonal dephasing rate (Hz), 1D array
+   :type gamH: ndarray
+   :param w: Wire index
+   :type w: int
+   :param xxx: Time index
+   :type xxx: int
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Writes files to:
+   - 'dataQW/Wire/Ge/Ge.{w:02d}.k.{xxx:05d}.dat' for electrons
+   - 'dataQW/Wire/Gh/Gh.{w:02d}.k.{xxx:05d}.dat' for holes
+
+

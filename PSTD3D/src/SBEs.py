@@ -19,7 +19,13 @@ from typespace import GetSpaceArray, GetKArray
 from libpulsesuite.spliner import locate
 
 
-from numba import jit, prange, cuda
+from numba import jit, prange
+try:
+    from numba import cuda
+    _HAS_CUDA = cuda.is_available()
+except (ImportError, RuntimeError):
+    _HAS_CUDA = False
+    cuda = None
 import os
 
 # Physical constants
@@ -1537,10 +1543,22 @@ def dpdt(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP):
     dCdt : Time derivative of electron-electron coherence
     dDdt : Time derivative of hole-hole coherence
     """
-    try:
-        return _dpdt_jit(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP, ii, hbar)
-    except Exception:
-        return _dpdt_fallback(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP)
+    # Try CUDA first, then JIT, then fallback
+    if _HAS_CUDA:
+        try:
+            return _dpdt_cuda(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP, ii, hbar)
+        except Exception:
+            # Fallback to JIT
+            try:
+                return _dpdt_jit(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP, ii, hbar)
+            except Exception:
+                return _dpdt_fallback(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP)
+    else:
+        # No CUDA, use JIT
+        try:
+            return _dpdt_jit(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP, ii, hbar)
+        except Exception:
+            return _dpdt_fallback(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP)
 
 
 @jit(nopython=True, cache=True, parallel=True)
@@ -1562,6 +1580,160 @@ def _dpdt_jit(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP, ii_val, hbar_val):
 
     dpdt_result = dpdt_result / (ii_val * hbar_val)
     return dpdt_result
+
+
+# CUDA implementation for dpdt
+if _HAS_CUDA:
+    @cuda.jit
+    def _dpdt_cuda_kernel_main(C_real, C_imag, D_real, D_imag, p_real, p_imag,
+                                Heh_real, Heh_imag, Hee_real, Hee_imag, Hhh_real, Hhh_imag,
+                                GamE, GamH, OffP_real, OffP_imag,
+                                dpdt_real, dpdt_imag, Nk, ii_real, ii_imag, hbar_val):
+        """Main CUDA kernel for dpdt calculation."""
+        ke = cuda.blockIdx.x
+        kh = cuda.threadIdx.x
+
+        if ke < Nk and kh < Nk:
+            # Compute reductions using shared memory
+            # For simplicity, we'll compute sums directly in each thread
+            # This is less efficient but simpler than multi-stage reduction
+
+            # term1 = sum(Hhh[kh, :] * p[:, ke])
+            term1_real = 0.0
+            term1_imag = 0.0
+            for k in range(Nk):
+                h_re = Hhh_real[kh, k]
+                h_im = Hhh_imag[kh, k]
+                p_re = p_real[k, ke]
+                p_im = p_imag[k, ke]
+                term1_real += h_re * p_re - h_im * p_im
+                term1_imag += h_re * p_im + h_im * p_re
+
+            # term2 = sum(Hee[ke, :] * p[kh, :])
+            term2_real = 0.0
+            term2_imag = 0.0
+            for k in range(Nk):
+                h_re = Hee_real[ke, k]
+                h_im = Hee_imag[ke, k]
+                p_re = p_real[kh, k]
+                p_im = p_imag[kh, k]
+                term2_real += h_re * p_re - h_im * p_im
+                term2_imag += h_re * p_im + h_im * p_re
+
+            # term3 = sum(Heh[:, kh] * C[:, ke])
+            term3_real = 0.0
+            term3_imag = 0.0
+            for k in range(Nk):
+                h_re = Heh_real[k, kh]
+                h_im = Heh_imag[k, kh]
+                c_re = C_real[k, ke]
+                c_im = C_imag[k, ke]
+                term3_real += h_re * c_re - h_im * c_im
+                term3_imag += h_re * c_im + h_im * c_re
+
+            # term4 = sum(Heh[ke, :] * D[:, kh])
+            term4_real = 0.0
+            term4_imag = 0.0
+            for k in range(Nk):
+                h_re = Heh_real[ke, k]
+                h_im = Heh_imag[ke, k]
+                d_re = D_real[k, kh]
+                d_im = D_imag[k, kh]
+                term4_real += h_re * d_re - h_im * d_im
+                term4_imag += h_re * d_im + h_im * d_re
+
+            # Additional terms
+            heh_re = Heh_real[ke, kh]
+            heh_im = Heh_imag[ke, kh]
+
+            # -ii * hbar * (GamE[ke] + GamH[kh]) * p[kh, ke]
+            gam_sum = GamE[ke] + GamH[kh]
+            p_re = p_real[kh, ke]
+            p_im = p_imag[kh, ke]
+            deph_re = -ii_real * hbar_val * gam_sum * p_re - (-ii_imag) * hbar_val * gam_sum * p_im
+            deph_im = -ii_real * hbar_val * gam_sum * p_im + (-ii_imag) * hbar_val * gam_sum * p_re
+
+            offp_re = OffP_real[kh, ke]
+            offp_im = OffP_imag[kh, ke]
+
+            # Final result
+            result_real = term1_real + term2_real - term3_real - term4_real + heh_re + deph_re + offp_re
+            result_imag = term1_imag + term2_imag - term3_imag - term4_imag + heh_im + deph_im + offp_im
+
+            # Divide by (ii * hbar)
+            denom = ii_real * hbar_val
+            denom_im = ii_imag * hbar_val
+            denom_sq = denom * denom + denom_im * denom_im
+            dpdt_real[kh, ke] = (result_real * denom + result_imag * denom_im) / denom_sq
+            dpdt_imag[kh, ke] = (result_imag * denom - result_real * denom_im) / denom_sq
+
+    def _dpdt_cuda(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP, ii_val, hbar_val):
+        """CUDA wrapper for dpdt."""
+        Nk = p.shape[0]
+
+        # Split complex arrays
+        C_real = np.ascontiguousarray(C.real, dtype=np.float64)
+        C_imag = np.ascontiguousarray(C.imag, dtype=np.float64)
+        D_real = np.ascontiguousarray(D.real, dtype=np.float64)
+        D_imag = np.ascontiguousarray(D.imag, dtype=np.float64)
+        p_real = np.ascontiguousarray(p.real, dtype=np.float64)
+        p_imag = np.ascontiguousarray(p.imag, dtype=np.float64)
+        Heh_real = np.ascontiguousarray(Heh.real, dtype=np.float64)
+        Heh_imag = np.ascontiguousarray(Heh.imag, dtype=np.float64)
+        Hee_real = np.ascontiguousarray(Hee.real, dtype=np.float64)
+        Hee_imag = np.ascontiguousarray(Hee.imag, dtype=np.float64)
+        Hhh_real = np.ascontiguousarray(Hhh.real, dtype=np.float64)
+        Hhh_imag = np.ascontiguousarray(Hhh.imag, dtype=np.float64)
+        GamE_arr = np.ascontiguousarray(GamE, dtype=np.float64)
+        GamH_arr = np.ascontiguousarray(GamH, dtype=np.float64)
+        OffP_real = np.ascontiguousarray(OffP.real, dtype=np.float64)
+        OffP_imag = np.ascontiguousarray(OffP.imag, dtype=np.float64)
+
+        # Allocate device arrays
+        d_C_real = cuda.to_device(C_real)
+        d_C_imag = cuda.to_device(C_imag)
+        d_D_real = cuda.to_device(D_real)
+        d_D_imag = cuda.to_device(D_imag)
+        d_p_real = cuda.to_device(p_real)
+        d_p_imag = cuda.to_device(p_imag)
+        d_Heh_real = cuda.to_device(Heh_real)
+        d_Heh_imag = cuda.to_device(Heh_imag)
+        d_Hee_real = cuda.to_device(Hee_real)
+        d_Hee_imag = cuda.to_device(Hee_imag)
+        d_Hhh_real = cuda.to_device(Hhh_real)
+        d_Hhh_imag = cuda.to_device(Hhh_imag)
+        d_GamE = cuda.to_device(GamE_arr)
+        d_GamH = cuda.to_device(GamH_arr)
+        d_OffP_real = cuda.to_device(OffP_real)
+        d_OffP_imag = cuda.to_device(OffP_imag)
+
+        # Allocate output
+        d_dpdt_real = cuda.device_array((Nk, Nk), dtype=np.float64)
+        d_dpdt_imag = cuda.device_array((Nk, Nk), dtype=np.float64)
+
+        # Launch kernel: one block per ke, Nk threads per block (one per kh)
+        blocks_per_grid = Nk
+        threads_per_block = Nk
+
+        # Get ii as real/imag
+        ii_real = ii_val.real
+        ii_imag = ii_val.imag
+
+        _dpdt_cuda_kernel_main[blocks_per_grid, threads_per_block](
+            d_C_real, d_C_imag, d_D_real, d_D_imag, d_p_real, d_p_imag,
+            d_Heh_real, d_Heh_imag, d_Hee_real, d_Hee_imag, d_Hhh_real, d_Hhh_imag,
+            d_GamE, d_GamH, d_OffP_real, d_OffP_imag,
+            d_dpdt_real, d_dpdt_imag, Nk, ii_real, ii_imag, hbar_val
+        )
+
+        # Copy back and combine
+        dpdt_real = d_dpdt_real.copy_to_host()
+        dpdt_imag = d_dpdt_imag.copy_to_host()
+        return dpdt_real + 1j * dpdt_imag
+else:
+    def _dpdt_cuda(*args, **kwargs):
+        """Dummy CUDA function when CUDA is not available."""
+        raise RuntimeError("CUDA not available")
 
 
 def _dpdt_fallback(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP):
@@ -1661,10 +1833,22 @@ def dCdt(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE):
     dpdt : Time derivative of electron-hole coherence (interband polarization)
     dDdt : Time derivative of hole-hole coherence
     """
-    try:
-        return _dCdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE, ii, hbar)
-    except Exception:
-        return _dCdt_fallback(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE)
+    # Try CUDA first, then JIT, then fallback
+    if _HAS_CUDA:
+        try:
+            return _dCdt_cuda(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE, ii, hbar)
+        except Exception:
+            # Fallback to JIT
+            try:
+                return _dCdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE, ii, hbar)
+            except Exception:
+                return _dCdt_fallback(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE)
+    else:
+        # No CUDA, use JIT
+        try:
+            return _dCdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE, ii, hbar)
+        except Exception:
+            return _dCdt_fallback(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE)
 
 
 @jit(nopython=True, cache=True, parallel=True)
@@ -1687,6 +1871,126 @@ def _dCdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE, ii_val, hbar_val):
 
     dCdt_result = dCdt_result / (ii_val * hbar_val)
     return dCdt_result
+
+
+# CUDA implementation for dCdt
+if _HAS_CUDA:
+    @cuda.jit
+    def _dCdt_cuda_kernel(Cee_real, Cee_imag, Phe_real, Phe_imag,
+                          Heh_real, Heh_imag, Hee_real, Hee_imag,
+                          dCdt_real, dCdt_imag, Nk, ii_real, ii_imag, hbar_val):
+        """CUDA kernel for dCdt calculation."""
+        k2 = cuda.blockIdx.x
+        k1 = cuda.threadIdx.x
+
+        if k2 < Nk and k1 < Nk:
+            # Compute Hhe = conj(Heh.T) and Peh = conj(Phe.T)
+            # term1 = sum(Hee[k2, :] * Cee[k1, :])
+            term1_real = 0.0
+            term1_imag = 0.0
+            for k in range(Nk):
+                h_re = Hee_real[k2, k]
+                h_im = Hee_imag[k2, k]
+                c_re = Cee_real[k1, k]
+                c_im = Cee_imag[k1, k]
+                term1_real += h_re * c_re - h_im * c_im
+                term1_imag += h_re * c_im + h_im * c_re
+
+            # term2 = sum(Hee[:, k1] * Cee[:, k2])
+            term2_real = 0.0
+            term2_imag = 0.0
+            for k in range(Nk):
+                h_re = Hee_real[k, k1]
+                h_im = Hee_imag[k, k1]
+                c_re = Cee_real[k, k2]
+                c_im = Cee_imag[k, k2]
+                term2_real += h_re * c_re - h_im * c_im
+                term2_imag += h_re * c_im + h_im * c_re
+
+            # term3 = sum(Heh[k2, :] * Peh[k1, :]) where Peh = conj(Phe.T)
+            term3_real = 0.0
+            term3_imag = 0.0
+            for k in range(Nk):
+                h_re = Heh_real[k2, k]
+                h_im = Heh_imag[k2, k]
+                # Peh[k1, k] = conj(Phe[k, k1])
+                p_re = Phe_real[k, k1]
+                p_im = -Phe_imag[k, k1]  # Conjugate
+                term3_real += h_re * p_re - h_im * p_im
+                term3_imag += h_re * p_im + h_im * p_re
+
+            # term4 = sum(Hhe[:, k1] * Phe[:, k2]) where Hhe = conj(Heh.T)
+            term4_real = 0.0
+            term4_imag = 0.0
+            for k in range(Nk):
+                # Hhe[k, k1] = conj(Heh[k1, k])
+                h_re = Heh_real[k1, k]
+                h_im = -Heh_imag[k1, k]  # Conjugate
+                p_re = Phe_real[k, k2]
+                p_im = Phe_imag[k, k2]
+                term4_real += h_re * p_re - h_im * p_im
+                term4_imag += h_re * p_im + h_im * p_re
+
+            # Final result
+            result_real = term1_real - term2_real + term3_real - term4_real
+            result_imag = term1_imag - term2_imag + term3_imag - term4_imag
+
+            # Divide by (ii * hbar)
+            denom = ii_real * hbar_val
+            denom_im = ii_imag * hbar_val
+            denom_sq = denom * denom + denom_im * denom_im
+            dCdt_real[k1, k2] = (result_real * denom + result_imag * denom_im) / denom_sq
+            dCdt_imag[k1, k2] = (result_imag * denom - result_real * denom_im) / denom_sq
+
+    def _dCdt_cuda(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE, ii_val, hbar_val):
+        """CUDA wrapper for dCdt."""
+        Nk = Cee.shape[0]
+
+        # Split complex arrays
+        Cee_real = np.ascontiguousarray(Cee.real, dtype=np.float64)
+        Cee_imag = np.ascontiguousarray(Cee.imag, dtype=np.float64)
+        Phe_real = np.ascontiguousarray(Phe.real, dtype=np.float64)
+        Phe_imag = np.ascontiguousarray(Phe.imag, dtype=np.float64)
+        Heh_real = np.ascontiguousarray(Heh.real, dtype=np.float64)
+        Heh_imag = np.ascontiguousarray(Heh.imag, dtype=np.float64)
+        Hee_real = np.ascontiguousarray(Hee.real, dtype=np.float64)
+        Hee_imag = np.ascontiguousarray(Hee.imag, dtype=np.float64)
+
+        # Allocate device arrays
+        d_Cee_real = cuda.to_device(Cee_real)
+        d_Cee_imag = cuda.to_device(Cee_imag)
+        d_Phe_real = cuda.to_device(Phe_real)
+        d_Phe_imag = cuda.to_device(Phe_imag)
+        d_Heh_real = cuda.to_device(Heh_real)
+        d_Heh_imag = cuda.to_device(Heh_imag)
+        d_Hee_real = cuda.to_device(Hee_real)
+        d_Hee_imag = cuda.to_device(Hee_imag)
+
+        # Allocate output
+        d_dCdt_real = cuda.device_array((Nk, Nk), dtype=np.float64)
+        d_dCdt_imag = cuda.device_array((Nk, Nk), dtype=np.float64)
+
+        # Launch kernel
+        blocks_per_grid = Nk
+        threads_per_block = Nk
+
+        ii_real = ii_val.real
+        ii_imag = ii_val.imag
+
+        _dCdt_cuda_kernel[blocks_per_grid, threads_per_block](
+            d_Cee_real, d_Cee_imag, d_Phe_real, d_Phe_imag,
+            d_Heh_real, d_Heh_imag, d_Hee_real, d_Hee_imag,
+            d_dCdt_real, d_dCdt_imag, Nk, ii_real, ii_imag, hbar_val
+        )
+
+        # Copy back
+        dCdt_real = d_dCdt_real.copy_to_host()
+        dCdt_imag = d_dCdt_imag.copy_to_host()
+        return dCdt_real + 1j * dCdt_imag
+else:
+    def _dCdt_cuda(*args, **kwargs):
+        """Dummy CUDA function when CUDA is not available."""
+        raise RuntimeError("CUDA not available")
 
 
 def _dCdt_fallback(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE):
@@ -1792,10 +2096,22 @@ def dDdt(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH):
     dpdt : Time derivative of electron-hole coherence
     dCdt : Time derivative of electron-electron coherence
     """
-    try:
-        return _dDdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH, ii, hbar)
-    except Exception:
-        return _dDdt_fallback(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH)
+    # Try CUDA first, then JIT, then fallback
+    if _HAS_CUDA:
+        try:
+            return _dDdt_cuda(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH, ii, hbar)
+        except Exception:
+            # Fallback to JIT
+            try:
+                return _dDdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH, ii, hbar)
+            except Exception:
+                return _dDdt_fallback(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH)
+    else:
+        # No CUDA, use JIT
+        try:
+            return _dDdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH, ii, hbar)
+        except Exception:
+            return _dDdt_fallback(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH)
 
 
 @jit(nopython=True, cache=True, parallel=True)
@@ -1818,6 +2134,126 @@ def _dDdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH, ii_val, hbar_val):
 
     dDdt_result = dDdt_result / (ii_val * hbar_val)
     return dDdt_result
+
+
+# CUDA implementation for dDdt
+if _HAS_CUDA:
+    @cuda.jit
+    def _dDdt_cuda_kernel(Dhh_real, Dhh_imag, Phe_real, Phe_imag,
+                          Heh_real, Heh_imag, Hhh_real, Hhh_imag,
+                          dDdt_real, dDdt_imag, Nk, ii_real, ii_imag, hbar_val):
+        """CUDA kernel for dDdt calculation."""
+        k2 = cuda.blockIdx.x
+        k1 = cuda.threadIdx.x
+
+        if k2 < Nk and k1 < Nk:
+            # Compute Peh = conj(Phe.T) and Hhe = conj(Heh.T)
+            # term1 = sum(Hhh[k2, :] * Dhh[k1, :])
+            term1_real = 0.0
+            term1_imag = 0.0
+            for k in range(Nk):
+                h_re = Hhh_real[k2, k]
+                h_im = Hhh_imag[k2, k]
+                d_re = Dhh_real[k1, k]
+                d_im = Dhh_imag[k1, k]
+                term1_real += h_re * d_re - h_im * d_im
+                term1_imag += h_re * d_im + h_im * d_re
+
+            # term2 = sum(Hhh[:, k1] * Dhh[:, k2])
+            term2_real = 0.0
+            term2_imag = 0.0
+            for k in range(Nk):
+                h_re = Hhh_real[k, k1]
+                h_im = Hhh_imag[k, k1]
+                d_re = Dhh_real[k, k2]
+                d_im = Dhh_imag[k, k2]
+                term2_real += h_re * d_re - h_im * d_im
+                term2_imag += h_re * d_im + h_im * d_re
+
+            # term3 = sum(Heh[:, k2] * Peh[:, k1]) where Peh = conj(Phe.T)
+            term3_real = 0.0
+            term3_imag = 0.0
+            for k in range(Nk):
+                h_re = Heh_real[k, k2]
+                h_im = Heh_imag[k, k2]
+                # Peh[:, k1] = conj(Phe[k1, :]) = conj(Phe[k1, k])
+                p_re = Phe_real[k1, k]
+                p_im = -Phe_imag[k1, k]  # Conjugate
+                term3_real += h_re * p_re - h_im * p_im
+                term3_imag += h_re * p_im + h_im * p_re
+
+            # term4 = sum(Hhe[k1, :] * Phe[k2, :]) where Hhe = conj(Heh.T)
+            term4_real = 0.0
+            term4_imag = 0.0
+            for k in range(Nk):
+                # Hhe[k1, k] = conj(Heh[k, k1])
+                h_re = Heh_real[k, k1]
+                h_im = -Heh_imag[k, k1]  # Conjugate
+                p_re = Phe_real[k2, k]
+                p_im = Phe_imag[k2, k]
+                term4_real += h_re * p_re - h_im * p_im
+                term4_imag += h_re * p_im + h_im * p_re
+
+            # Final result
+            result_real = term1_real - term2_real + term3_real - term4_real
+            result_imag = term1_imag - term2_imag + term3_imag - term4_imag
+
+            # Divide by (ii * hbar)
+            denom = ii_real * hbar_val
+            denom_im = ii_imag * hbar_val
+            denom_sq = denom * denom + denom_im * denom_im
+            dDdt_real[k1, k2] = (result_real * denom + result_imag * denom_im) / denom_sq
+            dDdt_imag[k1, k2] = (result_imag * denom - result_real * denom_im) / denom_sq
+
+    def _dDdt_cuda(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH, ii_val, hbar_val):
+        """CUDA wrapper for dDdt."""
+        Nk = Dhh.shape[0]
+
+        # Split complex arrays
+        Dhh_real = np.ascontiguousarray(Dhh.real, dtype=np.float64)
+        Dhh_imag = np.ascontiguousarray(Dhh.imag, dtype=np.float64)
+        Phe_real = np.ascontiguousarray(Phe.real, dtype=np.float64)
+        Phe_imag = np.ascontiguousarray(Phe.imag, dtype=np.float64)
+        Heh_real = np.ascontiguousarray(Heh.real, dtype=np.float64)
+        Heh_imag = np.ascontiguousarray(Heh.imag, dtype=np.float64)
+        Hhh_real = np.ascontiguousarray(Hhh.real, dtype=np.float64)
+        Hhh_imag = np.ascontiguousarray(Hhh.imag, dtype=np.float64)
+
+        # Allocate device arrays
+        d_Dhh_real = cuda.to_device(Dhh_real)
+        d_Dhh_imag = cuda.to_device(Dhh_imag)
+        d_Phe_real = cuda.to_device(Phe_real)
+        d_Phe_imag = cuda.to_device(Phe_imag)
+        d_Heh_real = cuda.to_device(Heh_real)
+        d_Heh_imag = cuda.to_device(Heh_imag)
+        d_Hhh_real = cuda.to_device(Hhh_real)
+        d_Hhh_imag = cuda.to_device(Hhh_imag)
+
+        # Allocate output
+        d_dDdt_real = cuda.device_array((Nk, Nk), dtype=np.float64)
+        d_dDdt_imag = cuda.device_array((Nk, Nk), dtype=np.float64)
+
+        # Launch kernel
+        blocks_per_grid = Nk
+        threads_per_block = Nk
+
+        ii_real = ii_val.real
+        ii_imag = ii_val.imag
+
+        _dDdt_cuda_kernel[blocks_per_grid, threads_per_block](
+            d_Dhh_real, d_Dhh_imag, d_Phe_real, d_Phe_imag,
+            d_Heh_real, d_Heh_imag, d_Hhh_real, d_Hhh_imag,
+            d_dDdt_real, d_dDdt_imag, Nk, ii_real, ii_imag, hbar_val
+        )
+
+        # Copy back
+        dDdt_real = d_dDdt_real.copy_to_host()
+        dDdt_imag = d_dDdt_imag.copy_to_host()
+        return dDdt_real + 1j * dDdt_imag
+else:
+    def _dDdt_cuda(*args, **kwargs):
+        """Dummy CUDA function when CUDA is not available."""
+        raise RuntimeError("CUDA not available")
 
 
 def _dDdt_fallback(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH):
@@ -2697,7 +3133,7 @@ def _MakeKKP_jit(Nk, kr, dkr, NQ0, kkp):
     from numba import prange
 
     # Fill mapping array - kkp is passed in and modified in-place
-    for k in prange(Nk):  # ✅ Parallel over k
+    for k in prange(Nk):  # Parallel over k
         for kp in range(Nk):
             # Calculate momentum difference
             q = kr[k] - kr[kp]

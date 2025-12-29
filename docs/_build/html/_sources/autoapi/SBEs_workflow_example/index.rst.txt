@@ -1,0 +1,66 @@
+SBEs_workflow_example
+=====================
+
+.. py:module:: SBEs_workflow_example
+
+.. autoapi-nested-parse::
+
+   SBE Workflow Example - Complete research workflow using SBEspythonic module
+
+   This example demonstrates a complete workflow for semiconductor Bloch equation
+   simulations in quantum wires, including initialization, time evolution, and analysis.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   SBEs_workflow_example.create_test_environment
+   SBEs_workflow_example.cleanup_test_environment
+   SBEs_workflow_example.simulate_quantum_wire_response
+   SBEs_workflow_example.analyze_susceptibility
+   SBEs_workflow_example.analyze_band_structure
+   SBEs_workflow_example.plot_results
+   SBEs_workflow_example.main
+
+
+Module Contents
+---------------
+
+.. py:function:: create_test_environment()
+
+   Create temporary test environment with parameter files.
+
+
+.. py:function:: cleanup_test_environment(temp_dir, original_dir)
+
+   Clean up temporary test environment.
+
+
+.. py:function:: simulate_quantum_wire_response()
+
+   Simulate quantum wire response to external fields.
+
+
+.. py:function:: analyze_susceptibility()
+
+   Analyze linear susceptibility of the quantum wire.
+
+
+.. py:function:: analyze_band_structure()
+
+   Analyze the band structure of the quantum wire.
+
+
+.. py:function:: plot_results(times, field_amplitudes, polarization_amplitudes, charge_densities)
+
+   Plot simulation results.
+
+
+.. py:function:: main()
+
+   Run complete SBE workflow example.
+
+

@@ -1,0 +1,666 @@
+test_qwoptics
+=============
+
+.. py:module:: test_qwoptics
+
+.. autoapi-nested-parse::
+
+   Comprehensive test suite for qwoptics.py module.
+
+   Tests all quantum wire optics functions including field conversions,
+   polarization calculations, charge densities, and I/O operations.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   test_qwoptics.TestYW
+   test_qwoptics.TestCalcQWWindow
+   test_qwoptics.TestCalcExpikr
+   test_qwoptics.TestInitializeQWOptics
+   test_qwoptics.TestXcvYcvZcv
+   test_qwoptics.TestQWChi1
+   test_qwoptics.TestProp2QW
+   test_qwoptics.TestQW2Prop
+   test_qwoptics.TestQWPolarization3
+   test_qwoptics.TestQWRho5
+   test_qwoptics.TestGetVn1n2
+   test_qwoptics.TestPrintFunctions
+   test_qwoptics.TestWriteFunctions
+   test_qwoptics.TestIntegratedWorkflows
+   test_qwoptics.TestEdgeCases
+   test_qwoptics.TestNumericalPrecision
+
+
+Module Contents
+---------------
+
+.. py:class:: TestYW
+
+   Test wire-dependent sign factor function.
+
+
+   .. py:method:: test_yw_wire_1()
+
+      Test yw with wire index 1.
+
+
+
+   .. py:method:: test_yw_wire_2()
+
+      Test yw with wire index 2.
+
+
+
+   .. py:method:: test_yw_wire_3()
+
+      Test yw with wire index 3.
+
+
+
+   .. py:method:: test_yw_wire_4()
+
+      Test yw with wire index 4.
+
+
+
+   .. py:method:: test_yw_wire_5()
+
+      Test yw with wire index 5.
+
+
+
+   .. py:method:: test_yw_wire_6()
+
+      Test yw with wire index 6.
+
+
+
+   .. py:method:: test_yw_alternating_pattern(w)
+
+      Test yw follows alternating pattern.
+
+
+
+.. py:class:: TestCalcQWWindow
+
+   Test quantum wire window function calculation.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_CalcQWWindow_creates_window()
+
+      Test that window function is created.
+
+
+
+   .. py:method:: test_CalcQWWindow_shape()
+
+      Test window function has correct shape.
+
+
+
+   .. py:method:: test_CalcQWWindow_values_inside()
+
+      Test window values inside wire are close to 1.
+
+
+
+   .. py:method:: test_CalcQWWindow_values_outside()
+
+      Test window values outside wire are small.
+
+
+
+   .. py:method:: test_CalcQWWindow_symmetry()
+
+      Test window function is symmetric.
+
+
+
+   .. py:method:: test_CalcQWWindow_different_lengths()
+
+      Test window with different wire lengths.
+
+
+
+   .. py:method:: test_CalcQWWindow_file_output()
+
+      Test that window writes to file.
+
+
+
+.. py:class:: TestCalcExpikr
+
+   Test exp(ikr) array calculation.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_CalcExpikr_creates_arrays()
+
+      Test that exp(ikr) arrays are created.
+
+
+
+   .. py:method:: test_CalcExpikr_shape()
+
+      Test arrays have correct shape.
+
+
+
+   .. py:method:: test_CalcExpikr_values()
+
+      Test exp(ikr) values are correct.
+
+
+
+   .. py:method:: test_CalcExpikr_conjugate_relationship()
+
+      Test that Expikrc is conjugate of Expikr.
+
+
+
+   .. py:method:: test_CalcExpikr_unit_magnitude()
+
+      Test that exp(ikr) has unit magnitude.
+
+
+
+.. py:class:: TestInitializeQWOptics
+
+   Test quantum wire optics initialization.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_InitializeQWOptics_sets_global_variables()
+
+      Test that initialization sets global variables.
+
+
+
+   .. py:method:: test_InitializeQWOptics_dipole_matrices_shape()
+
+      Test dipole matrices have correct shape.
+
+
+
+   .. py:method:: test_InitializeQWOptics_dipole_values()
+
+      Test dipole matrix values.
+
+
+
+   .. py:method:: test_InitializeQWOptics_conjugate_relationship()
+
+      Test that vc matrices are conjugates of cv matrices.
+
+
+
+   .. py:method:: test_InitializeQWOptics_volume_calculation()
+
+      Test volume calculation.
+
+
+
+.. py:class:: TestXcvYcvZcv
+
+   Test dipole matrix element getters.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_Xcv_returns_value()
+
+      Test Xcv returns correct value.
+
+
+
+   .. py:method:: test_Ycv_returns_value()
+
+      Test Ycv returns correct value.
+
+
+
+   .. py:method:: test_Zcv_returns_value()
+
+      Test Zcv returns correct value.
+
+
+
+   .. py:method:: test_dipole_getters_all_indices(k, kp)
+
+      Test dipole getters for various indices.
+
+
+
+.. py:class:: TestQWChi1
+
+   Test quantum wire linear susceptibility calculation.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_QWChi1_returns_complex()
+
+      Test that QWChi1 returns complex value.
+
+
+
+   .. py:method:: test_QWChi1_finite()
+
+      Test that QWChi1 returns finite value.
+
+
+
+   .. py:method:: test_QWChi1_different_wavelengths()
+
+      Test QWChi1 with different wavelengths.
+
+
+
+   .. py:method:: test_QWChi1_zero_dephasing()
+
+      Test QWChi1 with zero dephasing.
+
+
+
+   .. py:method:: test_QWChi1_physical_values()
+
+      Test QWChi1 with physical parameter values.
+
+
+
+.. py:class:: TestProp2QW
+
+   Test propagation to QW field conversion.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_Prop2QW_initializes_outputs()
+
+      Test that outputs are initialized.
+
+
+
+   .. py:method:: test_Prop2QW_applies_window()
+
+      Test that window function is applied.
+
+
+
+   .. py:method:: test_Prop2QW_makes_fields_real_before_fft()
+
+      Test that fields are made real before FFT.
+
+
+
+   .. py:method:: test_Prop2QW_without_window()
+
+      Test Prop2QW when window is None.
+
+
+
+.. py:class:: TestQW2Prop
+
+   Test QW to propagation field conversion.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_QW2Prop_basic()
+
+      Test basic QW2Prop conversion.
+
+
+
+   .. py:method:: test_QW2Prop_with_plasmonics()
+
+      Test QW2Prop with plasmonics enabled.
+
+
+
+   .. py:method:: test_QW2Prop_charge_density_normalization()
+
+      Test charge density normalization.
+
+
+
+.. py:class:: TestQWPolarization3
+
+   Test QW polarization calculation in 3D.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_QWPolarization3_initializes_outputs()
+
+      Test that polarization outputs are initialized.
+
+
+
+   .. py:method:: test_QWPolarization3_finite_values()
+
+      Test that polarization values are finite.
+
+
+
+   .. py:method:: test_QWPolarization3_without_initialization()
+
+      Test QWPolarization3 when globals are None.
+
+
+
+   .. py:method:: test_QWPolarization3_different_wires()
+
+      Test QWPolarization3 with different wire indices.
+
+
+
+.. py:class:: TestQWRho5
+
+   Test quantum wire charge density calculation.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_QWRho5_initializes_outputs()
+
+      Test that charge density outputs are initialized.
+
+
+
+   .. py:method:: test_QWRho5_finite_values()
+
+      Test that charge densities are finite.
+
+
+
+   .. py:method:: test_QWRho5_normalization()
+
+      Test charge density normalization.
+
+
+
+   .. py:method:: test_QWRho5_without_globals()
+
+      Test QWRho5 when globals are None.
+
+
+
+.. py:class:: TestGetVn1n2
+
+   Test interaction matrix calculation.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_GetVn1n2_initializes_outputs()
+
+      Test that interaction matrices are initialized.
+
+
+
+   .. py:method:: test_GetVn1n2_finite_values()
+
+      Test that interaction matrices have finite values.
+
+
+
+   .. py:method:: test_GetVn1n2_conjugate_relationship()
+
+      Test that Vvc is conjugate transpose of Vcv.
+
+
+
+   .. py:method:: test_GetVn1n2_zero_hamiltonian()
+
+      Test GetVn1n2 with zero Hamiltonian.
+
+
+
+.. py:class:: TestPrintFunctions
+
+   Test print/write functions.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: teardown_method()
+
+      Clean up test fixtures.
+
+
+
+   .. py:method:: test_printITReal2_first_time()
+
+      Test printITReal2 on first write.
+
+
+
+   .. py:method:: test_printITReal2_subsequent_times()
+
+      Test printITReal2 on subsequent writes.
+
+
+
+   .. py:method:: test_printITReal()
+
+      Test printITReal function.
+
+
+
+   .. py:method:: test_printIT3D()
+
+      Test printIT3D function.
+
+
+
+.. py:class:: TestWriteFunctions
+
+   Test write functions for SBE solutions, PL spectrum, and fields.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: teardown_method()
+
+      Clean up test fixtures.
+
+
+
+   .. py:method:: test_WriteSBESolns_creates_files()
+
+      Test that WriteSBESolns creates output files.
+
+
+
+   .. py:method:: test_WritePLSpectrum_creates_file()
+
+      Test that WritePLSpectrum creates output file.
+
+
+
+   .. py:method:: test_WriteQWFields_creates_files()
+
+      Test that WriteQWFields creates output files.
+
+
+
+   .. py:method:: test_WritePropFields_creates_files()
+
+      Test that WritePropFields creates output files.
+
+
+
+.. py:class:: TestIntegratedWorkflows
+
+   Test integrated workflows combining multiple functions.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_initialization_workflow()
+
+      Test complete initialization workflow.
+
+
+
+   .. py:method:: test_prop_to_qw_to_prop_roundtrip()
+
+      Test roundtrip conversion: Prop -> QW -> Prop.
+
+
+
+   .. py:method:: test_polarization_calculation_workflow()
+
+      Test complete polarization calculation workflow.
+
+
+
+   .. py:method:: test_charge_density_workflow()
+
+      Test complete charge density calculation workflow.
+
+
+
+   .. py:method:: test_interaction_matrix_workflow()
+
+      Test interaction matrix calculation workflow.
+
+
+
+.. py:class:: TestEdgeCases
+
+   Test edge cases and boundary conditions.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_yw_zero_wire()
+
+      Test yw with wire index 0 (edge case).
+
+
+
+   .. py:method:: test_QWChi1_extreme_wavelengths()
+
+      Test QWChi1 with extreme wavelength values.
+
+
+
+   .. py:method:: test_CalcQWWindow_single_point()
+
+      Test CalcQWWindow with single point.
+
+
+
+   .. py:method:: test_CalcExpikr_single_point()
+
+      Test CalcExpikr with single point.
+
+
+
+   .. py:method:: test_QWPolarization3_zero_density_matrix()
+
+      Test QWPolarization3 with zero density matrix.
+
+
+
+   .. py:method:: test_QWRho5_zero_coherence_matrices()
+
+      Test QWRho5 with zero coherence matrices.
+
+
+
+.. py:class:: TestNumericalPrecision
+
+   Test numerical precision and stability.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_CalcExpikr_precision()
+
+      Test exp(ikr) calculation precision.
+
+
+
+   .. py:method:: test_InitializeQWOptics_dipole_precision()
+
+      Test dipole matrix calculation precision.
+
+
+
+   .. py:method:: test_GetVn1n2_conjugate_precision()
+
+      Test GetVn1n2 conjugate relationship precision.
+
+
+

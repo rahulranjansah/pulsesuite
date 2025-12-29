@@ -226,6 +226,94 @@ file_Px_mid.close()
 file_Py_mid.close()
 file_Pz_mid.close()
 
+# Add after line 227 (after closing files):
+
+# ============================================================================
+# CUDA USAGE STATISTICS SUMMARY
+# ============================================================================
+print("\n" + "="*80)
+print("CUDA/JIT USAGE STATISTICS")
+print("="*80)
+
+try:
+    from qwoptics import _HAS_CUDA as qwoptics_cuda, _cuda_stats
+    from SBEs import _HAS_CUDA as sbes_cuda, _sbe_cuda_stats
+
+    print(f"\nCUDA Status:")
+    print(f"  qwoptics.py: {'✓ CUDA AVAILABLE' if qwoptics_cuda else '✗ CUDA NOT AVAILABLE'}")
+    print(f"  SBEs.py:     {'✓ CUDA AVAILABLE' if sbes_cuda else '✗ CUDA NOT AVAILABLE'}")
+
+    print(f"\nqwoptics.py Function Calls:")
+    print(f"  QWPolarization3:")
+    print(f"    CUDA:     {_cuda_stats.get('QWPolarization3_cuda', 0):8d} calls")
+    print(f"    JIT:      {_cuda_stats.get('QWPolarization3_jit', 0):8d} calls")
+    print(f"    Fallback: {_cuda_stats.get('QWPolarization3_fallback', 0):8d} calls")
+    print(f"  QWRho5:")
+    print(f"    CUDA:     {_cuda_stats.get('QWRho5_cuda', 0):8d} calls")
+    print(f"    JIT:      {_cuda_stats.get('QWRho5_jit', 0):8d} calls")
+    print(f"    Fallback: {_cuda_stats.get('QWRho5_fallback', 0):8d} calls")
+
+    print(f"\nSBEs.py Function Calls:")
+    print(f"  dpdt:")
+    print(f"    CUDA:     {_sbe_cuda_stats.get('dpdt_cuda', 0):8d} calls")
+    print(f"    JIT:      {_sbe_cuda_stats.get('dpdt_jit', 0):8d} calls")
+    print(f"    Fallback: {_sbe_cuda_stats.get('dpdt_fallback', 0):8d} calls")
+    print(f"  dCdt:")
+    print(f"    CUDA:     {_sbe_cuda_stats.get('dCdt_cuda', 0):8d} calls")
+    print(f"    JIT:      {_sbe_cuda_stats.get('dCdt_jit', 0):8d} calls")
+    print(f"    Fallback: {_sbe_cuda_stats.get('dCdt_fallback', 0):8d} calls")
+    print(f"  dDdt:")
+    print(f"    CUDA:     {_sbe_cuda_stats.get('dDdt_cuda', 0):8d} calls")
+    print(f"    JIT:      {_sbe_cuda_stats.get('dDdt_jit', 0):8d} calls")
+    print(f"    Fallback: {_sbe_cuda_stats.get('dDdt_fallback', 0):8d} calls")
+
+    # Summary
+    total_cuda = (_cuda_stats.get('QWPolarization3_cuda', 0) +
+                  _cuda_stats.get('QWRho5_cuda', 0) +
+                  _sbe_cuda_stats.get('dpdt_cuda', 0) +
+                  _sbe_cuda_stats.get('dCdt_cuda', 0) +
+                  _sbe_cuda_stats.get('dDdt_cuda', 0))
+
+    total_jit = (_cuda_stats.get('QWPolarization3_jit', 0) +
+                 _cuda_stats.get('QWRho5_jit', 0) +
+                 _sbe_cuda_stats.get('dpdt_jit', 0) +
+                 _sbe_cuda_stats.get('dCdt_jit', 0) +
+                 _sbe_cuda_stats.get('dDdt_jit', 0))
+
+    total_fallback = (_cuda_stats.get('QWPolarization3_fallback', 0) +
+                      _cuda_stats.get('QWRho5_fallback', 0) +
+                      _sbe_cuda_stats.get('dpdt_fallback', 0) +
+                      _sbe_cuda_stats.get('dCdt_fallback', 0) +
+                      _sbe_cuda_stats.get('dDdt_fallback', 0))
+
+    total = total_cuda + total_jit + total_fallback
+
+    if total > 0:
+        print(f"\nSummary:")
+        print(f"  Total function calls: {total}")
+        print(f"  CUDA:     {total_cuda:8d} ({100*total_cuda/total:.1f}%)")
+        print(f"  JIT:      {total_jit:8d} ({100*total_jit/total:.1f}%)")
+        print(f"  Fallback: {total_fallback:8d} ({100*total_fallback/total:.1f}%)")
+
+        if total_cuda > 0:
+            print(f"\n✓ CUDA IS BEING USED! ({total_cuda} calls)")
+            print(f"  The 'Grid size' warnings are normal - they indicate CUDA is active.")
+            print(f"  Small grid sizes mean your arrays are small, but CUDA still helps.")
+        elif total_jit > 0:
+            print(f"\nUsing JIT (CPU parallel) - CUDA not available or failed")
+        else:
+            print(f"\n✗ Using Python fallback - JIT/CUDA not working")
+
+except ImportError as e:
+    print(f"Could not import CUDA statistics: {e}")
+    print("  Statistics may not be available if modules were modified.")
+except Exception as e:
+    print(f"Error reading CUDA statistics: {e}")
+    import traceback
+    traceback.print_exc()
+
+print("="*80 + "\n")
+
 # deallocate(Exx,Eyy,Ezz,Pxx,Pyy,Pzz,Rho,rr,qrr)
 # Arrays are automatically deallocated when program exits
 

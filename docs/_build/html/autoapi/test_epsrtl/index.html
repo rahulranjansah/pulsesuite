@@ -1,0 +1,813 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>test_epsrtl &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="test_coulomb" href="../test_coulomb/index.html" />
+    <link rel="prev" title="test_phost" href="../test_phost/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/index.html">src</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spliner/index.html">spliner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_phost/index.html">test_phost</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">test_epsrtl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#attributes">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.hbar"><code class="docutils literal notranslate"><span class="pre">hbar</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.kB"><code class="docutils literal notranslate"><span class="pre">kB</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.e0"><code class="docutils literal notranslate"><span class="pre">e0</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.eps0"><code class="docutils literal notranslate"><span class="pre">eps0</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.pi"><code class="docutils literal notranslate"><span class="pre">pi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.twopi"><code class="docutils literal notranslate"><span class="pre">twopi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.ii"><code class="docutils literal notranslate"><span class="pre">ii</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestEng"><code class="docutils literal notranslate"><span class="pre">TestEng</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestFf0"><code class="docutils literal notranslate"><span class="pre">TestFf0</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestFT0"><code class="docutils literal notranslate"><span class="pre">TestFT0</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestAtanJG"><code class="docutils literal notranslate"><span class="pre">TestAtanJG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestAtanhc"><code class="docutils literal notranslate"><span class="pre">TestAtanhc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestPiT"><code class="docutils literal notranslate"><span class="pre">TestPiT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestPiL"><code class="docutils literal notranslate"><span class="pre">TestPiL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestPiL_T0"><code class="docutils literal notranslate"><span class="pre">TestPiL_T0</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestGetEpsrLEpsrT"><code class="docutils literal notranslate"><span class="pre">TestGetEpsrLEpsrT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestZeroT_L"><code class="docutils literal notranslate"><span class="pre">TestZeroT_L</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestZeroT_T"><code class="docutils literal notranslate"><span class="pre">TestZeroT_T</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestQqGq"><code class="docutils literal notranslate"><span class="pre">TestQqGq</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestRecordEpsrT"><code class="docutils literal notranslate"><span class="pre">TestRecordEpsrT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestRecordEpsrL"><code class="docutils literal notranslate"><span class="pre">TestRecordEpsrL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestRecordEpsrL_T0"><code class="docutils literal notranslate"><span class="pre">TestRecordEpsrL_T0</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_epsrtl.TestIntegration"><code class="docutils literal notranslate"><span class="pre">TestIntegration</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../test_coulomb/index.html">test_coulomb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_dcfield/index.html">test_dcfield</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_phonons/index.html">test_phonons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_qwoptics/index.html">test_qwoptics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_dephasing/index.html">test_dephasing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_typespace/index.html">test_typespace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../coulomb_example/index.html">coulomb_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_usefulsubs/index.html">test_usefulsubs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_basic_example/index.html">SBEs_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_domain_example/index.html">SBEs_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_basic_example/index.html">dcfield_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance_benchmark/index.html">performance_benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_workflow_example/index.html">SBEs_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_domain_example/index.html">dcfield_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_basic_example/index.html">qwoptics_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../coulombpythonic_example/index.html">coulombpythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../phononspythonic_example/index.html">phononspythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_domain_example/index.html">qwoptics_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_workflow_example/index.html">dcfield_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_workflow_example/index.html">qwoptics_workflow_example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">test_epsrtl</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/autoapi/test_epsrtl/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-test_epsrtl">
+<span id="test-epsrtl"></span><h1>test_epsrtl<a class="headerlink" href="#module-test_epsrtl" title="Link to this heading"></a></h1>
+<p>Comprehensive test suite for epsrtl.py module.</p>
+<p>Tests all permittivity calculation functions including energy calculations,
+polarization functions, permittivity calculations, and file I/O operations.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_epsrtl.hbar" title="test_epsrtl.hbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hbar</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_epsrtl.kB" title="test_epsrtl.kB"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kB</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_epsrtl.e0" title="test_epsrtl.e0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">e0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_epsrtl.eps0" title="test_epsrtl.eps0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eps0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_epsrtl.pi" title="test_epsrtl.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_epsrtl.twopi" title="test_epsrtl.twopi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">twopi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_epsrtl.ii" title="test_epsrtl.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_epsrtl.TestEng" title="test_epsrtl.TestEng"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestEng</span></code></a></p></td>
+<td><p>Test energy calculation from momentum.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_epsrtl.TestFf0" title="test_epsrtl.TestFf0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestFf0</span></code></a></p></td>
+<td><p>Test Fermi function at finite temperature.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_epsrtl.TestFT0" title="test_epsrtl.TestFT0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestFT0</span></code></a></p></td>
+<td><p>Test Fermi function at zero temperature.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_epsrtl.TestAtanJG" title="test_epsrtl.TestAtanJG"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestAtanJG</span></code></a></p></td>
+<td><p>Test arctangent function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_epsrtl.TestAtanhc" title="test_epsrtl.TestAtanhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestAtanhc</span></code></a></p></td>
+<td><p>Test hyperbolic arctangent function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_epsrtl.TestPiT" title="test_epsrtl.TestPiT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestPiT</span></code></a></p></td>
+<td><p>Test transverse polarization function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_epsrtl.TestPiL" title="test_epsrtl.TestPiL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestPiL</span></code></a></p></td>
+<td><p>Test longitudinal polarization function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_epsrtl.TestPiL_T0" title="test_epsrtl.TestPiL_T0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestPiL_T0</span></code></a></p></td>
+<td><p>Test longitudinal polarization function at zero temperature.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_epsrtl.TestGetEpsrLEpsrT" title="test_epsrtl.TestGetEpsrLEpsrT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestGetEpsrLEpsrT</span></code></a></p></td>
+<td><p>Test permittivity calculation function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_epsrtl.TestZeroT_L" title="test_epsrtl.TestZeroT_L"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestZeroT_L</span></code></a></p></td>
+<td><p>Test zero temperature longitudinal permittivity.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_epsrtl.TestZeroT_T" title="test_epsrtl.TestZeroT_T"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestZeroT_T</span></code></a></p></td>
+<td><p>Test zero temperature transverse permittivity.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_epsrtl.TestQqGq" title="test_epsrtl.TestQqGq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestQqGq</span></code></a></p></td>
+<td><p>Test Omega and Gam calculation from permittivity.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_epsrtl.TestRecordEpsrT" title="test_epsrtl.TestRecordEpsrT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestRecordEpsrT</span></code></a></p></td>
+<td><p>Test transverse permittivity recording.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_epsrtl.TestRecordEpsrL" title="test_epsrtl.TestRecordEpsrL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestRecordEpsrL</span></code></a></p></td>
+<td><p>Test longitudinal permittivity recording.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_epsrtl.TestRecordEpsrL_T0" title="test_epsrtl.TestRecordEpsrL_T0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestRecordEpsrL_T0</span></code></a></p></td>
+<td><p>Test longitudinal permittivity recording at zero temperature.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_epsrtl.TestIntegration" title="test_epsrtl.TestIntegration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestIntegration</span></code></a></p></td>
+<td><p>Integration tests for complete permittivity workflows.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="test_epsrtl.hbar">
+<span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#test_epsrtl.hbar" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="test_epsrtl.kB">
+<span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">kB</span></span><a class="headerlink" href="#test_epsrtl.kB" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="test_epsrtl.e0">
+<span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">e0</span></span><a class="headerlink" href="#test_epsrtl.e0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="test_epsrtl.eps0">
+<span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">eps0</span></span><a class="headerlink" href="#test_epsrtl.eps0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="test_epsrtl.pi">
+<span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#test_epsrtl.pi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="test_epsrtl.twopi">
+<span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">twopi</span></span><a class="headerlink" href="#test_epsrtl.twopi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="test_epsrtl.ii">
+<span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1j</span></em><a class="headerlink" href="#test_epsrtl.ii" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestEng">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestEng</span></span><a class="headerlink" href="#test_epsrtl.TestEng" title="Link to this definition"></a></dt>
+<dd><p>Test energy calculation from momentum.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestEng.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestEng.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestEng.test_eng_basic">
+<span class="sig-name descname"><span class="pre">test_eng_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestEng.test_eng_basic" title="Link to this definition"></a></dt>
+<dd><p>Test Eng with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestEng.test_eng_array">
+<span class="sig-name descname"><span class="pre">test_eng_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestEng.test_eng_array" title="Link to this definition"></a></dt>
+<dd><p>Test Eng with array inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestEng.test_eng_zero_momentum">
+<span class="sig-name descname"><span class="pre">test_eng_zero_momentum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestEng.test_eng_zero_momentum" title="Link to this definition"></a></dt>
+<dd><p>Test Eng with zero momentum.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestEng.test_eng_different_masses">
+<span class="sig-name descname"><span class="pre">test_eng_different_masses</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestEng.test_eng_different_masses" title="Link to this definition"></a></dt>
+<dd><p>Test Eng with different masses.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestEng.test_eng_negative_momentum">
+<span class="sig-name descname"><span class="pre">test_eng_negative_momentum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestEng.test_eng_negative_momentum" title="Link to this definition"></a></dt>
+<dd><p>Test Eng with negative momentum.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestFf0">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestFf0</span></span><a class="headerlink" href="#test_epsrtl.TestFf0" title="Link to this definition"></a></dt>
+<dd><p>Test Fermi function at finite temperature.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestFf0.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestFf0.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestFf0.test_ff0_basic">
+<span class="sig-name descname"><span class="pre">test_ff0_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestFf0.test_ff0_basic" title="Link to this definition"></a></dt>
+<dd><p>Test ff0 with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestFf0.test_ff0_array">
+<span class="sig-name descname"><span class="pre">test_ff0_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestFf0.test_ff0_array" title="Link to this definition"></a></dt>
+<dd><p>Test ff0 with array inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestFf0.test_ff0_zero_energy">
+<span class="sig-name descname"><span class="pre">test_ff0_zero_energy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestFf0.test_ff0_zero_energy" title="Link to this definition"></a></dt>
+<dd><p>Test ff0 with zero energy.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestFf0.test_ff0_high_temperature">
+<span class="sig-name descname"><span class="pre">test_ff0_high_temperature</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestFf0.test_ff0_high_temperature" title="Link to this definition"></a></dt>
+<dd><p>Test ff0 with high temperature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestFf0.test_ff0_low_temperature">
+<span class="sig-name descname"><span class="pre">test_ff0_low_temperature</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestFf0.test_ff0_low_temperature" title="Link to this definition"></a></dt>
+<dd><p>Test ff0 with low temperature.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestFT0">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestFT0</span></span><a class="headerlink" href="#test_epsrtl.TestFT0" title="Link to this definition"></a></dt>
+<dd><p>Test Fermi function at zero temperature.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestFT0.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestFT0.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestFT0.test_ft0_basic">
+<span class="sig-name descname"><span class="pre">test_ft0_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestFT0.test_ft0_basic" title="Link to this definition"></a></dt>
+<dd><p>Test fT0 with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestFT0.test_ft0_below_fermi">
+<span class="sig-name descname"><span class="pre">test_ft0_below_fermi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestFT0.test_ft0_below_fermi" title="Link to this definition"></a></dt>
+<dd><p>Test fT0 with k &lt; kf.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestFT0.test_ft0_above_fermi">
+<span class="sig-name descname"><span class="pre">test_ft0_above_fermi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestFT0.test_ft0_above_fermi" title="Link to this definition"></a></dt>
+<dd><p>Test fT0 with k &gt; kf.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestFT0.test_ft0_at_fermi">
+<span class="sig-name descname"><span class="pre">test_ft0_at_fermi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestFT0.test_ft0_at_fermi" title="Link to this definition"></a></dt>
+<dd><p>Test fT0 with k = kf.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestFT0.test_ft0_array">
+<span class="sig-name descname"><span class="pre">test_ft0_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestFT0.test_ft0_array" title="Link to this definition"></a></dt>
+<dd><p>Test fT0 with array inputs.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestAtanJG">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestAtanJG</span></span><a class="headerlink" href="#test_epsrtl.TestAtanJG" title="Link to this definition"></a></dt>
+<dd><p>Test arctangent function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestAtanJG.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestAtanJG.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestAtanJG.test_atan_jg_basic">
+<span class="sig-name descname"><span class="pre">test_atan_jg_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestAtanJG.test_atan_jg_basic" title="Link to this definition"></a></dt>
+<dd><p>Test atanJG with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestAtanJG.test_atan_jg_real">
+<span class="sig-name descname"><span class="pre">test_atan_jg_real</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestAtanJG.test_atan_jg_real" title="Link to this definition"></a></dt>
+<dd><p>Test atanJG with real input.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestAtanJG.test_atan_jg_imaginary">
+<span class="sig-name descname"><span class="pre">test_atan_jg_imaginary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestAtanJG.test_atan_jg_imaginary" title="Link to this definition"></a></dt>
+<dd><p>Test atanJG with imaginary input.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestAtanJG.test_atan_jg_zero">
+<span class="sig-name descname"><span class="pre">test_atan_jg_zero</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestAtanJG.test_atan_jg_zero" title="Link to this definition"></a></dt>
+<dd><p>Test atanJG with zero input.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestAtanJG.test_atan_jg_array">
+<span class="sig-name descname"><span class="pre">test_atan_jg_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestAtanJG.test_atan_jg_array" title="Link to this definition"></a></dt>
+<dd><p>Test atanJG with array inputs.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestAtanhc">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestAtanhc</span></span><a class="headerlink" href="#test_epsrtl.TestAtanhc" title="Link to this definition"></a></dt>
+<dd><p>Test hyperbolic arctangent function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestAtanhc.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestAtanhc.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestAtanhc.test_atanhc_basic">
+<span class="sig-name descname"><span class="pre">test_atanhc_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestAtanhc.test_atanhc_basic" title="Link to this definition"></a></dt>
+<dd><p>Test atanhc with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestAtanhc.test_atanhc_zero">
+<span class="sig-name descname"><span class="pre">test_atanhc_zero</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestAtanhc.test_atanhc_zero" title="Link to this definition"></a></dt>
+<dd><p>Test atanhc with zero input.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestAtanhc.test_atanhc_small">
+<span class="sig-name descname"><span class="pre">test_atanhc_small</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestAtanhc.test_atanhc_small" title="Link to this definition"></a></dt>
+<dd><p>Test atanhc with small input.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestAtanhc.test_atanhc_array">
+<span class="sig-name descname"><span class="pre">test_atanhc_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestAtanhc.test_atanhc_array" title="Link to this definition"></a></dt>
+<dd><p>Test atanhc with array inputs.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiT">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestPiT</span></span><a class="headerlink" href="#test_epsrtl.TestPiT" title="Link to this definition"></a></dt>
+<dd><p>Test transverse polarization function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiT.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestPiT.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiT.test_pit_basic">
+<span class="sig-name descname"><span class="pre">test_pit_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestPiT.test_pit_basic" title="Link to this definition"></a></dt>
+<dd><p>Test PiT with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiT.test_pit_zero_frequency">
+<span class="sig-name descname"><span class="pre">test_pit_zero_frequency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestPiT.test_pit_zero_frequency" title="Link to this definition"></a></dt>
+<dd><p>Test PiT with zero frequency.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiT.test_pit_different_temperatures">
+<span class="sig-name descname"><span class="pre">test_pit_different_temperatures</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestPiT.test_pit_different_temperatures" title="Link to this definition"></a></dt>
+<dd><p>Test PiT with different temperatures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiT.test_pit_different_sizes">
+<span class="sig-name descname"><span class="pre">test_pit_different_sizes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestPiT.test_pit_different_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test PiT with different array sizes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestPiL</span></span><a class="headerlink" href="#test_epsrtl.TestPiL" title="Link to this definition"></a></dt>
+<dd><p>Test longitudinal polarization function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiL.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestPiL.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiL.test_pil_basic">
+<span class="sig-name descname"><span class="pre">test_pil_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestPiL.test_pil_basic" title="Link to this definition"></a></dt>
+<dd><p>Test PiL with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiL.test_pil_zero_frequency">
+<span class="sig-name descname"><span class="pre">test_pil_zero_frequency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestPiL.test_pil_zero_frequency" title="Link to this definition"></a></dt>
+<dd><p>Test PiL with zero frequency.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiL.test_pil_different_temperatures">
+<span class="sig-name descname"><span class="pre">test_pil_different_temperatures</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestPiL.test_pil_different_temperatures" title="Link to this definition"></a></dt>
+<dd><p>Test PiL with different temperatures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiL.test_pil_different_sizes">
+<span class="sig-name descname"><span class="pre">test_pil_different_sizes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestPiL.test_pil_different_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test PiL with different array sizes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiL_T0">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestPiL_T0</span></span><a class="headerlink" href="#test_epsrtl.TestPiL_T0" title="Link to this definition"></a></dt>
+<dd><p>Test longitudinal polarization function at zero temperature.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiL_T0.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestPiL_T0.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiL_T0.test_pil_t0_basic">
+<span class="sig-name descname"><span class="pre">test_pil_t0_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestPiL_T0.test_pil_t0_basic" title="Link to this definition"></a></dt>
+<dd><p>Test PiL_T0 with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiL_T0.test_pil_t0_zero_frequency">
+<span class="sig-name descname"><span class="pre">test_pil_t0_zero_frequency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestPiL_T0.test_pil_t0_zero_frequency" title="Link to this definition"></a></dt>
+<dd><p>Test PiL_T0 with zero frequency.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestPiL_T0.test_pil_t0_different_sizes">
+<span class="sig-name descname"><span class="pre">test_pil_t0_different_sizes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestPiL_T0.test_pil_t0_different_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test PiL_T0 with different array sizes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestGetEpsrLEpsrT">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestGetEpsrLEpsrT</span></span><a class="headerlink" href="#test_epsrtl.TestGetEpsrLEpsrT" title="Link to this definition"></a></dt>
+<dd><p>Test permittivity calculation function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestGetEpsrLEpsrT.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestGetEpsrLEpsrT.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestGetEpsrLEpsrT.test_get_epsr_l_epsr_t_basic">
+<span class="sig-name descname"><span class="pre">test_get_epsr_l_epsr_t_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestGetEpsrLEpsrT.test_get_epsr_l_epsr_t_basic" title="Link to this definition"></a></dt>
+<dd><p>Test GetEpsrLEpsrT with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestGetEpsrLEpsrT.test_get_epsr_l_epsr_t_different_sizes">
+<span class="sig-name descname"><span class="pre">test_get_epsr_l_epsr_t_different_sizes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestGetEpsrLEpsrT.test_get_epsr_l_epsr_t_different_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test GetEpsrLEpsrT with different array sizes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestZeroT_L">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestZeroT_L</span></span><a class="headerlink" href="#test_epsrtl.TestZeroT_L" title="Link to this definition"></a></dt>
+<dd><p>Test zero temperature longitudinal permittivity.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestZeroT_L.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestZeroT_L.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestZeroT_L.test_zero_t_l_electrons">
+<span class="sig-name descname"><span class="pre">test_zero_t_l_electrons</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestZeroT_L.test_zero_t_l_electrons" title="Link to this definition"></a></dt>
+<dd><p>Test ZeroT_L for electrons.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestZeroT_L.test_zero_t_l_holes">
+<span class="sig-name descname"><span class="pre">test_zero_t_l_holes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestZeroT_L.test_zero_t_l_holes" title="Link to this definition"></a></dt>
+<dd><p>Test ZeroT_L for holes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestZeroT_L.test_zero_t_l_different_sizes">
+<span class="sig-name descname"><span class="pre">test_zero_t_l_different_sizes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestZeroT_L.test_zero_t_l_different_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test ZeroT_L with different array sizes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestZeroT_T">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestZeroT_T</span></span><a class="headerlink" href="#test_epsrtl.TestZeroT_T" title="Link to this definition"></a></dt>
+<dd><p>Test zero temperature transverse permittivity.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestZeroT_T.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestZeroT_T.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestZeroT_T.test_zero_t_t_basic">
+<span class="sig-name descname"><span class="pre">test_zero_t_t_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestZeroT_T.test_zero_t_t_basic" title="Link to this definition"></a></dt>
+<dd><p>Test ZeroT_T with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestZeroT_T.test_zero_t_t_different_sizes">
+<span class="sig-name descname"><span class="pre">test_zero_t_t_different_sizes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestZeroT_T.test_zero_t_t_different_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test ZeroT_T with different array sizes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestQqGq">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestQqGq</span></span><a class="headerlink" href="#test_epsrtl.TestQqGq" title="Link to this definition"></a></dt>
+<dd><p>Test Omega and Gam calculation from permittivity.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestQqGq.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestQqGq.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestQqGq.test_qq_gq_basic">
+<span class="sig-name descname"><span class="pre">test_qq_gq_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestQqGq.test_qq_gq_basic" title="Link to this definition"></a></dt>
+<dd><p>Test QqGq with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestQqGq.test_qq_gq_different_sizes">
+<span class="sig-name descname"><span class="pre">test_qq_gq_different_sizes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestQqGq.test_qq_gq_different_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test QqGq with different array sizes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestRecordEpsrT">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestRecordEpsrT</span></span><a class="headerlink" href="#test_epsrtl.TestRecordEpsrT" title="Link to this definition"></a></dt>
+<dd><p>Test transverse permittivity recording.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestRecordEpsrT.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestRecordEpsrT.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestRecordEpsrT.test_record_epsr_t_basic">
+<span class="sig-name descname"><span class="pre">test_record_epsr_t_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestRecordEpsrT.test_record_epsr_t_basic" title="Link to this definition"></a></dt>
+<dd><p>Test RecordEpsrT with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestRecordEpsrT.test_record_epsr_t_different_sizes">
+<span class="sig-name descname"><span class="pre">test_record_epsr_t_different_sizes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestRecordEpsrT.test_record_epsr_t_different_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test RecordEpsrT with different array sizes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestRecordEpsrL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestRecordEpsrL</span></span><a class="headerlink" href="#test_epsrtl.TestRecordEpsrL" title="Link to this definition"></a></dt>
+<dd><p>Test longitudinal permittivity recording.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestRecordEpsrL.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestRecordEpsrL.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestRecordEpsrL.test_record_epsr_l_basic">
+<span class="sig-name descname"><span class="pre">test_record_epsr_l_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestRecordEpsrL.test_record_epsr_l_basic" title="Link to this definition"></a></dt>
+<dd><p>Test RecordEpsrL with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestRecordEpsrL.test_record_epsr_l_different_sizes">
+<span class="sig-name descname"><span class="pre">test_record_epsr_l_different_sizes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestRecordEpsrL.test_record_epsr_l_different_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test RecordEpsrL with different array sizes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestRecordEpsrL_T0">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestRecordEpsrL_T0</span></span><a class="headerlink" href="#test_epsrtl.TestRecordEpsrL_T0" title="Link to this definition"></a></dt>
+<dd><p>Test longitudinal permittivity recording at zero temperature.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestRecordEpsrL_T0.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestRecordEpsrL_T0.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestRecordEpsrL_T0.test_record_epsr_l_t0_basic">
+<span class="sig-name descname"><span class="pre">test_record_epsr_l_t0_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestRecordEpsrL_T0.test_record_epsr_l_t0_basic" title="Link to this definition"></a></dt>
+<dd><p>Test RecordEpsrL_T0 with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestRecordEpsrL_T0.test_record_epsr_l_t0_different_sizes">
+<span class="sig-name descname"><span class="pre">test_record_epsr_l_t0_different_sizes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestRecordEpsrL_T0.test_record_epsr_l_t0_different_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test RecordEpsrL_T0 with different array sizes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_epsrtl.TestIntegration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_epsrtl.</span></span><span class="sig-name descname"><span class="pre">TestIntegration</span></span><a class="headerlink" href="#test_epsrtl.TestIntegration" title="Link to this definition"></a></dt>
+<dd><p>Integration tests for complete permittivity workflows.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestIntegration.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestIntegration.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestIntegration.test_energy_calculation_workflow">
+<span class="sig-name descname"><span class="pre">test_energy_calculation_workflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestIntegration.test_energy_calculation_workflow" title="Link to this definition"></a></dt>
+<dd><p>Test complete energy calculation workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestIntegration.test_polarization_workflow">
+<span class="sig-name descname"><span class="pre">test_polarization_workflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestIntegration.test_polarization_workflow" title="Link to this definition"></a></dt>
+<dd><p>Test complete polarization calculation workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestIntegration.test_fermi_function_workflow">
+<span class="sig-name descname"><span class="pre">test_fermi_function_workflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestIntegration.test_fermi_function_workflow" title="Link to this definition"></a></dt>
+<dd><p>Test complete Fermi function calculation workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestIntegration.test_permittivity_recording_workflow">
+<span class="sig-name descname"><span class="pre">test_permittivity_recording_workflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestIntegration.test_permittivity_recording_workflow" title="Link to this definition"></a></dt>
+<dd><p>Test complete permittivity recording workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_epsrtl.TestIntegration.test_different_array_sizes">
+<span class="sig-name descname"><span class="pre">test_different_array_sizes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Nk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#test_epsrtl.TestIntegration.test_different_array_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test integration with different array sizes.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../test_phost/index.html" class="btn btn-neutral float-left" title="test_phost" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../test_coulomb/index.html" class="btn btn-neutral float-right" title="test_coulomb" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+coulombpythonic_example
+=======================
+
+.. py:module:: coulombpythonic_example
+
+.. autoapi-nested-parse::
+
+   CoulombPythonic Example Script
+
+   This script demonstrates the usage of the coulombpythonic module for quantum wire
+   Coulomb calculations. It shows both the modern Pythonic interface and the
+   Fortran-compatible interface.
+
+   Author: AI Assistant
+   Date: 2024
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   coulombpythonic_example.exit_code
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   coulombpythonic_example.create_test_system
+   coulombpythonic_example.demonstrate_pythonic_interface
+   coulombpythonic_example.demonstrate_fortran_interface
+   coulombpythonic_example.demonstrate_performance_scaling
+   coulombpythonic_example.create_visualization
+   coulombpythonic_example.main
+
+
+Module Contents
+---------------
+
+.. py:function:: create_test_system(N=32)
+
+   Create a test quantum wire system.
+
+
+.. py:function:: demonstrate_pythonic_interface()
+
+   Demonstrate the modern Pythonic interface.
+
+
+.. py:function:: demonstrate_fortran_interface()
+
+   Demonstrate the Fortran-compatible interface.
+
+
+.. py:function:: demonstrate_performance_scaling()
+
+   Demonstrate performance scaling with system size.
+
+
+.. py:function:: create_visualization(Veh, Vee, Vhh, Win, Wout, BGR)
+
+   Create visualization of the results.
+
+
+.. py:function:: main()
+
+   Main example function.
+
+
+.. py:data:: exit_code
+   :value: 1
+
+

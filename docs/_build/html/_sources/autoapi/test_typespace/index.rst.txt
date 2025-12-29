@@ -1,0 +1,558 @@
+test_typespace
+==============
+
+.. py:module:: test_typespace
+
+.. autoapi-nested-parse::
+
+   Comprehensive test suite for typespace.py module.
+
+   Tests all spatial grid structure functions including getters, setters,
+   array generation, I/O operations, and field manipulation functions.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   test_typespace.TestSSDataclass
+   test_typespace.TestGetFileParam
+   test_typespace.TestGetterFunctions
+   test_typespace.TestSetterFunctions
+   test_typespace.TestWidthFunctions
+   test_typespace.TestArrayGeneration
+   test_typespace.TestDifferentialFunctions
+   test_typespace.TestVolumeFunctions
+   test_typespace.TestFileIOParams
+   test_typespace.TestFieldInitialization
+   test_typespace.TestBinaryIO
+   test_typespace.TestTextIO
+   test_typespace.TestIntegratedIO
+   test_typespace.TestEdgeCases
+   test_typespace.TestParameterized
+
+
+Module Contents
+---------------
+
+.. py:class:: TestSSDataclass
+
+   Test the ss dataclass structure.
+
+
+   .. py:method:: test_ss_creation_3d()
+
+      Test creating 3D space structure.
+
+
+
+   .. py:method:: test_ss_creation_1d()
+
+      Test creating 1D space structure.
+
+
+
+   .. py:method:: test_ss_creation_2d()
+
+      Test creating 2D space structure.
+
+
+
+.. py:class:: TestGetFileParam
+
+   Test GetFileParam function.
+
+
+   .. py:method:: test_getfileparam_simple()
+
+      Test reading simple parameter.
+
+
+
+   .. py:method:: test_getfileparam_with_comment()
+
+      Test reading parameter with comment.
+
+
+
+   .. py:method:: test_getfileparam_integer()
+
+      Test reading integer parameter.
+
+
+
+   .. py:method:: test_getfileparam_scientific_notation()
+
+      Test reading scientific notation.
+
+
+
+   .. py:method:: test_getfileparam_empty_line()
+
+      Test error on empty line.
+
+
+
+   .. py:method:: test_getfileparam_eof()
+
+      Test error on end of file.
+
+
+
+.. py:class:: TestGetterFunctions
+
+   Test getter functions for space structure.
+
+
+   .. py:method:: test_getnx_getny_getnz()
+
+      Test getting grid dimensions.
+
+
+
+   .. py:method:: test_getdx_normal()
+
+      Test GetDx with normal case.
+
+
+
+   .. py:method:: test_getdx_collapsed()
+
+      Test GetDx with collapsed dimension.
+
+
+
+   .. py:method:: test_getdy_normal()
+
+      Test GetDy with normal case.
+
+
+
+   .. py:method:: test_getdy_collapsed()
+
+      Test GetDy with collapsed dimension.
+
+
+
+   .. py:method:: test_getdz_normal()
+
+      Test GetDz with normal case.
+
+
+
+   .. py:method:: test_getdz_collapsed()
+
+      Test GetDz with collapsed dimension.
+
+
+
+   .. py:method:: test_getepsr_normal()
+
+      Test GetEpsr with normal case.
+
+
+
+   .. py:method:: test_getepsr_collapsed()
+
+      Test GetEpsr with collapsed z dimension.
+
+
+
+.. py:class:: TestSetterFunctions
+
+   Test setter functions for space structure.
+
+
+   .. py:method:: test_setnx()
+
+      Test SetNx.
+
+
+
+   .. py:method:: test_setny()
+
+      Test SetNy.
+
+
+
+   .. py:method:: test_setnz()
+
+      Test SetNz.
+
+
+
+   .. py:method:: test_setdx()
+
+      Test SetDx.
+
+
+
+   .. py:method:: test_setdy()
+
+      Test SetDy.
+
+
+
+   .. py:method:: test_setdz()
+
+      Test SetDz.
+
+
+
+.. py:class:: TestWidthFunctions
+
+   Test width calculation functions.
+
+
+   .. py:method:: test_getxwidth()
+
+      Test GetXWidth.
+
+
+
+   .. py:method:: test_getywidth()
+
+      Test GetYWidth.
+
+
+
+   .. py:method:: test_getzwidth()
+
+      Test GetZWidth.
+
+
+
+   .. py:method:: test_getxwidth_single_point()
+
+      Test GetXWidth with single point.
+
+
+
+.. py:class:: TestArrayGeneration
+
+   Test array generation functions.
+
+
+   .. py:method:: test_getspacearray_simple()
+
+      Test GetSpaceArray with simple case.
+
+
+
+   .. py:method:: test_getspacearray_single_point()
+
+      Test GetSpaceArray with single point.
+
+
+
+   .. py:method:: test_getspacearray_even_length()
+
+      Test GetSpaceArray with even length.
+
+
+
+   .. py:method:: test_getspacearray_odd_length()
+
+      Test GetSpaceArray with odd length.
+
+
+
+   .. py:method:: test_getkarray_simple()
+
+      Test GetKArray with simple case.
+
+
+
+   .. py:method:: test_getkarray_single_point()
+
+      Test GetKArray with single point.
+
+
+
+   .. py:method:: test_getkarray_spacing()
+
+      Test GetKArray spacing.
+
+
+
+   .. py:method:: test_getxarray()
+
+      Test GetXArray.
+
+
+
+   .. py:method:: test_getxarray_single_point()
+
+      Test GetXArray with single point.
+
+
+
+   .. py:method:: test_getyarray()
+
+      Test GetYArray.
+
+
+
+   .. py:method:: test_getzarray()
+
+      Test GetZArray.
+
+
+
+   .. py:method:: test_getkxarray()
+
+      Test GetKxArray.
+
+
+
+   .. py:method:: test_getkyarray()
+
+      Test GetKyArray.
+
+
+
+   .. py:method:: test_getkzarray()
+
+      Test GetKzArray.
+
+
+
+.. py:class:: TestDifferentialFunctions
+
+   Test differential functions for conjugate coordinate system.
+
+
+   .. py:method:: test_getdqx()
+
+      Test GetDQx.
+
+
+
+   .. py:method:: test_getdqy()
+
+      Test GetDQy.
+
+
+
+   .. py:method:: test_getdqz()
+
+      Test GetDQz.
+
+
+
+   .. py:method:: test_getdqx_zero_width()
+
+      Test GetDQx with zero width.
+
+
+
+.. py:class:: TestVolumeFunctions
+
+   Test volume element functions.
+
+
+   .. py:method:: test_getdvol()
+
+      Test GetDVol.
+
+
+
+   .. py:method:: test_getdqvol()
+
+      Test GetDQVol.
+
+
+
+.. py:class:: TestFileIOParams
+
+   Test file I/O functions for space parameters.
+
+
+   .. py:method:: test_readspaceparams_sub()
+
+      Test readspaceparams_sub.
+
+
+
+   .. py:method:: test_writespaceparams_sub()
+
+      Test WriteSpaceParams_sub.
+
+
+
+   .. py:method:: test_readspaceparams_file()
+
+      Test ReadSpaceParams from file.
+
+
+
+   .. py:method:: test_writespaceparams_file()
+
+      Test writespaceparams to file.
+
+
+
+.. py:class:: TestFieldInitialization
+
+   Test field initialization functions.
+
+
+   .. py:method:: test_initialize_field()
+
+      Test initialize_field.
+
+
+
+   .. py:method:: test_initialize_field_large()
+
+      Test initialize_field with large array.
+
+
+
+   .. py:method:: test_initialize_field_small()
+
+      Test initialize_field with small array.
+
+
+
+.. py:class:: TestBinaryIO
+
+   Test binary I/O functions.
+
+
+   .. py:method:: test_unformatted_write_space()
+
+      Test unformatted_write_space.
+
+
+
+   .. py:method:: test_unformatted_write_e()
+
+      Test unformatted_write_e.
+
+
+
+   .. py:method:: test_unformatted_read_e()
+
+      Test unformatted_read_e.
+
+
+
+.. py:class:: TestTextIO
+
+   Test text I/O functions.
+
+
+   .. py:method:: test_readfield_from_unit_text()
+
+      Test readfield_from_unit in text mode.
+
+
+
+   .. py:method:: test_writefield_to_unit_text()
+
+      Test writefield_to_unit in text mode.
+
+
+
+.. py:class:: TestIntegratedIO
+
+   Test integrated I/O functions.
+
+
+   .. py:method:: test_writefield_binary()
+
+      Test writefield in binary mode.
+
+
+
+   .. py:method:: test_writefield_text()
+
+      Test writefield in text mode.
+
+
+
+   .. py:method:: test_readspace_only_binary()
+
+      Test readspace_only in binary mode.
+
+
+
+   .. py:method:: test_readfield_with_existing_array()
+
+      Test readfield with existing array.
+
+
+
+   .. py:method:: test_readfield_with_wrong_shape()
+
+      Test readfield with array of wrong shape.
+
+
+
+.. py:class:: TestEdgeCases
+
+   Test edge cases and special values.
+
+
+   .. py:method:: test_getspacearray_zero_length()
+
+      Test GetSpaceArray with zero length.
+
+
+
+   .. py:method:: test_getkarray_zero_length()
+
+      Test GetKArray with zero length.
+
+
+
+   .. py:method:: test_getdqx_zero_width()
+
+      Test GetDQx with zero width.
+
+
+
+   .. py:method:: test_getdvol_collapsed_dimensions()
+
+      Test GetDVol with collapsed dimensions.
+
+
+
+   .. py:method:: test_array_generation_1d()
+
+      Test array generation for 1D case.
+
+
+
+   .. py:method:: test_array_generation_2d()
+
+      Test array generation for 2D case.
+
+
+
+.. py:class:: TestParameterized
+
+   Parameterized tests for various dimensions.
+
+
+   .. py:method:: test_getters_all_dimensions(dims, nx, ny, nz)
+
+      Test getters for all dimension types.
+
+
+
+   .. py:method:: test_getxwidth_various_sizes(nx, dx)
+
+      Test GetXWidth with various sizes.
+
+
+
+   .. py:method:: test_getspacearray_various_sizes(n, l)
+
+      Test GetSpaceArray with various sizes.
+
+
+
