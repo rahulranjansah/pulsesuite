@@ -3,9 +3,7 @@ Def IFFT -> in phost.py (needs to placed elsewhere not present in usefulsubs)
 
 # Drop try except blocks and fix the nopython errors to priortize speed!
 # Check Ctrl + F (implemented) – for each codebase
-
-
-
+q
 # Discrepancy check
 
 Coloumb.py - w test
@@ -50,4 +48,21 @@ Docs vs Code discrepancy checker
 ................................
 can you help me mark all the discrepencies with documenatation code, actual code, and fortran code and the testcode within test so that i can mark them. (my goal is to keep them close to fortran code and real physics). Dont worry about indexing because python is 0-index and fortran is 1-index so there will be some difference in how code has been written as long as they are functionally equivalent, its fine. Same goes for signatures might be relevant in fortran not in python.
 
+# Optimization (GPU based)
 
+Cuda (implemented on triple loops in SBEs.py and qwoptics.py)
+H5py (To be implemented in I/O)
+fastmath checks
+Using dedicated pyfftw instead of scipy.fft
+
+# Suggestions (HPC based (CPU based))
+
+Thread only the spatial loop
+Use fastmath
+Precompute time envelopes
+Use HDF5 instead of text
+Keep I/O outside the hot loop
+pyfftw usage.
+
+
+(To be considered threading)
