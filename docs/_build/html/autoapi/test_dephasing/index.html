@@ -1,0 +1,735 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>test_dephasing &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="test_typespace" href="../test_typespace/index.html" />
+    <link rel="prev" title="test_qwoptics" href="../test_qwoptics/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/index.html">src</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spliner/index.html">spliner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_phost/index.html">test_phost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_epsrtl/index.html">test_epsrtl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_coulomb/index.html">test_coulomb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_dcfield/index.html">test_dcfield</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_phonons/index.html">test_phonons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_qwoptics/index.html">test_qwoptics</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">test_dephasing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#attributes">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.hbar"><code class="docutils literal notranslate"><span class="pre">hbar</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.pi"><code class="docutils literal notranslate"><span class="pre">pi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.ii"><code class="docutils literal notranslate"><span class="pre">ii</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.TestInitializeDephasing"><code class="docutils literal notranslate"><span class="pre">TestInitializeDephasing</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.TestVxx2"><code class="docutils literal notranslate"><span class="pre">TestVxx2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.TestCalcGammaE"><code class="docutils literal notranslate"><span class="pre">TestCalcGammaE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.TestCalcGammaH"><code class="docutils literal notranslate"><span class="pre">TestCalcGammaH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.TestCalcOffDiagDeph_E"><code class="docutils literal notranslate"><span class="pre">TestCalcOffDiagDeph_E</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.TestCalcOffDiagDeph_H"><code class="docutils literal notranslate"><span class="pre">TestCalcOffDiagDeph_H</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.TestCalcOffDiagDeph_E2"><code class="docutils literal notranslate"><span class="pre">TestCalcOffDiagDeph_E2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.TestCalcOffDiagDeph_H2"><code class="docutils literal notranslate"><span class="pre">TestCalcOffDiagDeph_H2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.TestOffDiagDephasing"><code class="docutils literal notranslate"><span class="pre">TestOffDiagDephasing</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.TestOffDiagDephasing2"><code class="docutils literal notranslate"><span class="pre">TestOffDiagDephasing2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.TestPrintGam"><code class="docutils literal notranslate"><span class="pre">TestPrintGam</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.TestWriteDephasing"><code class="docutils literal notranslate"><span class="pre">TestWriteDephasing</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dephasing.TestIntegration"><code class="docutils literal notranslate"><span class="pre">TestIntegration</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../test_typespace/index.html">test_typespace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../coulomb_example/index.html">coulomb_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_usefulsubs/index.html">test_usefulsubs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_basic_example/index.html">SBEs_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_domain_example/index.html">SBEs_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_basic_example/index.html">dcfield_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance_benchmark/index.html">performance_benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_workflow_example/index.html">SBEs_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_domain_example/index.html">dcfield_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_basic_example/index.html">qwoptics_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../coulombpythonic_example/index.html">coulombpythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../phononspythonic_example/index.html">phononspythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_domain_example/index.html">qwoptics_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_workflow_example/index.html">dcfield_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_workflow_example/index.html">qwoptics_workflow_example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">test_dephasing</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/autoapi/test_dephasing/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-test_dephasing">
+<span id="test-dephasing"></span><h1>test_dephasing<a class="headerlink" href="#module-test_dephasing" title="Link to this heading"></a></h1>
+<p>Comprehensive test suite for dephasing.py module.</p>
+<p>Tests all dephasing calculation functions including initialization, dephasing rates,
+off-diagonal dephasing matrices, and file I/O operations.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dephasing.hbar" title="test_dephasing.hbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hbar</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dephasing.pi" title="test_dephasing.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dephasing.ii" title="test_dephasing.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dephasing.TestInitializeDephasing" title="test_dephasing.TestInitializeDephasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestInitializeDephasing</span></code></a></p></td>
+<td><p>Test dephasing module initialization.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dephasing.TestVxx2" title="test_dephasing.TestVxx2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestVxx2</span></code></a></p></td>
+<td><p>Test squared interaction matrix calculation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dephasing.TestCalcGammaE" title="test_dephasing.TestCalcGammaE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcGammaE</span></code></a></p></td>
+<td><p>Test electron dephasing rate calculation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dephasing.TestCalcGammaH" title="test_dephasing.TestCalcGammaH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcGammaH</span></code></a></p></td>
+<td><p>Test hole dephasing rate calculation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dephasing.TestCalcOffDiagDeph_E" title="test_dephasing.TestCalcOffDiagDeph_E"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcOffDiagDeph_E</span></code></a></p></td>
+<td><p>Test off-diagonal dephasing matrix calculation for electrons.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dephasing.TestCalcOffDiagDeph_H" title="test_dephasing.TestCalcOffDiagDeph_H"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcOffDiagDeph_H</span></code></a></p></td>
+<td><p>Test off-diagonal dephasing matrix calculation for holes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dephasing.TestCalcOffDiagDeph_E2" title="test_dephasing.TestCalcOffDiagDeph_E2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcOffDiagDeph_E2</span></code></a></p></td>
+<td><p>Test off-diagonal dephasing matrix calculation for electrons (version 2).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dephasing.TestCalcOffDiagDeph_H2" title="test_dephasing.TestCalcOffDiagDeph_H2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcOffDiagDeph_H2</span></code></a></p></td>
+<td><p>Test off-diagonal dephasing matrix calculation for holes (version 2).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dephasing.TestOffDiagDephasing" title="test_dephasing.TestOffDiagDephasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestOffDiagDephasing</span></code></a></p></td>
+<td><p>Test off-diagonal dephasing contribution calculation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dephasing.TestOffDiagDephasing2" title="test_dephasing.TestOffDiagDephasing2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestOffDiagDephasing2</span></code></a></p></td>
+<td><p>Test off-diagonal dephasing contribution calculation (version 2).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dephasing.TestPrintGam" title="test_dephasing.TestPrintGam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestPrintGam</span></code></a></p></td>
+<td><p>Test dephasing rate printing function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dephasing.TestWriteDephasing" title="test_dephasing.TestWriteDephasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestWriteDephasing</span></code></a></p></td>
+<td><p>Test dephasing rate file writing function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dephasing.TestIntegration" title="test_dephasing.TestIntegration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestIntegration</span></code></a></p></td>
+<td><p>Integration tests for complete dephasing workflows.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="test_dephasing.hbar">
+<span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#test_dephasing.hbar" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="test_dephasing.pi">
+<span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#test_dephasing.pi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="test_dephasing.ii">
+<span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1j</span></em><a class="headerlink" href="#test_dephasing.ii" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dephasing.TestInitializeDephasing">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">TestInitializeDephasing</span></span><a class="headerlink" href="#test_dephasing.TestInitializeDephasing" title="Link to this definition"></a></dt>
+<dd><p>Test dephasing module initialization.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestInitializeDephasing.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestInitializeDephasing.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestInitializeDephasing.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestInitializeDephasing.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up after tests.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestInitializeDephasing.test_initialize_dephasing_small">
+<span class="sig-name descname"><span class="pre">test_initialize_dephasing_small</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestInitializeDephasing.test_initialize_dephasing_small" title="Link to this definition"></a></dt>
+<dd><p>Test InitializeDephasing with small array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestInitializeDephasing.test_initialize_dephasing_even_length">
+<span class="sig-name descname"><span class="pre">test_initialize_dephasing_even_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestInitializeDephasing.test_initialize_dephasing_even_length" title="Link to this definition"></a></dt>
+<dd><p>Test InitializeDephasing with even length array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestInitializeDephasing.test_initialize_dephasing_odd_length">
+<span class="sig-name descname"><span class="pre">test_initialize_dephasing_odd_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestInitializeDephasing.test_initialize_dephasing_odd_length" title="Link to this definition"></a></dt>
+<dd><p>Test InitializeDephasing with odd length array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestInitializeDephasing.test_initialize_dephasing_prime_length">
+<span class="sig-name descname"><span class="pre">test_initialize_dephasing_prime_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestInitializeDephasing.test_initialize_dephasing_prime_length" title="Link to this definition"></a></dt>
+<dd><p>Test InitializeDephasing with prime length array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestInitializeDephasing.test_initialize_dephasing_single_element">
+<span class="sig-name descname"><span class="pre">test_initialize_dephasing_single_element</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestInitializeDephasing.test_initialize_dephasing_single_element" title="Link to this definition"></a></dt>
+<dd><p>Test InitializeDephasing with single element array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestInitializeDephasing.test_initialize_dephasing_index_bounds">
+<span class="sig-name descname"><span class="pre">test_initialize_dephasing_index_bounds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestInitializeDephasing.test_initialize_dephasing_index_bounds" title="Link to this definition"></a></dt>
+<dd><p>Test that initialized indices are within valid bounds.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestInitializeDephasing.test_initialize_dephasing_xe_xh_positive">
+<span class="sig-name descname"><span class="pre">test_initialize_dephasing_xe_xh_positive</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestInitializeDephasing.test_initialize_dephasing_xe_xh_positive" title="Link to this definition"></a></dt>
+<dd><p>Test that xe and xh arrays are positive.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dephasing.TestVxx2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">TestVxx2</span></span><a class="headerlink" href="#test_dephasing.TestVxx2" title="Link to this definition"></a></dt>
+<dd><p>Test squared interaction matrix calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestVxx2.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestVxx2.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestVxx2.test_vxx2_small">
+<span class="sig-name descname"><span class="pre">test_vxx2_small</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestVxx2.test_vxx2_small" title="Link to this definition"></a></dt>
+<dd><p>Test Vxx2 with small array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestVxx2.test_vxx2_even_length">
+<span class="sig-name descname"><span class="pre">test_vxx2_even_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestVxx2.test_vxx2_even_length" title="Link to this definition"></a></dt>
+<dd><p>Test Vxx2 with even length array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestVxx2.test_vxx2_odd_length">
+<span class="sig-name descname"><span class="pre">test_vxx2_odd_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestVxx2.test_vxx2_odd_length" title="Link to this definition"></a></dt>
+<dd><p>Test Vxx2 with odd length array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestVxx2.test_vxx2_single_element">
+<span class="sig-name descname"><span class="pre">test_vxx2_single_element</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestVxx2.test_vxx2_single_element" title="Link to this definition"></a></dt>
+<dd><p>Test Vxx2 with single element array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestVxx2.test_vxx2_zero_momentum">
+<span class="sig-name descname"><span class="pre">test_vxx2_zero_momentum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestVxx2.test_vxx2_zero_momentum" title="Link to this definition"></a></dt>
+<dd><p>Test Vxx2 with zero momentum.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcGammaE">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">TestCalcGammaE</span></span><a class="headerlink" href="#test_dephasing.TestCalcGammaE" title="Link to this definition"></a></dt>
+<dd><p>Test electron dephasing rate calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcGammaE.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcGammaE.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcGammaE.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcGammaE.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up after tests.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcGammaE.test_calc_gamma_e_basic">
+<span class="sig-name descname"><span class="pre">test_calc_gamma_e_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcGammaE.test_calc_gamma_e_basic" title="Link to this definition"></a></dt>
+<dd><p>Test CalcGammaE with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcGammaE.test_calc_gamma_e_zero_populations">
+<span class="sig-name descname"><span class="pre">test_calc_gamma_e_zero_populations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcGammaE.test_calc_gamma_e_zero_populations" title="Link to this definition"></a></dt>
+<dd><p>Test CalcGammaE with zero populations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcGammaE.test_calc_gamma_e_error_if_not_initialized">
+<span class="sig-name descname"><span class="pre">test_calc_gamma_e_error_if_not_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcGammaE.test_calc_gamma_e_error_if_not_initialized" title="Link to this definition"></a></dt>
+<dd><p>Test that CalcGammaE raises error if not initialized.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcGammaE.test_calc_gamma_e_different_sizes">
+<span class="sig-name descname"><span class="pre">test_calc_gamma_e_different_sizes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcGammaE.test_calc_gamma_e_different_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test CalcGammaE with different array sizes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcGammaH">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">TestCalcGammaH</span></span><a class="headerlink" href="#test_dephasing.TestCalcGammaH" title="Link to this definition"></a></dt>
+<dd><p>Test hole dephasing rate calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcGammaH.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcGammaH.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcGammaH.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcGammaH.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up after tests.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcGammaH.test_calc_gamma_h_basic">
+<span class="sig-name descname"><span class="pre">test_calc_gamma_h_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcGammaH.test_calc_gamma_h_basic" title="Link to this definition"></a></dt>
+<dd><p>Test CalcGammaH with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcGammaH.test_calc_gamma_h_zero_populations">
+<span class="sig-name descname"><span class="pre">test_calc_gamma_h_zero_populations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcGammaH.test_calc_gamma_h_zero_populations" title="Link to this definition"></a></dt>
+<dd><p>Test CalcGammaH with zero populations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcGammaH.test_calc_gamma_h_error_if_not_initialized">
+<span class="sig-name descname"><span class="pre">test_calc_gamma_h_error_if_not_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcGammaH.test_calc_gamma_h_error_if_not_initialized" title="Link to this definition"></a></dt>
+<dd><p>Test that CalcGammaH raises error if not initialized.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_E">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">TestCalcOffDiagDeph_E</span></span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_E" title="Link to this definition"></a></dt>
+<dd><p>Test off-diagonal dephasing matrix calculation for electrons.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_E.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_E.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_E.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_E.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up after tests.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_E.test_calc_off_diag_deph_e_basic">
+<span class="sig-name descname"><span class="pre">test_calc_off_diag_deph_e_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_E.test_calc_off_diag_deph_e_basic" title="Link to this definition"></a></dt>
+<dd><p>Test CalcOffDiagDeph_E with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_E.test_calc_off_diag_deph_e_zero_populations">
+<span class="sig-name descname"><span class="pre">test_calc_off_diag_deph_e_zero_populations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_E.test_calc_off_diag_deph_e_zero_populations" title="Link to this definition"></a></dt>
+<dd><p>Test CalcOffDiagDeph_E with zero populations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_E.test_calc_off_diag_deph_e_error_if_not_initialized">
+<span class="sig-name descname"><span class="pre">test_calc_off_diag_deph_e_error_if_not_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_E.test_calc_off_diag_deph_e_error_if_not_initialized" title="Link to this definition"></a></dt>
+<dd><p>Test that CalcOffDiagDeph_E raises error if not initialized.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_H">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">TestCalcOffDiagDeph_H</span></span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_H" title="Link to this definition"></a></dt>
+<dd><p>Test off-diagonal dephasing matrix calculation for holes.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_H.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_H.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_H.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_H.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up after tests.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_H.test_calc_off_diag_deph_h_basic">
+<span class="sig-name descname"><span class="pre">test_calc_off_diag_deph_h_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_H.test_calc_off_diag_deph_h_basic" title="Link to this definition"></a></dt>
+<dd><p>Test CalcOffDiagDeph_H with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_H.test_calc_off_diag_deph_h_zero_populations">
+<span class="sig-name descname"><span class="pre">test_calc_off_diag_deph_h_zero_populations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_H.test_calc_off_diag_deph_h_zero_populations" title="Link to this definition"></a></dt>
+<dd><p>Test CalcOffDiagDeph_H with zero populations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_H.test_calc_off_diag_deph_h_error_if_not_initialized">
+<span class="sig-name descname"><span class="pre">test_calc_off_diag_deph_h_error_if_not_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_H.test_calc_off_diag_deph_h_error_if_not_initialized" title="Link to this definition"></a></dt>
+<dd><p>Test that CalcOffDiagDeph_H raises error if not initialized.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_E2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">TestCalcOffDiagDeph_E2</span></span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_E2" title="Link to this definition"></a></dt>
+<dd><p>Test off-diagonal dephasing matrix calculation for electrons (version 2).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_E2.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_E2.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_E2.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_E2.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up after tests.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_E2.test_calc_off_diag_deph_e2_basic">
+<span class="sig-name descname"><span class="pre">test_calc_off_diag_deph_e2_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_E2.test_calc_off_diag_deph_e2_basic" title="Link to this definition"></a></dt>
+<dd><p>Test CalcOffDiagDeph_E2 with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_E2.test_calc_off_diag_deph_e2_zero_populations">
+<span class="sig-name descname"><span class="pre">test_calc_off_diag_deph_e2_zero_populations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_E2.test_calc_off_diag_deph_e2_zero_populations" title="Link to this definition"></a></dt>
+<dd><p>Test CalcOffDiagDeph_E2 with zero populations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_E2.test_calc_off_diag_deph_e2_different_sizes">
+<span class="sig-name descname"><span class="pre">test_calc_off_diag_deph_e2_different_sizes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_E2.test_calc_off_diag_deph_e2_different_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test CalcOffDiagDeph_E2 with different array sizes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_H2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">TestCalcOffDiagDeph_H2</span></span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_H2" title="Link to this definition"></a></dt>
+<dd><p>Test off-diagonal dephasing matrix calculation for holes (version 2).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_H2.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_H2.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_H2.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_H2.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up after tests.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_H2.test_calc_off_diag_deph_h2_basic">
+<span class="sig-name descname"><span class="pre">test_calc_off_diag_deph_h2_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_H2.test_calc_off_diag_deph_h2_basic" title="Link to this definition"></a></dt>
+<dd><p>Test CalcOffDiagDeph_H2 with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestCalcOffDiagDeph_H2.test_calc_off_diag_deph_h2_zero_populations">
+<span class="sig-name descname"><span class="pre">test_calc_off_diag_deph_h2_zero_populations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestCalcOffDiagDeph_H2.test_calc_off_diag_deph_h2_zero_populations" title="Link to this definition"></a></dt>
+<dd><p>Test CalcOffDiagDeph_H2 with zero populations.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dephasing.TestOffDiagDephasing">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">TestOffDiagDephasing</span></span><a class="headerlink" href="#test_dephasing.TestOffDiagDephasing" title="Link to this definition"></a></dt>
+<dd><p>Test off-diagonal dephasing contribution calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestOffDiagDephasing.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestOffDiagDephasing.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestOffDiagDephasing.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestOffDiagDephasing.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up after tests.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestOffDiagDephasing.test_off_diag_dephasing_basic">
+<span class="sig-name descname"><span class="pre">test_off_diag_dephasing_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestOffDiagDephasing.test_off_diag_dephasing_basic" title="Link to this definition"></a></dt>
+<dd><p>Test OffDiagDephasing with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestOffDiagDephasing.test_off_diag_dephasing_zero_polarization">
+<span class="sig-name descname"><span class="pre">test_off_diag_dephasing_zero_polarization</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestOffDiagDephasing.test_off_diag_dephasing_zero_polarization" title="Link to this definition"></a></dt>
+<dd><p>Test OffDiagDephasing with zero polarization.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestOffDiagDephasing.test_off_diag_dephasing_error_if_not_initialized">
+<span class="sig-name descname"><span class="pre">test_off_diag_dephasing_error_if_not_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestOffDiagDephasing.test_off_diag_dephasing_error_if_not_initialized" title="Link to this definition"></a></dt>
+<dd><p>Test that OffDiagDephasing raises error if not initialized.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dephasing.TestOffDiagDephasing2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">TestOffDiagDephasing2</span></span><a class="headerlink" href="#test_dephasing.TestOffDiagDephasing2" title="Link to this definition"></a></dt>
+<dd><p>Test off-diagonal dephasing contribution calculation (version 2).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestOffDiagDephasing2.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestOffDiagDephasing2.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestOffDiagDephasing2.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestOffDiagDephasing2.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up after tests.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestOffDiagDephasing2.test_off_diag_dephasing2_basic">
+<span class="sig-name descname"><span class="pre">test_off_diag_dephasing2_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestOffDiagDephasing2.test_off_diag_dephasing2_basic" title="Link to this definition"></a></dt>
+<dd><p>Test OffDiagDephasing2 with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestOffDiagDephasing2.test_off_diag_dephasing2_zero_polarization">
+<span class="sig-name descname"><span class="pre">test_off_diag_dephasing2_zero_polarization</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestOffDiagDephasing2.test_off_diag_dephasing2_zero_polarization" title="Link to this definition"></a></dt>
+<dd><p>Test OffDiagDephasing2 with zero polarization.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestOffDiagDephasing2.test_off_diag_dephasing2_file_output">
+<span class="sig-name descname"><span class="pre">test_off_diag_dephasing2_file_output</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestOffDiagDephasing2.test_off_diag_dephasing2_file_output" title="Link to this definition"></a></dt>
+<dd><p>Test that OffDiagDephasing2 writes to files.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dephasing.TestPrintGam">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">TestPrintGam</span></span><a class="headerlink" href="#test_dephasing.TestPrintGam" title="Link to this definition"></a></dt>
+<dd><p>Test dephasing rate printing function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestPrintGam.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestPrintGam.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestPrintGam.test_print_gam_basic">
+<span class="sig-name descname"><span class="pre">test_print_gam_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestPrintGam.test_print_gam_basic" title="Link to this definition"></a></dt>
+<dd><p>Test printGam with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestPrintGam.test_print_gam_different_sizes">
+<span class="sig-name descname"><span class="pre">test_print_gam_different_sizes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestPrintGam.test_print_gam_different_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test printGam with different array sizes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestPrintGam.test_print_gam_single_element">
+<span class="sig-name descname"><span class="pre">test_print_gam_single_element</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestPrintGam.test_print_gam_single_element" title="Link to this definition"></a></dt>
+<dd><p>Test printGam with single element array.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dephasing.TestWriteDephasing">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">TestWriteDephasing</span></span><a class="headerlink" href="#test_dephasing.TestWriteDephasing" title="Link to this definition"></a></dt>
+<dd><p>Test dephasing rate file writing function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestWriteDephasing.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestWriteDephasing.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestWriteDephasing.test_write_dephasing_basic">
+<span class="sig-name descname"><span class="pre">test_write_dephasing_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestWriteDephasing.test_write_dephasing_basic" title="Link to this definition"></a></dt>
+<dd><p>Test WriteDephasing with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestWriteDephasing.test_write_dephasing_different_indices">
+<span class="sig-name descname"><span class="pre">test_write_dephasing_different_indices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestWriteDephasing.test_write_dephasing_different_indices" title="Link to this definition"></a></dt>
+<dd><p>Test WriteDephasing with different wire and time indices.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dephasing.TestIntegration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dephasing.</span></span><span class="sig-name descname"><span class="pre">TestIntegration</span></span><a class="headerlink" href="#test_dephasing.TestIntegration" title="Link to this definition"></a></dt>
+<dd><p>Integration tests for complete dephasing workflows.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestIntegration.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestIntegration.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestIntegration.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestIntegration.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up after tests.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestIntegration.test_full_dephasing_workflow">
+<span class="sig-name descname"><span class="pre">test_full_dephasing_workflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestIntegration.test_full_dephasing_workflow" title="Link to this definition"></a></dt>
+<dd><p>Test complete dephasing calculation workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestIntegration.test_off_diag_dephasing_workflow">
+<span class="sig-name descname"><span class="pre">test_off_diag_dephasing_workflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestIntegration.test_off_diag_dephasing_workflow" title="Link to this definition"></a></dt>
+<dd><p>Test complete off-diagonal dephasing workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestIntegration.test_off_diag_dephasing2_workflow">
+<span class="sig-name descname"><span class="pre">test_off_diag_dephasing2_workflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestIntegration.test_off_diag_dephasing2_workflow" title="Link to this definition"></a></dt>
+<dd><p>Test complete off-diagonal dephasing workflow (version 2).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestIntegration.test_version2_consistency">
+<span class="sig-name descname"><span class="pre">test_version2_consistency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestIntegration.test_version2_consistency" title="Link to this definition"></a></dt>
+<dd><p>Test that CalcOffDiagDeph_E2 and CalcOffDiagDeph_H2 produce valid results.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dephasing.TestIntegration.test_different_array_sizes">
+<span class="sig-name descname"><span class="pre">test_different_array_sizes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Nk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#test_dephasing.TestIntegration.test_different_array_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test integration with different array sizes.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../test_qwoptics/index.html" class="btn btn-neutral float-left" title="test_qwoptics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../test_typespace/index.html" class="btn btn-neutral float-right" title="test_typespace" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

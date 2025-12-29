@@ -1,0 +1,46 @@
+dcfield_basic_example
+=====================
+
+.. py:module:: dcfield_basic_example
+
+.. autoapi-nested-parse::
+
+   DC Field Basic Example
+   ======================
+
+   Basic Example: Minimal working example that proves the DC field module works
+   Style: Hard-coded data, immediate visualization
+   Audience: Someone copy-pasting to verify installation
+
+   This example demonstrates basic DC field calculations for quantum wire carriers.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   dcfield_basic_example.HAS_MATPLOTLIB
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   dcfield_basic_example.main
+
+
+Module Contents
+---------------
+
+.. py:data:: HAS_MATPLOTLIB
+   :value: True
+
+
+.. py:function:: main()
+
+   Basic DC field calculation example.
+
+

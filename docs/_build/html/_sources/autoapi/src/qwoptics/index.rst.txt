@@ -1,0 +1,680 @@
+src.qwoptics
+============
+
+.. py:module:: src.qwoptics
+
+.. autoapi-nested-parse::
+
+   Quantum wire optics calculations for quantum wire simulations.
+
+   This module converts Maxwell electric fields from propagation space
+   to quantum wire (QW) electric fields, and vice versa. It also calculates
+   QW polarization and charge densities.
+
+   Author: Rahul R. Sah
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   src.qwoptics.twopi
+   src.qwoptics.c0
+   src.qwoptics.hbar
+   src.qwoptics.eps0
+   src.qwoptics.ii
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.qwoptics.Prop2QW
+   src.qwoptics.QW2Prop
+   src.qwoptics.QWPolarization3
+   src.qwoptics.yw
+   src.qwoptics.printITReal2
+   src.qwoptics.WriteSBESolns
+   src.qwoptics.WritePLSpectrum
+   src.qwoptics.WriteQWFields
+   src.qwoptics.WritePropFields
+   src.qwoptics.QWRho5
+   src.qwoptics.printIT3D
+   src.qwoptics.printITReal
+   src.qwoptics.QWChi1
+   src.qwoptics.CalcQWWindow
+   src.qwoptics.InitializeQWOptics
+   src.qwoptics.CalcExpikr
+   src.qwoptics.Xcv
+   src.qwoptics.Ycv
+   src.qwoptics.Zcv
+   src.qwoptics.GetVn1n2
+
+
+Module Contents
+---------------
+
+.. py:data:: twopi
+
+.. py:data:: c0
+
+.. py:data:: hbar
+
+.. py:data:: eps0
+
+.. py:data:: ii
+   :value: 1j
+
+
+.. py:function:: Prop2QW(RR, Exx, Eyy, Ezz, Vrr, Edc, R, Ex, Ey, Ez, Vr, t, xxx)
+
+   Convert Maxwell electric fields from propagation space to QW space.
+
+   Converts the Maxwell electric fields (Exx, Eyy, Ezz, Vrr) in
+   the propagation space (RR) into the QW electric fields (Ex, Ey, Ez, Vr)
+   in the QW electric field space (R). After interpolating from the RR-space
+   to the R-space, the FFT from the R- to Qr-space is taken.
+
+   :param RR: Maxwell RR spatial array, 1D array
+   :type RR: ndarray
+   :param Exx: Maxwell X electric field, 1D array, complex
+   :type Exx: ndarray
+   :param Eyy: Maxwell Y electric field, 1D array, complex
+   :type Eyy: ndarray
+   :param Ezz: Maxwell Z electric field, 1D array, complex
+   :type Ezz: ndarray
+   :param Vrr: Maxwell free charge potential, 1D array, complex
+   :type Vrr: ndarray
+   :param Edc: QW spatial array (modified in-place, currently unused)
+   :type Edc: float
+   :param R: QW spatial array, 1D array
+   :type R: ndarray
+   :param Ex: QW X electric field (modified in-place), 1D array, complex
+   :type Ex: ndarray
+   :param Ey: QW Y electric field (modified in-place), 1D array, complex
+   :type Ey: ndarray
+   :param Ez: QW Z electric field (modified in-place), 1D array, complex
+   :type Ez: ndarray
+   :param Vr: QW free charge potential (modified in-place), 1D array, complex
+   :type Vr: ndarray
+   :param t: Current time (s)
+   :type t: float
+   :param xxx: Time index
+   :type xxx: int
+
+   :returns: Ex, Ey, Ez, Vr, Edc are modified in-place
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses module-level variable _QWWindow for windowing.
+   Fields are made real before FFT.
+
+
+.. py:function:: QW2Prop(r, Qr, Ex, Ey, Ez, Vr, Px, Py, Pz, re, rh, RR, Pxx, Pyy, Pzz, RhoE, RhoH, w, xxx, WriteFields, Plasmonics)
+
+   Convert QW fields and polarizations back to propagation space.
+
+   Converts QW electric fields, polarizations, and charge densities
+   from QW space (r, Qr) back to propagation space (RR).
+
+   :param r: QW Y-spaces, 1D array
+   :type r: ndarray
+   :param Qr: QW momentum space, 1D array
+   :type Qr: ndarray
+   :param Ex: QW X electric field (modified in-place), 1D array, complex
+   :type Ex: ndarray
+   :param Ey: QW Y electric field (modified in-place), 1D array, complex
+   :type Ey: ndarray
+   :param Ez: QW Z electric field (modified in-place), 1D array, complex
+   :type Ez: ndarray
+   :param Vr: QW free charge potential (modified in-place), 1D array, complex
+   :type Vr: ndarray
+   :param Px: QW X polarization (modified in-place), 1D array, complex
+   :type Px: ndarray
+   :param Py: QW Y polarization (modified in-place), 1D array, complex
+   :type Py: ndarray
+   :param Pz: QW Z polarization (modified in-place), 1D array, complex
+   :type Pz: ndarray
+   :param re: QW electron charge density (modified in-place), 1D array, complex
+   :type re: ndarray
+   :param rh: QW hole charge density (modified in-place), 1D array, complex
+   :type rh: ndarray
+   :param RR: Propagation Y-spaces, 1D array
+   :type RR: ndarray
+   :param Pxx: Propagation X polarization (modified in-place), 1D array, complex
+   :type Pxx: ndarray
+   :param Pyy: Propagation Y polarization (modified in-place), 1D array, complex
+   :type Pyy: ndarray
+   :param Pzz: Propagation Z polarization (modified in-place), 1D array, complex
+   :type Pzz: ndarray
+   :param RhoE: Propagation electron charge density (modified in-place), 1D array, complex
+   :type RhoE: ndarray
+   :param RhoH: Propagation hole charge density (modified in-place), 1D array, complex
+   :type RhoH: ndarray
+   :param w: Wire index
+   :type w: int
+   :param xxx: Time index
+   :type xxx: int
+   :param WriteFields: Record fields?
+   :type WriteFields: bool
+   :param Plasmonics: Calculate charge densities?
+   :type Plasmonics: bool
+
+   :returns: All input arrays are modified in-place
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses module-level variable _small for numerical stability.
+   Charge densities are normalized if Plasmonics is True.
+
+
+.. py:function:: QWPolarization3(y, ky, p, ehint, area, L, Px, Py, Pz, xxx, w)
+
+   Calculate QW polarization in 3D.
+
+   Computes the QW polarization components (Px, Py, Pz) from the
+   density matrix p using the dipole matrix elements.
+
+   :param y: Spatial coordinate array, 1D array
+   :type y: ndarray
+   :param ky: Momentum coordinate array, 1D array
+   :type ky: ndarray
+   :param p: Density matrix, shape (Nk, Nk), complex
+   :type p: ndarray
+   :param ehint: Electron-hole space integral
+   :type ehint: float
+   :param area: Area of wire (m^2)
+   :type area: float
+   :param L: Length of wire (m)
+   :type L: float
+   :param Px: QW X polarization (modified in-place), 1D array, complex
+   :type Px: ndarray
+   :param Py: QW Y polarization (modified in-place), 1D array, complex
+   :type Py: ndarray
+   :param Pz: QW Z polarization (modified in-place), 1D array, complex
+   :type Pz: ndarray
+   :param xxx: Time index
+   :type xxx: int
+   :param w: Wire index
+   :type w: int
+
+   :returns: Px, Py, Pz are modified in-place
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses module-level variables _Xvc0, _Yvc0, _Zvc0, _Expikr, _Expikrc, _QWWindow.
+   Uses JIT compilation for performance-critical loops.
+
+
+.. py:function:: yw(w)
+
+   Calculate wire-dependent sign factor.
+
+   Computes a sign factor based on the wire index.
+
+   :param w: Wire index
+   :type w: int
+
+   :returns: Sign factor: (-1)**floor((w-1)/2)
+   :rtype: int
+
+   .. rubric:: Notes
+
+   Used for alternating sign patterns in multi-wire systems.
+
+
+.. py:function:: printITReal2(Dx, z, n, file)
+
+   Print real part of complex field to file.
+
+   Writes the real part of a complex field array to a file.
+   On the first call, writes both the field and coordinate values.
+   On subsequent calls, writes only the field values.
+
+   :param Dx: Complex field array, 1D array
+   :type Dx: ndarray
+   :param z: Coordinate array, 1D array
+   :type z: ndarray
+   :param n: Time index
+   :type n: int
+   :param file: Base filename (without extension)
+   :type file: str
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses module-level variable _firsttime to track first write.
+   Files are written to 'dataQW/' directory.
+
+
+.. py:function:: WriteSBESolns(ky, ne, nh, C, D, P, Ee, Eh, w, xxx)
+
+   Write SBE (Semiconductor Bloch Equations) solutions to files.
+
+   Writes quantum wire electron/hole occupation numbers, coherence matrices,
+   and energies to output files.
+
+   :param ky: QW momentum array, 1D array
+   :type ky: ndarray
+   :param ne: QW electron occupation numbers, 1D array, complex
+   :type ne: ndarray
+   :param nh: QW hole occupation numbers, 1D array, complex
+   :type nh: ndarray
+   :param C: QW electron/electron coherence matrix, 2D array, complex
+   :type C: ndarray
+   :param D: QW hole/hole coherence matrix, 2D array, complex
+   :type D: ndarray
+   :param P: QW electron/hole coherence matrix, 2D array, complex
+   :type P: ndarray
+   :param Ee: QW electron energies, 1D array, complex
+   :type Ee: ndarray
+   :param Eh: QW hole energies, 1D array, complex
+   :type Eh: ndarray
+   :param w: Wire index
+   :type w: int
+   :param xxx: Time index
+   :type xxx: int
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses printIT and printIT2D from usefulsubs to write data files.
+
+
+.. py:function:: WritePLSpectrum(hw, PLS, w, xxx)
+
+   Write photoluminescence spectrum to file.
+
+   Writes the photoluminescence spectrum as a function of photon energy
+   to an output file.
+
+   :param hw: Photon energy array (J), 1D array
+   :type hw: ndarray
+   :param PLS: Photoluminescence spectrum, 1D array
+   :type PLS: ndarray
+   :param w: Wire index
+   :type w: int
+   :param xxx: Time index
+   :type xxx: int
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Converts photon energy from Joules to eV (divides by e0).
+   Uses printIT from usefulsubs to write data file.
+
+
+.. py:function:: WriteQWFields(QY, Ex, Ey, Ez, Vr, Px, Py, Pz, Re, Rh, sp, w, xxx)
+
+   Write QW field arrays to files.
+
+   Writes QW electric fields, polarizations, and charge densities
+   to output files.
+
+   :param QY: QY momentum/y-space array, 1D array
+   :type QY: ndarray
+   :param Ex: QW X electric field, 1D array, complex
+   :type Ex: ndarray
+   :param Ey: QW Y electric field, 1D array, complex
+   :type Ey: ndarray
+   :param Ez: QW Z electric field, 1D array, complex
+   :type Ez: ndarray
+   :param Vr: QW free charge potential, 1D array, complex
+   :type Vr: ndarray
+   :param Px: QW X polarization, 1D array, complex
+   :type Px: ndarray
+   :param Py: QW Y polarization, 1D array, complex
+   :type Py: ndarray
+   :param Pz: QW Z polarization, 1D array, complex
+   :type Pz: ndarray
+   :param Re: QW electron charge density, 1D array, complex
+   :type Re: ndarray
+   :param Rh: QW hole charge density, 1D array, complex
+   :type Rh: ndarray
+   :param sp: Domain label ('k' or 'r') for file name
+   :type sp: str
+   :param w: Wire index
+   :type w: int
+   :param xxx: Time index
+   :type xxx: int
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses printIT from usefulsubs to write data files.
+
+
+.. py:function:: WritePropFields(y, Ex, Ey, Ez, Vr, Px, Py, Pz, Re, Rh, sp, w, xxx)
+
+   Write propagation field arrays to files.
+
+   Writes propagation electric fields, polarizations, and charge densities
+   to output files.
+
+   :param y: Spatial coordinate array, 1D array
+   :type y: ndarray
+   :param Ex: Propagation X electric field, 1D array, complex
+   :type Ex: ndarray
+   :param Ey: Propagation Y electric field, 1D array, complex
+   :type Ey: ndarray
+   :param Ez: Propagation Z electric field, 1D array, complex
+   :type Ez: ndarray
+   :param Vr: Propagation free charge potential, 1D array, complex
+   :type Vr: ndarray
+   :param Px: Propagation X polarization, 1D array, complex
+   :type Px: ndarray
+   :param Py: Propagation Y polarization, 1D array, complex
+   :type Py: ndarray
+   :param Pz: Propagation Z polarization, 1D array, complex
+   :type Pz: ndarray
+   :param Re: Propagation electron charge density, 1D array, complex
+   :type Re: ndarray
+   :param Rh: Propagation hole charge density, 1D array, complex
+   :type Rh: ndarray
+   :param sp: Space label for file name
+   :type sp: str
+   :param w: Wire index
+   :type w: int
+   :param xxx: Time index
+   :type xxx: int
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses printITReal2 to write real parts of complex fields.
+   Uses printIT for charge density difference.
+
+
+.. py:function:: QWRho5(Qr, kr, R, L, kkp, p, CC, DD, ne, nh, re, rh, xxx, jjj)
+
+   Calculate quantum wire charge densities.
+
+   Computes electron and hole charge densities in real space from
+   coherence matrices CC and DD using Fourier transforms.
+
+   :param Qr: QW momentum array, 1D array
+   :type Qr: ndarray
+   :param kr: QW momentum array, 1D array
+   :type kr: ndarray
+   :param R: QW spatial coordinate array, 1D array
+   :type R: ndarray
+   :param L: Length of wire (m)
+   :type L: float
+   :param kkp: Momentum difference index matrix, 2D array, integer
+   :type kkp: ndarray
+   :param p: Density matrix (unused, kept for interface compatibility), 2D array, complex
+   :type p: ndarray
+   :param CC: Electron/electron coherence matrix, 2D array, complex
+   :type CC: ndarray
+   :param DD: Hole/hole coherence matrix, 2D array, complex
+   :type DD: ndarray
+   :param ne: Electron occupation numbers, 1D array, complex
+   :type ne: ndarray
+   :param nh: Hole occupation numbers, 1D array, complex
+   :type nh: ndarray
+   :param re: Electron charge density (modified in-place), 1D array, complex
+   :type re: ndarray
+   :param rh: Hole charge density (modified in-place), 1D array, complex
+   :type rh: ndarray
+   :param xxx: Time index
+   :type xxx: int
+   :param jjj: Additional index (unused, kept for interface compatibility)
+   :type jjj: int
+
+   :returns: re and rh are modified in-place
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses module-level variables _Expikr, _Expikrc, _QWWindow, _small.
+   Normalizes charge densities to match total electron/hole numbers.
+   Removes boundary effects by subtracting average of first/last 10 points.
+
+
+.. py:function:: printIT3D(Dx, z, n, file)
+
+   Print 3D complex array to file.
+
+   Writes a 3D complex array to a file, storing both real and imaginary parts.
+
+   :param Dx: 3D complex array, shape (N1, N2, N3)
+   :type Dx: ndarray
+   :param z: Coordinate array (unused, kept for interface compatibility), 1D array
+   :type z: ndarray
+   :param n: Time index
+   :type n: int
+   :param file: Base filename (without extension)
+   :type file: str
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Files are written to 'dataQW/' directory.
+   Each line contains real and imaginary parts of one array element.
+
+
+.. py:function:: printITReal(Dx, z, n, file)
+
+   Print real part of complex field to file.
+
+   Writes the coordinate and real part of a complex field array to a file.
+
+   :param Dx: Complex field array, 1D array
+   :type Dx: ndarray
+   :param z: Coordinate array, 1D array
+   :type z: ndarray
+   :param n: Time index
+   :type n: int
+   :param file: Base filename (without extension)
+   :type file: str
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Files are written to 'dataQW/' directory.
+   Each line contains coordinate and real part of field.
+
+
+.. py:function:: QWChi1(lam, dky, Ee, Eh, area, geh, dcv)
+
+   Calculate quantum wire linear susceptibility.
+
+   Computes the frequency-dependent linear susceptibility of the quantum wire.
+
+   :param lam: Wavelength (m)
+   :type lam: float
+   :param dky: Momentum step (1/m)
+   :type dky: float
+   :param Ee: Electron energies, 1D array
+   :type Ee: ndarray
+   :param Eh: Hole energies, 1D array
+   :type Eh: ndarray
+   :param area: Area of wire (m^2)
+   :type area: float
+   :param geh: Electron-hole dephasing rate (1/s)
+   :type geh: float
+   :param dcv: Carrier dipole moment (C m)
+   :type dcv: complex
+
+   :returns: Linear susceptibility chi^(1)
+   :rtype: complex
+
+   .. rubric:: Notes
+
+   Uses module-level constants twopi, c0, eps0, hbar, ii.
+   Formula: chi^(1) = 4 * dcv^2 / (eps0 * area) * dky / (2*pi) *
+            sum((Ee+Eh) / ((Ee+Eh - i*hbar*geh - hbar*w) * (Ee+Eh + i*hbar*geh + hbar*w)))
+
+
+.. py:function:: CalcQWWindow(YY, L)
+
+   Calculate quantum wire window function.
+
+   Computes a window function that smoothly goes to zero outside
+   the wire length L/2, using an exponential decay.
+
+   :param YY: Spatial coordinate array, 1D array
+   :type YY: ndarray
+   :param L: Length of wire (m)
+   :type L: float
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Modifies module-level variable _QWWindow.
+   Window function: exp(-(YY/(L/2))^150)
+   Values outside |YY| > L/2 are set to 0 before applying exponential.
+   Uses printIT to write envelope to file.
+
+
+.. py:function:: InitializeQWOptics(RR, L, dcv, kr, Qr, Ee, Eh, ehint, area, gap)
+
+   Initialize quantum wire optics module.
+
+   Sets up all necessary arrays and parameters for quantum wire optics
+   calculations, including window functions, phase factors, and dipole
+   matrix elements.
+
+   :param RR: Spatial coordinate array, 1D array
+   :type RR: ndarray
+   :param L: Length of wire (m)
+   :type L: float
+   :param dcv: Carrier dipole moment (C m)
+   :type dcv: complex
+   :param kr: Momentum coordinate array, 1D array
+   :type kr: ndarray
+   :param Qr: Momentum coordinate array (unused, kept for interface compatibility), 1D array
+   :type Qr: ndarray
+   :param Ee: Electron energies, 1D array
+   :type Ee: ndarray
+   :param Eh: Hole energies, 1D array
+   :type Eh: ndarray
+   :param ehint: Electron-hole space integral
+   :type ehint: float
+   :param area: Area of wire (m^2)
+   :type area: float
+   :param gap: Band gap (J) (unused, kept for interface compatibility)
+   :type gap: float
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Modifies module-level variables _QWWindow, _Expikr, _Expikrc, _dcv0, _Vol,
+   _Xcv0, _Ycv0, _Zcv0, _Xvc0, _Yvc0, _Zvc0.
+   Calculates dipole matrix elements Xcv0, Ycv0, Zcv0 and their conjugates.
+   Uses module-level constants twopi.
+
+
+.. py:function:: CalcExpikr(y, ky)
+
+   Vectorized version (potentially faster than JIT for large arrays).
+
+
+.. py:function:: Xcv(k, kp)
+
+   Get X dipole matrix element.
+
+   Returns the X component of the dipole matrix element at indices (k, kp).
+
+   :param k: First index (0-based in Python)
+   :type k: int
+   :param kp: Second index (0-based in Python)
+   :type kp: int
+
+   :returns: X dipole matrix element value
+   :rtype: complex
+
+   .. rubric:: Notes
+
+   Uses module-level variable _Xcv0.
+
+
+.. py:function:: Ycv(k, kp)
+
+   Get Y dipole matrix element.
+
+   Returns the Y component of the dipole matrix element at indices (k, kp).
+
+   :param k: First index (0-based in Python)
+   :type k: int
+   :param kp: Second index (0-based in Python)
+   :type kp: int
+
+   :returns: Y dipole matrix element value
+   :rtype: complex
+
+   .. rubric:: Notes
+
+   Uses module-level variable _Ycv0.
+
+
+.. py:function:: Zcv(k, kp)
+
+   Get Z dipole matrix element.
+
+   Returns the Z component of the dipole matrix element at indices (k, kp).
+
+   :param k: First index (0-based in Python)
+   :type k: int
+   :param kp: Second index (0-based in Python)
+   :type kp: int
+
+   :returns: Z dipole matrix element value
+   :rtype: complex
+
+   .. rubric:: Notes
+
+   Uses module-level variable _Zcv0.
+
+
+.. py:function:: GetVn1n2(kr, rcv, Hcc, Hhh, Hcv, Vcc, Vvv, Vcv, Vvc)
+
+   Calculate interaction matrices Vcc, Vvv, Vcv, Vvc.
+
+   Computes the interaction matrices from Hamiltonian matrices and
+   dipole moment arrays using the Heisenberg equation of motion.
+
+   :param kr: Momentum coordinate array, 1D array
+   :type kr: ndarray
+   :param rcv: Conduction-valence dipole moment array, 1D array, complex
+   :type rcv: ndarray
+   :param Hcc: Conduction-conduction Hamiltonian matrix, 2D array, complex
+   :type Hcc: ndarray
+   :param Hhh: Hole-hole Hamiltonian matrix, 2D array, complex
+   :type Hhh: ndarray
+   :param Hcv: Conduction-valence Hamiltonian matrix, 2D array, complex
+   :type Hcv: ndarray
+   :param Vcc: Conduction-conduction interaction matrix (modified in-place), 2D array, complex
+   :type Vcc: ndarray
+   :param Vvv: Valence-valence interaction matrix (modified in-place), 2D array, complex
+   :type Vvv: ndarray
+   :param Vcv: Conduction-valence interaction matrix (modified in-place), 2D array, complex
+   :type Vcv: ndarray
+   :param Vvc: Valence-conduction interaction matrix (modified in-place), 2D array, complex
+   :type Vvc: ndarray
+
+   :returns: Vcc, Vvv, Vcv, Vvc are modified in-place
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses module-level constants ii, hbar.
+   Formula: V = (-i/hbar) * [rcv * H - H * rcv]
+   Uses JIT compilation for performance-critical loops.
+
+

@@ -1,0 +1,534 @@
+test_dephasing
+==============
+
+.. py:module:: test_dephasing
+
+.. autoapi-nested-parse::
+
+   Comprehensive test suite for dephasing.py module.
+
+   Tests all dephasing calculation functions including initialization, dephasing rates,
+   off-diagonal dephasing matrices, and file I/O operations.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   test_dephasing.hbar
+   test_dephasing.pi
+   test_dephasing.ii
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   test_dephasing.TestInitializeDephasing
+   test_dephasing.TestVxx2
+   test_dephasing.TestCalcGammaE
+   test_dephasing.TestCalcGammaH
+   test_dephasing.TestCalcOffDiagDeph_E
+   test_dephasing.TestCalcOffDiagDeph_H
+   test_dephasing.TestCalcOffDiagDeph_E2
+   test_dephasing.TestCalcOffDiagDeph_H2
+   test_dephasing.TestOffDiagDephasing
+   test_dephasing.TestOffDiagDephasing2
+   test_dephasing.TestPrintGam
+   test_dephasing.TestWriteDephasing
+   test_dephasing.TestIntegration
+
+
+Module Contents
+---------------
+
+.. py:data:: hbar
+
+.. py:data:: pi
+
+.. py:data:: ii
+   :value: 1j
+
+
+.. py:class:: TestInitializeDephasing
+
+   Test dephasing module initialization.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: teardown_method()
+
+      Clean up after tests.
+
+
+
+   .. py:method:: test_initialize_dephasing_small()
+
+      Test InitializeDephasing with small array.
+
+
+
+   .. py:method:: test_initialize_dephasing_even_length()
+
+      Test InitializeDephasing with even length array.
+
+
+
+   .. py:method:: test_initialize_dephasing_odd_length()
+
+      Test InitializeDephasing with odd length array.
+
+
+
+   .. py:method:: test_initialize_dephasing_prime_length()
+
+      Test InitializeDephasing with prime length array.
+
+
+
+   .. py:method:: test_initialize_dephasing_single_element()
+
+      Test InitializeDephasing with single element array.
+
+
+
+   .. py:method:: test_initialize_dephasing_index_bounds()
+
+      Test that initialized indices are within valid bounds.
+
+
+
+   .. py:method:: test_initialize_dephasing_xe_xh_positive()
+
+      Test that xe and xh arrays are positive.
+
+
+
+.. py:class:: TestVxx2
+
+   Test squared interaction matrix calculation.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_vxx2_small()
+
+      Test Vxx2 with small array.
+
+
+
+   .. py:method:: test_vxx2_even_length()
+
+      Test Vxx2 with even length array.
+
+
+
+   .. py:method:: test_vxx2_odd_length()
+
+      Test Vxx2 with odd length array.
+
+
+
+   .. py:method:: test_vxx2_single_element()
+
+      Test Vxx2 with single element array.
+
+
+
+   .. py:method:: test_vxx2_zero_momentum()
+
+      Test Vxx2 with zero momentum.
+
+
+
+.. py:class:: TestCalcGammaE
+
+   Test electron dephasing rate calculation.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: teardown_method()
+
+      Clean up after tests.
+
+
+
+   .. py:method:: test_calc_gamma_e_basic()
+
+      Test CalcGammaE with basic inputs.
+
+
+
+   .. py:method:: test_calc_gamma_e_zero_populations()
+
+      Test CalcGammaE with zero populations.
+
+
+
+   .. py:method:: test_calc_gamma_e_error_if_not_initialized()
+
+      Test that CalcGammaE raises error if not initialized.
+
+
+
+   .. py:method:: test_calc_gamma_e_different_sizes()
+
+      Test CalcGammaE with different array sizes.
+
+
+
+.. py:class:: TestCalcGammaH
+
+   Test hole dephasing rate calculation.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: teardown_method()
+
+      Clean up after tests.
+
+
+
+   .. py:method:: test_calc_gamma_h_basic()
+
+      Test CalcGammaH with basic inputs.
+
+
+
+   .. py:method:: test_calc_gamma_h_zero_populations()
+
+      Test CalcGammaH with zero populations.
+
+
+
+   .. py:method:: test_calc_gamma_h_error_if_not_initialized()
+
+      Test that CalcGammaH raises error if not initialized.
+
+
+
+.. py:class:: TestCalcOffDiagDeph_E
+
+   Test off-diagonal dephasing matrix calculation for electrons.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: teardown_method()
+
+      Clean up after tests.
+
+
+
+   .. py:method:: test_calc_off_diag_deph_e_basic()
+
+      Test CalcOffDiagDeph_E with basic inputs.
+
+
+
+   .. py:method:: test_calc_off_diag_deph_e_zero_populations()
+
+      Test CalcOffDiagDeph_E with zero populations.
+
+
+
+   .. py:method:: test_calc_off_diag_deph_e_error_if_not_initialized()
+
+      Test that CalcOffDiagDeph_E raises error if not initialized.
+
+
+
+.. py:class:: TestCalcOffDiagDeph_H
+
+   Test off-diagonal dephasing matrix calculation for holes.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: teardown_method()
+
+      Clean up after tests.
+
+
+
+   .. py:method:: test_calc_off_diag_deph_h_basic()
+
+      Test CalcOffDiagDeph_H with basic inputs.
+
+
+
+   .. py:method:: test_calc_off_diag_deph_h_zero_populations()
+
+      Test CalcOffDiagDeph_H with zero populations.
+
+
+
+   .. py:method:: test_calc_off_diag_deph_h_error_if_not_initialized()
+
+      Test that CalcOffDiagDeph_H raises error if not initialized.
+
+
+
+.. py:class:: TestCalcOffDiagDeph_E2
+
+   Test off-diagonal dephasing matrix calculation for electrons (version 2).
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: teardown_method()
+
+      Clean up after tests.
+
+
+
+   .. py:method:: test_calc_off_diag_deph_e2_basic()
+
+      Test CalcOffDiagDeph_E2 with basic inputs.
+
+
+
+   .. py:method:: test_calc_off_diag_deph_e2_zero_populations()
+
+      Test CalcOffDiagDeph_E2 with zero populations.
+
+
+
+   .. py:method:: test_calc_off_diag_deph_e2_different_sizes()
+
+      Test CalcOffDiagDeph_E2 with different array sizes.
+
+
+
+.. py:class:: TestCalcOffDiagDeph_H2
+
+   Test off-diagonal dephasing matrix calculation for holes (version 2).
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: teardown_method()
+
+      Clean up after tests.
+
+
+
+   .. py:method:: test_calc_off_diag_deph_h2_basic()
+
+      Test CalcOffDiagDeph_H2 with basic inputs.
+
+
+
+   .. py:method:: test_calc_off_diag_deph_h2_zero_populations()
+
+      Test CalcOffDiagDeph_H2 with zero populations.
+
+
+
+.. py:class:: TestOffDiagDephasing
+
+   Test off-diagonal dephasing contribution calculation.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: teardown_method()
+
+      Clean up after tests.
+
+
+
+   .. py:method:: test_off_diag_dephasing_basic()
+
+      Test OffDiagDephasing with basic inputs.
+
+
+
+   .. py:method:: test_off_diag_dephasing_zero_polarization()
+
+      Test OffDiagDephasing with zero polarization.
+
+
+
+   .. py:method:: test_off_diag_dephasing_error_if_not_initialized()
+
+      Test that OffDiagDephasing raises error if not initialized.
+
+
+
+.. py:class:: TestOffDiagDephasing2
+
+   Test off-diagonal dephasing contribution calculation (version 2).
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: teardown_method()
+
+      Clean up after tests.
+
+
+
+   .. py:method:: test_off_diag_dephasing2_basic()
+
+      Test OffDiagDephasing2 with basic inputs.
+
+
+
+   .. py:method:: test_off_diag_dephasing2_zero_polarization()
+
+      Test OffDiagDephasing2 with zero polarization.
+
+
+
+   .. py:method:: test_off_diag_dephasing2_file_output()
+
+      Test that OffDiagDephasing2 writes to files.
+
+
+
+.. py:class:: TestPrintGam
+
+   Test dephasing rate printing function.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_print_gam_basic()
+
+      Test printGam with basic inputs.
+
+
+
+   .. py:method:: test_print_gam_different_sizes()
+
+      Test printGam with different array sizes.
+
+
+
+   .. py:method:: test_print_gam_single_element()
+
+      Test printGam with single element array.
+
+
+
+.. py:class:: TestWriteDephasing
+
+   Test dephasing rate file writing function.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: test_write_dephasing_basic()
+
+      Test WriteDephasing with basic inputs.
+
+
+
+   .. py:method:: test_write_dephasing_different_indices()
+
+      Test WriteDephasing with different wire and time indices.
+
+
+
+.. py:class:: TestIntegration
+
+   Integration tests for complete dephasing workflows.
+
+
+   .. py:method:: setup_method()
+
+      Set up test fixtures.
+
+
+
+   .. py:method:: teardown_method()
+
+      Clean up after tests.
+
+
+
+   .. py:method:: test_full_dephasing_workflow()
+
+      Test complete dephasing calculation workflow.
+
+
+
+   .. py:method:: test_off_diag_dephasing_workflow()
+
+      Test complete off-diagonal dephasing workflow.
+
+
+
+   .. py:method:: test_off_diag_dephasing2_workflow()
+
+      Test complete off-diagonal dephasing workflow (version 2).
+
+
+
+   .. py:method:: test_version2_consistency()
+
+      Test that CalcOffDiagDeph_E2 and CalcOffDiagDeph_H2 produce valid results.
+
+
+
+   .. py:method:: test_different_array_sizes(Nk)
+
+      Test integration with different array sizes.
+
+
+

@@ -1,0 +1,398 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.phonons &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="src.phost" href="../phost/index.html" />
+    <link rel="prev" title="src.helpers" href="../helpers/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">src</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../SBEs/index.html">src.SBEs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../constants/index.html">src.constants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../coulomb/index.html">src.coulomb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dcfield/index.html">src.dcfield</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dephasing/index.html">src.dephasing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../emission/index.html">src.emission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../epsrtl/index.html">src.epsrtl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../fftw/index.html">src.fftw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../helpers/index.html">src.helpers</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">src.phonons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../phost/index.html">src.phost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../qwoptics/index.html">src.qwoptics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rhoPJ/index.html">src.rhoPJ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rungekutta/index.html">src.rungekutta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../sbetestprop/index.html">src.sbetestprop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../sbetestpropnov30/index.html">src.sbetestpropnov30</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../type_plasma/index.html">src.type_plasma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typelens/index.html">src.typelens</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typemedium/index.html">src.typemedium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typespace/index.html">src.typespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typetpamedium/index.html">src.typetpamedium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usefulsubs/index.html">src.usefulsubs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../spliner/index.html">spliner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_phost/index.html">test_phost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_epsrtl/index.html">test_epsrtl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_coulomb/index.html">test_coulomb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_dcfield/index.html">test_dcfield</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_phonons/index.html">test_phonons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_qwoptics/index.html">test_qwoptics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_dephasing/index.html">test_dephasing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_typespace/index.html">test_typespace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../coulomb_example/index.html">coulomb_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_usefulsubs/index.html">test_usefulsubs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SBEs_basic_example/index.html">SBEs_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SBEs_domain_example/index.html">SBEs_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dcfield_basic_example/index.html">dcfield_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../performance_benchmark/index.html">performance_benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SBEs_workflow_example/index.html">SBEs_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dcfield_domain_example/index.html">dcfield_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qwoptics_basic_example/index.html">qwoptics_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../coulombpythonic_example/index.html">coulombpythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../phononspythonic_example/index.html">phononspythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qwoptics_domain_example/index.html">qwoptics_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dcfield_workflow_example/index.html">dcfield_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qwoptics_workflow_example/index.html">qwoptics_workflow_example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">src</a></li>
+      <li class="breadcrumb-item active">src.phonons</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/src/phonons/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-src.phonons">
+<span id="src-phonons"></span><h1>src.phonons<a class="headerlink" href="#module-src.phonons" title="Link to this heading"></a></h1>
+<p>Phonon interaction calculations for quantum wire simulations.</p>
+<p>This module calculates the many-body electron-hole phonon contribution
+to the Semiconductor Bloch equations in support of propagation simulations
+for a quantum wire.</p>
+<p>Author: Rahul R. Sah</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phonons.hbar" title="src.phonons.hbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hbar</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phonons.kB" title="src.phonons.kB"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kB</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phonons.ii" title="src.phonons.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phonons.InitializePhonons" title="src.phonons.InitializePhonons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializePhonons</span></code></a>(ky, Ee, Eh, L, epsr, Gph, Oph)</p></td>
+<td><p>Initialize phonon interaction matrices (Unecessary the jit version?).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phonons.MBPE" title="src.phonons.MBPE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MBPE</span></code></a>(ne, VC, E1D, Win, Wout)</p></td>
+<td><p>Many-body phonon-electron interaction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phonons.MBPH" title="src.phonons.MBPH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MBPH</span></code></a>(nh, VC, E1D, Win, Wout)</p></td>
+<td><p>Many-body phonon-hole interaction.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phonons.Cq2" title="src.phonons.Cq2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cq2</span></code></a>(q, V, E1D)</p></td>
+<td><p>Calculate Cq for use in the DC Field module.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phonons.FermiDistr" title="src.phonons.FermiDistr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FermiDistr</span></code></a>(En)</p></td>
+<td><p>Calculate Fermi-Dirac distribution.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phonons.BoseDistr" title="src.phonons.BoseDistr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoseDistr</span></code></a>(En)</p></td>
+<td><p>Calculate Bose-Einstein distribution.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phonons.N00" title="src.phonons.N00"><code class="xref py py-obj docutils literal notranslate"><span class="pre">N00</span></code></a>()</p></td>
+<td><p>Get the Bose distribution value for phonons.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="src.phonons.hbar">
+<span class="sig-prename descclassname"><span class="pre">src.phonons.</span></span><span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#src.phonons.hbar" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.phonons.kB">
+<span class="sig-prename descclassname"><span class="pre">src.phonons.</span></span><span class="sig-name descname"><span class="pre">kB</span></span><a class="headerlink" href="#src.phonons.kB" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.phonons.ii">
+<span class="sig-prename descclassname"><span class="pre">src.phonons.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1j</span></em><a class="headerlink" href="#src.phonons.ii" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phonons.InitializePhonons">
+<span class="sig-prename descclassname"><span class="pre">src.phonons.</span></span><span class="sig-name descname"><span class="pre">InitializePhonons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Gph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Oph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phonons.InitializePhonons" title="Link to this definition"></a></dt>
+<dd><p>Initialize phonon interaction matrices (Unecessary the jit version?).</p>
+<p>Sets up the electron and hole phonon interaction matrices EP, HP
+and their transposes EPT, HPT. Also calculates the scaling factor Vscale.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>L</strong> (<em>float</em>) – Length parameter (unused, kept for interface compatibility)</p></li>
+<li><p><strong>epsr</strong> (<em>float</em>) – Dielectric constant</p></li>
+<li><p><strong>Gph</strong> (<em>float</em>) – Phonon damping rate (Hz)</p></li>
+<li><p><strong>Oph</strong> (<em>float</em>) – Phonon frequency (Hz)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Sets module-level variables:
+- _NO: Bose distribution for phonons
+- _idel: Identity exclusion matrix (1 where k != k1, 0 where k == k1)
+- _EP, _EPT: Electron phonon interaction matrix and its transpose
+- _HP, _HPT: Hole phonon interaction matrix and its transpose
+- _Vscale: Scaling constant for Coulomb interactions</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phonons.MBPE">
+<span class="sig-prename descclassname"><span class="pre">src.phonons.</span></span><span class="sig-name descname"><span class="pre">MBPE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E1D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Wout</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phonons.MBPE" title="Link to this definition"></a></dt>
+<dd><p>Many-body phonon-electron interaction.</p>
+<p>Calculates the in-scattering and out-scattering rates for electrons
+due to phonon interactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron carrier populations, 1D array</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Coulomb interaction array, shape (Nk, Nk, 3)
+Uses VC[:, :, 1] for electron-electron interaction (Fortran uses VC(:,:,2) which is 1-based)</p></li>
+<li><p><strong>E1D</strong> (<em>ndarray</em>) – 1D energy array, shape (Nk, Nk)</p></li>
+<li><p><strong>Win</strong> (<em>ndarray</em>) – In-scattering rates (modified in-place), 1D array</p></li>
+<li><p><strong>Wout</strong> (<em>ndarray</em>) – Out-scattering rates (modified in-place), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies Win and Wout in-place.
+Uses module-level variables _EPT, _EP, _Vscale.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phonons.MBPH">
+<span class="sig-prename descclassname"><span class="pre">src.phonons.</span></span><span class="sig-name descname"><span class="pre">MBPH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E1D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Wout</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phonons.MBPH" title="Link to this definition"></a></dt>
+<dd><p>Many-body phonon-hole interaction.</p>
+<p>Calculates the in-scattering and out-scattering rates for holes
+due to phonon interactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole carrier populations, 1D array</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Coulomb interaction array, shape (Nk, Nk, 3)
+Uses VC[:, :, 2] for hole-hole interaction (Fortran uses VC(:,:,3) which is 1-based)</p></li>
+<li><p><strong>E1D</strong> (<em>ndarray</em>) – 1D energy array, shape (Nk, Nk)</p></li>
+<li><p><strong>Win</strong> (<em>ndarray</em>) – In-scattering rates (modified in-place), 1D array</p></li>
+<li><p><strong>Wout</strong> (<em>ndarray</em>) – Out-scattering rates (modified in-place), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies Win and Wout in-place.
+Uses module-level variables _HPT, _HP, _Vscale.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phonons.Cq2">
+<span class="sig-prename descclassname"><span class="pre">src.phonons.</span></span><span class="sig-name descname"><span class="pre">Cq2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E1D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phonons.Cq2" title="Link to this definition"></a></dt>
+<dd><p>Calculate Cq for use in the DC Field module.</p>
+<p>Computes the phonon coupling constant Cq for a given momentum array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>V</strong> (<em>ndarray</em>) – Interaction potential array, shape (Nk, Nk)</p></li>
+<li><p><strong>E1D</strong> (<em>ndarray</em>) – 1D energy array, shape (Nk, Nk)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Cq values, 1D array of same length as q</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variable _Vscale for scaling.
+The function maps q values to indices in V and E1D arrays.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phonons.FermiDistr">
+<span class="sig-prename descclassname"><span class="pre">src.phonons.</span></span><span class="sig-name descname"><span class="pre">FermiDistr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">En</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phonons.FermiDistr" title="Link to this definition"></a></dt>
+<dd><p>Calculate Fermi-Dirac distribution.</p>
+<p>Computes the Fermi-Dirac distribution assuming host temperature
+and Fermi Energy = 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>En</strong> (<em>float</em><em> or </em><em>ndarray</em>) – Energy (J)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Fermi-Dirac distribution value: 1 / (exp(En / (kB * T)) + 1)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float or ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variable _Temp for temperature.
+Note: Fortran returns complex type, but the value is always real, so Python returns float.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phonons.BoseDistr">
+<span class="sig-prename descclassname"><span class="pre">src.phonons.</span></span><span class="sig-name descname"><span class="pre">BoseDistr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">En</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phonons.BoseDistr" title="Link to this definition"></a></dt>
+<dd><p>Calculate Bose-Einstein distribution.</p>
+<p>Computes the Bose-Einstein distribution for phonons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>En</strong> (<em>float</em><em> or </em><em>ndarray</em>) – Energy (J)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Bose-Einstein distribution value: 1 / (exp(En / (kB * T)) - 1)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float or ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variable _Temp for temperature.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phonons.N00">
+<span class="sig-prename descclassname"><span class="pre">src.phonons.</span></span><span class="sig-name descname"><span class="pre">N00</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.phonons.N00" title="Link to this definition"></a></dt>
+<dd><p>Get the Bose distribution value for phonons.</p>
+<p>Returns the module-level variable _NO which is the Bose function
+for thermal equilibrium longitudinal-optical phonons in host.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Bose distribution value NO</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../helpers/index.html" class="btn btn-neutral float-left" title="src.helpers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../phost/index.html" class="btn btn-neutral float-right" title="src.phost" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

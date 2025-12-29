@@ -1,0 +1,956 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.phost &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="src.qwoptics" href="../qwoptics/index.html" />
+    <link rel="prev" title="src.phonons" href="../phonons/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">src</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../SBEs/index.html">src.SBEs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../constants/index.html">src.constants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../coulomb/index.html">src.coulomb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dcfield/index.html">src.dcfield</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dephasing/index.html">src.dephasing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../emission/index.html">src.emission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../epsrtl/index.html">src.epsrtl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../fftw/index.html">src.fftw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../helpers/index.html">src.helpers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../phonons/index.html">src.phonons</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">src.phost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../qwoptics/index.html">src.qwoptics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rhoPJ/index.html">src.rhoPJ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rungekutta/index.html">src.rungekutta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../sbetestprop/index.html">src.sbetestprop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../sbetestpropnov30/index.html">src.sbetestpropnov30</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../type_plasma/index.html">src.type_plasma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typelens/index.html">src.typelens</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typemedium/index.html">src.typemedium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typespace/index.html">src.typespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typetpamedium/index.html">src.typetpamedium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usefulsubs/index.html">src.usefulsubs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../spliner/index.html">spliner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_phost/index.html">test_phost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_epsrtl/index.html">test_epsrtl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_coulomb/index.html">test_coulomb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_dcfield/index.html">test_dcfield</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_phonons/index.html">test_phonons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_qwoptics/index.html">test_qwoptics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_dephasing/index.html">test_dephasing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_typespace/index.html">test_typespace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../coulomb_example/index.html">coulomb_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_usefulsubs/index.html">test_usefulsubs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SBEs_basic_example/index.html">SBEs_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SBEs_domain_example/index.html">SBEs_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dcfield_basic_example/index.html">dcfield_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../performance_benchmark/index.html">performance_benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SBEs_workflow_example/index.html">SBEs_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dcfield_domain_example/index.html">dcfield_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qwoptics_basic_example/index.html">qwoptics_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../coulombpythonic_example/index.html">coulombpythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../phononspythonic_example/index.html">phononspythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qwoptics_domain_example/index.html">qwoptics_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dcfield_workflow_example/index.html">dcfield_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qwoptics_workflow_example/index.html">qwoptics_workflow_example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">src</a></li>
+      <li class="breadcrumb-item active">src.phost</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/src/phost/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-src.phost">
+<span id="src-phost"></span><h1>src.phost<a class="headerlink" href="#module-src.phost" title="Link to this heading"></a></h1>
+<p>Host material polarization calculations for quantum wire simulations.</p>
+<p>This module calculates the host material polarization response
+for propagation simulations.</p>
+<p>Author: Rahul R. Sah</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.eps0_val" title="src.phost.eps0_val"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eps0_val</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.c0" title="src.phost.c0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">c0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.me0_val" title="src.phost.me0_val"><code class="xref py py-obj docutils literal notranslate"><span class="pre">me0_val</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.pi" title="src.phost.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.twopi" title="src.phost.twopi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">twopi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.ii" title="src.phost.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.CalcPHost" title="src.phost.CalcPHost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcPHost</span></code></a>(Ex, Ey, dt, m, epsb, Px, Py)</p></td>
+<td><p>Calculate host material polarization.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.CalcPHostOld" title="src.phost.CalcPHostOld"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcPHostOld</span></code></a>(Ex, Ey, dt, m, epsb, Px, Py)</p></td>
+<td><p>Calculate host material polarization (old version).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.CalcNextP" title="src.phost.CalcNextP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcNextP</span></code></a>(P1, P2, E, dt)</p></td>
+<td><p>Calculate next polarization value.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.CalcMonoP" title="src.phost.CalcMonoP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcMonoP</span></code></a>(E)</p></td>
+<td><p>Calculate monochromatic polarization.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.SetHostMaterial" title="src.phost.SetHostMaterial"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetHostMaterial</span></code></a>(host, mat, lam, epsr, n0)</p></td>
+<td><p>Set host material parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.InitializeHost" title="src.phost.InitializeHost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeHost</span></code></a>(Nx, Ny, n0, qsq, host)</p></td>
+<td><p>Initialize host material arrays.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.CalcWq" title="src.phost.CalcWq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcWq</span></code></a>(q)</p></td>
+<td><p>Calculate frequency from momentum.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.CalcEpsrWq" title="src.phost.CalcEpsrWq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcEpsrWq</span></code></a>(q)</p></td>
+<td><p>Calculate dielectric constant as function of frequency.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.CalcEpsrWq_ij" title="src.phost.CalcEpsrWq_ij"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcEpsrWq_ij</span></code></a>(w_ij, aw, bw)</p></td>
+<td><p>Calculate dielectric constant for a single frequency.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.DetermineCoeffs" title="src.phost.DetermineCoeffs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DetermineCoeffs</span></code></a>(aw, bw)</p></td>
+<td><p>Determine expansion coefficients.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.Epsr_q" title="src.phost.Epsr_q"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Epsr_q</span></code></a>(q)</p></td>
+<td><p>Get dielectric constant array.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.Epsr_qij" title="src.phost.Epsr_qij"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Epsr_qij</span></code></a>(i, j)</p></td>
+<td><p>Get dielectric constant at specific indices.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.FDTD_Dispersion" title="src.phost.FDTD_Dispersion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FDTD_Dispersion</span></code></a>(qx, qy, dx, dy, dt, n0)</p></td>
+<td><p>Calculate FDTD dispersion relation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.wq" title="src.phost.wq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wq</span></code></a>(i, j)</p></td>
+<td><p>Get frequency at specific indices.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.SetInitialP" title="src.phost.SetInitialP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetInitialP</span></code></a>(Ex, Ey, qx, qy, qsq, dt, Px, Py, epsb)</p></td>
+<td><p>Set initial polarization values.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.MakeTransverse" title="src.phost.MakeTransverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakeTransverse</span></code></a>(Ex, Ey, qx, qy, qsq)</p></td>
+<td><p>Make electric field transverse.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.SetParamsSilica" title="src.phost.SetParamsSilica"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetParamsSilica</span></code></a>()</p></td>
+<td><p>Set material parameters for silica.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.SetParamsGaAs" title="src.phost.SetParamsGaAs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetParamsGaAs</span></code></a>()</p></td>
+<td><p>Set material parameters for GaAs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.SetParamsAlAs" title="src.phost.SetParamsAlAs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetParamsAlAs</span></code></a>()</p></td>
+<td><p>Set material parameters for AlAs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.SetParamsNone" title="src.phost.SetParamsNone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetParamsNone</span></code></a>()</p></td>
+<td><p>Set material parameters for vacuum (no material).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.nw2_no_gam" title="src.phost.nw2_no_gam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nw2_no_gam</span></code></a>(wL)</p></td>
+<td><p>Calculate dielectric constant without damping.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.nw2" title="src.phost.nw2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nw2</span></code></a>(wL)</p></td>
+<td><p>Calculate dielectric constant with damping.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.IFFT" title="src.phost.IFFT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IFFT</span></code></a>(f)</p></td>
+<td><p>Inverse Fast Fourier Transform wrapper. (Not the right place should be imported)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.nwp_no_gam" title="src.phost.nwp_no_gam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nwp_no_gam</span></code></a>(wL)</p></td>
+<td><p>Calculate derivative of refractive index without damping.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.epsrwp_no_gam" title="src.phost.epsrwp_no_gam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">epsrwp_no_gam</span></code></a>(wL)</p></td>
+<td><p>Calculate derivative of dielectric constant without damping.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.nwp" title="src.phost.nwp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nwp</span></code></a>(wL)</p></td>
+<td><p>Calculate derivative of refractive index with damping.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.nl2_no_gam" title="src.phost.nl2_no_gam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nl2_no_gam</span></code></a>(lam)</p></td>
+<td><p>Calculate dielectric constant from wavelength without damping.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.phost.nl2" title="src.phost.nl2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nl2</span></code></a>(lam)</p></td>
+<td><p>Calculate dielectric constant from wavelength with damping.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.phost.WriteHostDispersion" title="src.phost.WriteHostDispersion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WriteHostDispersion</span></code></a>()</p></td>
+<td><p>Write host material dispersion data to files.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="src.phost.eps0_val">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">eps0_val</span></span><a class="headerlink" href="#src.phost.eps0_val" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.phost.c0">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">c0</span></span><a class="headerlink" href="#src.phost.c0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.phost.me0_val">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">me0_val</span></span><a class="headerlink" href="#src.phost.me0_val" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.phost.pi">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#src.phost.pi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.phost.twopi">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">twopi</span></span><a class="headerlink" href="#src.phost.twopi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.phost.ii">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1j</span></em><a class="headerlink" href="#src.phost.ii" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.CalcPHost">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">CalcPHost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Py</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.CalcPHost" title="Link to this definition"></a></dt>
+<dd><p>Calculate host material polarization.</p>
+<p>Computes the host material polarization response using a time-stepping
+scheme with previous, current, and next polarization values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ex</strong> (<em>ndarray</em>) – Electric field x-component, shape (N1, N2), complex</p></li>
+<li><p><strong>Ey</strong> (<em>ndarray</em>) – Electric field y-component, shape (N1, N2), complex</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Time step (s)</p></li>
+<li><p><strong>m</strong> (<em>int</em>) – Time step index (unused, kept for interface compatibility)</p></li>
+<li><p><strong>epsb</strong> (<em>float</em>) – Dielectric constant (modified in-place)</p></li>
+<li><p><strong>Px</strong> (<em>ndarray</em>) – Polarization x-component (modified in-place), shape (N1, N2), complex</p></li>
+<li><p><strong>Py</strong> (<em>ndarray</em>) – Polarization y-component (modified in-place), shape (N1, N2), complex</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies epsb, Px, Py in-place.
+Uses module-level variables _Px_before, _Px_now, _Px_after, etc.
+The polarization is summed over the oscillator dimension (axis 2).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.CalcPHostOld">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">CalcPHostOld</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Py</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.CalcPHostOld" title="Link to this definition"></a></dt>
+<dd><p>Calculate host material polarization (old version).</p>
+<p>Computes the host material polarization response using a time-stepping
+scheme with different initialization depending on the time step index m.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ex</strong> (<em>ndarray</em>) – Electric field x-component, shape (N1, N2), complex</p></li>
+<li><p><strong>Ey</strong> (<em>ndarray</em>) – Electric field y-component, shape (N1, N2), complex</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Time step (s)</p></li>
+<li><p><strong>m</strong> (<em>int</em>) – Time step index</p></li>
+<li><p><strong>epsb</strong> (<em>float</em>) – Dielectric constant (modified in-place)</p></li>
+<li><p><strong>Px</strong> (<em>ndarray</em>) – Polarization x-component (modified in-place), shape (N1, N2), complex</p></li>
+<li><p><strong>Py</strong> (<em>ndarray</em>) – Polarization y-component (modified in-place), shape (N1, N2), complex</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies epsb, Px, Py in-place.
+Uses module-level variables _Px_before, _Px_now, _Px_after, etc.
+The behavior depends on m:
+- m &gt; 2: Use previous values and calculate next
+- m &gt;= 2: Initialize with monochromatic polarization, then calculate next
+- m &lt; 2: Initialize with monochromatic polarization, set next to zero</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.CalcNextP">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">CalcNextP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.CalcNextP" title="Link to this definition"></a></dt>
+<dd><p>Calculate next polarization value.</p>
+<p>Computes the next polarization value using a finite difference scheme
+for the oscillator model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>P1</strong> (<em>ndarray</em>) – Previous polarization values, shape (N1, N2, osc), complex</p></li>
+<li><p><strong>P2</strong> (<em>ndarray</em>) – Current polarization values, shape (N1, N2, osc), complex</p></li>
+<li><p><strong>E</strong> (<em>ndarray</em>) – Electric field, shape (N1, N2), complex</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Time step (s)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Next polarization values, shape (N1, N2, osc), complex</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variables _gam, _w, _B, _osc.
+The function computes:
+CalcNextP = f1 * P1 + f2 * P2 + f3 * E
+where f1, f2, f3 are frequency-dependent coefficients.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.CalcMonoP">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">CalcMonoP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">E</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.CalcMonoP" title="Link to this definition"></a></dt>
+<dd><p>Calculate monochromatic polarization.</p>
+<p>Computes the polarization for a monochromatic electric field
+using the linear susceptibility.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>E</strong> (<em>ndarray</em>) – Electric field, shape (N1, N2), complex</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Polarization values, shape (N1, N2, osc), complex</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variables _chi1, _osc.
+The function computes:
+CalcMonoP = eps0 * E * real(chi1)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.SetHostMaterial">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">SetHostMaterial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.SetHostMaterial" title="Link to this definition"></a></dt>
+<dd><p>Set host material parameters.</p>
+<p>Initializes the host material parameters based on the material type
+and wavelength.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> (<em>bool</em>) – Whether to use host material dispersion</p></li>
+<li><p><strong>mat</strong> (<em>str</em>) – Material name (‘AlAs’, ‘fsil’, ‘GaAs’, ‘none’)</p></li>
+<li><p><strong>lam</strong> (<em>float</em>) – Wavelength (m)</p></li>
+<li><p><strong>epsr</strong> (<em>float</em>) – Dielectric constant (modified in-place)</p></li>
+<li><p><strong>n0</strong> (<em>float</em>) – Refractive index (modified in-place)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies epsr and n0 in-place.
+Sets module-level variables based on material type.
+Calls SetParamsAlAs, SetParamsSilica, SetParamsGaAs, or SetParamsNone
+based on material type, and WriteHostDispersion if host=True.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.InitializeHost">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">InitializeHost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qsq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.InitializeHost" title="Link to this definition"></a></dt>
+<dd><p>Initialize host material arrays.</p>
+<p>Allocates and initializes arrays for host material calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Nx</strong> (<em>int</em>) – Number of points in x-direction</p></li>
+<li><p><strong>Ny</strong> (<em>int</em>) – Number of points in y-direction</p></li>
+<li><p><strong>n0</strong> (<em>float</em>) – Refractive index</p></li>
+<li><p><strong>qsq</strong> (<em>ndarray</em>) – Squared momentum array, shape (Nx, Ny), complex</p></li>
+<li><p><strong>host</strong> (<em>bool</em>) – Whether to use host material dispersion</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Sets module-level arrays _omega_q, _EpsrWq, and polarization arrays.
+When host=False, _EpsrWq is set to an array with all elements equal to n0**2.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.CalcWq">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">CalcWq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.CalcWq" title="Link to this definition"></a></dt>
+<dd><p>Calculate frequency from momentum.</p>
+<p>Computes the frequency omega_q from momentum q using the
+dispersion relation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q</strong> (<em>ndarray</em>) – Momentum array, shape (N1, N2), complex</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies module-level variable _omega_q.
+Writes output to ‘fields/host/w.q.dat’.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.CalcEpsrWq">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">CalcEpsrWq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.CalcEpsrWq" title="Link to this definition"></a></dt>
+<dd><p>Calculate dielectric constant as function of frequency.</p>
+<p>Computes the dielectric constant for each frequency in omega_q.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q</strong> (<em>ndarray</em>) – Momentum array, shape (N1, N2), complex (unused, kept for interface compatibility)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies module-level variable _EpsrWq.
+Uses DetermineCoeffs and CalcEpsrWq_ij.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.CalcEpsrWq_ij">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">CalcEpsrWq_ij</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w_ij</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.CalcEpsrWq_ij" title="Link to this definition"></a></dt>
+<dd><p>Calculate dielectric constant for a single frequency.</p>
+<p>Computes the dielectric constant using piecewise interpolation
+or the full model depending on frequency range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>w_ij</strong> (<em>float</em>) – Frequency (Hz)</p></li>
+<li><p><strong>aw</strong> (<em>ndarray</em>) – Low-frequency expansion coefficients, shape (2)</p></li>
+<li><p><strong>bw</strong> (<em>ndarray</em>) – High-frequency expansion coefficients, shape (2)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dielectric constant value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variables _epsr_0, _epsr_infty, _w1, _w2.
+Note: In Fortran, this is a subroutine with inout parameter;
+in Python, it’s a function that returns the value (functionally equivalent).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.DetermineCoeffs">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">DetermineCoeffs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.DetermineCoeffs" title="Link to this definition"></a></dt>
+<dd><p>Determine expansion coefficients.</p>
+<p>Computes the expansion coefficients for low and high frequency
+approximations of the dielectric constant.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>aw</strong> (<em>ndarray</em>) – Low-frequency expansion coefficients (modified in-place), shape (2)</p></li>
+<li><p><strong>bw</strong> (<em>ndarray</em>) – High-frequency expansion coefficients (modified in-place), shape (2)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies aw and bw in-place.
+Uses module-level variables _w1, _w2, _epsr_0, _epsr_infty.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.Epsr_q">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">Epsr_q</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.Epsr_q" title="Link to this definition"></a></dt>
+<dd><p>Get dielectric constant array.</p>
+<p>Returns the dielectric constant array as a function of momentum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q</strong> (<em>ndarray</em>) – Momentum array, shape (N1, N2), complex (unused, kept for interface compatibility)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dielectric constant array, shape (N1, N2), complex</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Returns module-level variable _EpsrWq.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.Epsr_qij">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">Epsr_qij</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.Epsr_qij" title="Link to this definition"></a></dt>
+<dd><p>Get dielectric constant at specific indices.</p>
+<p>Returns the dielectric constant at indices (i, j).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> (<em>int</em>) – First index</p></li>
+<li><p><strong>j</strong> (<em>int</em>) – Second index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dielectric constant value at (i, j)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Returns value from module-level variable _EpsrWq.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.FDTD_Dispersion">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">FDTD_Dispersion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.FDTD_Dispersion" title="Link to this definition"></a></dt>
+<dd><p>Calculate FDTD dispersion relation.</p>
+<p>Computes the frequency from momentum using the FDTD dispersion relation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qx</strong> (<em>ndarray</em>) – x-component of momentum (1/m), 1D array</p></li>
+<li><p><strong>qy</strong> (<em>ndarray</em>) – y-component of momentum (1/m), 1D array</p></li>
+<li><p><strong>dx</strong> (<em>float</em>) – Spatial step in x-direction (m)</p></li>
+<li><p><strong>dy</strong> (<em>float</em>) – Spatial step in y-direction (m)</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Time step (s)</p></li>
+<li><p><strong>n0</strong> (<em>float</em>) – Refractive index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies module-level variable _omega_q.
+Uses Sin and ASin functions (np.sin and np.arcsin).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.wq">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">wq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.wq" title="Link to this definition"></a></dt>
+<dd><p>Get frequency at specific indices.</p>
+<p>Returns the frequency at indices (i, j).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> (<em>int</em>) – First index</p></li>
+<li><p><strong>j</strong> (<em>int</em>) – Second index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Frequency value at (i, j)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Returns value from module-level variable _omega_q.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.SetInitialP">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">SetInitialP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qsq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Py</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsb</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.SetInitialP" title="Link to this definition"></a></dt>
+<dd><p>Set initial polarization values.</p>
+<p>Initializes the polarization arrays for the first time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ex</strong> (<em>ndarray</em>) – Electric field x-component (modified in-place), shape (N1, N2), complex</p></li>
+<li><p><strong>Ey</strong> (<em>ndarray</em>) – Electric field y-component (modified in-place), shape (N1, N2), complex</p></li>
+<li><p><strong>qx</strong> (<em>ndarray</em>) – x-component of momentum (1/m), 1D array</p></li>
+<li><p><strong>qy</strong> (<em>ndarray</em>) – y-component of momentum (1/m), 1D array</p></li>
+<li><p><strong>qsq</strong> (<em>ndarray</em>) – Squared momentum array, shape (N1, N2), complex</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Time step (s)</p></li>
+<li><p><strong>Px</strong> (<em>ndarray</em>) – Polarization x-component (modified in-place), shape (N1, N2), complex</p></li>
+<li><p><strong>Py</strong> (<em>ndarray</em>) – Polarization y-component (modified in-place), shape (N1, N2), complex</p></li>
+<li><p><strong>epsb</strong> (<em>float</em>) – Dielectric constant (modified in-place)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies Ex, Ey, Px, Py, epsb in-place.
+Uses module-level variables _Px_after, _Px_now, _Py_after, _Py_now, _omega_q, _A0, _B, _w, _osc.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.MakeTransverse">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">MakeTransverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qsq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.MakeTransverse" title="Link to this definition"></a></dt>
+<dd><p>Make electric field transverse.</p>
+<p>Projects the electric field onto the transverse direction
+perpendicular to the momentum vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ex</strong> (<em>ndarray</em>) – Electric field x-component (modified in-place), shape (N1, N2), complex</p></li>
+<li><p><strong>Ey</strong> (<em>ndarray</em>) – Electric field y-component (modified in-place), shape (N1, N2), complex</p></li>
+<li><p><strong>qx</strong> (<em>ndarray</em>) – x-component of momentum (1/m), 1D array</p></li>
+<li><p><strong>qy</strong> (<em>ndarray</em>) – y-component of momentum (1/m), 1D array</p></li>
+<li><p><strong>qsq</strong> (<em>ndarray</em>) – Squared momentum array, shape (N1, N2), complex</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies Ex and Ey in-place.
+Projects out the longitudinal component: E = E - q * (q · E) / <a href="#id1"><span class="problematic" id="id2">|</span></a>q|^2</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.SetParamsSilica">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">SetParamsSilica</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.SetParamsSilica" title="Link to this definition"></a></dt>
+<dd><p>Set material parameters for silica.</p>
+<p>Initializes oscillator parameters for silica material model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies module-level variables _osc, _B, _C, _w, _gam, _Nf, _A0, _epsr_0, _epsr_infty.
+Uses Sellmeier coefficients for silica.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.SetParamsGaAs">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">SetParamsGaAs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.SetParamsGaAs" title="Link to this definition"></a></dt>
+<dd><p>Set material parameters for GaAs.</p>
+<p>Initializes oscillator parameters for GaAs material model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies module-level variables _osc, _B, _C, _w, _gam, _Nf, _A0, _epsr_0, _epsr_infty.
+Uses Sellmeier coefficients for GaAs.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.SetParamsAlAs">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">SetParamsAlAs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.SetParamsAlAs" title="Link to this definition"></a></dt>
+<dd><p>Set material parameters for AlAs.</p>
+<p>Initializes oscillator parameters for AlAs material model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies module-level variables _osc, _B, _C, _w, _gam, _Nf, _A0, _epsr_0, _epsr_infty, _w1, _w2.
+Uses Sellmeier coefficients for AlAs.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.SetParamsNone">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">SetParamsNone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.SetParamsNone" title="Link to this definition"></a></dt>
+<dd><p>Set material parameters for vacuum (no material).</p>
+<p>Initializes oscillator parameters for vacuum (no dispersion).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies module-level variables _osc, _B, _C, _w, _gam, _Nf, _A0, _epsr_0, _epsr_infty.
+Sets all parameters to vacuum values (no dispersion).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.nw2_no_gam">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">nw2_no_gam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.nw2_no_gam" title="Link to this definition"></a></dt>
+<dd><p>Calculate dielectric constant without damping.
+(Somewhere below in phost.f90)</p>
+<p>Computes the dielectric constant using the oscillator model
+without damping: n^2 = A0 + sum(B * w^2 / (w^2 - wL^2))</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>wL</strong> (<em>float</em><em> or </em><em>complex</em>) – Frequency (Hz)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dielectric constant value (n^2)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variables _A0, _B, _w, _osc.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.nw2">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">nw2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.nw2" title="Link to this definition"></a></dt>
+<dd><p>Calculate dielectric constant with damping.</p>
+<p>Computes the dielectric constant using the oscillator model
+with damping: n^2 = A0 + sum(B * w^2 / (w^2 - i*2*gam*wL - wL^2))</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>wL</strong> (<em>float</em><em> or </em><em>complex</em>) – Frequency (Hz)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dielectric constant value (n^2)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variables _A0, _B, _w, _gam, _osc.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.IFFT">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">IFFT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.IFFT" title="Link to this definition"></a></dt>
+<dd><p>Inverse Fast Fourier Transform wrapper. (Not the right place should be imported)</p>
+<p>Performs 2D IFFT on the input array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>ndarray</em>) – Input array, shape (N1, N2), complex</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>f is modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses pyfftw for FFT operations.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.nwp_no_gam">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">nwp_no_gam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.nwp_no_gam" title="Link to this definition"></a></dt>
+<dd><p>Calculate derivative of refractive index without damping.</p>
+<p>Computes dn/dw using the oscillator model without damping.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>wL</strong> (<em>float</em><em> or </em><em>complex</em>) – Frequency (Hz)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Derivative of refractive index (dn/dw)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variables _B, _w, _osc.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.epsrwp_no_gam">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">epsrwp_no_gam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.epsrwp_no_gam" title="Link to this definition"></a></dt>
+<dd><p>Calculate derivative of dielectric constant without damping.</p>
+<p>Computes depsr/dw using the oscillator model without damping.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>wL</strong> (<em>float</em><em> or </em><em>complex</em>) – Frequency (Hz)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Derivative of dielectric constant (depsr/dw)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variables _B, _w, _osc.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.nwp">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">nwp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.nwp" title="Link to this definition"></a></dt>
+<dd><p>Calculate derivative of refractive index with damping.</p>
+<p>Computes dn/dw using the oscillator model with damping.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>wL</strong> (<em>float</em><em> or </em><em>complex</em>) – Frequency (Hz)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Derivative of refractive index (dn/dw)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variables _B, _w, _gam, _osc.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.nl2_no_gam">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">nl2_no_gam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lam</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.nl2_no_gam" title="Link to this definition"></a></dt>
+<dd><p>Calculate dielectric constant from wavelength without damping.</p>
+<p>Computes the dielectric constant using the oscillator model
+without damping: n^2 = A0 + sum(B * lam^2 / (lam^2 - C))</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lam</strong> (<em>float</em>) – Wavelength (m)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dielectric constant value (n^2)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variables _A0, _B, _C, _osc.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.nl2">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">nl2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lam</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.nl2" title="Link to this definition"></a></dt>
+<dd><p>Calculate dielectric constant from wavelength with damping.</p>
+<p>Computes the dielectric constant using the oscillator model
+with damping, converting wavelength to frequency first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lam</strong> (<em>float</em>) – Wavelength (m)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dielectric constant value (n^2)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variables _A0, _B, _w, _gam, _osc.
+Converts wavelength to frequency: wL = 2*pi*c0 / lam</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.phost.WriteHostDispersion">
+<span class="sig-prename descclassname"><span class="pre">src.phost.</span></span><span class="sig-name descname"><span class="pre">WriteHostDispersion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.phost.WriteHostDispersion" title="Link to this definition"></a></dt>
+<dd><p>Write host material dispersion data to files.</p>
+<p>Writes refractive index and dielectric constant data
+as functions of frequency and wavelength to output files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Creates output files in ‘fields/host/’ and ‘fields/host/nogam/’ directories.
+Writes both real and imaginary parts of n and epsr.
+Uses module-level variables _w, _B, _osc.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../phonons/index.html" class="btn btn-neutral float-left" title="src.phonons" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../qwoptics/index.html" class="btn btn-neutral float-right" title="src.qwoptics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

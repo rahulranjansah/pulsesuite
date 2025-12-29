@@ -1,0 +1,990 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>test_dcfield &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="test_phonons" href="../test_phonons/index.html" />
+    <link rel="prev" title="test_coulomb" href="../test_coulomb/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/index.html">src</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spliner/index.html">spliner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_phost/index.html">test_phost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_epsrtl/index.html">test_epsrtl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_coulomb/index.html">test_coulomb</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">test_dcfield</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestGetKArray"><code class="docutils literal notranslate"><span class="pre">TestGetKArray</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestInitializeDC"><code class="docutils literal notranslate"><span class="pre">TestInitializeDC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestEkReNorm"><code class="docutils literal notranslate"><span class="pre">TestEkReNorm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestDriftVt"><code class="docutils literal notranslate"><span class="pre">TestDriftVt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestLrtz"><code class="docutils literal notranslate"><span class="pre">TestLrtz</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestTheta"><code class="docutils literal notranslate"><span class="pre">TestTheta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestCalcI0n"><code class="docutils literal notranslate"><span class="pre">TestCalcI0n</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestCalcI0"><code class="docutils literal notranslate"><span class="pre">TestCalcI0</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestCalcVD"><code class="docutils literal notranslate"><span class="pre">TestCalcVD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestCalcPD"><code class="docutils literal notranslate"><span class="pre">TestCalcPD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestThetaEM"><code class="docutils literal notranslate"><span class="pre">TestThetaEM</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestThetaABS"><code class="docutils literal notranslate"><span class="pre">TestThetaABS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestFDrift2"><code class="docutils literal notranslate"><span class="pre">TestFDrift2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestFDrift"><code class="docutils literal notranslate"><span class="pre">TestFDrift</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestCalcAvgCoeff"><code class="docutils literal notranslate"><span class="pre">TestCalcAvgCoeff</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestDndEk"><code class="docutils literal notranslate"><span class="pre">TestDndEk</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestThetaEMABS"><code class="docutils literal notranslate"><span class="pre">TestThetaEMABS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestGetFunctions"><code class="docutils literal notranslate"><span class="pre">TestGetFunctions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestShiftN1D"><code class="docutils literal notranslate"><span class="pre">TestShiftN1D</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestShiftN2D"><code class="docutils literal notranslate"><span class="pre">TestShiftN2D</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestTransport"><code class="docutils literal notranslate"><span class="pre">TestTransport</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestCalcDCE2"><code class="docutils literal notranslate"><span class="pre">TestCalcDCE2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestCalcDCH2"><code class="docutils literal notranslate"><span class="pre">TestCalcDCH2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestCalcDCE"><code class="docutils literal notranslate"><span class="pre">TestCalcDCE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestCalcDCH"><code class="docutils literal notranslate"><span class="pre">TestCalcDCH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestDCFieldIntegration"><code class="docutils literal notranslate"><span class="pre">TestDCFieldIntegration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestNumericalStability"><code class="docutils literal notranslate"><span class="pre">TestNumericalStability</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestDC_Step_Scale"><code class="docutils literal notranslate"><span class="pre">TestDC_Step_Scale</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestDC_Step_FD"><code class="docutils literal notranslate"><span class="pre">TestDC_Step_FD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_dcfield.TestPhysicalProperties"><code class="docutils literal notranslate"><span class="pre">TestPhysicalProperties</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../test_phonons/index.html">test_phonons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_qwoptics/index.html">test_qwoptics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_dephasing/index.html">test_dephasing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_typespace/index.html">test_typespace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../coulomb_example/index.html">coulomb_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_usefulsubs/index.html">test_usefulsubs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_basic_example/index.html">SBEs_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_domain_example/index.html">SBEs_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_basic_example/index.html">dcfield_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance_benchmark/index.html">performance_benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_workflow_example/index.html">SBEs_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_domain_example/index.html">dcfield_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_basic_example/index.html">qwoptics_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../coulombpythonic_example/index.html">coulombpythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../phononspythonic_example/index.html">phononspythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_domain_example/index.html">qwoptics_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_workflow_example/index.html">dcfield_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_workflow_example/index.html">qwoptics_workflow_example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">test_dcfield</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/autoapi/test_dcfield/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-test_dcfield">
+<span id="test-dcfield"></span><h1>test_dcfield<a class="headerlink" href="#module-test_dcfield" title="Link to this heading"></a></h1>
+<p>Comprehensive test suite for dcfield.py module.</p>
+<p>Tests all DC field carrier transport functions including initialization,
+DC field calculations, drift velocity, phonon interactions, and legacy functions.</p>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dcfield.TestGetKArray" title="test_dcfield.TestGetKArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestGetKArray</span></code></a></p></td>
+<td><p>Test k-space array generation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dcfield.TestInitializeDC" title="test_dcfield.TestInitializeDC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestInitializeDC</span></code></a></p></td>
+<td><p>Test DC field module initialization.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dcfield.TestEkReNorm" title="test_dcfield.TestEkReNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestEkReNorm</span></code></a></p></td>
+<td><p>Test energy renormalization function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dcfield.TestDriftVt" title="test_dcfield.TestDriftVt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestDriftVt</span></code></a></p></td>
+<td><p>Test drift velocity calculation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dcfield.TestLrtz" title="test_dcfield.TestLrtz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestLrtz</span></code></a></p></td>
+<td><p>Test Lorentzian function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dcfield.TestTheta" title="test_dcfield.TestTheta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestTheta</span></code></a></p></td>
+<td><p>Test Heaviside step function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dcfield.TestCalcI0n" title="test_dcfield.TestCalcI0n"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcI0n</span></code></a></p></td>
+<td><p>Test electron current calculation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dcfield.TestCalcI0" title="test_dcfield.TestCalcI0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcI0</span></code></a></p></td>
+<td><p>Test total current calculation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dcfield.TestCalcVD" title="test_dcfield.TestCalcVD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcVD</span></code></a></p></td>
+<td><p>Test drift velocity from distribution.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dcfield.TestCalcPD" title="test_dcfield.TestCalcPD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcPD</span></code></a></p></td>
+<td><p>Test momentum from distribution.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dcfield.TestThetaEM" title="test_dcfield.TestThetaEM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestThetaEM</span></code></a></p></td>
+<td><p>Test emission matrix element calculation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dcfield.TestThetaABS" title="test_dcfield.TestThetaABS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestThetaABS</span></code></a></p></td>
+<td><p>Test absorption matrix element calculation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dcfield.TestFDrift2" title="test_dcfield.TestFDrift2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestFDrift2</span></code></a></p></td>
+<td><p>Test drift force calculation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dcfield.TestFDrift" title="test_dcfield.TestFDrift"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestFDrift</span></code></a></p></td>
+<td><p>Test drift force calculation (alternative implementation).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dcfield.TestCalcAvgCoeff" title="test_dcfield.TestCalcAvgCoeff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcAvgCoeff</span></code></a></p></td>
+<td><p>Test average coefficient calculation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dcfield.TestDndEk" title="test_dcfield.TestDndEk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestDndEk</span></code></a></p></td>
+<td><p>Test derivative of occupation with respect to energy.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dcfield.TestThetaEMABS" title="test_dcfield.TestThetaEMABS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestThetaEMABS</span></code></a></p></td>
+<td><p>Test emission-absorption matrix element.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dcfield.TestGetFunctions" title="test_dcfield.TestGetFunctions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestGetFunctions</span></code></a></p></td>
+<td><p>Test getter functions for module variables.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dcfield.TestShiftN1D" title="test_dcfield.TestShiftN1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestShiftN1D</span></code></a></p></td>
+<td><p>Test 1D distribution shifting.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dcfield.TestShiftN2D" title="test_dcfield.TestShiftN2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestShiftN2D</span></code></a></p></td>
+<td><p>Test 2D distribution shifting.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dcfield.TestTransport" title="test_dcfield.TestTransport"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestTransport</span></code></a></p></td>
+<td><p>Test transport step function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dcfield.TestCalcDCE2" title="test_dcfield.TestCalcDCE2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcDCE2</span></code></a></p></td>
+<td><p>Test DC field contribution for electrons (version 2).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dcfield.TestCalcDCH2" title="test_dcfield.TestCalcDCH2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcDCH2</span></code></a></p></td>
+<td><p>Test DC field contribution for holes (version 2).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dcfield.TestCalcDCE" title="test_dcfield.TestCalcDCE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcDCE</span></code></a></p></td>
+<td><p>Test DC field contribution for electrons (original version).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dcfield.TestCalcDCH" title="test_dcfield.TestCalcDCH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcDCH</span></code></a></p></td>
+<td><p>Test DC field contribution for holes (original version).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dcfield.TestDCFieldIntegration" title="test_dcfield.TestDCFieldIntegration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestDCFieldIntegration</span></code></a></p></td>
+<td><p>Integration tests for DC field calculations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dcfield.TestNumericalStability" title="test_dcfield.TestNumericalStability"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestNumericalStability</span></code></a></p></td>
+<td><p>Test numerical stability of functions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dcfield.TestDC_Step_Scale" title="test_dcfield.TestDC_Step_Scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestDC_Step_Scale</span></code></a></p></td>
+<td><p>Test DC step using scaling method (legacy).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_dcfield.TestDC_Step_FD" title="test_dcfield.TestDC_Step_FD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestDC_Step_FD</span></code></a></p></td>
+<td><p>Test DC step using finite difference method (legacy).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_dcfield.TestPhysicalProperties" title="test_dcfield.TestPhysicalProperties"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestPhysicalProperties</span></code></a></p></td>
+<td><p>Test that physical properties are preserved.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestGetKArray">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestGetKArray</span></span><a class="headerlink" href="#test_dcfield.TestGetKArray" title="Link to this definition"></a></dt>
+<dd><p>Test k-space array generation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestGetKArray.test_GetKArray_basic">
+<span class="sig-name descname"><span class="pre">test_GetKArray_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestGetKArray.test_GetKArray_basic" title="Link to this definition"></a></dt>
+<dd><p>Test basic k-array generation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestGetKArray.test_GetKArray_centered">
+<span class="sig-name descname"><span class="pre">test_GetKArray_centered</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestGetKArray.test_GetKArray_centered" title="Link to this definition"></a></dt>
+<dd><p>Test that k-array is centered at zero.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestGetKArray.test_GetKArray_spacing">
+<span class="sig-name descname"><span class="pre">test_GetKArray_spacing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestGetKArray.test_GetKArray_spacing" title="Link to this definition"></a></dt>
+<dd><p>Test k-array spacing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestGetKArray.test_GetKArray_zero_length">
+<span class="sig-name descname"><span class="pre">test_GetKArray_zero_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestGetKArray.test_GetKArray_zero_length" title="Link to this definition"></a></dt>
+<dd><p>Test k-array with zero length.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestInitializeDC">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestInitializeDC</span></span><a class="headerlink" href="#test_dcfield.TestInitializeDC" title="Link to this definition"></a></dt>
+<dd><p>Test DC field module initialization.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestInitializeDC.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestInitializeDC.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestInitializeDC.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestInitializeDC.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up module state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestInitializeDC.test_InitializeDC_basic">
+<span class="sig-name descname"><span class="pre">test_InitializeDC_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestInitializeDC.test_InitializeDC_basic" title="Link to this definition"></a></dt>
+<dd><p>Test basic initialization.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestInitializeDC.test_InitializeDC_arrays_shape">
+<span class="sig-name descname"><span class="pre">test_InitializeDC_arrays_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestInitializeDC.test_InitializeDC_arrays_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that initialized arrays have correct shapes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestInitializeDC.test_InitializeDC_file_creation">
+<span class="sig-name descname"><span class="pre">test_InitializeDC_file_creation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestInitializeDC.test_InitializeDC_file_creation" title="Link to this definition"></a></dt>
+<dd><p>Test that output files are created.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestInitializeDC.test_InitializeDC_rates_initialized">
+<span class="sig-name descname"><span class="pre">test_InitializeDC_rates_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestInitializeDC.test_InitializeDC_rates_initialized" title="Link to this definition"></a></dt>
+<dd><p>Test that rates are initialized to zero.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestEkReNorm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestEkReNorm</span></span><a class="headerlink" href="#test_dcfield.TestEkReNorm" title="Link to this definition"></a></dt>
+<dd><p>Test energy renormalization function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestEkReNorm.test_EkReNorm_simple">
+<span class="sig-name descname"><span class="pre">test_EkReNorm_simple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestEkReNorm.test_EkReNorm_simple" title="Link to this definition"></a></dt>
+<dd><p>Test energy renormalization with simple case.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestEkReNorm.test_EkReNorm_zero_interaction">
+<span class="sig-name descname"><span class="pre">test_EkReNorm_zero_interaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestEkReNorm.test_EkReNorm_zero_interaction" title="Link to this definition"></a></dt>
+<dd><p>Test with zero interaction matrix.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestEkReNorm.test_EkReNorm_identity_matrix">
+<span class="sig-name descname"><span class="pre">test_EkReNorm_identity_matrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestEkReNorm.test_EkReNorm_identity_matrix" title="Link to this definition"></a></dt>
+<dd><p>Test with identity interaction matrix.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestEkReNorm.test_EkReNorm_physical_values">
+<span class="sig-name descname"><span class="pre">test_EkReNorm_physical_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestEkReNorm.test_EkReNorm_physical_values" title="Link to this definition"></a></dt>
+<dd><p>Test with physical energy values.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestDriftVt">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestDriftVt</span></span><a class="headerlink" href="#test_dcfield.TestDriftVt" title="Link to this definition"></a></dt>
+<dd><p>Test drift velocity calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDriftVt.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDriftVt.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDriftVt.test_DriftVt_simple">
+<span class="sig-name descname"><span class="pre">test_DriftVt_simple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDriftVt.test_DriftVt_simple" title="Link to this definition"></a></dt>
+<dd><p>Test drift velocity with simple distribution.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDriftVt.test_DriftVt_gaussian_distribution">
+<span class="sig-name descname"><span class="pre">test_DriftVt_gaussian_distribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDriftVt.test_DriftVt_gaussian_distribution" title="Link to this definition"></a></dt>
+<dd><p>Test drift velocity with Gaussian distribution.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDriftVt.test_DriftVt_zero_distribution">
+<span class="sig-name descname"><span class="pre">test_DriftVt_zero_distribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDriftVt.test_DriftVt_zero_distribution" title="Link to this definition"></a></dt>
+<dd><p>Test drift velocity with zero distribution.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDriftVt.test_DriftVt_constant_energy">
+<span class="sig-name descname"><span class="pre">test_DriftVt_constant_energy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDriftVt.test_DriftVt_constant_energy" title="Link to this definition"></a></dt>
+<dd><p>Test drift velocity with constant energy.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestLrtz">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestLrtz</span></span><a class="headerlink" href="#test_dcfield.TestLrtz" title="Link to this definition"></a></dt>
+<dd><p>Test Lorentzian function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestLrtz.test_Lrtz_peak">
+<span class="sig-name descname"><span class="pre">test_Lrtz_peak</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestLrtz.test_Lrtz_peak" title="Link to this definition"></a></dt>
+<dd><p>Test Lorentzian at peak.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestLrtz.test_Lrtz_array">
+<span class="sig-name descname"><span class="pre">test_Lrtz_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestLrtz.test_Lrtz_array" title="Link to this definition"></a></dt>
+<dd><p>Test Lorentzian with array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestLrtz.test_Lrtz_large_argument">
+<span class="sig-name descname"><span class="pre">test_Lrtz_large_argument</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestLrtz.test_Lrtz_large_argument" title="Link to this definition"></a></dt>
+<dd><p>Test Lorentzian with large argument.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestLrtz.test_Lrtz_small_width">
+<span class="sig-name descname"><span class="pre">test_Lrtz_small_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestLrtz.test_Lrtz_small_width" title="Link to this definition"></a></dt>
+<dd><p>Test Lorentzian with small width.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestTheta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestTheta</span></span><a class="headerlink" href="#test_dcfield.TestTheta" title="Link to this definition"></a></dt>
+<dd><p>Test Heaviside step function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestTheta.test_theta_positive">
+<span class="sig-name descname"><span class="pre">test_theta_positive</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestTheta.test_theta_positive" title="Link to this definition"></a></dt>
+<dd><p>Test theta for positive value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestTheta.test_theta_negative">
+<span class="sig-name descname"><span class="pre">test_theta_negative</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestTheta.test_theta_negative" title="Link to this definition"></a></dt>
+<dd><p>Test theta for negative value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestTheta.test_theta_zero">
+<span class="sig-name descname"><span class="pre">test_theta_zero</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestTheta.test_theta_zero" title="Link to this definition"></a></dt>
+<dd><p>Test theta at zero.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestTheta.test_theta_array">
+<span class="sig-name descname"><span class="pre">test_theta_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestTheta.test_theta_array" title="Link to this definition"></a></dt>
+<dd><p>Test theta with array.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcI0n">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestCalcI0n</span></span><a class="headerlink" href="#test_dcfield.TestCalcI0n" title="Link to this definition"></a></dt>
+<dd><p>Test electron current calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcI0n.test_CalcI0n_simple">
+<span class="sig-name descname"><span class="pre">test_CalcI0n_simple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcI0n.test_CalcI0n_simple" title="Link to this definition"></a></dt>
+<dd><p>Test electron current with simple distribution.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcI0n.test_CalcI0n_zero_distribution">
+<span class="sig-name descname"><span class="pre">test_CalcI0n_zero_distribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcI0n.test_CalcI0n_zero_distribution" title="Link to this definition"></a></dt>
+<dd><p>Test electron current with zero distribution.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcI0n.test_CalcI0n_symmetric_distribution">
+<span class="sig-name descname"><span class="pre">test_CalcI0n_symmetric_distribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcI0n.test_CalcI0n_symmetric_distribution" title="Link to this definition"></a></dt>
+<dd><p>Test electron current with symmetric distribution.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcI0">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestCalcI0</span></span><a class="headerlink" href="#test_dcfield.TestCalcI0" title="Link to this definition"></a></dt>
+<dd><p>Test total current calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcI0.test_CalcI0_simple">
+<span class="sig-name descname"><span class="pre">test_CalcI0_simple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcI0.test_CalcI0_simple" title="Link to this definition"></a></dt>
+<dd><p>Test total current with simple distributions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcI0.test_CalcI0_zero_distributions">
+<span class="sig-name descname"><span class="pre">test_CalcI0_zero_distributions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcI0.test_CalcI0_zero_distributions" title="Link to this definition"></a></dt>
+<dd><p>Test total current with zero distributions.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcVD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestCalcVD</span></span><a class="headerlink" href="#test_dcfield.TestCalcVD" title="Link to this definition"></a></dt>
+<dd><p>Test drift velocity from distribution.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcVD.test_CalcVD_simple">
+<span class="sig-name descname"><span class="pre">test_CalcVD_simple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcVD.test_CalcVD_simple" title="Link to this definition"></a></dt>
+<dd><p>Test drift velocity calculation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcVD.test_CalcVD_zero_distribution">
+<span class="sig-name descname"><span class="pre">test_CalcVD_zero_distribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcVD.test_CalcVD_zero_distribution" title="Link to this definition"></a></dt>
+<dd><p>Test drift velocity with zero distribution.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcPD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestCalcPD</span></span><a class="headerlink" href="#test_dcfield.TestCalcPD" title="Link to this definition"></a></dt>
+<dd><p>Test momentum from distribution.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcPD.test_CalcPD_simple">
+<span class="sig-name descname"><span class="pre">test_CalcPD_simple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcPD.test_CalcPD_simple" title="Link to this definition"></a></dt>
+<dd><p>Test momentum calculation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcPD.test_CalcPD_symmetric_distribution">
+<span class="sig-name descname"><span class="pre">test_CalcPD_symmetric_distribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcPD.test_CalcPD_symmetric_distribution" title="Link to this definition"></a></dt>
+<dd><p>Test momentum with symmetric distribution.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestThetaEM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestThetaEM</span></span><a class="headerlink" href="#test_dcfield.TestThetaEM" title="Link to this definition"></a></dt>
+<dd><p>Test emission matrix element calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestThetaEM.test_ThetaEM_basic">
+<span class="sig-name descname"><span class="pre">test_ThetaEM_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestThetaEM.test_ThetaEM_basic" title="Link to this definition"></a></dt>
+<dd><p>Test basic emission matrix element.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestThetaEM.test_ThetaEM_edge_cases">
+<span class="sig-name descname"><span class="pre">test_ThetaEM_edge_cases</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestThetaEM.test_ThetaEM_edge_cases" title="Link to this definition"></a></dt>
+<dd><p>Test emission matrix element at edge cases.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestThetaABS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestThetaABS</span></span><a class="headerlink" href="#test_dcfield.TestThetaABS" title="Link to this definition"></a></dt>
+<dd><p>Test absorption matrix element calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestThetaABS.test_ThetaABS_basic">
+<span class="sig-name descname"><span class="pre">test_ThetaABS_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestThetaABS.test_ThetaABS_basic" title="Link to this definition"></a></dt>
+<dd><p>Test basic absorption matrix element.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestFDrift2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestFDrift2</span></span><a class="headerlink" href="#test_dcfield.TestFDrift2" title="Link to this definition"></a></dt>
+<dd><p>Test drift force calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestFDrift2.test_FDrift2_basic">
+<span class="sig-name descname"><span class="pre">test_FDrift2_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestFDrift2.test_FDrift2_basic" title="Link to this definition"></a></dt>
+<dd><p>Test basic drift force calculation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestFDrift2.test_FDrift2_zero_distribution">
+<span class="sig-name descname"><span class="pre">test_FDrift2_zero_distribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestFDrift2.test_FDrift2_zero_distribution" title="Link to this definition"></a></dt>
+<dd><p>Test drift force with zero distribution.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestFDrift">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestFDrift</span></span><a class="headerlink" href="#test_dcfield.TestFDrift" title="Link to this definition"></a></dt>
+<dd><p>Test drift force calculation (alternative implementation).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestFDrift.test_FDrift_basic">
+<span class="sig-name descname"><span class="pre">test_FDrift_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestFDrift.test_FDrift_basic" title="Link to this definition"></a></dt>
+<dd><p>Test basic FDrift calculation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestFDrift.test_FDrift_zero_derivative">
+<span class="sig-name descname"><span class="pre">test_FDrift_zero_derivative</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestFDrift.test_FDrift_zero_derivative" title="Link to this definition"></a></dt>
+<dd><p>Test FDrift with zero derivative.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcAvgCoeff">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestCalcAvgCoeff</span></span><a class="headerlink" href="#test_dcfield.TestCalcAvgCoeff" title="Link to this definition"></a></dt>
+<dd><p>Test average coefficient calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcAvgCoeff.test_CalcAvgCoeff_basic">
+<span class="sig-name descname"><span class="pre">test_CalcAvgCoeff_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcAvgCoeff.test_CalcAvgCoeff_basic" title="Link to this definition"></a></dt>
+<dd><p>Test basic coefficient calculation.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestDndEk">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestDndEk</span></span><a class="headerlink" href="#test_dcfield.TestDndEk" title="Link to this definition"></a></dt>
+<dd><p>Test derivative of occupation with respect to energy.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDndEk.test_dndEk_basic">
+<span class="sig-name descname"><span class="pre">test_dndEk_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDndEk.test_dndEk_basic" title="Link to this definition"></a></dt>
+<dd><p>Test basic dndEk calculation.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestThetaEMABS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestThetaEMABS</span></span><a class="headerlink" href="#test_dcfield.TestThetaEMABS" title="Link to this definition"></a></dt>
+<dd><p>Test emission-absorption matrix element.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestThetaEMABS.test_ThetaEMABS_basic">
+<span class="sig-name descname"><span class="pre">test_ThetaEMABS_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestThetaEMABS.test_ThetaEMABS_basic" title="Link to this definition"></a></dt>
+<dd><p>Test basic ThetaEMABS calculation.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestGetFunctions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestGetFunctions</span></span><a class="headerlink" href="#test_dcfield.TestGetFunctions" title="Link to this definition"></a></dt>
+<dd><p>Test getter functions for module variables.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestGetFunctions.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestGetFunctions.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up module state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestGetFunctions.test_GetEDrift">
+<span class="sig-name descname"><span class="pre">test_GetEDrift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestGetFunctions.test_GetEDrift" title="Link to this definition"></a></dt>
+<dd><p>Test get electron drift rate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestGetFunctions.test_GetHDrift">
+<span class="sig-name descname"><span class="pre">test_GetHDrift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestGetFunctions.test_GetHDrift" title="Link to this definition"></a></dt>
+<dd><p>Test get hole drift rate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestGetFunctions.test_GetVEDrift">
+<span class="sig-name descname"><span class="pre">test_GetVEDrift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestGetFunctions.test_GetVEDrift" title="Link to this definition"></a></dt>
+<dd><p>Test get electron drift velocity.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestGetFunctions.test_GetVHDrift">
+<span class="sig-name descname"><span class="pre">test_GetVHDrift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestGetFunctions.test_GetVHDrift" title="Link to this definition"></a></dt>
+<dd><p>Test get hole drift velocity.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestShiftN1D">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestShiftN1D</span></span><a class="headerlink" href="#test_dcfield.TestShiftN1D" title="Link to this definition"></a></dt>
+<dd><p>Test 1D distribution shifting.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestShiftN1D.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestShiftN1D.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestShiftN1D.test_ShiftN1D_zero_shift">
+<span class="sig-name descname"><span class="pre">test_ShiftN1D_zero_shift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestShiftN1D.test_ShiftN1D_zero_shift" title="Link to this definition"></a></dt>
+<dd><p>Test shift with zero displacement.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestShiftN1D.test_ShiftN1D_small_shift">
+<span class="sig-name descname"><span class="pre">test_ShiftN1D_small_shift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestShiftN1D.test_ShiftN1D_small_shift" title="Link to this definition"></a></dt>
+<dd><p>Test shift with small displacement.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestShiftN2D">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestShiftN2D</span></span><a class="headerlink" href="#test_dcfield.TestShiftN2D" title="Link to this definition"></a></dt>
+<dd><p>Test 2D distribution shifting.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestShiftN2D.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestShiftN2D.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestShiftN2D.test_ShiftN2D_zero_shift">
+<span class="sig-name descname"><span class="pre">test_ShiftN2D_zero_shift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestShiftN2D.test_ShiftN2D_zero_shift" title="Link to this definition"></a></dt>
+<dd><p>Test shift with zero displacement.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestShiftN2D.test_ShiftN2D_small_shift">
+<span class="sig-name descname"><span class="pre">test_ShiftN2D_small_shift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestShiftN2D.test_ShiftN2D_small_shift" title="Link to this definition"></a></dt>
+<dd><p>Test shift with small displacement.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestTransport">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestTransport</span></span><a class="headerlink" href="#test_dcfield.TestTransport" title="Link to this definition"></a></dt>
+<dd><p>Test transport step function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestTransport.test_Transport_no_DCTrans">
+<span class="sig-name descname"><span class="pre">test_Transport_no_DCTrans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestTransport.test_Transport_no_DCTrans" title="Link to this definition"></a></dt>
+<dd><p>Test transport with DCTrans=False.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestTransport.test_Transport_with_DCTrans">
+<span class="sig-name descname"><span class="pre">test_Transport_with_DCTrans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestTransport.test_Transport_with_DCTrans" title="Link to this definition"></a></dt>
+<dd><p>Test transport with DCTrans=True.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCE2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestCalcDCE2</span></span><a class="headerlink" href="#test_dcfield.TestCalcDCE2" title="Link to this definition"></a></dt>
+<dd><p>Test DC field contribution for electrons (version 2).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCE2.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCE2.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCE2.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCE2.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCE2.test_CalcDCE2_no_DCTrans">
+<span class="sig-name descname"><span class="pre">test_CalcDCE2_no_DCTrans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCE2.test_CalcDCE2_no_DCTrans" title="Link to this definition"></a></dt>
+<dd><p>Test with DCTrans=False.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCE2.test_CalcDCE2_with_DCTrans">
+<span class="sig-name descname"><span class="pre">test_CalcDCE2_with_DCTrans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCE2.test_CalcDCE2_with_DCTrans" title="Link to this definition"></a></dt>
+<dd><p>Test with DCTrans=True.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCH2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestCalcDCH2</span></span><a class="headerlink" href="#test_dcfield.TestCalcDCH2" title="Link to this definition"></a></dt>
+<dd><p>Test DC field contribution for holes (version 2).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCH2.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCH2.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCH2.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCH2.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCH2.test_CalcDCH2_no_DCTrans">
+<span class="sig-name descname"><span class="pre">test_CalcDCH2_no_DCTrans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCH2.test_CalcDCH2_no_DCTrans" title="Link to this definition"></a></dt>
+<dd><p>Test with DCTrans=False.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCH2.test_CalcDCH2_with_DCTrans">
+<span class="sig-name descname"><span class="pre">test_CalcDCH2_with_DCTrans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCH2.test_CalcDCH2_with_DCTrans" title="Link to this definition"></a></dt>
+<dd><p>Test with DCTrans=True.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCE">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestCalcDCE</span></span><a class="headerlink" href="#test_dcfield.TestCalcDCE" title="Link to this definition"></a></dt>
+<dd><p>Test DC field contribution for electrons (original version).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCE.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCE.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCE.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCE.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCE.test_CalcDCE_no_DCTrans">
+<span class="sig-name descname"><span class="pre">test_CalcDCE_no_DCTrans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCE.test_CalcDCE_no_DCTrans" title="Link to this definition"></a></dt>
+<dd><p>Test with DCTrans=False.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCE.test_CalcDCE_with_DCTrans">
+<span class="sig-name descname"><span class="pre">test_CalcDCE_with_DCTrans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCE.test_CalcDCE_with_DCTrans" title="Link to this definition"></a></dt>
+<dd><p>Test with DCTrans=True.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCH">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestCalcDCH</span></span><a class="headerlink" href="#test_dcfield.TestCalcDCH" title="Link to this definition"></a></dt>
+<dd><p>Test DC field contribution for holes (original version).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCH.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCH.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCH.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCH.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCH.test_CalcDCH_no_DCTrans">
+<span class="sig-name descname"><span class="pre">test_CalcDCH_no_DCTrans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCH.test_CalcDCH_no_DCTrans" title="Link to this definition"></a></dt>
+<dd><p>Test with DCTrans=False.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestCalcDCH.test_CalcDCH_with_DCTrans">
+<span class="sig-name descname"><span class="pre">test_CalcDCH_with_DCTrans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestCalcDCH.test_CalcDCH_with_DCTrans" title="Link to this definition"></a></dt>
+<dd><p>Test with DCTrans=True.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestDCFieldIntegration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestDCFieldIntegration</span></span><a class="headerlink" href="#test_dcfield.TestDCFieldIntegration" title="Link to this definition"></a></dt>
+<dd><p>Integration tests for DC field calculations.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDCFieldIntegration.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDCFieldIntegration.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDCFieldIntegration.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDCFieldIntegration.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDCFieldIntegration.test_energy_renormalization_chain">
+<span class="sig-name descname"><span class="pre">test_energy_renormalization_chain</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDCFieldIntegration.test_energy_renormalization_chain" title="Link to this definition"></a></dt>
+<dd><p>Test chain of energy renormalization operations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDCFieldIntegration.test_dc_field_calculation_workflow">
+<span class="sig-name descname"><span class="pre">test_dc_field_calculation_workflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDCFieldIntegration.test_dc_field_calculation_workflow" title="Link to this definition"></a></dt>
+<dd><p>Test complete DC field calculation workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDCFieldIntegration.test_current_calculation_workflow">
+<span class="sig-name descname"><span class="pre">test_current_calculation_workflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDCFieldIntegration.test_current_calculation_workflow" title="Link to this definition"></a></dt>
+<dd><p>Test complete current calculation workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDCFieldIntegration.test_phonon_interaction_workflow">
+<span class="sig-name descname"><span class="pre">test_phonon_interaction_workflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDCFieldIntegration.test_phonon_interaction_workflow" title="Link to this definition"></a></dt>
+<dd><p>Test phonon interaction calculation workflow.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestNumericalStability">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestNumericalStability</span></span><a class="headerlink" href="#test_dcfield.TestNumericalStability" title="Link to this definition"></a></dt>
+<dd><p>Test numerical stability of functions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestNumericalStability.test_energy_renormalization_stability">
+<span class="sig-name descname"><span class="pre">test_energy_renormalization_stability</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestNumericalStability.test_energy_renormalization_stability" title="Link to this definition"></a></dt>
+<dd><p>Test energy renormalization with various inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestNumericalStability.test_drift_velocity_stability">
+<span class="sig-name descname"><span class="pre">test_drift_velocity_stability</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestNumericalStability.test_drift_velocity_stability" title="Link to this definition"></a></dt>
+<dd><p>Test drift velocity calculation stability.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestDC_Step_Scale">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestDC_Step_Scale</span></span><a class="headerlink" href="#test_dcfield.TestDC_Step_Scale" title="Link to this definition"></a></dt>
+<dd><p>Test DC step using scaling method (legacy).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDC_Step_Scale.test_DC_Step_Scale_basic">
+<span class="sig-name descname"><span class="pre">test_DC_Step_Scale_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDC_Step_Scale.test_DC_Step_Scale_basic" title="Link to this definition"></a></dt>
+<dd><p>Test DC_Step_Scale function exists and runs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDC_Step_Scale.test_DC_Step_Scale_zero_field">
+<span class="sig-name descname"><span class="pre">test_DC_Step_Scale_zero_field</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDC_Step_Scale.test_DC_Step_Scale_zero_field" title="Link to this definition"></a></dt>
+<dd><p>Test DC_Step_Scale with zero field.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestDC_Step_FD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestDC_Step_FD</span></span><a class="headerlink" href="#test_dcfield.TestDC_Step_FD" title="Link to this definition"></a></dt>
+<dd><p>Test DC step using finite difference method (legacy).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDC_Step_FD.test_DC_Step_FD_basic">
+<span class="sig-name descname"><span class="pre">test_DC_Step_FD_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDC_Step_FD.test_DC_Step_FD_basic" title="Link to this definition"></a></dt>
+<dd><p>Test DC_Step_FD with basic inputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestDC_Step_FD.test_DC_Step_FD_zero_field">
+<span class="sig-name descname"><span class="pre">test_DC_Step_FD_zero_field</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestDC_Step_FD.test_DC_Step_FD_zero_field" title="Link to this definition"></a></dt>
+<dd><p>Test DC_Step_FD with zero field.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_dcfield.TestPhysicalProperties">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_dcfield.</span></span><span class="sig-name descname"><span class="pre">TestPhysicalProperties</span></span><a class="headerlink" href="#test_dcfield.TestPhysicalProperties" title="Link to this definition"></a></dt>
+<dd><p>Test that physical properties are preserved.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestPhysicalProperties.test_current_conservation">
+<span class="sig-name descname"><span class="pre">test_current_conservation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestPhysicalProperties.test_current_conservation" title="Link to this definition"></a></dt>
+<dd><p>Test that current calculations are physically reasonable.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_dcfield.TestPhysicalProperties.test_energy_renormalization_consistency">
+<span class="sig-name descname"><span class="pre">test_energy_renormalization_consistency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_dcfield.TestPhysicalProperties.test_energy_renormalization_consistency" title="Link to this definition"></a></dt>
+<dd><p>Test that energy renormalization is consistent.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../test_coulomb/index.html" class="btn btn-neutral float-left" title="test_coulomb" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../test_phonons/index.html" class="btn btn-neutral float-right" title="test_phonons" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

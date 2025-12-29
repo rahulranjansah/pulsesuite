@@ -1,0 +1,427 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.type_plasma &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="src.typelens" href="../typelens/index.html" />
+    <link rel="prev" title="src.sbetestpropnov30" href="../sbetestpropnov30/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">src</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../SBEs/index.html">src.SBEs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../constants/index.html">src.constants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../coulomb/index.html">src.coulomb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dcfield/index.html">src.dcfield</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dephasing/index.html">src.dephasing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../emission/index.html">src.emission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../epsrtl/index.html">src.epsrtl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../fftw/index.html">src.fftw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../helpers/index.html">src.helpers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../phonons/index.html">src.phonons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../phost/index.html">src.phost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../qwoptics/index.html">src.qwoptics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rhoPJ/index.html">src.rhoPJ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rungekutta/index.html">src.rungekutta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../sbetestprop/index.html">src.sbetestprop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../sbetestpropnov30/index.html">src.sbetestpropnov30</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">src.type_plasma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typelens/index.html">src.typelens</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typemedium/index.html">src.typemedium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typespace/index.html">src.typespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typetpamedium/index.html">src.typetpamedium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usefulsubs/index.html">src.usefulsubs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../spliner/index.html">spliner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_phost/index.html">test_phost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_epsrtl/index.html">test_epsrtl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_coulomb/index.html">test_coulomb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_dcfield/index.html">test_dcfield</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_phonons/index.html">test_phonons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_qwoptics/index.html">test_qwoptics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_dephasing/index.html">test_dephasing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_typespace/index.html">test_typespace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../coulomb_example/index.html">coulomb_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_usefulsubs/index.html">test_usefulsubs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SBEs_basic_example/index.html">SBEs_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SBEs_domain_example/index.html">SBEs_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dcfield_basic_example/index.html">dcfield_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../performance_benchmark/index.html">performance_benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SBEs_workflow_example/index.html">SBEs_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dcfield_domain_example/index.html">dcfield_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qwoptics_basic_example/index.html">qwoptics_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../coulombpythonic_example/index.html">coulombpythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../phononspythonic_example/index.html">phononspythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qwoptics_domain_example/index.html">qwoptics_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dcfield_workflow_example/index.html">dcfield_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qwoptics_workflow_example/index.html">qwoptics_workflow_example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">src</a></li>
+      <li class="breadcrumb-item active">src.type_plasma</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/src/type_plasma/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-src.type_plasma">
+<span id="src-type-plasma"></span><h1>src.type_plasma<a class="headerlink" href="#module-src.type_plasma" title="Link to this heading"></a></h1>
+<p>High‑performance, HPC‑ready rewrite that preserves the original Fortran naming
+conventions one‑for‑one while exploiting Python/NumPy ergonomics.</p>
+<ul class="simple">
+<li><p>Structure <cite>plasma_coefficients</cite> → class <code class="docutils literal notranslate"><span class="pre">plasma_coefficients</span></code> (slots for
+cache‑friendliness; dtype preserved as float64/int64).</p></li>
+<li><p>Getter / setter routines exported with the <strong>exact</strong> original names
+(<code class="docutils literal notranslate"><span class="pre">GetMass</span></code>, <code class="docutils literal notranslate"><span class="pre">SetMass</span></code> …) so downstream code can transition painlessly.</p></li>
+<li><p>Human‑readable parameter files (same layout as the Fortran writer) handled
+by <code class="docutils literal notranslate"><span class="pre">readplasmaparams_sub</span></code> / <code class="docutils literal notranslate"><span class="pre">writeplasmaparams_sub</span></code>.</p></li>
+<li><p>Rigorous runtime dtype checking via <code class="docutils literal notranslate"><span class="pre">&#64;with_guardrails</span></code> decorator.</p></li>
+<li><p>Ready for further acceleration (e.g. Numba) if bulk processing of plasma
+parameter arrays becomes a bottleneck.</p></li>
+</ul>
+<section id="assumptions">
+<h2>Assumptions<a class="headerlink" href="#assumptions" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>All project‑wide constants live in <code class="docutils literal notranslate"><span class="pre">constants.py</span></code> (<code class="docutils literal notranslate"><span class="pre">dp</span> <span class="pre">=</span> <span class="pre">np.float64</span></code>).</p></li>
+<li><p>A lightweight <code class="docutils literal notranslate"><span class="pre">logger</span></code> module provides <code class="docutils literal notranslate"><span class="pre">Logger.getInstance().error</span></code>.</p></li>
+<li><p>No Fortran‑style unit numbers – we just pass an already‑opened <cite>TextIO</cite> or
+a <em>path</em> (the helper takes care of opening).</p></li>
+</ul>
+</section>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.type_plasma.plasma_filetag" title="src.type_plasma.plasma_filetag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plasma_filetag</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plasma_coefficients</span></code></a></p></td>
+<td><p>Direct Python counterpart of Fortran's <cite>type plasma_coefficients</cite>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.type_plasma.readplasmaparams_sub" title="src.type_plasma.readplasmaparams_sub"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readplasmaparams_sub</span></code></a>(→ None)</p></td>
+<td><p>Populate <em>plasma</em> by parsing an existing parameter file/stream.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.type_plasma.writeplasmaparams_sub" title="src.type_plasma.writeplasmaparams_sub"><code class="xref py py-obj docutils literal notranslate"><span class="pre">writeplasmaparams_sub</span></code></a>(→ None)</p></td>
+<td><p>Write <em>plasma</em> in the canonical Fortran text format.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.type_plasma.GetVersion_plasma" title="src.type_plasma.GetVersion_plasma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetVersion_plasma</span></code></a>(→ int)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.type_plasma.GetMass" title="src.type_plasma.GetMass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetMass</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.type_plasma.SetMass" title="src.type_plasma.SetMass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetMass</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.type_plasma.GetBandGap" title="src.type_plasma.GetBandGap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetBandGap</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.type_plasma.SetBandGap" title="src.type_plasma.SetBandGap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetBandGap</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.type_plasma.GetTrapTime" title="src.type_plasma.GetTrapTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetTrapTime</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.type_plasma.SetTrapTime" title="src.type_plasma.SetTrapTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetTrapTime</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.type_plasma.GetCollisionTime" title="src.type_plasma.GetCollisionTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetCollisionTime</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.type_plasma.SetCollisionTime" title="src.type_plasma.SetCollisionTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetCollisionTime</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.type_plasma.GetMaxDensity" title="src.type_plasma.GetMaxDensity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetMaxDensity</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.type_plasma.SetMaxDensity" title="src.type_plasma.SetMaxDensity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetMaxDensity</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.type_plasma.GetOrder" title="src.type_plasma.GetOrder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetOrder</span></code></a>(→ int)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.type_plasma.SetOrder" title="src.type_plasma.SetOrder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetOrder</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.type_plasma.GetCrossSection" title="src.type_plasma.GetCrossSection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetCrossSection</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.type_plasma.SetCrossSection" title="src.type_plasma.SetCrossSection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetCrossSection</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="src.type_plasma.plasma_filetag">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">plasma_filetag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Ellipsis</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('[params.plasma_v1.0]',)</span></em><a class="headerlink" href="#src.type_plasma.plasma_filetag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.type_plasma.plasma_coefficients">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">plasma_coefficients</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band_gap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trap_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collision_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_density</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma_multi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.type_plasma.plasma_coefficients" title="Link to this definition"></a></dt>
+<dd><p>Direct Python counterpart of Fortran’s <cite>type plasma_coefficients</cite>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.type_plasma.plasma_coefficients.__slots__">
+<span class="sig-name descname"><span class="pre">__slots__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('version',</span> <span class="pre">'mass',</span> <span class="pre">'band_gap',</span> <span class="pre">'trap_time',</span> <span class="pre">'collision_time',</span> <span class="pre">'max_density',</span> <span class="pre">'order',</span> <span class="pre">'sigma_multi')</span></em><a class="headerlink" href="#src.type_plasma.plasma_coefficients.__slots__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.type_plasma.plasma_coefficients.version">
+<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#src.type_plasma.plasma_coefficients.version" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.type_plasma.plasma_coefficients.mass">
+<span class="sig-name descname"><span class="pre">mass</span></span><a class="headerlink" href="#src.type_plasma.plasma_coefficients.mass" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.type_plasma.plasma_coefficients.band_gap">
+<span class="sig-name descname"><span class="pre">band_gap</span></span><a class="headerlink" href="#src.type_plasma.plasma_coefficients.band_gap" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.type_plasma.plasma_coefficients.trap_time">
+<span class="sig-name descname"><span class="pre">trap_time</span></span><a class="headerlink" href="#src.type_plasma.plasma_coefficients.trap_time" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.type_plasma.plasma_coefficients.collision_time">
+<span class="sig-name descname"><span class="pre">collision_time</span></span><a class="headerlink" href="#src.type_plasma.plasma_coefficients.collision_time" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.type_plasma.plasma_coefficients.max_density">
+<span class="sig-name descname"><span class="pre">max_density</span></span><a class="headerlink" href="#src.type_plasma.plasma_coefficients.max_density" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.type_plasma.plasma_coefficients.order">
+<span class="sig-name descname"><span class="pre">order</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#src.type_plasma.plasma_coefficients.order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.type_plasma.plasma_coefficients.sigma_multi">
+<span class="sig-name descname"><span class="pre">sigma_multi</span></span><a class="headerlink" href="#src.type_plasma.plasma_coefficients.sigma_multi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.type_plasma.plasma_coefficients.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></span><a class="headerlink" href="#src.type_plasma.plasma_coefficients.copy" title="Link to this definition"></a></dt>
+<dd><p>Return a <em>shallow</em> copy (all fields are immutable scalars).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.type_plasma.plasma_coefficients.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#src.type_plasma.plasma_coefficients.__repr__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.type_plasma.plasma_coefficients.__eq__">
+<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.type_plasma.plasma_coefficients.__eq__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.readplasmaparams_sub">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">readplasmaparams_sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">U</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">TextIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.type_plasma.readplasmaparams_sub" title="Link to this definition"></a></dt>
+<dd><p>Populate <em>plasma</em> by parsing an existing parameter file/stream.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.writeplasmaparams_sub">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">writeplasmaparams_sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">U</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">TextIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.type_plasma.writeplasmaparams_sub" title="Link to this definition"></a></dt>
+<dd><p>Write <em>plasma</em> in the canonical Fortran text format.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.GetVersion_plasma">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetVersion_plasma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#src.type_plasma.GetVersion_plasma" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.GetMass">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetMass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.type_plasma.GetMass" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.SetMass">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">SetMass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.type_plasma.SetMass" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.GetBandGap">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetBandGap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.type_plasma.GetBandGap" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.SetBandGap">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">SetBandGap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.type_plasma.SetBandGap" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.GetTrapTime">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetTrapTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.type_plasma.GetTrapTime" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.SetTrapTime">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">SetTrapTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.type_plasma.SetTrapTime" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.GetCollisionTime">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetCollisionTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.type_plasma.GetCollisionTime" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.SetCollisionTime">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">SetCollisionTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.type_plasma.SetCollisionTime" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.GetMaxDensity">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetMaxDensity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.type_plasma.GetMaxDensity" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.SetMaxDensity">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">SetMaxDensity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.type_plasma.SetMaxDensity" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.GetOrder">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetOrder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#src.type_plasma.GetOrder" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.SetOrder">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">SetOrder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.type_plasma.SetOrder" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.GetCrossSection">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetCrossSection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.type_plasma.GetCrossSection" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.type_plasma.SetCrossSection">
+<span class="sig-prename descclassname"><span class="pre">src.type_plasma.</span></span><span class="sig-name descname"><span class="pre">SetCrossSection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.type_plasma.plasma_coefficients" title="src.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma_multi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.type_plasma.SetCrossSection" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../sbetestpropnov30/index.html" class="btn btn-neutral float-left" title="src.sbetestpropnov30" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../typelens/index.html" class="btn btn-neutral float-right" title="src.typelens" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

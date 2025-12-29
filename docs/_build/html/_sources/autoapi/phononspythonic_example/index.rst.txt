@@ -1,0 +1,83 @@
+phononspythonic_example
+=======================
+
+.. py:module:: phononspythonic_example
+
+.. autoapi-nested-parse::
+
+   PhononsPythonic Example Script
+   ==============================
+
+   This script demonstrates the usage of the phononspythonic module for quantum wire
+   semiconductor simulations. It shows both the modern Pythonic interface and the
+   Fortran-compatible interface.
+
+   Author: AI Assistant
+   Date: 2024
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   phononspythonic_example.exit_code
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   phononspythonic_example.create_test_system
+   phononspythonic_example.modern_pythonic_interface
+   phononspythonic_example.fortran_compatible_interface
+   phononspythonic_example.test_cq2_function
+   phononspythonic_example.performance_comparison
+   phononspythonic_example.create_visualization
+   phononspythonic_example.main
+
+
+Module Contents
+---------------
+
+.. py:function:: create_test_system(N=32)
+
+   Create a test quantum wire system.
+
+
+.. py:function:: modern_pythonic_interface()
+
+   Demonstrate the modern Pythonic interface.
+
+
+.. py:function:: fortran_compatible_interface()
+
+   Demonstrate the Fortran-compatible interface.
+
+
+.. py:function:: test_cq2_function()
+
+   Test the Cq2 function for DC field calculations.
+
+
+.. py:function:: performance_comparison()
+
+   Compare performance between different system sizes.
+
+
+.. py:function:: create_visualization(solver, Win_e, Wout_e, Win_h, Wout_h)
+
+   Create visualization of phonon rates.
+
+
+.. py:function:: main()
+
+   Main example function.
+
+
+.. py:data:: exit_code
+   :value: 1
+
+

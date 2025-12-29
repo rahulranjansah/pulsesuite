@@ -1,0 +1,862 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>test_qwoptics &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="test_dephasing" href="../test_dephasing/index.html" />
+    <link rel="prev" title="test_phonons" href="../test_phonons/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/index.html">src</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spliner/index.html">spliner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_phost/index.html">test_phost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_epsrtl/index.html">test_epsrtl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_coulomb/index.html">test_coulomb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_dcfield/index.html">test_dcfield</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_phonons/index.html">test_phonons</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">test_qwoptics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestYW"><code class="docutils literal notranslate"><span class="pre">TestYW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestCalcQWWindow"><code class="docutils literal notranslate"><span class="pre">TestCalcQWWindow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestCalcExpikr"><code class="docutils literal notranslate"><span class="pre">TestCalcExpikr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestInitializeQWOptics"><code class="docutils literal notranslate"><span class="pre">TestInitializeQWOptics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestXcvYcvZcv"><code class="docutils literal notranslate"><span class="pre">TestXcvYcvZcv</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestQWChi1"><code class="docutils literal notranslate"><span class="pre">TestQWChi1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestProp2QW"><code class="docutils literal notranslate"><span class="pre">TestProp2QW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestQW2Prop"><code class="docutils literal notranslate"><span class="pre">TestQW2Prop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestQWPolarization3"><code class="docutils literal notranslate"><span class="pre">TestQWPolarization3</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestQWRho5"><code class="docutils literal notranslate"><span class="pre">TestQWRho5</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestGetVn1n2"><code class="docutils literal notranslate"><span class="pre">TestGetVn1n2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestPrintFunctions"><code class="docutils literal notranslate"><span class="pre">TestPrintFunctions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestWriteFunctions"><code class="docutils literal notranslate"><span class="pre">TestWriteFunctions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestIntegratedWorkflows"><code class="docutils literal notranslate"><span class="pre">TestIntegratedWorkflows</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestEdgeCases"><code class="docutils literal notranslate"><span class="pre">TestEdgeCases</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_qwoptics.TestNumericalPrecision"><code class="docutils literal notranslate"><span class="pre">TestNumericalPrecision</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../test_dephasing/index.html">test_dephasing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_typespace/index.html">test_typespace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../coulomb_example/index.html">coulomb_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_usefulsubs/index.html">test_usefulsubs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_basic_example/index.html">SBEs_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_domain_example/index.html">SBEs_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_basic_example/index.html">dcfield_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance_benchmark/index.html">performance_benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_workflow_example/index.html">SBEs_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_domain_example/index.html">dcfield_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_basic_example/index.html">qwoptics_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../coulombpythonic_example/index.html">coulombpythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../phononspythonic_example/index.html">phononspythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_domain_example/index.html">qwoptics_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_workflow_example/index.html">dcfield_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_workflow_example/index.html">qwoptics_workflow_example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">test_qwoptics</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/autoapi/test_qwoptics/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-test_qwoptics">
+<span id="test-qwoptics"></span><h1>test_qwoptics<a class="headerlink" href="#module-test_qwoptics" title="Link to this heading"></a></h1>
+<p>Comprehensive test suite for qwoptics.py module.</p>
+<p>Tests all quantum wire optics functions including field conversions,
+polarization calculations, charge densities, and I/O operations.</p>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_qwoptics.TestYW" title="test_qwoptics.TestYW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestYW</span></code></a></p></td>
+<td><p>Test wire-dependent sign factor function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_qwoptics.TestCalcQWWindow" title="test_qwoptics.TestCalcQWWindow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcQWWindow</span></code></a></p></td>
+<td><p>Test quantum wire window function calculation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_qwoptics.TestCalcExpikr" title="test_qwoptics.TestCalcExpikr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestCalcExpikr</span></code></a></p></td>
+<td><p>Test exp(ikr) array calculation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_qwoptics.TestInitializeQWOptics" title="test_qwoptics.TestInitializeQWOptics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestInitializeQWOptics</span></code></a></p></td>
+<td><p>Test quantum wire optics initialization.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_qwoptics.TestXcvYcvZcv" title="test_qwoptics.TestXcvYcvZcv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestXcvYcvZcv</span></code></a></p></td>
+<td><p>Test dipole matrix element getters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_qwoptics.TestQWChi1" title="test_qwoptics.TestQWChi1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestQWChi1</span></code></a></p></td>
+<td><p>Test quantum wire linear susceptibility calculation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_qwoptics.TestProp2QW" title="test_qwoptics.TestProp2QW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestProp2QW</span></code></a></p></td>
+<td><p>Test propagation to QW field conversion.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_qwoptics.TestQW2Prop" title="test_qwoptics.TestQW2Prop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestQW2Prop</span></code></a></p></td>
+<td><p>Test QW to propagation field conversion.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_qwoptics.TestQWPolarization3" title="test_qwoptics.TestQWPolarization3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestQWPolarization3</span></code></a></p></td>
+<td><p>Test QW polarization calculation in 3D.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_qwoptics.TestQWRho5" title="test_qwoptics.TestQWRho5"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestQWRho5</span></code></a></p></td>
+<td><p>Test quantum wire charge density calculation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_qwoptics.TestGetVn1n2" title="test_qwoptics.TestGetVn1n2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestGetVn1n2</span></code></a></p></td>
+<td><p>Test interaction matrix calculation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_qwoptics.TestPrintFunctions" title="test_qwoptics.TestPrintFunctions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestPrintFunctions</span></code></a></p></td>
+<td><p>Test print/write functions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_qwoptics.TestWriteFunctions" title="test_qwoptics.TestWriteFunctions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestWriteFunctions</span></code></a></p></td>
+<td><p>Test write functions for SBE solutions, PL spectrum, and fields.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_qwoptics.TestIntegratedWorkflows" title="test_qwoptics.TestIntegratedWorkflows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestIntegratedWorkflows</span></code></a></p></td>
+<td><p>Test integrated workflows combining multiple functions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_qwoptics.TestEdgeCases" title="test_qwoptics.TestEdgeCases"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestEdgeCases</span></code></a></p></td>
+<td><p>Test edge cases and boundary conditions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_qwoptics.TestNumericalPrecision" title="test_qwoptics.TestNumericalPrecision"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestNumericalPrecision</span></code></a></p></td>
+<td><p>Test numerical precision and stability.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestYW">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestYW</span></span><a class="headerlink" href="#test_qwoptics.TestYW" title="Link to this definition"></a></dt>
+<dd><p>Test wire-dependent sign factor function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestYW.test_yw_wire_1">
+<span class="sig-name descname"><span class="pre">test_yw_wire_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestYW.test_yw_wire_1" title="Link to this definition"></a></dt>
+<dd><p>Test yw with wire index 1.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestYW.test_yw_wire_2">
+<span class="sig-name descname"><span class="pre">test_yw_wire_2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestYW.test_yw_wire_2" title="Link to this definition"></a></dt>
+<dd><p>Test yw with wire index 2.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestYW.test_yw_wire_3">
+<span class="sig-name descname"><span class="pre">test_yw_wire_3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestYW.test_yw_wire_3" title="Link to this definition"></a></dt>
+<dd><p>Test yw with wire index 3.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestYW.test_yw_wire_4">
+<span class="sig-name descname"><span class="pre">test_yw_wire_4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestYW.test_yw_wire_4" title="Link to this definition"></a></dt>
+<dd><p>Test yw with wire index 4.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestYW.test_yw_wire_5">
+<span class="sig-name descname"><span class="pre">test_yw_wire_5</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestYW.test_yw_wire_5" title="Link to this definition"></a></dt>
+<dd><p>Test yw with wire index 5.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestYW.test_yw_wire_6">
+<span class="sig-name descname"><span class="pre">test_yw_wire_6</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestYW.test_yw_wire_6" title="Link to this definition"></a></dt>
+<dd><p>Test yw with wire index 6.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestYW.test_yw_alternating_pattern">
+<span class="sig-name descname"><span class="pre">test_yw_alternating_pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestYW.test_yw_alternating_pattern" title="Link to this definition"></a></dt>
+<dd><p>Test yw follows alternating pattern.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcQWWindow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestCalcQWWindow</span></span><a class="headerlink" href="#test_qwoptics.TestCalcQWWindow" title="Link to this definition"></a></dt>
+<dd><p>Test quantum wire window function calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcQWWindow.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestCalcQWWindow.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcQWWindow.test_CalcQWWindow_creates_window">
+<span class="sig-name descname"><span class="pre">test_CalcQWWindow_creates_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestCalcQWWindow.test_CalcQWWindow_creates_window" title="Link to this definition"></a></dt>
+<dd><p>Test that window function is created.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcQWWindow.test_CalcQWWindow_shape">
+<span class="sig-name descname"><span class="pre">test_CalcQWWindow_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestCalcQWWindow.test_CalcQWWindow_shape" title="Link to this definition"></a></dt>
+<dd><p>Test window function has correct shape.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcQWWindow.test_CalcQWWindow_values_inside">
+<span class="sig-name descname"><span class="pre">test_CalcQWWindow_values_inside</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestCalcQWWindow.test_CalcQWWindow_values_inside" title="Link to this definition"></a></dt>
+<dd><p>Test window values inside wire are close to 1.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcQWWindow.test_CalcQWWindow_values_outside">
+<span class="sig-name descname"><span class="pre">test_CalcQWWindow_values_outside</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestCalcQWWindow.test_CalcQWWindow_values_outside" title="Link to this definition"></a></dt>
+<dd><p>Test window values outside wire are small.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcQWWindow.test_CalcQWWindow_symmetry">
+<span class="sig-name descname"><span class="pre">test_CalcQWWindow_symmetry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestCalcQWWindow.test_CalcQWWindow_symmetry" title="Link to this definition"></a></dt>
+<dd><p>Test window function is symmetric.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcQWWindow.test_CalcQWWindow_different_lengths">
+<span class="sig-name descname"><span class="pre">test_CalcQWWindow_different_lengths</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestCalcQWWindow.test_CalcQWWindow_different_lengths" title="Link to this definition"></a></dt>
+<dd><p>Test window with different wire lengths.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcQWWindow.test_CalcQWWindow_file_output">
+<span class="sig-name descname"><span class="pre">test_CalcQWWindow_file_output</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestCalcQWWindow.test_CalcQWWindow_file_output" title="Link to this definition"></a></dt>
+<dd><p>Test that window writes to file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcExpikr">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestCalcExpikr</span></span><a class="headerlink" href="#test_qwoptics.TestCalcExpikr" title="Link to this definition"></a></dt>
+<dd><p>Test exp(ikr) array calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcExpikr.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestCalcExpikr.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcExpikr.test_CalcExpikr_creates_arrays">
+<span class="sig-name descname"><span class="pre">test_CalcExpikr_creates_arrays</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestCalcExpikr.test_CalcExpikr_creates_arrays" title="Link to this definition"></a></dt>
+<dd><p>Test that exp(ikr) arrays are created.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcExpikr.test_CalcExpikr_shape">
+<span class="sig-name descname"><span class="pre">test_CalcExpikr_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestCalcExpikr.test_CalcExpikr_shape" title="Link to this definition"></a></dt>
+<dd><p>Test arrays have correct shape.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcExpikr.test_CalcExpikr_values">
+<span class="sig-name descname"><span class="pre">test_CalcExpikr_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestCalcExpikr.test_CalcExpikr_values" title="Link to this definition"></a></dt>
+<dd><p>Test exp(ikr) values are correct.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcExpikr.test_CalcExpikr_conjugate_relationship">
+<span class="sig-name descname"><span class="pre">test_CalcExpikr_conjugate_relationship</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestCalcExpikr.test_CalcExpikr_conjugate_relationship" title="Link to this definition"></a></dt>
+<dd><p>Test that Expikrc is conjugate of Expikr.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestCalcExpikr.test_CalcExpikr_unit_magnitude">
+<span class="sig-name descname"><span class="pre">test_CalcExpikr_unit_magnitude</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestCalcExpikr.test_CalcExpikr_unit_magnitude" title="Link to this definition"></a></dt>
+<dd><p>Test that exp(ikr) has unit magnitude.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestInitializeQWOptics">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestInitializeQWOptics</span></span><a class="headerlink" href="#test_qwoptics.TestInitializeQWOptics" title="Link to this definition"></a></dt>
+<dd><p>Test quantum wire optics initialization.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestInitializeQWOptics.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestInitializeQWOptics.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestInitializeQWOptics.test_InitializeQWOptics_sets_global_variables">
+<span class="sig-name descname"><span class="pre">test_InitializeQWOptics_sets_global_variables</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestInitializeQWOptics.test_InitializeQWOptics_sets_global_variables" title="Link to this definition"></a></dt>
+<dd><p>Test that initialization sets global variables.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestInitializeQWOptics.test_InitializeQWOptics_dipole_matrices_shape">
+<span class="sig-name descname"><span class="pre">test_InitializeQWOptics_dipole_matrices_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestInitializeQWOptics.test_InitializeQWOptics_dipole_matrices_shape" title="Link to this definition"></a></dt>
+<dd><p>Test dipole matrices have correct shape.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestInitializeQWOptics.test_InitializeQWOptics_dipole_values">
+<span class="sig-name descname"><span class="pre">test_InitializeQWOptics_dipole_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestInitializeQWOptics.test_InitializeQWOptics_dipole_values" title="Link to this definition"></a></dt>
+<dd><p>Test dipole matrix values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestInitializeQWOptics.test_InitializeQWOptics_conjugate_relationship">
+<span class="sig-name descname"><span class="pre">test_InitializeQWOptics_conjugate_relationship</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestInitializeQWOptics.test_InitializeQWOptics_conjugate_relationship" title="Link to this definition"></a></dt>
+<dd><p>Test that vc matrices are conjugates of cv matrices.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestInitializeQWOptics.test_InitializeQWOptics_volume_calculation">
+<span class="sig-name descname"><span class="pre">test_InitializeQWOptics_volume_calculation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestInitializeQWOptics.test_InitializeQWOptics_volume_calculation" title="Link to this definition"></a></dt>
+<dd><p>Test volume calculation.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestXcvYcvZcv">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestXcvYcvZcv</span></span><a class="headerlink" href="#test_qwoptics.TestXcvYcvZcv" title="Link to this definition"></a></dt>
+<dd><p>Test dipole matrix element getters.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestXcvYcvZcv.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestXcvYcvZcv.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestXcvYcvZcv.test_Xcv_returns_value">
+<span class="sig-name descname"><span class="pre">test_Xcv_returns_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestXcvYcvZcv.test_Xcv_returns_value" title="Link to this definition"></a></dt>
+<dd><p>Test Xcv returns correct value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestXcvYcvZcv.test_Ycv_returns_value">
+<span class="sig-name descname"><span class="pre">test_Ycv_returns_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestXcvYcvZcv.test_Ycv_returns_value" title="Link to this definition"></a></dt>
+<dd><p>Test Ycv returns correct value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestXcvYcvZcv.test_Zcv_returns_value">
+<span class="sig-name descname"><span class="pre">test_Zcv_returns_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestXcvYcvZcv.test_Zcv_returns_value" title="Link to this definition"></a></dt>
+<dd><p>Test Zcv returns correct value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestXcvYcvZcv.test_dipole_getters_all_indices">
+<span class="sig-name descname"><span class="pre">test_dipole_getters_all_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestXcvYcvZcv.test_dipole_getters_all_indices" title="Link to this definition"></a></dt>
+<dd><p>Test dipole getters for various indices.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWChi1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestQWChi1</span></span><a class="headerlink" href="#test_qwoptics.TestQWChi1" title="Link to this definition"></a></dt>
+<dd><p>Test quantum wire linear susceptibility calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWChi1.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWChi1.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWChi1.test_QWChi1_returns_complex">
+<span class="sig-name descname"><span class="pre">test_QWChi1_returns_complex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWChi1.test_QWChi1_returns_complex" title="Link to this definition"></a></dt>
+<dd><p>Test that QWChi1 returns complex value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWChi1.test_QWChi1_finite">
+<span class="sig-name descname"><span class="pre">test_QWChi1_finite</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWChi1.test_QWChi1_finite" title="Link to this definition"></a></dt>
+<dd><p>Test that QWChi1 returns finite value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWChi1.test_QWChi1_different_wavelengths">
+<span class="sig-name descname"><span class="pre">test_QWChi1_different_wavelengths</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWChi1.test_QWChi1_different_wavelengths" title="Link to this definition"></a></dt>
+<dd><p>Test QWChi1 with different wavelengths.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWChi1.test_QWChi1_zero_dephasing">
+<span class="sig-name descname"><span class="pre">test_QWChi1_zero_dephasing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWChi1.test_QWChi1_zero_dephasing" title="Link to this definition"></a></dt>
+<dd><p>Test QWChi1 with zero dephasing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWChi1.test_QWChi1_physical_values">
+<span class="sig-name descname"><span class="pre">test_QWChi1_physical_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWChi1.test_QWChi1_physical_values" title="Link to this definition"></a></dt>
+<dd><p>Test QWChi1 with physical parameter values.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestProp2QW">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestProp2QW</span></span><a class="headerlink" href="#test_qwoptics.TestProp2QW" title="Link to this definition"></a></dt>
+<dd><p>Test propagation to QW field conversion.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestProp2QW.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestProp2QW.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestProp2QW.test_Prop2QW_initializes_outputs">
+<span class="sig-name descname"><span class="pre">test_Prop2QW_initializes_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestProp2QW.test_Prop2QW_initializes_outputs" title="Link to this definition"></a></dt>
+<dd><p>Test that outputs are initialized.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestProp2QW.test_Prop2QW_applies_window">
+<span class="sig-name descname"><span class="pre">test_Prop2QW_applies_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestProp2QW.test_Prop2QW_applies_window" title="Link to this definition"></a></dt>
+<dd><p>Test that window function is applied.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestProp2QW.test_Prop2QW_makes_fields_real_before_fft">
+<span class="sig-name descname"><span class="pre">test_Prop2QW_makes_fields_real_before_fft</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestProp2QW.test_Prop2QW_makes_fields_real_before_fft" title="Link to this definition"></a></dt>
+<dd><p>Test that fields are made real before FFT.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestProp2QW.test_Prop2QW_without_window">
+<span class="sig-name descname"><span class="pre">test_Prop2QW_without_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestProp2QW.test_Prop2QW_without_window" title="Link to this definition"></a></dt>
+<dd><p>Test Prop2QW when window is None.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestQW2Prop">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestQW2Prop</span></span><a class="headerlink" href="#test_qwoptics.TestQW2Prop" title="Link to this definition"></a></dt>
+<dd><p>Test QW to propagation field conversion.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQW2Prop.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQW2Prop.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQW2Prop.test_QW2Prop_basic">
+<span class="sig-name descname"><span class="pre">test_QW2Prop_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQW2Prop.test_QW2Prop_basic" title="Link to this definition"></a></dt>
+<dd><p>Test basic QW2Prop conversion.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQW2Prop.test_QW2Prop_with_plasmonics">
+<span class="sig-name descname"><span class="pre">test_QW2Prop_with_plasmonics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQW2Prop.test_QW2Prop_with_plasmonics" title="Link to this definition"></a></dt>
+<dd><p>Test QW2Prop with plasmonics enabled.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQW2Prop.test_QW2Prop_charge_density_normalization">
+<span class="sig-name descname"><span class="pre">test_QW2Prop_charge_density_normalization</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQW2Prop.test_QW2Prop_charge_density_normalization" title="Link to this definition"></a></dt>
+<dd><p>Test charge density normalization.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWPolarization3">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestQWPolarization3</span></span><a class="headerlink" href="#test_qwoptics.TestQWPolarization3" title="Link to this definition"></a></dt>
+<dd><p>Test QW polarization calculation in 3D.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWPolarization3.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWPolarization3.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWPolarization3.test_QWPolarization3_initializes_outputs">
+<span class="sig-name descname"><span class="pre">test_QWPolarization3_initializes_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWPolarization3.test_QWPolarization3_initializes_outputs" title="Link to this definition"></a></dt>
+<dd><p>Test that polarization outputs are initialized.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWPolarization3.test_QWPolarization3_finite_values">
+<span class="sig-name descname"><span class="pre">test_QWPolarization3_finite_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWPolarization3.test_QWPolarization3_finite_values" title="Link to this definition"></a></dt>
+<dd><p>Test that polarization values are finite.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWPolarization3.test_QWPolarization3_without_initialization">
+<span class="sig-name descname"><span class="pre">test_QWPolarization3_without_initialization</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWPolarization3.test_QWPolarization3_without_initialization" title="Link to this definition"></a></dt>
+<dd><p>Test QWPolarization3 when globals are None.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWPolarization3.test_QWPolarization3_different_wires">
+<span class="sig-name descname"><span class="pre">test_QWPolarization3_different_wires</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWPolarization3.test_QWPolarization3_different_wires" title="Link to this definition"></a></dt>
+<dd><p>Test QWPolarization3 with different wire indices.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWRho5">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestQWRho5</span></span><a class="headerlink" href="#test_qwoptics.TestQWRho5" title="Link to this definition"></a></dt>
+<dd><p>Test quantum wire charge density calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWRho5.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWRho5.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWRho5.test_QWRho5_initializes_outputs">
+<span class="sig-name descname"><span class="pre">test_QWRho5_initializes_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWRho5.test_QWRho5_initializes_outputs" title="Link to this definition"></a></dt>
+<dd><p>Test that charge density outputs are initialized.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWRho5.test_QWRho5_finite_values">
+<span class="sig-name descname"><span class="pre">test_QWRho5_finite_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWRho5.test_QWRho5_finite_values" title="Link to this definition"></a></dt>
+<dd><p>Test that charge densities are finite.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWRho5.test_QWRho5_normalization">
+<span class="sig-name descname"><span class="pre">test_QWRho5_normalization</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWRho5.test_QWRho5_normalization" title="Link to this definition"></a></dt>
+<dd><p>Test charge density normalization.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestQWRho5.test_QWRho5_without_globals">
+<span class="sig-name descname"><span class="pre">test_QWRho5_without_globals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestQWRho5.test_QWRho5_without_globals" title="Link to this definition"></a></dt>
+<dd><p>Test QWRho5 when globals are None.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestGetVn1n2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestGetVn1n2</span></span><a class="headerlink" href="#test_qwoptics.TestGetVn1n2" title="Link to this definition"></a></dt>
+<dd><p>Test interaction matrix calculation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestGetVn1n2.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestGetVn1n2.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestGetVn1n2.test_GetVn1n2_initializes_outputs">
+<span class="sig-name descname"><span class="pre">test_GetVn1n2_initializes_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestGetVn1n2.test_GetVn1n2_initializes_outputs" title="Link to this definition"></a></dt>
+<dd><p>Test that interaction matrices are initialized.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestGetVn1n2.test_GetVn1n2_finite_values">
+<span class="sig-name descname"><span class="pre">test_GetVn1n2_finite_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestGetVn1n2.test_GetVn1n2_finite_values" title="Link to this definition"></a></dt>
+<dd><p>Test that interaction matrices have finite values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestGetVn1n2.test_GetVn1n2_conjugate_relationship">
+<span class="sig-name descname"><span class="pre">test_GetVn1n2_conjugate_relationship</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestGetVn1n2.test_GetVn1n2_conjugate_relationship" title="Link to this definition"></a></dt>
+<dd><p>Test that Vvc is conjugate transpose of Vcv.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestGetVn1n2.test_GetVn1n2_zero_hamiltonian">
+<span class="sig-name descname"><span class="pre">test_GetVn1n2_zero_hamiltonian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestGetVn1n2.test_GetVn1n2_zero_hamiltonian" title="Link to this definition"></a></dt>
+<dd><p>Test GetVn1n2 with zero Hamiltonian.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestPrintFunctions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestPrintFunctions</span></span><a class="headerlink" href="#test_qwoptics.TestPrintFunctions" title="Link to this definition"></a></dt>
+<dd><p>Test print/write functions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestPrintFunctions.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestPrintFunctions.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestPrintFunctions.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestPrintFunctions.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestPrintFunctions.test_printITReal2_first_time">
+<span class="sig-name descname"><span class="pre">test_printITReal2_first_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestPrintFunctions.test_printITReal2_first_time" title="Link to this definition"></a></dt>
+<dd><p>Test printITReal2 on first write.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestPrintFunctions.test_printITReal2_subsequent_times">
+<span class="sig-name descname"><span class="pre">test_printITReal2_subsequent_times</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestPrintFunctions.test_printITReal2_subsequent_times" title="Link to this definition"></a></dt>
+<dd><p>Test printITReal2 on subsequent writes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestPrintFunctions.test_printITReal">
+<span class="sig-name descname"><span class="pre">test_printITReal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestPrintFunctions.test_printITReal" title="Link to this definition"></a></dt>
+<dd><p>Test printITReal function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestPrintFunctions.test_printIT3D">
+<span class="sig-name descname"><span class="pre">test_printIT3D</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestPrintFunctions.test_printIT3D" title="Link to this definition"></a></dt>
+<dd><p>Test printIT3D function.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestWriteFunctions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestWriteFunctions</span></span><a class="headerlink" href="#test_qwoptics.TestWriteFunctions" title="Link to this definition"></a></dt>
+<dd><p>Test write functions for SBE solutions, PL spectrum, and fields.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestWriteFunctions.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestWriteFunctions.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestWriteFunctions.teardown_method">
+<span class="sig-name descname"><span class="pre">teardown_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestWriteFunctions.teardown_method" title="Link to this definition"></a></dt>
+<dd><p>Clean up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestWriteFunctions.test_WriteSBESolns_creates_files">
+<span class="sig-name descname"><span class="pre">test_WriteSBESolns_creates_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestWriteFunctions.test_WriteSBESolns_creates_files" title="Link to this definition"></a></dt>
+<dd><p>Test that WriteSBESolns creates output files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestWriteFunctions.test_WritePLSpectrum_creates_file">
+<span class="sig-name descname"><span class="pre">test_WritePLSpectrum_creates_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestWriteFunctions.test_WritePLSpectrum_creates_file" title="Link to this definition"></a></dt>
+<dd><p>Test that WritePLSpectrum creates output file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestWriteFunctions.test_WriteQWFields_creates_files">
+<span class="sig-name descname"><span class="pre">test_WriteQWFields_creates_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestWriteFunctions.test_WriteQWFields_creates_files" title="Link to this definition"></a></dt>
+<dd><p>Test that WriteQWFields creates output files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestWriteFunctions.test_WritePropFields_creates_files">
+<span class="sig-name descname"><span class="pre">test_WritePropFields_creates_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestWriteFunctions.test_WritePropFields_creates_files" title="Link to this definition"></a></dt>
+<dd><p>Test that WritePropFields creates output files.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestIntegratedWorkflows">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestIntegratedWorkflows</span></span><a class="headerlink" href="#test_qwoptics.TestIntegratedWorkflows" title="Link to this definition"></a></dt>
+<dd><p>Test integrated workflows combining multiple functions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestIntegratedWorkflows.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestIntegratedWorkflows.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestIntegratedWorkflows.test_initialization_workflow">
+<span class="sig-name descname"><span class="pre">test_initialization_workflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestIntegratedWorkflows.test_initialization_workflow" title="Link to this definition"></a></dt>
+<dd><p>Test complete initialization workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestIntegratedWorkflows.test_prop_to_qw_to_prop_roundtrip">
+<span class="sig-name descname"><span class="pre">test_prop_to_qw_to_prop_roundtrip</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestIntegratedWorkflows.test_prop_to_qw_to_prop_roundtrip" title="Link to this definition"></a></dt>
+<dd><p>Test roundtrip conversion: Prop -&gt; QW -&gt; Prop.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestIntegratedWorkflows.test_polarization_calculation_workflow">
+<span class="sig-name descname"><span class="pre">test_polarization_calculation_workflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestIntegratedWorkflows.test_polarization_calculation_workflow" title="Link to this definition"></a></dt>
+<dd><p>Test complete polarization calculation workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestIntegratedWorkflows.test_charge_density_workflow">
+<span class="sig-name descname"><span class="pre">test_charge_density_workflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestIntegratedWorkflows.test_charge_density_workflow" title="Link to this definition"></a></dt>
+<dd><p>Test complete charge density calculation workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestIntegratedWorkflows.test_interaction_matrix_workflow">
+<span class="sig-name descname"><span class="pre">test_interaction_matrix_workflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestIntegratedWorkflows.test_interaction_matrix_workflow" title="Link to this definition"></a></dt>
+<dd><p>Test interaction matrix calculation workflow.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestEdgeCases">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestEdgeCases</span></span><a class="headerlink" href="#test_qwoptics.TestEdgeCases" title="Link to this definition"></a></dt>
+<dd><p>Test edge cases and boundary conditions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestEdgeCases.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestEdgeCases.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestEdgeCases.test_yw_zero_wire">
+<span class="sig-name descname"><span class="pre">test_yw_zero_wire</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestEdgeCases.test_yw_zero_wire" title="Link to this definition"></a></dt>
+<dd><p>Test yw with wire index 0 (edge case).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestEdgeCases.test_QWChi1_extreme_wavelengths">
+<span class="sig-name descname"><span class="pre">test_QWChi1_extreme_wavelengths</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestEdgeCases.test_QWChi1_extreme_wavelengths" title="Link to this definition"></a></dt>
+<dd><p>Test QWChi1 with extreme wavelength values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestEdgeCases.test_CalcQWWindow_single_point">
+<span class="sig-name descname"><span class="pre">test_CalcQWWindow_single_point</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestEdgeCases.test_CalcQWWindow_single_point" title="Link to this definition"></a></dt>
+<dd><p>Test CalcQWWindow with single point.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestEdgeCases.test_CalcExpikr_single_point">
+<span class="sig-name descname"><span class="pre">test_CalcExpikr_single_point</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestEdgeCases.test_CalcExpikr_single_point" title="Link to this definition"></a></dt>
+<dd><p>Test CalcExpikr with single point.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestEdgeCases.test_QWPolarization3_zero_density_matrix">
+<span class="sig-name descname"><span class="pre">test_QWPolarization3_zero_density_matrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestEdgeCases.test_QWPolarization3_zero_density_matrix" title="Link to this definition"></a></dt>
+<dd><p>Test QWPolarization3 with zero density matrix.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestEdgeCases.test_QWRho5_zero_coherence_matrices">
+<span class="sig-name descname"><span class="pre">test_QWRho5_zero_coherence_matrices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestEdgeCases.test_QWRho5_zero_coherence_matrices" title="Link to this definition"></a></dt>
+<dd><p>Test QWRho5 with zero coherence matrices.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_qwoptics.TestNumericalPrecision">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_qwoptics.</span></span><span class="sig-name descname"><span class="pre">TestNumericalPrecision</span></span><a class="headerlink" href="#test_qwoptics.TestNumericalPrecision" title="Link to this definition"></a></dt>
+<dd><p>Test numerical precision and stability.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestNumericalPrecision.setup_method">
+<span class="sig-name descname"><span class="pre">setup_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestNumericalPrecision.setup_method" title="Link to this definition"></a></dt>
+<dd><p>Set up test fixtures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestNumericalPrecision.test_CalcExpikr_precision">
+<span class="sig-name descname"><span class="pre">test_CalcExpikr_precision</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestNumericalPrecision.test_CalcExpikr_precision" title="Link to this definition"></a></dt>
+<dd><p>Test exp(ikr) calculation precision.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestNumericalPrecision.test_InitializeQWOptics_dipole_precision">
+<span class="sig-name descname"><span class="pre">test_InitializeQWOptics_dipole_precision</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestNumericalPrecision.test_InitializeQWOptics_dipole_precision" title="Link to this definition"></a></dt>
+<dd><p>Test dipole matrix calculation precision.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_qwoptics.TestNumericalPrecision.test_GetVn1n2_conjugate_precision">
+<span class="sig-name descname"><span class="pre">test_GetVn1n2_conjugate_precision</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_qwoptics.TestNumericalPrecision.test_GetVn1n2_conjugate_precision" title="Link to this definition"></a></dt>
+<dd><p>Test GetVn1n2 conjugate relationship precision.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../test_phonons/index.html" class="btn btn-neutral float-left" title="test_phonons" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../test_dephasing/index.html" class="btn btn-neutral float-right" title="test_dephasing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

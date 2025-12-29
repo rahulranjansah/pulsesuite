@@ -1,0 +1,71 @@
+dcfield_workflow_example
+========================
+
+.. py:module:: dcfield_workflow_example
+
+.. autoapi-nested-parse::
+
+   DC Field Workflow Example
+   =========================
+
+   Workflow Example: Show complete research workflow from data to insight
+   Style: Real data loading, preprocessing, analysis, visualization
+   Audience: Researcher adapting to their own data
+
+   This example demonstrates a complete workflow for analyzing DC field effects
+   in quantum wire semiconductor devices with realistic parameters.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   dcfield_workflow_example.HAS_MATPLOTLIB
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   dcfield_workflow_example.create_realistic_quantum_wire_data
+   dcfield_workflow_example.analyze_dc_field_response
+   dcfield_workflow_example.analyze_momentum_distribution_evolution
+   dcfield_workflow_example.create_comprehensive_visualization
+   dcfield_workflow_example.main
+
+
+Module Contents
+---------------
+
+.. py:data:: HAS_MATPLOTLIB
+   :value: True
+
+
+.. py:function:: create_realistic_quantum_wire_data()
+
+   Create realistic quantum wire parameters and data.
+
+
+.. py:function:: analyze_dc_field_response(data, field_range)
+
+   Analyze DC field response over a range of field strengths.
+
+
+.. py:function:: analyze_momentum_distribution_evolution(data, Edc, time_steps)
+
+   Analyze how momentum distribution evolves under DC field.
+
+
+.. py:function:: create_comprehensive_visualization(data, field_results, evolution)
+
+   Create comprehensive visualization of results.
+
+
+.. py:function:: main()
+
+   Main workflow example.
+
+

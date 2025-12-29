@@ -1,0 +1,750 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>test_typespace &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="coulomb_example" href="../coulomb_example/index.html" />
+    <link rel="prev" title="test_dephasing" href="../test_dephasing/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/index.html">src</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spliner/index.html">spliner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_phost/index.html">test_phost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_epsrtl/index.html">test_epsrtl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_coulomb/index.html">test_coulomb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_dcfield/index.html">test_dcfield</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_phonons/index.html">test_phonons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_qwoptics/index.html">test_qwoptics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_dephasing/index.html">test_dephasing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">test_typespace</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#test_typespace.TestSSDataclass"><code class="docutils literal notranslate"><span class="pre">TestSSDataclass</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_typespace.TestGetFileParam"><code class="docutils literal notranslate"><span class="pre">TestGetFileParam</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_typespace.TestGetterFunctions"><code class="docutils literal notranslate"><span class="pre">TestGetterFunctions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_typespace.TestSetterFunctions"><code class="docutils literal notranslate"><span class="pre">TestSetterFunctions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_typespace.TestWidthFunctions"><code class="docutils literal notranslate"><span class="pre">TestWidthFunctions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_typespace.TestArrayGeneration"><code class="docutils literal notranslate"><span class="pre">TestArrayGeneration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_typespace.TestDifferentialFunctions"><code class="docutils literal notranslate"><span class="pre">TestDifferentialFunctions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_typespace.TestVolumeFunctions"><code class="docutils literal notranslate"><span class="pre">TestVolumeFunctions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_typespace.TestFileIOParams"><code class="docutils literal notranslate"><span class="pre">TestFileIOParams</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_typespace.TestFieldInitialization"><code class="docutils literal notranslate"><span class="pre">TestFieldInitialization</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_typespace.TestBinaryIO"><code class="docutils literal notranslate"><span class="pre">TestBinaryIO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_typespace.TestTextIO"><code class="docutils literal notranslate"><span class="pre">TestTextIO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_typespace.TestIntegratedIO"><code class="docutils literal notranslate"><span class="pre">TestIntegratedIO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_typespace.TestEdgeCases"><code class="docutils literal notranslate"><span class="pre">TestEdgeCases</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test_typespace.TestParameterized"><code class="docutils literal notranslate"><span class="pre">TestParameterized</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../coulomb_example/index.html">coulomb_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_usefulsubs/index.html">test_usefulsubs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_basic_example/index.html">SBEs_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_domain_example/index.html">SBEs_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_basic_example/index.html">dcfield_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance_benchmark/index.html">performance_benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_workflow_example/index.html">SBEs_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_domain_example/index.html">dcfield_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_basic_example/index.html">qwoptics_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../coulombpythonic_example/index.html">coulombpythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../phononspythonic_example/index.html">phononspythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_domain_example/index.html">qwoptics_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_workflow_example/index.html">dcfield_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_workflow_example/index.html">qwoptics_workflow_example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">test_typespace</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/autoapi/test_typespace/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-test_typespace">
+<span id="test-typespace"></span><h1>test_typespace<a class="headerlink" href="#module-test_typespace" title="Link to this heading"></a></h1>
+<p>Comprehensive test suite for typespace.py module.</p>
+<p>Tests all spatial grid structure functions including getters, setters,
+array generation, I/O operations, and field manipulation functions.</p>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_typespace.TestSSDataclass" title="test_typespace.TestSSDataclass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestSSDataclass</span></code></a></p></td>
+<td><p>Test the ss dataclass structure.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_typespace.TestGetFileParam" title="test_typespace.TestGetFileParam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestGetFileParam</span></code></a></p></td>
+<td><p>Test GetFileParam function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_typespace.TestGetterFunctions" title="test_typespace.TestGetterFunctions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestGetterFunctions</span></code></a></p></td>
+<td><p>Test getter functions for space structure.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_typespace.TestSetterFunctions" title="test_typespace.TestSetterFunctions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestSetterFunctions</span></code></a></p></td>
+<td><p>Test setter functions for space structure.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_typespace.TestWidthFunctions" title="test_typespace.TestWidthFunctions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestWidthFunctions</span></code></a></p></td>
+<td><p>Test width calculation functions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_typespace.TestArrayGeneration" title="test_typespace.TestArrayGeneration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestArrayGeneration</span></code></a></p></td>
+<td><p>Test array generation functions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_typespace.TestDifferentialFunctions" title="test_typespace.TestDifferentialFunctions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestDifferentialFunctions</span></code></a></p></td>
+<td><p>Test differential functions for conjugate coordinate system.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_typespace.TestVolumeFunctions" title="test_typespace.TestVolumeFunctions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestVolumeFunctions</span></code></a></p></td>
+<td><p>Test volume element functions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_typespace.TestFileIOParams" title="test_typespace.TestFileIOParams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestFileIOParams</span></code></a></p></td>
+<td><p>Test file I/O functions for space parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_typespace.TestFieldInitialization" title="test_typespace.TestFieldInitialization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestFieldInitialization</span></code></a></p></td>
+<td><p>Test field initialization functions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_typespace.TestBinaryIO" title="test_typespace.TestBinaryIO"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestBinaryIO</span></code></a></p></td>
+<td><p>Test binary I/O functions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_typespace.TestTextIO" title="test_typespace.TestTextIO"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestTextIO</span></code></a></p></td>
+<td><p>Test text I/O functions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_typespace.TestIntegratedIO" title="test_typespace.TestIntegratedIO"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestIntegratedIO</span></code></a></p></td>
+<td><p>Test integrated I/O functions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#test_typespace.TestEdgeCases" title="test_typespace.TestEdgeCases"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestEdgeCases</span></code></a></p></td>
+<td><p>Test edge cases and special values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#test_typespace.TestParameterized" title="test_typespace.TestParameterized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestParameterized</span></code></a></p></td>
+<td><p>Parameterized tests for various dimensions.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="test_typespace.TestSSDataclass">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_typespace.</span></span><span class="sig-name descname"><span class="pre">TestSSDataclass</span></span><a class="headerlink" href="#test_typespace.TestSSDataclass" title="Link to this definition"></a></dt>
+<dd><p>Test the ss dataclass structure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestSSDataclass.test_ss_creation_3d">
+<span class="sig-name descname"><span class="pre">test_ss_creation_3d</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestSSDataclass.test_ss_creation_3d" title="Link to this definition"></a></dt>
+<dd><p>Test creating 3D space structure.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestSSDataclass.test_ss_creation_1d">
+<span class="sig-name descname"><span class="pre">test_ss_creation_1d</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestSSDataclass.test_ss_creation_1d" title="Link to this definition"></a></dt>
+<dd><p>Test creating 1D space structure.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestSSDataclass.test_ss_creation_2d">
+<span class="sig-name descname"><span class="pre">test_ss_creation_2d</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestSSDataclass.test_ss_creation_2d" title="Link to this definition"></a></dt>
+<dd><p>Test creating 2D space structure.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_typespace.TestGetFileParam">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_typespace.</span></span><span class="sig-name descname"><span class="pre">TestGetFileParam</span></span><a class="headerlink" href="#test_typespace.TestGetFileParam" title="Link to this definition"></a></dt>
+<dd><p>Test GetFileParam function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestGetFileParam.test_getfileparam_simple">
+<span class="sig-name descname"><span class="pre">test_getfileparam_simple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestGetFileParam.test_getfileparam_simple" title="Link to this definition"></a></dt>
+<dd><p>Test reading simple parameter.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestGetFileParam.test_getfileparam_with_comment">
+<span class="sig-name descname"><span class="pre">test_getfileparam_with_comment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestGetFileParam.test_getfileparam_with_comment" title="Link to this definition"></a></dt>
+<dd><p>Test reading parameter with comment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestGetFileParam.test_getfileparam_integer">
+<span class="sig-name descname"><span class="pre">test_getfileparam_integer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestGetFileParam.test_getfileparam_integer" title="Link to this definition"></a></dt>
+<dd><p>Test reading integer parameter.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestGetFileParam.test_getfileparam_scientific_notation">
+<span class="sig-name descname"><span class="pre">test_getfileparam_scientific_notation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestGetFileParam.test_getfileparam_scientific_notation" title="Link to this definition"></a></dt>
+<dd><p>Test reading scientific notation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestGetFileParam.test_getfileparam_empty_line">
+<span class="sig-name descname"><span class="pre">test_getfileparam_empty_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestGetFileParam.test_getfileparam_empty_line" title="Link to this definition"></a></dt>
+<dd><p>Test error on empty line.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestGetFileParam.test_getfileparam_eof">
+<span class="sig-name descname"><span class="pre">test_getfileparam_eof</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestGetFileParam.test_getfileparam_eof" title="Link to this definition"></a></dt>
+<dd><p>Test error on end of file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_typespace.TestGetterFunctions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_typespace.</span></span><span class="sig-name descname"><span class="pre">TestGetterFunctions</span></span><a class="headerlink" href="#test_typespace.TestGetterFunctions" title="Link to this definition"></a></dt>
+<dd><p>Test getter functions for space structure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestGetterFunctions.test_getnx_getny_getnz">
+<span class="sig-name descname"><span class="pre">test_getnx_getny_getnz</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestGetterFunctions.test_getnx_getny_getnz" title="Link to this definition"></a></dt>
+<dd><p>Test getting grid dimensions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestGetterFunctions.test_getdx_normal">
+<span class="sig-name descname"><span class="pre">test_getdx_normal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestGetterFunctions.test_getdx_normal" title="Link to this definition"></a></dt>
+<dd><p>Test GetDx with normal case.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestGetterFunctions.test_getdx_collapsed">
+<span class="sig-name descname"><span class="pre">test_getdx_collapsed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestGetterFunctions.test_getdx_collapsed" title="Link to this definition"></a></dt>
+<dd><p>Test GetDx with collapsed dimension.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestGetterFunctions.test_getdy_normal">
+<span class="sig-name descname"><span class="pre">test_getdy_normal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestGetterFunctions.test_getdy_normal" title="Link to this definition"></a></dt>
+<dd><p>Test GetDy with normal case.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestGetterFunctions.test_getdy_collapsed">
+<span class="sig-name descname"><span class="pre">test_getdy_collapsed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestGetterFunctions.test_getdy_collapsed" title="Link to this definition"></a></dt>
+<dd><p>Test GetDy with collapsed dimension.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestGetterFunctions.test_getdz_normal">
+<span class="sig-name descname"><span class="pre">test_getdz_normal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestGetterFunctions.test_getdz_normal" title="Link to this definition"></a></dt>
+<dd><p>Test GetDz with normal case.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestGetterFunctions.test_getdz_collapsed">
+<span class="sig-name descname"><span class="pre">test_getdz_collapsed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestGetterFunctions.test_getdz_collapsed" title="Link to this definition"></a></dt>
+<dd><p>Test GetDz with collapsed dimension.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestGetterFunctions.test_getepsr_normal">
+<span class="sig-name descname"><span class="pre">test_getepsr_normal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestGetterFunctions.test_getepsr_normal" title="Link to this definition"></a></dt>
+<dd><p>Test GetEpsr with normal case.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestGetterFunctions.test_getepsr_collapsed">
+<span class="sig-name descname"><span class="pre">test_getepsr_collapsed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestGetterFunctions.test_getepsr_collapsed" title="Link to this definition"></a></dt>
+<dd><p>Test GetEpsr with collapsed z dimension.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_typespace.TestSetterFunctions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_typespace.</span></span><span class="sig-name descname"><span class="pre">TestSetterFunctions</span></span><a class="headerlink" href="#test_typespace.TestSetterFunctions" title="Link to this definition"></a></dt>
+<dd><p>Test setter functions for space structure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestSetterFunctions.test_setnx">
+<span class="sig-name descname"><span class="pre">test_setnx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestSetterFunctions.test_setnx" title="Link to this definition"></a></dt>
+<dd><p>Test SetNx.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestSetterFunctions.test_setny">
+<span class="sig-name descname"><span class="pre">test_setny</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestSetterFunctions.test_setny" title="Link to this definition"></a></dt>
+<dd><p>Test SetNy.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestSetterFunctions.test_setnz">
+<span class="sig-name descname"><span class="pre">test_setnz</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestSetterFunctions.test_setnz" title="Link to this definition"></a></dt>
+<dd><p>Test SetNz.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestSetterFunctions.test_setdx">
+<span class="sig-name descname"><span class="pre">test_setdx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestSetterFunctions.test_setdx" title="Link to this definition"></a></dt>
+<dd><p>Test SetDx.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestSetterFunctions.test_setdy">
+<span class="sig-name descname"><span class="pre">test_setdy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestSetterFunctions.test_setdy" title="Link to this definition"></a></dt>
+<dd><p>Test SetDy.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestSetterFunctions.test_setdz">
+<span class="sig-name descname"><span class="pre">test_setdz</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestSetterFunctions.test_setdz" title="Link to this definition"></a></dt>
+<dd><p>Test SetDz.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_typespace.TestWidthFunctions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_typespace.</span></span><span class="sig-name descname"><span class="pre">TestWidthFunctions</span></span><a class="headerlink" href="#test_typespace.TestWidthFunctions" title="Link to this definition"></a></dt>
+<dd><p>Test width calculation functions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestWidthFunctions.test_getxwidth">
+<span class="sig-name descname"><span class="pre">test_getxwidth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestWidthFunctions.test_getxwidth" title="Link to this definition"></a></dt>
+<dd><p>Test GetXWidth.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestWidthFunctions.test_getywidth">
+<span class="sig-name descname"><span class="pre">test_getywidth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestWidthFunctions.test_getywidth" title="Link to this definition"></a></dt>
+<dd><p>Test GetYWidth.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestWidthFunctions.test_getzwidth">
+<span class="sig-name descname"><span class="pre">test_getzwidth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestWidthFunctions.test_getzwidth" title="Link to this definition"></a></dt>
+<dd><p>Test GetZWidth.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestWidthFunctions.test_getxwidth_single_point">
+<span class="sig-name descname"><span class="pre">test_getxwidth_single_point</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestWidthFunctions.test_getxwidth_single_point" title="Link to this definition"></a></dt>
+<dd><p>Test GetXWidth with single point.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_typespace.TestArrayGeneration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_typespace.</span></span><span class="sig-name descname"><span class="pre">TestArrayGeneration</span></span><a class="headerlink" href="#test_typespace.TestArrayGeneration" title="Link to this definition"></a></dt>
+<dd><p>Test array generation functions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestArrayGeneration.test_getspacearray_simple">
+<span class="sig-name descname"><span class="pre">test_getspacearray_simple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestArrayGeneration.test_getspacearray_simple" title="Link to this definition"></a></dt>
+<dd><p>Test GetSpaceArray with simple case.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestArrayGeneration.test_getspacearray_single_point">
+<span class="sig-name descname"><span class="pre">test_getspacearray_single_point</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestArrayGeneration.test_getspacearray_single_point" title="Link to this definition"></a></dt>
+<dd><p>Test GetSpaceArray with single point.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestArrayGeneration.test_getspacearray_even_length">
+<span class="sig-name descname"><span class="pre">test_getspacearray_even_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestArrayGeneration.test_getspacearray_even_length" title="Link to this definition"></a></dt>
+<dd><p>Test GetSpaceArray with even length.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestArrayGeneration.test_getspacearray_odd_length">
+<span class="sig-name descname"><span class="pre">test_getspacearray_odd_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestArrayGeneration.test_getspacearray_odd_length" title="Link to this definition"></a></dt>
+<dd><p>Test GetSpaceArray with odd length.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestArrayGeneration.test_getkarray_simple">
+<span class="sig-name descname"><span class="pre">test_getkarray_simple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestArrayGeneration.test_getkarray_simple" title="Link to this definition"></a></dt>
+<dd><p>Test GetKArray with simple case.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestArrayGeneration.test_getkarray_single_point">
+<span class="sig-name descname"><span class="pre">test_getkarray_single_point</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestArrayGeneration.test_getkarray_single_point" title="Link to this definition"></a></dt>
+<dd><p>Test GetKArray with single point.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestArrayGeneration.test_getkarray_spacing">
+<span class="sig-name descname"><span class="pre">test_getkarray_spacing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestArrayGeneration.test_getkarray_spacing" title="Link to this definition"></a></dt>
+<dd><p>Test GetKArray spacing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestArrayGeneration.test_getxarray">
+<span class="sig-name descname"><span class="pre">test_getxarray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestArrayGeneration.test_getxarray" title="Link to this definition"></a></dt>
+<dd><p>Test GetXArray.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestArrayGeneration.test_getxarray_single_point">
+<span class="sig-name descname"><span class="pre">test_getxarray_single_point</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestArrayGeneration.test_getxarray_single_point" title="Link to this definition"></a></dt>
+<dd><p>Test GetXArray with single point.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestArrayGeneration.test_getyarray">
+<span class="sig-name descname"><span class="pre">test_getyarray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestArrayGeneration.test_getyarray" title="Link to this definition"></a></dt>
+<dd><p>Test GetYArray.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestArrayGeneration.test_getzarray">
+<span class="sig-name descname"><span class="pre">test_getzarray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestArrayGeneration.test_getzarray" title="Link to this definition"></a></dt>
+<dd><p>Test GetZArray.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestArrayGeneration.test_getkxarray">
+<span class="sig-name descname"><span class="pre">test_getkxarray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestArrayGeneration.test_getkxarray" title="Link to this definition"></a></dt>
+<dd><p>Test GetKxArray.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestArrayGeneration.test_getkyarray">
+<span class="sig-name descname"><span class="pre">test_getkyarray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestArrayGeneration.test_getkyarray" title="Link to this definition"></a></dt>
+<dd><p>Test GetKyArray.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestArrayGeneration.test_getkzarray">
+<span class="sig-name descname"><span class="pre">test_getkzarray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestArrayGeneration.test_getkzarray" title="Link to this definition"></a></dt>
+<dd><p>Test GetKzArray.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_typespace.TestDifferentialFunctions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_typespace.</span></span><span class="sig-name descname"><span class="pre">TestDifferentialFunctions</span></span><a class="headerlink" href="#test_typespace.TestDifferentialFunctions" title="Link to this definition"></a></dt>
+<dd><p>Test differential functions for conjugate coordinate system.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestDifferentialFunctions.test_getdqx">
+<span class="sig-name descname"><span class="pre">test_getdqx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestDifferentialFunctions.test_getdqx" title="Link to this definition"></a></dt>
+<dd><p>Test GetDQx.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestDifferentialFunctions.test_getdqy">
+<span class="sig-name descname"><span class="pre">test_getdqy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestDifferentialFunctions.test_getdqy" title="Link to this definition"></a></dt>
+<dd><p>Test GetDQy.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestDifferentialFunctions.test_getdqz">
+<span class="sig-name descname"><span class="pre">test_getdqz</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestDifferentialFunctions.test_getdqz" title="Link to this definition"></a></dt>
+<dd><p>Test GetDQz.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestDifferentialFunctions.test_getdqx_zero_width">
+<span class="sig-name descname"><span class="pre">test_getdqx_zero_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestDifferentialFunctions.test_getdqx_zero_width" title="Link to this definition"></a></dt>
+<dd><p>Test GetDQx with zero width.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_typespace.TestVolumeFunctions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_typespace.</span></span><span class="sig-name descname"><span class="pre">TestVolumeFunctions</span></span><a class="headerlink" href="#test_typespace.TestVolumeFunctions" title="Link to this definition"></a></dt>
+<dd><p>Test volume element functions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestVolumeFunctions.test_getdvol">
+<span class="sig-name descname"><span class="pre">test_getdvol</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestVolumeFunctions.test_getdvol" title="Link to this definition"></a></dt>
+<dd><p>Test GetDVol.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestVolumeFunctions.test_getdqvol">
+<span class="sig-name descname"><span class="pre">test_getdqvol</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestVolumeFunctions.test_getdqvol" title="Link to this definition"></a></dt>
+<dd><p>Test GetDQVol.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_typespace.TestFileIOParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_typespace.</span></span><span class="sig-name descname"><span class="pre">TestFileIOParams</span></span><a class="headerlink" href="#test_typespace.TestFileIOParams" title="Link to this definition"></a></dt>
+<dd><p>Test file I/O functions for space parameters.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestFileIOParams.test_readspaceparams_sub">
+<span class="sig-name descname"><span class="pre">test_readspaceparams_sub</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestFileIOParams.test_readspaceparams_sub" title="Link to this definition"></a></dt>
+<dd><p>Test readspaceparams_sub.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestFileIOParams.test_writespaceparams_sub">
+<span class="sig-name descname"><span class="pre">test_writespaceparams_sub</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestFileIOParams.test_writespaceparams_sub" title="Link to this definition"></a></dt>
+<dd><p>Test WriteSpaceParams_sub.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestFileIOParams.test_readspaceparams_file">
+<span class="sig-name descname"><span class="pre">test_readspaceparams_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestFileIOParams.test_readspaceparams_file" title="Link to this definition"></a></dt>
+<dd><p>Test ReadSpaceParams from file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestFileIOParams.test_writespaceparams_file">
+<span class="sig-name descname"><span class="pre">test_writespaceparams_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestFileIOParams.test_writespaceparams_file" title="Link to this definition"></a></dt>
+<dd><p>Test writespaceparams to file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_typespace.TestFieldInitialization">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_typespace.</span></span><span class="sig-name descname"><span class="pre">TestFieldInitialization</span></span><a class="headerlink" href="#test_typespace.TestFieldInitialization" title="Link to this definition"></a></dt>
+<dd><p>Test field initialization functions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestFieldInitialization.test_initialize_field">
+<span class="sig-name descname"><span class="pre">test_initialize_field</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestFieldInitialization.test_initialize_field" title="Link to this definition"></a></dt>
+<dd><p>Test initialize_field.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestFieldInitialization.test_initialize_field_large">
+<span class="sig-name descname"><span class="pre">test_initialize_field_large</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestFieldInitialization.test_initialize_field_large" title="Link to this definition"></a></dt>
+<dd><p>Test initialize_field with large array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestFieldInitialization.test_initialize_field_small">
+<span class="sig-name descname"><span class="pre">test_initialize_field_small</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestFieldInitialization.test_initialize_field_small" title="Link to this definition"></a></dt>
+<dd><p>Test initialize_field with small array.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_typespace.TestBinaryIO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_typespace.</span></span><span class="sig-name descname"><span class="pre">TestBinaryIO</span></span><a class="headerlink" href="#test_typespace.TestBinaryIO" title="Link to this definition"></a></dt>
+<dd><p>Test binary I/O functions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestBinaryIO.test_unformatted_write_space">
+<span class="sig-name descname"><span class="pre">test_unformatted_write_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestBinaryIO.test_unformatted_write_space" title="Link to this definition"></a></dt>
+<dd><p>Test unformatted_write_space.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestBinaryIO.test_unformatted_write_e">
+<span class="sig-name descname"><span class="pre">test_unformatted_write_e</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestBinaryIO.test_unformatted_write_e" title="Link to this definition"></a></dt>
+<dd><p>Test unformatted_write_e.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestBinaryIO.test_unformatted_read_e">
+<span class="sig-name descname"><span class="pre">test_unformatted_read_e</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestBinaryIO.test_unformatted_read_e" title="Link to this definition"></a></dt>
+<dd><p>Test unformatted_read_e.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_typespace.TestTextIO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_typespace.</span></span><span class="sig-name descname"><span class="pre">TestTextIO</span></span><a class="headerlink" href="#test_typespace.TestTextIO" title="Link to this definition"></a></dt>
+<dd><p>Test text I/O functions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestTextIO.test_readfield_from_unit_text">
+<span class="sig-name descname"><span class="pre">test_readfield_from_unit_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestTextIO.test_readfield_from_unit_text" title="Link to this definition"></a></dt>
+<dd><p>Test readfield_from_unit in text mode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestTextIO.test_writefield_to_unit_text">
+<span class="sig-name descname"><span class="pre">test_writefield_to_unit_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestTextIO.test_writefield_to_unit_text" title="Link to this definition"></a></dt>
+<dd><p>Test writefield_to_unit in text mode.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_typespace.TestIntegratedIO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_typespace.</span></span><span class="sig-name descname"><span class="pre">TestIntegratedIO</span></span><a class="headerlink" href="#test_typespace.TestIntegratedIO" title="Link to this definition"></a></dt>
+<dd><p>Test integrated I/O functions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestIntegratedIO.test_writefield_binary">
+<span class="sig-name descname"><span class="pre">test_writefield_binary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestIntegratedIO.test_writefield_binary" title="Link to this definition"></a></dt>
+<dd><p>Test writefield in binary mode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestIntegratedIO.test_writefield_text">
+<span class="sig-name descname"><span class="pre">test_writefield_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestIntegratedIO.test_writefield_text" title="Link to this definition"></a></dt>
+<dd><p>Test writefield in text mode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestIntegratedIO.test_readspace_only_binary">
+<span class="sig-name descname"><span class="pre">test_readspace_only_binary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestIntegratedIO.test_readspace_only_binary" title="Link to this definition"></a></dt>
+<dd><p>Test readspace_only in binary mode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestIntegratedIO.test_readfield_with_existing_array">
+<span class="sig-name descname"><span class="pre">test_readfield_with_existing_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestIntegratedIO.test_readfield_with_existing_array" title="Link to this definition"></a></dt>
+<dd><p>Test readfield with existing array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestIntegratedIO.test_readfield_with_wrong_shape">
+<span class="sig-name descname"><span class="pre">test_readfield_with_wrong_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestIntegratedIO.test_readfield_with_wrong_shape" title="Link to this definition"></a></dt>
+<dd><p>Test readfield with array of wrong shape.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_typespace.TestEdgeCases">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_typespace.</span></span><span class="sig-name descname"><span class="pre">TestEdgeCases</span></span><a class="headerlink" href="#test_typespace.TestEdgeCases" title="Link to this definition"></a></dt>
+<dd><p>Test edge cases and special values.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestEdgeCases.test_getspacearray_zero_length">
+<span class="sig-name descname"><span class="pre">test_getspacearray_zero_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestEdgeCases.test_getspacearray_zero_length" title="Link to this definition"></a></dt>
+<dd><p>Test GetSpaceArray with zero length.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestEdgeCases.test_getkarray_zero_length">
+<span class="sig-name descname"><span class="pre">test_getkarray_zero_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestEdgeCases.test_getkarray_zero_length" title="Link to this definition"></a></dt>
+<dd><p>Test GetKArray with zero length.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestEdgeCases.test_getdqx_zero_width">
+<span class="sig-name descname"><span class="pre">test_getdqx_zero_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestEdgeCases.test_getdqx_zero_width" title="Link to this definition"></a></dt>
+<dd><p>Test GetDQx with zero width.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestEdgeCases.test_getdvol_collapsed_dimensions">
+<span class="sig-name descname"><span class="pre">test_getdvol_collapsed_dimensions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestEdgeCases.test_getdvol_collapsed_dimensions" title="Link to this definition"></a></dt>
+<dd><p>Test GetDVol with collapsed dimensions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestEdgeCases.test_array_generation_1d">
+<span class="sig-name descname"><span class="pre">test_array_generation_1d</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestEdgeCases.test_array_generation_1d" title="Link to this definition"></a></dt>
+<dd><p>Test array generation for 1D case.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestEdgeCases.test_array_generation_2d">
+<span class="sig-name descname"><span class="pre">test_array_generation_2d</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestEdgeCases.test_array_generation_2d" title="Link to this definition"></a></dt>
+<dd><p>Test array generation for 2D case.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="test_typespace.TestParameterized">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">test_typespace.</span></span><span class="sig-name descname"><span class="pre">TestParameterized</span></span><a class="headerlink" href="#test_typespace.TestParameterized" title="Link to this definition"></a></dt>
+<dd><p>Parameterized tests for various dimensions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestParameterized.test_getters_all_dimensions">
+<span class="sig-name descname"><span class="pre">test_getters_all_dimensions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestParameterized.test_getters_all_dimensions" title="Link to this definition"></a></dt>
+<dd><p>Test getters for all dimension types.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestParameterized.test_getxwidth_various_sizes">
+<span class="sig-name descname"><span class="pre">test_getxwidth_various_sizes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestParameterized.test_getxwidth_various_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test GetXWidth with various sizes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test_typespace.TestParameterized.test_getspacearray_various_sizes">
+<span class="sig-name descname"><span class="pre">test_getspacearray_various_sizes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#test_typespace.TestParameterized.test_getspacearray_various_sizes" title="Link to this definition"></a></dt>
+<dd><p>Test GetSpaceArray with various sizes.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../test_dephasing/index.html" class="btn btn-neutral float-left" title="test_dephasing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../coulomb_example/index.html" class="btn btn-neutral float-right" title="coulomb_example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

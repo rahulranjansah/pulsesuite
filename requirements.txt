@@ -12,3 +12,8 @@ pyfftw==0.15.0
 # Optional: JIT compilation acceleration
 numba==0.61.2
 
+# Documentation
+sphinx==7.2.6
+sphinx-rtd-theme==2.0.0
+myst-parser==2.0.0
+sphinx-autoapi==3.0.0

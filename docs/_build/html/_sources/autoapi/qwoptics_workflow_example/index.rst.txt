@@ -1,0 +1,200 @@
+qwoptics_workflow_example
+=========================
+
+.. py:module:: qwoptics_workflow_example
+
+.. autoapi-nested-parse::
+
+   QW Optics Workflow Example
+   ==========================
+   Complete research workflow demonstrating QW optics in a realistic scenario.
+
+   This example shows a complete workflow from experimental data to analysis:
+   1. Load/simulate experimental field data
+   2. Preprocess fields (filtering, normalization)
+   3. Convert to QW space and calculate polarization
+   4. Analyze results and generate insights
+   5. Save results for further analysis
+
+   Purpose: Show complete research workflow from data to insight
+   Style: Real data loading, preprocessing, analysis, visualization
+   Audience: Researcher adapting to their own data
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   qwoptics_workflow_example.Nr
+   qwoptics_workflow_example.Nk
+   qwoptics_workflow_example.L
+   qwoptics_workflow_example.area
+   qwoptics_workflow_example.ehint
+   qwoptics_workflow_example.gap
+   qwoptics_workflow_example.dcv
+   qwoptics_workflow_example.RR
+   qwoptics_workflow_example.R
+   qwoptics_workflow_example.kr
+   qwoptics_workflow_example.Qr
+   qwoptics_workflow_example.hbar
+   qwoptics_workflow_example.me
+   qwoptics_workflow_example.mh
+   qwoptics_workflow_example.k0
+   qwoptics_workflow_example.Ee
+   qwoptics_workflow_example.Eh
+   qwoptics_workflow_example.Nt
+   qwoptics_workflow_example.t
+   qwoptics_workflow_example.t0
+   qwoptics_workflow_example.width
+   qwoptics_workflow_example.amplitude
+   qwoptics_workflow_example.frequency
+   qwoptics_workflow_example.Exx_data
+   qwoptics_workflow_example.Eyy_data
+   qwoptics_workflow_example.Ezz_data
+   qwoptics_workflow_example.Vrr_data
+   qwoptics_workflow_example.spatial_profile
+   qwoptics_workflow_example.time_points
+   qwoptics_workflow_example.results
+   qwoptics_workflow_example.Exx
+   qwoptics_workflow_example.lam
+   qwoptics_workflow_example.dky
+   qwoptics_workflow_example.geh
+   qwoptics_workflow_example.chi
+   qwoptics_workflow_example.result
+   qwoptics_workflow_example.result
+   qwoptics_workflow_example.avg_evolution
+   qwoptics_workflow_example.output_dir
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   qwoptics_workflow_example.create_laser_pulse
+
+
+Module Contents
+---------------
+
+.. py:data:: Nr
+   :value: 128
+
+
+.. py:data:: Nk
+   :value: 64
+
+
+.. py:data:: L
+   :value: 2.0
+
+
+.. py:data:: area
+   :value: 0.01
+
+
+.. py:data:: ehint
+   :value: 1.0
+
+
+.. py:data:: gap
+   :value: 1.42
+
+
+.. py:data:: dcv
+   :value: (0.5+0.3j)
+
+
+.. py:data:: RR
+
+.. py:data:: R
+
+.. py:data:: kr
+
+.. py:data:: Qr
+
+.. py:data:: hbar
+   :value: 1.054571817e-34
+
+
+.. py:data:: me
+   :value: 9.10938356e-31
+
+
+.. py:data:: mh
+   :value: 4.55469178e-31
+
+
+.. py:data:: k0
+
+.. py:data:: Ee
+
+.. py:data:: Eh
+
+.. py:function:: create_laser_pulse(t, t0, width, amplitude, frequency)
+
+   Create a realistic laser pulse envelope.
+
+
+.. py:data:: Nt
+   :value: 100
+
+
+.. py:data:: t
+
+.. py:data:: t0
+   :value: 5e-12
+
+
+.. py:data:: width
+   :value: 1e-12
+
+
+.. py:data:: amplitude
+   :value: 1000000.0
+
+
+.. py:data:: frequency
+   :value: 300000000000000.0
+
+
+.. py:data:: Exx_data
+
+.. py:data:: Eyy_data
+
+.. py:data:: Ezz_data
+
+.. py:data:: Vrr_data
+
+.. py:data:: spatial_profile
+
+.. py:data:: time_points
+   :value: [20, 40, 60, 80]
+
+
+.. py:data:: results
+
+.. py:data:: Exx
+
+.. py:data:: lam
+   :value: 8e-07
+
+
+.. py:data:: dky
+
+.. py:data:: geh
+   :value: 0.01
+
+
+.. py:data:: chi
+
+.. py:data:: result
+
+.. py:data:: result
+
+.. py:data:: avg_evolution
+
+.. py:data:: output_dir
+

@@ -1,0 +1,582 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.dephasing &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="src.emission" href="../emission/index.html" />
+    <link rel="prev" title="src.dcfield" href="../dcfield/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">src</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../SBEs/index.html">src.SBEs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../constants/index.html">src.constants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../coulomb/index.html">src.coulomb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dcfield/index.html">src.dcfield</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">src.dephasing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../emission/index.html">src.emission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../epsrtl/index.html">src.epsrtl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../fftw/index.html">src.fftw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../helpers/index.html">src.helpers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../phonons/index.html">src.phonons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../phost/index.html">src.phost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../qwoptics/index.html">src.qwoptics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rhoPJ/index.html">src.rhoPJ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rungekutta/index.html">src.rungekutta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../sbetestprop/index.html">src.sbetestprop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../sbetestpropnov30/index.html">src.sbetestpropnov30</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../type_plasma/index.html">src.type_plasma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typelens/index.html">src.typelens</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typemedium/index.html">src.typemedium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typespace/index.html">src.typespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typetpamedium/index.html">src.typetpamedium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usefulsubs/index.html">src.usefulsubs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../spliner/index.html">spliner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_phost/index.html">test_phost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_epsrtl/index.html">test_epsrtl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_coulomb/index.html">test_coulomb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_dcfield/index.html">test_dcfield</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_phonons/index.html">test_phonons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_qwoptics/index.html">test_qwoptics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_dephasing/index.html">test_dephasing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_typespace/index.html">test_typespace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../coulomb_example/index.html">coulomb_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../test_usefulsubs/index.html">test_usefulsubs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SBEs_basic_example/index.html">SBEs_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SBEs_domain_example/index.html">SBEs_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dcfield_basic_example/index.html">dcfield_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../performance_benchmark/index.html">performance_benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SBEs_workflow_example/index.html">SBEs_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dcfield_domain_example/index.html">dcfield_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qwoptics_basic_example/index.html">qwoptics_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../coulombpythonic_example/index.html">coulombpythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../phononspythonic_example/index.html">phononspythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qwoptics_domain_example/index.html">qwoptics_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dcfield_workflow_example/index.html">dcfield_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qwoptics_workflow_example/index.html">qwoptics_workflow_example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">src</a></li>
+      <li class="breadcrumb-item active">src.dephasing</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/src/dephasing/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-src.dephasing">
+<span id="src-dephasing"></span><h1>src.dephasing<a class="headerlink" href="#module-src.dephasing" title="Link to this heading"></a></h1>
+<p>Dephasing calculations for quantum wire simulations.</p>
+<p>This module calculates dephasing rates for electrons and holes due to
+carrier-carrier interactions in the Semiconductor Bloch equations.</p>
+<p>Author: Rahul R. Sah</p>
+<p>Bugs:
+Why Lrtz jit here? -&gt; tackle nopython=True in the future</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.dephasing.pi" title="src.dephasing.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.dephasing.hbar" title="src.dephasing.hbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hbar</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.dephasing.ii" title="src.dephasing.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.dephasing.InitializeDephasing" title="src.dephasing.InitializeDephasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeDephasing</span></code></a>(ky, me, mh)</p></td>
+<td><p>Initialize the dephasing module.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.dephasing.Vxx2" title="src.dephasing.Vxx2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Vxx2</span></code></a>(q, V)</p></td>
+<td><p>Calculate squared interaction matrix elements.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.dephasing.CalcGammaE" title="src.dephasing.CalcGammaE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcGammaE</span></code></a>(ky, ne0, nh0, VC, GammaE)</p></td>
+<td><p>Calculate electron dephasing rate.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.dephasing.CalcGammaH" title="src.dephasing.CalcGammaH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcGammaH</span></code></a>(ky, ne0, nh0, VC, GammaH)</p></td>
+<td><p>Calculate hole dephasing rate.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.dephasing.CalcOffDiagDeph_E" title="src.dephasing.CalcOffDiagDeph_E"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_E</span></code></a>(ne0, nh0, ky, Ee0, Eh0, gee, geh, VC)</p></td>
+<td><p>Calculate off-diagonal dephasing matrix for electrons.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.dephasing.CalcOffDiagDeph_H" title="src.dephasing.CalcOffDiagDeph_H"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_H</span></code></a>(ne0, nh0, ky, Ee0, Eh0, ghh, geh, VC)</p></td>
+<td><p>Calculate off-diagonal dephasing matrix for holes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.dephasing.OffDiagDephasing" title="src.dephasing.OffDiagDephasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OffDiagDephasing</span></code></a>(ne, nh, p, ky, Ee, Eh, g, VC, x)</p></td>
+<td><p>Calculate off-diagonal dephasing contribution.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.dephasing.CalcOffDiagDeph_E2" title="src.dephasing.CalcOffDiagDeph_E2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_E2</span></code></a>(ne, nh, ky, Ee, Eh, gee, geh, VC, Nk)</p></td>
+<td><p>Calculate off-diagonal dephasing matrix for electrons (version 2).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.dephasing.CalcOffDiagDeph_H2" title="src.dephasing.CalcOffDiagDeph_H2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_H2</span></code></a>(ne, nh, ky, Ee, Eh, ghh, geh, VC, Nk)</p></td>
+<td><p>Calculate off-diagonal dephasing matrix for holes (version 2).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.dephasing.OffDiagDephasing2" title="src.dephasing.OffDiagDephasing2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OffDiagDephasing2</span></code></a>(ne, nh, p, ky, Ee, Eh, g, VC, t, x)</p></td>
+<td><p>Calculate off-diagonal dephasing contribution (version 2).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.dephasing.printGam" title="src.dephasing.printGam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">printGam</span></code></a>(Dx, z, n, file)</p></td>
+<td><p>Print dephasing rate to file with index number.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.dephasing.WriteDephasing" title="src.dephasing.WriteDephasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WriteDephasing</span></code></a>(ky, gamE, gamH, w, xxx)</p></td>
+<td><p>Write dephasing rates to files.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="src.dephasing.pi">
+<span class="sig-prename descclassname"><span class="pre">src.dephasing.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#src.dephasing.pi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.dephasing.hbar">
+<span class="sig-prename descclassname"><span class="pre">src.dephasing.</span></span><span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#src.dephasing.hbar" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.dephasing.ii">
+<span class="sig-prename descclassname"><span class="pre">src.dephasing.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1j</span></em><a class="headerlink" href="#src.dephasing.ii" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.dephasing.InitializeDephasing">
+<span class="sig-prename descclassname"><span class="pre">src.dephasing.</span></span><span class="sig-name descname"><span class="pre">InitializeDephasing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.dephasing.InitializeDephasing" title="Link to this definition"></a></dt>
+<dd><p>Initialize the dephasing module.</p>
+<p>Sets up all module-level arrays required for dephasing calculations.
+Allocates and initializes momentum index arrays and opens output files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p></li>
+<li><p><strong>me</strong> (<em>float</em>) – Effective electron mass (kg)</p></li>
+<li><p><strong>mh</strong> (<em>float</em>) – Effective hole mass (kg)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All arrays are stored as module-level variables.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.dephasing.Vxx2">
+<span class="sig-prename descclassname"><span class="pre">src.dephasing.</span></span><span class="sig-name descname"><span class="pre">Vxx2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.dephasing.Vxx2" title="Link to this definition"></a></dt>
+<dd><p>Calculate squared interaction matrix elements.</p>
+<p>Computes V(1+iq, 1)^2 for each momentum q, where iq is the rounded
+index corresponding to abs(q/dq).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>V</strong> (<em>ndarray</em>) – Interaction matrix (J), 2D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Squared interaction matrix elements, 1D array of length len(q)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.dephasing.CalcGammaE">
+<span class="sig-prename descclassname"><span class="pre">src.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcGammaE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GammaE</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.dephasing.CalcGammaE" title="Link to this definition"></a></dt>
+<dd><p>Calculate electron dephasing rate.</p>
+<p>Computes the dephasing rate for electrons due to electron-electron
+and electron-hole interactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>ne0</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), 1D array</p></li>
+<li><p><strong>nh0</strong> (<em>ndarray</em>) – Hole occupation numbers (complex), 1D array</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,1] for e-e</p></li>
+<li><p><strong>GammaE</strong> (<em>ndarray</em>) – Output electron dephasing rate (modified in-place), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>GammaE array is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function computes dephasing from:
+1. Electron-electron interactions
+2. Electron-hole interactions
+Uses extended arrays (with boundary points) for indexing safety.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.dephasing.CalcGammaH">
+<span class="sig-prename descclassname"><span class="pre">src.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcGammaH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GammaH</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.dephasing.CalcGammaH" title="Link to this definition"></a></dt>
+<dd><p>Calculate hole dephasing rate.</p>
+<p>Computes the dephasing rate for holes due to hole-hole
+and electron-hole interactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>ne0</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), 1D array</p></li>
+<li><p><strong>nh0</strong> (<em>ndarray</em>) – Hole occupation numbers (complex), 1D array</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,2] for h-h</p></li>
+<li><p><strong>GammaH</strong> (<em>ndarray</em>) – Output hole dephasing rate (modified in-place), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>GammaH array is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function computes dephasing from:
+1. Hole-hole interactions
+2. Electron-hole interactions
+Uses extended arrays (with boundary points) for indexing safety.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.dephasing.CalcOffDiagDeph_E">
+<span class="sig-prename descclassname"><span class="pre">src.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_E</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.dephasing.CalcOffDiagDeph_E" title="Link to this definition"></a></dt>
+<dd><p>Calculate off-diagonal dephasing matrix for electrons.</p>
+<p>Computes the off-diagonal dephasing matrix D(k,q) for electrons due to
+electron-electron and electron-hole interactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne0</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), 1D array</p></li>
+<li><p><strong>nh0</strong> (<em>ndarray</em>) – Hole occupation numbers (complex), 1D array</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>Ee0</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Eh0</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>gee</strong> (<em>float</em>) – Electron-electron dephasing rate (Hz)</p></li>
+<li><p><strong>geh</strong> (<em>float</em>) – Electron-hole dephasing rate (Hz)</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,1] for e-e</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Off-diagonal dephasing matrix (J), 2D array of shape (Nk, Nk)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.dephasing.CalcOffDiagDeph_H">
+<span class="sig-prename descclassname"><span class="pre">src.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_H</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ghh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.dephasing.CalcOffDiagDeph_H" title="Link to this definition"></a></dt>
+<dd><p>Calculate off-diagonal dephasing matrix for holes.</p>
+<p>Computes the off-diagonal dephasing matrix D(k,q) for holes due to
+hole-hole and electron-hole interactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne0</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), 1D array</p></li>
+<li><p><strong>nh0</strong> (<em>ndarray</em>) – Hole occupation numbers (complex), 1D array</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>Ee0</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Eh0</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>ghh</strong> (<em>float</em>) – Hole-hole dephasing rate (Hz)</p></li>
+<li><p><strong>geh</strong> (<em>float</em>) – Electron-hole dephasing rate (Hz)</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,2] for h-h</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Off-diagonal dephasing matrix (J), 2D array of shape (Nk, Nk)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.dephasing.OffDiagDephasing">
+<span class="sig-prename descclassname"><span class="pre">src.dephasing.</span></span><span class="sig-name descname"><span class="pre">OffDiagDephasing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.dephasing.OffDiagDephasing" title="Link to this definition"></a></dt>
+<dd><p>Calculate off-diagonal dephasing contribution.</p>
+<p>Computes the off-diagonal dephasing contribution to the polarization equation
+due to carrier-carrier interactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), 1D array</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole occupation numbers (complex), 1D array</p></li>
+<li><p><strong>p</strong> (<em>ndarray</em>) – Polarization matrix (complex), 2D array</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>g</strong> (<em>ndarray</em>) – Dephasing rates (Hz), 1D array [gee, ghh, geh]</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Interaction matrix (J), 3D array</p></li>
+<li><p><strong>x</strong> (<em>ndarray</em>) – Output dephasing contribution (modified in-place), 2D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>x array is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function computes dephasing from electron-electron, hole-hole,
+and electron-hole interactions. Note that the matrix k_p_q is symmetric.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.dephasing.CalcOffDiagDeph_E2">
+<span class="sig-prename descclassname"><span class="pre">src.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_E2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.dephasing.CalcOffDiagDeph_E2" title="Link to this definition"></a></dt>
+<dd><p>Calculate off-diagonal dephasing matrix for electrons (version 2).</p>
+<p>Computes the off-diagonal dephasing matrix D(q,k) for electrons using
+a different algorithm with negative indexing support.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), 1D array</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole occupation numbers (complex), 1D array</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>gee</strong> (<em>float</em>) – Electron-electron dephasing rate (Hz)</p></li>
+<li><p><strong>geh</strong> (<em>float</em>) – Electron-hole dephasing rate (Hz)</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,1] for e-e</p></li>
+<li><p><strong>Nk</strong> (<em>int</em>) – Number of momentum points</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Off-diagonal dephasing matrix (J), 2D array of shape (2*Nk+1, Nk)
+First dimension uses shifted indexing: D[q+Nk, k] corresponds to D(q,k) where q can be negative</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.dephasing.CalcOffDiagDeph_H2">
+<span class="sig-prename descclassname"><span class="pre">src.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_H2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ghh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.dephasing.CalcOffDiagDeph_H2" title="Link to this definition"></a></dt>
+<dd><p>Calculate off-diagonal dephasing matrix for holes (version 2).</p>
+<p>Computes the off-diagonal dephasing matrix D(q,k) for holes using
+a different algorithm with negative indexing support.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), 1D array</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole occupation numbers (complex), 1D array</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>ghh</strong> (<em>float</em>) – Hole-hole dephasing rate (Hz)</p></li>
+<li><p><strong>geh</strong> (<em>float</em>) – Electron-hole dephasing rate (Hz)</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,2] for h-h</p></li>
+<li><p><strong>Nk</strong> (<em>int</em>) – Number of momentum points</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Off-diagonal dephasing matrix (J), 2D array of shape (2*Nk+1, Nk)
+First dimension uses shifted indexing: D[q+Nk, k] corresponds to D(q,k) where q can be negative</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.dephasing.OffDiagDephasing2">
+<span class="sig-prename descclassname"><span class="pre">src.dephasing.</span></span><span class="sig-name descname"><span class="pre">OffDiagDephasing2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.dephasing.OffDiagDephasing2" title="Link to this definition"></a></dt>
+<dd><p>Calculate off-diagonal dephasing contribution (version 2).</p>
+<p>Computes the off-diagonal dephasing contribution to the polarization equation
+using version 2 algorithm with negative indexing support.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), 1D array</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole occupation numbers (complex), 1D array</p></li>
+<li><p><strong>p</strong> (<em>ndarray</em>) – Polarization matrix (complex), 2D array</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>g</strong> (<em>ndarray</em>) – Dephasing rates (Hz), 1D array [gee, ghh, geh]</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Interaction matrix (J), 3D array</p></li>
+<li><p><strong>t</strong> (<em>float</em>) – Time (s)</p></li>
+<li><p><strong>x</strong> (<em>ndarray</em>) – Output dephasing contribution (modified in-place), 2D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>x array is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function computes dephasing from electron-electron, hole-hole,
+and electron-hole interactions. Writes max/min values to output files.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.dephasing.printGam">
+<span class="sig-prename descclassname"><span class="pre">src.dephasing.</span></span><span class="sig-name descname"><span class="pre">printGam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.dephasing.printGam" title="Link to this definition"></a></dt>
+<dd><p>Print dephasing rate to file with index number.</p>
+<p>Writes a real 1Dvxx dephasing rate array to a file with index number in filename.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Dx</strong> (<em>ndarray</em>) – Dephasing rate array (real), 1D array</p></li>
+<li><p><strong>z</strong> (<em>ndarray</em>) – Spatial coordinates (real), 1D array</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – Index number for filename</p></li>
+<li><p><strong>file</strong> (<em>str</em>) – Base filename (without extension and index)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The file is written to ‘dataQW/{file}{n:05d}.dat’.
+Each line contains: z(i), Dx(i)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.dephasing.WriteDephasing">
+<span class="sig-prename descclassname"><span class="pre">src.dephasing.</span></span><span class="sig-name descname"><span class="pre">WriteDephasing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xxx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.dephasing.WriteDephasing" title="Link to this definition"></a></dt>
+<dd><p>Write dephasing rates to files.</p>
+<p>Writes electron and hole dephasing rates to files with wire index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Quantum wire momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>gamE</strong> (<em>ndarray</em>) – Electron diagonal dephasing rate (Hz), 1D array</p></li>
+<li><p><strong>gamH</strong> (<em>ndarray</em>) – Hole diagonal dephasing rate (Hz), 1D array</p></li>
+<li><p><strong>w</strong> (<em>int</em>) – Wire index</p></li>
+<li><p><strong>xxx</strong> (<em>int</em>) – Time index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Writes files to:
+- ‘dataQW/Wire/Ge/Ge.{w:02d}.k.{xxx:05d}.dat’ for electrons
+- ‘dataQW/Wire/Gh/Gh.{w:02d}.k.{xxx:05d}.dat’ for holes</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../dcfield/index.html" class="btn btn-neutral float-left" title="src.dcfield" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../emission/index.html" class="btn btn-neutral float-right" title="src.emission" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

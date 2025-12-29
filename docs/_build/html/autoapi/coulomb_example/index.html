@@ -1,0 +1,233 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>coulomb_example &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="test_usefulsubs" href="../test_usefulsubs/index.html" />
+    <link rel="prev" title="test_typespace" href="../test_typespace/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/index.html">src</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../spliner/index.html">spliner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_phost/index.html">test_phost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_epsrtl/index.html">test_epsrtl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_coulomb/index.html">test_coulomb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_dcfield/index.html">test_dcfield</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_phonons/index.html">test_phonons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_qwoptics/index.html">test_qwoptics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_dephasing/index.html">test_dephasing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../test_typespace/index.html">test_typespace</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">coulomb_example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#coulomb_example.create_gaas_quantum_wire"><code class="docutils literal notranslate"><span class="pre">create_gaas_quantum_wire()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#coulomb_example.create_momentum_grid_1d"><code class="docutils literal notranslate"><span class="pre">create_momentum_grid_1d()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#coulomb_example.calculate_energy_dispersions"><code class="docutils literal notranslate"><span class="pre">calculate_energy_dispersions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#coulomb_example.create_thermal_populations"><code class="docutils literal notranslate"><span class="pre">create_thermal_populations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#coulomb_example.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#coulomb_example.create_plots"><code class="docutils literal notranslate"><span class="pre">create_plots()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#coulomb_example.performance_benchmark"><code class="docutils literal notranslate"><span class="pre">performance_benchmark()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../test_usefulsubs/index.html">test_usefulsubs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_basic_example/index.html">SBEs_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_domain_example/index.html">SBEs_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_basic_example/index.html">dcfield_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance_benchmark/index.html">performance_benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SBEs_workflow_example/index.html">SBEs_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_domain_example/index.html">dcfield_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_basic_example/index.html">qwoptics_basic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../coulombpythonic_example/index.html">coulombpythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../phononspythonic_example/index.html">phononspythonic_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_domain_example/index.html">qwoptics_domain_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dcfield_workflow_example/index.html">dcfield_workflow_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwoptics_workflow_example/index.html">qwoptics_workflow_example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">coulomb_example</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/autoapi/coulomb_example/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-coulomb_example">
+<span id="coulomb-example"></span><h1>coulomb_example<a class="headerlink" href="#module-coulomb_example" title="Link to this heading"></a></h1>
+<p>Example script demonstrating the alternative Coulomb module.</p>
+<p>This script shows how to use the alt_coulomb module to calculate Coulomb
+interactions in a quantum wire system. It includes examples of:
+- Setting up system parameters
+- Creating momentum grids
+- Calculating screened potentials
+- Computing collision rates
+- Analyzing results</p>
+<p>Author: AI Assistant
+Date: 2024</p>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#coulomb_example.create_gaas_quantum_wire" title="coulomb_example.create_gaas_quantum_wire"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_gaas_quantum_wire</span></code></a>()</p></td>
+<td><p>Create a GaAs quantum wire system with realistic parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#coulomb_example.create_momentum_grid_1d" title="coulomb_example.create_momentum_grid_1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_momentum_grid_1d</span></code></a>([N, k_max])</p></td>
+<td><p>Create a 1D momentum grid for quantum wire calculations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#coulomb_example.calculate_energy_dispersions" title="coulomb_example.calculate_energy_dispersions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_energy_dispersions</span></code></a>(ky, me, mh)</p></td>
+<td><p>Calculate parabolic energy dispersions for electrons and holes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#coulomb_example.create_thermal_populations" title="coulomb_example.create_thermal_populations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_thermal_populations</span></code></a>(ky, Ee, Eh[, T, mu_e, mu_h])</p></td>
+<td><p>Create thermal carrier populations using Fermi-Dirac statistics.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#coulomb_example.main" title="coulomb_example.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>()</p></td>
+<td><p>Main example function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#coulomb_example.create_plots" title="coulomb_example.create_plots"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_plots</span></code></a>(grid, Ee, Eh, ne, nh, Veh, Vee, Vhh, Win, ...)</p></td>
+<td><p>Create visualization plots of the results.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#coulomb_example.performance_benchmark" title="coulomb_example.performance_benchmark"><code class="xref py py-obj docutils literal notranslate"><span class="pre">performance_benchmark</span></code></a>()</p></td>
+<td><p>Benchmark the performance of Coulomb calculations.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="coulomb_example.create_gaas_quantum_wire">
+<span class="sig-prename descclassname"><span class="pre">coulomb_example.</span></span><span class="sig-name descname"><span class="pre">create_gaas_quantum_wire</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#coulomb_example.create_gaas_quantum_wire" title="Link to this definition"></a></dt>
+<dd><p>Create a GaAs quantum wire system with realistic parameters.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="coulomb_example.create_momentum_grid_1d">
+<span class="sig-prename descclassname"><span class="pre">coulomb_example.</span></span><span class="sig-name descname"><span class="pre">create_momentum_grid_1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000000.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#coulomb_example.create_momentum_grid_1d" title="Link to this definition"></a></dt>
+<dd><p>Create a 1D momentum grid for quantum wire calculations.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="coulomb_example.calculate_energy_dispersions">
+<span class="sig-prename descclassname"><span class="pre">coulomb_example.</span></span><span class="sig-name descname"><span class="pre">calculate_energy_dispersions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#coulomb_example.calculate_energy_dispersions" title="Link to this definition"></a></dt>
+<dd><p>Calculate parabolic energy dispersions for electrons and holes.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="coulomb_example.create_thermal_populations">
+<span class="sig-prename descclassname"><span class="pre">coulomb_example.</span></span><span class="sig-name descname"><span class="pre">create_thermal_populations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_e</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#coulomb_example.create_thermal_populations" title="Link to this definition"></a></dt>
+<dd><p>Create thermal carrier populations using Fermi-Dirac statistics.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="coulomb_example.main">
+<span class="sig-prename descclassname"><span class="pre">coulomb_example.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#coulomb_example.main" title="Link to this definition"></a></dt>
+<dd><p>Main example function.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="coulomb_example.create_plots">
+<span class="sig-prename descclassname"><span class="pre">coulomb_example.</span></span><span class="sig-name descname"><span class="pre">create_plots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Veh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vhh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Wout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BGR</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#coulomb_example.create_plots" title="Link to this definition"></a></dt>
+<dd><p>Create visualization plots of the results.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="coulomb_example.performance_benchmark">
+<span class="sig-prename descclassname"><span class="pre">coulomb_example.</span></span><span class="sig-name descname"><span class="pre">performance_benchmark</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#coulomb_example.performance_benchmark" title="Link to this definition"></a></dt>
+<dd><p>Benchmark the performance of Coulomb calculations.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../test_typespace/index.html" class="btn btn-neutral float-left" title="test_typespace" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../test_usefulsubs/index.html" class="btn btn-neutral float-right" title="test_usefulsubs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
