@@ -66,3 +66,7 @@ pyfftw usage.
 
 
 (To be considered threading)
+
+
+# in myst.md (simple md just one imports)
+# integrate imports where we consider bunch of files together to get results
