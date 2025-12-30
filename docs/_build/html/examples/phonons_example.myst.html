@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phonon Interactions in Quantum Wires &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Quantum Wire Optics and Field Conversion" href="qwoptics_example.myst.html" />
+    <link rel="prev" title="Spontaneous Emission and Photoluminescence in Quantum Wires" href="emission_example.myst.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../gallery.html">Examples Gallery</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="coulomb_example.myst.html">Coulomb Interactions in Quantum Wires</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcfield_example.myst.html">DC Field Carrier Transport in Quantum Wires</a></li>
+<li class="toctree-l2"><a class="reference internal" href="emission_example.myst.html">Spontaneous Emission and Photoluminescence in Quantum Wires</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Phonon Interactions in Quantum Wires</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#theory">Theory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#frohlich-interaction">Frohlich Interaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phonon-absorption-and-emission">Phonon Absorption and Emission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phonon-interaction-matrix">Phonon Interaction Matrix</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#many-body-phonon-scattering">Many-Body Phonon Scattering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#temperature-dependence">Temperature Dependence</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-and-initialization">Setup and Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initialize-phonon-module">Initialize Phonon Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phonon-interaction-matrices">Phonon Interaction Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#energy-dependence-of-phonon-interactions">Energy Dependence of Phonon Interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Many-Body Phonon Scattering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#visualization-of-scattering-rates">Visualization of Scattering Rates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phonon-coupling-constants">Phonon Coupling Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#distribution-functions">Distribution Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Temperature Dependence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scattering-rate-temperature-dependence">Scattering Rate Temperature Dependence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assumptions-and-parameter-choices">Assumptions and Parameter Choices</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#material-parameters">Material Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#temperature">Temperature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#grid-and-numerical-parameters">Grid and Numerical Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplifications">Simplifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phonon-model">Phonon Model</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="qwoptics_example.myst.html">Quantum Wire Optics and Field Conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../gallery.html">Examples Gallery</a></li>
+      <li class="breadcrumb-item active">Phonon Interactions in Quantum Wires</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/phonons_example.myst.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="phonon-interactions-in-quantum-wires">
+<h1>Phonon Interactions in Quantum Wires<a class="headerlink" href="#phonon-interactions-in-quantum-wires" title="Link to this heading"></a></h1>
+<section id="theory">
+<h2>Theory<a class="headerlink" href="#theory" title="Link to this heading"></a></h2>
+<p>The phonons module calculates carrier-phonon interactions in quantum wires, which are essential for energy relaxation and dephasing in the Semiconductor Bloch Equations.</p>
+<section id="frohlich-interaction">
+<h3>Frohlich Interaction<a class="headerlink" href="#frohlich-interaction" title="Link to this heading"></a></h3>
+<p>Carriers interact with LO phonons through the Frohlich interaction, which couples carriers to the longitudinal optical phonon mode. The interaction strength depends on the dielectric properties of the material.</p>
+</section>
+<section id="phonon-absorption-and-emission">
+<h3>Phonon Absorption and Emission<a class="headerlink" href="#phonon-absorption-and-emission" title="Link to this heading"></a></h3>
+<p>Carriers can absorb or emit phonons, leading to energy changes:</p>
+<p><strong>Phonon Absorption:</strong>
+<span class="math notranslate nohighlight">\(
+\Gamma_{abs}(k, k') \propto N_0 \cdot \delta(E_k - E_{k'} - \hbar\omega_{ph})
+\)</span></p>
+<p><strong>Phonon Emission:</strong>
+<span class="math notranslate nohighlight">\(
+\Gamma_{em}(k, k') \propto (N_0 + 1) \cdot \delta(E_k - E_{k'} + \hbar\omega_{ph})
+\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(N_0\)</span> is the Bose-Einstein distribution for phonons at thermal equilibrium.</p>
+</section>
+<section id="phonon-interaction-matrix">
+<h3>Phonon Interaction Matrix<a class="headerlink" href="#phonon-interaction-matrix" title="Link to this heading"></a></h3>
+<p>The phonon interaction matrix elements are calculated using Lorentzian line shapes:</p>
+<div class="math notranslate nohighlight">
+\[
+EP(k, k') = \frac{N_0}{(E_k - E_{k'} - \hbar\omega_{ph})^2 + (\hbar\gamma_{ph})^2} + \frac{N_0 + 1}{(E_k - E_{k'} + \hbar\omega_{ph})^2 + (\hbar\gamma_{ph})^2}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\omega_{ph}\)</span> is the phonon frequency and <span class="math notranslate nohighlight">\(\gamma_{ph}\)</span> is the phonon damping rate.</p>
+</section>
+<section id="many-body-phonon-scattering">
+<h3>Many-Body Phonon Scattering<a class="headerlink" href="#many-body-phonon-scattering" title="Link to this heading"></a></h3>
+<p>The many-body phonon scattering rates account for Pauli blocking and carrier-carrier interactions:</p>
+<div class="math notranslate nohighlight">
+\[
+W_{in}(k) = \sum_{k'} V_{ep}(k, k') \cdot n_e(k') \cdot EP^T(k', k)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+W_{out}(k) = \sum_{k'} V_{ep}(k, k') \cdot (1 - n_e(k')) \cdot EP(k', k)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(V_{ep}\)</span> is the screened electron-phonon interaction potential.</p>
+</section>
+<section id="temperature-dependence">
+<h3>Temperature Dependence<a class="headerlink" href="#temperature-dependence" title="Link to this heading"></a></h3>
+<p>The phonon occupation follows the Bose-Einstein distribution:</p>
+<div class="math notranslate nohighlight">
+\[
+N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
+\]</div>
+<p>At low temperatures, phonon emission dominates (spontaneous emission). At high temperatures, both absorption and emission are significant.</p>
+</section>
+</section>
+<section id="setup-and-initialization">
+<h2>Setup and Initialization<a class="headerlink" href="#setup-and-initialization" title="Link to this heading"></a></h2>
+<p>First, we import the necessary modules and set up the physical parameters.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D</span><span class="w"> </span><span class="kn">import</span> <span class="n">phonons</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">e</span> <span class="k">as</span> <span class="n">e0</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">k</span> <span class="k">as</span> <span class="n">kB</span>
+
+<span class="c1"># Physical Parameters for GaAs Quantum Wire</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mf">200e-9</span>              <span class="c1"># Wire length (m)</span>
+<span class="n">N_k</span> <span class="o">=</span> <span class="mi">64</span>                <span class="c1"># Momentum grid points</span>
+<span class="n">m_e</span> <span class="o">=</span> <span class="mf">0.067</span> <span class="o">*</span> <span class="mf">9.109e-31</span> <span class="c1"># Electron effective mass (kg)</span>
+<span class="n">m_h</span> <span class="o">=</span> <span class="mf">0.45</span> <span class="o">*</span> <span class="mf">9.109e-31</span>  <span class="c1"># Hole effective mass (kg)</span>
+<span class="n">epsr</span> <span class="o">=</span> <span class="mf">12.0</span>             <span class="c1"># Relative dielectric constant</span>
+<span class="n">Temp</span> <span class="o">=</span> <span class="mf">77.0</span>             <span class="c1"># Temperature (K)</span>
+
+<span class="c1"># LO Phonon Parameters (GaAs)</span>
+<span class="n">Oph_eV</span> <span class="o">=</span> <span class="mf">0.036</span>          <span class="c1"># LO phonon energy (eV) - typical for GaAs</span>
+<span class="n">Oph</span> <span class="o">=</span> <span class="n">Oph_eV</span> <span class="o">*</span> <span class="n">e0</span> <span class="o">/</span> <span class="n">hbar</span>  <span class="c1"># Convert to frequency (Hz)</span>
+<span class="n">Gph_eV</span> <span class="o">=</span> <span class="mf">0.003</span>          <span class="c1"># Phonon damping rate (eV)</span>
+<span class="n">Gph</span> <span class="o">=</span> <span class="n">Gph_eV</span> <span class="o">*</span> <span class="n">e0</span> <span class="o">/</span> <span class="n">hbar</span>  <span class="c1"># Convert to frequency (Hz)</span>
+
+<span class="c1"># Create momentum grid</span>
+<span class="n">ky</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2e8</span><span class="p">,</span> <span class="mf">2e8</span><span class="p">,</span> <span class="n">N_k</span><span class="p">)</span>
+<span class="n">dk</span> <span class="o">=</span> <span class="n">ky</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">ky</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Single-particle energies</span>
+<span class="n">E_e</span> <span class="o">=</span> <span class="n">hbar</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ky</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">m_e</span><span class="p">)</span>
+<span class="n">E_h</span> <span class="o">=</span> <span class="n">hbar</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ky</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">m_h</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Momentum grid: </span><span class="si">{</span><span class="n">ky</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">ky</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> m^-1&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LO Phonon energy: </span><span class="si">{</span><span class="n">Oph_eV</span><span class="o">*</span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> meV&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Phonon frequency: </span><span class="si">{</span><span class="n">Oph</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> Hz&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Temperature: </span><span class="si">{</span><span class="n">Temp</span><span class="si">}</span><span class="s2"> K&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="initialize-phonon-module">
+<h2>Initialize Phonon Module<a class="headerlink" href="#initialize-phonon-module" title="Link to this heading"></a></h2>
+<p>We initialize the phonon module, which sets up the phonon interaction matrices.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize Phonon Module</span>
+<span class="n">phonons</span><span class="o">.</span><span class="n">InitializePhonons</span><span class="p">(</span><span class="n">ky</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">epsr</span><span class="p">,</span> <span class="n">Gph</span><span class="p">,</span> <span class="n">Oph</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Phonon module initialized&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bose distribution N0: </span><span class="si">{</span><span class="n">phonons</span><span class="o">.</span><span class="n">N00</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vscale factor: </span><span class="si">{</span><span class="n">phonons</span><span class="o">.</span><span class="n">_Vscale</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">InitializePhonons</span></code> function sets up:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">_NO</span></code>: Bose-Einstein distribution for phonons at thermal equilibrium</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_idel</span></code>: Identity exclusion matrix (excludes self-interactions)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_EP</span></code>, <code class="docutils literal notranslate"><span class="pre">_EPT</span></code>: Electron-phonon interaction matrix and its transpose</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_HP</span></code>, <code class="docutils literal notranslate"><span class="pre">_HPT</span></code>: Hole-phonon interaction matrix and its transpose</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_Vscale</span></code>: Scaling constant for phonon coupling</p></li>
+</ul>
+</div>
+</section>
+<section id="phonon-interaction-matrices">
+<h2>Phonon Interaction Matrices<a class="headerlink" href="#phonon-interaction-matrices" title="Link to this heading"></a></h2>
+<p>We examine the phonon interaction matrices, which describe the strength of phonon-mediated transitions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Access the phonon interaction matrices (stored as module-level variables)</span>
+<span class="n">EP</span> <span class="o">=</span> <span class="n">phonons</span><span class="o">.</span><span class="n">_EP</span>
+<span class="n">HP</span> <span class="o">=</span> <span class="n">phonons</span><span class="o">.</span><span class="n">_HP</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EP shape: </span><span class="si">{</span><span class="n">EP</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;HP shape: </span><span class="si">{</span><span class="n">HP</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EP range: </span><span class="si">{</span><span class="n">EP</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">EP</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;HP range: </span><span class="si">{</span><span class="n">HP</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">HP</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Visualize phonon interaction matrices</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Electron-phonon interaction</span>
+<span class="n">im1</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">EP</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+                     <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">ky</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$k</span><span class="se">\&#39;</span><span class="s1">$ ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$k$ ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Electron-Phonon Interaction Matrix $EP(k,k</span><span class="se">\&#39;</span><span class="s1">)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Interaction Strength&#39;</span><span class="p">)</span>
+
+<span class="c1"># Hole-phonon interaction</span>
+<span class="n">im2</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">HP</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+                     <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">ky</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$k</span><span class="se">\&#39;</span><span class="s1">$ ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$k$ ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hole-Phonon Interaction Matrix $HP(k,k</span><span class="se">\&#39;</span><span class="s1">)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Interaction Strength&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The phonon interaction matrices show strong interactions when the energy difference <span class="math notranslate nohighlight">\(E_k - E_{k'}\)</span> matches the phonon energy <span class="math notranslate nohighlight">\(\hbar\omega_{ph}\)</span>. The diagonal is zero due to the <code class="docutils literal notranslate"><span class="pre">_idel</span></code> matrix, which excludes self-interactions.</p>
+</div>
+</section>
+<section id="energy-dependence-of-phonon-interactions">
+<h2>Energy Dependence of Phonon Interactions<a class="headerlink" href="#energy-dependence-of-phonon-interactions" title="Link to this heading"></a></h2>
+<p>Let’s examine how the phonon interaction strength depends on energy difference.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract interaction strength along a cut through the matrix</span>
+<span class="c1"># Look at transitions from k=0 (center of grid)</span>
+<span class="n">k_center</span> <span class="o">=</span> <span class="n">N_k</span> <span class="o">//</span> <span class="mi">2</span>
+<span class="n">EP_cut</span> <span class="o">=</span> <span class="n">EP</span><span class="p">[</span><span class="n">k_center</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">HP_cut</span> <span class="o">=</span> <span class="n">HP</span><span class="p">[</span><span class="n">k_center</span><span class="p">,</span> <span class="p">:]</span>
+
+<span class="c1"># Energy differences</span>
+<span class="n">dE_e</span> <span class="o">=</span> <span class="n">E_e</span> <span class="o">-</span> <span class="n">E_e</span><span class="p">[</span><span class="n">k_center</span><span class="p">]</span>
+<span class="n">dE_h</span> <span class="o">=</span> <span class="n">E_h</span> <span class="o">-</span> <span class="n">E_h</span><span class="p">[</span><span class="n">k_center</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dE_e</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">EP_cut</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">Oph_eV</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Phonon Energy&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="o">-</span><span class="n">Oph_eV</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Energy Difference $E_k - E_{k</span><span class="se">\&#39;</span><span class="s1">}$ (meV)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Interaction Strength&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Electron-Phonon Interaction vs Energy Difference&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dE_h</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">HP_cut</span><span class="p">,</span> <span class="s1">&#39;g-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">Oph_eV</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Phonon Energy&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="o">-</span><span class="n">Oph_eV</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Energy Difference $E_k - E_{k</span><span class="se">\&#39;</span><span class="s1">}$ (meV)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Interaction Strength&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hole-Phonon Interaction vs Energy Difference&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The interaction strength peaks when the energy difference equals the phonon energy (absorption) or negative phonon energy (emission). The width of the peaks is determined by the phonon damping rate <span class="math notranslate nohighlight">\(\gamma_{ph}\)</span>.</p>
+</div>
+</section>
+<section id="id1">
+<h2>Many-Body Phonon Scattering<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>We calculate the many-body phonon scattering rates for electrons and holes.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create carrier distributions</span>
+<span class="n">sigma_k</span> <span class="o">=</span> <span class="mf">1e8</span>
+<span class="n">n_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ky</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_k</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">n_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ky</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_k</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">n_e</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">n_e</span><span class="p">)</span>  <span class="c1"># Normalize</span>
+<span class="n">n_h</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">n_h</span><span class="p">)</span>  <span class="c1"># Normalize</span>
+
+<span class="c1"># Create Coulomb interaction arrays (simplified for this demo)</span>
+<span class="c1"># In real simulations, these would come from the coulomb module</span>
+<span class="n">VC</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">VC</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-20</span>  <span class="c1"># Electron-electron (simplified)</span>
+<span class="n">VC</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-20</span>  <span class="c1"># Hole-hole (simplified)</span>
+
+<span class="c1"># Dielectric function (simplified - unity for this demo)</span>
+<span class="n">E1D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">))</span>
+
+<span class="c1"># Calculate phonon-electron scattering rates</span>
+<span class="n">Win_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span>
+<span class="n">Wout_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span>
+<span class="n">phonons</span><span class="o">.</span><span class="n">MBPE</span><span class="p">(</span><span class="n">n_e</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">E1D</span><span class="p">,</span> <span class="n">Win_e</span><span class="p">,</span> <span class="n">Wout_e</span><span class="p">)</span>
+
+<span class="c1"># Calculate phonon-hole scattering rates</span>
+<span class="n">Win_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span>
+<span class="n">Wout_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span>
+<span class="n">phonons</span><span class="o">.</span><span class="n">MBPH</span><span class="p">(</span><span class="n">n_h</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">E1D</span><span class="p">,</span> <span class="n">Win_h</span><span class="p">,</span> <span class="n">Wout_h</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Electron in-scattering rate range: </span><span class="si">{</span><span class="n">Win_e</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">Win_e</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> s^-1&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Electron out-scattering rate range: </span><span class="si">{</span><span class="n">Wout_e</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">Wout_e</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> s^-1&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hole in-scattering rate range: </span><span class="si">{</span><span class="n">Win_h</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">Win_h</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> s^-1&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hole out-scattering rate range: </span><span class="si">{</span><span class="n">Wout_h</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">Wout_h</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> s^-1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="visualization-of-scattering-rates">
+<h2>Visualization of Scattering Rates<a class="headerlink" href="#visualization-of-scattering-rates" title="Link to this heading"></a></h2>
+<p>We visualize the phonon scattering rates as a function of momentum.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Win_e</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;In-scattering&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Wout_e</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Out-scattering&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Wavevector ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Scattering Rate (s$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Electron Phonon Scattering Rates&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Win_h</span><span class="p">,</span> <span class="s1">&#39;g-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;In-scattering&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Wout_h</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Out-scattering&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Wavevector ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Scattering Rate (s$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hole Phonon Scattering Rates&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The scattering rates show how carriers at different momenta scatter due to phonon interactions. In-scattering populates states, while out-scattering depopulates them. The rates depend on the carrier distribution and phonon occupation.</p>
+</div>
+</section>
+<section id="phonon-coupling-constants">
+<h2>Phonon Coupling Constants<a class="headerlink" href="#phonon-coupling-constants" title="Link to this heading"></a></h2>
+<p>The phonon coupling constant <code class="docutils literal notranslate"><span class="pre">Cq2</span></code> is used in the DC field module for phonon-assisted transport.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate phonon coupling constants</span>
+<span class="c1"># This requires interaction potential V and dielectric function E1D</span>
+<span class="c1"># For this demo, we&#39;ll use simplified arrays</span>
+<span class="n">V_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-20</span>  <span class="c1"># Simplified interaction potential</span>
+<span class="n">E1D_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">))</span>  <span class="c1"># Simplified dielectric function</span>
+
+<span class="n">Cq2_vals</span> <span class="o">=</span> <span class="n">phonons</span><span class="o">.</span><span class="n">Cq2</span><span class="p">(</span><span class="n">ky</span><span class="p">,</span> <span class="n">V_test</span><span class="p">,</span> <span class="n">E1D_test</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cq2 range: </span><span class="si">{</span><span class="n">Cq2_vals</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">Cq2_vals</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Visualize coupling constant</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Cq2_vals</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Wavevector ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Phonon Coupling Constant $C_q^2$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Phonon Coupling Constant vs Momentum&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="distribution-functions">
+<h2>Distribution Functions<a class="headerlink" href="#distribution-functions" title="Link to this heading"></a></h2>
+<p>The module provides Fermi-Dirac and Bose-Einstein distribution functions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate distribution functions for a range of energies</span>
+<span class="n">E_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="o">*</span><span class="n">e0</span><span class="p">,</span> <span class="mf">0.2</span><span class="o">*</span><span class="n">e0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Fermi-Dirac distribution (for carriers)</span>
+<span class="n">f_FD</span> <span class="o">=</span> <span class="n">phonons</span><span class="o">.</span><span class="n">FermiDistr</span><span class="p">(</span><span class="n">E_range</span><span class="p">)</span>
+
+<span class="c1"># Bose-Einstein distribution (for phonons)</span>
+<span class="n">f_BE</span> <span class="o">=</span> <span class="n">phonons</span><span class="o">.</span><span class="n">BoseDistr</span><span class="p">(</span><span class="n">E_range</span><span class="p">)</span>
+
+<span class="c1"># Visualize distributions</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E_range</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">f_FD</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Energy (meV)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Occupation&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Fermi-Dirac Distribution&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E_range</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">f_BE</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Energy (meV)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Occupation&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Bose-Einstein Distribution&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">Oph_eV</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Phonon Energy&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Get the Bose distribution value for phonons</span>
+<span class="n">N0_phonon</span> <span class="o">=</span> <span class="n">phonons</span><span class="o">.</span><span class="n">N00</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bose distribution at phonon energy: </span><span class="si">{</span><span class="n">N0_phonon</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>Temperature Dependence<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>We investigate how phonon interactions change with temperature.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate phonon interaction matrices at different temperatures</span>
+<span class="n">temperatures</span> <span class="o">=</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">77.0</span><span class="p">,</span> <span class="mf">150.0</span><span class="p">,</span> <span class="mf">300.0</span><span class="p">]</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">]</span>
+
+<span class="c1"># Store Bose distribution values</span>
+<span class="n">N0_values</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">T</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">temperatures</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+    <span class="c1"># Update temperature</span>
+    <span class="n">phonons</span><span class="o">.</span><span class="n">_Temp</span> <span class="o">=</span> <span class="n">T</span>
+
+    <span class="c1"># Re-initialize to update temperature-dependent arrays</span>
+    <span class="n">phonons</span><span class="o">.</span><span class="n">InitializePhonons</span><span class="p">(</span><span class="n">ky</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">epsr</span><span class="p">,</span> <span class="n">Gph</span><span class="p">,</span> <span class="n">Oph</span><span class="p">)</span>
+
+    <span class="n">N0</span> <span class="o">=</span> <span class="n">phonons</span><span class="o">.</span><span class="n">N00</span><span class="p">()</span>
+    <span class="n">N0_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">N0</span><span class="p">)</span>
+
+    <span class="c1"># Extract interaction strength along diagonal cut</span>
+    <span class="n">k_center</span> <span class="o">=</span> <span class="n">N_k</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">EP_cut</span> <span class="o">=</span> <span class="n">phonons</span><span class="o">.</span><span class="n">_EP</span><span class="p">[</span><span class="n">k_center</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">dE</span> <span class="o">=</span> <span class="n">E_e</span> <span class="o">-</span> <span class="n">E_e</span><span class="p">[</span><span class="n">k_center</span><span class="p">]</span>
+
+    <span class="c1"># Normalize for comparison</span>
+    <span class="n">EP_cut_norm</span> <span class="o">=</span> <span class="n">EP_cut</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">EP_cut</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">EP_cut</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">EP_cut</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dE</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">EP_cut_norm</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;T = </span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s1"> K&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Energy Difference (meV)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Normalized Interaction Strength&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Temperature-Dependent Phonon Interaction&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Plot Bose distribution vs temperature</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temperatures</span><span class="p">,</span> <span class="n">N0_values</span><span class="p">,</span> <span class="s1">&#39;ro-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Temperature (K)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Bose Distribution $N_0$&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Phonon Occupation vs Temperature&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>At higher temperatures, the Bose distribution increases, leading to more phonon absorption processes. The phonon interaction strength also changes with temperature through the <span class="math notranslate nohighlight">\(N_0\)</span> and <span class="math notranslate nohighlight">\(N_0 + 1\)</span> factors in the interaction matrix.</p>
+</div>
+</section>
+<section id="scattering-rate-temperature-dependence">
+<h2>Scattering Rate Temperature Dependence<a class="headerlink" href="#scattering-rate-temperature-dependence" title="Link to this heading"></a></h2>
+<p>We examine how scattering rates depend on temperature.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate scattering rates at different temperatures</span>
+<span class="n">temperatures</span> <span class="o">=</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">77.0</span><span class="p">,</span> <span class="mf">150.0</span><span class="p">,</span> <span class="mf">300.0</span><span class="p">]</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">T</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">temperatures</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+    <span class="c1"># Update temperature and re-initialize</span>
+    <span class="n">phonons</span><span class="o">.</span><span class="n">_Temp</span> <span class="o">=</span> <span class="n">T</span>
+    <span class="n">phonons</span><span class="o">.</span><span class="n">InitializePhonons</span><span class="p">(</span><span class="n">ky</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">epsr</span><span class="p">,</span> <span class="n">Gph</span><span class="p">,</span> <span class="n">Oph</span><span class="p">)</span>
+
+    <span class="c1"># Recalculate scattering rates</span>
+    <span class="n">Win_e_T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span>
+    <span class="n">Wout_e_T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span>
+    <span class="n">phonons</span><span class="o">.</span><span class="n">MBPE</span><span class="p">(</span><span class="n">n_e</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">E1D</span><span class="p">,</span> <span class="n">Win_e_T</span><span class="p">,</span> <span class="n">Wout_e_T</span><span class="p">)</span>
+
+    <span class="c1"># Normalize for comparison</span>
+    <span class="n">Win_e_T_norm</span> <span class="o">=</span> <span class="n">Win_e_T</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">Win_e_T</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">Win_e_T</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">Win_e_T</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Win_e_T_norm</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;T = </span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s1"> K&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Wavevector ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Normalized In-Scattering Rate&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Temperature-Dependent Electron Scattering&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Plot total scattering rate vs temperature</span>
+<span class="n">total_scattering</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">T</span> <span class="ow">in</span> <span class="n">temperatures</span><span class="p">:</span>
+    <span class="n">phonons</span><span class="o">.</span><span class="n">_Temp</span> <span class="o">=</span> <span class="n">T</span>
+    <span class="n">phonons</span><span class="o">.</span><span class="n">InitializePhonons</span><span class="p">(</span><span class="n">ky</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">epsr</span><span class="p">,</span> <span class="n">Gph</span><span class="p">,</span> <span class="n">Oph</span><span class="p">)</span>
+    <span class="n">Win_e_T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span>
+    <span class="n">Wout_e_T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span>
+    <span class="n">phonons</span><span class="o">.</span><span class="n">MBPE</span><span class="p">(</span><span class="n">n_e</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">E1D</span><span class="p">,</span> <span class="n">Win_e_T</span><span class="p">,</span> <span class="n">Wout_e_T</span><span class="p">)</span>
+    <span class="n">total_scattering</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Win_e_T</span> <span class="o">+</span> <span class="n">Wout_e_T</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temperatures</span><span class="p">,</span> <span class="n">total_scattering</span><span class="p">,</span> <span class="s1">&#39;bo-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Temperature (K)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Total Scattering Rate (s$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Total Phonon Scattering vs Temperature&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="assumptions-and-parameter-choices">
+<h2>Assumptions and Parameter Choices<a class="headerlink" href="#assumptions-and-parameter-choices" title="Link to this heading"></a></h2>
+<p>This section explains the assumptions and rationale behind the parameter values chosen for this example.</p>
+<section id="material-parameters">
+<h3>Material Parameters<a class="headerlink" href="#material-parameters" title="Link to this heading"></a></h3>
+<p><strong>Host material (AlAs):</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">epsr0</span> <span class="pre">=</span> <span class="pre">10.0</span></code>: Static dielectric constant</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">epsrINF</span> <span class="pre">=</span> <span class="pre">8.2</span></code>: High-frequency dielectric constant</p></li>
+<li><p><strong>Rationale</strong>: Typical values for AlAs host material. The difference determines the Frohlich coupling strength.</p></li>
+</ul>
+<p><strong>Quantum wire (GaAs):</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">epsr</span> <span class="pre">=</span> <span class="pre">12.0</span></code>: Background dielectric constant</p></li>
+<li><p><strong>Rationale</strong>: GaAs value. Used for screening calculations.</p></li>
+</ul>
+<p><strong>LO Phonon parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Oph</span> <span class="pre">=</span> <span class="pre">36</span> <span class="pre">meV</span></code>: LO phonon energy for GaAs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Gph</span> <span class="pre">=</span> <span class="pre">3</span> <span class="pre">meV</span></code>: Phonon damping rate</p></li>
+<li><p><strong>Rationale</strong>: Typical GaAs LO phonon values. The 36 meV energy corresponds to the longitudinal optical phonon mode in GaAs.</p></li>
+</ul>
+</section>
+<section id="temperature">
+<h3>Temperature<a class="headerlink" href="#temperature" title="Link to this heading"></a></h3>
+<p><strong>Default temperature:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Temp</span> <span class="pre">=</span> <span class="pre">77.0</span> <span class="pre">K</span></code>: Liquid nitrogen temperature</p></li>
+<li><p><strong>Rationale</strong>: Common experimental condition. Low enough to reduce thermal phonon population while remaining accessible.</p></li>
+</ul>
+<p><strong>Temperature range for studies:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[10.0,</span> <span class="pre">77.0,</span> <span class="pre">150.0,</span> <span class="pre">300.0]</span> <span class="pre">K</span></code></p></li>
+<li><p><strong>Rationale</strong>: Covers cryogenic (10 K), liquid nitrogen (77 K), intermediate (150 K), and room temperature (300 K) to show thermal effects.</p></li>
+</ul>
+</section>
+<section id="grid-and-numerical-parameters">
+<h3>Grid and Numerical Parameters<a class="headerlink" href="#grid-and-numerical-parameters" title="Link to this heading"></a></h3>
+<p><strong>Momentum grid:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">N_k</span> <span class="pre">=</span> <span class="pre">64</span></code>: Number of momentum points</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k_range</span> <span class="pre">=</span> <span class="pre">[-2e8,</span> <span class="pre">2e8]</span> <span class="pre">m^-1</span></code>: Momentum range</p></li>
+<li><p><strong>Rationale</strong>: 64 points balances resolution and speed. Range covers relevant k-space for phonon-assisted transitions.</p></li>
+</ul>
+</section>
+<section id="simplifications">
+<h3>Simplifications<a class="headerlink" href="#simplifications" title="Link to this heading"></a></h3>
+<p><strong>Coulomb interaction arrays:</strong></p>
+<ul class="simple">
+<li><p>Simplified to diagonal matrices with constant values</p></li>
+<li><p><strong>Rationale</strong>: For demonstration. Realistic calculations should use the <code class="docutils literal notranslate"><span class="pre">coulomb</span></code> module to compute screened Coulomb interactions.</p></li>
+</ul>
+<p><strong>Dielectric function:</strong></p>
+<ul class="simple">
+<li><p>Set to unity (no screening)</p></li>
+<li><p><strong>Rationale</strong>: Simplifies the example. Full simulations would include frequency-dependent screening.</p></li>
+</ul>
+<p><strong>Carrier distributions:</strong></p>
+<ul class="simple">
+<li><p>Gaussian distributions centered at k=0</p></li>
+<li><p><strong>Rationale</strong>: Simple, symmetric distribution representing photoexcited carriers. Realistic distributions would come from SBE evolution.</p></li>
+</ul>
+<p><strong>Static distributions:</strong></p>
+<ul class="simple">
+<li><p>Carrier densities do not evolve in time</p></li>
+<li><p><strong>Rationale</strong>: Demonstrates the phonon calculation interface. Full simulations would evolve carriers via SBEs.</p></li>
+</ul>
+</section>
+<section id="phonon-model">
+<h3>Phonon Model<a class="headerlink" href="#phonon-model" title="Link to this heading"></a></h3>
+<p><strong>Single phonon mode:</strong></p>
+<ul class="simple">
+<li><p>Only LO phonons are considered</p></li>
+<li><p><strong>Rationale</strong>: LO phonons dominate carrier-phonon interactions in polar semiconductors like GaAs. Other modes (acoustic, TO) are typically weaker.</p></li>
+</ul>
+<p><strong>Lorentzian line shape:</strong></p>
+<ul class="simple">
+<li><p>Phonon transitions use Lorentzian broadening</p></li>
+<li><p><strong>Rationale</strong>: Accounts for phonon lifetime and dephasing. The width is determined by the damping rate <span class="math notranslate nohighlight">\(\gamma_{ph}\)</span>.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Important Limitations:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Carrier evolution</strong>: Distributions are static. Full simulations require coupling with the SBE solver.</p></li>
+<li><p><strong>Coulomb interactions</strong>: Simplified diagonal matrices. Use the <code class="docutils literal notranslate"><span class="pre">coulomb</span></code> module for realistic calculations.</p></li>
+<li><p><strong>Screening</strong>: Uses unity dielectric function. Full simulations include frequency-dependent screening.</p></li>
+<li><p><strong>Phonon modes</strong>: Only LO phonons considered. Other modes may be important in some materials.</p></li>
+<li><p><strong>Material parameters</strong>: Bulk GaAs values. Confined systems may need adjusted parameters.</p></li>
+</ol>
+</div>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h2>
+<p>This example demonstrated:</p>
+<ol class="arabic simple">
+<li><p><strong>Initialization</strong> of the phonon module with physical parameters</p></li>
+<li><p><strong>Phonon interaction matrices</strong> (<code class="docutils literal notranslate"><span class="pre">EP</span></code>, <code class="docutils literal notranslate"><span class="pre">HP</span></code>) describing absorption and emission processes</p></li>
+<li><p><strong>Many-body phonon scattering</strong> (<code class="docutils literal notranslate"><span class="pre">MBPE</span></code>, <code class="docutils literal notranslate"><span class="pre">MBPH</span></code>) for electrons and holes</p></li>
+<li><p><strong>Phonon coupling constants</strong> (<code class="docutils literal notranslate"><span class="pre">Cq2</span></code>) for use in DC field transport</p></li>
+<li><p><strong>Distribution functions</strong> (<code class="docutils literal notranslate"><span class="pre">FermiDistr</span></code>, <code class="docutils literal notranslate"><span class="pre">BoseDistr</span></code>) for carriers and phonons</p></li>
+<li><p><strong>Temperature dependence</strong> of phonon interactions and scattering rates</p></li>
+</ol>
+<p>The <code class="docutils literal notranslate"><span class="pre">phonons</span></code> module provides a comprehensive framework for calculating phonon-carrier interactions in quantum wires, including many-body effects, temperature dependence, and coupling to other modules like DC field transport.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="emission_example.myst.html" class="btn btn-neutral float-left" title="Spontaneous Emission and Photoluminescence in Quantum Wires" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="qwoptics_example.myst.html" class="btn btn-neutral float-right" title="Quantum Wire Optics and Field Conversion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

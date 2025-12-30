@@ -1,0 +1,355 @@
+:py:mod:`core.constants`
+========================
+
+.. py:module:: core.constants
+
+.. autoapi-nested-parse::
+
+   Physical and mathematical constants for scientific computing, matching Fortran's constants.F90.
+
+   Optimized for high-performance and HPC use. All constants use NumPy types for speed and compatibility.
+   Fortran-specific file path constants (stdin, stdout, stderr) are omitted as Python uses sys.stdin, sys.stdout, sys.stderr.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   core.constants.Constants
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   core.constants.pi
+   core.constants.const_e
+   core.constants.pio2
+   core.constants.twopi
+   core.constants.sqrt2
+   core.constants.euler
+   core.constants.ii
+   core.constants.c0
+   core.constants.eps0
+   core.constants.mu0
+   core.constants.hplank
+   core.constants.hbar
+   core.constants.e0
+   core.constants.eV
+   core.constants.me0
+   core.constants.efrmt
+   core.constants.pfrmt
+   core.constants.efrmt2x
+   core.constants.efrmtA
+   core.constants.pfrmtA
+   core.constants.ifrmtA
+   core.constants.Aefrmt
+
+
+.. py:class:: Constants
+
+
+   Provides physical and mathematical constants for scientific computing.
+
+   All constants are class attributes and use NumPy types for high performance.
+
+   .. attribute:: pi
+
+      The value of pi.
+
+      :type: float
+
+   .. attribute:: const_e
+
+      The value of Euler's number e.
+
+      :type: float
+
+   .. attribute:: pio2
+
+      pi/2.
+
+      :type: float
+
+   .. attribute:: twopi
+
+      2*pi.
+
+      :type: float
+
+   .. attribute:: sqrt2
+
+      Square root of 2.
+
+      :type: float
+
+   .. attribute:: euler
+
+      Euler-Mascheroni constant.
+
+      :type: float
+
+   .. attribute:: ii
+
+      Imaginary unit (sqrt(-1)).
+
+      :type: complex
+
+   .. attribute:: c0
+
+      Speed of light in m/s.
+
+      :type: float
+
+   .. attribute:: eps0
+
+      Vacuum permittivity (F/m).
+
+      :type: float
+
+   .. attribute:: mu0
+
+      Vacuum permeability (H/m).
+
+      :type: float
+
+   .. attribute:: hplank
+
+      Planck constant (J*s).
+
+      :type: float
+
+   .. attribute:: hbar
+
+      Reduced Planck constant (J*s).
+
+      :type: float
+
+   .. attribute:: e0
+
+      Elementary charge (C).
+
+      :type: float
+
+   .. attribute:: eV
+
+      Electron volt (J).
+
+      :type: float
+
+   .. attribute:: me0
+
+      Electron rest mass (kg).
+
+      :type: float
+
+   .. attribute:: efrmt, pfrmt, efrmt2x, efrmtA, pfrmtA, ifrmtA, Aefrmt
+
+      Format strings for numeric display.
+
+      :type: str
+
+   .. py:attribute:: pi
+
+      
+
+   .. py:attribute:: const_e
+
+      
+
+   .. py:attribute:: pio2
+
+      
+
+   .. py:attribute:: twopi
+
+      
+
+   .. py:attribute:: sqrt2
+
+      
+
+   .. py:attribute:: euler
+
+      
+
+   .. py:attribute:: ii
+
+      
+
+   .. py:attribute:: c0
+
+      
+
+   .. py:attribute:: eps0
+
+      
+
+   .. py:attribute:: mu0
+
+      
+
+   .. py:attribute:: hplank
+
+      
+
+   .. py:attribute:: hbar
+
+      
+
+   .. py:attribute:: e0
+
+      
+
+   .. py:attribute:: eV
+
+      
+
+   .. py:attribute:: me0
+
+      
+
+   .. py:attribute:: efrmt
+      :value: '(SP,1PE23.15E3,1X)'
+
+      
+
+   .. py:attribute:: pfrmt
+      :value: '(ES25.14E3)'
+
+      
+
+   .. py:attribute:: efrmt2x
+
+      
+
+   .. py:attribute:: efrmtA
+
+      
+
+   .. py:attribute:: pfrmtA
+
+      
+
+   .. py:attribute:: ifrmtA
+      :value: '((I25),A)'
+
+      
+
+   .. py:attribute:: Aefrmt
+
+      
+
+   .. py:method:: as_dict()
+      :classmethod:
+
+      Return all constants as a dictionary.
+
+      :returns: Dictionary of all constant names and values.
+      :rtype: dict
+
+
+
+.. py:data:: pi
+
+   
+
+.. py:data:: const_e
+
+   
+
+.. py:data:: pio2
+
+   
+
+.. py:data:: twopi
+
+   
+
+.. py:data:: sqrt2
+
+   
+
+.. py:data:: euler
+
+   
+
+.. py:data:: ii
+
+   
+
+.. py:data:: c0
+
+   
+
+.. py:data:: eps0
+
+   
+
+.. py:data:: mu0
+
+   
+
+.. py:data:: hplank
+
+   
+
+.. py:data:: hbar
+
+   
+
+.. py:data:: e0
+
+   
+
+.. py:data:: eV
+
+   
+
+.. py:data:: me0
+
+   
+
+.. py:data:: efrmt
+   :value: '.15e'
+
+   
+
+.. py:data:: pfrmt
+   :value: '.14e'
+
+   
+
+.. py:data:: efrmt2x
+   :value: '.15e'
+
+   
+
+.. py:data:: efrmtA
+   :value: '.15e'
+
+   
+
+.. py:data:: pfrmtA
+   :value: '.14e'
+
+   
+
+.. py:data:: ifrmtA
+   :value: 'd'
+
+   
+
+.. py:data:: Aefrmt
+   :value: '.15e'
+
+   
+

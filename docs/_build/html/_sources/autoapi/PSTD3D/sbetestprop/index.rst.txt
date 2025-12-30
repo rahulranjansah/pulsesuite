@@ -1,0 +1,446 @@
+:py:mod:`PSTD3D.sbetestprop`
+============================
+
+.. py:module:: PSTD3D.sbetestprop
+
+.. autoapi-nested-parse::
+
+   SBETest program for testing Semiconductor Bloch Equations (SBE) calculations.
+
+   This program performs time-evolution of the SBEs for quantum wire systems,
+   calculating polarization responses to time-varying electric fields.
+
+   Converted from Fortran program SBETest.
+
+   Author: Rahul R. Sah
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   PSTD3D.sbetestprop.initializefields
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   PSTD3D.sbetestprop.c0
+   PSTD3D.sbetestprop.twopi
+   PSTD3D.sbetestprop.Nr
+   PSTD3D.sbetestprop.drr
+   PSTD3D.sbetestprop.n0
+   PSTD3D.sbetestprop.Nt
+   PSTD3D.sbetestprop.dt
+   PSTD3D.sbetestprop.t
+   PSTD3D.sbetestprop.E0x
+   PSTD3D.sbetestprop.twx
+   PSTD3D.sbetestprop.tpx
+   PSTD3D.sbetestprop.lamX
+   PSTD3D.sbetestprop.E0y
+   PSTD3D.sbetestprop.twy
+   PSTD3D.sbetestprop.tpy
+   PSTD3D.sbetestprop.lamY
+   PSTD3D.sbetestprop.E0z
+   PSTD3D.sbetestprop.twz
+   PSTD3D.sbetestprop.tpz
+   PSTD3D.sbetestprop.lamZ
+   PSTD3D.sbetestprop.Exx
+   PSTD3D.sbetestprop.Eyy
+   PSTD3D.sbetestprop.Ezz
+   PSTD3D.sbetestprop.Pxx1
+   PSTD3D.sbetestprop.Pyy1
+   PSTD3D.sbetestprop.Pzz1
+   PSTD3D.sbetestprop.Pxx2
+   PSTD3D.sbetestprop.Pyy2
+   PSTD3D.sbetestprop.Pzz2
+   PSTD3D.sbetestprop.Pxx_mid
+   PSTD3D.sbetestprop.Pyy_mid
+   PSTD3D.sbetestprop.Pzz_mid
+   PSTD3D.sbetestprop.Rho
+   PSTD3D.sbetestprop.Vrr
+   PSTD3D.sbetestprop.rr
+   PSTD3D.sbetestprop.qrr
+   PSTD3D.sbetestprop.w0x
+   PSTD3D.sbetestprop.w0y
+   PSTD3D.sbetestprop.w0z
+   PSTD3D.sbetestprop.k0x
+   PSTD3D.sbetestprop.k0y
+   PSTD3D.sbetestprop.k0z
+   PSTD3D.sbetestprop.Tcx
+   PSTD3D.sbetestprop.Tcy
+   PSTD3D.sbetestprop.Tcz
+   PSTD3D.sbetestprop.Emax0
+   PSTD3D.sbetestprop.boolF
+   PSTD3D.sbetestprop.boolT
+   PSTD3D.sbetestprop.w0x
+   PSTD3D.sbetestprop.k0x
+   PSTD3D.sbetestprop.Tcx
+   PSTD3D.sbetestprop.w0y
+   PSTD3D.sbetestprop.k0y
+   PSTD3D.sbetestprop.Tcy
+   PSTD3D.sbetestprop.w0z
+   PSTD3D.sbetestprop.k0z
+   PSTD3D.sbetestprop.Tcz
+   PSTD3D.sbetestprop.Emax0
+   PSTD3D.sbetestprop.rr
+   PSTD3D.sbetestprop.qrr
+   PSTD3D.sbetestprop.file_Ex
+   PSTD3D.sbetestprop.file_Ey
+   PSTD3D.sbetestprop.file_Ez
+   PSTD3D.sbetestprop.file_Px1
+   PSTD3D.sbetestprop.file_Py1
+   PSTD3D.sbetestprop.file_Pz1
+   PSTD3D.sbetestprop.file_Px2
+   PSTD3D.sbetestprop.file_Py2
+   PSTD3D.sbetestprop.file_Pz2
+   PSTD3D.sbetestprop.file_Px_mid
+   PSTD3D.sbetestprop.file_Py_mid
+   PSTD3D.sbetestprop.file_Pz_mid
+   PSTD3D.sbetestprop.t
+   PSTD3D.sbetestprop.total_cuda
+
+
+.. py:data:: c0
+
+   
+
+.. py:data:: twopi
+
+   
+
+.. py:data:: Nr
+   :value: 100
+
+   
+
+.. py:data:: drr
+   :value: 1e-08
+
+   
+
+.. py:data:: n0
+   :value: 3.1
+
+   
+
+.. py:data:: Nt
+   :value: 10000
+
+   
+
+.. py:data:: dt
+   :value: 1e-17
+
+   
+
+.. py:data:: t
+   :value: 0.0
+
+   
+
+.. py:data:: E0x
+   :value: 10000000.0
+
+   
+
+.. py:data:: twx
+   :value: 1e-14
+
+   
+
+.. py:data:: tpx
+   :value: 5e-14
+
+   
+
+.. py:data:: lamX
+   :value: 8e-07
+
+   
+
+.. py:data:: E0y
+   :value: 20000000.0
+
+   
+
+.. py:data:: twy
+   :value: 1e-14
+
+   
+
+.. py:data:: tpy
+   :value: 5e-14
+
+   
+
+.. py:data:: lamY
+   :value: 8e-07
+
+   
+
+.. py:data:: E0z
+   :value: 0
+
+   
+
+.. py:data:: twz
+   :value: 1e-14
+
+   
+
+.. py:data:: tpz
+   :value: 5e-14
+
+   
+
+.. py:data:: lamZ
+   :value: 8e-07
+
+   
+
+.. py:data:: Exx
+
+   
+
+.. py:data:: Eyy
+
+   
+
+.. py:data:: Ezz
+
+   
+
+.. py:data:: Pxx1
+
+   
+
+.. py:data:: Pyy1
+
+   
+
+.. py:data:: Pzz1
+
+   
+
+.. py:data:: Pxx2
+
+   
+
+.. py:data:: Pyy2
+
+   
+
+.. py:data:: Pzz2
+
+   
+
+.. py:data:: Pxx_mid
+
+   
+
+.. py:data:: Pyy_mid
+
+   
+
+.. py:data:: Pzz_mid
+
+   
+
+.. py:data:: Rho
+
+   
+
+.. py:data:: Vrr
+
+   
+
+.. py:data:: rr
+
+   
+
+.. py:data:: qrr
+
+   
+
+.. py:data:: w0x
+   :value: 0.0
+
+   
+
+.. py:data:: w0y
+   :value: 0.0
+
+   
+
+.. py:data:: w0z
+   :value: 0.0
+
+   
+
+.. py:data:: k0x
+   :value: 0.0
+
+   
+
+.. py:data:: k0y
+   :value: 0.0
+
+   
+
+.. py:data:: k0z
+   :value: 0.0
+
+   
+
+.. py:data:: Tcx
+   :value: 0.0
+
+   
+
+.. py:data:: Tcy
+   :value: 0.0
+
+   
+
+.. py:data:: Tcz
+   :value: 0.0
+
+   
+
+.. py:data:: Emax0
+   :value: 0.0
+
+   
+
+.. py:data:: boolF
+   :value: [False]
+
+   
+
+.. py:data:: boolT
+   :value: [True]
+
+   
+
+.. py:function:: initializefields()
+
+   Initialize all field arrays to zero.
+
+   Sets all electric field, polarization, charge density, and spatial arrays
+   to zero as initial conditions.
+
+
+.. py:data:: w0x
+
+   
+
+.. py:data:: k0x
+
+   
+
+.. py:data:: Tcx
+
+   
+
+.. py:data:: w0y
+
+   
+
+.. py:data:: k0y
+
+   
+
+.. py:data:: Tcy
+
+   
+
+.. py:data:: w0z
+
+   
+
+.. py:data:: k0z
+
+   
+
+.. py:data:: Tcz
+
+   
+
+.. py:data:: Emax0
+
+   
+
+.. py:data:: rr
+
+   
+
+.. py:data:: qrr
+
+   
+
+.. py:data:: file_Ex
+
+   
+
+.. py:data:: file_Ey
+
+   
+
+.. py:data:: file_Ez
+
+   
+
+.. py:data:: file_Px1
+
+   
+
+.. py:data:: file_Py1
+
+   
+
+.. py:data:: file_Pz1
+
+   
+
+.. py:data:: file_Px2
+
+   
+
+.. py:data:: file_Py2
+
+   
+
+.. py:data:: file_Pz2
+
+   
+
+.. py:data:: file_Px_mid
+
+   
+
+.. py:data:: file_Py_mid
+
+   
+
+.. py:data:: file_Pz_mid
+
+   
+
+.. py:data:: t
+
+   
+
+.. py:data:: total_cuda
+
+   
+

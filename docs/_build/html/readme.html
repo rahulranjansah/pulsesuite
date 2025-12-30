@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PulseSuite &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Integrations" href="integrations.html" />
+    <link rel="prev" title="PulseSuite Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PulseSuite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#core-physics">Core Physics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-quantum-well-optics-simulation">Basic Quantum Well Optics Simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#semiconductor-bloch-equations-time-evolution">Semiconductor Bloch Equations Time Evolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accelerated-fft-operations">Accelerated FFT Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-structure">Module Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#core-modules-src">Core Modules (<code class="docutils literal notranslate"><span class="pre">src/</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pstd3d-package-pstd3d-src">PSTD3D Package (<code class="docutils literal notranslate"><span class="pre">PSTD3D/src/</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameter-files-pstd3d-params">Parameter Files (<code class="docutils literal notranslate"><span class="pre">PSTD3D/params/</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#recent-updates">Recent Updates</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#coulomb-interaction-functions-new">Coulomb Interaction Functions (New)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-optimization">Performance Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fft-acceleration">FFT Acceleration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jit-compilation">JIT Compilation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#typical-workflow">Typical Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#physical-units">Physical Units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#collaborators">Collaborators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contact">Contact</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Examples Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">PulseSuite</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/readme.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="pulsesuite">
+<h1>PulseSuite<a class="headerlink" href="#pulsesuite" title="Link to this heading"></a></h1>
+<p>PulseSuite is a high-performance computational physics toolkit for simulating ultrafast laser-matter interactions in semiconductor quantum structures. It implements the Semiconductor Bloch Equations (SBEs) coupled with Pseudo-Spectral Time Domain (PSTD) electromagnetic field propagation methods to model quantum wire and quantum well systems under intense optical excitation. This code inherits from the my professor advisor <a class="reference external" href="https://www.furman.edu/people/jeremy-r-gulley/">Jeremy R. Gulley</a> and his collaborators codebase orginally written in Fortran. (Work in progress not the complete codebase)</p>
+<section id="core-physics">
+<h2>Core Physics<a class="headerlink" href="#core-physics" title="Link to this heading"></a></h2>
+<p>This codebase enables simulation of coherent light-matter interactions in low-dimensional semiconductors, including:</p>
+<ul class="simple">
+<li><p><strong>Quantum Well/Wire Optics</strong>: Propagation-to-QW field transformations, polarization calculations, and density matrix evolution</p></li>
+<li><p><strong>Coulomb Interactions</strong>: Many-body electron-hole Coulomb effects with screening</p></li>
+<li><p><strong>Phonon Scattering</strong>: Longitudinal optical phonon interactions with carriers</p></li>
+<li><p><strong>DC Field Transport</strong>: Electric field-induced carrier drift and tunneling</p></li>
+<li><p><strong>Dephasing</strong>: Diagonal and off-diagonal dephasing mechanisms</p></li>
+<li><p><strong>Spontaneous Emission</strong>: Radiative recombination and photoluminescence</p></li>
+</ul>
+<p>The code is a <em>working in progress</em> Python port of production Fortran simulation tools, optimized for HPC environments using NumPy, accelerated FFTs (scipy/pyFFTW), and optional Numba JIT compilation.</p>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h2>
+<section id="basic-quantum-well-optics-simulation">
+<h3>Basic Quantum Well Optics Simulation<a class="headerlink" href="#basic-quantum-well-optics-simulation" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;PSTD3D/src&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">qwoptics</span><span class="w"> </span><span class="kn">import</span> <span class="n">InitializeQWOptics</span><span class="p">,</span> <span class="n">Prop2QW</span><span class="p">,</span> <span class="n">QWPolarization3</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">eV</span> <span class="k">as</span> <span class="n">eV_SI</span><span class="p">,</span> <span class="n">hbar</span> <span class="k">as</span> <span class="n">hbar_SI</span>
+
+<span class="c1"># Define quantum wire parameters</span>
+<span class="n">Nr</span> <span class="o">=</span> <span class="mi">64</span>                    <span class="c1"># Spatial grid points</span>
+<span class="n">Nk</span> <span class="o">=</span> <span class="mi">32</span>                    <span class="c1"># Momentum grid points</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mf">100e-9</span>                 <span class="c1"># Wire length (m)</span>
+<span class="n">area</span> <span class="o">=</span> <span class="mf">1e-16</span>               <span class="c1"># Cross-sectional area (m^2)</span>
+<span class="n">gap</span> <span class="o">=</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">eV_SI</span>             <span class="c1"># Band gap energy</span>
+<span class="n">dcv</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="mf">0.5</span><span class="n">j</span>           <span class="c1"># Dipole matrix element</span>
+
+<span class="c1"># Create coordinate grids</span>
+<span class="n">RR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">500e-9</span><span class="p">,</span> <span class="mf">500e-9</span><span class="p">,</span> <span class="n">Nr</span><span class="p">)</span>  <span class="c1"># Propagation space</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">L</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">L</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">Nr</span><span class="p">)</span>         <span class="c1"># QW space</span>
+<span class="n">kr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1e7</span><span class="p">,</span> <span class="mf">1e7</span><span class="p">,</span> <span class="n">Nk</span><span class="p">)</span>        <span class="c1"># Momentum space</span>
+<span class="n">Qr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2e7</span><span class="p">,</span> <span class="mf">2e7</span><span class="p">,</span> <span class="n">Nr</span><span class="p">)</span>        <span class="c1"># QW momentum space</span>
+
+<span class="c1"># Energy bands (parabolic approximation)</span>
+<span class="n">me</span> <span class="o">=</span> <span class="mf">0.07</span> <span class="o">*</span> <span class="mf">9.1e-31</span>        <span class="c1"># Electron effective mass</span>
+<span class="n">mh</span> <span class="o">=</span> <span class="mf">0.45</span> <span class="o">*</span> <span class="mf">9.1e-31</span>        <span class="c1"># Hole effective mass</span>
+<span class="n">Ee</span> <span class="o">=</span> <span class="p">(</span><span class="n">hbar_SI</span> <span class="o">*</span> <span class="n">kr</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">me</span><span class="p">)</span>
+<span class="n">Eh</span> <span class="o">=</span> <span class="p">(</span><span class="n">hbar_SI</span> <span class="o">*</span> <span class="n">kr</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">mh</span><span class="p">)</span>
+
+<span class="c1"># Initialize QW optics module</span>
+<span class="n">InitializeQWOptics</span><span class="p">(</span><span class="n">RR</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">dcv</span><span class="p">,</span> <span class="n">kr</span><span class="p">,</span> <span class="n">Qr</span><span class="p">,</span> <span class="n">Ee</span><span class="p">,</span> <span class="n">Eh</span><span class="p">,</span> <span class="n">ehint</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="n">area</span><span class="p">,</span> <span class="n">gap</span><span class="o">=</span><span class="n">gap</span><span class="p">)</span>
+
+<span class="c1"># Convert propagation fields to QW representation</span>
+<span class="n">Exx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">RR</span><span class="o">/</span><span class="n">L</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">RR</span><span class="o">/</span><span class="n">L</span><span class="p">)</span>  <span class="c1"># Input field</span>
+<span class="n">Edc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Ex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+<span class="n">Prop2QW</span><span class="p">(</span><span class="n">RR</span><span class="p">,</span> <span class="n">Exx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">Exx</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">Exx</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">Exx</span><span class="p">),</span>
+        <span class="n">Edc</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">Ex</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">Ex</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">Ex</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">Ex</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average DC field: </span><span class="si">{</span><span class="n">Edc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2"> V/m&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;QW field amplitude: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Ex</span><span class="p">))</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="semiconductor-bloch-equations-time-evolution">
+<h3>Semiconductor Bloch Equations Time Evolution<a class="headerlink" href="#semiconductor-bloch-equations-time-evolution" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">SBEs</span><span class="w"> </span><span class="kn">import</span> <span class="n">InitializeSBE</span><span class="p">,</span> <span class="n">dpdt</span><span class="p">,</span> <span class="n">dCdt</span><span class="p">,</span> <span class="n">dDdt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Initialize SBE solver</span>
+<span class="n">Nk</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">Nr</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1e7</span><span class="p">,</span> <span class="mf">1e7</span><span class="p">,</span> <span class="n">Nr</span><span class="p">)</span>
+<span class="n">rr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">200e-9</span><span class="p">,</span> <span class="mf">200e-9</span><span class="p">,</span> <span class="n">Nr</span><span class="p">)</span>
+
+<span class="n">InitializeSBE</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">rr</span><span class="p">,</span> <span class="n">Edc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="mf">1e-16</span><span class="p">,</span> <span class="n">wavelength</span><span class="o">=</span><span class="mf">800e-9</span><span class="p">,</span> <span class="n">Nwire</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">optics</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Initialize density matrices</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Nk</span><span class="p">,</span> <span class="n">Nk</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>      <span class="c1"># Coherence (polarization)</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">Nk</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-6</span>       <span class="c1"># Electron occupation</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">Nk</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-6</span>       <span class="c1"># Hole occupation</span>
+
+<span class="c1"># Hamiltonian matrices (from field coupling and many-body effects)</span>
+<span class="n">Heh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Nk</span><span class="p">,</span> <span class="n">Nk</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>    <span class="c1"># Electron-hole</span>
+<span class="n">Hee</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Nk</span><span class="p">,</span> <span class="n">Nk</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>    <span class="c1"># Electron-electron</span>
+<span class="n">Hhh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Nk</span><span class="p">,</span> <span class="n">Nk</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>    <span class="c1"># Hole-hole</span>
+
+<span class="c1"># Dephasing rates</span>
+<span class="n">GamE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nk</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e12</span>                        <span class="c1"># Electron (Hz)</span>
+<span class="n">GamH</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Nk</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e12</span>                        <span class="c1"># Hole (Hz)</span>
+<span class="n">OffP</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Nk</span><span class="p">,</span> <span class="n">Nk</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>   <span class="c1"># Off-diagonal</span>
+
+<span class="c1"># Calculate time derivatives</span>
+<span class="n">dP</span> <span class="o">=</span> <span class="n">dpdt</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">Heh</span><span class="p">,</span> <span class="n">Hee</span><span class="p">,</span> <span class="n">Hhh</span><span class="p">,</span> <span class="n">GamE</span><span class="p">,</span> <span class="n">GamH</span><span class="p">,</span> <span class="n">OffP</span><span class="p">)</span>
+<span class="n">dC</span> <span class="o">=</span> <span class="n">dCdt</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">Heh</span><span class="p">,</span> <span class="n">Hee</span><span class="p">,</span> <span class="n">Hhh</span><span class="p">,</span> <span class="n">GamE</span><span class="p">,</span> <span class="n">GamH</span><span class="p">,</span> <span class="n">OffP</span><span class="p">)</span>
+<span class="n">dD</span> <span class="o">=</span> <span class="n">dDdt</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">Heh</span><span class="p">,</span> <span class="n">Hee</span><span class="p">,</span> <span class="n">Hhh</span><span class="p">,</span> <span class="n">GamE</span><span class="p">,</span> <span class="n">GamH</span><span class="p">,</span> <span class="n">OffP</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Polarization evolution rate: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dP</span><span class="p">))</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Electron density change: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dC</span><span class="p">))</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="accelerated-fft-operations">
+<h3>Accelerated FFT Operations<a class="headerlink" href="#accelerated-fft-operations" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fft</span><span class="w"> </span><span class="kn">import</span> <span class="n">fft_3D</span><span class="p">,</span> <span class="n">ifft_3D</span><span class="p">,</span> <span class="n">Transform</span><span class="p">,</span> <span class="n">HankelTransform</span><span class="p">,</span> <span class="n">CreateHT</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Standard 3D FFT (uses pyFFTW if available, scipy.fft otherwise)</span>
+<span class="n">field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+<span class="n">field</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">)</span>  <span class="c1"># Fortran contiguous for speed</span>
+
+<span class="n">fft_3D</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>    <span class="c1"># Forward transform (in-place)</span>
+<span class="n">ifft_3D</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>   <span class="c1"># Inverse transform (in-place)</span>
+
+<span class="c1"># Cylindrical symmetry: Hankel transform + FFT</span>
+<span class="n">Nr</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">CreateHT</span><span class="p">(</span><span class="n">Nr</span><span class="p">)</span>  <span class="c1"># Precompute Hankel matrix</span>
+<span class="n">radial_field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Nr</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Nr</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+<span class="n">radial_field</span> <span class="o">=</span> <span class="n">radial_field</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">)</span>
+
+<span class="n">Transform</span><span class="p">(</span><span class="n">radial_field</span><span class="p">)</span>   <span class="c1"># Hankel(r) + FFT(t)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="module-structure">
+<h2>Module Structure<a class="headerlink" href="#module-structure" title="Link to this heading"></a></h2>
+<section id="core-modules-src">
+<h3>Core Modules (<code class="docutils literal notranslate"><span class="pre">src/</span></code>)<a class="headerlink" href="#core-modules-src" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">fft.py</span></code></strong>: Accelerated FFT library with 1D/2D/3D transforms, centered FFTs, and Hankel transforms for cylindrical symmetry</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">constants.py</span></code></strong>: Physical constants (e, ħ, c, ε₀, μ₀) and mathematical constants</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">rungekutta.py</span></code></strong>: Adaptive Runge-Kutta integrators for SBE time evolution</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">type_*.py</span></code></strong>: Type definitions for plasma, lens, medium, and two-photon absorption media</p></li>
+</ul>
+</section>
+<section id="pstd3d-package-pstd3d-src">
+<h3>PSTD3D Package (<code class="docutils literal notranslate"><span class="pre">PSTD3D/src/</span></code>)<a class="headerlink" href="#pstd3d-package-pstd3d-src" title="Link to this heading"></a></h3>
+<p><strong>Quantum Optics</strong></p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">qwoptics.py</span></code></strong>: Quantum well optics core - field transformations (Prop2QW, QW2Prop), polarization calculation, density matrices</p></li>
+</ul>
+<p><strong>Many-Body Physics</strong></p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">coulomb.py</span></code></strong>: Coulomb interaction matrices with screening, exchange, and correlation effects</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">coulomb.py</span></code></strong>: Core Coulomb interaction functions converted from Fortran:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Vint(Qyk,</span> <span class="pre">y,</span> <span class="pre">alphae,</span> <span class="pre">alphah,</span> <span class="pre">Delta0)</span></code>: Momentum difference interaction integral with JIT acceleration</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Vehint(k,</span> <span class="pre">q,</span> <span class="pre">y,</span> <span class="pre">ky,</span> <span class="pre">alphae,</span> <span class="pre">alphah,</span> <span class="pre">Delta0)</span></code>: Electron-hole interaction integral</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CalcCoulombArrays(y,</span> <span class="pre">ky,</span> <span class="pre">er,</span> <span class="pre">alphae,</span> <span class="pre">alphah,</span> <span class="pre">L,</span> <span class="pre">Delta0,</span> <span class="pre">Qy,</span> <span class="pre">kkp)</span></code>: Constructs unscreened Coulomb collision arrays (Veh0, Vee0, Vhh0)</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">phonons.py</span></code></strong>: Longitudinal optical phonon scattering rates and matrix elements</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">dcfield.py</span></code></strong>: DC electric field effects, carrier drift, and field-induced tunneling</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">dephasing.py</span></code></strong>: T₁ and T₂ dephasing, diagonal and off-diagonal relaxation</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">emission.py</span></code></strong>: Spontaneous emission, photoluminescence spectra</p></li>
+</ul>
+<p><strong>Semiconductor Bloch Equations</strong></p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">SBEs.py</span></code></strong>: Complete SBE solver with density matrix evolution (dpdt, dCdt, dDdt)</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">SBETest.py</span></code></strong>: Production test harness for SBE simulations</p></li>
+</ul>
+<p><strong>Utilities</strong></p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">usefulsubs.py</span></code></strong>: FFT wrappers, array printing, I/O utilities</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">helpers.py</span></code></strong>: Spatial/momentum grids, array locators, magnitude calculations</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">spliner.py</span></code></strong>: Cubic spline interpolation for density/field interpolation</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">epsrtl.py</span></code></strong>: Dielectric function calculations with Lorentz oscillators</p></li>
+</ul>
+</section>
+<section id="parameter-files-pstd3d-params">
+<h3>Parameter Files (<code class="docutils literal notranslate"><span class="pre">PSTD3D/params/</span></code>)<a class="headerlink" href="#parameter-files-pstd3d-params" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">qw.params</span></code></strong>: Quantum wire/well parameters (length, band gap, effective masses, dephasing rates)</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">mb.params</span></code></strong>: Many-body interaction parameters (Coulomb, phonon, screening)</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">pulse.params</span></code></strong>: Laser pulse parameters (wavelength, duration, intensity, chirp)</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">pstd_abc.params</span></code></strong>: PSTD grid and absorbing boundary conditions</p></li>
+</ul>
+</section>
+</section>
+<section id="recent-updates">
+<h2>Recent Updates<a class="headerlink" href="#recent-updates" title="Link to this heading"></a></h2>
+<section id="coulomb-interaction-functions-new">
+<h3>Coulomb Interaction Functions (New)<a class="headerlink" href="#coulomb-interaction-functions-new" title="Link to this heading"></a></h3>
+<p>Three core Coulomb interaction functions have been converted from Fortran (<code class="docutils literal notranslate"><span class="pre">coulomb.f90</span></code>) to Python with JIT acceleration:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">Vint</span></code></strong>: Calculates the momentum difference interaction integral for Coulomb interactions in quantum wells. Uses Numba JIT compilation for performance.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">Vehint</span></code></strong>: Computes electron-hole interaction integrals for specific momentum indices.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">CalcCoulombArrays</span></code></strong>: Main function that constructs unscreened Coulomb collision arrays (electron-hole, electron-electron, and hole-hole interactions) for quantum well simulations.</p></li>
+</ul>
+<p>These functions maintain the same naming conventions as the original Fortran code and include comprehensive documentation. The JIT-compiled functions (<code class="docutils literal notranslate"><span class="pre">Vint</span></code> and <code class="docutils literal notranslate"><span class="pre">Vehint</span></code>) provide significant performance improvements over pure Python implementations.</p>
+<p><strong>Example usage:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">PSTD3D.src.coulomb</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vint</span><span class="p">,</span> <span class="n">Vehint</span><span class="p">,</span> <span class="n">CalcCoulombArrays</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Setup parameters</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">50e-9</span><span class="p">,</span> <span class="mf">50e-9</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>  <span class="c1"># Spatial grid (m)</span>
+<span class="n">ky</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1e7</span><span class="p">,</span> <span class="mf">1e7</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>     <span class="c1"># Momentum grid (1/m)</span>
+<span class="n">Qy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2e7</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>         <span class="c1"># Momentum differences</span>
+<span class="n">kkp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>   <span class="c1"># Momentum mapping array</span>
+
+<span class="c1"># Calculate interaction integral</span>
+<span class="n">Qyk</span> <span class="o">=</span> <span class="mf">1e7</span>
+<span class="n">integral</span> <span class="o">=</span> <span class="n">Vint</span><span class="p">(</span><span class="n">Qyk</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alphae</span><span class="o">=</span><span class="mf">1e7</span><span class="p">,</span> <span class="n">alphah</span><span class="o">=</span><span class="mf">1e7</span><span class="p">,</span> <span class="n">Delta0</span><span class="o">=</span><span class="mf">10e-9</span><span class="p">)</span>
+
+<span class="c1"># Calculate full Coulomb arrays</span>
+<span class="n">Veh0</span><span class="p">,</span> <span class="n">Vee0</span><span class="p">,</span> <span class="n">Vhh0</span> <span class="o">=</span> <span class="n">CalcCoulombArrays</span><span class="p">(</span>
+    <span class="n">y</span><span class="p">,</span> <span class="n">ky</span><span class="p">,</span> <span class="n">er</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span> <span class="n">alphae</span><span class="o">=</span><span class="mf">1e7</span><span class="p">,</span> <span class="n">alphah</span><span class="o">=</span><span class="mf">1e7</span><span class="p">,</span>
+    <span class="n">L</span><span class="o">=</span><span class="mf">100e-9</span><span class="p">,</span> <span class="n">Delta0</span><span class="o">=</span><span class="mf">10e-9</span><span class="p">,</span> <span class="n">Qy</span><span class="o">=</span><span class="n">Qy</span><span class="p">,</span> <span class="n">kkp</span><span class="o">=</span><span class="n">kkp</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="performance-optimization">
+<h2>Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h2>
+<p><strong>Test Parralelization and threading performance:</strong></p>
+<section id="fft-acceleration">
+<h3>FFT Acceleration<a class="headerlink" href="#fft-acceleration" title="Link to this heading"></a></h3>
+<p>The code automatically selects the fastest FFT backend available:</p>
+<ol class="arabic simple">
+<li><p><strong>pyFFTW</strong> (fastest, multithreaded FFTW)</p></li>
+<li><p><strong>scipy.fft</strong> (MKL or FFTW backend)</p></li>
+<li><p><strong>numpy.fft</strong> (fallback)</p></li>
+</ol>
+</section>
+<section id="jit-compilation">
+<h3>JIT Compilation<a class="headerlink" href="#jit-compilation" title="Link to this heading"></a></h3>
+<p>Core computational functions use Numba JIT compilation for performance:</p>
+<ul class="simple">
+<li><p>Coulomb interaction integrals (<code class="docutils literal notranslate"><span class="pre">Vint</span></code>, <code class="docutils literal notranslate"><span class="pre">Vehint</span></code>) are JIT-compiled</p></li>
+<li><p>Functions automatically fall back to pure Python if Numba is unavailable</p></li>
+<li><p>JIT compilation provides 10-50x speedup for compute-intensive loops</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">&#64;jit(cache=True)</span></code> decorator for functions that will be called repeatedly</p></li>
+</ul>
+</section>
+</section>
+<section id="typical-workflow">
+<h2>Typical Workflow<a class="headerlink" href="#typical-workflow" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Set parameters</strong>: Edit <code class="docutils literal notranslate"><span class="pre">PSTD3D/params/*.params</span></code> files for your system</p></li>
+<li><p><strong>Initialize modules</strong>: Call <code class="docutils literal notranslate"><span class="pre">Initialize*()</span></code> functions for required physics</p></li>
+<li><p><strong>Define grids</strong>: Set up spatial, momentum, and time grids</p></li>
+<li><p><strong>Time evolution</strong>: Use Runge-Kutta integrators to evolve SBEs</p></li>
+<li><p><strong>Extract observables</strong>: Calculate absorption, emission, polarization, carrier densities</p></li>
+<li><p><strong>Visualize results</strong>: Plot fields, spectra, density matrices</p></li>
+</ol>
+<p>Example parameter sweep:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">SBEspythonic</span><span class="w"> </span><span class="kn">import</span> <span class="n">InitializeSBE</span><span class="p">,</span> <span class="n">dpdt</span>
+
+<span class="c1"># Sweep over pulse intensities</span>
+<span class="n">intensities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>  <span class="c1"># W/m^2</span>
+<span class="n">absorption</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">I0</span> <span class="ow">in</span> <span class="n">intensities</span><span class="p">:</span>
+    <span class="c1"># Initialize with new intensity</span>
+    <span class="n">E0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">I0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">3e8</span> <span class="o">*</span> <span class="mf">8.854e-12</span><span class="p">))</span>
+    <span class="c1"># ... run simulation ...</span>
+    <span class="c1"># ... extract absorption spectrum ...</span>
+    <span class="n">absorption</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">integrated_absorption</span><span class="p">)</span>
+
+<span class="c1"># Plot intensity-dependent absorption saturation</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">intensities</span><span class="p">,</span> <span class="n">absorption</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Intensity (W/m²)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Absorption&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<p><strong>Common issues:</strong></p>
+<p><strong>Slow FFT performance</strong></p>
+<ul class="simple">
+<li><p>Ensure pyFFTW is installed: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-c</span> <span class="pre">&quot;import</span> <span class="pre">pyfftw;</span> <span class="pre">print(pyfftw.__version__)&quot;</span></code></p></li>
+<li><p>Use Fortran-contiguous arrays: <code class="docutils literal notranslate"><span class="pre">np.asfortranarray(arr)</span></code></p></li>
+<li><p>Set thread counts: <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">OMP_NUM_THREADS=8</span></code></p></li>
+</ul>
+<p><strong>Threading performance workflow needs to be optimized</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">### Threading</span>
+
+The<span class="w"> </span>code<span class="w"> </span>uses<span class="w"> </span>multithreaded<span class="w"> </span>FFT<span class="w"> </span>and<span class="w"> </span>linear<span class="w"> </span>algebra<span class="w"> </span>operations.<span class="w"> </span>Thread<span class="w"> </span>counts<span class="w"> </span>are<span class="w"> </span>controlled<span class="w"> </span>via<span class="w"> </span>environment<span class="w"> </span>variables<span class="w"> </span>that<span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span><span class="nb">set</span><span class="w"> </span>**before<span class="w"> </span>importing**<span class="w"> </span>the<span class="w"> </span>modules:
+
+<span class="sb">```</span>bash
+<span class="c1"># Set thread counts for parallel FFT and linear algebra</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">OMP_NUM_THREADS</span><span class="o">=</span><span class="m">8</span><span class="w">       </span><span class="c1"># For pyFFTW, OpenBLAS, and FFTW</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MKL_NUM_THREADS</span><span class="o">=</span><span class="m">8</span><span class="w">        </span><span class="c1"># For Intel MKL (if using MKL-backed NumPy/SciPy)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">NUMBA_NUM_THREADS</span><span class="o">=</span><span class="m">8</span><span class="w">      </span><span class="c1"># For Numba JIT compilation (if used)</span>
+</pre></div>
+</div>
+<p><strong>In Python scripts:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="c1"># Must set BEFORE importing fftw</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;OMP_NUM_THREADS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;8&#39;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fftw</span><span class="w"> </span><span class="kn">import</span> <span class="n">fft_3D</span><span class="p">,</span> <span class="n">_FFTW_THREADS</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using </span><span class="si">{</span><span class="n">_FFTW_THREADS</span><span class="si">}</span><span class="s2"> threads&quot;</span><span class="p">)</span>  <span class="c1"># Should show 8</span>
+</pre></div>
+</div>
+<p>python test_threading.py  # Benchmarks different thread counts</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+**Best practices:**
+- Start with `OMP_NUM_THREADS = number_of_physical_cores`
+- Don&#39;t set higher than physical core count (causes slowdown)
+- For HPC nodes with 32+ cores, 16 threads often gives best efficiency
+- Hyperthreading (2x threads) usually doesn&#39;t help FFT performance
+
+```python
+# Efficient allocation
+field = np.zeros((Nx, Ny, Nt), dtype=np.complex128, order=&#39;F&#39;)
+</pre></div>
+</div>
+<p><strong>I/O could be optimized to VELOC-style checkpointing</strong></p>
+<ul class="simple">
+<li><p>Current implementation uses direct file writes</p></li>
+<li><p>Consider implementing asynchronous I/O for large-scale HPC runs</p></li>
+<li><p>Use HDF5 or similar for structured output in production runs</p></li>
+</ul>
+<p><strong>Code Conversion Notes</strong></p>
+<ul class="simple">
+<li><p>The codebase is being actively converted from Fortran to Python</p></li>
+<li><p>Recent conversions include core Coulomb interaction functions (<code class="docutils literal notranslate"><span class="pre">Vint</span></code>, <code class="docutils literal notranslate"><span class="pre">Vehint</span></code>, <code class="docutils literal notranslate"><span class="pre">CalcCoulombArrays</span></code>) from <code class="docutils literal notranslate"><span class="pre">coulomb.f90</span></code></p></li>
+<li><p>Functions maintain original Fortran naming conventions for compatibility</p></li>
+<li><p>JIT compilation (Numba) is used where appropriate as an OpenMP alternative</p></li>
+<li><p>All converted functions include comprehensive documentation and type hints</p></li>
+</ul>
+<p><strong>AI review</strong></p>
+<ul class="simple">
+<li><p>Used Agentic-AI to write the code with human in the loop</p></li>
+<li><p>Constantly reviewing the code and making sure it is correct.</p></li>
+<li><p>Fortran-to-Python conversions are verified against original Fortran implementations</p></li>
+</ul>
+</section>
+<section id="physical-units">
+<h2>Physical Units<a class="headerlink" href="#physical-units" title="Link to this heading"></a></h2>
+<p>All quantities in SI units unless specified:</p>
+<ul class="simple">
+<li><p>Length: meters (m)</p></li>
+<li><p>Energy: Joules (J) or electron-volts (eV)</p></li>
+<li><p>Time: seconds (s)</p></li>
+<li><p>Frequency: Hertz (Hz)</p></li>
+<li><p>Electric field: V/m</p></li>
+<li><p>Momentum: kg⋅m/s or m⁻¹ (wavevector)</p></li>
+</ul>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Fork the repository</p></li>
+<li><p>Create feature branch: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">feature/new-physics-module</span></code></p></li>
+<li><p>Add tests for new functionality in <code class="docutils literal notranslate"><span class="pre">PSTD3D/tests/</span></code></p></li>
+<li><p>Follow existing code style (NumPy docstrings, type hints)</p></li>
+<li><p>Ensure all tests pass: <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">PSTD3D/tests/</span> <span class="pre">-v</span></code></p></li>
+<li><p>Submit pull request with clear description</p></li>
+</ol>
+</section>
+<section id="collaborators">
+<h2>Collaborators<a class="headerlink" href="#collaborators" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Jeremy R. Gulley - Dept. of Physics, Furman University</p></li>
+<li><p>Emily Hatten - Dept. of Physics, Furman University</p></li>
+<li><p>Rahul Ranjan Sah - Dept. of Physics, Furman University</p></li>
+</ul>
+</section>
+<section id="contact">
+<h2>Contact<a class="headerlink" href="#contact" title="Link to this heading"></a></h2>
+<p>For questions, bug reports, or collaboration inquiries:</p>
+<ul class="simple">
+<li><p>Email: f1rahulranjan&#64;gmail.com</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="PulseSuite Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="integrations.html" class="btn btn-neutral float-right" title="Integrations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

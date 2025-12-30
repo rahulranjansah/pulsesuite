@@ -1,0 +1,922 @@
+:py:mod:`PSTD3D.coulomb`
+========================
+
+.. py:module:: PSTD3D.coulomb
+
+.. autoapi-nested-parse::
+
+   Coulomb interaction calculations for quantum wire simulations.
+
+   This module calculates the electron-hole, electron-electron, and hole-hole
+   collision integrals and other carrier-optical related calculations required
+   for the Semiconductor Bloch Equations in support of simulations of pulse
+   propagation through a quantum wire.
+
+   Author: Rahul R. Sah
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   PSTD3D.coulomb.InitializeCoulomb
+   PSTD3D.coulomb.Vint
+   PSTD3D.coulomb.Vehint
+   PSTD3D.coulomb.CalcCoulombArrays
+   PSTD3D.coulomb.GaussDelta
+   PSTD3D.coulomb.MakeK3
+   PSTD3D.coulomb.MakeQs
+   PSTD3D.coulomb.MakeUnDel
+   PSTD3D.coulomb.SetLorentzDelta
+   PSTD3D.coulomb.CalcMBArrays
+   PSTD3D.coulomb.GetChi1Dqw
+   PSTD3D.coulomb.GetEps1Dqw
+   PSTD3D.coulomb.CalcChi1D
+   PSTD3D.coulomb.Eps1D
+   PSTD3D.coulomb.CalcScreenedArrays
+   PSTD3D.coulomb.CalcMVeh
+   PSTD3D.coulomb.undell
+   PSTD3D.coulomb.BGRenorm
+   PSTD3D.coulomb.EeRenorm
+   PSTD3D.coulomb.EhRenorm
+   PSTD3D.coulomb.MBCE2
+   PSTD3D.coulomb.MBCE
+   PSTD3D.coulomb.MBCH
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   PSTD3D.coulomb.pi
+   PSTD3D.coulomb.twopi
+   PSTD3D.coulomb.hbar
+   PSTD3D.coulomb.eV
+   PSTD3D.coulomb.ii
+
+
+.. py:data:: pi
+
+   
+
+.. py:data:: twopi
+
+   
+
+.. py:data:: hbar
+
+   
+
+.. py:data:: eV
+   :value: 1.602176634e-19
+
+   
+
+.. py:data:: ii
+   :value: 1j
+
+   
+
+.. py:function:: InitializeCoulomb(y, ky, L, Delta0, me, mh, Ee, Eh, ge, gh, alphae, alphah, er, Qy, kkp, screened)
+
+   Initialize the coulomb module and all of its needed quantities.
+
+   This is the main initialization function that sets up all module-level arrays
+   required for Coulomb interaction calculations. It calls the various setup functions
+   in the correct order, checking if arrays are already initialized to avoid
+   redundant calculations.
+
+   :param y: Length coordinates of quantum wire (m), 1D array
+   :type y: ndarray
+   :param ky: Momentum coordinates of quantum wire (1/m), 1D array
+   :type ky: ndarray
+   :param L: Length of the quantum wire (m)
+   :type L: float
+   :param Delta0: Thickness of the quantum wire (m)
+   :type Delta0: float
+   :param me: Effective electron mass (kg)
+   :type me: float
+   :param mh: Effective hole mass (kg)
+   :type mh: float
+   :param Ee: Electron energies (J), 1D array
+   :type Ee: ndarray
+   :param Eh: Hole energies (J), 1D array
+   :type Eh: ndarray
+   :param ge: Inverse electron lifetime (Hz)
+   :type ge: float
+   :param gh: Inverse hole lifetime (Hz)
+   :type gh: float
+   :param alphae: Level separation between ground and 1st excited state for electrons (1/m)
+   :type alphae: float
+   :param alphah: Level separation between ground and 1st excited state for holes (1/m)
+   :type alphah: float
+   :param er: Background dielectric constant (dimensionless)
+   :type er: float
+   :param Qy: Momentum difference array (1/m), 1D array
+   :type Qy: ndarray
+   :param kkp: Index mapping array, 2D integer array. Maps (k,q) indices to Qy indices.
+   :type kkp: ndarray
+   :param screened: Whether to use screened interactions (not used in initialization, but passed through)
+   :type screened: bool
+
+   :returns: All arrays are stored as module-level variables (matching Fortran behavior).
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The function initializes arrays in the following order:
+   1. UnDel - inverse delta function array
+   2. k3 - momentum conservation indexing array
+   3. qe, qh - momentum difference arrays
+   4. Ceh, Cee, Chh - many-body interaction arrays (requires k3 and UnDel)
+   5. Veh0, Vee0, Vhh0 - unscreened Coulomb arrays
+   6. Chi1De, Chi1Dh - susceptibility arrays (requires qe and qh)
+
+   Each array is only computed if it hasn't been initialized yet, allowing
+   for incremental initialization or re-initialization with different parameters.
+
+
+.. py:function:: Vint(Qyk, y, alphae, alphah, Delta0)
+
+   Calculate the interaction integral for Coulomb potential.
+
+   Computes the integral over spatial coordinates for the Coulomb interaction
+   between particles with level separations alphae and alphah. This is used to
+   calculate the unscreened Coulomb collision arrays.
+
+   :param Qyk: Momentum difference (1/m)
+   :type Qyk: float
+   :param y: Length coordinates of quantum wire (m), 1D array
+   :type y: ndarray
+   :param alphae: Level separation between ground and 1st excited state for electrons (1/m)
+   :type alphae: float
+   :param alphah: Level separation between ground and 1st excited state for holes (1/m)
+   :type alphah: float
+   :param Delta0: Thickness of the quantum wire (m)
+   :type Delta0: float
+
+   :returns: Interaction integral value (dimensionless)
+   :rtype: float
+
+   .. rubric:: Notes
+
+   The integration is performed over a central region of the y array
+   (from Ny/4 to 3*Ny/4) to focus on the relevant quantum wire region.
+   Uses the modified Bessel function K0 to represent the Coulomb interaction.
+
+   Uses JIT compilation for performance with automatic fallback to pure Python.
+
+
+.. py:function:: Vehint(k, q, y, ky, alphae, alphah, Delta0)
+
+   Calculate electron-hole interaction integral.
+
+   Computes the interaction integral between an electron at momentum index k
+   and a hole at momentum index q. This is similar to Vint but uses the
+   momentum difference from the ky array directly.
+
+   :param k: Electron momentum index. Note: Fortran uses 1-based indexing, so if
+             calling from Python with 0-based indices, pass k+1 and q+1, or adjust
+             the indices before calling.
+   :type k: int
+   :param q: Hole momentum index. Note: Fortran uses 1-based indexing, so if
+             calling from Python with 0-based indices, pass k+1 and q+1, or adjust
+             the indices before calling.
+   :type q: int
+   :param y: Length coordinates of quantum wire (m), 1D array
+   :type y: ndarray
+   :param ky: Momentum coordinates of quantum wire (1/m), 1D array
+   :type ky: ndarray
+   :param alphae: Level separation between ground and 1st excited state for electrons (1/m)
+   :type alphae: float
+   :param alphah: Level separation between ground and 1st excited state for holes (1/m)
+   :type alphah: float
+   :param Delta0: Thickness of the quantum wire (m)
+   :type Delta0: float
+
+   :returns: Electron-hole interaction integral value (dimensionless)
+   :rtype: float
+
+   .. rubric:: Notes
+
+   The function uses the momentum difference |ky(k) - ky(q)| to compute
+   the interaction. The integration is performed over a central region
+   of the y array (from Ny/4 to 3*Ny/4).
+
+   Note on indexing: The Fortran version uses 1-based indexing. If k and q
+   are passed as 1-based indices (matching Fortran), they will be converted
+   to 0-based for array access. If passed as 0-based, subtract 1 is not needed.
+
+
+.. py:function:: CalcCoulombArrays(y, ky, er, alphae, alphah, L, Delta0, Qy, kkp, ReadArrays=False, ScrewThis=False)
+
+   Construct the unscreened Coulomb collision arrays.
+
+   Calculates the electron-hole (Veh0), electron-electron (Vee0), and
+   hole-hole (Vhh0) unscreened Coulomb interaction matrices for a quantum wire.
+   These arrays are used in the Semiconductor Bloch Equations to compute
+   many-body interactions.
+
+   :param y: Length coordinates of quantum wire (m), 1D array
+   :type y: ndarray
+   :param ky: Momentum coordinates of quantum wire (1/m), 1D array
+   :type ky: ndarray
+   :param er: Background dielectric constant (dimensionless)
+   :type er: float
+   :param alphae: Level separation between ground and 1st excited state for electrons (1/m)
+   :type alphae: float
+   :param alphah: Level separation between ground and 1st excited state for holes (1/m)
+   :type alphah: float
+   :param L: Length of the quantum wire (m)
+   :type L: float
+   :param Delta0: Thickness of the quantum wire (m)
+   :type Delta0: float
+   :param Qy: Momentum difference array (1/m), 1D array
+   :type Qy: ndarray
+   :param kkp: Index mapping array, 2D integer array. Maps (k,q) indices to Qy indices.
+               Values >= 0 indicate valid mappings, < 0 indicate invalid.
+   :type kkp: ndarray
+   :param ReadArrays: If True, read pre-calculated arrays from files (not implemented).
+                      Default is False.
+   :type ReadArrays: bool, optional
+   :param ScrewThis: If True, skip calculation and return zero arrays. Default is False.
+   :type ScrewThis: bool, optional
+
+   :returns: (Veh0, Vee0, Vhh0) where:
+             - Veh0: Electron-hole interaction matrix (J), shape (N, N)
+             - Vee0: Electron-electron interaction matrix (J), shape (N, N)
+             - Vhh0: Hole-hole interaction matrix (J), shape (N, N)
+             where N = len(ky)
+   :rtype: tuple of ndarray
+
+   .. rubric:: Notes
+
+   The function computes the interaction integrals for each momentum difference
+   in Qy, then maps these to the (k,q) grid using the kkp index array.
+   The calculation uses the Vint function to compute the spatial integrals.
+
+   The interaction matrices are computed as:
+   - Veh0(k,q) = (e0^2 / (2π * ε0 * er * L)) * Vint(Qy[kkp(k,q)], y, alphae, alphah, Delta0)
+   - Vee0(k,q) = (e0^2 / (2π * ε0 * er * L)) * Vint(Qy[kkp(k,q)], y, alphae, alphae, Delta0)
+   - Vhh0(k,q) = (e0^2 / (2π * ε0 * er * L)) * Vint(Qy[kkp(k,q)], y, alphah, alphah, Delta0)
+
+
+.. py:function:: GaussDelta(a, b)
+
+   (Was commented out in the Fortran code and had implications on the CalcMBArrays function)
+   Gaussian delta function approximation.
+
+   Computes a Gaussian approximation to the delta function, used in
+   many-body interaction calculations when LorentzDelta is False.
+
+   :param a: Energy difference argument (J)
+   :type a: float
+   :param b: Broadening parameter (J)
+   :type b: float
+
+   :returns: Gaussian delta function value (1/J)
+   :rtype: float
+
+   .. rubric:: Notes
+
+   The function implements: 1 / (sqrt(pi) * b) * exp(-(a/b)^2)
+   This is a smooth approximation to the delta function with width b.
+
+
+.. py:function:: MakeK3(ky)
+
+   Construct the k3 indexing array for momentum conservation.
+
+   Creates a 3D array k3 where k3(k1, k2, k4) represents the index k3
+   that satisfies the momentum conservation relation: k1 + k2 = k3 + k4.
+   This is used in many-body interaction calculations.
+
+   :param ky: Momentum coordinates of quantum wire (1/m), 1D array
+   :type ky: ndarray
+
+   :returns: 3D integer array of shape (N, N, N) where N = len(ky).
+             Values are 1-based indices (matching Fortran) if valid,
+             or 0 if the momentum combination is invalid (out of bounds).
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   The array is computed as: k3i = k1 + k2 - k4
+   If k3i is outside the valid range [1, N], it is set to 0.
+   The returned array uses 1-based indexing to match Fortran behavior,
+   so valid indices are in the range [1, N], with 0 indicating invalid.
+
+
+.. py:function:: MakeQs(ky, ae, ah)
+
+   Construct the qe and qh momentum difference arrays.
+
+   Creates arrays representing the momentum differences between states,
+   with minimum values set by the level separation parameters ae and ah.
+   These arrays are used in screening and interaction calculations.
+
+   :param ky: Momentum coordinates of quantum wire (1/m), 1D array
+   :type ky: ndarray
+   :param ae: Level separation parameter for electrons (1/m)
+   :type ae: float
+   :param ah: Level separation parameter for holes (1/m)
+   :type ah: float
+
+   :returns: (qe, qh) where:
+             - qe: Electron momentum difference array (1/m), shape (N, N)
+             - qh: Hole momentum difference array (1/m), shape (N, N)
+             where N = len(ky)
+   :rtype: tuple of ndarray
+
+   .. rubric:: Notes
+
+   The arrays are computed as:
+   - qe(k1, k2) = max(|ky(k2) - ky(k1)|, ae/2)
+   - qh(k1, k2) = max(|ky(k2) - ky(k1)|, ah/2)
+   This ensures a minimum momentum difference to avoid singularities.
+
+
+.. py:function:: MakeUnDel(ky)
+
+   Construct the UnDel (1 - delta) array.
+
+   Creates an array representing (1 - delta_ij) where delta_ij is the
+   Kronecker delta. This is used to exclude self-interaction terms
+   in many-body calculations.
+
+   :param ky: Momentum coordinates of quantum wire (1/m), 1D array
+   :type ky: ndarray
+
+   :returns: 2D array of shape (N+1, N+1) where N = len(ky).
+             Values are 1.0 except:
+             - Row 0 and column 0 are all 0.0
+             - Diagonal elements (i, i) for i=1..N are 0.0
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   The array has an extra row and column (index 0) compared to the
+   momentum array size, matching the Fortran implementation which uses
+   0-based indexing for the first row/column.
+
+
+.. py:function:: SetLorentzDelta(boolean)
+
+   Set the LorentzDelta flag for many-body array calculations.
+
+   This function sets a module-level flag that determines whether to use
+   Lorentzian broadening (True) or Gaussian delta function (False) in
+   the CalcMBArrays function.
+
+   :param boolean: If True, use Lorentzian broadening. If False, use Gaussian delta function.
+   :type boolean: bool
+
+   .. rubric:: Notes
+
+   This matches the Fortran interface where SetLorentzDelta sets a module-level
+   variable. The flag affects the behavior of CalcMBArrays when called without
+   explicitly specifying the LorentzDelta parameter.
+
+
+.. py:function:: CalcMBArrays(ky, Ee, Eh, ge, gh, k3, UnDel, LorentzDelta=None)
+
+   Calculate the many-body interaction arrays.
+
+   Computes the electron-hole (Ceh), electron-electron (Cee), and
+   hole-hole (Chh) many-body interaction arrays used in the Semiconductor
+   Bloch Equations. These arrays represent the collision integrals for
+   carrier-carrier interactions.
+
+   :param ky: Momentum coordinates of quantum wire (1/m), 1D array
+   :type ky: ndarray
+   :param Ee: Electron energies (J), 1D array
+   :type Ee: ndarray
+   :param Eh: Hole energies (J), 1D array
+   :type Eh: ndarray
+   :param ge: Electron inverse lifetime (Hz)
+   :type ge: float
+   :param gh: Hole inverse lifetime (Hz)
+   :type gh: float
+   :param k3: 3D indexing array from MakeK3, shape (N, N, N)
+   :type k3: ndarray
+   :param UnDel: 2D array from MakeUnDel, shape (N+1, N+1)
+   :type UnDel: ndarray
+   :param LorentzDelta: If True, use Lorentzian broadening. If False, use Gaussian delta function.
+                        If None (default), uses the module-level value set by SetLorentzDelta.
+   :type LorentzDelta: bool, optional
+
+   :returns: (Ceh, Cee, Chh) where:
+             - Ceh: Electron-hole interaction array (1/J), shape (N+1, N+1, N+1)
+             - Cee: Electron-electron interaction array (1/J), shape (N+1, N+1, N+1)
+             - Chh: Hole-hole interaction array (1/J), shape (N+1, N+1, N+1)
+             where N = len(ky). The arrays use 0-based indexing for the first dimension
+             to match Fortran's 0:N range.
+   :rtype: tuple of ndarray
+
+   .. rubric:: Notes
+
+   The function computes interaction rates using either:
+   - Lorentzian broadening: 2*gamma * UnDel / ((E_diff)^2 + (hbar*gamma)^2)
+   - Gaussian delta function: (2π/hbar) * UnDel * GaussDelta(E_diff, hbar*gamma)
+
+   The arrays are indexed with 0-based first index (0..N) to match Fortran's
+   allocation of arrays with bounds (0:N, 0:N, 0:N).
+
+
+.. py:function:: GetChi1Dqw(alphae, alphah, Delta0, epsr, game, gamh, ky, Ee, Eh, ne, nh, qq, w)
+
+   Calculate the 1D quantum wire susceptibility (chi) for a given momentum and frequency.
+
+   Computes the real and imaginary parts of the susceptibility chi(q, w) for a quantum wire,
+   which describes the response of the system to external perturbations. This is used in
+   screening calculations.
+
+   :param alphae: Level separation parameter for electrons (1/m)
+   :type alphae: float
+   :param alphah: Level separation parameter for holes (1/m)
+   :type alphah: float
+   :param Delta0: Thickness of the quantum wire (m)
+   :type Delta0: float
+   :param L: Length of the quantum wire (m)
+   :type L: float
+   :param epsr: Background dielectric constant (dimensionless)
+   :type epsr: float
+   :param game: Electron inverse lifetime array (Hz), 1D array
+   :type game: ndarray
+   :param gamh: Hole inverse lifetime array (Hz), 1D array
+   :type gamh: ndarray
+   :param ky: Momentum coordinates of quantum wire (1/m), 1D array
+   :type ky: ndarray
+   :param Ee: Electron energies (J), 1D array
+   :type Ee: ndarray
+   :param Eh: Hole energies (J), 1D array
+   :type Eh: ndarray
+   :param ne: Electron population array, 1D array
+   :type ne: ndarray
+   :param nh: Hole population array, 1D array
+   :type nh: ndarray
+   :param qq: Momentum value (1/m)
+   :type qq: float
+   :param w: Frequency (rad/s)
+   :type w: float
+
+   :returns: (chir, chii) where:
+             - chir: Real part of susceptibility (dimensionless)
+             - chii: Imaginary part of susceptibility (dimensionless)
+   :rtype: tuple of float
+
+   .. rubric:: Notes
+
+   The function computes the susceptibility by summing over momentum states,
+   taking into account the energy differences and broadening due to lifetimes.
+   The calculation uses the K03 Bessel function for the interaction kernel.
+
+
+.. py:function:: GetEps1Dqw(alphae, alphah, Delta0, epsr, me, mh, n1D, q, w)
+
+   Calculate the 1D quantum wire dielectric function epsilon(q, w).
+
+   Computes the real and imaginary parts of the dielectric function for a quantum wire,
+   which describes how the system responds to electromagnetic fields. This is used in
+   screening calculations.
+
+   :param alphae: Level separation parameter for electrons (1/m)
+   :type alphae: float
+   :param alphah: Level separation parameter for holes (1/m)
+   :type alphah: float
+   :param Delta0: Thickness of the quantum wire (m)
+   :type Delta0: float
+   :param L: Length of the quantum wire (m)
+   :type L: float
+   :param epsr: Background dielectric constant (dimensionless)
+   :type epsr: float
+   :param me: Electron effective mass (kg)
+   :type me: float
+   :param mh: Hole effective mass (kg)
+   :type mh: float
+   :param n1D: 1D carrier density (1/m)
+   :type n1D: float
+   :param q: Momentum (1/m)
+   :type q: float
+   :param w: Frequency (rad/s)
+   :type w: float
+
+   :returns: (epr, epi) where:
+             - epr: Real part of dielectric function (dimensionless)
+             - epi: Imaginary part of dielectric function (dimensionless)
+   :rtype: tuple of float
+
+   .. rubric:: Notes
+
+   The function computes the dielectric function using the Lindhard formula
+   for a 1D system, with contributions from both electrons and holes.
+
+
+.. py:function:: CalcChi1D(ky, alphae, alphah, Delta0, epsr, me, mh, qe, qh)
+
+   Calculate the 1D susceptibility arrays Chi1De and Chi1Dh.
+
+   Computes the electron and hole susceptibility matrices used in screening calculations.
+   These arrays are stored as module-level variables for use in other functions.
+
+   :param ky: Momentum coordinates of quantum wire (1/m), 1D array
+   :type ky: ndarray
+   :param alphae: Level separation parameter for electrons (1/m)
+   :type alphae: float
+   :param alphah: Level separation parameter for holes (1/m)
+   :type alphah: float
+   :param Delta0: Thickness of the quantum wire (m)
+   :type Delta0: float
+   :param epsr: Background dielectric constant (dimensionless)
+   :type epsr: float
+   :param me: Electron effective mass (kg)
+   :type me: float
+   :param mh: Hole effective mass (kg)
+   :type mh: float
+   :param qe: Electron momentum difference array from MakeQs, shape (N, N)
+   :type qe: ndarray
+   :param qh: Hole momentum difference array from MakeQs, shape (N, N)
+   :type qh: ndarray
+
+   :returns: (Chi1De, Chi1Dh) where:
+             - Chi1De: Electron susceptibility array, shape (N, N)
+             - Chi1Dh: Hole susceptibility array, shape (N, N)
+             where N = len(ky)
+   :rtype: tuple of ndarray
+
+   .. rubric:: Notes
+
+   The arrays are also stored as module-level variables _Chi1De and _Chi1Dh
+   for compatibility with Fortran module behavior.
+
+
+.. py:function:: Eps1D(n1D, Nk)
+
+   Calculate the 1D dielectric function matrix.
+
+   Computes the dielectric function matrix Eps1D for a given 1D carrier density,
+   using the pre-computed module-level susceptibility arrays Chi1De and Chi1Dh.
+
+   :param n1D: 1D carrier density (1/m)
+   :type n1D: float
+   :param Nk: Size of momentum grid (should match size of module-level arrays)
+   :type Nk: int
+
+   :returns: 2D array of shape (Nk, Nk) representing the dielectric function matrix.
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   The function computes: Eps1D = 1 - Chi1De * 2*log(...) - Chi1Dh * 2*log(...)
+   where the logarithms involve momentum-dependent terms.
+   Uses module-level variables _Chi1De, _Chi1Dh, _qe, _qh (matching Fortran behavior).
+
+
+.. py:function:: CalcScreenedArrays(screened, L, ne, nh, VC, E1D)
+
+   Calculate screened Coulomb interaction arrays.
+
+   Computes the screened version of the Coulomb interaction matrices by dividing
+   by the dielectric function. If screening is disabled, returns the unscreened arrays.
+
+   :param screened: If True, apply screening. If False, return unscreened arrays.
+   :type screened: bool
+   :param L: Length of the quantum wire (m)
+   :type L: float
+   :param ne: Electron population array, 1D array
+   :type ne: ndarray
+   :param nh: Hole population array, 1D array
+   :type nh: ndarray
+   :param VC: Input/output array for interaction matrices, shape (N, N, 3).
+              On input: should contain unscreened arrays (or will be filled from module-level).
+              On output: contains screened arrays if screened=True, unscreened otherwise.
+   :type VC: ndarray
+   :param E1D: Input/output array for dielectric function, shape (N, N).
+               On input: can be any array (will be overwritten).
+               On output: contains dielectric function matrix if screened=True, ones otherwise.
+   :type E1D: ndarray
+
+   :returns: Arrays are modified in-place (matching Fortran intent(inout) behavior).
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The function uses module-level variables _Veh0, _Vee0, _Vhh0, _qe, _qh
+   (matching Fortran module behavior). If screening is enabled, computes the
+   dielectric function and divides the interaction matrices by it.
+
+
+.. py:function:: CalcMVeh(p, VC, MVeh, k3=None, UnDel=None)
+
+   Calculate the MVeh array for Semiconductor Bloch Equations.
+
+   Computes the many-body electron-hole interaction term MVeh used in the
+   Semiconductor Bloch Equations. This represents the Coulomb interaction
+   contribution to the polarization dynamics.
+
+   :param p: Polarization array, shape (N, N, Nf) where N is momentum grid size
+             and Nf is number of frequency/time points
+   :type p: ndarray
+   :param VC: Screened Coulomb interaction matrices, shape (N, N, 3)
+              VC[:, :, 0] = Veh (electron-hole)
+              VC[:, :, 1] = Vee (electron-electron)
+              VC[:, :, 2] = Vhh (hole-hole)
+   :type VC: ndarray
+   :param MVeh: Output array for MVeh calculation, shape (N, N, Nf).
+                Will be modified in-place (matching Fortran intent(inout)).
+   :type MVeh: ndarray
+   :param k3: 3D indexing array from MakeK3, shape (N, N, N).
+              If None, uses module-level _k3.
+   :type k3: ndarray, optional
+   :param UnDel: 2D array from MakeUnDel, shape (N+1, N+1).
+                 If None, uses module-level _UnDel.
+   :type UnDel: ndarray, optional
+
+   :returns: MVeh is modified in-place (matching Fortran intent(inout) behavior).
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The calculation sums over momentum states q, using the momentum conservation
+   relation k3(kp, q, k) to find qp. The UnDel factors exclude self-interaction terms.
+   Uses JIT compilation with parallel execution (matching Fortran OpenMP behavior).
+
+
+.. py:function:: undell(k, q)
+
+   Wrapper function for UnDel array access.
+
+   Provides a simple interface to access the UnDel (1 - delta) array.
+   This is a convenience function matching the Fortran interface.
+
+   :param k: First index (1-based, matching Fortran)
+   :type k: int
+   :param q: Second index (1-based, matching Fortran)
+   :type q: int
+
+   :returns: Value of UnDel(k, q) from module-level array.
+   :rtype: float
+
+   .. rubric:: Notes
+
+   This function accesses the module-level _UnDel array. The indices
+   are expected to be 1-based to match Fortran behavior.
+
+
+.. py:function:: BGRenorm(C, D, VC, BGR, UnDel=None)
+
+   Calculate band gap renormalization.
+
+   Computes the band gap renormalization BGR due to many-body Coulomb interactions.
+   This accounts for the shift in band gap energy due to carrier-carrier interactions.
+
+   :param C: Electron density matrix, shape (N, N), complex
+   :type C: ndarray
+   :param D: Hole density matrix, shape (N, N), complex
+   :type D: ndarray
+   :param VC: Screened Coulomb interaction matrices, shape (N, N, 3)
+              VC[:, :, 0] = Veh (electron-hole)
+              VC[:, :, 1] = Vee (electron-electron)
+              VC[:, :, 2] = Vhh (hole-hole)
+   :type VC: ndarray
+   :param BGR: Output array for band gap renormalization, shape (N, N), complex.
+               Will be modified in-place (matching Fortran intent(inout)).
+   :type BGR: ndarray
+   :param UnDel: 2D array from MakeUnDel, shape (N+1, N+1).
+                 If None, uses module-level _UnDel.
+   :type UnDel: ndarray, optional
+
+   :returns: BGR is modified in-place (matching Fortran intent(inout) behavior).
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The function extracts diagonal elements from C and D to get carrier populations,
+   then computes the renormalization using hole-hole and electron-electron interactions.
+   The UnDel factors exclude self-interaction terms.
+   Uses JIT compilation with parallel execution (matching Fortran OpenMP behavior).
+
+
+.. py:function:: EeRenorm(ne, VC, BGR, UnDel=None)
+
+   Calculate electron energy renormalization.
+
+   Computes the electron energy renormalization due to many-body Coulomb interactions.
+   This accounts for the shift in electron energy levels due to electron-electron interactions.
+
+   :param ne: Electron population array, shape (N,), complex
+   :type ne: ndarray
+   :param VC: Screened Coulomb interaction matrices, shape (N, N, 3)
+              VC[:, :, 1] = Vee (electron-electron) is used
+   :type VC: ndarray
+   :param BGR: Output array for electron energy renormalization, shape (N, N), complex.
+               Will be modified in-place (matching Fortran intent(inout)).
+   :type BGR: ndarray
+   :param UnDel: 2D array from MakeUnDel, shape (N+1, N+1).
+                 If None, uses module-level _UnDel.
+   :type UnDel: ndarray, optional
+
+   :returns: BGR is modified in-place (matching Fortran intent(inout) behavior).
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The function computes the electron energy shift using electron-electron
+   interactions, with terms that include both direct and exchange contributions.
+   The UnDel factors exclude self-interaction terms.
+   Uses JIT compilation with parallel execution (matching Fortran OpenMP behavior).
+
+
+.. py:function:: EhRenorm(nh, VC, BGR, UnDel=None)
+
+   Calculate hole energy renormalization.
+
+   Computes the hole energy renormalization due to many-body Coulomb interactions.
+   This accounts for the shift in hole energy levels due to hole-hole interactions.
+
+   :param nh: Hole population array, shape (N,), complex
+   :type nh: ndarray
+   :param VC: Screened Coulomb interaction matrices, shape (N, N, 3)
+              VC[:, :, 2] = Vhh (hole-hole) is used
+   :type VC: ndarray
+   :param BGR: Output array for hole energy renormalization, shape (N, N), complex.
+               Will be modified in-place (matching Fortran intent(inout)).
+   :type BGR: ndarray
+   :param UnDel: 2D array from MakeUnDel, shape (N+1, N+1).
+                 If None, uses module-level _UnDel.
+   :type UnDel: ndarray, optional
+
+   :returns: BGR is modified in-place (matching Fortran intent(inout) behavior).
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The function computes the hole energy shift using hole-hole interactions,
+   with terms that include both direct and exchange contributions.
+   The UnDel factors exclude self-interaction terms.
+   Uses JIT compilation with parallel execution (matching Fortran OpenMP behavior).
+
+
+.. py:function:: MBCE2(ne0, nh0, ky, Ee, Eh, VC, geh, ge, Win, Wout, k3=None, Ceh=None, Cee=None)
+
+   Calculate the Many-body Coulomb In/Out rates for electrons (version 2).
+
+   Computes the many-body relaxation rates Win and Wout for electrons due to
+   electron-hole and electron-electron Coulomb interactions. These represent
+   non-Hartree-Fock terms in the many-body dynamics.
+
+   :param ne0: Electron population array, shape (Nk,), real
+   :type ne0: ndarray
+   :param nh0: Hole population array, shape (Nk,), real
+   :type nh0: ndarray
+   :param ky: Momentum coordinates (not used in calculation but kept for interface compatibility)
+   :type ky: ndarray
+   :param Ee: Electron energies (not used in calculation but kept for interface compatibility)
+   :type Ee: ndarray
+   :param Eh: Hole energies (not used in calculation but kept for interface compatibility)
+   :type Eh: ndarray
+   :param VC: Screened Coulomb interaction matrices, shape (Nk, Nk, 3)
+              VC[:, :, 0] = Veh (electron-hole)
+              VC[:, :, 1] = Vee (electron-electron)
+   :type VC: ndarray
+   :param geh: Electron-hole inverse lifetime (not used in calculation but kept for interface)
+   :type geh: float
+   :param ge: Electron inverse lifetime (not used in calculation but kept for interface)
+   :type ge: float
+   :param Win: Input/output array for in-scattering rates, shape (Nk,), real.
+               Will be modified in-place (matching Fortran intent(inout)).
+   :type Win: ndarray
+   :param Wout: Input/output array for out-scattering rates, shape (Nk,), real.
+                Will be modified in-place (matching Fortran intent(inout)).
+   :type Wout: ndarray
+   :param k3: 3D indexing array from MakeK3, shape (Nk, Nk, Nk).
+              If None, uses module-level _k3.
+   :type k3: ndarray, optional
+   :param Ceh: Electron-hole many-body interaction array, shape (Nk, Nk, Nk).
+               If None, uses module-level _Ceh.
+   :type Ceh: ndarray, optional
+   :param Cee: Electron-electron many-body interaction array, shape (Nk, Nk, Nk).
+               If None, uses module-level _Cee.
+   :type Cee: ndarray, optional
+
+   :returns: Win and Wout are modified in-place (matching Fortran intent(inout) behavior).
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses JIT compilation with parallel execution (matching Fortran OpenMP behavior).
+   The function computes scattering rates due to electron-hole and electron-electron
+   interactions, accounting for Pauli blocking factors (1 - n) and occupation factors n.
+
+
+.. py:function:: MBCE(ne0, nh0, ky, Ee, Eh, VC, geh, ge, Win, Wout, k3=None, Ceh=None, Cee=None)
+
+   Calculate the Many-body Coulomb In/Out rates for electrons.
+
+   Computes the many-body relaxation rates Win and Wout for electrons due to
+   electron-hole and electron-electron Coulomb interactions. This is identical
+   to MBCE2 but kept as a separate function to match Fortran structure.
+
+   :param ne0: Electron population array, shape (Nk,), real
+   :type ne0: ndarray
+   :param nh0: Hole population array, shape (Nk,), real
+   :type nh0: ndarray
+   :param ky: Momentum coordinates (not used in calculation but kept for interface compatibility)
+   :type ky: ndarray
+   :param Ee: Electron energies (not used in calculation but kept for interface compatibility)
+   :type Ee: ndarray
+   :param Eh: Hole energies (not used in calculation but kept for interface compatibility)
+   :type Eh: ndarray
+   :param VC: Screened Coulomb interaction matrices, shape (Nk, Nk, 3)
+              VC[:, :, 0] = Veh (electron-hole)
+              VC[:, :, 1] = Vee (electron-electron)
+   :type VC: ndarray
+   :param geh: Electron-hole inverse lifetime (not used in calculation but kept for interface)
+   :type geh: float
+   :param ge: Electron inverse lifetime (not used in calculation but kept for interface)
+   :type ge: float
+   :param Win: Input/output array for in-scattering rates, shape (Nk,), real.
+               Will be modified in-place (matching Fortran intent(inout)).
+   :type Win: ndarray
+   :param Wout: Input/output array for out-scattering rates, shape (Nk,), real.
+                Will be modified in-place (matching Fortran intent(inout)).
+   :type Wout: ndarray
+   :param k3: 3D indexing array from MakeK3, shape (Nk, Nk, Nk).
+              If None, uses module-level _k3.
+   :type k3: ndarray, optional
+   :param Ceh: Electron-hole many-body interaction array, shape (Nk, Nk, Nk).
+               If None, uses module-level _Ceh.
+   :type Ceh: ndarray, optional
+   :param Cee: Electron-electron many-body interaction array, shape (Nk, Nk, Nk).
+               If None, uses module-level _Cee.
+   :type Cee: ndarray, optional
+
+   :returns: Win and Wout are modified in-place (matching Fortran intent(inout) behavior).
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses JIT compilation with parallel execution (matching Fortran OpenMP behavior).
+   This function is identical to MBCE2 but kept separate to match Fortran code structure.
+
+
+.. py:function:: MBCH(ne0, nh0, ky, Ee, Eh, VC, geh, gh, Win, Wout, k3=None, Ceh=None, Chh=None)
+
+   Calculate the Many-body Coulomb In/Out rates for holes.
+
+   Computes the many-body relaxation rates Win and Wout for holes due to
+   electron-hole and hole-hole Coulomb interactions. These represent
+   non-Hartree-Fock terms in the many-body dynamics.
+
+   :param ne0: Electron population array, shape (Nk,), real
+   :type ne0: ndarray
+   :param nh0: Hole population array, shape (Nk,), real
+   :type nh0: ndarray
+   :param ky: Momentum coordinates (not used in calculation but kept for interface compatibility)
+   :type ky: ndarray
+   :param Ee: Electron energies (not used in calculation but kept for interface compatibility)
+   :type Ee: ndarray
+   :param Eh: Hole energies (not used in calculation but kept for interface compatibility)
+   :type Eh: ndarray
+   :param VC: Screened Coulomb interaction matrices, shape (Nk, Nk, 3)
+              VC[:, :, 0] = Veh (electron-hole)
+              VC[:, :, 2] = Vhh (hole-hole)
+   :type VC: ndarray
+   :param geh: Electron-hole inverse lifetime (not used in calculation but kept for interface)
+   :type geh: float
+   :param gh: Hole inverse lifetime (not used in calculation but kept for interface)
+   :type gh: float
+   :param Win: Input/output array for in-scattering rates, shape (Nk,), real.
+               Will be modified in-place (matching Fortran intent(inout)).
+   :type Win: ndarray
+   :param Wout: Input/output array for out-scattering rates, shape (Nk,), real.
+                Will be modified in-place (matching Fortran intent(inout)).
+   :type Wout: ndarray
+   :param k3: 3D indexing array from MakeK3, shape (Nk, Nk, Nk).
+              If None, uses module-level _k3.
+   :type k3: ndarray, optional
+   :param Ceh: Electron-hole many-body interaction array, shape (Nk, Nk, Nk).
+               If None, uses module-level _Ceh.
+   :type Ceh: ndarray, optional
+   :param Chh: Hole-hole many-body interaction array, shape (Nk, Nk, Nk).
+               If None, uses module-level _Chh.
+   :type Chh: ndarray, optional
+
+   :returns: Win and Wout are modified in-place (matching Fortran intent(inout) behavior).
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses JIT compilation with parallel execution (matching Fortran OpenMP behavior).
+   The function computes scattering rates due to electron-hole and hole-hole
+   interactions, accounting for Pauli blocking factors (1 - n) and occupation factors n.
+
+

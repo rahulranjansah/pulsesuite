@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.constants &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="core.fftw" href="../fftw/index.html" />
+    <link rel="prev" title="core" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery.html">Examples Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.constants</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../fftw/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.fftw</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rungekutta/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.rungekutta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../type_plasma/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.type_plasma</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typelens/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.typelens</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typemedium/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.typemedium</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typetpamedium/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.typetpamedium</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../PSTD3D/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../spliner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">spliner</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.constants</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/core/constants/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-core.constants">
+<span id="core-constants"></span><h1><a class="reference internal" href="#module-core.constants" title="core.constants"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.constants</span></code></a><a class="headerlink" href="#module-core.constants" title="Link to this heading"></a></h1>
+<p>Physical and mathematical constants for scientific computing, matching Fortran’s constants.F90.</p>
+<p>Optimized for high-performance and HPC use. All constants use NumPy types for speed and compatibility.
+Fortran-specific file path constants (stdin, stdout, stderr) are omitted as Python uses sys.stdin, sys.stdout, sys.stderr.</p>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.constants.Constants" title="core.constants.Constants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Constants</span></code></a></p></td>
+<td><p>Provides physical and mathematical constants for scientific computing.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.constants.pi" title="core.constants.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.constants.const_e" title="core.constants.const_e"><code class="xref py py-obj docutils literal notranslate"><span class="pre">const_e</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.constants.pio2" title="core.constants.pio2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pio2</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.constants.twopi" title="core.constants.twopi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">twopi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.constants.sqrt2" title="core.constants.sqrt2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sqrt2</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.constants.euler" title="core.constants.euler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">euler</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.constants.ii" title="core.constants.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.constants.c0" title="core.constants.c0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">c0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.constants.eps0" title="core.constants.eps0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eps0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.constants.mu0" title="core.constants.mu0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mu0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.constants.hplank" title="core.constants.hplank"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hplank</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.constants.hbar" title="core.constants.hbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hbar</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.constants.e0" title="core.constants.e0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">e0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.constants.eV" title="core.constants.eV"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eV</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.constants.me0" title="core.constants.me0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">me0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.constants.efrmt" title="core.constants.efrmt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">efrmt</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.constants.pfrmt" title="core.constants.pfrmt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pfrmt</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.constants.efrmt2x" title="core.constants.efrmt2x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">efrmt2x</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.constants.efrmtA" title="core.constants.efrmtA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">efrmtA</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.constants.pfrmtA" title="core.constants.pfrmtA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pfrmtA</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.constants.ifrmtA" title="core.constants.ifrmtA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ifrmtA</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.constants.Aefrmt" title="core.constants.Aefrmt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Aefrmt</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="core.constants.Constants">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">Constants</span></span><a class="headerlink" href="#core.constants.Constants" title="Link to this definition"></a></dt>
+<dd><p>Provides physical and mathematical constants for scientific computing.</p>
+<p>All constants are class attributes and use NumPy types for high performance.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.pi">
+<span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#core.constants.Constants.pi" title="Link to this definition"></a></dt>
+<dd><p>The value of pi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.const_e">
+<span class="sig-name descname"><span class="pre">const_e</span></span><a class="headerlink" href="#core.constants.Constants.const_e" title="Link to this definition"></a></dt>
+<dd><p>The value of Euler’s number e.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.pio2">
+<span class="sig-name descname"><span class="pre">pio2</span></span><a class="headerlink" href="#core.constants.Constants.pio2" title="Link to this definition"></a></dt>
+<dd><p>pi/2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.twopi">
+<span class="sig-name descname"><span class="pre">twopi</span></span><a class="headerlink" href="#core.constants.Constants.twopi" title="Link to this definition"></a></dt>
+<dd><p>2*pi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.sqrt2">
+<span class="sig-name descname"><span class="pre">sqrt2</span></span><a class="headerlink" href="#core.constants.Constants.sqrt2" title="Link to this definition"></a></dt>
+<dd><p>Square root of 2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.euler">
+<span class="sig-name descname"><span class="pre">euler</span></span><a class="headerlink" href="#core.constants.Constants.euler" title="Link to this definition"></a></dt>
+<dd><p>Euler-Mascheroni constant.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.ii">
+<span class="sig-name descname"><span class="pre">ii</span></span><a class="headerlink" href="#core.constants.Constants.ii" title="Link to this definition"></a></dt>
+<dd><p>Imaginary unit (sqrt(-1)).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.c0">
+<span class="sig-name descname"><span class="pre">c0</span></span><a class="headerlink" href="#core.constants.Constants.c0" title="Link to this definition"></a></dt>
+<dd><p>Speed of light in m/s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.eps0">
+<span class="sig-name descname"><span class="pre">eps0</span></span><a class="headerlink" href="#core.constants.Constants.eps0" title="Link to this definition"></a></dt>
+<dd><p>Vacuum permittivity (F/m).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.mu0">
+<span class="sig-name descname"><span class="pre">mu0</span></span><a class="headerlink" href="#core.constants.Constants.mu0" title="Link to this definition"></a></dt>
+<dd><p>Vacuum permeability (H/m).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.hplank">
+<span class="sig-name descname"><span class="pre">hplank</span></span><a class="headerlink" href="#core.constants.Constants.hplank" title="Link to this definition"></a></dt>
+<dd><p>Planck constant (J*s).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.hbar">
+<span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#core.constants.Constants.hbar" title="Link to this definition"></a></dt>
+<dd><p>Reduced Planck constant (J*s).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.e0">
+<span class="sig-name descname"><span class="pre">e0</span></span><a class="headerlink" href="#core.constants.Constants.e0" title="Link to this definition"></a></dt>
+<dd><p>Elementary charge (C).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.eV">
+<span class="sig-name descname"><span class="pre">eV</span></span><a class="headerlink" href="#core.constants.Constants.eV" title="Link to this definition"></a></dt>
+<dd><p>Electron volt (J).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.me0">
+<span class="sig-name descname"><span class="pre">me0</span></span><a class="headerlink" href="#core.constants.Constants.me0" title="Link to this definition"></a></dt>
+<dd><p>Electron rest mass (kg).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">efrmt,</span> <span class="pre">pfrmt,</span> <span class="pre">efrmt2x,</span> <span class="pre">efrmtA,</span> <span class="pre">pfrmtA,</span> <span class="pre">ifrmtA,</span> <span class="pre">Aefrmt</span></span></dt>
+<dd><p>Format strings for numeric display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">const_e</span></span><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">pio2</span></span><a class="headerlink" href="#id2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">twopi</span></span><a class="headerlink" href="#id3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">sqrt2</span></span><a class="headerlink" href="#id4" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">euler</span></span><a class="headerlink" href="#id5" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">ii</span></span><a class="headerlink" href="#id6" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">c0</span></span><a class="headerlink" href="#id7" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">eps0</span></span><a class="headerlink" href="#id8" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">mu0</span></span><a class="headerlink" href="#id9" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id10">
+<span class="sig-name descname"><span class="pre">hplank</span></span><a class="headerlink" href="#id10" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id11">
+<span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#id11" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id12">
+<span class="sig-name descname"><span class="pre">e0</span></span><a class="headerlink" href="#id12" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id13">
+<span class="sig-name descname"><span class="pre">eV</span></span><a class="headerlink" href="#id13" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id14">
+<span class="sig-name descname"><span class="pre">me0</span></span><a class="headerlink" href="#id14" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.efrmt">
+<span class="sig-name descname"><span class="pre">efrmt</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'(SP,1PE23.15E3,1X)'</span></em><a class="headerlink" href="#core.constants.Constants.efrmt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.pfrmt">
+<span class="sig-name descname"><span class="pre">pfrmt</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'(ES25.14E3)'</span></em><a class="headerlink" href="#core.constants.Constants.pfrmt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.efrmt2x">
+<span class="sig-name descname"><span class="pre">efrmt2x</span></span><a class="headerlink" href="#core.constants.Constants.efrmt2x" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.efrmtA">
+<span class="sig-name descname"><span class="pre">efrmtA</span></span><a class="headerlink" href="#core.constants.Constants.efrmtA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.pfrmtA">
+<span class="sig-name descname"><span class="pre">pfrmtA</span></span><a class="headerlink" href="#core.constants.Constants.pfrmtA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.ifrmtA">
+<span class="sig-name descname"><span class="pre">ifrmtA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'((I25),A)'</span></em><a class="headerlink" href="#core.constants.Constants.ifrmtA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.constants.Constants.Aefrmt">
+<span class="sig-name descname"><span class="pre">Aefrmt</span></span><a class="headerlink" href="#core.constants.Constants.Aefrmt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.constants.Constants.as_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">as_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.constants.Constants.as_dict" title="Link to this definition"></a></dt>
+<dd><p>Return all constants as a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of all constant names and values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.pi">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#core.constants.pi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.const_e">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">const_e</span></span><a class="headerlink" href="#core.constants.const_e" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.pio2">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">pio2</span></span><a class="headerlink" href="#core.constants.pio2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.twopi">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">twopi</span></span><a class="headerlink" href="#core.constants.twopi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.sqrt2">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">sqrt2</span></span><a class="headerlink" href="#core.constants.sqrt2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.euler">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">euler</span></span><a class="headerlink" href="#core.constants.euler" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.ii">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><a class="headerlink" href="#core.constants.ii" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.c0">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">c0</span></span><a class="headerlink" href="#core.constants.c0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.eps0">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">eps0</span></span><a class="headerlink" href="#core.constants.eps0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.mu0">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">mu0</span></span><a class="headerlink" href="#core.constants.mu0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.hplank">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">hplank</span></span><a class="headerlink" href="#core.constants.hplank" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.hbar">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#core.constants.hbar" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.e0">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">e0</span></span><a class="headerlink" href="#core.constants.e0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.eV">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">eV</span></span><a class="headerlink" href="#core.constants.eV" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.me0">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">me0</span></span><a class="headerlink" href="#core.constants.me0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.efrmt">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">efrmt</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.15e'</span></em><a class="headerlink" href="#core.constants.efrmt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.pfrmt">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">pfrmt</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.14e'</span></em><a class="headerlink" href="#core.constants.pfrmt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.efrmt2x">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">efrmt2x</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.15e'</span></em><a class="headerlink" href="#core.constants.efrmt2x" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.efrmtA">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">efrmtA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.15e'</span></em><a class="headerlink" href="#core.constants.efrmtA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.pfrmtA">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">pfrmtA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.14e'</span></em><a class="headerlink" href="#core.constants.pfrmtA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.ifrmtA">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">ifrmtA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'d'</span></em><a class="headerlink" href="#core.constants.ifrmtA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.constants.Aefrmt">
+<span class="sig-prename descclassname"><span class="pre">core.constants.</span></span><span class="sig-name descname"><span class="pre">Aefrmt</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.15e'</span></em><a class="headerlink" href="#core.constants.Aefrmt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="core" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../fftw/index.html" class="btn btn-neutral float-right" title="core.fftw" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
