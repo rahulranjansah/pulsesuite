@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PSTD3D.coulomb &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="PSTD3D.dcfield" href="../dcfield/index.html" />
+    <link rel="prev" title="PSTD3D.SBEs" href="../SBEs/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery.html">Examples Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core</span></code></a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../SBEs/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.SBEs</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.coulomb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dcfield/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.dcfield</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dephasing/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.dephasing</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../emission/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.emission</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../epsrtl/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.epsrtl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.helpers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../phonons/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.phonons</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../phost/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.phost</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../qwoptics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.qwoptics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rhoPJ/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.rhoPJ</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../sbetestprop/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.sbetestprop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../sbetestpropnov30/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.sbetestpropnov30</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typespace/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.typespace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usefulsubs/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.usefulsubs</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../spliner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">spliner</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.coulomb</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/PSTD3D/coulomb/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-PSTD3D.coulomb">
+<span id="pstd3d-coulomb"></span><h1><a class="reference internal" href="#module-PSTD3D.coulomb" title="PSTD3D.coulomb"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.coulomb</span></code></a><a class="headerlink" href="#module-PSTD3D.coulomb" title="Link to this heading"></a></h1>
+<p>Coulomb interaction calculations for quantum wire simulations.</p>
+<p>This module calculates the electron-hole, electron-electron, and hole-hole
+collision integrals and other carrier-optical related calculations required
+for the Semiconductor Bloch Equations in support of simulations of pulse
+propagation through a quantum wire.</p>
+<p>Author: Rahul R. Sah</p>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.coulomb.InitializeCoulomb" title="PSTD3D.coulomb.InitializeCoulomb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeCoulomb</span></code></a>(y, ky, L, Delta0, me, mh, Ee, Eh, ...)</p></td>
+<td><p>Initialize the coulomb module and all of its needed quantities.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.coulomb.Vint" title="PSTD3D.coulomb.Vint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Vint</span></code></a>(Qyk, y, alphae, alphah, Delta0)</p></td>
+<td><p>Calculate the interaction integral for Coulomb potential.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.coulomb.Vehint" title="PSTD3D.coulomb.Vehint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Vehint</span></code></a>(k, q, y, ky, alphae, alphah, Delta0)</p></td>
+<td><p>Calculate electron-hole interaction integral.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.coulomb.CalcCoulombArrays" title="PSTD3D.coulomb.CalcCoulombArrays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcCoulombArrays</span></code></a>(y, ky, er, alphae, alphah, L, ...[, ...])</p></td>
+<td><p>Construct the unscreened Coulomb collision arrays.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.coulomb.GaussDelta" title="PSTD3D.coulomb.GaussDelta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GaussDelta</span></code></a>(a, b)</p></td>
+<td><p>(Was commented out in the Fortran code and had implications on the CalcMBArrays function)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.coulomb.MakeK3" title="PSTD3D.coulomb.MakeK3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakeK3</span></code></a>(ky)</p></td>
+<td><p>Construct the k3 indexing array for momentum conservation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.coulomb.MakeQs" title="PSTD3D.coulomb.MakeQs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakeQs</span></code></a>(ky, ae, ah)</p></td>
+<td><p>Construct the qe and qh momentum difference arrays.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.coulomb.MakeUnDel" title="PSTD3D.coulomb.MakeUnDel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakeUnDel</span></code></a>(ky)</p></td>
+<td><p>Construct the UnDel (1 - delta) array.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.coulomb.SetLorentzDelta" title="PSTD3D.coulomb.SetLorentzDelta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetLorentzDelta</span></code></a>(boolean)</p></td>
+<td><p>Set the LorentzDelta flag for many-body array calculations.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.coulomb.CalcMBArrays" title="PSTD3D.coulomb.CalcMBArrays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcMBArrays</span></code></a>(ky, Ee, Eh, ge, gh, k3, UnDel[, LorentzDelta])</p></td>
+<td><p>Calculate the many-body interaction arrays.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.coulomb.GetChi1Dqw" title="PSTD3D.coulomb.GetChi1Dqw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetChi1Dqw</span></code></a>(alphae, alphah, Delta0, epsr, game, gamh, ...)</p></td>
+<td><p>Calculate the 1D quantum wire susceptibility (chi) for a given momentum and frequency.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.coulomb.GetEps1Dqw" title="PSTD3D.coulomb.GetEps1Dqw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetEps1Dqw</span></code></a>(alphae, alphah, Delta0, epsr, me, mh, n1D, q, w)</p></td>
+<td><p>Calculate the 1D quantum wire dielectric function epsilon(q, w).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.coulomb.CalcChi1D" title="PSTD3D.coulomb.CalcChi1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcChi1D</span></code></a>(ky, alphae, alphah, Delta0, epsr, me, mh, qe, qh)</p></td>
+<td><p>Calculate the 1D susceptibility arrays Chi1De and Chi1Dh.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.coulomb.Eps1D" title="PSTD3D.coulomb.Eps1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Eps1D</span></code></a>(n1D, Nk)</p></td>
+<td><p>Calculate the 1D dielectric function matrix.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.coulomb.CalcScreenedArrays" title="PSTD3D.coulomb.CalcScreenedArrays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcScreenedArrays</span></code></a>(screened, L, ne, nh, VC, E1D)</p></td>
+<td><p>Calculate screened Coulomb interaction arrays.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.coulomb.CalcMVeh" title="PSTD3D.coulomb.CalcMVeh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcMVeh</span></code></a>(p, VC, MVeh[, k3, UnDel])</p></td>
+<td><p>Calculate the MVeh array for Semiconductor Bloch Equations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.coulomb.undell" title="PSTD3D.coulomb.undell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">undell</span></code></a>(k, q)</p></td>
+<td><p>Wrapper function for UnDel array access.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.coulomb.BGRenorm" title="PSTD3D.coulomb.BGRenorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BGRenorm</span></code></a>(C, D, VC, BGR[, UnDel])</p></td>
+<td><p>Calculate band gap renormalization.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.coulomb.EeRenorm" title="PSTD3D.coulomb.EeRenorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EeRenorm</span></code></a>(ne, VC, BGR[, UnDel])</p></td>
+<td><p>Calculate electron energy renormalization.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.coulomb.EhRenorm" title="PSTD3D.coulomb.EhRenorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EhRenorm</span></code></a>(nh, VC, BGR[, UnDel])</p></td>
+<td><p>Calculate hole energy renormalization.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.coulomb.MBCE2" title="PSTD3D.coulomb.MBCE2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MBCE2</span></code></a>(ne0, nh0, ky, Ee, Eh, VC, geh, ge, Win, Wout[, ...])</p></td>
+<td><p>Calculate the Many-body Coulomb In/Out rates for electrons (version 2).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.coulomb.MBCE" title="PSTD3D.coulomb.MBCE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MBCE</span></code></a>(ne0, nh0, ky, Ee, Eh, VC, geh, ge, Win, Wout[, ...])</p></td>
+<td><p>Calculate the Many-body Coulomb In/Out rates for electrons.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.coulomb.MBCH" title="PSTD3D.coulomb.MBCH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MBCH</span></code></a>(ne0, nh0, ky, Ee, Eh, VC, geh, gh, Win, Wout[, ...])</p></td>
+<td><p>Calculate the Many-body Coulomb In/Out rates for holes.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.coulomb.pi" title="PSTD3D.coulomb.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.coulomb.twopi" title="PSTD3D.coulomb.twopi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">twopi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.coulomb.hbar" title="PSTD3D.coulomb.hbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hbar</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.coulomb.eV" title="PSTD3D.coulomb.eV"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eV</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.coulomb.ii" title="PSTD3D.coulomb.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.pi">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#PSTD3D.coulomb.pi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.twopi">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">twopi</span></span><a class="headerlink" href="#PSTD3D.coulomb.twopi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.hbar">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#PSTD3D.coulomb.hbar" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.eV">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">eV</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.602176634e-19</span></em><a class="headerlink" href="#PSTD3D.coulomb.eV" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.ii">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1j</span></em><a class="headerlink" href="#PSTD3D.coulomb.ii" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.InitializeCoulomb">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">InitializeCoulomb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphah</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">er</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Qy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kkp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screened</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.InitializeCoulomb" title="Link to this definition"></a></dt>
+<dd><p>Initialize the coulomb module and all of its needed quantities.</p>
+<p>This is the main initialization function that sets up all module-level arrays
+required for Coulomb interaction calculations. It calls the various setup functions
+in the correct order, checking if arrays are already initialized to avoid
+redundant calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>ndarray</em>) – Length coordinates of quantum wire (m), 1D array</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p></li>
+<li><p><strong>L</strong> (<em>float</em>) – Length of the quantum wire (m)</p></li>
+<li><p><strong>Delta0</strong> (<em>float</em>) – Thickness of the quantum wire (m)</p></li>
+<li><p><strong>me</strong> (<em>float</em>) – Effective electron mass (kg)</p></li>
+<li><p><strong>mh</strong> (<em>float</em>) – Effective hole mass (kg)</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>ge</strong> (<em>float</em>) – Inverse electron lifetime (Hz)</p></li>
+<li><p><strong>gh</strong> (<em>float</em>) – Inverse hole lifetime (Hz)</p></li>
+<li><p><strong>alphae</strong> (<em>float</em>) – Level separation between ground and 1st excited state for electrons (1/m)</p></li>
+<li><p><strong>alphah</strong> (<em>float</em>) – Level separation between ground and 1st excited state for holes (1/m)</p></li>
+<li><p><strong>er</strong> (<em>float</em>) – Background dielectric constant (dimensionless)</p></li>
+<li><p><strong>Qy</strong> (<em>ndarray</em>) – Momentum difference array (1/m), 1D array</p></li>
+<li><p><strong>kkp</strong> (<em>ndarray</em>) – Index mapping array, 2D integer array. Maps (k,q) indices to Qy indices.</p></li>
+<li><p><strong>screened</strong> (<em>bool</em>) – Whether to use screened interactions (not used in initialization, but passed through)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All arrays are stored as module-level variables (matching Fortran behavior).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function initializes arrays in the following order:
+1. UnDel - inverse delta function array
+2. k3 - momentum conservation indexing array
+3. qe, qh - momentum difference arrays
+4. Ceh, Cee, Chh - many-body interaction arrays (requires k3 and UnDel)
+5. Veh0, Vee0, Vhh0 - unscreened Coulomb arrays
+6. Chi1De, Chi1Dh - susceptibility arrays (requires qe and qh)</p>
+<p>Each array is only computed if it hasn’t been initialized yet, allowing
+for incremental initialization or re-initialization with different parameters.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.Vint">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">Vint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Qyk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphah</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.Vint" title="Link to this definition"></a></dt>
+<dd><p>Calculate the interaction integral for Coulomb potential.</p>
+<p>Computes the integral over spatial coordinates for the Coulomb interaction
+between particles with level separations alphae and alphah. This is used to
+calculate the unscreened Coulomb collision arrays.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Qyk</strong> (<em>float</em>) – Momentum difference (1/m)</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em>) – Length coordinates of quantum wire (m), 1D array</p></li>
+<li><p><strong>alphae</strong> (<em>float</em>) – Level separation between ground and 1st excited state for electrons (1/m)</p></li>
+<li><p><strong>alphah</strong> (<em>float</em>) – Level separation between ground and 1st excited state for holes (1/m)</p></li>
+<li><p><strong>Delta0</strong> (<em>float</em>) – Thickness of the quantum wire (m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Interaction integral value (dimensionless)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The integration is performed over a central region of the y array
+(from Ny/4 to 3*Ny/4) to focus on the relevant quantum wire region.
+Uses the modified Bessel function K0 to represent the Coulomb interaction.</p>
+<p>Uses JIT compilation for performance with automatic fallback to pure Python.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.Vehint">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">Vehint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphah</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.Vehint" title="Link to this definition"></a></dt>
+<dd><p>Calculate electron-hole interaction integral.</p>
+<p>Computes the interaction integral between an electron at momentum index k
+and a hole at momentum index q. This is similar to Vint but uses the
+momentum difference from the ky array directly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em>) – Electron momentum index. Note: Fortran uses 1-based indexing, so if
+calling from Python with 0-based indices, pass k+1 and q+1, or adjust
+the indices before calling.</p></li>
+<li><p><strong>q</strong> (<em>int</em>) – Hole momentum index. Note: Fortran uses 1-based indexing, so if
+calling from Python with 0-based indices, pass k+1 and q+1, or adjust
+the indices before calling.</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em>) – Length coordinates of quantum wire (m), 1D array</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p></li>
+<li><p><strong>alphae</strong> (<em>float</em>) – Level separation between ground and 1st excited state for electrons (1/m)</p></li>
+<li><p><strong>alphah</strong> (<em>float</em>) – Level separation between ground and 1st excited state for holes (1/m)</p></li>
+<li><p><strong>Delta0</strong> (<em>float</em>) – Thickness of the quantum wire (m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Electron-hole interaction integral value (dimensionless)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function uses the momentum difference <a href="#id1"><span class="problematic" id="id2">|ky(k) - ky(q)|</span></a> to compute
+the interaction. The integration is performed over a central region
+of the y array (from Ny/4 to 3*Ny/4).</p>
+<p>Note on indexing: The Fortran version uses 1-based indexing. If k and q
+are passed as 1-based indices (matching Fortran), they will be converted
+to 0-based for array access. If passed as 0-based, subtract 1 is not needed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.CalcCoulombArrays">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">CalcCoulombArrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">er</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphah</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Qy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kkp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ReadArrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ScrewThis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.CalcCoulombArrays" title="Link to this definition"></a></dt>
+<dd><p>Construct the unscreened Coulomb collision arrays.</p>
+<p>Calculates the electron-hole (Veh0), electron-electron (Vee0), and
+hole-hole (Vhh0) unscreened Coulomb interaction matrices for a quantum wire.
+These arrays are used in the Semiconductor Bloch Equations to compute
+many-body interactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>ndarray</em>) – Length coordinates of quantum wire (m), 1D array</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p></li>
+<li><p><strong>er</strong> (<em>float</em>) – Background dielectric constant (dimensionless)</p></li>
+<li><p><strong>alphae</strong> (<em>float</em>) – Level separation between ground and 1st excited state for electrons (1/m)</p></li>
+<li><p><strong>alphah</strong> (<em>float</em>) – Level separation between ground and 1st excited state for holes (1/m)</p></li>
+<li><p><strong>L</strong> (<em>float</em>) – Length of the quantum wire (m)</p></li>
+<li><p><strong>Delta0</strong> (<em>float</em>) – Thickness of the quantum wire (m)</p></li>
+<li><p><strong>Qy</strong> (<em>ndarray</em>) – Momentum difference array (1/m), 1D array</p></li>
+<li><p><strong>kkp</strong> (<em>ndarray</em>) – Index mapping array, 2D integer array. Maps (k,q) indices to Qy indices.
+Values &gt;= 0 indicate valid mappings, &lt; 0 indicate invalid.</p></li>
+<li><p><strong>ReadArrays</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, read pre-calculated arrays from files (not implemented).
+Default is False.</p></li>
+<li><p><strong>ScrewThis</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, skip calculation and return zero arrays. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(Veh0, Vee0, Vhh0) where:
+- Veh0: Electron-hole interaction matrix (J), shape (N, N)
+- Vee0: Electron-electron interaction matrix (J), shape (N, N)
+- Vhh0: Hole-hole interaction matrix (J), shape (N, N)
+where N = len(ky)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function computes the interaction integrals for each momentum difference
+in Qy, then maps these to the (k,q) grid using the kkp index array.
+The calculation uses the Vint function to compute the spatial integrals.</p>
+<p>The interaction matrices are computed as:
+- Veh0(k,q) = (e0^2 / (2π * ε0 * er * L)) * Vint(Qy[kkp(k,q)], y, alphae, alphah, Delta0)
+- Vee0(k,q) = (e0^2 / (2π * ε0 * er * L)) * Vint(Qy[kkp(k,q)], y, alphae, alphae, Delta0)
+- Vhh0(k,q) = (e0^2 / (2π * ε0 * er * L)) * Vint(Qy[kkp(k,q)], y, alphah, alphah, Delta0)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.GaussDelta">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">GaussDelta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.GaussDelta" title="Link to this definition"></a></dt>
+<dd><p>(Was commented out in the Fortran code and had implications on the CalcMBArrays function)
+Gaussian delta function approximation.</p>
+<p>Computes a Gaussian approximation to the delta function, used in
+many-body interaction calculations when LorentzDelta is False.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>float</em>) – Energy difference argument (J)</p></li>
+<li><p><strong>b</strong> (<em>float</em>) – Broadening parameter (J)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Gaussian delta function value (1/J)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function implements: 1 / (sqrt(pi) * b) * exp(-(a/b)^2)
+This is a smooth approximation to the delta function with width b.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.MakeK3">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">MakeK3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.MakeK3" title="Link to this definition"></a></dt>
+<dd><p>Construct the k3 indexing array for momentum conservation.</p>
+<p>Creates a 3D array k3 where k3(k1, k2, k4) represents the index k3
+that satisfies the momentum conservation relation: k1 + k2 = k3 + k4.
+This is used in many-body interaction calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>3D integer array of shape (N, N, N) where N = len(ky).
+Values are 1-based indices (matching Fortran) if valid,
+or 0 if the momentum combination is invalid (out of bounds).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The array is computed as: k3i = k1 + k2 - k4
+If k3i is outside the valid range [1, N], it is set to 0.
+The returned array uses 1-based indexing to match Fortran behavior,
+so valid indices are in the range [1, N], with 0 indicating invalid.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.MakeQs">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">MakeQs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ah</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.MakeQs" title="Link to this definition"></a></dt>
+<dd><p>Construct the qe and qh momentum difference arrays.</p>
+<p>Creates arrays representing the momentum differences between states,
+with minimum values set by the level separation parameters ae and ah.
+These arrays are used in screening and interaction calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p></li>
+<li><p><strong>ae</strong> (<em>float</em>) – Level separation parameter for electrons (1/m)</p></li>
+<li><p><strong>ah</strong> (<em>float</em>) – Level separation parameter for holes (1/m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(qe, qh) where:
+- qe: Electron momentum difference array (1/m), shape (N, N)
+- qh: Hole momentum difference array (1/m), shape (N, N)
+where N = len(ky)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The arrays are computed as:
+- qe(k1, k2) = max(<a href="#id3"><span class="problematic" id="id4">|ky(k2) - ky(k1)|</span></a>, ae/2)
+- qh(k1, k2) = max(<a href="#id5"><span class="problematic" id="id6">|ky(k2) - ky(k1)|</span></a>, ah/2)
+This ensures a minimum momentum difference to avoid singularities.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.MakeUnDel">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">MakeUnDel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.MakeUnDel" title="Link to this definition"></a></dt>
+<dd><p>Construct the UnDel (1 - delta) array.</p>
+<p>Creates an array representing (1 - delta_ij) where delta_ij is the
+Kronecker delta. This is used to exclude self-interaction terms
+in many-body calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>2D array of shape (N+1, N+1) where N = len(ky).
+Values are 1.0 except:
+- Row 0 and column 0 are all 0.0
+- Diagonal elements (i, i) for i=1..N are 0.0</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The array has an extra row and column (index 0) compared to the
+momentum array size, matching the Fortran implementation which uses
+0-based indexing for the first row/column.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.SetLorentzDelta">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">SetLorentzDelta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boolean</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.SetLorentzDelta" title="Link to this definition"></a></dt>
+<dd><p>Set the LorentzDelta flag for many-body array calculations.</p>
+<p>This function sets a module-level flag that determines whether to use
+Lorentzian broadening (True) or Gaussian delta function (False) in
+the CalcMBArrays function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>boolean</strong> (<em>bool</em>) – If True, use Lorentzian broadening. If False, use Gaussian delta function.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This matches the Fortran interface where SetLorentzDelta sets a module-level
+variable. The flag affects the behavior of CalcMBArrays when called without
+explicitly specifying the LorentzDelta parameter.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.CalcMBArrays">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">CalcMBArrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UnDel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LorentzDelta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.CalcMBArrays" title="Link to this definition"></a></dt>
+<dd><p>Calculate the many-body interaction arrays.</p>
+<p>Computes the electron-hole (Ceh), electron-electron (Cee), and
+hole-hole (Chh) many-body interaction arrays used in the Semiconductor
+Bloch Equations. These arrays represent the collision integrals for
+carrier-carrier interactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>ge</strong> (<em>float</em>) – Electron inverse lifetime (Hz)</p></li>
+<li><p><strong>gh</strong> (<em>float</em>) – Hole inverse lifetime (Hz)</p></li>
+<li><p><strong>k3</strong> (<em>ndarray</em>) – 3D indexing array from MakeK3, shape (N, N, N)</p></li>
+<li><p><strong>UnDel</strong> (<em>ndarray</em>) – 2D array from MakeUnDel, shape (N+1, N+1)</p></li>
+<li><p><strong>LorentzDelta</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, use Lorentzian broadening. If False, use Gaussian delta function.
+If None (default), uses the module-level value set by SetLorentzDelta.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(Ceh, Cee, Chh) where:
+- Ceh: Electron-hole interaction array (1/J), shape (N+1, N+1, N+1)
+- Cee: Electron-electron interaction array (1/J), shape (N+1, N+1, N+1)
+- Chh: Hole-hole interaction array (1/J), shape (N+1, N+1, N+1)
+where N = len(ky). The arrays use 0-based indexing for the first dimension
+to match Fortran’s 0:N range.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function computes interaction rates using either:
+- Lorentzian broadening: 2*gamma * UnDel / ((E_diff)^2 + (hbar*gamma)^2)
+- Gaussian delta function: (2π/hbar) * UnDel * GaussDelta(E_diff, hbar*gamma)</p>
+<p>The arrays are indexed with 0-based first index (0..N) to match Fortran’s
+allocation of arrays with bounds (0:N, 0:N, 0:N).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.GetChi1Dqw">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">GetChi1Dqw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alphae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphah</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">game</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.GetChi1Dqw" title="Link to this definition"></a></dt>
+<dd><p>Calculate the 1D quantum wire susceptibility (chi) for a given momentum and frequency.</p>
+<p>Computes the real and imaginary parts of the susceptibility chi(q, w) for a quantum wire,
+which describes the response of the system to external perturbations. This is used in
+screening calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alphae</strong> (<em>float</em>) – Level separation parameter for electrons (1/m)</p></li>
+<li><p><strong>alphah</strong> (<em>float</em>) – Level separation parameter for holes (1/m)</p></li>
+<li><p><strong>Delta0</strong> (<em>float</em>) – Thickness of the quantum wire (m)</p></li>
+<li><p><strong>L</strong> (<em>float</em>) – Length of the quantum wire (m)</p></li>
+<li><p><strong>epsr</strong> (<em>float</em>) – Background dielectric constant (dimensionless)</p></li>
+<li><p><strong>game</strong> (<em>ndarray</em>) – Electron inverse lifetime array (Hz), 1D array</p></li>
+<li><p><strong>gamh</strong> (<em>ndarray</em>) – Hole inverse lifetime array (Hz), 1D array</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron population array, 1D array</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole population array, 1D array</p></li>
+<li><p><strong>qq</strong> (<em>float</em>) – Momentum value (1/m)</p></li>
+<li><p><strong>w</strong> (<em>float</em>) – Frequency (rad/s)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(chir, chii) where:
+- chir: Real part of susceptibility (dimensionless)
+- chii: Imaginary part of susceptibility (dimensionless)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of float</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function computes the susceptibility by summing over momentum states,
+taking into account the energy differences and broadening due to lifetimes.
+The calculation uses the K03 Bessel function for the interaction kernel.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.GetEps1Dqw">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">GetEps1Dqw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alphae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphah</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n1D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.GetEps1Dqw" title="Link to this definition"></a></dt>
+<dd><p>Calculate the 1D quantum wire dielectric function epsilon(q, w).</p>
+<p>Computes the real and imaginary parts of the dielectric function for a quantum wire,
+which describes how the system responds to electromagnetic fields. This is used in
+screening calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alphae</strong> (<em>float</em>) – Level separation parameter for electrons (1/m)</p></li>
+<li><p><strong>alphah</strong> (<em>float</em>) – Level separation parameter for holes (1/m)</p></li>
+<li><p><strong>Delta0</strong> (<em>float</em>) – Thickness of the quantum wire (m)</p></li>
+<li><p><strong>L</strong> (<em>float</em>) – Length of the quantum wire (m)</p></li>
+<li><p><strong>epsr</strong> (<em>float</em>) – Background dielectric constant (dimensionless)</p></li>
+<li><p><strong>me</strong> (<em>float</em>) – Electron effective mass (kg)</p></li>
+<li><p><strong>mh</strong> (<em>float</em>) – Hole effective mass (kg)</p></li>
+<li><p><strong>n1D</strong> (<em>float</em>) – 1D carrier density (1/m)</p></li>
+<li><p><strong>q</strong> (<em>float</em>) – Momentum (1/m)</p></li>
+<li><p><strong>w</strong> (<em>float</em>) – Frequency (rad/s)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(epr, epi) where:
+- epr: Real part of dielectric function (dimensionless)
+- epi: Imaginary part of dielectric function (dimensionless)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of float</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function computes the dielectric function using the Lindhard formula
+for a 1D system, with contributions from both electrons and holes.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.CalcChi1D">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">CalcChi1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphah</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.CalcChi1D" title="Link to this definition"></a></dt>
+<dd><p>Calculate the 1D susceptibility arrays Chi1De and Chi1Dh.</p>
+<p>Computes the electron and hole susceptibility matrices used in screening calculations.
+These arrays are stored as module-level variables for use in other functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p></li>
+<li><p><strong>alphae</strong> (<em>float</em>) – Level separation parameter for electrons (1/m)</p></li>
+<li><p><strong>alphah</strong> (<em>float</em>) – Level separation parameter for holes (1/m)</p></li>
+<li><p><strong>Delta0</strong> (<em>float</em>) – Thickness of the quantum wire (m)</p></li>
+<li><p><strong>epsr</strong> (<em>float</em>) – Background dielectric constant (dimensionless)</p></li>
+<li><p><strong>me</strong> (<em>float</em>) – Electron effective mass (kg)</p></li>
+<li><p><strong>mh</strong> (<em>float</em>) – Hole effective mass (kg)</p></li>
+<li><p><strong>qe</strong> (<em>ndarray</em>) – Electron momentum difference array from MakeQs, shape (N, N)</p></li>
+<li><p><strong>qh</strong> (<em>ndarray</em>) – Hole momentum difference array from MakeQs, shape (N, N)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(Chi1De, Chi1Dh) where:
+- Chi1De: Electron susceptibility array, shape (N, N)
+- Chi1Dh: Hole susceptibility array, shape (N, N)
+where N = len(ky)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The arrays are also stored as module-level variables _Chi1De and _Chi1Dh
+for compatibility with Fortran module behavior.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.Eps1D">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">Eps1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n1D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.Eps1D" title="Link to this definition"></a></dt>
+<dd><p>Calculate the 1D dielectric function matrix.</p>
+<p>Computes the dielectric function matrix Eps1D for a given 1D carrier density,
+using the pre-computed module-level susceptibility arrays Chi1De and Chi1Dh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n1D</strong> (<em>float</em>) – 1D carrier density (1/m)</p></li>
+<li><p><strong>Nk</strong> (<em>int</em>) – Size of momentum grid (should match size of module-level arrays)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>2D array of shape (Nk, Nk) representing the dielectric function matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function computes: Eps1D = 1 - Chi1De * 2*log(…) - Chi1Dh * 2*log(…)
+where the logarithms involve momentum-dependent terms.
+Uses module-level variables _Chi1De, _Chi1Dh, _qe, _qh (matching Fortran behavior).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.CalcScreenedArrays">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">CalcScreenedArrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screened</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E1D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.CalcScreenedArrays" title="Link to this definition"></a></dt>
+<dd><p>Calculate screened Coulomb interaction arrays.</p>
+<p>Computes the screened version of the Coulomb interaction matrices by dividing
+by the dielectric function. If screening is disabled, returns the unscreened arrays.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>screened</strong> (<em>bool</em>) – If True, apply screening. If False, return unscreened arrays.</p></li>
+<li><p><strong>L</strong> (<em>float</em>) – Length of the quantum wire (m)</p></li>
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron population array, 1D array</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole population array, 1D array</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Input/output array for interaction matrices, shape (N, N, 3).
+On input: should contain unscreened arrays (or will be filled from module-level).
+On output: contains screened arrays if screened=True, unscreened otherwise.</p></li>
+<li><p><strong>E1D</strong> (<em>ndarray</em>) – Input/output array for dielectric function, shape (N, N).
+On input: can be any array (will be overwritten).
+On output: contains dielectric function matrix if screened=True, ones otherwise.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Arrays are modified in-place (matching Fortran intent(inout) behavior).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function uses module-level variables _Veh0, _Vee0, _Vhh0, _qe, _qh
+(matching Fortran module behavior). If screening is enabled, computes the
+dielectric function and divides the interaction matrices by it.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.CalcMVeh">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">CalcMVeh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MVeh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UnDel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.CalcMVeh" title="Link to this definition"></a></dt>
+<dd><p>Calculate the MVeh array for Semiconductor Bloch Equations.</p>
+<p>Computes the many-body electron-hole interaction term MVeh used in the
+Semiconductor Bloch Equations. This represents the Coulomb interaction
+contribution to the polarization dynamics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<em>ndarray</em>) – Polarization array, shape (N, N, Nf) where N is momentum grid size
+and Nf is number of frequency/time points</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Screened Coulomb interaction matrices, shape (N, N, 3)
+VC[:, :, 0] = Veh (electron-hole)
+VC[:, :, 1] = Vee (electron-electron)
+VC[:, :, 2] = Vhh (hole-hole)</p></li>
+<li><p><strong>MVeh</strong> (<em>ndarray</em>) – Output array for MVeh calculation, shape (N, N, Nf).
+Will be modified in-place (matching Fortran intent(inout)).</p></li>
+<li><p><strong>k3</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – 3D indexing array from MakeK3, shape (N, N, N).
+If None, uses module-level _k3.</p></li>
+<li><p><strong>UnDel</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – 2D array from MakeUnDel, shape (N+1, N+1).
+If None, uses module-level _UnDel.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>MVeh is modified in-place (matching Fortran intent(inout) behavior).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The calculation sums over momentum states q, using the momentum conservation
+relation k3(kp, q, k) to find qp. The UnDel factors exclude self-interaction terms.
+Uses JIT compilation with parallel execution (matching Fortran OpenMP behavior).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.undell">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">undell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.undell" title="Link to this definition"></a></dt>
+<dd><p>Wrapper function for UnDel array access.</p>
+<p>Provides a simple interface to access the UnDel (1 - delta) array.
+This is a convenience function matching the Fortran interface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em>) – First index (1-based, matching Fortran)</p></li>
+<li><p><strong>q</strong> (<em>int</em>) – Second index (1-based, matching Fortran)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Value of UnDel(k, q) from module-level array.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function accesses the module-level _UnDel array. The indices
+are expected to be 1-based to match Fortran behavior.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.BGRenorm">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">BGRenorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">C</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BGR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UnDel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.BGRenorm" title="Link to this definition"></a></dt>
+<dd><p>Calculate band gap renormalization.</p>
+<p>Computes the band gap renormalization BGR due to many-body Coulomb interactions.
+This accounts for the shift in band gap energy due to carrier-carrier interactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>C</strong> (<em>ndarray</em>) – Electron density matrix, shape (N, N), complex</p></li>
+<li><p><strong>D</strong> (<em>ndarray</em>) – Hole density matrix, shape (N, N), complex</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Screened Coulomb interaction matrices, shape (N, N, 3)
+VC[:, :, 0] = Veh (electron-hole)
+VC[:, :, 1] = Vee (electron-electron)
+VC[:, :, 2] = Vhh (hole-hole)</p></li>
+<li><p><strong>BGR</strong> (<em>ndarray</em>) – Output array for band gap renormalization, shape (N, N), complex.
+Will be modified in-place (matching Fortran intent(inout)).</p></li>
+<li><p><strong>UnDel</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – 2D array from MakeUnDel, shape (N+1, N+1).
+If None, uses module-level _UnDel.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>BGR is modified in-place (matching Fortran intent(inout) behavior).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function extracts diagonal elements from C and D to get carrier populations,
+then computes the renormalization using hole-hole and electron-electron interactions.
+The UnDel factors exclude self-interaction terms.
+Uses JIT compilation with parallel execution (matching Fortran OpenMP behavior).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.EeRenorm">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">EeRenorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BGR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UnDel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.EeRenorm" title="Link to this definition"></a></dt>
+<dd><p>Calculate electron energy renormalization.</p>
+<p>Computes the electron energy renormalization due to many-body Coulomb interactions.
+This accounts for the shift in electron energy levels due to electron-electron interactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron population array, shape (N,), complex</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Screened Coulomb interaction matrices, shape (N, N, 3)
+VC[:, :, 1] = Vee (electron-electron) is used</p></li>
+<li><p><strong>BGR</strong> (<em>ndarray</em>) – Output array for electron energy renormalization, shape (N, N), complex.
+Will be modified in-place (matching Fortran intent(inout)).</p></li>
+<li><p><strong>UnDel</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – 2D array from MakeUnDel, shape (N+1, N+1).
+If None, uses module-level _UnDel.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>BGR is modified in-place (matching Fortran intent(inout) behavior).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function computes the electron energy shift using electron-electron
+interactions, with terms that include both direct and exchange contributions.
+The UnDel factors exclude self-interaction terms.
+Uses JIT compilation with parallel execution (matching Fortran OpenMP behavior).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.EhRenorm">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">EhRenorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BGR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UnDel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.EhRenorm" title="Link to this definition"></a></dt>
+<dd><p>Calculate hole energy renormalization.</p>
+<p>Computes the hole energy renormalization due to many-body Coulomb interactions.
+This accounts for the shift in hole energy levels due to hole-hole interactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole population array, shape (N,), complex</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Screened Coulomb interaction matrices, shape (N, N, 3)
+VC[:, :, 2] = Vhh (hole-hole) is used</p></li>
+<li><p><strong>BGR</strong> (<em>ndarray</em>) – Output array for hole energy renormalization, shape (N, N), complex.
+Will be modified in-place (matching Fortran intent(inout)).</p></li>
+<li><p><strong>UnDel</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – 2D array from MakeUnDel, shape (N+1, N+1).
+If None, uses module-level _UnDel.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>BGR is modified in-place (matching Fortran intent(inout) behavior).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function computes the hole energy shift using hole-hole interactions,
+with terms that include both direct and exchange contributions.
+The UnDel factors exclude self-interaction terms.
+Uses JIT compilation with parallel execution (matching Fortran OpenMP behavior).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.MBCE2">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">MBCE2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Wout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ceh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cee</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.MBCE2" title="Link to this definition"></a></dt>
+<dd><p>Calculate the Many-body Coulomb In/Out rates for electrons (version 2).</p>
+<p>Computes the many-body relaxation rates Win and Wout for electrons due to
+electron-hole and electron-electron Coulomb interactions. These represent
+non-Hartree-Fock terms in the many-body dynamics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne0</strong> (<em>ndarray</em>) – Electron population array, shape (Nk,), real</p></li>
+<li><p><strong>nh0</strong> (<em>ndarray</em>) – Hole population array, shape (Nk,), real</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (not used in calculation but kept for interface compatibility)</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (not used in calculation but kept for interface compatibility)</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (not used in calculation but kept for interface compatibility)</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Screened Coulomb interaction matrices, shape (Nk, Nk, 3)
+VC[:, :, 0] = Veh (electron-hole)
+VC[:, :, 1] = Vee (electron-electron)</p></li>
+<li><p><strong>geh</strong> (<em>float</em>) – Electron-hole inverse lifetime (not used in calculation but kept for interface)</p></li>
+<li><p><strong>ge</strong> (<em>float</em>) – Electron inverse lifetime (not used in calculation but kept for interface)</p></li>
+<li><p><strong>Win</strong> (<em>ndarray</em>) – Input/output array for in-scattering rates, shape (Nk,), real.
+Will be modified in-place (matching Fortran intent(inout)).</p></li>
+<li><p><strong>Wout</strong> (<em>ndarray</em>) – Input/output array for out-scattering rates, shape (Nk,), real.
+Will be modified in-place (matching Fortran intent(inout)).</p></li>
+<li><p><strong>k3</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – 3D indexing array from MakeK3, shape (Nk, Nk, Nk).
+If None, uses module-level _k3.</p></li>
+<li><p><strong>Ceh</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – Electron-hole many-body interaction array, shape (Nk, Nk, Nk).
+If None, uses module-level _Ceh.</p></li>
+<li><p><strong>Cee</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – Electron-electron many-body interaction array, shape (Nk, Nk, Nk).
+If None, uses module-level _Cee.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Win and Wout are modified in-place (matching Fortran intent(inout) behavior).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses JIT compilation with parallel execution (matching Fortran OpenMP behavior).
+The function computes scattering rates due to electron-hole and electron-electron
+interactions, accounting for Pauli blocking factors (1 - n) and occupation factors n.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.MBCE">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">MBCE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Wout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ceh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cee</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.MBCE" title="Link to this definition"></a></dt>
+<dd><p>Calculate the Many-body Coulomb In/Out rates for electrons.</p>
+<p>Computes the many-body relaxation rates Win and Wout for electrons due to
+electron-hole and electron-electron Coulomb interactions. This is identical
+to MBCE2 but kept as a separate function to match Fortran structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne0</strong> (<em>ndarray</em>) – Electron population array, shape (Nk,), real</p></li>
+<li><p><strong>nh0</strong> (<em>ndarray</em>) – Hole population array, shape (Nk,), real</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (not used in calculation but kept for interface compatibility)</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (not used in calculation but kept for interface compatibility)</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (not used in calculation but kept for interface compatibility)</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Screened Coulomb interaction matrices, shape (Nk, Nk, 3)
+VC[:, :, 0] = Veh (electron-hole)
+VC[:, :, 1] = Vee (electron-electron)</p></li>
+<li><p><strong>geh</strong> (<em>float</em>) – Electron-hole inverse lifetime (not used in calculation but kept for interface)</p></li>
+<li><p><strong>ge</strong> (<em>float</em>) – Electron inverse lifetime (not used in calculation but kept for interface)</p></li>
+<li><p><strong>Win</strong> (<em>ndarray</em>) – Input/output array for in-scattering rates, shape (Nk,), real.
+Will be modified in-place (matching Fortran intent(inout)).</p></li>
+<li><p><strong>Wout</strong> (<em>ndarray</em>) – Input/output array for out-scattering rates, shape (Nk,), real.
+Will be modified in-place (matching Fortran intent(inout)).</p></li>
+<li><p><strong>k3</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – 3D indexing array from MakeK3, shape (Nk, Nk, Nk).
+If None, uses module-level _k3.</p></li>
+<li><p><strong>Ceh</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – Electron-hole many-body interaction array, shape (Nk, Nk, Nk).
+If None, uses module-level _Ceh.</p></li>
+<li><p><strong>Cee</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – Electron-electron many-body interaction array, shape (Nk, Nk, Nk).
+If None, uses module-level _Cee.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Win and Wout are modified in-place (matching Fortran intent(inout) behavior).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses JIT compilation with parallel execution (matching Fortran OpenMP behavior).
+This function is identical to MBCE2 but kept separate to match Fortran code structure.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.coulomb.MBCH">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">MBCH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Wout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ceh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Chh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.coulomb.MBCH" title="Link to this definition"></a></dt>
+<dd><p>Calculate the Many-body Coulomb In/Out rates for holes.</p>
+<p>Computes the many-body relaxation rates Win and Wout for holes due to
+electron-hole and hole-hole Coulomb interactions. These represent
+non-Hartree-Fock terms in the many-body dynamics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne0</strong> (<em>ndarray</em>) – Electron population array, shape (Nk,), real</p></li>
+<li><p><strong>nh0</strong> (<em>ndarray</em>) – Hole population array, shape (Nk,), real</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (not used in calculation but kept for interface compatibility)</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (not used in calculation but kept for interface compatibility)</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (not used in calculation but kept for interface compatibility)</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Screened Coulomb interaction matrices, shape (Nk, Nk, 3)
+VC[:, :, 0] = Veh (electron-hole)
+VC[:, :, 2] = Vhh (hole-hole)</p></li>
+<li><p><strong>geh</strong> (<em>float</em>) – Electron-hole inverse lifetime (not used in calculation but kept for interface)</p></li>
+<li><p><strong>gh</strong> (<em>float</em>) – Hole inverse lifetime (not used in calculation but kept for interface)</p></li>
+<li><p><strong>Win</strong> (<em>ndarray</em>) – Input/output array for in-scattering rates, shape (Nk,), real.
+Will be modified in-place (matching Fortran intent(inout)).</p></li>
+<li><p><strong>Wout</strong> (<em>ndarray</em>) – Input/output array for out-scattering rates, shape (Nk,), real.
+Will be modified in-place (matching Fortran intent(inout)).</p></li>
+<li><p><strong>k3</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – 3D indexing array from MakeK3, shape (Nk, Nk, Nk).
+If None, uses module-level _k3.</p></li>
+<li><p><strong>Ceh</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – Electron-hole many-body interaction array, shape (Nk, Nk, Nk).
+If None, uses module-level _Ceh.</p></li>
+<li><p><strong>Chh</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – Hole-hole many-body interaction array, shape (Nk, Nk, Nk).
+If None, uses module-level _Chh.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Win and Wout are modified in-place (matching Fortran intent(inout) behavior).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses JIT compilation with parallel execution (matching Fortran OpenMP behavior).
+The function computes scattering rates due to electron-hole and hole-hole
+interactions, accounting for Pauli blocking factors (1 - n) and occupation factors n.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../SBEs/index.html" class="btn btn-neutral float-left" title="PSTD3D.SBEs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../dcfield/index.html" class="btn btn-neutral float-right" title="PSTD3D.dcfield" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

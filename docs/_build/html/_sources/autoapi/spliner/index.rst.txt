@@ -1,5 +1,5 @@
-spliner
-=======
+:py:mod:`spliner`
+=================
 
 .. py:module:: spliner
 
@@ -15,16 +15,12 @@ spliner
 
 
 
-Attributes
-----------
-
-.. autoapisummary::
-
-   spliner.JIT_AVAILABLE
+Module Contents
+---------------
 
 
 Functions
----------
+~~~~~~~~~
 
 .. autoapisummary::
 
@@ -58,12 +54,19 @@ Functions
    spliner.rescale_2D
 
 
-Module Contents
----------------
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   spliner.JIT_AVAILABLE
+
 
 .. py:data:: JIT_AVAILABLE
    :value: True
 
+   
 
 .. py:function:: iminloc(arr)
 

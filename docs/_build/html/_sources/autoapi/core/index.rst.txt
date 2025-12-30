@@ -1,0 +1,21 @@
+:py:mod:`core`
+==============
+
+.. py:module:: core
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   constants/index.rst
+   fftw/index.rst
+   rungekutta/index.rst
+   type_plasma/index.rst
+   typelens/index.rst
+   typemedium/index.rst
+   typetpamedium/index.rst
+
+

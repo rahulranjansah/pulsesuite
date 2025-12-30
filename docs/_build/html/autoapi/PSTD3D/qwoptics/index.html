@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PSTD3D.qwoptics &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="PSTD3D.rhoPJ" href="../rhoPJ/index.html" />
+    <link rel="prev" title="PSTD3D.phost" href="../phost/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery.html">Examples Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core</span></code></a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../SBEs/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.SBEs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../coulomb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.coulomb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dcfield/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.dcfield</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dephasing/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.dephasing</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../emission/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.emission</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../epsrtl/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.epsrtl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.helpers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../phonons/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.phonons</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../phost/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.phost</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.qwoptics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rhoPJ/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.rhoPJ</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../sbetestprop/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.sbetestprop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../sbetestpropnov30/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.sbetestpropnov30</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typespace/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.typespace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../usefulsubs/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.usefulsubs</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../spliner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">spliner</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.qwoptics</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/PSTD3D/qwoptics/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-PSTD3D.qwoptics">
+<span id="pstd3d-qwoptics"></span><h1><a class="reference internal" href="#module-PSTD3D.qwoptics" title="PSTD3D.qwoptics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.qwoptics</span></code></a><a class="headerlink" href="#module-PSTD3D.qwoptics" title="Link to this heading"></a></h1>
+<p>Quantum wire optics calculations for quantum wire simulations.</p>
+<p>This module converts Maxwell electric fields from propagation space
+to quantum wire (QW) electric fields, and vice versa. It also calculates
+QW polarization and charge densities.</p>
+<p>Author: Rahul R. Sah</p>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.Prop2QW" title="PSTD3D.qwoptics.Prop2QW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Prop2QW</span></code></a>(RR, Exx, Eyy, Ezz, Vrr, Edc, R, Ex, Ey, Ez, ...)</p></td>
+<td><p>Convert Maxwell electric fields from propagation space to QW space.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.QW2Prop" title="PSTD3D.qwoptics.QW2Prop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QW2Prop</span></code></a>(r, Qr, Ex, Ey, Ez, Vr, Px, Py, Pz, re, rh, RR, ...)</p></td>
+<td><p>Convert QW fields and polarizations back to propagation space.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.QWPolarization3" title="PSTD3D.qwoptics.QWPolarization3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QWPolarization3</span></code></a>(y, ky, p, ehint, area, L, Px, Py, Pz, ...)</p></td>
+<td><p>Calculate QW polarization in 3D.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.yw" title="PSTD3D.qwoptics.yw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">yw</span></code></a>(w)</p></td>
+<td><p>Calculate wire-dependent sign factor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.printITReal2" title="PSTD3D.qwoptics.printITReal2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">printITReal2</span></code></a>(Dx, z, n, file)</p></td>
+<td><p>Print real part of complex field to file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.WriteSBESolns" title="PSTD3D.qwoptics.WriteSBESolns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WriteSBESolns</span></code></a>(ky, ne, nh, C, D, P, Ee, Eh, w, xxx)</p></td>
+<td><p>Write SBE (Semiconductor Bloch Equations) solutions to files.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.WritePLSpectrum" title="PSTD3D.qwoptics.WritePLSpectrum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WritePLSpectrum</span></code></a>(hw, PLS, w, xxx)</p></td>
+<td><p>Write photoluminescence spectrum to file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.WriteQWFields" title="PSTD3D.qwoptics.WriteQWFields"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WriteQWFields</span></code></a>(QY, Ex, Ey, Ez, Vr, Px, Py, Pz, Re, Rh, ...)</p></td>
+<td><p>Write QW field arrays to files.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.WritePropFields" title="PSTD3D.qwoptics.WritePropFields"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WritePropFields</span></code></a>(y, Ex, Ey, Ez, Vr, Px, Py, Pz, Re, Rh, ...)</p></td>
+<td><p>Write propagation field arrays to files.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.QWRho5" title="PSTD3D.qwoptics.QWRho5"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QWRho5</span></code></a>(Qr, kr, R, L, kkp, p, CC, DD, ne, nh, re, rh, ...)</p></td>
+<td><p>Calculate quantum wire charge densities.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.printIT3D" title="PSTD3D.qwoptics.printIT3D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">printIT3D</span></code></a>(Dx, z, n, file)</p></td>
+<td><p>Print 3D complex array to file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.printITReal" title="PSTD3D.qwoptics.printITReal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">printITReal</span></code></a>(Dx, z, n, file)</p></td>
+<td><p>Print real part of complex field to file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.QWChi1" title="PSTD3D.qwoptics.QWChi1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QWChi1</span></code></a>(lam, dky, Ee, Eh, area, geh, dcv)</p></td>
+<td><p>Calculate quantum wire linear susceptibility.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.CalcQWWindow" title="PSTD3D.qwoptics.CalcQWWindow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcQWWindow</span></code></a>(YY, L)</p></td>
+<td><p>Calculate quantum wire window function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.InitializeQWOptics" title="PSTD3D.qwoptics.InitializeQWOptics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeQWOptics</span></code></a>(RR, L, dcv, kr, Qr, Ee, Eh, ehint, ...)</p></td>
+<td><p>Initialize quantum wire optics module.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.CalcExpikr" title="PSTD3D.qwoptics.CalcExpikr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcExpikr</span></code></a>(y, ky)</p></td>
+<td><p>Vectorized version (potentially faster than JIT for large arrays).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.Xcv" title="PSTD3D.qwoptics.Xcv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Xcv</span></code></a>(k, kp)</p></td>
+<td><p>Get X dipole matrix element.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.Ycv" title="PSTD3D.qwoptics.Ycv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ycv</span></code></a>(k, kp)</p></td>
+<td><p>Get Y dipole matrix element.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.Zcv" title="PSTD3D.qwoptics.Zcv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Zcv</span></code></a>(k, kp)</p></td>
+<td><p>Get Z dipole matrix element.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.GetVn1n2" title="PSTD3D.qwoptics.GetVn1n2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetVn1n2</span></code></a>(kr, rcv, Hcc, Hhh, Hcv, Vcc, Vvv, Vcv, Vvc)</p></td>
+<td><p>Calculate interaction matrices Vcc, Vvv, Vcv, Vvc.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.twopi" title="PSTD3D.qwoptics.twopi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">twopi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.c0" title="PSTD3D.qwoptics.c0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">c0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.hbar" title="PSTD3D.qwoptics.hbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hbar</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.eps0" title="PSTD3D.qwoptics.eps0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eps0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.qwoptics.ii" title="PSTD3D.qwoptics.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.twopi">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">twopi</span></span><a class="headerlink" href="#PSTD3D.qwoptics.twopi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.c0">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">c0</span></span><a class="headerlink" href="#PSTD3D.qwoptics.c0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.hbar">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#PSTD3D.qwoptics.hbar" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.eps0">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">eps0</span></span><a class="headerlink" href="#PSTD3D.qwoptics.eps0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.ii">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1j</span></em><a class="headerlink" href="#PSTD3D.qwoptics.ii" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.Prop2QW">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">Prop2QW</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">RR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Exx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eyy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ezz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vrr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Edc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">R</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ez</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xxx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.Prop2QW" title="Link to this definition"></a></dt>
+<dd><p>Convert Maxwell electric fields from propagation space to QW space.</p>
+<p>Converts the Maxwell electric fields (Exx, Eyy, Ezz, Vrr) in
+the propagation space (RR) into the QW electric fields (Ex, Ey, Ez, Vr)
+in the QW electric field space (R). After interpolating from the RR-space
+to the R-space, the FFT from the R- to Qr-space is taken.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>RR</strong> (<em>ndarray</em>) – Maxwell RR spatial array, 1D array</p></li>
+<li><p><strong>Exx</strong> (<em>ndarray</em>) – Maxwell X electric field, 1D array, complex</p></li>
+<li><p><strong>Eyy</strong> (<em>ndarray</em>) – Maxwell Y electric field, 1D array, complex</p></li>
+<li><p><strong>Ezz</strong> (<em>ndarray</em>) – Maxwell Z electric field, 1D array, complex</p></li>
+<li><p><strong>Vrr</strong> (<em>ndarray</em>) – Maxwell free charge potential, 1D array, complex</p></li>
+<li><p><strong>Edc</strong> (<em>float</em>) – QW spatial array (modified in-place, currently unused)</p></li>
+<li><p><strong>R</strong> (<em>ndarray</em>) – QW spatial array, 1D array</p></li>
+<li><p><strong>Ex</strong> (<em>ndarray</em>) – QW X electric field (modified in-place), 1D array, complex</p></li>
+<li><p><strong>Ey</strong> (<em>ndarray</em>) – QW Y electric field (modified in-place), 1D array, complex</p></li>
+<li><p><strong>Ez</strong> (<em>ndarray</em>) – QW Z electric field (modified in-place), 1D array, complex</p></li>
+<li><p><strong>Vr</strong> (<em>ndarray</em>) – QW free charge potential (modified in-place), 1D array, complex</p></li>
+<li><p><strong>t</strong> (<em>float</em>) – Current time (s)</p></li>
+<li><p><strong>xxx</strong> (<em>int</em>) – Time index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Ex, Ey, Ez, Vr, Edc are modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variable _QWWindow for windowing.
+Fields are made real before FFT.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.QW2Prop">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">QW2Prop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Qr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ez</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Py</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">re</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pxx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pyy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pzz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RhoE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RhoH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xxx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WriteFields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Plasmonics</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.QW2Prop" title="Link to this definition"></a></dt>
+<dd><p>Convert QW fields and polarizations back to propagation space.</p>
+<p>Converts QW electric fields, polarizations, and charge densities
+from QW space (r, Qr) back to propagation space (RR).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> (<em>ndarray</em>) – QW Y-spaces, 1D array</p></li>
+<li><p><strong>Qr</strong> (<em>ndarray</em>) – QW momentum space, 1D array</p></li>
+<li><p><strong>Ex</strong> (<em>ndarray</em>) – QW X electric field (modified in-place), 1D array, complex</p></li>
+<li><p><strong>Ey</strong> (<em>ndarray</em>) – QW Y electric field (modified in-place), 1D array, complex</p></li>
+<li><p><strong>Ez</strong> (<em>ndarray</em>) – QW Z electric field (modified in-place), 1D array, complex</p></li>
+<li><p><strong>Vr</strong> (<em>ndarray</em>) – QW free charge potential (modified in-place), 1D array, complex</p></li>
+<li><p><strong>Px</strong> (<em>ndarray</em>) – QW X polarization (modified in-place), 1D array, complex</p></li>
+<li><p><strong>Py</strong> (<em>ndarray</em>) – QW Y polarization (modified in-place), 1D array, complex</p></li>
+<li><p><strong>Pz</strong> (<em>ndarray</em>) – QW Z polarization (modified in-place), 1D array, complex</p></li>
+<li><p><strong>re</strong> (<em>ndarray</em>) – QW electron charge density (modified in-place), 1D array, complex</p></li>
+<li><p><strong>rh</strong> (<em>ndarray</em>) – QW hole charge density (modified in-place), 1D array, complex</p></li>
+<li><p><strong>RR</strong> (<em>ndarray</em>) – Propagation Y-spaces, 1D array</p></li>
+<li><p><strong>Pxx</strong> (<em>ndarray</em>) – Propagation X polarization (modified in-place), 1D array, complex</p></li>
+<li><p><strong>Pyy</strong> (<em>ndarray</em>) – Propagation Y polarization (modified in-place), 1D array, complex</p></li>
+<li><p><strong>Pzz</strong> (<em>ndarray</em>) – Propagation Z polarization (modified in-place), 1D array, complex</p></li>
+<li><p><strong>RhoE</strong> (<em>ndarray</em>) – Propagation electron charge density (modified in-place), 1D array, complex</p></li>
+<li><p><strong>RhoH</strong> (<em>ndarray</em>) – Propagation hole charge density (modified in-place), 1D array, complex</p></li>
+<li><p><strong>w</strong> (<em>int</em>) – Wire index</p></li>
+<li><p><strong>xxx</strong> (<em>int</em>) – Time index</p></li>
+<li><p><strong>WriteFields</strong> (<em>bool</em>) – Record fields?</p></li>
+<li><p><strong>Plasmonics</strong> (<em>bool</em>) – Calculate charge densities?</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All input arrays are modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variable _small for numerical stability.
+Charge densities are normalized if Plasmonics is True.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.QWPolarization3">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">QWPolarization3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ehint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Py</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xxx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.QWPolarization3" title="Link to this definition"></a></dt>
+<dd><p>Calculate QW polarization in 3D.</p>
+<p>Computes the QW polarization components (Px, Py, Pz) from the
+density matrix p using the dipole matrix elements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>ndarray</em>) – Spatial coordinate array, 1D array</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinate array, 1D array</p></li>
+<li><p><strong>p</strong> (<em>ndarray</em>) – Density matrix, shape (Nk, Nk), complex</p></li>
+<li><p><strong>ehint</strong> (<em>float</em>) – Electron-hole space integral</p></li>
+<li><p><strong>area</strong> (<em>float</em>) – Area of wire (m^2)</p></li>
+<li><p><strong>L</strong> (<em>float</em>) – Length of wire (m)</p></li>
+<li><p><strong>Px</strong> (<em>ndarray</em>) – QW X polarization (modified in-place), 1D array, complex</p></li>
+<li><p><strong>Py</strong> (<em>ndarray</em>) – QW Y polarization (modified in-place), 1D array, complex</p></li>
+<li><p><strong>Pz</strong> (<em>ndarray</em>) – QW Z polarization (modified in-place), 1D array, complex</p></li>
+<li><p><strong>xxx</strong> (<em>int</em>) – Time index</p></li>
+<li><p><strong>w</strong> (<em>int</em>) – Wire index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Px, Py, Pz are modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variables _Xvc0, _Yvc0, _Zvc0, _Expikr, _Expikrc, _QWWindow.
+Uses JIT compilation for performance-critical loops.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.yw">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">yw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.yw" title="Link to this definition"></a></dt>
+<dd><p>Calculate wire-dependent sign factor.</p>
+<p>Computes a sign factor based on the wire index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>w</strong> (<em>int</em>) – Wire index</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Sign factor: (-1)**floor((w-1)/2)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Used for alternating sign patterns in multi-wire systems.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.printITReal2">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">printITReal2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.printITReal2" title="Link to this definition"></a></dt>
+<dd><p>Print real part of complex field to file.</p>
+<p>Writes the real part of a complex field array to a file.
+On the first call, writes both the field and coordinate values.
+On subsequent calls, writes only the field values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Dx</strong> (<em>ndarray</em>) – Complex field array, 1D array</p></li>
+<li><p><strong>z</strong> (<em>ndarray</em>) – Coordinate array, 1D array</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – Time index</p></li>
+<li><p><strong>file</strong> (<em>str</em>) – Base filename (without extension)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variable _firsttime to track first write.
+Files are written to ‘dataQW/’ directory.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.WriteSBESolns">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">WriteSBESolns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xxx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.WriteSBESolns" title="Link to this definition"></a></dt>
+<dd><p>Write SBE (Semiconductor Bloch Equations) solutions to files.</p>
+<p>Writes quantum wire electron/hole occupation numbers, coherence matrices,
+and energies to output files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – QW momentum array, 1D array</p></li>
+<li><p><strong>ne</strong> (<em>ndarray</em>) – QW electron occupation numbers, 1D array, complex</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – QW hole occupation numbers, 1D array, complex</p></li>
+<li><p><strong>C</strong> (<em>ndarray</em>) – QW electron/electron coherence matrix, 2D array, complex</p></li>
+<li><p><strong>D</strong> (<em>ndarray</em>) – QW hole/hole coherence matrix, 2D array, complex</p></li>
+<li><p><strong>P</strong> (<em>ndarray</em>) – QW electron/hole coherence matrix, 2D array, complex</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – QW electron energies, 1D array, complex</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – QW hole energies, 1D array, complex</p></li>
+<li><p><strong>w</strong> (<em>int</em>) – Wire index</p></li>
+<li><p><strong>xxx</strong> (<em>int</em>) – Time index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses printIT and printIT2D from usefulsubs to write data files.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.WritePLSpectrum">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">WritePLSpectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PLS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xxx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.WritePLSpectrum" title="Link to this definition"></a></dt>
+<dd><p>Write photoluminescence spectrum to file.</p>
+<p>Writes the photoluminescence spectrum as a function of photon energy
+to an output file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hw</strong> (<em>ndarray</em>) – Photon energy array (J), 1D array</p></li>
+<li><p><strong>PLS</strong> (<em>ndarray</em>) – Photoluminescence spectrum, 1D array</p></li>
+<li><p><strong>w</strong> (<em>int</em>) – Wire index</p></li>
+<li><p><strong>xxx</strong> (<em>int</em>) – Time index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Converts photon energy from Joules to eV (divides by e0).
+Uses printIT from usefulsubs to write data file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.WriteQWFields">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">WriteQWFields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">QY</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ez</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Py</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Re</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xxx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.WriteQWFields" title="Link to this definition"></a></dt>
+<dd><p>Write QW field arrays to files.</p>
+<p>Writes QW electric fields, polarizations, and charge densities
+to output files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>QY</strong> (<em>ndarray</em>) – QY momentum/y-space array, 1D array</p></li>
+<li><p><strong>Ex</strong> (<em>ndarray</em>) – QW X electric field, 1D array, complex</p></li>
+<li><p><strong>Ey</strong> (<em>ndarray</em>) – QW Y electric field, 1D array, complex</p></li>
+<li><p><strong>Ez</strong> (<em>ndarray</em>) – QW Z electric field, 1D array, complex</p></li>
+<li><p><strong>Vr</strong> (<em>ndarray</em>) – QW free charge potential, 1D array, complex</p></li>
+<li><p><strong>Px</strong> (<em>ndarray</em>) – QW X polarization, 1D array, complex</p></li>
+<li><p><strong>Py</strong> (<em>ndarray</em>) – QW Y polarization, 1D array, complex</p></li>
+<li><p><strong>Pz</strong> (<em>ndarray</em>) – QW Z polarization, 1D array, complex</p></li>
+<li><p><strong>Re</strong> (<em>ndarray</em>) – QW electron charge density, 1D array, complex</p></li>
+<li><p><strong>Rh</strong> (<em>ndarray</em>) – QW hole charge density, 1D array, complex</p></li>
+<li><p><strong>sp</strong> (<em>str</em>) – Domain label (‘k’ or ‘r’) for file name</p></li>
+<li><p><strong>w</strong> (<em>int</em>) – Wire index</p></li>
+<li><p><strong>xxx</strong> (<em>int</em>) – Time index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses printIT from usefulsubs to write data files.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.WritePropFields">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">WritePropFields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ez</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Py</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Re</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xxx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.WritePropFields" title="Link to this definition"></a></dt>
+<dd><p>Write propagation field arrays to files.</p>
+<p>Writes propagation electric fields, polarizations, and charge densities
+to output files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>ndarray</em>) – Spatial coordinate array, 1D array</p></li>
+<li><p><strong>Ex</strong> (<em>ndarray</em>) – Propagation X electric field, 1D array, complex</p></li>
+<li><p><strong>Ey</strong> (<em>ndarray</em>) – Propagation Y electric field, 1D array, complex</p></li>
+<li><p><strong>Ez</strong> (<em>ndarray</em>) – Propagation Z electric field, 1D array, complex</p></li>
+<li><p><strong>Vr</strong> (<em>ndarray</em>) – Propagation free charge potential, 1D array, complex</p></li>
+<li><p><strong>Px</strong> (<em>ndarray</em>) – Propagation X polarization, 1D array, complex</p></li>
+<li><p><strong>Py</strong> (<em>ndarray</em>) – Propagation Y polarization, 1D array, complex</p></li>
+<li><p><strong>Pz</strong> (<em>ndarray</em>) – Propagation Z polarization, 1D array, complex</p></li>
+<li><p><strong>Re</strong> (<em>ndarray</em>) – Propagation electron charge density, 1D array, complex</p></li>
+<li><p><strong>Rh</strong> (<em>ndarray</em>) – Propagation hole charge density, 1D array, complex</p></li>
+<li><p><strong>sp</strong> (<em>str</em>) – Space label for file name</p></li>
+<li><p><strong>w</strong> (<em>int</em>) – Wire index</p></li>
+<li><p><strong>xxx</strong> (<em>int</em>) – Time index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses printITReal2 to write real parts of complex fields.
+Uses printIT for charge density difference.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.QWRho5">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">QWRho5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Qr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">R</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kkp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">re</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xxx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jjj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.QWRho5" title="Link to this definition"></a></dt>
+<dd><p>Calculate quantum wire charge densities.</p>
+<p>Computes electron and hole charge densities in real space from
+coherence matrices CC and DD using Fourier transforms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Qr</strong> (<em>ndarray</em>) – QW momentum array, 1D array</p></li>
+<li><p><strong>kr</strong> (<em>ndarray</em>) – QW momentum array, 1D array</p></li>
+<li><p><strong>R</strong> (<em>ndarray</em>) – QW spatial coordinate array, 1D array</p></li>
+<li><p><strong>L</strong> (<em>float</em>) – Length of wire (m)</p></li>
+<li><p><strong>kkp</strong> (<em>ndarray</em>) – Momentum difference index matrix, 2D array, integer</p></li>
+<li><p><strong>p</strong> (<em>ndarray</em>) – Density matrix (unused, kept for interface compatibility), 2D array, complex</p></li>
+<li><p><strong>CC</strong> (<em>ndarray</em>) – Electron/electron coherence matrix, 2D array, complex</p></li>
+<li><p><strong>DD</strong> (<em>ndarray</em>) – Hole/hole coherence matrix, 2D array, complex</p></li>
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron occupation numbers, 1D array, complex</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole occupation numbers, 1D array, complex</p></li>
+<li><p><strong>re</strong> (<em>ndarray</em>) – Electron charge density (modified in-place), 1D array, complex</p></li>
+<li><p><strong>rh</strong> (<em>ndarray</em>) – Hole charge density (modified in-place), 1D array, complex</p></li>
+<li><p><strong>xxx</strong> (<em>int</em>) – Time index</p></li>
+<li><p><strong>jjj</strong> (<em>int</em>) – Additional index (unused, kept for interface compatibility)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>re and rh are modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variables _Expikr, _Expikrc, _QWWindow, _small.
+Normalizes charge densities to match total electron/hole numbers.
+Removes boundary effects by subtracting average of first/last 10 points.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.printIT3D">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">printIT3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.printIT3D" title="Link to this definition"></a></dt>
+<dd><p>Print 3D complex array to file.</p>
+<p>Writes a 3D complex array to a file, storing both real and imaginary parts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Dx</strong> (<em>ndarray</em>) – 3D complex array, shape (N1, N2, N3)</p></li>
+<li><p><strong>z</strong> (<em>ndarray</em>) – Coordinate array (unused, kept for interface compatibility), 1D array</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – Time index</p></li>
+<li><p><strong>file</strong> (<em>str</em>) – Base filename (without extension)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Files are written to ‘dataQW/’ directory.
+Each line contains real and imaginary parts of one array element.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.printITReal">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">printITReal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.printITReal" title="Link to this definition"></a></dt>
+<dd><p>Print real part of complex field to file.</p>
+<p>Writes the coordinate and real part of a complex field array to a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Dx</strong> (<em>ndarray</em>) – Complex field array, 1D array</p></li>
+<li><p><strong>z</strong> (<em>ndarray</em>) – Coordinate array, 1D array</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – Time index</p></li>
+<li><p><strong>file</strong> (<em>str</em>) – Base filename (without extension)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Files are written to ‘dataQW/’ directory.
+Each line contains coordinate and real part of field.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.QWChi1">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">QWChi1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dcv</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.QWChi1" title="Link to this definition"></a></dt>
+<dd><p>Calculate quantum wire linear susceptibility.</p>
+<p>Computes the frequency-dependent linear susceptibility of the quantum wire.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lam</strong> (<em>float</em>) – Wavelength (m)</p></li>
+<li><p><strong>dky</strong> (<em>float</em>) – Momentum step (1/m)</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies, 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies, 1D array</p></li>
+<li><p><strong>area</strong> (<em>float</em>) – Area of wire (m^2)</p></li>
+<li><p><strong>geh</strong> (<em>float</em>) – Electron-hole dephasing rate (1/s)</p></li>
+<li><p><strong>dcv</strong> (<em>complex</em>) – Carrier dipole moment (C m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Linear susceptibility chi^(1)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level constants twopi, c0, eps0, hbar, ii.
+Formula: chi^(1) = 4 * dcv^2 / (eps0 * area) * dky / (2*pi) *</p>
+<blockquote>
+<div><p>sum((Ee+Eh) / ((Ee+Eh - i*hbar*geh - hbar*w) * (Ee+Eh + i*hbar*geh + hbar*w)))</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.CalcQWWindow">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">CalcQWWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">YY</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.CalcQWWindow" title="Link to this definition"></a></dt>
+<dd><p>Calculate quantum wire window function.</p>
+<p>Computes a window function that smoothly goes to zero outside
+the wire length L/2, using an exponential decay.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>YY</strong> (<em>ndarray</em>) – Spatial coordinate array, 1D array</p></li>
+<li><p><strong>L</strong> (<em>float</em>) – Length of wire (m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies module-level variable _QWWindow.
+Window function: exp(-(YY/(L/2))^150)
+Values outside <a href="#id1"><span class="problematic" id="id2">|YY|</span></a> &gt; L/2 are set to 0 before applying exponential.
+Uses printIT to write envelope to file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.InitializeQWOptics">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">InitializeQWOptics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">RR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dcv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Qr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ehint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.InitializeQWOptics" title="Link to this definition"></a></dt>
+<dd><p>Initialize quantum wire optics module.</p>
+<p>Sets up all necessary arrays and parameters for quantum wire optics
+calculations, including window functions, phase factors, and dipole
+matrix elements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>RR</strong> (<em>ndarray</em>) – Spatial coordinate array, 1D array</p></li>
+<li><p><strong>L</strong> (<em>float</em>) – Length of wire (m)</p></li>
+<li><p><strong>dcv</strong> (<em>complex</em>) – Carrier dipole moment (C m)</p></li>
+<li><p><strong>kr</strong> (<em>ndarray</em>) – Momentum coordinate array, 1D array</p></li>
+<li><p><strong>Qr</strong> (<em>ndarray</em>) – Momentum coordinate array (unused, kept for interface compatibility), 1D array</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies, 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies, 1D array</p></li>
+<li><p><strong>ehint</strong> (<em>float</em>) – Electron-hole space integral</p></li>
+<li><p><strong>area</strong> (<em>float</em>) – Area of wire (m^2)</p></li>
+<li><p><strong>gap</strong> (<em>float</em>) – Band gap (J) (unused, kept for interface compatibility)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Modifies module-level variables _QWWindow, _Expikr, _Expikrc, _dcv0, _Vol,
+_Xcv0, _Ycv0, _Zcv0, _Xvc0, _Yvc0, _Zvc0.
+Calculates dipole matrix elements Xcv0, Ycv0, Zcv0 and their conjugates.
+Uses module-level constants twopi.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.CalcExpikr">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">CalcExpikr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.CalcExpikr" title="Link to this definition"></a></dt>
+<dd><p>Vectorized version (potentially faster than JIT for large arrays).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.Xcv">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">Xcv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.Xcv" title="Link to this definition"></a></dt>
+<dd><p>Get X dipole matrix element.</p>
+<p>Returns the X component of the dipole matrix element at indices (k, kp).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em>) – First index (0-based in Python)</p></li>
+<li><p><strong>kp</strong> (<em>int</em>) – Second index (0-based in Python)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>X dipole matrix element value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variable _Xcv0.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.Ycv">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">Ycv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.Ycv" title="Link to this definition"></a></dt>
+<dd><p>Get Y dipole matrix element.</p>
+<p>Returns the Y component of the dipole matrix element at indices (k, kp).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em>) – First index (0-based in Python)</p></li>
+<li><p><strong>kp</strong> (<em>int</em>) – Second index (0-based in Python)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Y dipole matrix element value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variable _Ycv0.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.Zcv">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">Zcv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.Zcv" title="Link to this definition"></a></dt>
+<dd><p>Get Z dipole matrix element.</p>
+<p>Returns the Z component of the dipole matrix element at indices (k, kp).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em>) – First index (0-based in Python)</p></li>
+<li><p><strong>kp</strong> (<em>int</em>) – Second index (0-based in Python)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Z dipole matrix element value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variable _Zcv0.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PSTD3D.qwoptics.GetVn1n2">
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.qwoptics.</span></span><span class="sig-name descname"><span class="pre">GetVn1n2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Hcc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Hhh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Hcv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vcc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vvv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vcv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vvc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.qwoptics.GetVn1n2" title="Link to this definition"></a></dt>
+<dd><p>Calculate interaction matrices Vcc, Vvv, Vcv, Vvc.</p>
+<p>Computes the interaction matrices from Hamiltonian matrices and
+dipole moment arrays using the Heisenberg equation of motion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kr</strong> (<em>ndarray</em>) – Momentum coordinate array, 1D array</p></li>
+<li><p><strong>rcv</strong> (<em>ndarray</em>) – Conduction-valence dipole moment array, 1D array, complex</p></li>
+<li><p><strong>Hcc</strong> (<em>ndarray</em>) – Conduction-conduction Hamiltonian matrix, 2D array, complex</p></li>
+<li><p><strong>Hhh</strong> (<em>ndarray</em>) – Hole-hole Hamiltonian matrix, 2D array, complex</p></li>
+<li><p><strong>Hcv</strong> (<em>ndarray</em>) – Conduction-valence Hamiltonian matrix, 2D array, complex</p></li>
+<li><p><strong>Vcc</strong> (<em>ndarray</em>) – Conduction-conduction interaction matrix (modified in-place), 2D array, complex</p></li>
+<li><p><strong>Vvv</strong> (<em>ndarray</em>) – Valence-valence interaction matrix (modified in-place), 2D array, complex</p></li>
+<li><p><strong>Vcv</strong> (<em>ndarray</em>) – Conduction-valence interaction matrix (modified in-place), 2D array, complex</p></li>
+<li><p><strong>Vvc</strong> (<em>ndarray</em>) – Valence-conduction interaction matrix (modified in-place), 2D array, complex</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Vcc, Vvv, Vcv, Vvc are modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level constants ii, hbar.
+Formula: V = (-i/hbar) * [rcv * H - H * rcv]
+Uses JIT compilation for performance-critical loops.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../phost/index.html" class="btn btn-neutral float-left" title="PSTD3D.phost" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../rhoPJ/index.html" class="btn btn-neutral float-right" title="PSTD3D.rhoPJ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

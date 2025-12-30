@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coulomb Interactions in Quantum Wires &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DC Field Carrier Transport in Quantum Wires" href="dcfield_example.myst.html" />
+    <link rel="prev" title="Examples Gallery" href="../gallery.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../gallery.html">Examples Gallery</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Coulomb Interactions in Quantum Wires</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#theory">Theory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#coulomb-interaction-potential">Coulomb Interaction Potential</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#energy-renormalization">Energy Renormalization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#screening">Screening</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#many-body-collision-terms">Many-Body Collision Terms</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-and-initialization">Setup and Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#momentum-difference-arrays">Momentum Difference Arrays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initialize-coulomb-module">Initialize Coulomb Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basic-interaction-integrals">Basic Interaction Integrals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#momentum-dependence-of-interaction-integrals">Momentum Dependence of Interaction Integrals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unscreened-coulomb-arrays">Unscreened Coulomb Arrays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#visualization-of-coulomb-matrices">Visualization of Coulomb Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Energy Renormalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#electron-and-hole-energy-renormalization">Electron and Hole Energy Renormalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Screening</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Many-Body Collision Terms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assumptions-and-parameter-choices">Assumptions and Parameter Choices</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#material-parameters-gaas">Material Parameters (GaAs)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#confinement-parameters">Confinement Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#grid-and-numerical-parameters">Grid and Numerical Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplifications">Simplifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Screening</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dcfield_example.myst.html">DC Field Carrier Transport in Quantum Wires</a></li>
+<li class="toctree-l2"><a class="reference internal" href="emission_example.myst.html">Spontaneous Emission and Photoluminescence in Quantum Wires</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phonons_example.myst.html">Phonon Interactions in Quantum Wires</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwoptics_example.myst.html">Quantum Wire Optics and Field Conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../gallery.html">Examples Gallery</a></li>
+      <li class="breadcrumb-item active">Coulomb Interactions in Quantum Wires</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/coulomb_example.myst.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="coulomb-interactions-in-quantum-wires">
+<h1>Coulomb Interactions in Quantum Wires<a class="headerlink" href="#coulomb-interactions-in-quantum-wires" title="Link to this heading"></a></h1>
+<section id="theory">
+<h2>Theory<a class="headerlink" href="#theory" title="Link to this heading"></a></h2>
+<p>The Coulomb module calculates electron-electron, hole-hole, and electron-hole Coulomb interactions in quantum wires. These interactions are essential for many-body effects in the Semiconductor Bloch Equations.</p>
+<section id="coulomb-interaction-potential">
+<h3>Coulomb Interaction Potential<a class="headerlink" href="#coulomb-interaction-potential" title="Link to this heading"></a></h3>
+<p>The Coulomb interaction between carriers in a quantum wire is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+V(k, q) = \frac{e^2}{2\pi \epsilon_0 \epsilon_r L} \int dy_1 dy_2 \, \phi_e^*(y_1) \phi_h^*(y_2) \, K_0(|k-q|r) \, \phi_e(y_1) \phi_h(y_2)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(K_0\)</span> is the modified Bessel function, <span class="math notranslate nohighlight">\(r = \sqrt{(y_1-y_2)^2 + \Delta_0^2}\)</span> accounts for wire thickness, and <span class="math notranslate nohighlight">\(\phi_{e/h}\)</span> are the confinement wavefunctions.</p>
+</section>
+<section id="energy-renormalization">
+<h3>Energy Renormalization<a class="headerlink" href="#energy-renormalization" title="Link to this heading"></a></h3>
+<p>Many-body Coulomb interactions renormalize the energy levels:</p>
+<p><strong>Band Gap Renormalization (BGR):</strong>
+$<span class="math notranslate nohighlight">\(
+\Delta E_{gap} = -\sum_k [n_e(k) V_{ee}(k,k) + n_h(k) V_{hh}(k,k)]
+\)</span>$</p>
+<p><strong>Electron Energy Renormalization:</strong>
+$<span class="math notranslate nohighlight">\(
+\Delta E_e(k) = \sum_{k'} n_e(k') [V_{ee}(k,k) - V_{ee}(k,k')]
+\)</span>$</p>
+<p><strong>Hole Energy Renormalization:</strong>
+$<span class="math notranslate nohighlight">\(
+\Delta E_h(k) = \sum_{k'} n_h(k') [V_{hh}(k,k) - V_{hh}(k,k')]
+\)</span>$</p>
+</section>
+<section id="screening">
+<h3>Screening<a class="headerlink" href="#screening" title="Link to this heading"></a></h3>
+<p>The Coulomb interaction is screened by free carriers:</p>
+<div class="math notranslate nohighlight">
+\[
+V_{screened}(q) = \frac{V_{bare}(q)}{\epsilon(q, \omega)}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\epsilon(q, \omega)\)</span> is the dielectric function calculated from the carrier susceptibility.</p>
+</section>
+<section id="many-body-collision-terms">
+<h3>Many-Body Collision Terms<a class="headerlink" href="#many-body-collision-terms" title="Link to this heading"></a></h3>
+<p>Beyond Hartree-Fock, the many-body collision terms (MBCE, MBCH) describe carrier-carrier scattering processes that lead to energy relaxation and dephasing.</p>
+</section>
+</section>
+<section id="setup-and-initialization">
+<h2>Setup and Initialization<a class="headerlink" href="#setup-and-initialization" title="Link to this heading"></a></h2>
+<p>First, we import the necessary modules and set up the physical parameters.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D</span><span class="w"> </span><span class="kn">import</span> <span class="n">coulomb</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">e</span> <span class="k">as</span> <span class="n">e0</span><span class="p">,</span> <span class="n">hbar</span>
+
+<span class="c1"># Physical Parameters for GaAs Quantum Wire</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mf">200e-9</span>              <span class="c1"># Wire length (m)</span>
+<span class="n">Delta0</span> <span class="o">=</span> <span class="mf">5e-9</span>           <span class="c1"># Wire thickness (m)</span>
+<span class="n">N_y</span> <span class="o">=</span> <span class="mi">128</span>               <span class="c1"># Spatial grid points</span>
+<span class="n">N_k</span> <span class="o">=</span> <span class="mi">64</span>                <span class="c1"># Momentum grid points</span>
+<span class="n">m_e</span> <span class="o">=</span> <span class="mf">0.067</span> <span class="o">*</span> <span class="mf">9.109e-31</span> <span class="c1"># Electron effective mass (kg)</span>
+<span class="n">m_h</span> <span class="o">=</span> <span class="mf">0.45</span> <span class="o">*</span> <span class="mf">9.109e-31</span>  <span class="c1"># Hole effective mass (kg)</span>
+<span class="n">epsr</span> <span class="o">=</span> <span class="mf">12.0</span>             <span class="c1"># Relative dielectric constant</span>
+<span class="n">ge</span> <span class="o">=</span> <span class="mf">1e12</span>               <span class="c1"># Electron dephasing rate (Hz)</span>
+<span class="n">gh</span> <span class="o">=</span> <span class="mf">1e12</span>               <span class="c1"># Hole dephasing rate (Hz)</span>
+
+<span class="c1"># Confinement parameters (related to harmonic oscillator length)</span>
+<span class="n">HO</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">e0</span>           <span class="c1"># Energy level separation (J)</span>
+<span class="n">alphae</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">m_e</span> <span class="o">*</span> <span class="n">HO</span><span class="p">)</span> <span class="o">/</span> <span class="n">hbar</span>  <span class="c1"># Electron confinement (1/m)</span>
+<span class="n">alphah</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">m_h</span> <span class="o">*</span> <span class="n">HO</span><span class="p">)</span> <span class="o">/</span> <span class="n">hbar</span>  <span class="c1"># Hole confinement (1/m)</span>
+
+<span class="c1"># Create spatial and momentum grids</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">L</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">L</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">N_y</span><span class="p">)</span>
+<span class="n">ky</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2e8</span><span class="p">,</span> <span class="mf">2e8</span><span class="p">,</span> <span class="n">N_k</span><span class="p">)</span>
+<span class="n">dk</span> <span class="o">=</span> <span class="n">ky</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">ky</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Single-particle energies</span>
+<span class="n">E_e</span> <span class="o">=</span> <span class="n">hbar</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ky</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">m_e</span><span class="p">)</span>
+<span class="n">E_h</span> <span class="o">=</span> <span class="n">hbar</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ky</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">m_h</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Spatial grid: </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> m&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Momentum grid: </span><span class="si">{</span><span class="n">ky</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">ky</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> m^-1&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Electron confinement: </span><span class="si">{</span><span class="n">alphae</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> m^-1&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hole confinement: </span><span class="si">{</span><span class="n">alphah</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> m^-1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="momentum-difference-arrays">
+<h2>Momentum Difference Arrays<a class="headerlink" href="#momentum-difference-arrays" title="Link to this heading"></a></h2>
+<p>We need to set up momentum difference arrays for Coulomb calculations.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create momentum difference array Qy</span>
+<span class="c1"># This represents all possible momentum differences |k - q|</span>
+<span class="n">N_Q</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">N_k</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">Qy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_Q</span><span class="p">)</span>
+<span class="n">Qy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N_k</span><span class="p">):</span>
+    <span class="n">Qy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">dk</span>
+    <span class="n">Qy</span><span class="p">[</span><span class="n">N_Q</span> <span class="o">-</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">i</span> <span class="o">*</span> <span class="n">dk</span>
+
+<span class="c1"># Create index mapping array kkp</span>
+<span class="c1"># Maps (k, q) indices to Qy indices: kkp[k, q] = index of |ky[k] - ky[q]| in Qy</span>
+<span class="n">kkp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_k</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_k</span><span class="p">):</span>
+        <span class="n">Q_val</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ky</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">ky</span><span class="p">[</span><span class="n">q</span><span class="p">])</span>
+        <span class="c1"># Find closest index in Qy</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Qy</span> <span class="o">-</span> <span class="n">Q_val</span><span class="p">))</span>
+        <span class="n">kkp</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">q</span><span class="p">]</span> <span class="o">=</span> <span class="n">idx</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Momentum difference array: </span><span class="si">{</span><span class="n">Qy</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">Qy</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> m^-1&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Index mapping array shape: </span><span class="si">{</span><span class="n">kkp</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="initialize-coulomb-module">
+<h2>Initialize Coulomb Module<a class="headerlink" href="#initialize-coulomb-module" title="Link to this heading"></a></h2>
+<p>We initialize the Coulomb module, which sets up all internal arrays.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize Coulomb Module</span>
+<span class="c1"># Note: screened parameter is passed but not used in initialization</span>
+<span class="n">screened</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># We&#39;ll calculate screened arrays separately if needed</span>
+
+<span class="n">coulomb</span><span class="o">.</span><span class="n">InitializeCoulomb</span><span class="p">(</span>
+    <span class="n">y</span><span class="p">,</span> <span class="n">ky</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Delta0</span><span class="p">,</span> <span class="n">m_e</span><span class="p">,</span> <span class="n">m_h</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span>
+    <span class="n">ge</span><span class="p">,</span> <span class="n">gh</span><span class="p">,</span> <span class="n">alphae</span><span class="p">,</span> <span class="n">alphah</span><span class="p">,</span> <span class="n">epsr</span><span class="p">,</span> <span class="n">Qy</span><span class="p">,</span> <span class="n">kkp</span><span class="p">,</span> <span class="n">screened</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Coulomb module initialized&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unscreened Coulomb arrays calculated&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">InitializeCoulomb</span></code> function sets up:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">_UnDel</span></code>: Inverse delta function array for excluding self-interactions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_k3</span></code>: Momentum conservation indexing array</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_qe</span></code>, <code class="docutils literal notranslate"><span class="pre">_qh</span></code>: Momentum difference arrays</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_Ceh</span></code>, <code class="docutils literal notranslate"><span class="pre">_Cee</span></code>, <code class="docutils literal notranslate"><span class="pre">_Chh</span></code>: Many-body interaction arrays</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_Veh0</span></code>, <code class="docutils literal notranslate"><span class="pre">_Vee0</span></code>, <code class="docutils literal notranslate"><span class="pre">_Vhh0</span></code>: Unscreened Coulomb matrices</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_Chi1De</span></code>, <code class="docutils literal notranslate"><span class="pre">_Chi1Dh</span></code>: Susceptibility arrays for screening</p></li>
+</ul>
+</div>
+</section>
+<section id="basic-interaction-integrals">
+<h2>Basic Interaction Integrals<a class="headerlink" href="#basic-interaction-integrals" title="Link to this heading"></a></h2>
+<p>We can calculate individual interaction integrals using <code class="docutils literal notranslate"><span class="pre">Vint</span></code> and <code class="docutils literal notranslate"><span class="pre">Vehint</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate interaction integral for a specific momentum difference</span>
+<span class="n">Q_test</span> <span class="o">=</span> <span class="mf">1e8</span>  <span class="c1"># Momentum difference (1/m)</span>
+
+<span class="n">Vint_val</span> <span class="o">=</span> <span class="n">coulomb</span><span class="o">.</span><span class="n">Vint</span><span class="p">(</span><span class="n">Q_test</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alphae</span><span class="p">,</span> <span class="n">alphah</span><span class="p">,</span> <span class="n">Delta0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Interaction integral for Q = </span><span class="si">{</span><span class="n">Q_test</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> m^-1: </span><span class="si">{</span><span class="n">Vint_val</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Calculate electron-hole interaction for specific indices</span>
+<span class="n">k_idx</span> <span class="o">=</span> <span class="n">N_k</span> <span class="o">//</span> <span class="mi">2</span>  <span class="c1"># Center of k-grid</span>
+<span class="n">q_idx</span> <span class="o">=</span> <span class="n">N_k</span> <span class="o">//</span> <span class="mi">2</span>  <span class="c1"># Center of q-grid</span>
+
+<span class="n">Vehint_val</span> <span class="o">=</span> <span class="n">coulomb</span><span class="o">.</span><span class="n">Vehint</span><span class="p">(</span><span class="n">k_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">q_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ky</span><span class="p">,</span> <span class="n">alphae</span><span class="p">,</span> <span class="n">alphah</span><span class="p">,</span> <span class="n">Delta0</span><span class="p">)</span>
+<span class="c1"># Note: Vehint uses 1-based indexing, so we add 1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Electron-hole interaction V(</span><span class="si">{</span><span class="n">k_idx</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">q_idx</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">Vehint_val</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="momentum-dependence-of-interaction-integrals">
+<h2>Momentum Dependence of Interaction Integrals<a class="headerlink" href="#momentum-dependence-of-interaction-integrals" title="Link to this heading"></a></h2>
+<p>Let’s examine how the interaction integral depends on momentum difference.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate Vint for a range of momentum differences</span>
+<span class="n">Q_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">1e6</span><span class="p">,</span> <span class="mf">5e8</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">Vint_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Q_range</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">Q_val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Q_range</span><span class="p">):</span>
+    <span class="n">Vint_range</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">coulomb</span><span class="o">.</span><span class="n">Vint</span><span class="p">(</span><span class="n">Q_val</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alphae</span><span class="p">,</span> <span class="n">alphah</span><span class="p">,</span> <span class="n">Delta0</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Q_range</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Vint_range</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Momentum Difference $|k-q|$ ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Interaction Integral&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Coulomb Interaction Integral vs Momentum Difference&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The interaction integral decreases with increasing momentum difference, reflecting the long-range nature of Coulomb interactions. At large momentum differences, the interaction is strongly suppressed.</p>
+</div>
+</section>
+<section id="unscreened-coulomb-arrays">
+<h2>Unscreened Coulomb Arrays<a class="headerlink" href="#unscreened-coulomb-arrays" title="Link to this heading"></a></h2>
+<p>The unscreened Coulomb matrices are calculated during initialization. Let’s examine them.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Access the unscreened Coulomb arrays (stored as module-level variables)</span>
+<span class="c1"># In a real workflow, these would be returned from CalcCoulombArrays</span>
+<span class="c1"># For this example, we&#39;ll recalculate to show the interface</span>
+
+<span class="n">Veh0</span><span class="p">,</span> <span class="n">Vee0</span><span class="p">,</span> <span class="n">Vhh0</span> <span class="o">=</span> <span class="n">coulomb</span><span class="o">.</span><span class="n">CalcCoulombArrays</span><span class="p">(</span>
+    <span class="n">y</span><span class="p">,</span> <span class="n">ky</span><span class="p">,</span> <span class="n">epsr</span><span class="p">,</span> <span class="n">alphae</span><span class="p">,</span> <span class="n">alphah</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Delta0</span><span class="p">,</span> <span class="n">Qy</span><span class="p">,</span> <span class="n">kkp</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Veh0 shape: </span><span class="si">{</span><span class="n">Veh0</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vee0 shape: </span><span class="si">{</span><span class="n">Vee0</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vhh0 shape: </span><span class="si">{</span><span class="n">Vhh0</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Veh0 range: </span><span class="si">{</span><span class="n">Veh0</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">Veh0</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> J&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vee0 range: </span><span class="si">{</span><span class="n">Vee0</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">Vee0</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> J&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vhh0 range: </span><span class="si">{</span><span class="n">Vhh0</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">Vhh0</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> J&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="visualization-of-coulomb-matrices">
+<h2>Visualization of Coulomb Matrices<a class="headerlink" href="#visualization-of-coulomb-matrices" title="Link to this heading"></a></h2>
+<p>We visualize the Coulomb interaction matrices.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Electron-hole interaction</span>
+<span class="n">im1</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">Veh0</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+                     <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">ky</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$q$ ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$k$ ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Electron-Hole Interaction $V_</span><span class="si">{eh}</span><span class="s1">(k,q)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Energy (J)&#39;</span><span class="p">)</span>
+
+<span class="c1"># Electron-electron interaction</span>
+<span class="n">im2</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">Vee0</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+                     <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">ky</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$q$ ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$k$ ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Electron-Electron Interaction $V_</span><span class="si">{ee}</span><span class="s1">(k,q)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Energy (J)&#39;</span><span class="p">)</span>
+
+<span class="c1"># Hole-hole interaction</span>
+<span class="n">im3</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">Vhh0</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+                     <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">ky</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$q$ ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$k$ ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hole-Hole Interaction $V_</span><span class="si">{hh}</span><span class="s1">(k,q)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im3</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Energy (J)&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Coulomb matrices show the strongest interactions near the diagonal (small momentum differences), consistent with the long-range nature of Coulomb forces. The electron-hole interaction is typically the strongest due to the attractive nature of opposite charges.</p>
+</div>
+</section>
+<section id="id1">
+<h2>Energy Renormalization<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>We calculate energy renormalization due to many-body Coulomb effects.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create carrier distributions</span>
+<span class="n">sigma_k</span> <span class="o">=</span> <span class="mf">1e8</span>
+<span class="n">n_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ky</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_k</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span>
+<span class="n">n_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ky</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_k</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span>
+<span class="n">n_e</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">n_e</span><span class="p">)</span>  <span class="c1"># Normalize</span>
+<span class="n">n_h</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">n_h</span><span class="p">)</span>  <span class="c1"># Normalize</span>
+
+<span class="c1"># Create density matrices (diagonal for this example)</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">n_e</span><span class="p">)</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">n_h</span><span class="p">)</span>
+
+<span class="c1"># Create VC array (unscreened for now)</span>
+<span class="n">VC</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">VC</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Veh0</span>  <span class="c1"># Electron-hole</span>
+<span class="n">VC</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Vee0</span>  <span class="c1"># Electron-electron</span>
+<span class="n">VC</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">Vhh0</span>  <span class="c1"># Hole-hole</span>
+
+<span class="c1"># Calculate band gap renormalization</span>
+<span class="n">BGR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+<span class="n">coulomb</span><span class="o">.</span><span class="n">BGRenorm</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">BGR</span><span class="p">)</span>
+
+<span class="c1"># Extract diagonal elements (k=k&#39; terms)</span>
+<span class="n">BGR_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">BGR</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Band gap renormalization range: </span><span class="si">{</span><span class="n">BGR_diag</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">BGR_diag</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> meV&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average BGR: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">BGR_diag</span><span class="p">)</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> meV&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="electron-and-hole-energy-renormalization">
+<h2>Electron and Hole Energy Renormalization<a class="headerlink" href="#electron-and-hole-energy-renormalization" title="Link to this heading"></a></h2>
+<p>We calculate individual energy renormalizations for electrons and holes.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Electron energy renormalization</span>
+<span class="n">EeRenorm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+<span class="n">coulomb</span><span class="o">.</span><span class="n">EeRenorm</span><span class="p">(</span><span class="n">n_e</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">EeRenorm</span><span class="p">)</span>
+<span class="n">EeRenorm_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">EeRenorm</span><span class="p">)</span>
+
+<span class="c1"># Hole energy renormalization</span>
+<span class="n">EhRenorm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+<span class="n">coulomb</span><span class="o">.</span><span class="n">EhRenorm</span><span class="p">(</span><span class="n">n_h</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">EhRenorm</span><span class="p">)</span>
+<span class="n">EhRenorm_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">EhRenorm</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Electron energy renormalization: </span><span class="si">{</span><span class="n">EeRenorm_diag</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">EeRenorm_diag</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> meV&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hole energy renormalization: </span><span class="si">{</span><span class="n">EhRenorm_diag</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">EhRenorm_diag</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> meV&quot;</span><span class="p">)</span>
+
+<span class="c1"># Visualize renormalization effects</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">E_e</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="s1">&#39;b--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Unrenormalized&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="p">(</span><span class="n">E_e</span> <span class="o">+</span> <span class="n">EeRenorm_diag</span><span class="o">.</span><span class="n">real</span><span class="p">)</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Renormalized&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Wavevector ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Energy (meV)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Electron Energy Renormalization&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">E_h</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="s1">&#39;g--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Unrenormalized&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="p">(</span><span class="n">E_h</span> <span class="o">+</span> <span class="n">EhRenorm_diag</span><span class="o">.</span><span class="n">real</span><span class="p">)</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="s1">&#39;g-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Renormalized&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Wavevector ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Energy (meV)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hole Energy Renormalization&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Energy renormalization shifts the energy bands, with the shift depending on the carrier density. Higher carrier densities lead to larger renormalization effects due to increased Coulomb interactions.</p>
+</div>
+</section>
+<section id="id2">
+<h2>Screening<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>We calculate screened Coulomb interactions, which account for the dielectric response of free carriers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create VC array with unscreened values</span>
+<span class="n">VC_screened</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">VC_screened</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Veh0</span>
+<span class="n">VC_screened</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Vee0</span>
+<span class="n">VC_screened</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">Vhh0</span>
+
+<span class="c1"># Dielectric function array</span>
+<span class="n">E1D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">))</span>
+
+<span class="c1"># Calculate screened arrays</span>
+<span class="n">coulomb</span><span class="o">.</span><span class="n">CalcScreenedArrays</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">n_e</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">n_h</span><span class="p">),</span> <span class="n">VC_screened</span><span class="p">,</span> <span class="n">E1D</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Screened Veh range: </span><span class="si">{</span><span class="n">VC_screened</span><span class="p">[:,</span><span class="w"> </span><span class="p">:,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">VC_screened</span><span class="p">[:,</span><span class="w"> </span><span class="p">:,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> J&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dielectric function range: </span><span class="si">{</span><span class="n">E1D</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">E1D</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Compare screened vs unscreened</span>
+<span class="n">Veh_screened</span> <span class="o">=</span> <span class="n">VC_screened</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">Veh_unscreened</span> <span class="o">=</span> <span class="n">Veh0</span>
+
+<span class="c1"># Compare along diagonal</span>
+<span class="n">k_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span>
+<span class="n">Veh_unscreened_diag</span> <span class="o">=</span> <span class="n">Veh_unscreened</span><span class="p">[</span><span class="n">k_diag</span><span class="p">,</span> <span class="n">k_diag</span><span class="p">]</span>
+<span class="n">Veh_screened_diag</span> <span class="o">=</span> <span class="n">Veh_screened</span><span class="p">[</span><span class="n">k_diag</span><span class="p">,</span> <span class="n">k_diag</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Veh_unscreened_diag</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Unscreened&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Veh_screened_diag</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Screened&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Wavevector ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Interaction Energy (meV)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Screened vs Unscreened Electron-Hole Interaction&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">E1D</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+         <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">ky</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">ky</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$q$ ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$k$ ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Dielectric Function $</span><span class="se">\\</span><span class="s1">epsilon(k,q)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Dielectric Constant&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Screening reduces the effective Coulomb interaction, especially at small momentum differences. This is important for high carrier densities where the free carriers screen the bare Coulomb potential.</p>
+</div>
+</section>
+<section id="id3">
+<h2>Many-Body Collision Terms<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>The many-body collision terms (MBCE, MBCH) describe carrier-carrier scattering beyond Hartree-Fock. These are used in full SBE calculations.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Many-body collision terms require initialized arrays from InitializeCoulomb</span>
+<span class="c1"># These are advanced calculations typically used in SBE time evolution</span>
+
+<span class="c1"># For demonstration, we&#39;ll show the interface</span>
+<span class="c1"># In practice, these would be called during SBE integration</span>
+
+<span class="n">Win_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span>
+<span class="n">Wout_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span>
+<span class="n">Win_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span>
+<span class="n">Wout_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span>
+
+<span class="c1"># Note: MBCE and MBCH use 1-based indexing for carrier arrays</span>
+<span class="c1"># We need to pad arrays with a 0th element</span>
+<span class="n">ne_padded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">nh_padded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ne_padded</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">n_e</span><span class="p">)</span>
+<span class="n">nh_padded</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">n_h</span><span class="p">)</span>
+
+<span class="c1"># Calculate many-body collision terms for electrons</span>
+<span class="n">coulomb</span><span class="o">.</span><span class="n">MBCE2</span><span class="p">(</span><span class="n">ne_padded</span><span class="p">,</span> <span class="n">nh_padded</span><span class="p">,</span> <span class="n">ky</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">VC_screened</span><span class="p">,</span>
+              <span class="n">ge</span><span class="p">,</span> <span class="n">ge</span><span class="p">,</span> <span class="n">Win_e</span><span class="p">,</span> <span class="n">Wout_e</span><span class="p">)</span>
+
+<span class="c1"># Calculate many-body collision terms for holes</span>
+<span class="n">coulomb</span><span class="o">.</span><span class="n">MBCH</span><span class="p">(</span><span class="n">ne_padded</span><span class="p">,</span> <span class="n">nh_padded</span><span class="p">,</span> <span class="n">ky</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">VC_screened</span><span class="p">,</span>
+             <span class="n">ge</span><span class="p">,</span> <span class="n">gh</span><span class="p">,</span> <span class="n">Win_h</span><span class="p">,</span> <span class="n">Wout_h</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Electron in-scattering rate range: </span><span class="si">{</span><span class="n">Win_e</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">Win_e</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> s^-1&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Electron out-scattering rate range: </span><span class="si">{</span><span class="n">Wout_e</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">Wout_e</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> s^-1&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hole in-scattering rate range: </span><span class="si">{</span><span class="n">Win_h</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">Win_h</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> s^-1&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hole out-scattering rate range: </span><span class="si">{</span><span class="n">Wout_h</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">Wout_h</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> s^-1&quot;</span><span class="p">)</span>
+
+<span class="c1"># Visualize scattering rates</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Win_e</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;In-scattering&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Wout_e</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Out-scattering&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Wavevector ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Scattering Rate (s$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Electron Many-Body Scattering Rates&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Win_h</span><span class="p">,</span> <span class="s1">&#39;g-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;In-scattering&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Wout_h</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Out-scattering&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Wavevector ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Scattering Rate (s$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hole Many-Body Scattering Rates&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The many-body collision terms describe energy relaxation and dephasing processes due to carrier-carrier scattering. These are essential for realistic SBE simulations but are computationally intensive.</p>
+</div>
+</section>
+<section id="assumptions-and-parameter-choices">
+<h2>Assumptions and Parameter Choices<a class="headerlink" href="#assumptions-and-parameter-choices" title="Link to this heading"></a></h2>
+<p>This section explains the assumptions and rationale behind the parameter values chosen for this example.</p>
+<section id="material-parameters-gaas">
+<h3>Material Parameters (GaAs)<a class="headerlink" href="#material-parameters-gaas" title="Link to this heading"></a></h3>
+<p><strong>Effective masses:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">m_e</span> <span class="pre">=</span> <span class="pre">0.067</span> <span class="pre">*</span> <span class="pre">m_0</span></code>: Electron effective mass for GaAs (bulk value)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m_h</span> <span class="pre">=</span> <span class="pre">0.45</span> <span class="pre">*</span> <span class="pre">m_0</span></code>: Heavy hole effective mass for GaAs (bulk value)</p></li>
+<li><p><strong>Rationale</strong>: Standard GaAs bulk values. Quantum confinement may modify these, but bulk values are reasonable for demonstration.</p></li>
+</ul>
+<p><strong>Dielectric constant:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">epsr</span> <span class="pre">=</span> <span class="pre">12.0</span></code>: Relative permittivity for GaAs</p></li>
+<li><p><strong>Rationale</strong>: GaAs value (~12.9 at low frequency). Using 12.0 for simplicity.</p></li>
+</ul>
+<p><strong>Wire dimensions:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">L</span> <span class="pre">=</span> <span class="pre">200e-9</span> <span class="pre">m</span></code>: Wire length (200 nm)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Delta0</span> <span class="pre">=</span> <span class="pre">5e-9</span> <span class="pre">m</span></code>: Wire thickness (5 nm)</p></li>
+<li><p><strong>Rationale</strong>: Typical quantum wire dimensions. The thickness affects the Coulomb interaction strength through the <span class="math notranslate nohighlight">\(r = \sqrt{(y_1-y_2)^2 + \Delta_0^2}\)</span> term.</p></li>
+</ul>
+</section>
+<section id="confinement-parameters">
+<h3>Confinement Parameters<a class="headerlink" href="#confinement-parameters" title="Link to this heading"></a></h3>
+<p><strong>Energy level separation:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">HO</span> <span class="pre">=</span> <span class="pre">0.1</span> <span class="pre">eV</span></code>: Harmonic oscillator energy separation</p></li>
+<li><p><strong>Rationale</strong>: Typical value for quantum wire confinement. This determines the confinement parameters <code class="docutils literal notranslate"><span class="pre">alphae</span></code> and <code class="docutils literal notranslate"><span class="pre">alphah</span></code>.</p></li>
+</ul>
+<p><strong>Confinement parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">alphae</span> <span class="pre">=</span> <span class="pre">sqrt(m_e</span> <span class="pre">*</span> <span class="pre">HO)</span> <span class="pre">/</span> <span class="pre">hbar</span></code>: Electron confinement wavevector</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alphah</span> <span class="pre">=</span> <span class="pre">sqrt(m_h</span> <span class="pre">*</span> <span class="pre">HO)</span> <span class="pre">/</span> <span class="pre">hbar</span></code>: Hole confinement wavevector</p></li>
+<li><p><strong>Rationale</strong>: Derived from harmonic oscillator model. These determine the spatial extent of carrier wavefunctions.</p></li>
+</ul>
+</section>
+<section id="grid-and-numerical-parameters">
+<h3>Grid and Numerical Parameters<a class="headerlink" href="#grid-and-numerical-parameters" title="Link to this heading"></a></h3>
+<p><strong>Spatial grid:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">N_y</span> <span class="pre">=</span> <span class="pre">128</span></code>: Number of spatial points</p></li>
+<li><p><strong>Rationale</strong>: Sufficient resolution for integration while keeping computation time reasonable.</p></li>
+</ul>
+<p><strong>Momentum grid:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">N_k</span> <span class="pre">=</span> <span class="pre">64</span></code>: Number of momentum points</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k_range</span> <span class="pre">=</span> <span class="pre">[-2e8,</span> <span class="pre">2e8]</span> <span class="pre">m^-1</span></code>: Momentum range</p></li>
+<li><p><strong>Rationale</strong>: 64 points balances resolution and speed. Range covers relevant k-space for transitions near the band gap.</p></li>
+</ul>
+<p><strong>Momentum difference array:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">N_Q</span> <span class="pre">=</span> <span class="pre">2*N_k</span> <span class="pre">-</span> <span class="pre">1</span></code>: All possible momentum differences</p></li>
+<li><p><strong>Rationale</strong>: Includes all combinations of k and q values.</p></li>
+</ul>
+</section>
+<section id="simplifications">
+<h3>Simplifications<a class="headerlink" href="#simplifications" title="Link to this heading"></a></h3>
+<p><strong>Carrier distributions:</strong></p>
+<ul class="simple">
+<li><p>Gaussian distributions centered at k=0</p></li>
+<li><p><strong>Rationale</strong>: Simple, symmetric distribution representing photoexcited carriers. Realistic distributions would come from SBE evolution.</p></li>
+</ul>
+<p><strong>Static distributions:</strong></p>
+<ul class="simple">
+<li><p>Carrier densities do not evolve in time</p></li>
+<li><p><strong>Rationale</strong>: Demonstrates the Coulomb calculation interface. Full simulations would evolve carriers via SBEs.</p></li>
+</ul>
+<p><strong>Density matrices:</strong></p>
+<ul class="simple">
+<li><p>Diagonal density matrices (no off-diagonal coherence)</p></li>
+<li><p><strong>Rationale</strong>: Simplifies the example. Full SBE calculations include off-diagonal elements.</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>Screening<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p><strong>Screening calculation:</strong></p>
+<ul class="simple">
+<li><p>Uses simplified 1D dielectric function</p></li>
+<li><p><strong>Rationale</strong>: Full frequency-dependent screening is more complex. The 1D approximation is reasonable for quantum wires.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Important Limitations:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Carrier evolution</strong>: Distributions are static. Full simulations require coupling with the SBE solver.</p></li>
+<li><p><strong>Off-diagonal coherence</strong>: Only diagonal density matrices are used. Full SBE calculations include off-diagonal elements.</p></li>
+<li><p><strong>Frequency-dependent screening</strong>: Uses static screening approximation. Dynamic screening requires frequency-dependent dielectric function.</p></li>
+<li><p><strong>Material parameters</strong>: Bulk GaAs values. Confined systems may need adjusted parameters.</p></li>
+</ol>
+</div>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h2>
+<p>This example demonstrated:</p>
+<ol class="arabic simple">
+<li><p><strong>Initialization</strong> of the Coulomb module with spatial and momentum grids</p></li>
+<li><p><strong>Basic interaction integrals</strong> (<code class="docutils literal notranslate"><span class="pre">Vint</span></code>, <code class="docutils literal notranslate"><span class="pre">Vehint</span></code>) for individual momentum pairs</p></li>
+<li><p><strong>Unscreened Coulomb arrays</strong> (<code class="docutils literal notranslate"><span class="pre">CalcCoulombArrays</span></code>) for electron-hole, electron-electron, and hole-hole interactions</p></li>
+<li><p><strong>Energy renormalization</strong> (<code class="docutils literal notranslate"><span class="pre">BGRenorm</span></code>, <code class="docutils literal notranslate"><span class="pre">EeRenorm</span></code>, <code class="docutils literal notranslate"><span class="pre">EhRenorm</span></code>) accounting for many-body effects</p></li>
+<li><p><strong>Screening effects</strong> (<code class="docutils literal notranslate"><span class="pre">CalcScreenedArrays</span></code>) reducing Coulomb interactions at high carrier densities</p></li>
+<li><p><strong>Many-body collision terms</strong> (<code class="docutils literal notranslate"><span class="pre">MBCE</span></code>, <code class="docutils literal notranslate"><span class="pre">MBCH</span></code>) for carrier-carrier scattering</p></li>
+</ol>
+<p>The <code class="docutils literal notranslate"><span class="pre">coulomb</span></code> module provides a comprehensive framework for calculating Coulomb interactions in quantum wires, including unscreened and screened interactions, energy renormalization, and many-body collision terms essential for realistic SBE simulations.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../gallery.html" class="btn btn-neutral float-left" title="Examples Gallery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dcfield_example.myst.html" class="btn btn-neutral float-right" title="DC Field Carrier Transport in Quantum Wires" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

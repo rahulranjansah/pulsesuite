@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pulsesuite"
+version = "0.1.0"
+description = "High-performance pulse simulation suite"
+readme = "README.md"
+authors = [
+    { name = "Rahul R. Sah", email = "rahulranjansah@example.com" }
+]
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.26.4",
+    "scipy>=1.15.2",
+    "matplotlib>=3.10.0",
+    "pyfftw>=0.15.0",
+    "numba>=0.61.2",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.3.4",
+]
+docs = [
+    "sphinx>=7.2.6",
+    "sphinx-rtd-theme>=2.0.0",
+    "myst-parser>=2.0.0",
+    "sphinx-autoapi>=3.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

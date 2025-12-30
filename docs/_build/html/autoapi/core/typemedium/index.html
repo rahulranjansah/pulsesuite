@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>core.typemedium &mdash; PulseSuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="core.typetpamedium" href="../typetpamedium/index.html" />
+    <link rel="prev" title="core.typelens" href="../typelens/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PulseSuite
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery.html">Examples Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../constants/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.constants</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../fftw/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.fftw</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rungekutta/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.rungekutta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../type_plasma/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.type_plasma</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typelens/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.typelens</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.typemedium</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../typetpamedium/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.typetpamedium</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../PSTD3D/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../spliner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">spliner</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PulseSuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.typemedium</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/core/typemedium/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-core.typemedium">
+<span id="core-typemedium"></span><h1><a class="reference internal" href="#module-core.typemedium" title="core.typemedium"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core.typemedium</span></code></a><a class="headerlink" href="#module-core.typemedium" title="Link to this heading"></a></h1>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nlms</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.readmediumparams" title="core.typemedium.readmediumparams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readmediumparams</span></code></a>(→ None)</p></td>
+<td><p>Read medium parameters from file or stream into <cite>medium</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.writemediumparams" title="core.typemedium.writemediumparams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">writemediumparams</span></code></a>(→ None)</p></td>
+<td><p>Write medium parameters from <cite>medium</cite> to file or stream.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.dumpmedium" title="core.typemedium.dumpmedium"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dumpmedium</span></code></a>(→ None)</p></td>
+<td><p>Write medium parameters to stdout if log level is sufficient.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.GetVersion_nlms" title="core.typemedium.GetVersion_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetVersion_nlms</span></code></a>(→ int)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.GetNz_nlms" title="core.typemedium.GetNz_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetNz_nlms</span></code></a>(→ int)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.GetDz_nlms" title="core.typemedium.GetDz_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetDz_nlms</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.GetLength_nlms" title="core.typemedium.GetLength_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetLength_nlms</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.GetN0_nlms" title="core.typemedium.GetN0_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetN0_nlms</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.GetK_nlms" title="core.typemedium.GetK_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetK_nlms</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.GetN2I_nlms" title="core.typemedium.GetN2I_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetN2I_nlms</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.GetAlpha_nlms" title="core.typemedium.GetAlpha_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetAlpha_nlms</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.GetBeta_nlms" title="core.typemedium.GetBeta_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetBeta_nlms</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.GetMaterial_nlms" title="core.typemedium.GetMaterial_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetMaterial_nlms</span></code></a>(→ str)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.GetWavelength_nlms" title="core.typemedium.GetWavelength_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetWavelength_nlms</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.GetTr_nlms" title="core.typemedium.GetTr_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetTr_nlms</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.GetN4I_nlms" title="core.typemedium.GetN4I_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetN4I_nlms</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.GetPlasma" title="core.typemedium.GetPlasma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetPlasma</span></code></a>(→ type_plasma.plasma_coefficients)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.GetKm" title="core.typemedium.GetKm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetKm</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.SetNz_nlms" title="core.typemedium.SetNz_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetNz_nlms</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.SetDz_nlms" title="core.typemedium.SetDz_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetDz_nlms</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.SetLength_nlms" title="core.typemedium.SetLength_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetLength_nlms</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.SetN0_nlms" title="core.typemedium.SetN0_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetN0_nlms</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.SetK_nlms" title="core.typemedium.SetK_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetK_nlms</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.SetN2I_nlms" title="core.typemedium.SetN2I_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetN2I_nlms</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.SetAlpha_nlms" title="core.typemedium.SetAlpha_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetAlpha_nlms</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.SetBeta_nlms" title="core.typemedium.SetBeta_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetBeta_nlms</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.SetMaterial_nlms" title="core.typemedium.SetMaterial_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetMaterial_nlms</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.SetWavelength_nlms" title="core.typemedium.SetWavelength_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetWavelength_nlms</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.SetTr_nlms" title="core.typemedium.SetTr_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetTr_nlms</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.SetN4I_nlms" title="core.typemedium.SetN4I_nlms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetN4I_nlms</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.SetPlasma" title="core.typemedium.SetPlasma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetPlasma</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#core.typemedium.dp" title="core.typemedium.dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dp</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#core.typemedium.medium_filetag" title="core.typemedium.medium_filetag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">medium_filetag</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt class="sig sig-object py" id="core.typemedium.dp">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">dp</span></span><a class="headerlink" href="#core.typemedium.dp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="core.typemedium.medium_filetag">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">medium_filetag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Ellipsis</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('[params.medium_v1.0]',</span> <span class="pre">'[params.medium_v1.5]',</span> <span class="pre">'[params.medium_v2.0]',</span> <span class="pre">'[params.medium_v2.1]',...</span></em><a class="headerlink" href="#core.typemedium.medium_filetag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.typemedium.nlms">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">material</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Tr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n4</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plasma_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../type_plasma/index.html#core.type_plasma.plasma_coefficients" title="core.type_plasma.plasma_coefficients"><span class="pre">type_plasma.plasma_coefficients</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.typemedium.nlms" title="Link to this definition"></a></dt>
+<dd><dl class="py property">
+<dt class="sig sig-object py" id="core.typemedium.nlms.k1">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">k1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#core.typemedium.nlms.k1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.typemedium.nlms.k2">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">k2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#core.typemedium.nlms.k2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.typemedium.nlms.k3">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">k3</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#core.typemedium.nlms.k3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.typemedium.nlms.k4">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">k4</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#core.typemedium.nlms.k4" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="core.typemedium.nlms.k5">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">k5</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#core.typemedium.nlms.k5" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.typemedium.nlms.__slots__">
+<span class="sig-name descname"><span class="pre">__slots__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('version',</span> <span class="pre">'material',</span> <span class="pre">'length',</span> <span class="pre">'dz',</span> <span class="pre">'wavelength',</span> <span class="pre">'n0',</span> <span class="pre">'k',</span> <span class="pre">'n2',</span> <span class="pre">'beta',</span> <span class="pre">'alpha',</span> <span class="pre">'Tr',...</span></em><a class="headerlink" href="#core.typemedium.nlms.__slots__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.typemedium.nlms.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></span><a class="headerlink" href="#core.typemedium.nlms.copy" title="Link to this definition"></a></dt>
+<dd><p>Shallow copy of all fields.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.typemedium.nlms.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#core.typemedium.nlms.__repr__" title="Link to this definition"></a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.typemedium.nlms.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#core.typemedium.nlms.__len__" title="Link to this definition"></a></dt>
+<dd><p>len(medium) → number of steps Nz</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.typemedium.nlms.__eq__">
+<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.typemedium.nlms.__eq__" title="Link to this definition"></a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.typemedium.nlms.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#core.typemedium.nlms.to_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.typemedium.nlms.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></span><a class="headerlink" href="#core.typemedium.nlms.from_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.typemedium.nlms.__copy__">
+<span class="sig-name descname"><span class="pre">__copy__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></span><a class="headerlink" href="#core.typemedium.nlms.__copy__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.typemedium.nlms.__deepcopy__">
+<span class="sig-name descname"><span class="pre">__deepcopy__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memo</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></span><a class="headerlink" href="#core.typemedium.nlms.__deepcopy__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.readmediumparams">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">readmediumparams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">TextIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.readmediumparams" title="Link to this definition"></a></dt>
+<dd><p>Read medium parameters from file or stream into <cite>medium</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.writemediumparams">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">writemediumparams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">TextIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.writemediumparams" title="Link to this definition"></a></dt>
+<dd><p>Write medium parameters from <cite>medium</cite> to file or stream.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.dumpmedium">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">dumpmedium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.dumpmedium" title="Link to this definition"></a></dt>
+<dd><p>Write medium parameters to stdout if log level is sufficient.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.GetVersion_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">GetVersion_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#core.typemedium.GetVersion_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.GetNz_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">GetNz_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#core.typemedium.GetNz_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.GetDz_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">GetDz_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.typemedium.GetDz_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.GetLength_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">GetLength_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.typemedium.GetLength_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.GetN0_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">GetN0_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.typemedium.GetN0_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.GetK_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">GetK_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#core.typemedium.GetK_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.GetN2I_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">GetN2I_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.typemedium.GetN2I_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.GetAlpha_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">GetAlpha_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.typemedium.GetAlpha_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.GetBeta_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">GetBeta_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.typemedium.GetBeta_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.GetMaterial_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">GetMaterial_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#core.typemedium.GetMaterial_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.GetWavelength_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">GetWavelength_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.typemedium.GetWavelength_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.GetTr_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">GetTr_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.typemedium.GetTr_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.GetN4I_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">GetN4I_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.typemedium.GetN4I_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.GetPlasma">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">GetPlasma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../type_plasma/index.html#core.type_plasma.plasma_coefficients" title="core.type_plasma.plasma_coefficients"><span class="pre">type_plasma.plasma_coefficients</span></a></span></span><a class="headerlink" href="#core.typemedium.GetPlasma" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.GetKm">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">GetKm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#core.typemedium.GetKm" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.SetNz_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">SetNz_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.SetNz_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.SetDz_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">SetDz_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">Dz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.SetDz_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.SetLength_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">SetLength_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.SetLength_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.SetN0_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">SetN0_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.SetN0_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.SetK_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">SetK_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.SetK_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.SetN2I_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">SetN2I_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.SetN2I_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.SetAlpha_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">SetAlpha_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.SetAlpha_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.SetBeta_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">SetBeta_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.SetBeta_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.SetMaterial_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">SetMaterial_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.SetMaterial_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.SetWavelength_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">SetWavelength_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.SetWavelength_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.SetTr_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">SetTr_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">Tr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.SetTr_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.SetN4I_nlms">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">SetN4I_nlms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n4</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.SetN4I_nlms" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="core.typemedium.SetPlasma">
+<span class="sig-prename descclassname"><span class="pre">core.typemedium.</span></span><span class="sig-name descname"><span class="pre">SetPlasma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#core.typemedium.nlms" title="core.typemedium.nlms"><span class="pre">nlms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../type_plasma/index.html#core.type_plasma.plasma_coefficients" title="core.type_plasma.plasma_coefficients"><span class="pre">type_plasma.plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#core.typemedium.SetPlasma" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../typelens/index.html" class="btn btn-neutral float-left" title="core.typelens" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../typetpamedium/index.html" class="btn btn-neutral float-right" title="core.typetpamedium" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
