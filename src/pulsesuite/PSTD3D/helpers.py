@@ -15,7 +15,7 @@ from numba import jit
 from typing import Union, Optional
 
 # Import locator from usefulsubs since it already exists
-from .usefulsubs import locator
+from usefulsubs import locator
 
 # Constants
 pi = np.pi

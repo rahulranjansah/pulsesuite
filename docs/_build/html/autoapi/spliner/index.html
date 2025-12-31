@@ -4,11 +4,22 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>spliner &mdash; PulseSuite 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+  <title>spliner &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
 
   
   <!--[if lt IE 9]>
@@ -22,10 +33,14 @@
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../../_static/copybutton.js?v=f281be69"></script>
+        <script src="../../_static/js/hoverxref.js"></script>
+        <script src="../../_static/js/tooltipster.bundle.min.js"></script>
+        <script src="../../_static/js/micromodal.min.js"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="PSTD3D.usefulsubs" href="../PSTD3D/usefulsubs/index.html" /> 
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -37,7 +52,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            PulseSuite
+            pulsesuite
           </a>
               <div class="version">
                 0.1
@@ -51,23 +66,10 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../readme.html">PulseSuite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../gallery.html">Examples Gallery</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../PSTD3D/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D</span></code></a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">spliner</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#functions">Functions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#attributes">Attributes</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -76,7 +78,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">PulseSuite</a>
+          <a href="../../index.html">pulsesuite</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -84,7 +86,6 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">spliner</span></code></li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/autoapi/spliner/index.rst.txt" rel="nofollow"> View page source</a>
@@ -96,122 +97,122 @@
            <div itemprop="articleBody">
              
   <section id="module-spliner">
-<span id="spliner"></span><h1><a class="reference internal" href="#module-spliner" title="spliner"><code class="xref py py-mod docutils literal notranslate"><span class="pre">spliner</span></code></a><a class="headerlink" href="#module-spliner" title="Link to this heading"></a></h1>
+<span id="spliner"></span><h1><a class="hxr-hoverxref hxr-tooltip reference internal" href="#module-spliner" title="spliner"><code class="xref py py-mod docutils literal notranslate"><span class="pre">spliner</span></code></a><a class="headerlink" href="#module-spliner" title="Link to this heading">¶</a></h1>
 <p>Spline interpolation routines for arrays.</p>
 <p>This module provides routines for interpolation of arrays using cubic splines
 and polynomial interpolation methods. Supports both real and complex arrays,
 1D and 2D rescaling, and multi-dimensional interpolation.</p>
 <p>Author: Rahul R. Sah</p>
 <section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <section id="functions">
-<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spliner.iminloc" title="spliner.iminloc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iminloc</span></code></a>(arr)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.iminloc" title="spliner.iminloc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iminloc</span></code></a>(arr)</p></td>
 <td><p>Find the index of the minimum value in an array.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spliner.rescale_2D_dp" title="spliner.rescale_2D_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rescale_2D_dp</span></code></a>(x0, y0, z0, x1, y1, z1)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.rescale_2D_dp" title="spliner.rescale_2D_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rescale_2D_dp</span></code></a>(x0, y0, z0, x1, y1, z1)</p></td>
 <td><p>Rescale a 2D real array from one grid to another.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spliner.rescale_2D_dpc" title="spliner.rescale_2D_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rescale_2D_dpc</span></code></a>(x0, y0, z0, x1, y1, z1)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.rescale_2D_dpc" title="spliner.rescale_2D_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rescale_2D_dpc</span></code></a>(x0, y0, z0, x1, y1, z1)</p></td>
 <td><p>Rescale a 2D complex array from one grid to another.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spliner.rescale_1D_dpc" title="spliner.rescale_1D_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rescale_1D_dpc</span></code></a>(x0, z0, x1, z1)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.rescale_1D_dpc" title="spliner.rescale_1D_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rescale_1D_dpc</span></code></a>(x0, z0, x1, z1)</p></td>
 <td><p>Rescale a 1D complex array from one grid to another.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spliner.rescale_1D_cyl_dpc" title="spliner.rescale_1D_cyl_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rescale_1D_cyl_dpc</span></code></a>(x0, z0, x1, z1)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.rescale_1D_cyl_dpc" title="spliner.rescale_1D_cyl_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rescale_1D_cyl_dpc</span></code></a>(x0, z0, x1, z1)</p></td>
 <td><p>Rescale a 1D complex array from one grid to another with cylindrical boundary condition.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spliner.rescale_1D_dp" title="spliner.rescale_1D_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rescale_1D_dp</span></code></a>(x0, y0, x1, y1)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.rescale_1D_dp" title="spliner.rescale_1D_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rescale_1D_dp</span></code></a>(x0, y0, x1, y1)</p></td>
 <td><p>Rescale a 1D real array from one grid to another.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spliner.GetValAt_3D" title="spliner.GetValAt_3D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetValAt_3D</span></code></a>(e, x0a, x1a, x2a, x0, x1, x2[, N])</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.GetValAt_3D" title="spliner.GetValAt_3D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetValAt_3D</span></code></a>(e, x0a, x1a, x2a, x0, x1, x2[, N])</p></td>
 <td><p>Interpolate a 3D array at an arbitrary point.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spliner.GetValAt_2D" title="spliner.GetValAt_2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetValAt_2D</span></code></a>(e, x0a, x1a, x0, x1[, N])</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.GetValAt_2D" title="spliner.GetValAt_2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetValAt_2D</span></code></a>(e, x0a, x1a, x0, x1[, N])</p></td>
 <td><p>Interpolate a 2D array at an arbitrary point.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spliner.GetValAt_1D" title="spliner.GetValAt_1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetValAt_1D</span></code></a>(e, x0, x1)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.GetValAt_1D" title="spliner.GetValAt_1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetValAt_1D</span></code></a>(e, x0, x1)</p></td>
 <td><p>Interpolate a 1D real array at an arbitrary point.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spliner.GetValAt_1D_dpc" title="spliner.GetValAt_1D_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetValAt_1D_dpc</span></code></a>(e, x0, x1)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.GetValAt_1D_dpc" title="spliner.GetValAt_1D_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetValAt_1D_dpc</span></code></a>(e, x0, x1)</p></td>
 <td><p>Interpolate a 1D complex array at an arbitrary point.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spliner.polint1" title="spliner.polint1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">polint1</span></code></a>(xa, ya, x[, dy])</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.polint1" title="spliner.polint1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">polint1</span></code></a>(xa, ya, x[, dy])</p></td>
 <td><p>Interpolate a 1D array at an arbitrary point using polynomial interpolation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spliner.polint2" title="spliner.polint2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">polint2</span></code></a>(x1a, x2a, ya, x1, x2[, dy])</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.polint2" title="spliner.polint2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">polint2</span></code></a>(x1a, x2a, ya, x1, x2[, dy])</p></td>
 <td><p>Interpolate a 2D array at an arbitrary point using polynomial interpolation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spliner.polint3" title="spliner.polint3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">polint3</span></code></a>(x1a, x2a, x3a, ya, x1, x2, x3[, dy])</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.polint3" title="spliner.polint3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">polint3</span></code></a>(x1a, x2a, x3a, ya, x1, x2, x3[, dy])</p></td>
 <td><p>Interpolate a 3D array at an arbitrary point using polynomial interpolation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spliner.bcucof" title="spliner.bcucof"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bcucof</span></code></a>(y, y1, y2, y12, d1, d2, c)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.bcucof" title="spliner.bcucof"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bcucof</span></code></a>(y, y1, y2, y12, d1, d2, c)</p></td>
 <td><p>Compute bicubic interpolation coefficients.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spliner.bcuint" title="spliner.bcuint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bcuint</span></code></a>(y, y1, y2, y12, x1l, x1u, x2l, x2u, x1, x2)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.bcuint" title="spliner.bcuint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bcuint</span></code></a>(y, y1, y2, y12, x1l, x1u, x2l, x2u, x1, x2)</p></td>
 <td><p>Bicubic interpolation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spliner.spline2_dpc" title="spliner.spline2_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spline2_dpc</span></code></a>(x, z, z2)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.spline2_dpc" title="spliner.spline2_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spline2_dpc</span></code></a>(x, z, z2)</p></td>
 <td><p>Compute the cubic spline interpolant for complex arrays (second derivative version).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spliner.seval2_dpc" title="spliner.seval2_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seval2_dpc</span></code></a>(x0, x, z, z2)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.seval2_dpc" title="spliner.seval2_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seval2_dpc</span></code></a>(x0, x, z, z2)</p></td>
 <td><p>Evaluate the cubic spline for complex arrays (second derivative version).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spliner.spline2_dp" title="spliner.spline2_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spline2_dp</span></code></a>(x, y, y2)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.spline2_dp" title="spliner.spline2_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spline2_dp</span></code></a>(x, y, y2)</p></td>
 <td><p>Compute the cubic spline interpolant for real arrays (second derivative version).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spliner.locate" title="spliner.locate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">locate</span></code></a>(xx, x)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.locate" title="spliner.locate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">locate</span></code></a>(xx, x)</p></td>
 <td><p>Find the index i such that xx[i] &lt;= x &lt; xx[i+1].</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spliner.spline_dp" title="spliner.spline_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spline_dp</span></code></a>(x, y, b, c, d)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.spline_dp" title="spliner.spline_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spline_dp</span></code></a>(x, y, b, c, d)</p></td>
 <td><p>Compute the cubic spline interpolant for real arrays.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spliner.seval_dp" title="spliner.seval_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seval_dp</span></code></a>(u, x, y, b, c, d)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.seval_dp" title="spliner.seval_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seval_dp</span></code></a>(u, x, y, b, c, d)</p></td>
 <td><p>Evaluate the cubic spline for real arrays.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spliner.spline_dpc" title="spliner.spline_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spline_dpc</span></code></a>(x, y, b, c, d)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.spline_dpc" title="spliner.spline_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spline_dpc</span></code></a>(x, y, b, c, d)</p></td>
 <td><p>Compute the cubic spline interpolant for complex arrays.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spliner.seval_dpc" title="spliner.seval_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seval_dpc</span></code></a>(u, x, y, b, c, d)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.seval_dpc" title="spliner.seval_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seval_dpc</span></code></a>(u, x, y, b, c, d)</p></td>
 <td><p>Evaluate the cubic spline for complex arrays.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spliner.seval2_dp" title="spliner.seval2_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seval2_dp</span></code></a>(x0, x, y, y2)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.seval2_dp" title="spliner.seval2_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seval2_dp</span></code></a>(x0, x, y, y2)</p></td>
 <td><p>Evaluate the cubic spline for real arrays (second derivative version).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spliner.spline" title="spliner.spline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spline</span></code></a>(x, *args)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.spline" title="spliner.spline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spline</span></code></a>(x, *args)</p></td>
 <td><p>Unified interface for spline functions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spliner.seval" title="spliner.seval"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seval</span></code></a>(pos, x, *args)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.seval" title="spliner.seval"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seval</span></code></a>(pos, x, *args)</p></td>
 <td><p>Unified interface for spline evaluation functions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spliner.rescale_1D" title="spliner.rescale_1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rescale_1D</span></code></a>(x0[, y0, z0, x1, y1, z1])</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.rescale_1D" title="spliner.rescale_1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rescale_1D</span></code></a>(x0[, y0, z0, x1, y1, z1])</p></td>
 <td><p>Unified interface for 1D rescaling functions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spliner.rescale_2D" title="spliner.rescale_2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rescale_2D</span></code></a>(x0, y0, z0, x1, y1, z1)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.rescale_2D" title="spliner.rescale_2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rescale_2D</span></code></a>(x0, y0, z0, x1, y1, z1)</p></td>
 <td><p>Unified interface for 2D rescaling functions.</p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="attributes">
-<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h3>
+<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spliner.JIT_AVAILABLE" title="spliner.JIT_AVAILABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JIT_AVAILABLE</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#spliner.JIT_AVAILABLE" title="spliner.JIT_AVAILABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JIT_AVAILABLE</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py data">
 <dt class="sig sig-object py" id="spliner.JIT_AVAILABLE">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">JIT_AVAILABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#spliner.JIT_AVAILABLE" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">JIT_AVAILABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#spliner.JIT_AVAILABLE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.iminloc">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">iminloc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.iminloc" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">iminloc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.iminloc" title="Link to this definition">¶</a></dt>
 <dd><p>Find the index of the minimum value in an array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -222,14 +223,14 @@ and polynomial interpolation methods. Supports both real and complex arrays,
 Note: Returns 0-based index to match Python convention.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.rescale_2D_dp">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">rescale_2D_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.rescale_2D_dp" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">rescale_2D_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.rescale_2D_dp" title="Link to this definition">¶</a></dt>
 <dd><p>Rescale a 2D real array from one grid to another.</p>
 <p>Rescales the 2D array z0 defined on grid (x0, y0) to a new grid (x1, y1),
 storing the result in z1. Uses cubic spline interpolation.</p>
@@ -252,7 +253,7 @@ then interpolates along the y-direction for each x1 value.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.rescale_2D_dpc">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">rescale_2D_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.rescale_2D_dpc" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">rescale_2D_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.rescale_2D_dpc" title="Link to this definition">¶</a></dt>
 <dd><p>Rescale a 2D complex array from one grid to another.</p>
 <p>Rescales the 2D complex array z0 defined on grid (x0, y0) to a new grid (x1, y1),
 storing the result in z1. Uses cubic spline interpolation.</p>
@@ -275,7 +276,7 @@ then interpolates along the y-direction for each x1 value.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.rescale_1D_dpc">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">rescale_1D_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.rescale_1D_dpc" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">rescale_1D_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.rescale_1D_dpc" title="Link to this definition">¶</a></dt>
 <dd><p>Rescale a 1D complex array from one grid to another.</p>
 <p>Rescales the 1D complex array z0 defined on grid x0 to a new grid x1,
 storing the result in z1. Uses cubic spline interpolation.</p>
@@ -295,7 +296,7 @@ storing the result in z1. Uses cubic spline interpolation.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.rescale_1D_cyl_dpc">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">rescale_1D_cyl_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.rescale_1D_cyl_dpc" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">rescale_1D_cyl_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.rescale_1D_cyl_dpc" title="Link to this definition">¶</a></dt>
 <dd><p>Rescale a 1D complex array from one grid to another with cylindrical boundary condition.</p>
 <p>Rescales the 1D complex array z0 defined on grid x0 to a new grid x1,
 storing the result in z1. Uses cubic spline interpolation.
@@ -317,7 +318,7 @@ The first point z1[0] is always set to z0[0].</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.rescale_1D_dp">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">rescale_1D_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.rescale_1D_dp" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">rescale_1D_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.rescale_1D_dp" title="Link to this definition">¶</a></dt>
 <dd><p>Rescale a 1D real array from one grid to another.</p>
 <p>Rescales the 1D real array y0 defined on grid x0 to a new grid x1,
 storing the result in y1. Uses cubic spline interpolation.</p>
@@ -337,7 +338,7 @@ storing the result in y1. Uses cubic spline interpolation.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.GetValAt_3D">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">GetValAt_3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.GetValAt_3D" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">GetValAt_3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.GetValAt_3D" title="Link to this definition">¶</a></dt>
 <dd><p>Interpolate a 3D array at an arbitrary point.</p>
 <p>Uses polynomial interpolation to interpolate the 3D array e at the
 point (x0, x1, x2). Returns 0 if the point is outside the array bounds.</p>
@@ -348,24 +349,24 @@ point (x0, x1, x2). Returns 0 if the point is outside the array bounds.</p>
 <li><p><strong>x0a</strong> (<em>ndarray</em>) – X-coordinates for first dimension, 1D array</p></li>
 <li><p><strong>x1a</strong> (<em>ndarray</em>) – X-coordinates for second dimension, 1D array</p></li>
 <li><p><strong>x2a</strong> (<em>ndarray</em>) – X-coordinates for third dimension, 1D array</p></li>
-<li><p><strong>x0</strong> (<em>float</em>) – Position in first dimension</p></li>
-<li><p><strong>x1</strong> (<em>float</em>) – Position in second dimension</p></li>
-<li><p><strong>x2</strong> (<em>float</em>) – Position in third dimension</p></li>
-<li><p><strong>N</strong> (<em>int</em><em>, </em><em>optional</em>) – Order of interpolation (default: 2)</p></li>
+<li><p><strong>x0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position in first dimension</p></li>
+<li><p><strong>x1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position in second dimension</p></li>
+<li><p><strong>x2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position in third dimension</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Order of interpolation (default: 2)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Interpolated value at (x0, x1, x2), or 0 if outside bounds</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.GetValAt_2D">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">GetValAt_2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.GetValAt_2D" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">GetValAt_2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.GetValAt_2D" title="Link to this definition">¶</a></dt>
 <dd><p>Interpolate a 2D array at an arbitrary point.</p>
 <p>Uses polynomial interpolation to interpolate the 2D array e at the
 point (x0, x1). Returns 0 if the point is outside the array bounds.</p>
@@ -375,23 +376,23 @@ point (x0, x1). Returns 0 if the point is outside the array bounds.</p>
 <li><p><strong>e</strong> (<em>ndarray</em>) – 2D array to interpolate</p></li>
 <li><p><strong>x0a</strong> (<em>ndarray</em>) – X-coordinates for first dimension, 1D array</p></li>
 <li><p><strong>x1a</strong> (<em>ndarray</em>) – X-coordinates for second dimension, 1D array</p></li>
-<li><p><strong>x0</strong> (<em>float</em>) – Position in first dimension</p></li>
-<li><p><strong>x1</strong> (<em>float</em>) – Position in second dimension</p></li>
-<li><p><strong>N</strong> (<em>int</em><em>, </em><em>optional</em>) – Order of interpolation (default: 2)</p></li>
+<li><p><strong>x0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position in first dimension</p></li>
+<li><p><strong>x1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position in second dimension</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Order of interpolation (default: 2)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Interpolated value at (x0, x1), or 0 if outside bounds</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.GetValAt_1D">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">GetValAt_1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.GetValAt_1D" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">GetValAt_1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.GetValAt_1D" title="Link to this definition">¶</a></dt>
 <dd><p>Interpolate a 1D real array at an arbitrary point.</p>
 <p>Uses cubic spline interpolation to interpolate the 1D array e at the
 point x1. Returns 0 if the point is outside the array bounds.</p>
@@ -400,21 +401,21 @@ point x1. Returns 0 if the point is outside the array bounds.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>e</strong> (<em>ndarray</em>) – 1D array to interpolate</p></li>
 <li><p><strong>x0</strong> (<em>ndarray</em>) – X-coordinates for the array, 1D array</p></li>
-<li><p><strong>x1</strong> (<em>float</em>) – Position to interpolate</p></li>
+<li><p><strong>x1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position to interpolate</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Interpolated value at x1, or 0 if outside bounds</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.GetValAt_1D_dpc">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">GetValAt_1D_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.GetValAt_1D_dpc" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">GetValAt_1D_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.GetValAt_1D_dpc" title="Link to this definition">¶</a></dt>
 <dd><p>Interpolate a 1D complex array at an arbitrary point.</p>
 <p>Uses cubic spline interpolation to interpolate the 1D complex array e
 at the point x1. Returns 0 if the point is outside the array bounds.</p>
@@ -423,21 +424,21 @@ at the point x1. Returns 0 if the point is outside the array bounds.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>e</strong> (<em>ndarray</em>) – 1D complex array to interpolate</p></li>
 <li><p><strong>x0</strong> (<em>ndarray</em>) – X-coordinates for the array, 1D array</p></li>
-<li><p><strong>x1</strong> (<em>float</em>) – Position to interpolate</p></li>
+<li><p><strong>x1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position to interpolate</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Interpolated complex value at x1, or 0 if outside bounds</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>complex</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)">complex</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.polint1">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">polint1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ya</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.polint1" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">polint1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ya</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.polint1" title="Link to this definition">¶</a></dt>
 <dd><p>Interpolate a 1D array at an arbitrary point using polynomial interpolation.</p>
 <p>Uses Neville’s algorithm for polynomial interpolation. The polynomial
 order is determined by the array size (N-1).</p>
@@ -446,22 +447,22 @@ order is determined by the array size (N-1).</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>xa</strong> (<em>ndarray</em>) – X-coordinates, 1D array</p></li>
 <li><p><strong>ya</strong> (<em>ndarray</em>) – Y-values at x coordinates, 1D array</p></li>
-<li><p><strong>x</strong> (<em>float</em>) – Position to interpolate</p></li>
-<li><p><strong>dy</strong> (<em>list</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – If provided as a list, will store error estimate in dy[0]</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position to interpolate</p></li>
+<li><p><strong>dy</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – If provided as a list, will store error estimate in dy[0]</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Interpolated value at x</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.polint2">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">polint2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ya</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.polint2" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">polint2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ya</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.polint2" title="Link to this definition">¶</a></dt>
 <dd><p>Interpolate a 2D array at an arbitrary point using polynomial interpolation.</p>
 <p>Uses polynomial interpolation by first interpolating along the second
 dimension, then along the first dimension.</p>
@@ -471,23 +472,23 @@ dimension, then along the first dimension.</p>
 <li><p><strong>x1a</strong> (<em>ndarray</em>) – X-coordinates for first dimension, 1D array</p></li>
 <li><p><strong>x2a</strong> (<em>ndarray</em>) – X-coordinates for second dimension, 1D array</p></li>
 <li><p><strong>ya</strong> (<em>ndarray</em>) – 2D array of values</p></li>
-<li><p><strong>x1</strong> (<em>float</em>) – Position in first dimension</p></li>
-<li><p><strong>x2</strong> (<em>float</em>) – Position in second dimension</p></li>
-<li><p><strong>dy</strong> (<em>float</em><em>, </em><em>optional</em>) – Output parameter for error estimate (if provided)</p></li>
+<li><p><strong>x1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position in first dimension</p></li>
+<li><p><strong>x2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position in second dimension</p></li>
+<li><p><strong>dy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Output parameter for error estimate (if provided)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Interpolated value at (x1, x2)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.polint3">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">polint3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x3a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ya</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.polint3" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">polint3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x3a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ya</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.polint3" title="Link to this definition">¶</a></dt>
 <dd><p>Interpolate a 3D array at an arbitrary point using polynomial interpolation.</p>
 <p>Uses polynomial interpolation by first interpolating along the third
 and second dimensions, then along the first dimension.</p>
@@ -498,24 +499,24 @@ and second dimensions, then along the first dimension.</p>
 <li><p><strong>x2a</strong> (<em>ndarray</em>) – X-coordinates for second dimension, 1D array</p></li>
 <li><p><strong>x3a</strong> (<em>ndarray</em>) – X-coordinates for third dimension, 1D array</p></li>
 <li><p><strong>ya</strong> (<em>ndarray</em>) – 3D array of values</p></li>
-<li><p><strong>x1</strong> (<em>float</em>) – Position in first dimension</p></li>
-<li><p><strong>x2</strong> (<em>float</em>) – Position in second dimension</p></li>
-<li><p><strong>x3</strong> (<em>float</em>) – Position in third dimension</p></li>
-<li><p><strong>dy</strong> (<em>float</em><em>, </em><em>optional</em>) – Output parameter for error estimate (if provided)</p></li>
+<li><p><strong>x1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position in first dimension</p></li>
+<li><p><strong>x2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position in second dimension</p></li>
+<li><p><strong>x3</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position in third dimension</p></li>
+<li><p><strong>dy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Output parameter for error estimate (if provided)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Interpolated value at (x1, x2, x3)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.bcucof">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">bcucof</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.bcucof" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">bcucof</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.bcucof" title="Link to this definition">¶</a></dt>
 <dd><p>Compute bicubic interpolation coefficients.</p>
 <p>Computes the coefficients for bicubic interpolation given function values,
 first derivatives, and cross derivatives at the four corners of a rectangle.</p>
@@ -526,8 +527,8 @@ first derivatives, and cross derivatives at the four corners of a rectangle.</p>
 <li><p><strong>y1</strong> (<em>ndarray</em>) – First derivatives in x-direction at four corners, shape (4,)</p></li>
 <li><p><strong>y2</strong> (<em>ndarray</em>) – First derivatives in y-direction at four corners, shape (4,)</p></li>
 <li><p><strong>y12</strong> (<em>ndarray</em>) – Cross derivatives (d^2/dxdy) at four corners, shape (4,)</p></li>
-<li><p><strong>d1</strong> (<em>float</em>) – Width of rectangle in x-direction</p></li>
-<li><p><strong>d2</strong> (<em>float</em>) – Width of rectangle in y-direction</p></li>
+<li><p><strong>d1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Width of rectangle in x-direction</p></li>
+<li><p><strong>d2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Width of rectangle in y-direction</p></li>
 <li><p><strong>c</strong> (<em>ndarray</em>) – Output array for bicubic coefficients, shape (4, 4), modified in-place</p></li>
 </ul>
 </dd>
@@ -540,7 +541,7 @@ where t and u are normalized coordinates in [0,1].</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.bcuint">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">bcuint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.bcuint" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">bcuint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.bcuint" title="Link to this definition">¶</a></dt>
 <dd><p>Bicubic interpolation.</p>
 <p>Performs bicubic interpolation at the point (x1, x2) within a rectangle
 defined by [x1l, x1u] x [x2l, x2u]. Returns the interpolated value.</p>
@@ -551,12 +552,12 @@ defined by [x1l, x1u] x [x2l, x2u]. Returns the interpolated value.</p>
 <li><p><strong>y1</strong> (<em>ndarray</em>) – First derivatives in x-direction at four corners, shape (4,)</p></li>
 <li><p><strong>y2</strong> (<em>ndarray</em>) – First derivatives in y-direction at four corners, shape (4,)</p></li>
 <li><p><strong>y12</strong> (<em>ndarray</em>) – Cross derivatives (d^2/dxdy) at four corners, shape (4,)</p></li>
-<li><p><strong>x1l</strong> (<em>float</em>) – Lower bound of x1 coordinate</p></li>
-<li><p><strong>x1u</strong> (<em>float</em>) – Upper bound of x1 coordinate</p></li>
-<li><p><strong>x2l</strong> (<em>float</em>) – Lower bound of x2 coordinate</p></li>
-<li><p><strong>x2u</strong> (<em>float</em>) – Upper bound of x2 coordinate</p></li>
-<li><p><strong>x1</strong> (<em>float</em>) – X1 coordinate to interpolate</p></li>
-<li><p><strong>x2</strong> (<em>float</em>) – X2 coordinate to interpolate</p></li>
+<li><p><strong>x1l</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Lower bound of x1 coordinate</p></li>
+<li><p><strong>x1u</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Upper bound of x1 coordinate</p></li>
+<li><p><strong>x2l</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Lower bound of x2 coordinate</p></li>
+<li><p><strong>x2u</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Upper bound of x2 coordinate</p></li>
+<li><p><strong>x1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – X1 coordinate to interpolate</p></li>
+<li><p><strong>x2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – X2 coordinate to interpolate</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -566,14 +567,14 @@ defined by [x1l, x1u] x [x2l, x2u]. Returns the interpolated value.</p>
 - ansy2: Partial derivative d/dx2</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.spline2_dpc">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">spline2_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.spline2_dpc" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">spline2_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.spline2_dpc" title="Link to this definition">¶</a></dt>
 <dd><p>Compute the cubic spline interpolant for complex arrays (second derivative version).</p>
 <p>Computes the second derivatives z2 for cubic spline interpolation of the
 complex function z(x). This version uses natural boundary conditions
@@ -595,14 +596,14 @@ The spline can be evaluated using seval2_dpc.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.seval2_dpc">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">seval2_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.seval2_dpc" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">seval2_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.seval2_dpc" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluate the cubic spline for complex arrays (second derivative version).</p>
 <p>Evaluates the cubic spline at point x0 using the pre-computed second
 derivatives z2 from spline2_dpc.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x0</strong> (<em>float</em>) – Position to interpolate</p></li>
+<li><p><strong>x0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position to interpolate</p></li>
 <li><p><strong>x</strong> (<em>ndarray</em>) – X-coordinates used to compute spline, 1D array</p></li>
 <li><p><strong>z</strong> (<em>ndarray</em>) – Complex function values at x coordinates, 1D array</p></li>
 <li><p><strong>z2</strong> (<em>ndarray</em>) – Second derivatives from spline2_dpc, 1D complex array</p></li>
@@ -612,14 +613,14 @@ derivatives z2 from spline2_dpc.</p>
 <dd class="field-even"><p>Interpolated complex value at x0</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>complex</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)">complex</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.spline2_dp">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">spline2_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.spline2_dp" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">spline2_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.spline2_dp" title="Link to this definition">¶</a></dt>
 <dd><p>Compute the cubic spline interpolant for real arrays (second derivative version).</p>
 <p>Computes the second derivatives y2 for cubic spline interpolation of the
 function y(x). This version uses natural boundary conditions
@@ -641,28 +642,28 @@ The spline can be evaluated using seval2_dp.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.locate">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">locate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.locate" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">locate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.locate" title="Link to this definition">¶</a></dt>
 <dd><p>Find the index i such that xx[i] &lt;= x &lt; xx[i+1].</p>
 <p>Uses binary search for efficiency. Returns the index of the lower bound.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>xx</strong> (<em>ndarray</em>) – Sorted 1D array (ascending order)</p></li>
-<li><p><strong>x</strong> (<em>float</em>) – Value to locate</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Value to locate</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Index i such that xx[i] &lt;= x &lt; xx[i+1], or len(xx)-1 if x &gt;= xx[-1]</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.spline_dp">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">spline_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.spline_dp" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">spline_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.spline_dp" title="Link to this definition">¶</a></dt>
 <dd><p>Compute the cubic spline interpolant for real arrays.</p>
 <p>Computes the coefficients b, c, d for cubic spline interpolation
 of the function y(x). The spline can then be evaluated using seval_dp.</p>
@@ -685,14 +686,14 @@ where dx = x - x[i] and i is the index such that x[i] &lt;= x &lt; x[i+1].</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.seval_dp">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">seval_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.seval_dp" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">seval_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.seval_dp" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluate the cubic spline for real arrays.</p>
 <p>Evaluates the cubic spline at point u using the pre-computed
 spline coefficients b, c, d from spline_dp.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>u</strong> (<em>float</em>) – Position to interpolate</p></li>
+<li><p><strong>u</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position to interpolate</p></li>
 <li><p><strong>x</strong> (<em>ndarray</em>) – X-coordinates used to compute spline, 1D array</p></li>
 <li><p><strong>y</strong> (<em>ndarray</em>) – Y-values at x coordinates, 1D array</p></li>
 <li><p><strong>b</strong> (<em>ndarray</em>) – Spline coefficients (linear term) from spline_dp</p></li>
@@ -704,14 +705,14 @@ spline coefficients b, c, d from spline_dp.</p>
 <dd class="field-even"><p>Interpolated value at u</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.spline_dpc">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">spline_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.spline_dpc" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">spline_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.spline_dpc" title="Link to this definition">¶</a></dt>
 <dd><p>Compute the cubic spline interpolant for complex arrays.</p>
 <p>Computes the coefficients b, c, d for cubic spline interpolation
 of the complex function y(x). The spline can then be evaluated using seval_dpc.</p>
@@ -734,14 +735,14 @@ where dx = x - x[i] and i is the index such that x[i] &lt;= x &lt; x[i+1].</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.seval_dpc">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">seval_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.seval_dpc" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">seval_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.seval_dpc" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluate the cubic spline for complex arrays.</p>
 <p>Evaluates the cubic spline at point u using the pre-computed
 spline coefficients b, c, d from spline_dpc.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>u</strong> (<em>float</em>) – Position to interpolate</p></li>
+<li><p><strong>u</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position to interpolate</p></li>
 <li><p><strong>x</strong> (<em>ndarray</em>) – X-coordinates used to compute spline, 1D array</p></li>
 <li><p><strong>y</strong> (<em>ndarray</em>) – Complex Y-values at x coordinates, 1D array</p></li>
 <li><p><strong>b</strong> (<em>ndarray</em>) – Complex spline coefficients (linear term) from spline_dpc</p></li>
@@ -753,21 +754,21 @@ spline coefficients b, c, d from spline_dpc.</p>
 <dd class="field-even"><p>Interpolated complex value at u</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>complex</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)">complex</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.seval2_dp">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">seval2_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.seval2_dp" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">seval2_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.seval2_dp" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluate the cubic spline for real arrays (second derivative version).</p>
 <p>Evaluates the cubic spline at point x0 using the pre-computed second
 derivatives y2 from spline2_dp.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x0</strong> (<em>float</em>) – Position to interpolate</p></li>
+<li><p><strong>x0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position to interpolate</p></li>
 <li><p><strong>x</strong> (<em>ndarray</em>) – X-coordinates used to compute spline, 1D array</p></li>
 <li><p><strong>y</strong> (<em>ndarray</em>) – Function values at x coordinates, 1D array</p></li>
 <li><p><strong>y2</strong> (<em>ndarray</em>) – Second derivatives from spline2_dp, 1D array</p></li>
@@ -777,14 +778,14 @@ derivatives y2 from spline2_dp.</p>
 <dd class="field-even"><p>Interpolated value at x0</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.spline">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">spline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.spline" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">spline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.spline" title="Link to this definition">¶</a></dt>
 <dd><p>Unified interface for spline functions.</p>
 <p>Automatically dispatches to the appropriate spline function based on
 argument count and types:
@@ -799,7 +800,7 @@ argument count and types:
 <li><p><strong>*args</strong> (<em>variable</em>) – Positional arguments:
 - For spline2: (y, y2) or (z, z2)
 - For spline: (y, b, c, d) or (z, b, c, d)</p></li>
-<li><p><strong>**kwargs</strong> (<em>dict</em>) – Keyword arguments (alternative to positional args)</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – Keyword arguments (alternative to positional args)</p></li>
 </ul>
 </dd>
 </dl>
@@ -821,7 +822,7 @@ the same function name to be used for different spline variants.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.seval">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">seval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.seval" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">seval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.seval" title="Link to this definition">¶</a></dt>
 <dd><p>Unified interface for spline evaluation functions.</p>
 <p>Automatically dispatches to the appropriate seval function based on
 argument count and types:
@@ -832,7 +833,7 @@ argument count and types:
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pos</strong> (<em>float</em>) – Position to interpolate</p></li>
+<li><p><strong>pos</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Position to interpolate</p></li>
 <li><p><strong>x</strong> (<em>ndarray</em>) – X-coordinates used to compute spline, 1D array</p></li>
 <li><p><strong>*args</strong> (<em>variable</em>) – Positional arguments:
 - For seval2: (y, y2) or (z, z2)
@@ -843,7 +844,7 @@ argument count and types:
 <dd class="field-even"><p>Interpolated value</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float or complex</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or <a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)">complex</a></p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -864,7 +865,7 @@ the same function name to be used for different seval variants.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.rescale_1D">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">rescale_1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.rescale_1D" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">rescale_1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.rescale_1D" title="Link to this definition">¶</a></dt>
 <dd><p>Unified interface for 1D rescaling functions.</p>
 <p>Automatically dispatches to the appropriate rescale_1D function based on
 argument types:
@@ -889,7 +890,7 @@ the same function name to be used for different rescale_1D variants.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="spliner.rescale_2D">
-<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">rescale_2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.rescale_2D" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">spliner.</span></span><span class="sig-name descname"><span class="pre">rescale_2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spliner.rescale_2D" title="Link to this definition">¶</a></dt>
 <dd><p>Unified interface for 2D rescaling functions.</p>
 <p>Automatically dispatches to the appropriate rescale_2D function based on
 argument types:
@@ -919,14 +920,12 @@ the same function name to be used for different rescale_2D variants.</p>
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../PSTD3D/usefulsubs/index.html" class="btn btn-neutral float-left" title="PSTD3D.usefulsubs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
+          <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+    <p>&#169; Copyright 2025, Rahul R. Sah and PulseSuite Developers.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

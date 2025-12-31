@@ -57,10 +57,10 @@ where $\Gamma_{em}$ and $\Gamma_{abs}$ are the emission and absorption rates com
 
 First, we import the necessary modules and set up the physical parameters.
 
-```{code-block} python
+```{code-cell} python
 import numpy as np
 import matplotlib.pyplot as plt
-from pulsesuite.PSTD3D import dcfield
+from pulsesuite.PSTD3D.dcfield import *
 from scipy.constants import e as e0, hbar
 
 # Physical Parameters for GaAs Quantum Wire
@@ -89,7 +89,7 @@ print("DC field module initialized")
 
 We create initial Gaussian distributions for electrons and holes.
 
-```{code-block} python
+```{code-cell} python
 # Initial Electron Distribution (Gaussian centered at k=0)
 sigma_k = 2e8
 n_e = np.exp(-k_grid**2 / (2 * sigma_k**2)) + 0j
@@ -118,7 +118,7 @@ print(f"Initial hole density: {np.sum(np.real(n_h)):.4f}")
 
 We compute the DC field contribution to the electron distribution evolution using the finite difference method (`CalcDCE2`).
 
-```{code-block} python
+```{code-cell} python
 # Output arrays for DC contributions
 DC_e = np.zeros(N_k)
 DC_h = np.zeros(N_k)
@@ -173,7 +173,7 @@ print(f"Hole drift velocity: {dcfield.GetVHDrift():.2e} m/s")
 
 We calculate the total current from the carrier distributions.
 
-```{code-block} python
+```{code-cell} python
 # Calculate electron current
 I_e = dcfield.CalcI0n(n_e, m_e, k_grid)
 print(f"Electron current: {I_e:.2e} A")
@@ -192,7 +192,7 @@ print(f"Total current: {I_total:.2e} A")
 
 We visualize the initial distributions and the DC field contributions.
 
-```{code-block} python
+```{code-cell} python
 fig, axes = plt.subplots(2, 2, figsize=(14, 10))
 
 # Electron distribution
@@ -243,7 +243,7 @@ The DC contribution shows the rate of change of the distribution. For electrons,
 
 The module provides two implementations: `CalcDCE`/`CalcDCH` (FFT-based) and `CalcDCE2`/`CalcDCH2` (finite difference). Let's compare them.
 
-```{code-block} python
+```{code-cell} python
 # FFT-based method
 DC_e_fft = np.zeros(N_k)
 DC_h_fft = np.zeros(N_k)
@@ -310,7 +310,7 @@ The finite difference method (`CalcDCE2`/`CalcDCH2`) is generally more stable an
 
 We can track how the drift velocity changes with the distribution. Let's calculate it directly from the distribution.
 
-```{code-block} python
+```{code-cell} python
 # Calculate drift velocity from distribution
 v_e_dist = dcfield.CalcVD(k_grid, m_e, n_e)
 v_h_dist = dcfield.CalcVD(k_grid, m_h, n_h)
@@ -330,7 +330,7 @@ print(f"Hole average momentum: {p_h:.2e} kg·m/s")
 
 The module includes energy renormalization to account for many-body effects. Let's examine this.
 
-```{code-block} python
+```{code-cell} python
 # Calculate renormalized energies
 E_e_renorm = dcfield.EkReNorm(np.real(n_e), E_e, V_ee)
 E_h_renorm = dcfield.EkReNorm(np.real(n_h), E_h, V_hh)
@@ -375,4 +375,3 @@ This example demonstrated:
 6. **Phonon-assisted transport** through the drift force calculation
 
 The `dcfield` module provides a comprehensive framework for simulating carrier transport in quantum wires under applied DC fields, including phonon scattering and many-body interactions.
-m

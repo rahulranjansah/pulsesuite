@@ -9,24 +9,19 @@ for the (modified) nonlinear Schrödinger / UPPE equations.
 """
 from __future__ import annotations
 
-import os
-import sys
 from dataclasses import dataclass, field as _field
 from typing import Optional
 
 import numpy as np
 from numba import njit, prange
 
-from fftw import (
+from .fftw import (
     fft_1d, ifft_1d, fft_2d, ifft_2d,  # noqa: F401 (re‑export convenience)
     fft_3d, ifft_3d,
 )
 
-
-# Import the fftw module from the src directory
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../libpulsesuite/src')))
-from constants import c0, eps0, pi, twopi, hbar, ii
-from pulseproperties import *
+# Import constants from libpulsesuite (module-level constants)
+from ..libpulsesuite.constants import c0, eps0, pi, twopi, hbar, ii
 
 
 

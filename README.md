@@ -1,345 +1,133 @@
-# PulseSuite
+<!-- [![PulseSuite Logo](img/pulsesuitelogo.jpeg)](https://pulsesuite.readthedocs.io) -->
+<p align="center">
+  <a href="https://pulsesuite.readthedocs.io">
+    <img
+      src="docs/source/_static/PulseSuitenobg.png"
+      alt="PulseSuite logo"
+      width="100%"
+      style="max-width:1000px; height:auto;"
+    />
+  </a>
+</p>
 
-PulseSuite is a high-performance computational physics toolkit for simulating ultrafast laser-matter interactions in semiconductor quantum structures. It implements the Semiconductor Bloch Equations (SBEs) coupled with Pseudo-Spectral Time Domain (PSTD) electromagnetic field propagation methods to model quantum wire and quantum well systems under intense optical excitation. This code inherits from the my professor advisor [Jeremy R. Gulley](https://www.furman.edu/people/jeremy-r-gulley/) and his collaborators codebase orginally written in Fortran. (Work in progress not the complete codebase)
 
-## Core Physics
 
-This codebase enables simulation of coherent light-matter interactions in low-dimensional semiconductors, including:
+[![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://pulsesuite.readthedocs.io)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 
-- **Quantum Well/Wire Optics**: Propagation-to-QW field transformations, polarization calculations, and density matrix evolution
-- **Coulomb Interactions**: Many-body electron-hole Coulomb effects with screening
-- **Phonon Scattering**: Longitudinal optical phonon interactions with carriers
-- **DC Field Transport**: Electric field-induced carrier drift and tunneling
-- **Dephasing**: Diagonal and off-diagonal dephasing mechanisms
-- **Spontaneous Emission**: Radiative recombination and photoluminescence
+PulseSuite is a high-performance computational physics toolkit for simulating ultrafast laser-matter interactions in semiconductor quantum structures. It implements the **Semiconductor Bloch Equations (SBEs)** coupled with **Pseudo-Spectral Time Domain (PSTD)** electromagnetic field propagation methods to model quantum wire and quantum well systems under intense optical excitation.
 
-The code is a *working in progress* Python port of production Fortran simulation tools, optimized for HPC environments using NumPy, accelerated FFTs (scipy/pyFFTW), and optional Numba JIT compilation.
+This codebase is a Python port of production Fortran simulation tools using NumPy, accelerated FFTs (pyFFTW), Numba JIT and CUDA compilation.
 
-## Quick Start
+## Features
 
-### Basic Quantum Well Optics Simulation
-
-```python
-import numpy as np
-import sys
-sys.path.append('PSTD3D/src')
-
-from qwoptics import InitializeQWOptics, Prop2QW, QWPolarization3
-from scipy.constants import eV as eV_SI, hbar as hbar_SI
-
-# Define quantum wire parameters
-Nr = 64                    # Spatial grid points
-Nk = 32                    # Momentum grid points
-L = 100e-9                 # Wire length (m)
-area = 1e-16               # Cross-sectional area (m^2)
-gap = 1.5 * eV_SI             # Band gap energy
-dcv = 1.0 + 0.5j           # Dipole matrix element
-
-# Create coordinate grids
-RR = np.linspace(-500e-9, 500e-9, Nr)  # Propagation space
-R = np.linspace(-L/2, L/2, Nr)         # QW space
-kr = np.linspace(-1e7, 1e7, Nk)        # Momentum space
-Qr = np.linspace(-2e7, 2e7, Nr)        # QW momentum space
-
-# Energy bands (parabolic approximation)
-me = 0.07 * 9.1e-31        # Electron effective mass
-mh = 0.45 * 9.1e-31        # Hole effective mass
-Ee = (hbar_SI * kr)**2 / (2 * me)
-Eh = (hbar_SI * kr)**2 / (2 * mh)
-
-# Initialize QW optics module
-InitializeQWOptics(RR, L, dcv, kr, Qr, Ee, Eh, ehint=1.0, area=area, gap=gap)
-
-# Convert propagation fields to QW representation
-Exx = np.sin(2*np.pi*RR/L) * np.exp(1j*2*np.pi*RR/L)  # Input field
-Edc = np.zeros(1)
-Ex = np.zeros(Nr, dtype=np.complex128)
-Prop2QW(RR, Exx, np.zeros_like(Exx), np.zeros_like(Exx), np.zeros_like(Exx),
-        Edc, R, Ex, np.zeros_like(Ex), np.zeros_like(Ex), np.zeros_like(Ex), 0.0, 0)
-
-print(f"Average DC field: {Edc[0]:.3e} V/m")
-print(f"QW field amplitude: {np.max(np.abs(Ex)):.3e}")
-```
-
-### Semiconductor Bloch Equations Time Evolution
-
-```python
-from SBEs import InitializeSBE, dpdt, dCdt, dDdt
-import numpy as np
-
-# Initialize SBE solver
-Nk = 32
-Nr = 64
-q = np.linspace(-1e7, 1e7, Nr)
-rr = np.linspace(-200e-9, 200e-9, Nr)
-
-InitializeSBE(q, rr, Edc=0.0, area=1e-16, wavelength=800e-9, Nwire=1, optics=True)
-
-# Initialize density matrices
-P = np.zeros((Nk, Nk), dtype=np.complex128)      # Coherence (polarization)
-C = np.eye(Nk, dtype=np.complex128) * 1e-6       # Electron occupation
-D = np.eye(Nk, dtype=np.complex128) * 1e-6       # Hole occupation
-
-# Hamiltonian matrices (from field coupling and many-body effects)
-Heh = np.zeros((Nk, Nk), dtype=np.complex128)    # Electron-hole
-Hee = np.zeros((Nk, Nk), dtype=np.complex128)    # Electron-electron
-Hhh = np.zeros((Nk, Nk), dtype=np.complex128)    # Hole-hole
-
-# Dephasing rates
-GamE = np.ones(Nk) * 1e12                        # Electron (Hz)
-GamH = np.ones(Nk) * 1e12                        # Hole (Hz)
-OffP = np.zeros((Nk, Nk), dtype=np.complex128)   # Off-diagonal
-
-# Calculate time derivatives
-dP = dpdt(C, D, P, Heh, Hee, Hhh, GamE, GamH, OffP)
-dC = dCdt(C, D, P, Heh, Hee, Hhh, GamE, GamH, OffP)
-dD = dDdt(C, D, P, Heh, Hee, Hhh, GamE, GamH, OffP)
-
-print(f"Polarization evolution rate: {np.max(np.abs(dP)):.3e}")
-print(f"Electron density change: {np.max(np.abs(dC)):.3e}")
-```
-
-### Accelerated FFT Operations
-
-```python
-from fft import fft_3D, ifft_3D, Transform, HankelTransform, CreateHT
-import numpy as np
-
-# Standard 3D FFT (uses pyFFTW if available, scipy.fft otherwise)
-field = np.random.randn(64, 64, 256) + 1j*np.random.randn(64, 64, 256)
-field = field.astype(np.complex128, order='F')  # Fortran contiguous for speed
-
-fft_3D(field)    # Forward transform (in-place)
-ifft_3D(field)   # Inverse transform (in-place)
-
-# Cylindrical symmetry: Hankel transform + FFT
-Nr = 64
-CreateHT(Nr)  # Precompute Hankel matrix
-radial_field = np.random.randn(1, Nr, 256) + 1j*np.random.randn(1, Nr, 256)
-radial_field = radial_field.astype(np.complex128, order='F')
-
-Transform(radial_field)   # Hankel(r) + FFT(t)
-```
+- **Quantum Well/Wire Optics**: Bloch Equations, Field transformations, polarization calculations, density matrix evolution
+- **Many-Body Physics**: Coulomb interactions with screening, phonon scattering, carrier dynamics
+- **Electromagnetic Field Propagation**: Pseudo-Spectral Time Domain (PSTD)
+- **High Performance**: JIT compilation, CUDA, Vectorization, Parallelization
 
 ## Installation
 
 ```bash
-pip install -r requirements.txt
+# Clone the repository
+git clone https://github.com/rahulranjansah/pulsesuite.git
+cd pulsesuite
+
+# Install with pip
+pip install -e .
+
+# Or install with dependencies
+pip install -e ".[doc]"
 ```
 
-## Module Structure
+## Documentation
 
-### Core Modules (`src/`)
-- **`fft.py`**: Accelerated FFT library with 1D/2D/3D transforms, centered FFTs, and Hankel transforms for cylindrical symmetry
-- **`constants.py`**: Physical constants (e, ħ, c, ε₀, μ₀) and mathematical constants
-- **`rungekutta.py`**: Adaptive Runge-Kutta integrators for SBE time evolution
-- **`type_*.py`**: Type definitions for plasma, lens, medium, and two-photon absorption media
+📖 **Full documentation is available at:** [pulsesuite.readthedocs.io](https://pulsesuite.readthedocs.io)
 
-### PSTD3D Package (`PSTD3D/src/`)
+The documentation includes:
+- **Theory and Background**: Physical models and equations
+- **Examples Gallery**: Interactive tutorials with executable code
+- **API Reference**: Complete function and class documentation
+- **Integration Guides**: How to use PulseSuite with other tools
 
-**Quantum Optics**
-- **`qwoptics.py`**: Quantum well optics core - field transformations (Prop2QW, QW2Prop), polarization calculation, density matrices
+## Package Structure
 
-**Many-Body Physics**
-- **`coulomb.py`**: Coulomb interaction matrices with screening, exchange, and correlation effects
-- **`coulomb.py`**: Core Coulomb interaction functions converted from Fortran:
-  - `Vint(Qyk, y, alphae, alphah, Delta0)`: Momentum difference interaction integral with JIT acceleration
-  - `Vehint(k, q, y, ky, alphae, alphah, Delta0)`: Electron-hole interaction integral
-  - `CalcCoulombArrays(y, ky, er, alphae, alphah, L, Delta0, Qy, kkp)`: Constructs unscreened Coulomb collision arrays (Veh0, Vee0, Vhh0)
-- **`phonons.py`**: Longitudinal optical phonon scattering rates and matrix elements
-- **`dcfield.py`**: DC electric field effects, carrier drift, and field-induced tunneling
-- **`dephasing.py`**: T₁ and T₂ dephasing, diagonal and off-diagonal relaxation
-- **`emission.py`**: Spontaneous emission, photoluminescence spectra
-
-**Semiconductor Bloch Equations**
-- **`SBEs.py`**: Complete SBE solver with density matrix evolution (dpdt, dCdt, dDdt)
-- **`SBETest.py`**: Production test harness for SBE simulations
-
-**Utilities**
-- **`usefulsubs.py`**: FFT wrappers, array printing, I/O utilities
-- **`helpers.py`**: Spatial/momentum grids, array locators, magnitude calculations
-- **`spliner.py`**: Cubic spline interpolation for density/field interpolation
-- **`epsrtl.py`**: Dielectric function calculations with Lorentz oscillators
-
-### Parameter Files (`PSTD3D/params/`)
-- **`qw.params`**: Quantum wire/well parameters (length, band gap, effective masses, dephasing rates)
-- **`mb.params`**: Many-body interaction parameters (Coulomb, phonon, screening)
-- **`pulse.params`**: Laser pulse parameters (wavelength, duration, intensity, chirp)
-- **`pstd_abc.params`**: PSTD grid and absorbing boundary conditions
-
-## Recent Updates
-
-### Coulomb Interaction Functions (New)
-
-Three core Coulomb interaction functions have been converted from Fortran (`coulomb.f90`) to Python with JIT acceleration:
-
-- **`Vint`**: Calculates the momentum difference interaction integral for Coulomb interactions in quantum wells. Uses Numba JIT compilation for performance.
-- **`Vehint`**: Computes electron-hole interaction integrals for specific momentum indices.
-- **`CalcCoulombArrays`**: Main function that constructs unscreened Coulomb collision arrays (electron-hole, electron-electron, and hole-hole interactions) for quantum well simulations.
-
-These functions maintain the same naming conventions as the original Fortran code and include comprehensive documentation. The JIT-compiled functions (`Vint` and `Vehint`) provide significant performance improvements over pure Python implementations.
-
-**Example usage:**
-```python
-from PSTD3D.src.coulomb import Vint, Vehint, CalcCoulombArrays
-import numpy as np
-
-# Setup parameters
-y = np.linspace(-50e-9, 50e-9, 64)  # Spatial grid (m)
-ky = np.linspace(-1e7, 1e7, 32)     # Momentum grid (1/m)
-Qy = np.linspace(0, 2e7, 64)         # Momentum differences
-kkp = np.zeros((32, 32), dtype=int)   # Momentum mapping array
-
-# Calculate interaction integral
-Qyk = 1e7
-integral = Vint(Qyk, y, alphae=1e7, alphah=1e7, Delta0=10e-9)
-
-# Calculate full Coulomb arrays
-Veh0, Vee0, Vhh0 = CalcCoulombArrays(
-    y, ky, er=12.0, alphae=1e7, alphah=1e7,
-    L=100e-9, Delta0=10e-9, Qy=Qy, kkp=kkp
-)
+```
+pulsesuite/
+├── core/           # Core utilities (FFT, constants, integrators)
+├── PSTD3D/         # Quantum wire/well physics modules
+│   ├── coulomb.py  # Coulomb interactions
+│   ├── dcfield.py  # DC field transport
+│   ├── emission.py # Spontaneous emission
+│   ├── phonons.py  # Phonon scattering
+│   ├── qwoptics.py # Quantum well optics
+│   └── SBEs.py     # Semiconductor Bloch Equations
+└── libpulsesuite/  # Low-level utilities and integrators
 ```
 
-## Performance Optimization
+## Requirements
 
-**Test Parralelization and threading performance:**
-### FFT Acceleration
-The code automatically selects the fastest FFT backend available:
-1. **pyFFTW** (fastest, multithreaded FFTW)
-2. **scipy.fft** (MKL or FFTW backend)
-3. **numpy.fft** (fallback)
+- Python ≥3.10
+- NumPy ≥1.26.4
+- SciPy ≥1.15.2
+- Matplotlib ≥3.10.0
+- pyFFTW ≥0.15.0 (recommended for performance)
+- Numba ≥0.61.2 (optional, for JIT acceleration)
+- Numba-CUDA==0.23.0 (optional, for CUDA acceleration)
 
-### JIT Compilation
-Core computational functions use Numba JIT compilation for performance:
-- Coulomb interaction integrals (`Vint`, `Vehint`) are JIT-compiled
-- Functions automatically fall back to pure Python if Numba is unavailable
-- JIT compilation provides 10-50x speedup for compute-intensive loops
-- Use `@jit(cache=True)` decorator for functions that will be called repeatedly
-
-## Typical Workflow
-
-1. **Set parameters**: Edit `PSTD3D/params/*.params` files for your system
-2. **Initialize modules**: Call `Initialize*()` functions for required physics
-3. **Define grids**: Set up spatial, momentum, and time grids
-4. **Time evolution**: Use Runge-Kutta integrators to evolve SBEs
-5. **Extract observables**: Calculate absorption, emission, polarization, carrier densities
-6. **Visualize results**: Plot fields, spectra, density matrices
-
-Example parameter sweep:
+## Quick Example
 
 ```python
 import numpy as np
-from SBEspythonic import InitializeSBE, dpdt
+from pulsesuite.PSTD3D.coulomb import InitializeCoulomb
+from scipy.constants import e as e0, hbar
 
-# Sweep over pulse intensities
-intensities = np.logspace(10, 14, 20)  # W/m^2
-absorption = []
-
-for I0 in intensities:
-    # Initialize with new intensity
-    E0 = np.sqrt(2 * I0 / (3e8 * 8.854e-12))
-    # ... run simulation ...
-    # ... extract absorption spectrum ...
-    absorption.append(integrated_absorption)
-
-# Plot intensity-dependent absorption saturation
-plt.semilogx(intensities, absorption)
-plt.xlabel('Intensity (W/m²)')
-plt.ylabel('Absorption')
+# Initialize Coulomb module for quantum wire simulations
+# See documentation for complete examples
 ```
 
-## Troubleshooting
-
-**Common issues:**
-
-**Slow FFT performance**
-- Ensure pyFFTW is installed: `python -c "import pyfftw; print(pyfftw.__version__)"`
-- Use Fortran-contiguous arrays: `np.asfortranarray(arr)`
-- Set thread counts: `export OMP_NUM_THREADS=8`
-
-**Threading performance workflow needs to be optimized**
-```bash
-
-### Threading
-
-The code uses multithreaded FFT and linear algebra operations. Thread counts are controlled via environment variables that must be set **before importing** the modules:
-
-```bash
-# Set thread counts for parallel FFT and linear algebra
-export OMP_NUM_THREADS=8       # For pyFFTW, OpenBLAS, and FFTW
-export MKL_NUM_THREADS=8        # For Intel MKL (if using MKL-backed NumPy/SciPy)
-export NUMBA_NUM_THREADS=8      # For Numba JIT compilation (if used)
-```
-
-**In Python scripts:**
-```python
-import os
-# Must set BEFORE importing fftw
-os.environ['OMP_NUM_THREADS'] = '8'
-
-from fftw import fft_3D, _FFTW_THREADS
-print(f"Using {_FFTW_THREADS} threads")  # Should show 8
-```
-python test_threading.py  # Benchmarks different thread counts
-```
-
-**Best practices:**
-- Start with `OMP_NUM_THREADS = number_of_physical_cores`
-- Don't set higher than physical core count (causes slowdown)
-- For HPC nodes with 32+ cores, 16 threads often gives best efficiency
-- Hyperthreading (2x threads) usually doesn't help FFT performance
-
-```python
-# Efficient allocation
-field = np.zeros((Nx, Ny, Nt), dtype=np.complex128, order='F')
-```
-
-
-**I/O could be optimized to VELOC-style checkpointing**
-- Current implementation uses direct file writes
-- Consider implementing asynchronous I/O for large-scale HPC runs
-- Use HDF5 or similar for structured output in production runs
-
-**Code Conversion Notes**
-- The codebase is being actively converted from Fortran to Python
-- Recent conversions include core Coulomb interaction functions (`Vint`, `Vehint`, `CalcCoulombArrays`) from `coulomb.f90`
-- Functions maintain original Fortran naming conventions for compatibility
-- JIT compilation (Numba) is used where appropriate as an OpenMP alternative
-- All converted functions include comprehensive documentation and type hints
-
-**AI review**
-- Used Agentic-AI to write the code with human in the loop
-- Constantly reviewing the code and making sure it is correct.
-- Fortran-to-Python conversions are verified against original Fortran implementations
-
-## Physical Units
-
-All quantities in SI units unless specified:
-- Length: meters (m)
-- Energy: Joules (J) or electron-volts (eV)
-- Time: seconds (s)
-- Frequency: Hertz (Hz)
-- Electric field: V/m
-- Momentum: kg⋅m/s or m⁻¹ (wavevector)
+For detailed examples and tutorials, see the [Examples Gallery](https://pulsesuite.readthedocs.io/en/latest/examples/gallery.html) in the documentation.
 
 ## Contributing
 
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
 1. Fork the repository
-2. Create feature branch: `git checkout -b feature/new-physics-module`
-3. Add tests for new functionality in `PSTD3D/tests/`
-4. Follow existing code style (NumPy docstrings, type hints)
-5. Ensure all tests pass: `pytest PSTD3D/tests/ -v`
-6. Submit pull request with clear description
+2. Create a feature branch
+3. Add tests for new functionality
+4. Ensure all tests pass: `pytest tests/ -v`
+5. Submit a pull request
 
-## Collaborators
-- Jeremy R. Gulley - Dept. of Physics, Furman University
-- Emily Hatten - Dept. of Physics, Furman University
-- Rahul Ranjan Sah - Dept. of Physics, Furman University
+## Citation
 
-## Contact
+If you use PulseSuite in your research, please cite:
 
-For questions, bug reports, or collaboration inquiries:
-- Email: f1rahulranjan@gmail.com
+```bibtex
+@software{pulsesuite2025,
+  title = {PulseSuite: Simulation suite for ultrafast laser-matter interactions},
+  author = {Sah, Rahul R. and Gulley, Jeremy R.},
+  year = {2025},
+  url = {https://github.com/rahulranjansah/pulsesuite}
+}
+```
 
+See [CITATION.md](CITATION.md) for more details.
 
+## Authors
+
+See [AUTHORS.md](AUTHORS.md) for the complete list of contributors.
+
+## License
+
+This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
+
+## Links
+
+- [Documentation](https://pulsesuite.readthedocs.io)
+- [Issue Tracker](https://github.com/rahulranjansah/pulsesuite/issues)
+- [Contact](mailto:f1rahulranjan@gmail.com)
+
+## Acknowledgments
+
+This codebase inherits from the Fortran simulation tools developed by [Jeremy R. Gulley](https://www.furman.edu/people/jeremy-r-gulley/) and collaborators at Furman University.

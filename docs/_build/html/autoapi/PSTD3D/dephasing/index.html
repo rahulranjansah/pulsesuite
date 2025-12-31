@@ -4,11 +4,22 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PSTD3D.dephasing &mdash; PulseSuite 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+  <title>PSTD3D.dephasing &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
 
   
   <!--[if lt IE 9]>
@@ -22,11 +33,14 @@
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script src="../../../_static/js/hoverxref.js"></script>
+        <script src="../../../_static/js/tooltipster.bundle.min.js"></script>
+        <script src="../../../_static/js/micromodal.min.js"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="PSTD3D.emission" href="../emission/index.html" />
-    <link rel="prev" title="PSTD3D.dcfield" href="../dcfield/index.html" /> 
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,7 +52,7 @@
           
           
           <a href="../../../index.html" class="icon icon-home">
-            PulseSuite
+            pulsesuite
           </a>
               <div class="version">
                 0.1
@@ -52,37 +66,10 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../readme.html">PulseSuite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../gallery.html">Examples Gallery</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">core</span></code></a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D</span></code></a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="../SBEs/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.SBEs</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../coulomb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.coulomb</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../dcfield/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.dcfield</span></code></a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.dephasing</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../emission/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.emission</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../epsrtl/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.epsrtl</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.helpers</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../phonons/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.phonons</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../phost/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.phost</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../qwoptics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.qwoptics</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../rhoPJ/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.rhoPJ</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../sbetestprop/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.sbetestprop</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../sbetestpropnov30/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.sbetestpropnov30</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../typespace/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.typespace</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../usefulsubs/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.usefulsubs</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../index.html#package-contents">Package Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../spliner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">spliner</span></code></a></li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -91,7 +78,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">PulseSuite</a>
+          <a href="../../../index.html">pulsesuite</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -99,8 +86,6 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
-          <li class="breadcrumb-item"><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D</span></code></a></li>
       <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.dephasing</span></code></li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/autoapi/PSTD3D/dephasing/index.rst.txt" rel="nofollow"> View page source</a>
@@ -112,7 +97,7 @@
            <div itemprop="articleBody">
              
   <section id="module-PSTD3D.dephasing">
-<span id="pstd3d-dephasing"></span><h1><a class="reference internal" href="#module-PSTD3D.dephasing" title="PSTD3D.dephasing"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.dephasing</span></code></a><a class="headerlink" href="#module-PSTD3D.dephasing" title="Link to this heading"></a></h1>
+<span id="pstd3d-dephasing"></span><h1><a class="hxr-hoverxref hxr-tooltip reference internal" href="#module-PSTD3D.dephasing" title="PSTD3D.dephasing"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PSTD3D.dephasing</span></code></a><a class="headerlink" href="#module-PSTD3D.dephasing" title="Link to this heading">¶</a></h1>
 <p>Dephasing calculations for quantum wire simulations.</p>
 <p>This module calculates dephasing rates for electrons and holes due to
 carrier-carrier interactions in the Semiconductor Bloch equations.</p>
@@ -120,83 +105,83 @@ carrier-carrier interactions in the Semiconductor Bloch equations.</p>
 <p>Bugs:
 Why Lrtz jit here? -&gt; tackle nopython=True in the future</p>
 <section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <section id="functions">
-<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.dephasing.InitializeDephasing" title="PSTD3D.dephasing.InitializeDephasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeDephasing</span></code></a>(ky, me, mh)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#PSTD3D.dephasing.InitializeDephasing" title="PSTD3D.dephasing.InitializeDephasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeDephasing</span></code></a>(ky, me, mh)</p></td>
 <td><p>Initialize the dephasing module.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.dephasing.Vxx2" title="PSTD3D.dephasing.Vxx2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Vxx2</span></code></a>(q, V)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#PSTD3D.dephasing.Vxx2" title="PSTD3D.dephasing.Vxx2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Vxx2</span></code></a>(q, V)</p></td>
 <td><p>Calculate squared interaction matrix elements.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.dephasing.CalcGammaE" title="PSTD3D.dephasing.CalcGammaE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcGammaE</span></code></a>(ky, ne0, nh0, VC, GammaE)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#PSTD3D.dephasing.CalcGammaE" title="PSTD3D.dephasing.CalcGammaE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcGammaE</span></code></a>(ky, ne0, nh0, VC, GammaE)</p></td>
 <td><p>Calculate electron dephasing rate.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.dephasing.CalcGammaH" title="PSTD3D.dephasing.CalcGammaH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcGammaH</span></code></a>(ky, ne0, nh0, VC, GammaH)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#PSTD3D.dephasing.CalcGammaH" title="PSTD3D.dephasing.CalcGammaH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcGammaH</span></code></a>(ky, ne0, nh0, VC, GammaH)</p></td>
 <td><p>Calculate hole dephasing rate.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.dephasing.CalcOffDiagDeph_E" title="PSTD3D.dephasing.CalcOffDiagDeph_E"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_E</span></code></a>(ne0, nh0, ky, Ee0, Eh0, gee, geh, VC)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#PSTD3D.dephasing.CalcOffDiagDeph_E" title="PSTD3D.dephasing.CalcOffDiagDeph_E"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_E</span></code></a>(ne0, nh0, ky, Ee0, Eh0, gee, geh, VC)</p></td>
 <td><p>Calculate off-diagonal dephasing matrix for electrons.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.dephasing.CalcOffDiagDeph_H" title="PSTD3D.dephasing.CalcOffDiagDeph_H"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_H</span></code></a>(ne0, nh0, ky, Ee0, Eh0, ghh, geh, VC)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#PSTD3D.dephasing.CalcOffDiagDeph_H" title="PSTD3D.dephasing.CalcOffDiagDeph_H"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_H</span></code></a>(ne0, nh0, ky, Ee0, Eh0, ghh, geh, VC)</p></td>
 <td><p>Calculate off-diagonal dephasing matrix for holes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.dephasing.OffDiagDephasing" title="PSTD3D.dephasing.OffDiagDephasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OffDiagDephasing</span></code></a>(ne, nh, p, ky, Ee, Eh, g, VC, x)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#PSTD3D.dephasing.OffDiagDephasing" title="PSTD3D.dephasing.OffDiagDephasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OffDiagDephasing</span></code></a>(ne, nh, p, ky, Ee, Eh, g, VC, x)</p></td>
 <td><p>Calculate off-diagonal dephasing contribution.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.dephasing.CalcOffDiagDeph_E2" title="PSTD3D.dephasing.CalcOffDiagDeph_E2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_E2</span></code></a>(ne, nh, ky, Ee, Eh, gee, geh, VC, Nk)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#PSTD3D.dephasing.CalcOffDiagDeph_E2" title="PSTD3D.dephasing.CalcOffDiagDeph_E2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_E2</span></code></a>(ne, nh, ky, Ee, Eh, gee, geh, VC, Nk)</p></td>
 <td><p>Calculate off-diagonal dephasing matrix for electrons (version 2).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.dephasing.CalcOffDiagDeph_H2" title="PSTD3D.dephasing.CalcOffDiagDeph_H2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_H2</span></code></a>(ne, nh, ky, Ee, Eh, ghh, geh, VC, Nk)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#PSTD3D.dephasing.CalcOffDiagDeph_H2" title="PSTD3D.dephasing.CalcOffDiagDeph_H2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_H2</span></code></a>(ne, nh, ky, Ee, Eh, ghh, geh, VC, Nk)</p></td>
 <td><p>Calculate off-diagonal dephasing matrix for holes (version 2).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.dephasing.OffDiagDephasing2" title="PSTD3D.dephasing.OffDiagDephasing2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OffDiagDephasing2</span></code></a>(ne, nh, p, ky, Ee, Eh, g, VC, t, x)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#PSTD3D.dephasing.OffDiagDephasing2" title="PSTD3D.dephasing.OffDiagDephasing2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OffDiagDephasing2</span></code></a>(ne, nh, p, ky, Ee, Eh, g, VC, t, x)</p></td>
 <td><p>Calculate off-diagonal dephasing contribution (version 2).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.dephasing.printGam" title="PSTD3D.dephasing.printGam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">printGam</span></code></a>(Dx, z, n, file)</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#PSTD3D.dephasing.printGam" title="PSTD3D.dephasing.printGam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">printGam</span></code></a>(Dx, z, n, file)</p></td>
 <td><p>Print dephasing rate to file with index number.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.dephasing.WriteDephasing" title="PSTD3D.dephasing.WriteDephasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WriteDephasing</span></code></a>(ky, gamE, gamH, w, xxx)</p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#PSTD3D.dephasing.WriteDephasing" title="PSTD3D.dephasing.WriteDephasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WriteDephasing</span></code></a>(ky, gamE, gamH, w, xxx)</p></td>
 <td><p>Write dephasing rates to files.</p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="attributes">
-<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h3>
+<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.dephasing.pi" title="PSTD3D.dephasing.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#PSTD3D.dephasing.pi" title="PSTD3D.dephasing.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#PSTD3D.dephasing.hbar" title="PSTD3D.dephasing.hbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hbar</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#PSTD3D.dephasing.hbar" title="PSTD3D.dephasing.hbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hbar</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#PSTD3D.dephasing.ii" title="PSTD3D.dephasing.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#PSTD3D.dephasing.ii" title="PSTD3D.dephasing.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py data">
 <dt class="sig sig-object py" id="PSTD3D.dephasing.pi">
-<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#PSTD3D.dephasing.pi" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#PSTD3D.dephasing.pi" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="PSTD3D.dephasing.hbar">
-<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#PSTD3D.dephasing.hbar" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#PSTD3D.dephasing.hbar" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="PSTD3D.dephasing.ii">
-<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1j</span></em><a class="headerlink" href="#PSTD3D.dephasing.ii" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1j</span></em><a class="headerlink" href="#PSTD3D.dephasing.ii" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PSTD3D.dephasing.InitializeDephasing">
-<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">InitializeDephasing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.InitializeDephasing" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">InitializeDephasing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.InitializeDephasing" title="Link to this definition">¶</a></dt>
 <dd><p>Initialize the dephasing module.</p>
 <p>Sets up all module-level arrays required for dephasing calculations.
 Allocates and initializes momentum index arrays and opens output files.</p>
@@ -204,8 +189,8 @@ Allocates and initializes momentum index arrays and opens output files.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p></li>
-<li><p><strong>me</strong> (<em>float</em>) – Effective electron mass (kg)</p></li>
-<li><p><strong>mh</strong> (<em>float</em>) – Effective hole mass (kg)</p></li>
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective electron mass (kg)</p></li>
+<li><p><strong>mh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective hole mass (kg)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -219,7 +204,7 @@ Allocates and initializes momentum index arrays and opens output files.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PSTD3D.dephasing.Vxx2">
-<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">Vxx2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.Vxx2" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">Vxx2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.Vxx2" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate squared interaction matrix elements.</p>
 <p>Computes V(1+iq, 1)^2 for each momentum q, where iq is the rounded
 index corresponding to abs(q/dq).</p>
@@ -241,7 +226,7 @@ index corresponding to abs(q/dq).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PSTD3D.dephasing.CalcGammaE">
-<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcGammaE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GammaE</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.CalcGammaE" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcGammaE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GammaE</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.CalcGammaE" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate electron dephasing rate.</p>
 <p>Computes the dephasing rate for electrons due to electron-electron
 and electron-hole interactions.</p>
@@ -271,7 +256,7 @@ Uses extended arrays (with boundary points) for indexing safety.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PSTD3D.dephasing.CalcGammaH">
-<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcGammaH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GammaH</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.CalcGammaH" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcGammaH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GammaH</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.CalcGammaH" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate hole dephasing rate.</p>
 <p>Computes the dephasing rate for holes due to hole-hole
 and electron-hole interactions.</p>
@@ -301,7 +286,7 @@ Uses extended arrays (with boundary points) for indexing safety.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PSTD3D.dephasing.CalcOffDiagDeph_E">
-<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_E</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.CalcOffDiagDeph_E" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_E</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.CalcOffDiagDeph_E" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate off-diagonal dephasing matrix for electrons.</p>
 <p>Computes the off-diagonal dephasing matrix D(k,q) for electrons due to
 electron-electron and electron-hole interactions.</p>
@@ -313,8 +298,8 @@ electron-electron and electron-hole interactions.</p>
 <li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
 <li><p><strong>Ee0</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
 <li><p><strong>Eh0</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
-<li><p><strong>gee</strong> (<em>float</em>) – Electron-electron dephasing rate (Hz)</p></li>
-<li><p><strong>geh</strong> (<em>float</em>) – Electron-hole dephasing rate (Hz)</p></li>
+<li><p><strong>gee</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron-electron dephasing rate (Hz)</p></li>
+<li><p><strong>geh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron-hole dephasing rate (Hz)</p></li>
 <li><p><strong>VC</strong> (<em>ndarray</em>) – Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,1] for e-e</p></li>
 </ul>
 </dd>
@@ -329,7 +314,7 @@ electron-electron and electron-hole interactions.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PSTD3D.dephasing.CalcOffDiagDeph_H">
-<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_H</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ghh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.CalcOffDiagDeph_H" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_H</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ghh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.CalcOffDiagDeph_H" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate off-diagonal dephasing matrix for holes.</p>
 <p>Computes the off-diagonal dephasing matrix D(k,q) for holes due to
 hole-hole and electron-hole interactions.</p>
@@ -341,8 +326,8 @@ hole-hole and electron-hole interactions.</p>
 <li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
 <li><p><strong>Ee0</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
 <li><p><strong>Eh0</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
-<li><p><strong>ghh</strong> (<em>float</em>) – Hole-hole dephasing rate (Hz)</p></li>
-<li><p><strong>geh</strong> (<em>float</em>) – Electron-hole dephasing rate (Hz)</p></li>
+<li><p><strong>ghh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Hole-hole dephasing rate (Hz)</p></li>
+<li><p><strong>geh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron-hole dephasing rate (Hz)</p></li>
 <li><p><strong>VC</strong> (<em>ndarray</em>) – Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,2] for h-h</p></li>
 </ul>
 </dd>
@@ -357,7 +342,7 @@ hole-hole and electron-hole interactions.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PSTD3D.dephasing.OffDiagDephasing">
-<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">OffDiagDephasing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.OffDiagDephasing" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">OffDiagDephasing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.OffDiagDephasing" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate off-diagonal dephasing contribution.</p>
 <p>Computes the off-diagonal dephasing contribution to the polarization equation
 due to carrier-carrier interactions.</p>
@@ -389,7 +374,7 @@ and electron-hole interactions. Note that the matrix k_p_q is symmetric.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PSTD3D.dephasing.CalcOffDiagDeph_E2">
-<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_E2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.CalcOffDiagDeph_E2" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_E2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.CalcOffDiagDeph_E2" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate off-diagonal dephasing matrix for electrons (version 2).</p>
 <p>Computes the off-diagonal dephasing matrix D(q,k) for electrons using
 a different algorithm with negative indexing support.</p>
@@ -401,10 +386,10 @@ a different algorithm with negative indexing support.</p>
 <li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
 <li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
 <li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
-<li><p><strong>gee</strong> (<em>float</em>) – Electron-electron dephasing rate (Hz)</p></li>
-<li><p><strong>geh</strong> (<em>float</em>) – Electron-hole dephasing rate (Hz)</p></li>
+<li><p><strong>gee</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron-electron dephasing rate (Hz)</p></li>
+<li><p><strong>geh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron-hole dephasing rate (Hz)</p></li>
 <li><p><strong>VC</strong> (<em>ndarray</em>) – Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,1] for e-e</p></li>
-<li><p><strong>Nk</strong> (<em>int</em>) – Number of momentum points</p></li>
+<li><p><strong>Nk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of momentum points</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -419,7 +404,7 @@ First dimension uses shifted indexing: D[q+Nk, k] corresponds to D(q,k) where q 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PSTD3D.dephasing.CalcOffDiagDeph_H2">
-<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_H2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ghh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.CalcOffDiagDeph_H2" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_H2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ghh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.CalcOffDiagDeph_H2" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate off-diagonal dephasing matrix for holes (version 2).</p>
 <p>Computes the off-diagonal dephasing matrix D(q,k) for holes using
 a different algorithm with negative indexing support.</p>
@@ -431,10 +416,10 @@ a different algorithm with negative indexing support.</p>
 <li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
 <li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
 <li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
-<li><p><strong>ghh</strong> (<em>float</em>) – Hole-hole dephasing rate (Hz)</p></li>
-<li><p><strong>geh</strong> (<em>float</em>) – Electron-hole dephasing rate (Hz)</p></li>
+<li><p><strong>ghh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Hole-hole dephasing rate (Hz)</p></li>
+<li><p><strong>geh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron-hole dephasing rate (Hz)</p></li>
 <li><p><strong>VC</strong> (<em>ndarray</em>) – Interaction matrix (J), 3D array VC[:,:,0] for e-h, VC[:,:,2] for h-h</p></li>
-<li><p><strong>Nk</strong> (<em>int</em>) – Number of momentum points</p></li>
+<li><p><strong>Nk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of momentum points</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -449,7 +434,7 @@ First dimension uses shifted indexing: D[q+Nk, k] corresponds to D(q,k) where q 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PSTD3D.dephasing.OffDiagDephasing2">
-<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">OffDiagDephasing2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.OffDiagDephasing2" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">OffDiagDephasing2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.OffDiagDephasing2" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate off-diagonal dephasing contribution (version 2).</p>
 <p>Computes the off-diagonal dephasing contribution to the polarization equation
 using version 2 algorithm with negative indexing support.</p>
@@ -464,7 +449,7 @@ using version 2 algorithm with negative indexing support.</p>
 <li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
 <li><p><strong>g</strong> (<em>ndarray</em>) – Dephasing rates (Hz), 1D array [gee, ghh, geh]</p></li>
 <li><p><strong>VC</strong> (<em>ndarray</em>) – Interaction matrix (J), 3D array</p></li>
-<li><p><strong>t</strong> (<em>float</em>) – Time (s)</p></li>
+<li><p><strong>t</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Time (s)</p></li>
 <li><p><strong>x</strong> (<em>ndarray</em>) – Output dephasing contribution (modified in-place), 2D array</p></li>
 </ul>
 </dd>
@@ -482,7 +467,7 @@ and electron-hole interactions. Writes max/min values to output files.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PSTD3D.dephasing.printGam">
-<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">printGam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.printGam" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">printGam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.printGam" title="Link to this definition">¶</a></dt>
 <dd><p>Print dephasing rate to file with index number.</p>
 <p>Writes a real 1Dvxx dephasing rate array to a file with index number in filename.</p>
 <dl class="field-list simple">
@@ -490,8 +475,8 @@ and electron-hole interactions. Writes max/min values to output files.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>Dx</strong> (<em>ndarray</em>) – Dephasing rate array (real), 1D array</p></li>
 <li><p><strong>z</strong> (<em>ndarray</em>) – Spatial coordinates (real), 1D array</p></li>
-<li><p><strong>n</strong> (<em>int</em>) – Index number for filename</p></li>
-<li><p><strong>file</strong> (<em>str</em>) – Base filename (without extension and index)</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Index number for filename</p></li>
+<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Base filename (without extension and index)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -505,7 +490,7 @@ Each line contains: z(i), Dx(i)</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PSTD3D.dephasing.WriteDephasing">
-<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">WriteDephasing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xxx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.WriteDephasing" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">WriteDephasing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xxx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PSTD3D.dephasing.WriteDephasing" title="Link to this definition">¶</a></dt>
 <dd><p>Write dephasing rates to files.</p>
 <p>Writes electron and hole dephasing rates to files with wire index.</p>
 <dl class="field-list simple">
@@ -514,8 +499,8 @@ Each line contains: z(i), Dx(i)</p>
 <li><p><strong>ky</strong> (<em>ndarray</em>) – Quantum wire momentum coordinates (1/m), 1D array</p></li>
 <li><p><strong>gamE</strong> (<em>ndarray</em>) – Electron diagonal dephasing rate (Hz), 1D array</p></li>
 <li><p><strong>gamH</strong> (<em>ndarray</em>) – Hole diagonal dephasing rate (Hz), 1D array</p></li>
-<li><p><strong>w</strong> (<em>int</em>) – Wire index</p></li>
-<li><p><strong>xxx</strong> (<em>int</em>) – Time index</p></li>
+<li><p><strong>w</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Wire index</p></li>
+<li><p><strong>xxx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Time index</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -535,15 +520,12 @@ Each line contains: z(i), Dx(i)</p>
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../dcfield/index.html" class="btn btn-neutral float-left" title="PSTD3D.dcfield" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../emission/index.html" class="btn btn-neutral float-right" title="PSTD3D.emission" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+    <p>&#169; Copyright 2025, Rahul R. Sah and PulseSuite Developers.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

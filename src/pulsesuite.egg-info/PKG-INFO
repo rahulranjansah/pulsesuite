@@ -1,12 +1,30 @@
 Metadata-Version: 2.4
 Name: pulsesuite
 Version: 0.1.0
-Summary: High-performance pulse simulation suite
-Author-email: "Rahul R. Sah" <rahulranjansah@example.com>
+Summary: PulseSuite: Simulation suite for ultrafast laser-matter interactions in semiconductor quantum structures
+Author-email: "Rahul R. Sah" <f1rahulranjan@gmail.com>
+Maintainer-email: "Rahul R. Sah" <f1rahulranjan@gmail.com>
 License: MIT
-Classifier: Programming Language :: Python :: 3
+Project-URL: Homepage, https://github.com/rahulranjansah/pulsesuite
+Project-URL: Documentation, https://pulsesuite.readthedocs.io
+Project-URL: Source, https://github.com/rahulranjansah/pulsesuite
+Project-URL: Tracker, https://github.com/rahulranjansah/pulsesuite/issues
+Keywords: physics,semiconductor,quantum,bloch-equations,laser,pulse,simulation,quantum-wire,quantum-well,computational-physics,optics,electromagnetics
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Education
 Classifier: Operating System :: OS Independent
-Requires-Python: >=3.9
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Requires-Python: >=3.10
 Description-Content-Type: text/markdown
 Requires-Dist: numpy>=1.26.4
 Requires-Dist: scipy>=1.15.2
@@ -15,11 +33,31 @@ Requires-Dist: pyfftw>=0.15.0
 Requires-Dist: numba>=0.61.2
 Provides-Extra: test
 Requires-Dist: pytest>=8.3.4; extra == "test"
-Provides-Extra: docs
-Requires-Dist: sphinx>=7.2.6; extra == "docs"
-Requires-Dist: sphinx-rtd-theme>=2.0.0; extra == "docs"
-Requires-Dist: myst-parser>=2.0.0; extra == "docs"
-Requires-Dist: sphinx-autoapi>=3.0.0; extra == "docs"
+Requires-Dist: pytest-cov>=4.0.0; extra == "test"
+Requires-Dist: pytest-xdist>=3.0.0; extra == "test"
+Provides-Extra: jupyter
+Requires-Dist: notebook; extra == "jupyter"
+Requires-Dist: ipywidgets>=7.6; extra == "jupyter"
+Provides-Extra: doc
+Requires-Dist: httpx; extra == "doc"
+Requires-Dist: ipython>=5.0; extra == "doc"
+Requires-Dist: ipywidgets>=7.6; extra == "doc"
+Requires-Dist: jupyter-client; extra == "doc"
+Requires-Dist: jupytext; extra == "doc"
+Requires-Dist: jupyter; extra == "doc"
+Requires-Dist: jupyter_rfb; extra == "doc"
+Requires-Dist: nbconvert>=5.5; extra == "doc"
+Requires-Dist: myst-nb; extra == "doc"
+Requires-Dist: sgp4; extra == "doc"
+Requires-Dist: sphinx<9.0,>=5.0; extra == "doc"
+Requires-Dist: sphinx-autoapi; extra == "doc"
+Requires-Dist: sphinx-gallery<=0.19.0; extra == "doc"
+Requires-Dist: sphinx_rtd_theme; extra == "doc"
+Requires-Dist: sphinx-hoverxref; extra == "doc"
+Requires-Dist: sphinx-notfound-page; extra == "doc"
+Requires-Dist: sphinx-copybutton; extra == "doc"
+Requires-Dist: sphinx-github-role; extra == "doc"
+Requires-Dist: sphinxcontrib-bibtex; extra == "doc"
 
 # PulseSuite
 
