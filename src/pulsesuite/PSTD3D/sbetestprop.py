@@ -12,8 +12,8 @@ Author: Rahul R. Sah
 import numpy as np
 import os
 from scipy.constants import c as c0_SI
-from .typespace import GetSpaceArray, GetKArray
-from .SBEs import InitializeSBE, QWCalculator
+from typespace import GetSpaceArray, GetKArray
+from SBEs import InitializeSBE, QWCalculator
 
 # Physical constants
 c0 = c0_SI  # Speed of light (m/s)

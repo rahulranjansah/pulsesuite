@@ -65,7 +65,7 @@ where $L$ is a Lorentzian lineshape, $T_{avg}$ is the average carrier temperatur
 
 First, we import the necessary modules and set up the physical parameters.
 
-```{code-block} python
+```{code-cell} python
 import numpy as np
 import matplotlib.pyplot as plt
 from pulsesuite.PSTD3D import emission
@@ -100,7 +100,7 @@ print(f"Temperature: {Temp} K")
 
 We initialize the emission module, which sets up internal arrays and pre-calculates integration parameters.
 
-```{code-block} python
+```{code-cell} python
 # Initialize Emission Module
 emission.InitializeEmission(k_grid, E_e, E_h, dcv, epsr, geh, ehint)
 
@@ -120,7 +120,7 @@ The `InitializeEmission` function sets up:
 
 We create initial carrier distributions for electrons and holes. These represent excited carriers that can recombine radiatively.
 
-```{code-block} python
+```{code-cell} python
 # Initial Electron Distribution (Gaussian centered at k=0)
 sigma_k = 1e8
 n_e = np.exp(-k_grid**2 / (2 * sigma_k**2)) + 0j
@@ -146,7 +146,7 @@ print(f"Initial hole density: {np.sum(np.real(n_h)):.4f}")
 
 The Coulomb energy correction accounts for many-body effects on transition energies.
 
-```{code-block} python
+```{code-cell} python
 # Calculate Coulomb energy correction
 Ec_correction = emission.Ec(np.real(n_e), np.real(n_h), VC)
 
@@ -163,7 +163,7 @@ print(f"Transition energy range (with correction): {E_transition_corrected.min()
 
 We calculate the spontaneous emission rate for each momentum state.
 
-```{code-block} python
+```{code-cell} python
 # Calculate spontaneous emission rates
 Rsp = np.zeros(N_k)
 
@@ -177,7 +177,7 @@ print(f"Total emission rate: {np.sum(Rsp):.2e} s^-1")
 
 The photon density of states determines the available photon modes for emission.
 
-```{code-block} python
+```{code-cell} python
 # Calculate photon density of states for a range of energies
 hw_range = np.linspace(gap * 0.9, gap * 1.2, 100)
 rho_photon = emission.rho0(hw_range)
@@ -196,7 +196,7 @@ plt.show()
 
 We calculate the full photoluminescence spectrum as a function of photon energy.
 
-```{code-block} python
+```{code-cell} python
 # Set up photon energy array for PL spectrum
 N_w = 200  # Number of energy points
 hw_PL = np.zeros(N_w)
@@ -221,7 +221,7 @@ print(f"Peak energy: {hw_PL[np.argmax(PLS)]/e0*1e3:.1f} meV")
 
 We visualize the carrier distributions, emission rates, and PL spectrum.
 
-```{code-block} python
+```{code-cell} python
 fig, axes = plt.subplots(2, 2, figsize=(14, 10))
 
 # Carrier distributions
@@ -279,7 +279,7 @@ The PL spectrum shows a peak near the band gap energy. The width and shape depen
 
 We investigate how the PL spectrum changes with temperature by modifying the temperature parameter.
 
-```{code-block} python
+```{code-cell} python
 # Calculate PL spectra at different temperatures
 temperatures = [10.0, 77.0, 150.0, 300.0]
 colors = ['blue', 'green', 'orange', 'red']
@@ -321,7 +321,7 @@ At higher temperatures, the PL spectrum broadens due to increased thermal energy
 
 We can track how the PL spectrum evolves in time as carriers recombine.
 
-```{code-block} python
+```{code-cell} python
 # Simulate time evolution (simplified - in real simulations, carriers would evolve)
 times = [0.0, 1e-12, 5e-12, 10e-12]  # Time points (s)
 colors = ['blue', 'green', 'orange', 'red']
@@ -354,7 +354,7 @@ plt.show()
 
 The spontaneous emission integral is calculated numerically using pre-computed arrays. Let's examine how it depends on transition energy.
 
-```{code-block} python
+```{code-cell} python
 # Calculate spontaneous emission integral for different transition energies
 E_test = np.linspace(gap * 0.9, gap * 1.1, 50)
 Rsp_integral = np.zeros(len(E_test))

@@ -4,11 +4,22 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quantum Wire Optics and Field Conversion &mdash; PulseSuite 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+  <title>Quantum Wire Optics and Field Conversion &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_rtd_theme.css?v=3234e928" />
 
   
   <!--[if lt IE 9]>
@@ -22,12 +33,14 @@
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=f281be69"></script>
-        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../_static/js/hoverxref.js"></script>
+        <script src="../_static/js/tooltipster.bundle.min.js"></script>
+        <script src="../_static/js/micromodal.min.js"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="API Reference" href="../autoapi/index.html" />
     <link rel="prev" title="Phonon Interactions in Quantum Wires" href="phonons_example.myst.html" /> 
 </head>
 
@@ -40,7 +53,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            PulseSuite
+            pulsesuite
           </a>
               <div class="version">
                 0.1
@@ -92,7 +105,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
 </ul>
 
         </div>
@@ -101,7 +113,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">PulseSuite</a>
+          <a href="../index.html">pulsesuite</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -120,17 +132,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="quantum-wire-optics-and-field-conversion">
-<h1>Quantum Wire Optics and Field Conversion<a class="headerlink" href="#quantum-wire-optics-and-field-conversion" title="Link to this heading"></a></h1>
+  <section id="quantum-wire-optics-and-field-conversion">
+<h1>Quantum Wire Optics and Field Conversion<a class="headerlink" href="#quantum-wire-optics-and-field-conversion" title="Link to this heading">¶</a></h1>
 <section id="theory">
-<h2>Theory<a class="headerlink" href="#theory" title="Link to this heading"></a></h2>
+<h2>Theory<a class="headerlink" href="#theory" title="Link to this heading">¶</a></h2>
 <p>The quantum wire optics module bridges two spatial domains in the simulation:</p>
 <ol class="arabic simple">
 <li><p><strong>Propagation Space (<span class="math notranslate nohighlight">\(\mathbf{R}\)</span>)</strong>: The macroscopic domain where optical pulses propagate over distances much larger than the wire dimensions.</p></li>
 <li><p><strong>Quantum Wire Space (<span class="math notranslate nohighlight">\(\mathbf{r}\)</span>)</strong>: The microscopic domain confined by the wire potential, where quantum mechanical carrier dynamics occur.</p></li>
 </ol>
 <section id="field-projection">
-<h3>Field Projection<a class="headerlink" href="#field-projection" title="Link to this heading"></a></h3>
+<h3>Field Projection<a class="headerlink" href="#field-projection" title="Link to this heading">¶</a></h3>
 <p>The transformation between these domains involves:</p>
 <p><strong>Propagation to QW (<code class="docutils literal notranslate"><span class="pre">Prop2QW</span></code>):</strong></p>
 <ul class="simple">
@@ -146,7 +158,7 @@
 </ul>
 </section>
 <section id="polarization-calculation">
-<h3>Polarization Calculation<a class="headerlink" href="#polarization-calculation" title="Link to this heading"></a></h3>
+<h3>Polarization Calculation<a class="headerlink" href="#polarization-calculation" title="Link to this heading">¶</a></h3>
 <p>The quantum wire polarization is calculated from the density matrix:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -161,7 +173,7 @@
 </ul>
 </section>
 <section id="charge-density-calculation">
-<h3>Charge Density Calculation<a class="headerlink" href="#charge-density-calculation" title="Link to this heading"></a></h3>
+<h3>Charge Density Calculation<a class="headerlink" href="#charge-density-calculation" title="Link to this heading">¶</a></h3>
 <p>Electron and hole charge densities are computed from coherence matrices:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -174,7 +186,7 @@
 <p>where <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(D\)</span> are electron-electron and hole-hole coherence matrices.</p>
 </section>
 <section id="linear-susceptibility">
-<h3>Linear Susceptibility<a class="headerlink" href="#linear-susceptibility" title="Link to this heading"></a></h3>
+<h3>Linear Susceptibility<a class="headerlink" href="#linear-susceptibility" title="Link to this heading">¶</a></h3>
 <p>The linear optical susceptibility is calculated as:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -183,8 +195,10 @@
 </section>
 </section>
 <section id="setup-and-initialization">
-<h2>Setup and Initialization<a class="headerlink" href="#setup-and-initialization" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<h2>Setup and Initialization<a class="headerlink" href="#setup-and-initialization" title="Link to this heading">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">e</span> <span class="k">as</span> <span class="n">e0</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">epsilon_0</span> <span class="k">as</span> <span class="n">eps0</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D</span><span class="w"> </span><span class="kn">import</span> <span class="n">qwoptics</span>
@@ -223,11 +237,48 @@
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Momentum grid: </span><span class="si">{</span><span class="n">kr</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">kr</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="mf">1e8</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> (10^8 m^-1)&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">e</span> <span class="k">as</span> <span class="n">e0</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">epsilon_0</span> <span class="k">as</span> <span class="n">eps0</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D</span><span class="w"> </span><span class="kn">import</span> <span class="n">qwoptics</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Physical parameters (GaAs quantum wire)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">L_wire</span> <span class="o">=</span> <span class="mf">100e-9</span>        <span class="c1"># Wire length: 100 nm</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">hardisk</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">PSTD3D</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.SBEs</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.qwoptics</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.dcfield</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">hardisk</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">PSTD3D</span><span class="o">/</span><span class="n">SBEs</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">11</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">m_e</span> <span class="k">as</span> <span class="n">me0_SI</span><span class="p">,</span> <span class="n">hbar</span> <span class="k">as</span> <span class="n">hbar_SI</span><span class="p">,</span> <span class="n">e</span> <span class="k">as</span> <span class="n">e0_SI</span><span class="p">,</span> <span class="n">epsilon_0</span> <span class="k">as</span> <span class="n">eps0_SI</span>
+<span class="ne">---&gt; </span><span class="mi">11</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.qwoptics</span><span class="w"> </span><span class="kn">import</span> <span class="n">Prop2QW</span><span class="p">,</span> <span class="n">QWChi1</span><span class="p">,</span> <span class="n">QW2Prop</span><span class="p">,</span> <span class="n">WritePropFields</span><span class="p">,</span> <span class="n">QWPolarization3</span><span class="p">,</span> <span class="n">QWRho5</span><span class="p">,</span> <span class="n">WriteSBESolns</span><span class="p">,</span> <span class="n">InitializeQWOptics</span><span class="p">,</span> <span class="n">Xcv</span><span class="p">,</span> <span class="n">Ycv</span><span class="p">,</span> <span class="n">Zcv</span><span class="p">,</span> <span class="n">yw</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.usefulsubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">FFTG</span><span class="p">,</span> <span class="n">iFFTG</span><span class="p">,</span> <span class="n">printITR</span><span class="p">,</span> <span class="n">TotalEnergy</span><span class="p">,</span> <span class="n">Temperature</span><span class="p">,</span> <span class="n">WriteIt</span><span class="p">,</span> <span class="n">locator</span><span class="p">,</span> <span class="n">GetArray0Index</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.dcfield</span><span class="w"> </span><span class="kn">import</span> <span class="n">CalcI0</span><span class="p">,</span> <span class="n">CalcPD</span><span class="p">,</span> <span class="n">CalcVD</span><span class="p">,</span> <span class="n">InitializeDC</span><span class="p">,</span> <span class="n">GetEDrift</span><span class="p">,</span> <span class="n">Transport</span><span class="p">,</span> <span class="n">CalcI0n</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">hardisk</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">PSTD3D</span><span class="o">/</span><span class="n">qwoptics</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">21</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">cuda</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.usefulsubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">FFTG</span><span class="p">,</span> <span class="n">iFFTG</span><span class="p">,</span> <span class="n">printIT</span><span class="p">,</span> <span class="n">printIT2D</span><span class="p">,</span> <span class="n">GetArray0Index</span>
+<span class="ne">---&gt; </span><span class="mi">21</span> <span class="kn">from</span><span class="w"> </span><span class="nn">libpulsesuite.spliner</span><span class="w"> </span><span class="kn">import</span> <span class="n">rescale_1D_dp</span><span class="p">,</span> <span class="n">rescale_1D_dpc</span><span class="p">,</span> <span class="n">rescale_1D</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">e</span> <span class="k">as</span> <span class="n">e0</span><span class="p">,</span> <span class="n">c</span> <span class="k">as</span> <span class="n">c0_SI</span><span class="p">,</span> <span class="n">hbar</span> <span class="k">as</span> <span class="n">hbar_SI</span><span class="p">,</span> <span class="n">epsilon_0</span> <span class="k">as</span> <span class="n">eps0_SI</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="c1"># Physical constants</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;libpulsesuite&#39;
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="quantum-wire-window">
-<h2>Quantum Wire Window<a class="headerlink" href="#quantum-wire-window" title="Link to this heading"></a></h2>
+<h2>Quantum Wire Window<a class="headerlink" href="#quantum-wire-window" title="Link to this heading">¶</a></h2>
 <p>The window function confines fields to the wire region. Let’s calculate and visualize it:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate quantum wire window function</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate quantum wire window function</span>
 <span class="n">qwoptics</span><span class="o">.</span><span class="n">CalcQWWindow</span><span class="p">(</span><span class="n">r_wire</span><span class="p">,</span> <span class="n">L_wire</span><span class="p">)</span>
 
 <span class="c1"># Access the window (stored in module-level variable)</span>
@@ -251,11 +302,29 @@
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Window is 1 inside wire, decays rapidly outside&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Calculate quantum wire window function</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">qwoptics</span><span class="o">.</span><span class="n">CalcQWWindow</span><span class="p">(</span><span class="n">r_wire</span><span class="p">,</span> <span class="n">L_wire</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Access the window (stored in module-level variable)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Note: In actual usage, this is set by InitializeQWOptics</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">window</span> <span class="o">=</span> <span class="n">qwoptics</span><span class="o">.</span><span class="n">_QWWindow</span>
+
+<span class="ne">NameError</span>: name &#39;qwoptics&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="initialization-and-dipole-matrices">
-<h2>Initialization and Dipole Matrices<a class="headerlink" href="#initialization-and-dipole-matrices" title="Link to this heading"></a></h2>
+<h2>Initialization and Dipole Matrices<a class="headerlink" href="#initialization-and-dipole-matrices" title="Link to this heading">¶</a></h2>
 <p>Before using polarization and charge density functions, we must initialize the module:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize QW optics module</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize QW optics module</span>
 <span class="c1"># This sets up window function, phase factors, and dipole matrices</span>
 <span class="n">qwoptics</span><span class="o">.</span><span class="n">InitializeQWOptics</span><span class="p">(</span>
     <span class="n">RR</span><span class="o">=</span><span class="n">r_wire</span><span class="p">,</span>      <span class="c1"># Spatial coordinate array</span>
@@ -306,11 +375,40 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Initialize QW optics module</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># This sets up window function, phase factors, and dipole matrices</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">qwoptics</span><span class="o">.</span><span class="n">InitializeQWOptics</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">RR</span><span class="o">=</span><span class="n">r_wire</span><span class="p">,</span>      <span class="c1"># Spatial coordinate array</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">L</span><span class="o">=</span><span class="n">L_wire</span><span class="p">,</span>       <span class="c1"># Wire length</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">dcv</span><span class="o">=</span><span class="n">dcv</span><span class="p">,</span>        <span class="c1"># Dipole moment</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">kr</span><span class="o">=</span><span class="n">kr</span><span class="p">,</span>          <span class="c1"># Momentum coordinate array</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">Qr</span><span class="o">=</span><span class="n">Qr</span><span class="p">,</span>          <span class="c1"># Momentum array (for compatibility)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">Ee</span><span class="o">=</span><span class="n">Ee</span><span class="p">,</span>          <span class="c1"># Electron energies</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="n">Eh</span><span class="o">=</span><span class="n">Eh</span><span class="p">,</span>          <span class="c1"># Hole energies</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="n">ehint</span><span class="o">=</span><span class="n">ehint</span><span class="p">,</span>    <span class="c1"># Electron-hole overlap integral</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="n">area</span><span class="o">=</span><span class="n">area</span><span class="p">,</span>      <span class="c1"># Wire area</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">gap</span><span class="o">=</span><span class="n">gap</span>         <span class="c1"># Band gap (for compatibility)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;QW optics module initialized&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dipole matrices shape: </span><span class="si">{</span><span class="n">qwoptics</span><span class="o">.</span><span class="n">_Xcv0</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;qwoptics&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="field-projection-propagation-to-qw">
-<h2>Field Projection: Propagation to QW<a class="headerlink" href="#field-projection-propagation-to-qw" title="Link to this heading"></a></h2>
+<h2>Field Projection: Propagation to QW<a class="headerlink" href="#field-projection-propagation-to-qw" title="Link to this heading">¶</a></h2>
 <p>Now let’s demonstrate field projection from propagation space to QW space:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Gaussian optical pulse in propagation space</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Gaussian optical pulse in propagation space</span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="mf">100e-9</span>  <span class="c1"># Pulse width: 100 nm</span>
 <span class="n">center</span> <span class="o">=</span> <span class="mf">0.0</span>     <span class="c1"># Pulse center</span>
 
@@ -377,11 +475,29 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">sigma</span> <span class="o">=</span> <span class="mf">100e-9</span>  <span class="c1"># Pulse width: 100 nm</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">center</span> <span class="o">=</span> <span class="mf">0.0</span>     <span class="c1"># Pulse center</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">Ex_prop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">R_prop</span> <span class="o">-</span> <span class="n">center</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">Ey_prop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">Ex_prop</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">Ez_prop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">Ex_prop</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;R_prop&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="id1">
-<h2>Polarization Calculation<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<h2>Polarization Calculation<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
 <p>Calculate the quantum wire polarization from a coherence matrix:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a simple coherence matrix (electron-hole coherence)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a simple coherence matrix (electron-hole coherence)</span>
 <span class="c1"># In real simulations, this comes from solving the SBEs</span>
 <span class="n">p_cv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
 
@@ -472,11 +588,29 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Create a simple coherence matrix (electron-hole coherence)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># In real simulations, this comes from solving the SBEs</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">p_cv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Create a simple Gaussian coherence centered at k=0</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">k_center</span> <span class="o">=</span> <span class="n">N_k</span> <span class="o">//</span> <span class="mi">2</span>
+
+<span class="ne">NameError</span>: name &#39;N_k&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="id2">
-<h2>Charge Density Calculation<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<h2>Charge Density Calculation<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
 <p>Calculate electron and hole charge densities from coherence matrices:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create coherence matrices (electron-electron and hole-hole)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create coherence matrices (electron-electron and hole-hole)</span>
 <span class="c1"># In real simulations, these come from solving the SBEs</span>
 <span class="n">CC</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>  <span class="c1"># Electron-electron coherence</span>
 <span class="n">DD</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>  <span class="c1"># Hole-hole coherence</span>
@@ -554,11 +688,29 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Create coherence matrices (electron-electron and hole-hole)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># In real simulations, these come from solving the SBEs</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">CC</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>  <span class="c1"># Electron-electron coherence</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">DD</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>  <span class="c1"># Hole-hole coherence</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Create simple diagonal coherence (carriers at k=0)</span>
+
+<span class="ne">NameError</span>: name &#39;N_k&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="field-projection-qw-to-propagation">
-<h2>Field Projection: QW to Propagation<a class="headerlink" href="#field-projection-qw-to-propagation" title="Link to this heading"></a></h2>
+<h2>Field Projection: QW to Propagation<a class="headerlink" href="#field-projection-qw-to-propagation" title="Link to this heading">¶</a></h2>
 <p>Convert QW fields back to propagation space:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prepare arrays for propagation space outputs</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prepare arrays for propagation space outputs</span>
 <span class="n">Pxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">R_prop</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
 <span class="n">Pyy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">R_prop</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
 <span class="n">Pzz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">R_prop</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
@@ -645,11 +797,28 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Prepare arrays for propagation space outputs</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">Pxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">R_prop</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">Pyy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">R_prop</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">Pzz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">R_prop</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;R_prop&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="id3">
-<h2>Linear Susceptibility<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<h2>Linear Susceptibility<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
 <p>Calculate the linear optical susceptibility as a function of wavelength:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Wavelength range for susceptibility calculation</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Wavelength range for susceptibility calculation</span>
 <span class="n">wavelengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">600e-9</span><span class="p">,</span> <span class="mf">1000e-9</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>  <span class="c1"># 600-1000 nm</span>
 <span class="n">dky</span> <span class="o">=</span> <span class="n">kr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">kr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Momentum step</span>
 <span class="n">geh</span> <span class="o">=</span> <span class="mf">1e12</span>  <span class="c1"># Electron-hole dephasing rate (1/s)</span>
@@ -722,12 +891,28 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Wavelength range for susceptibility calculation</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">wavelengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">600e-9</span><span class="p">,</span> <span class="mf">1000e-9</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>  <span class="c1"># 600-1000 nm</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">dky</span> <span class="o">=</span> <span class="n">kr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">kr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Momentum step</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">geh</span> <span class="o">=</span> <span class="mf">1e12</span>  <span class="c1"># Electron-hole dephasing rate (1/s)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Calculate susceptibility for each wavelength</span>
+
+<span class="ne">NameError</span>: name &#39;kr&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="assumptions-and-parameter-choices">
-<h2>Assumptions and Parameter Choices<a class="headerlink" href="#assumptions-and-parameter-choices" title="Link to this heading"></a></h2>
+<h2>Assumptions and Parameter Choices<a class="headerlink" href="#assumptions-and-parameter-choices" title="Link to this heading">¶</a></h2>
 <p>This section explains the assumptions and rationale behind the parameter values chosen for this example.</p>
 <section id="material-parameters-gaas">
-<h3>Material Parameters (GaAs)<a class="headerlink" href="#material-parameters-gaas" title="Link to this heading"></a></h3>
+<h3>Material Parameters (GaAs)<a class="headerlink" href="#material-parameters-gaas" title="Link to this heading">¶</a></h3>
 <p><strong>Effective masses:</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">m_e</span> <span class="pre">=</span> <span class="pre">0.067</span> <span class="pre">*</span> <span class="pre">m_0</span></code>: Electron effective mass for GaAs (bulk value ~0.067m₀)</p></li>
@@ -751,7 +936,7 @@
 </ul>
 </section>
 <section id="wire-dimensions">
-<h3>Wire Dimensions<a class="headerlink" href="#wire-dimensions" title="Link to this heading"></a></h3>
+<h3>Wire Dimensions<a class="headerlink" href="#wire-dimensions" title="Link to this heading">¶</a></h3>
 <p><strong>Wire length:</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">L_wire</span> <span class="pre">=</span> <span class="pre">100e-9</span></code>: 100 nm wire length</p></li>
@@ -769,7 +954,7 @@
 </ul>
 </section>
 <section id="grid-parameters">
-<h3>Grid Parameters<a class="headerlink" href="#grid-parameters" title="Link to this heading"></a></h3>
+<h3>Grid Parameters<a class="headerlink" href="#grid-parameters" title="Link to this heading">¶</a></h3>
 <p><strong>Spatial grids:</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">N_prop</span> <span class="pre">=</span> <span class="pre">256</span></code>: Propagation space grid points</p></li>
@@ -784,7 +969,7 @@
 </ul>
 </section>
 <section id="simplifications">
-<h3>Simplifications<a class="headerlink" href="#simplifications" title="Link to this heading"></a></h3>
+<h3>Simplifications<a class="headerlink" href="#simplifications" title="Link to this heading">¶</a></h3>
 <p><strong>Coherence matrices:</strong></p>
 <ul class="simple">
 <li><p>Static, simplified coherence matrices (Gaussian distributions)</p></li>
@@ -807,7 +992,7 @@
 </ul>
 </section>
 <section id="limitations">
-<h3>Limitations<a class="headerlink" href="#limitations" title="Link to this heading"></a></h3>
+<h3>Limitations<a class="headerlink" href="#limitations" title="Link to this heading">¶</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p><strong>Important Limitations:</strong></p>
@@ -822,7 +1007,7 @@
 </div>
 </section>
 <section id="when-to-use-more-realistic-approaches">
-<h3>When to Use More Realistic Approaches<a class="headerlink" href="#when-to-use-more-realistic-approaches" title="Link to this heading"></a></h3>
+<h3>When to Use More Realistic Approaches<a class="headerlink" href="#when-to-use-more-realistic-approaches" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><strong>Full SBE simulations</strong>: When studying dynamics, use the <code class="docutils literal notranslate"><span class="pre">SBEs</span></code> module which couples all effects.</p></li>
 <li><p><strong>Coulomb interactions</strong>: For many-body effects, include the <code class="docutils literal notranslate"><span class="pre">coulomb</span></code> module.</p></li>
@@ -833,7 +1018,7 @@
 </section>
 </section>
 <section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h2>
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">¶</a></h2>
 <p>This tutorial demonstrated the key functions of the <code class="docutils literal notranslate"><span class="pre">qwoptics</span></code> module:</p>
 <ol class="arabic simple">
 <li><p><strong>Field Projection</strong>:</p>
@@ -873,13 +1058,12 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="phonons_example.myst.html" class="btn btn-neutral float-left" title="Phonon Interactions in Quantum Wires" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../autoapi/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+    <p>&#169; Copyright 2025, Rahul R. Sah and PulseSuite Developers.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -68,7 +68,7 @@ Beyond Hartree-Fock, the many-body collision terms (MBCE, MBCH) describe carrier
 
 First, we import the necessary modules and set up the physical parameters.
 
-```{code-block} python
+```{code-cell} python
 import numpy as np
 import matplotlib.pyplot as plt
 from pulsesuite.PSTD3D import coulomb
@@ -109,7 +109,7 @@ print(f"Hole confinement: {alphah:.2e} m^-1")
 
 We need to set up momentum difference arrays for Coulomb calculations.
 
-```{code-block} python
+```{code-cell} python
 # Create momentum difference array Qy
 # This represents all possible momentum differences |k - q|
 N_Q = 2 * N_k - 1
@@ -137,7 +137,7 @@ print(f"Index mapping array shape: {kkp.shape}")
 
 We initialize the Coulomb module, which sets up all internal arrays.
 
-```{code-block} python
+```{code-cell} python
 # Initialize Coulomb Module
 # Note: screened parameter is passed but not used in initialization
 screened = False  # We'll calculate screened arrays separately if needed
@@ -165,7 +165,7 @@ The `InitializeCoulomb` function sets up:
 
 We can calculate individual interaction integrals using `Vint` and `Vehint`.
 
-```{code-block} python
+```{code-cell} python
 # Calculate interaction integral for a specific momentum difference
 Q_test = 1e8  # Momentum difference (1/m)
 
@@ -187,7 +187,7 @@ print(f"Electron-hole interaction V({k_idx}, {q_idx}): {Vehint_val:.2e}")
 
 Let's examine how the interaction integral depends on momentum difference.
 
-```{code-block} python
+```{code-cell} python
 # Calculate Vint for a range of momentum differences
 Q_range = np.linspace(1e6, 5e8, 50)
 Vint_range = np.zeros(len(Q_range))
@@ -214,7 +214,7 @@ The interaction integral decreases with increasing momentum difference, reflecti
 
 The unscreened Coulomb matrices are calculated during initialization. Let's examine them.
 
-```{code-block} python
+```{code-cell} python
 # Access the unscreened Coulomb arrays (stored as module-level variables)
 # In a real workflow, these would be returned from CalcCoulombArrays
 # For this example, we'll recalculate to show the interface
@@ -235,7 +235,7 @@ print(f"Vhh0 range: {Vhh0.min():.2e} to {Vhh0.max():.2e} J")
 
 We visualize the Coulomb interaction matrices.
 
-```{code-block} python
+```{code-cell} python
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
 
 # Electron-hole interaction
@@ -274,7 +274,7 @@ The Coulomb matrices show the strongest interactions near the diagonal (small mo
 
 We calculate energy renormalization due to many-body Coulomb effects.
 
-```{code-block} python
+```{code-cell} python
 # Create carrier distributions
 sigma_k = 1e8
 n_e = np.exp(-ky**2 / (2 * sigma_k**2)) + 0j
@@ -307,7 +307,7 @@ print(f"Average BGR: {np.mean(BGR_diag)/e0*1e3:.3f} meV")
 
 We calculate individual energy renormalizations for electrons and holes.
 
-```{code-block} python
+```{code-cell} python
 # Electron energy renormalization
 EeRenorm = np.zeros((N_k, N_k), dtype=complex)
 coulomb.EeRenorm(n_e, VC, EeRenorm)
@@ -354,7 +354,7 @@ Energy renormalization shifts the energy bands, with the shift depending on the 
 
 We calculate screened Coulomb interactions, which account for the dielectric response of free carriers.
 
-```{code-block} python
+```{code-cell} python
 # Create VC array with unscreened values
 VC_screened = np.zeros((N_k, N_k, 3))
 VC_screened[:, :, 0] = Veh0
@@ -410,7 +410,7 @@ Screening reduces the effective Coulomb interaction, especially at small momentu
 
 The many-body collision terms (MBCE, MBCH) describe carrier-carrier scattering beyond Hartree-Fock. These are used in full SBE calculations.
 
-```{code-block} python
+```{code-cell} python
 # Many-body collision terms require initialized arrays from InitializeCoulomb
 # These are advanced calculations typically used in SBE time evolution
 

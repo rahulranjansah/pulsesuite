@@ -4,11 +4,22 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Phonon Interactions in Quantum Wires &mdash; PulseSuite 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+  <title>Phonon Interactions in Quantum Wires &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_rtd_theme.css?v=3234e928" />
 
   
   <!--[if lt IE 9]>
@@ -22,8 +33,11 @@
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=f281be69"></script>
-        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../_static/js/hoverxref.js"></script>
+        <script src="../_static/js/tooltipster.bundle.min.js"></script>
+        <script src="../_static/js/micromodal.min.js"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -40,7 +54,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            PulseSuite
+            pulsesuite
           </a>
               <div class="version">
                 0.1
@@ -94,7 +108,6 @@
 <li class="toctree-l2"><a class="reference internal" href="qwoptics_example.myst.html">Quantum Wire Optics and Field Conversion</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
 </ul>
 
         </div>
@@ -103,7 +116,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">PulseSuite</a>
+          <a href="../index.html">pulsesuite</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -122,17 +135,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="phonon-interactions-in-quantum-wires">
-<h1>Phonon Interactions in Quantum Wires<a class="headerlink" href="#phonon-interactions-in-quantum-wires" title="Link to this heading"></a></h1>
+  <section id="phonon-interactions-in-quantum-wires">
+<h1>Phonon Interactions in Quantum Wires<a class="headerlink" href="#phonon-interactions-in-quantum-wires" title="Link to this heading">¶</a></h1>
 <section id="theory">
-<h2>Theory<a class="headerlink" href="#theory" title="Link to this heading"></a></h2>
+<h2>Theory<a class="headerlink" href="#theory" title="Link to this heading">¶</a></h2>
 <p>The phonons module calculates carrier-phonon interactions in quantum wires, which are essential for energy relaxation and dephasing in the Semiconductor Bloch Equations.</p>
 <section id="frohlich-interaction">
-<h3>Frohlich Interaction<a class="headerlink" href="#frohlich-interaction" title="Link to this heading"></a></h3>
+<h3>Frohlich Interaction<a class="headerlink" href="#frohlich-interaction" title="Link to this heading">¶</a></h3>
 <p>Carriers interact with LO phonons through the Frohlich interaction, which couples carriers to the longitudinal optical phonon mode. The interaction strength depends on the dielectric properties of the material.</p>
 </section>
 <section id="phonon-absorption-and-emission">
-<h3>Phonon Absorption and Emission<a class="headerlink" href="#phonon-absorption-and-emission" title="Link to this heading"></a></h3>
+<h3>Phonon Absorption and Emission<a class="headerlink" href="#phonon-absorption-and-emission" title="Link to this heading">¶</a></h3>
 <p>Carriers can absorb or emit phonons, leading to energy changes:</p>
 <p><strong>Phonon Absorption:</strong>
 <span class="math notranslate nohighlight">\(
@@ -145,7 +158,7 @@
 <p>where <span class="math notranslate nohighlight">\(N_0\)</span> is the Bose-Einstein distribution for phonons at thermal equilibrium.</p>
 </section>
 <section id="phonon-interaction-matrix">
-<h3>Phonon Interaction Matrix<a class="headerlink" href="#phonon-interaction-matrix" title="Link to this heading"></a></h3>
+<h3>Phonon Interaction Matrix<a class="headerlink" href="#phonon-interaction-matrix" title="Link to this heading">¶</a></h3>
 <p>The phonon interaction matrix elements are calculated using Lorentzian line shapes:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -154,7 +167,7 @@ EP(k, k') = \frac{N_0}{(E_k - E_{k'} - \hbar\omega_{ph})^2 + (\hbar\gamma_{ph})^
 <p>where <span class="math notranslate nohighlight">\(\omega_{ph}\)</span> is the phonon frequency and <span class="math notranslate nohighlight">\(\gamma_{ph}\)</span> is the phonon damping rate.</p>
 </section>
 <section id="many-body-phonon-scattering">
-<h3>Many-Body Phonon Scattering<a class="headerlink" href="#many-body-phonon-scattering" title="Link to this heading"></a></h3>
+<h3>Many-Body Phonon Scattering<a class="headerlink" href="#many-body-phonon-scattering" title="Link to this heading">¶</a></h3>
 <p>The many-body phonon scattering rates account for Pauli blocking and carrier-carrier interactions:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -167,7 +180,7 @@ W_{out}(k) = \sum_{k'} V_{ep}(k, k') \cdot (1 - n_e(k')) \cdot EP(k', k)
 <p>where <span class="math notranslate nohighlight">\(V_{ep}\)</span> is the screened electron-phonon interaction potential.</p>
 </section>
 <section id="temperature-dependence">
-<h3>Temperature Dependence<a class="headerlink" href="#temperature-dependence" title="Link to this heading"></a></h3>
+<h3>Temperature Dependence<a class="headerlink" href="#temperature-dependence" title="Link to this heading">¶</a></h3>
 <p>The phonon occupation follows the Bose-Einstein distribution:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -177,9 +190,11 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 </section>
 </section>
 <section id="setup-and-initialization">
-<h2>Setup and Initialization<a class="headerlink" href="#setup-and-initialization" title="Link to this heading"></a></h2>
+<h2>Setup and Initialization<a class="headerlink" href="#setup-and-initialization" title="Link to this heading">¶</a></h2>
 <p>First, we import the necessary modules and set up the physical parameters.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D</span><span class="w"> </span><span class="kn">import</span> <span class="n">phonons</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">e</span> <span class="k">as</span> <span class="n">e0</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">k</span> <span class="k">as</span> <span class="n">kB</span>
@@ -212,17 +227,69 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Temperature: </span><span class="si">{</span><span class="n">Temp</span><span class="si">}</span><span class="s2"> K&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D</span><span class="w"> </span><span class="kn">import</span> <span class="n">phonons</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">e</span> <span class="k">as</span> <span class="n">e0</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">k</span> <span class="k">as</span> <span class="n">kB</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Physical Parameters for GaAs Quantum Wire</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">hardisk</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">PSTD3D</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.SBEs</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.qwoptics</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.dcfield</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">hardisk</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">PSTD3D</span><span class="o">/</span><span class="n">SBEs</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">11</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">m_e</span> <span class="k">as</span> <span class="n">me0_SI</span><span class="p">,</span> <span class="n">hbar</span> <span class="k">as</span> <span class="n">hbar_SI</span><span class="p">,</span> <span class="n">e</span> <span class="k">as</span> <span class="n">e0_SI</span><span class="p">,</span> <span class="n">epsilon_0</span> <span class="k">as</span> <span class="n">eps0_SI</span>
+<span class="ne">---&gt; </span><span class="mi">11</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.qwoptics</span><span class="w"> </span><span class="kn">import</span> <span class="n">Prop2QW</span><span class="p">,</span> <span class="n">QWChi1</span><span class="p">,</span> <span class="n">QW2Prop</span><span class="p">,</span> <span class="n">WritePropFields</span><span class="p">,</span> <span class="n">QWPolarization3</span><span class="p">,</span> <span class="n">QWRho5</span><span class="p">,</span> <span class="n">WriteSBESolns</span><span class="p">,</span> <span class="n">InitializeQWOptics</span><span class="p">,</span> <span class="n">Xcv</span><span class="p">,</span> <span class="n">Ycv</span><span class="p">,</span> <span class="n">Zcv</span><span class="p">,</span> <span class="n">yw</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.usefulsubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">FFTG</span><span class="p">,</span> <span class="n">iFFTG</span><span class="p">,</span> <span class="n">printITR</span><span class="p">,</span> <span class="n">TotalEnergy</span><span class="p">,</span> <span class="n">Temperature</span><span class="p">,</span> <span class="n">WriteIt</span><span class="p">,</span> <span class="n">locator</span><span class="p">,</span> <span class="n">GetArray0Index</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.dcfield</span><span class="w"> </span><span class="kn">import</span> <span class="n">CalcI0</span><span class="p">,</span> <span class="n">CalcPD</span><span class="p">,</span> <span class="n">CalcVD</span><span class="p">,</span> <span class="n">InitializeDC</span><span class="p">,</span> <span class="n">GetEDrift</span><span class="p">,</span> <span class="n">Transport</span><span class="p">,</span> <span class="n">CalcI0n</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">hardisk</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">PSTD3D</span><span class="o">/</span><span class="n">qwoptics</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">21</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">cuda</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.usefulsubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">FFTG</span><span class="p">,</span> <span class="n">iFFTG</span><span class="p">,</span> <span class="n">printIT</span><span class="p">,</span> <span class="n">printIT2D</span><span class="p">,</span> <span class="n">GetArray0Index</span>
+<span class="ne">---&gt; </span><span class="mi">21</span> <span class="kn">from</span><span class="w"> </span><span class="nn">libpulsesuite.spliner</span><span class="w"> </span><span class="kn">import</span> <span class="n">rescale_1D_dp</span><span class="p">,</span> <span class="n">rescale_1D_dpc</span><span class="p">,</span> <span class="n">rescale_1D</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">e</span> <span class="k">as</span> <span class="n">e0</span><span class="p">,</span> <span class="n">c</span> <span class="k">as</span> <span class="n">c0_SI</span><span class="p">,</span> <span class="n">hbar</span> <span class="k">as</span> <span class="n">hbar_SI</span><span class="p">,</span> <span class="n">epsilon_0</span> <span class="k">as</span> <span class="n">eps0_SI</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="c1"># Physical constants</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;libpulsesuite&#39;
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="initialize-phonon-module">
-<h2>Initialize Phonon Module<a class="headerlink" href="#initialize-phonon-module" title="Link to this heading"></a></h2>
+<h2>Initialize Phonon Module<a class="headerlink" href="#initialize-phonon-module" title="Link to this heading">¶</a></h2>
 <p>We initialize the phonon module, which sets up the phonon interaction matrices.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize Phonon Module</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize Phonon Module</span>
 <span class="n">phonons</span><span class="o">.</span><span class="n">InitializePhonons</span><span class="p">(</span><span class="n">ky</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">epsr</span><span class="p">,</span> <span class="n">Gph</span><span class="p">,</span> <span class="n">Oph</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Phonon module initialized&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bose distribution N0: </span><span class="si">{</span><span class="n">phonons</span><span class="o">.</span><span class="n">N00</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vscale factor: </span><span class="si">{</span><span class="n">phonons</span><span class="o">.</span><span class="n">_Vscale</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Initialize Phonon Module</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">phonons</span><span class="o">.</span><span class="n">InitializePhonons</span><span class="p">(</span><span class="n">ky</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">epsr</span><span class="p">,</span> <span class="n">Gph</span><span class="p">,</span> <span class="n">Oph</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Phonon module initialized&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bose distribution N0: </span><span class="si">{</span><span class="n">phonons</span><span class="o">.</span><span class="n">N00</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;phonons&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -237,9 +304,11 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 </div>
 </section>
 <section id="phonon-interaction-matrices">
-<h2>Phonon Interaction Matrices<a class="headerlink" href="#phonon-interaction-matrices" title="Link to this heading"></a></h2>
+<h2>Phonon Interaction Matrices<a class="headerlink" href="#phonon-interaction-matrices" title="Link to this heading">¶</a></h2>
 <p>We examine the phonon interaction matrices, which describe the strength of phonon-mediated transitions.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Access the phonon interaction matrices (stored as module-level variables)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Access the phonon interaction matrices (stored as module-level variables)</span>
 <span class="n">EP</span> <span class="o">=</span> <span class="n">phonons</span><span class="o">.</span><span class="n">_EP</span>
 <span class="n">HP</span> <span class="o">=</span> <span class="n">phonons</span><span class="o">.</span><span class="n">_HP</span>
 
@@ -271,15 +340,32 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Access the phonon interaction matrices (stored as module-level variables)</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">EP</span> <span class="o">=</span> <span class="n">phonons</span><span class="o">.</span><span class="n">_EP</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">HP</span> <span class="o">=</span> <span class="n">phonons</span><span class="o">.</span><span class="n">_HP</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EP shape: </span><span class="si">{</span><span class="n">EP</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;phonons&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The phonon interaction matrices show strong interactions when the energy difference <span class="math notranslate nohighlight">\(E_k - E_{k'}\)</span> matches the phonon energy <span class="math notranslate nohighlight">\(\hbar\omega_{ph}\)</span>. The diagonal is zero due to the <code class="docutils literal notranslate"><span class="pre">_idel</span></code> matrix, which excludes self-interactions.</p>
 </div>
 </section>
 <section id="energy-dependence-of-phonon-interactions">
-<h2>Energy Dependence of Phonon Interactions<a class="headerlink" href="#energy-dependence-of-phonon-interactions" title="Link to this heading"></a></h2>
+<h2>Energy Dependence of Phonon Interactions<a class="headerlink" href="#energy-dependence-of-phonon-interactions" title="Link to this heading">¶</a></h2>
 <p>Let’s examine how the phonon interaction strength depends on energy difference.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract interaction strength along a cut through the matrix</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract interaction strength along a cut through the matrix</span>
 <span class="c1"># Look at transitions from k=0 (center of grid)</span>
 <span class="n">k_center</span> <span class="o">=</span> <span class="n">N_k</span> <span class="o">//</span> <span class="mi">2</span>
 <span class="n">EP_cut</span> <span class="o">=</span> <span class="n">EP</span><span class="p">[</span><span class="n">k_center</span><span class="p">,</span> <span class="p">:]</span>
@@ -317,15 +403,33 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Extract interaction strength along a cut through the matrix</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># Look at transitions from k=0 (center of grid)</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">k_center</span> <span class="o">=</span> <span class="n">N_k</span> <span class="o">//</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">EP_cut</span> <span class="o">=</span> <span class="n">EP</span><span class="p">[</span><span class="n">k_center</span><span class="p">,</span> <span class="p">:]</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">HP_cut</span> <span class="o">=</span> <span class="n">HP</span><span class="p">[</span><span class="n">k_center</span><span class="p">,</span> <span class="p">:]</span>
+
+<span class="ne">NameError</span>: name &#39;N_k&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>The interaction strength peaks when the energy difference equals the phonon energy (absorption) or negative phonon energy (emission). The width of the peaks is determined by the phonon damping rate <span class="math notranslate nohighlight">\(\gamma_{ph}\)</span>.</p>
 </div>
 </section>
 <section id="id1">
-<h2>Many-Body Phonon Scattering<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<h2>Many-Body Phonon Scattering<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
 <p>We calculate the many-body phonon scattering rates for electrons and holes.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create carrier distributions</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create carrier distributions</span>
 <span class="n">sigma_k</span> <span class="o">=</span> <span class="mf">1e8</span>
 <span class="n">n_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ky</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_k</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 <span class="n">n_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ky</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_k</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
@@ -357,11 +461,29 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hole out-scattering rate range: </span><span class="si">{</span><span class="n">Wout_h</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">Wout_h</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> s^-1&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Create carrier distributions</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">sigma_k</span> <span class="o">=</span> <span class="mf">1e8</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">n_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ky</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_k</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">n_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ky</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_k</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">n_e</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">n_e</span><span class="p">)</span>  <span class="c1"># Normalize</span>
+
+<span class="ne">NameError</span>: name &#39;ky&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="visualization-of-scattering-rates">
-<h2>Visualization of Scattering Rates<a class="headerlink" href="#visualization-of-scattering-rates" title="Link to this heading"></a></h2>
+<h2>Visualization of Scattering Rates<a class="headerlink" href="#visualization-of-scattering-rates" title="Link to this heading">¶</a></h2>
 <p>We visualize the phonon scattering rates as a function of momentum.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
 <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Win_e</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;In-scattering&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -387,15 +509,34 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Win_e</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;In-scattering&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ky</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">Wout_e</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Out-scattering&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Wavevector ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;ky&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/93391ace42ff27ec35885c87176f39b0bfa9ce8bc79d030416a48f6ef63f8a0f.png" src="../_images/93391ace42ff27ec35885c87176f39b0bfa9ce8bc79d030416a48f6ef63f8a0f.png" />
+</div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The scattering rates show how carriers at different momenta scatter due to phonon interactions. In-scattering populates states, while out-scattering depopulates them. The rates depend on the carrier distribution and phonon occupation.</p>
 </div>
 </section>
 <section id="phonon-coupling-constants">
-<h2>Phonon Coupling Constants<a class="headerlink" href="#phonon-coupling-constants" title="Link to this heading"></a></h2>
+<h2>Phonon Coupling Constants<a class="headerlink" href="#phonon-coupling-constants" title="Link to this heading">¶</a></h2>
 <p>The phonon coupling constant <code class="docutils literal notranslate"><span class="pre">Cq2</span></code> is used in the DC field module for phonon-assisted transport.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate phonon coupling constants</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate phonon coupling constants</span>
 <span class="c1"># This requires interaction potential V and dielectric function E1D</span>
 <span class="c1"># For this demo, we&#39;ll use simplified arrays</span>
 <span class="n">V_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-20</span>  <span class="c1"># Simplified interaction potential</span>
@@ -416,11 +557,30 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Calculate phonon coupling constants</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># This requires interaction potential V and dielectric function E1D</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># For this demo, we&#39;ll use simplified arrays</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">V_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-20</span>  <span class="c1"># Simplified interaction potential</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">E1D_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">N_k</span><span class="p">,</span> <span class="n">N_k</span><span class="p">))</span>  <span class="c1"># Simplified dielectric function</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">Cq2_vals</span> <span class="o">=</span> <span class="n">phonons</span><span class="o">.</span><span class="n">Cq2</span><span class="p">(</span><span class="n">ky</span><span class="p">,</span> <span class="n">V_test</span><span class="p">,</span> <span class="n">E1D_test</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;N_k&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="distribution-functions">
-<h2>Distribution Functions<a class="headerlink" href="#distribution-functions" title="Link to this heading"></a></h2>
+<h2>Distribution Functions<a class="headerlink" href="#distribution-functions" title="Link to this heading">¶</a></h2>
 <p>The module provides Fermi-Dirac and Bose-Einstein distribution functions.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate distribution functions for a range of energies</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate distribution functions for a range of energies</span>
 <span class="n">E_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="o">*</span><span class="n">e0</span><span class="p">,</span> <span class="mf">0.2</span><span class="o">*</span><span class="n">e0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 
 <span class="c1"># Fermi-Dirac distribution (for carriers)</span>
@@ -458,11 +618,28 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bose distribution at phonon energy: </span><span class="si">{</span><span class="n">N0_phonon</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Calculate distribution functions for a range of energies</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">E_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="o">*</span><span class="n">e0</span><span class="p">,</span> <span class="mf">0.2</span><span class="o">*</span><span class="n">e0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Fermi-Dirac distribution (for carriers)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">f_FD</span> <span class="o">=</span> <span class="n">phonons</span><span class="o">.</span><span class="n">FermiDistr</span><span class="p">(</span><span class="n">E_range</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;e0&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="id2">
-<h2>Temperature Dependence<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<h2>Temperature Dependence<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
 <p>We investigate how phonon interactions change with temperature.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate phonon interaction matrices at different temperatures</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate phonon interaction matrices at different temperatures</span>
 <span class="n">temperatures</span> <span class="o">=</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">77.0</span><span class="p">,</span> <span class="mf">150.0</span><span class="p">,</span> <span class="mf">300.0</span><span class="p">]</span>
 <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">]</span>
 
@@ -509,15 +686,35 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">12</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="k">for</span> <span class="n">T</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">temperatures</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="c1"># Update temperature</span>
+<span class="ne">---&gt; </span><span class="mi">12</span>     <span class="n">phonons</span><span class="o">.</span><span class="n">_Temp</span> <span class="o">=</span> <span class="n">T</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="c1"># Re-initialize to update temperature-dependent arrays</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>     <span class="n">phonons</span><span class="o">.</span><span class="n">InitializePhonons</span><span class="p">(</span><span class="n">ky</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">epsr</span><span class="p">,</span> <span class="n">Gph</span><span class="p">,</span> <span class="n">Oph</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;phonons&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/93391ace42ff27ec35885c87176f39b0bfa9ce8bc79d030416a48f6ef63f8a0f.png" src="../_images/93391ace42ff27ec35885c87176f39b0bfa9ce8bc79d030416a48f6ef63f8a0f.png" />
+</div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>At higher temperatures, the Bose distribution increases, leading to more phonon absorption processes. The phonon interaction strength also changes with temperature through the <span class="math notranslate nohighlight">\(N_0\)</span> and <span class="math notranslate nohighlight">\(N_0 + 1\)</span> factors in the interaction matrix.</p>
 </div>
 </section>
 <section id="scattering-rate-temperature-dependence">
-<h2>Scattering Rate Temperature Dependence<a class="headerlink" href="#scattering-rate-temperature-dependence" title="Link to this heading"></a></h2>
+<h2>Scattering Rate Temperature Dependence<a class="headerlink" href="#scattering-rate-temperature-dependence" title="Link to this heading">¶</a></h2>
 <p>We examine how scattering rates depend on temperature.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate scattering rates at different temperatures</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate scattering rates at different temperatures</span>
 <span class="n">temperatures</span> <span class="o">=</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">77.0</span><span class="p">,</span> <span class="mf">150.0</span><span class="p">,</span> <span class="mf">300.0</span><span class="p">]</span>
 <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">]</span>
 
@@ -564,12 +761,30 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">9</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="k">for</span> <span class="n">T</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">temperatures</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="c1"># Update temperature and re-initialize</span>
+<span class="ne">----&gt; </span><span class="mi">9</span>     <span class="n">phonons</span><span class="o">.</span><span class="n">_Temp</span> <span class="o">=</span> <span class="n">T</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="n">phonons</span><span class="o">.</span><span class="n">InitializePhonons</span><span class="p">(</span><span class="n">ky</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">epsr</span><span class="p">,</span> <span class="n">Gph</span><span class="p">,</span> <span class="n">Oph</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="c1"># Recalculate scattering rates</span>
+
+<span class="ne">NameError</span>: name &#39;phonons&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/93391ace42ff27ec35885c87176f39b0bfa9ce8bc79d030416a48f6ef63f8a0f.png" src="../_images/93391ace42ff27ec35885c87176f39b0bfa9ce8bc79d030416a48f6ef63f8a0f.png" />
+</div>
+</div>
 </section>
 <section id="assumptions-and-parameter-choices">
-<h2>Assumptions and Parameter Choices<a class="headerlink" href="#assumptions-and-parameter-choices" title="Link to this heading"></a></h2>
+<h2>Assumptions and Parameter Choices<a class="headerlink" href="#assumptions-and-parameter-choices" title="Link to this heading">¶</a></h2>
 <p>This section explains the assumptions and rationale behind the parameter values chosen for this example.</p>
 <section id="material-parameters">
-<h3>Material Parameters<a class="headerlink" href="#material-parameters" title="Link to this heading"></a></h3>
+<h3>Material Parameters<a class="headerlink" href="#material-parameters" title="Link to this heading">¶</a></h3>
 <p><strong>Host material (AlAs):</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">epsr0</span> <span class="pre">=</span> <span class="pre">10.0</span></code>: Static dielectric constant</p></li>
@@ -589,7 +804,7 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 </ul>
 </section>
 <section id="temperature">
-<h3>Temperature<a class="headerlink" href="#temperature" title="Link to this heading"></a></h3>
+<h3>Temperature<a class="headerlink" href="#temperature" title="Link to this heading">¶</a></h3>
 <p><strong>Default temperature:</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Temp</span> <span class="pre">=</span> <span class="pre">77.0</span> <span class="pre">K</span></code>: Liquid nitrogen temperature</p></li>
@@ -602,7 +817,7 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 </ul>
 </section>
 <section id="grid-and-numerical-parameters">
-<h3>Grid and Numerical Parameters<a class="headerlink" href="#grid-and-numerical-parameters" title="Link to this heading"></a></h3>
+<h3>Grid and Numerical Parameters<a class="headerlink" href="#grid-and-numerical-parameters" title="Link to this heading">¶</a></h3>
 <p><strong>Momentum grid:</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">N_k</span> <span class="pre">=</span> <span class="pre">64</span></code>: Number of momentum points</p></li>
@@ -611,7 +826,7 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 </ul>
 </section>
 <section id="simplifications">
-<h3>Simplifications<a class="headerlink" href="#simplifications" title="Link to this heading"></a></h3>
+<h3>Simplifications<a class="headerlink" href="#simplifications" title="Link to this heading">¶</a></h3>
 <p><strong>Coulomb interaction arrays:</strong></p>
 <ul class="simple">
 <li><p>Simplified to diagonal matrices with constant values</p></li>
@@ -634,7 +849,7 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 </ul>
 </section>
 <section id="phonon-model">
-<h3>Phonon Model<a class="headerlink" href="#phonon-model" title="Link to this heading"></a></h3>
+<h3>Phonon Model<a class="headerlink" href="#phonon-model" title="Link to this heading">¶</a></h3>
 <p><strong>Single phonon mode:</strong></p>
 <ul class="simple">
 <li><p>Only LO phonons are considered</p></li>
@@ -659,7 +874,7 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
 </section>
 </section>
 <section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h2>
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">¶</a></h2>
 <p>This example demonstrated:</p>
 <ol class="arabic simple">
 <li><p><strong>Initialization</strong> of the phonon module with physical parameters</p></li>
@@ -684,7 +899,7 @@ N_0 = \frac{1}{\exp(\hbar\omega_{ph} / k_B T) - 1}
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+    <p>&#169; Copyright 2025, Rahul R. Sah and PulseSuite Developers.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

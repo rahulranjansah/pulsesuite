@@ -4,11 +4,22 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spontaneous Emission and Photoluminescence in Quantum Wires &mdash; PulseSuite 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+  <title>Spontaneous Emission and Photoluminescence in Quantum Wires &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_rtd_theme.css?v=3234e928" />
 
   
   <!--[if lt IE 9]>
@@ -22,8 +33,11 @@
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=f281be69"></script>
-        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../_static/js/hoverxref.js"></script>
+        <script src="../_static/js/tooltipster.bundle.min.js"></script>
+        <script src="../_static/js/micromodal.min.js"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -40,7 +54,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            PulseSuite
+            pulsesuite
           </a>
               <div class="version">
                 0.1
@@ -86,7 +100,6 @@
 <li class="toctree-l2"><a class="reference internal" href="qwoptics_example.myst.html">Quantum Wire Optics and Field Conversion</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
 </ul>
 
         </div>
@@ -95,7 +108,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">PulseSuite</a>
+          <a href="../index.html">pulsesuite</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -114,13 +127,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="spontaneous-emission-and-photoluminescence-in-quantum-wires">
-<h1>Spontaneous Emission and Photoluminescence in Quantum Wires<a class="headerlink" href="#spontaneous-emission-and-photoluminescence-in-quantum-wires" title="Link to this heading"></a></h1>
+  <section id="spontaneous-emission-and-photoluminescence-in-quantum-wires">
+<h1>Spontaneous Emission and Photoluminescence in Quantum Wires<a class="headerlink" href="#spontaneous-emission-and-photoluminescence-in-quantum-wires" title="Link to this heading">¶</a></h1>
 <section id="theory">
-<h2>Theory<a class="headerlink" href="#theory" title="Link to this heading"></a></h2>
+<h2>Theory<a class="headerlink" href="#theory" title="Link to this heading">¶</a></h2>
 <p>The emission module calculates spontaneous emission and photoluminescence (PL) from quantum wires. Spontaneous emission occurs when electron-hole pairs recombine radiatively, emitting photons.</p>
 <section id="spontaneous-emission-rate">
-<h3>Spontaneous Emission Rate<a class="headerlink" href="#spontaneous-emission-rate" title="Link to this heading"></a></h3>
+<h3>Spontaneous Emission Rate<a class="headerlink" href="#spontaneous-emission-rate" title="Link to this heading">¶</a></h3>
 <p>The spontaneous emission rate <span class="math notranslate nohighlight">\(R_{sp}(k)\)</span> for a momentum state <span class="math notranslate nohighlight">\(k\)</span> is given by:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -129,7 +142,7 @@ R_{sp}(k) = \int_0^{\infty} d(\hbar\omega) \, (\hbar\omega + E_k) \, \rho_0(\hba
 <p>where <span class="math notranslate nohighlight">\(E_k\)</span> is the transition energy including many-body corrections, <span class="math notranslate nohighlight">\(\rho_0\)</span> is the photon density of states, and <span class="math notranslate nohighlight">\(W\)</span> is the emission probability.</p>
 </section>
 <section id="transition-energy">
-<h3>Transition Energy<a class="headerlink" href="#transition-energy" title="Link to this heading"></a></h3>
+<h3>Transition Energy<a class="headerlink" href="#transition-energy" title="Link to this heading">¶</a></h3>
 <p>The transition energy includes Coulomb many-body corrections:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -138,7 +151,7 @@ E_k = E_{gap} + E_e(k) + E_h(k) + E_c(k)
 <p>where <span class="math notranslate nohighlight">\(E_c(k)\)</span> is the Coulomb energy correction due to electron-electron, hole-hole, and electron-hole interactions.</p>
 </section>
 <section id="photon-density-of-states">
-<h3>Photon Density of States<a class="headerlink" href="#photon-density-of-states" title="Link to this heading"></a></h3>
+<h3>Photon Density of States<a class="headerlink" href="#photon-density-of-states" title="Link to this heading">¶</a></h3>
 <p>The photon density of states in free space is:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -146,7 +159,7 @@ E_k = E_{gap} + E_e(k) + E_h(k) + E_c(k)
 \]</div>
 </section>
 <section id="photoluminescence-spectrum">
-<h3>Photoluminescence Spectrum<a class="headerlink" href="#photoluminescence-spectrum" title="Link to this heading"></a></h3>
+<h3>Photoluminescence Spectrum<a class="headerlink" href="#photoluminescence-spectrum" title="Link to this heading">¶</a></h3>
 <p>The PL spectrum <span class="math notranslate nohighlight">\(PLS(\hbar\omega)\)</span> accounts for carrier distributions, thermal broadening, and dephasing:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -158,9 +171,11 @@ L(\hbar\omega - E_k, \hbar\gamma_{eh})
 </section>
 </section>
 <section id="setup-and-initialization">
-<h2>Setup and Initialization<a class="headerlink" href="#setup-and-initialization" title="Link to this heading"></a></h2>
+<h2>Setup and Initialization<a class="headerlink" href="#setup-and-initialization" title="Link to this heading">¶</a></h2>
 <p>First, we import the necessary modules and set up the physical parameters.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D</span><span class="w"> </span><span class="kn">import</span> <span class="n">emission</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">e</span> <span class="k">as</span> <span class="n">e0</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">k</span> <span class="k">as</span> <span class="n">kB</span>
@@ -190,16 +205,68 @@ L(\hbar\omega - E_k, \hbar\gamma_{eh})
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Temperature: </span><span class="si">{</span><span class="n">Temp</span><span class="si">}</span><span class="s2"> K&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D</span><span class="w"> </span><span class="kn">import</span> <span class="n">emission</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">e</span> <span class="k">as</span> <span class="n">e0</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">k</span> <span class="k">as</span> <span class="n">kB</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Physical Parameters for GaAs Quantum Wire</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">hardisk</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">PSTD3D</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.SBEs</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.qwoptics</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.dcfield</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">hardisk</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">PSTD3D</span><span class="o">/</span><span class="n">SBEs</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">11</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">m_e</span> <span class="k">as</span> <span class="n">me0_SI</span><span class="p">,</span> <span class="n">hbar</span> <span class="k">as</span> <span class="n">hbar_SI</span><span class="p">,</span> <span class="n">e</span> <span class="k">as</span> <span class="n">e0_SI</span><span class="p">,</span> <span class="n">epsilon_0</span> <span class="k">as</span> <span class="n">eps0_SI</span>
+<span class="ne">---&gt; </span><span class="mi">11</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.qwoptics</span><span class="w"> </span><span class="kn">import</span> <span class="n">Prop2QW</span><span class="p">,</span> <span class="n">QWChi1</span><span class="p">,</span> <span class="n">QW2Prop</span><span class="p">,</span> <span class="n">WritePropFields</span><span class="p">,</span> <span class="n">QWPolarization3</span><span class="p">,</span> <span class="n">QWRho5</span><span class="p">,</span> <span class="n">WriteSBESolns</span><span class="p">,</span> <span class="n">InitializeQWOptics</span><span class="p">,</span> <span class="n">Xcv</span><span class="p">,</span> <span class="n">Ycv</span><span class="p">,</span> <span class="n">Zcv</span><span class="p">,</span> <span class="n">yw</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.usefulsubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">FFTG</span><span class="p">,</span> <span class="n">iFFTG</span><span class="p">,</span> <span class="n">printITR</span><span class="p">,</span> <span class="n">TotalEnergy</span><span class="p">,</span> <span class="n">Temperature</span><span class="p">,</span> <span class="n">WriteIt</span><span class="p">,</span> <span class="n">locator</span><span class="p">,</span> <span class="n">GetArray0Index</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.dcfield</span><span class="w"> </span><span class="kn">import</span> <span class="n">CalcI0</span><span class="p">,</span> <span class="n">CalcPD</span><span class="p">,</span> <span class="n">CalcVD</span><span class="p">,</span> <span class="n">InitializeDC</span><span class="p">,</span> <span class="n">GetEDrift</span><span class="p">,</span> <span class="n">Transport</span><span class="p">,</span> <span class="n">CalcI0n</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">hardisk</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">pulsesuite</span><span class="o">/</span><span class="n">PSTD3D</span><span class="o">/</span><span class="n">qwoptics</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">21</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">cuda</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.usefulsubs</span><span class="w"> </span><span class="kn">import</span> <span class="n">FFTG</span><span class="p">,</span> <span class="n">iFFTG</span><span class="p">,</span> <span class="n">printIT</span><span class="p">,</span> <span class="n">printIT2D</span><span class="p">,</span> <span class="n">GetArray0Index</span>
+<span class="ne">---&gt; </span><span class="mi">21</span> <span class="kn">from</span><span class="w"> </span><span class="nn">libpulsesuite.spliner</span><span class="w"> </span><span class="kn">import</span> <span class="n">rescale_1D_dp</span><span class="p">,</span> <span class="n">rescale_1D_dpc</span><span class="p">,</span> <span class="n">rescale_1D</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">e</span> <span class="k">as</span> <span class="n">e0</span><span class="p">,</span> <span class="n">c</span> <span class="k">as</span> <span class="n">c0_SI</span><span class="p">,</span> <span class="n">hbar</span> <span class="k">as</span> <span class="n">hbar_SI</span><span class="p">,</span> <span class="n">epsilon_0</span> <span class="k">as</span> <span class="n">eps0_SI</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="c1"># Physical constants</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;libpulsesuite&#39;
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="initialize-emission-module">
-<h2>Initialize Emission Module<a class="headerlink" href="#initialize-emission-module" title="Link to this heading"></a></h2>
+<h2>Initialize Emission Module<a class="headerlink" href="#initialize-emission-module" title="Link to this heading">¶</a></h2>
 <p>We initialize the emission module, which sets up internal arrays and pre-calculates integration parameters.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize Emission Module</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize Emission Module</span>
 <span class="n">emission</span><span class="o">.</span><span class="n">InitializeEmission</span><span class="p">(</span><span class="n">k_grid</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">dcv</span><span class="p">,</span> <span class="n">epsr</span><span class="p">,</span> <span class="n">geh</span><span class="p">,</span> <span class="n">ehint</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Emission module initialized&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RScale factor: </span><span class="si">{</span><span class="n">emission</span><span class="o">.</span><span class="n">_RScale</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Initialize Emission Module</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">emission</span><span class="o">.</span><span class="n">InitializeEmission</span><span class="p">(</span><span class="n">k_grid</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">dcv</span><span class="p">,</span> <span class="n">epsr</span><span class="p">,</span> <span class="n">geh</span><span class="p">,</span> <span class="n">ehint</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Emission module initialized&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RScale factor: </span><span class="si">{</span><span class="n">emission</span><span class="o">.</span><span class="n">_RScale</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;emission&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -213,9 +280,11 @@ L(\hbar\omega - E_k, \hbar\gamma_{eh})
 </div>
 </section>
 <section id="initial-carrier-distributions">
-<h2>Initial Carrier Distributions<a class="headerlink" href="#initial-carrier-distributions" title="Link to this heading"></a></h2>
+<h2>Initial Carrier Distributions<a class="headerlink" href="#initial-carrier-distributions" title="Link to this heading">¶</a></h2>
 <p>We create initial carrier distributions for electrons and holes. These represent excited carriers that can recombine radiatively.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initial Electron Distribution (Gaussian centered at k=0)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initial Electron Distribution (Gaussian centered at k=0)</span>
 <span class="n">sigma_k</span> <span class="o">=</span> <span class="mf">1e8</span>
 <span class="n">n_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">k_grid</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_k</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span>
 <span class="n">n_e</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">n_e</span><span class="p">)</span>  <span class="c1"># Normalize</span>
@@ -236,11 +305,29 @@ L(\hbar\omega - E_k, \hbar\gamma_{eh})
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initial hole density: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">n_h</span><span class="p">))</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Initial Electron Distribution (Gaussian centered at k=0)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">sigma_k</span> <span class="o">=</span> <span class="mf">1e8</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">n_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">k_grid</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_k</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">n_e</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">n_e</span><span class="p">)</span>  <span class="c1"># Normalize</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Initial Hole Distribution</span>
+
+<span class="ne">NameError</span>: name &#39;k_grid&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="coulomb-energy-correction">
-<h2>Coulomb Energy Correction<a class="headerlink" href="#coulomb-energy-correction" title="Link to this heading"></a></h2>
+<h2>Coulomb Energy Correction<a class="headerlink" href="#coulomb-energy-correction" title="Link to this heading">¶</a></h2>
 <p>The Coulomb energy correction accounts for many-body effects on transition energies.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate Coulomb energy correction</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate Coulomb energy correction</span>
 <span class="n">Ec_correction</span> <span class="o">=</span> <span class="n">emission</span><span class="o">.</span><span class="n">Ec</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">n_e</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">n_h</span><span class="p">),</span> <span class="n">VC</span><span class="p">)</span>
 
 <span class="c1"># Transition energies with and without Coulomb correction</span>
@@ -252,11 +339,28 @@ L(\hbar\omega - E_k, \hbar\gamma_{eh})
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Transition energy range (with correction): </span><span class="si">{</span><span class="n">E_transition_corrected</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">E_transition_corrected</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> meV&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Calculate Coulomb energy correction</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">Ec_correction</span> <span class="o">=</span> <span class="n">emission</span><span class="o">.</span><span class="n">Ec</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">n_e</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">n_h</span><span class="p">),</span> <span class="n">VC</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Transition energies with and without Coulomb correction</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">E_transition</span> <span class="o">=</span> <span class="n">gap</span> <span class="o">+</span> <span class="n">E_e</span> <span class="o">+</span> <span class="n">E_h</span>
+
+<span class="ne">NameError</span>: name &#39;emission&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="spontaneous-emission-rates">
-<h2>Spontaneous Emission Rates<a class="headerlink" href="#spontaneous-emission-rates" title="Link to this heading"></a></h2>
+<h2>Spontaneous Emission Rates<a class="headerlink" href="#spontaneous-emission-rates" title="Link to this heading">¶</a></h2>
 <p>We calculate the spontaneous emission rate for each momentum state.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate spontaneous emission rates</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate spontaneous emission rates</span>
 <span class="n">Rsp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span>
 
 <span class="n">emission</span><span class="o">.</span><span class="n">SpontEmission</span><span class="p">(</span><span class="n">n_e</span><span class="p">,</span> <span class="n">n_h</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">geh</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">Rsp</span><span class="p">)</span>
@@ -265,11 +369,28 @@ L(\hbar\omega - E_k, \hbar\gamma_{eh})
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total emission rate: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Rsp</span><span class="p">)</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> s^-1&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Calculate spontaneous emission rates</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">Rsp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_k</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">emission</span><span class="o">.</span><span class="n">SpontEmission</span><span class="p">(</span><span class="n">n_e</span><span class="p">,</span> <span class="n">n_h</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">geh</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">Rsp</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Spontaneous emission rate range: </span><span class="si">{</span><span class="n">Rsp</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">Rsp</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> s^-1&quot;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;N_k&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="id1">
-<h2>Photon Density of States<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<h2>Photon Density of States<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
 <p>The photon density of states determines the available photon modes for emission.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate photon density of states for a range of energies</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate photon density of states for a range of energies</span>
 <span class="n">hw_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">gap</span> <span class="o">*</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">rho_photon</span> <span class="o">=</span> <span class="n">emission</span><span class="o">.</span><span class="n">rho0</span><span class="p">(</span><span class="n">hw_range</span><span class="p">)</span>
 
@@ -283,11 +404,28 @@ L(\hbar\omega - E_k, \hbar\gamma_{eh})
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Calculate photon density of states for a range of energies</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">hw_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">gap</span> <span class="o">*</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">rho_photon</span> <span class="o">=</span> <span class="n">emission</span><span class="o">.</span><span class="n">rho0</span><span class="p">(</span><span class="n">hw_range</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="ne">NameError</span>: name &#39;gap&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="id2">
-<h2>Photoluminescence Spectrum<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<h2>Photoluminescence Spectrum<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
 <p>We calculate the full photoluminescence spectrum as a function of photon energy.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up photon energy array for PL spectrum</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up photon energy array for PL spectrum</span>
 <span class="n">N_w</span> <span class="o">=</span> <span class="mi">200</span>  <span class="c1"># Number of energy points</span>
 <span class="n">hw_PL</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_w</span><span class="p">)</span>
 <span class="n">PLS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_w</span><span class="p">)</span>
@@ -307,11 +445,29 @@ L(\hbar\omega - E_k, \hbar\gamma_{eh})
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Peak energy: </span><span class="si">{</span><span class="n">hw_PL</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">PLS</span><span class="p">)]</span><span class="o">/</span><span class="n">e0</span><span class="o">*</span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> meV&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">PLS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_w</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Energy range for PL spectrum (around band gap)</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">E_start</span> <span class="o">=</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">0.95</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">E_max</span> <span class="o">=</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1.15</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">emission</span><span class="o">.</span><span class="n">Calchw</span><span class="p">(</span><span class="n">hw_PL</span><span class="p">,</span> <span class="n">PLS</span><span class="p">,</span> <span class="n">E_start</span><span class="p">,</span> <span class="n">E_max</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;gap&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="visualization">
-<h2>Visualization<a class="headerlink" href="#visualization" title="Link to this heading"></a></h2>
+<h2>Visualization<a class="headerlink" href="#visualization" title="Link to this heading">¶</a></h2>
 <p>We visualize the carrier distributions, emission rates, and PL spectrum.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 
 <span class="c1"># Carrier distributions</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
@@ -356,6 +512,23 @@ L(\hbar\omega - E_k, \hbar\gamma_{eh})
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># Carrier distributions</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k_grid</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">n_e</span><span class="p">),</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$n_e(k)$&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k_grid</span><span class="o">/</span><span class="mf">1e8</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">n_h</span><span class="p">),</span> <span class="s1">&#39;g-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$n_h(k)$&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Wavevector ($10^8$ m$^{-1}$)&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;k_grid&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/4dd83f5bc4e91c315fe121eb60e455842d7bd048d32d567630dc0933559b7dc1.png" src="../_images/4dd83f5bc4e91c315fe121eb60e455842d7bd048d32d567630dc0933559b7dc1.png" />
+</div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The PL spectrum shows a peak near the band gap energy. The width and shape depend on:</p>
@@ -368,9 +541,11 @@ L(\hbar\omega - E_k, \hbar\gamma_{eh})
 </div>
 </section>
 <section id="temperature-dependence">
-<h2>Temperature Dependence<a class="headerlink" href="#temperature-dependence" title="Link to this heading"></a></h2>
+<h2>Temperature Dependence<a class="headerlink" href="#temperature-dependence" title="Link to this heading">¶</a></h2>
 <p>We investigate how the PL spectrum changes with temperature by modifying the temperature parameter.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate PL spectra at different temperatures</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate PL spectra at different temperatures</span>
 <span class="n">temperatures</span> <span class="o">=</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">77.0</span><span class="p">,</span> <span class="mf">150.0</span><span class="p">,</span> <span class="mf">300.0</span><span class="p">]</span>
 <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">]</span>
 
@@ -403,15 +578,36 @@ L(\hbar\omega - E_k, \hbar\gamma_{eh})
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">10</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="k">for</span> <span class="n">T</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">temperatures</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="c1"># Update temperature (this would normally be done through InitializeEmission)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="c1"># For this demo, we&#39;ll recalculate with different thermal factors</span>
+<span class="ne">---&gt; </span><span class="mi">10</span>     <span class="n">emission</span><span class="o">.</span><span class="n">_Temp</span> <span class="o">=</span> <span class="n">T</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="c1"># Re-initialize to update temperature-dependent arrays</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">emission</span><span class="o">.</span><span class="n">InitializeEmission</span><span class="p">(</span><span class="n">k_grid</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">dcv</span><span class="p">,</span> <span class="n">epsr</span><span class="p">,</span> <span class="n">geh</span><span class="p">,</span> <span class="n">ehint</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;emission&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/dfd22bb8c87e68c9faf682516ea132f219db82eaefa9412c43d82b7be27699d1.png" src="../_images/dfd22bb8c87e68c9faf682516ea132f219db82eaefa9412c43d82b7be27699d1.png" />
+</div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>At higher temperatures, the PL spectrum broadens due to increased thermal energy. The peak may also shift slightly due to temperature-dependent band gap renormalization.</p>
 </div>
 </section>
 <section id="time-evolution-of-pl">
-<h2>Time Evolution of PL<a class="headerlink" href="#time-evolution-of-pl" title="Link to this heading"></a></h2>
+<h2>Time Evolution of PL<a class="headerlink" href="#time-evolution-of-pl" title="Link to this heading">¶</a></h2>
 <p>We can track how the PL spectrum evolves in time as carriers recombine.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simulate time evolution (simplified - in real simulations, carriers would evolve)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simulate time evolution (simplified - in real simulations, carriers would evolve)</span>
 <span class="n">times</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1e-12</span><span class="p">,</span> <span class="mf">5e-12</span><span class="p">,</span> <span class="mf">10e-12</span><span class="p">]</span>  <span class="c1"># Time points (s)</span>
 <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">]</span>
 
@@ -439,11 +635,32 @@ L(\hbar\omega - E_k, \hbar\gamma_{eh})
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">11</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="k">for</span> <span class="n">t_val</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="c1"># For this demo, we&#39;ll use the same distributions but different times</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="c1"># In real simulations, n_e and n_h would evolve according to SBEs</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="n">PLS_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_w</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">11</span>     <span class="n">emission</span><span class="o">.</span><span class="n">Calchw</span><span class="p">(</span><span class="n">hw_PL</span><span class="p">,</span> <span class="n">PLS_t</span><span class="p">,</span> <span class="n">E_start</span><span class="p">,</span> <span class="n">E_max</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="n">emission</span><span class="o">.</span><span class="n">PLSpectrum</span><span class="p">(</span><span class="n">n_e</span><span class="p">,</span> <span class="n">n_h</span><span class="p">,</span> <span class="n">E_e</span><span class="p">,</span> <span class="n">E_h</span><span class="p">,</span> <span class="n">gap</span><span class="p">,</span> <span class="n">geh</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">hw_PL</span><span class="p">,</span> <span class="n">t_val</span><span class="p">,</span> <span class="n">PLS_t</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="c1"># Normalize for comparison</span>
+
+<span class="ne">NameError</span>: name &#39;emission&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/dfd22bb8c87e68c9faf682516ea132f219db82eaefa9412c43d82b7be27699d1.png" src="../_images/dfd22bb8c87e68c9faf682516ea132f219db82eaefa9412c43d82b7be27699d1.png" />
+</div>
+</div>
 </section>
 <section id="spontaneous-emission-integral">
-<h2>Spontaneous Emission Integral<a class="headerlink" href="#spontaneous-emission-integral" title="Link to this heading"></a></h2>
+<h2>Spontaneous Emission Integral<a class="headerlink" href="#spontaneous-emission-integral" title="Link to this heading">¶</a></h2>
 <p>The spontaneous emission integral is calculated numerically using pre-computed arrays. Let’s examine how it depends on transition energy.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate spontaneous emission integral for different transition energies</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate spontaneous emission integral for different transition energies</span>
 <span class="n">E_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">gap</span> <span class="o">*</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="n">Rsp_integral</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">E_test</span><span class="p">))</span>
 
@@ -460,9 +677,24 @@ L(\hbar\omega - E_k, \hbar\gamma_{eh})
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Calculate spontaneous emission integral for different transition energies</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">E_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">gap</span> <span class="o">*</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">gap</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">Rsp_integral</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">E_test</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">E_val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">E_test</span><span class="p">):</span>
+
+<span class="ne">NameError</span>: name &#39;gap&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h2>
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">¶</a></h2>
 <p>This example demonstrated:</p>
 <ol class="arabic simple">
 <li><p><strong>Initialization</strong> of the emission module with physical parameters</p></li>
@@ -488,7 +720,7 @@ L(\hbar\omega - E_k, \hbar\gamma_{eh})
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, PulseSuite Developers.</p>
+    <p>&#169; Copyright 2025, Rahul R. Sah and PulseSuite Developers.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
