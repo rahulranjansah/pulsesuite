@@ -1,10 +1,11 @@
 ---
 jupytext:
+  formats: md:myst
   text_representation:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.14.0
+    jupytext_version: 1.14.1
 kernelspec:
   display_name: Python 3
   language: python
@@ -79,10 +80,10 @@ At low temperatures, phonon emission dominates (spontaneous emission). At high t
 
 First, we import the necessary modules and set up the physical parameters.
 
-```{code-block} python
+```{code-cell}  ipython3
 import numpy as np
 import matplotlib.pyplot as plt
-from pulsesuite.PSTD3D import phonons
+from pulsesuite.PSTD3D.phonons import *
 from scipy.constants import e as e0, hbar, k as kB
 
 # Physical Parameters for GaAs Quantum Wire
@@ -117,7 +118,7 @@ print(f"Temperature: {Temp} K")
 
 We initialize the phonon module, which sets up the phonon interaction matrices.
 
-```{code-block} python
+```{code-cell}  ipython3
 # Initialize Phonon Module
 phonons.InitializePhonons(ky, E_e, E_h, L, epsr, Gph, Oph)
 
@@ -139,7 +140,7 @@ The `InitializePhonons` function sets up:
 
 We examine the phonon interaction matrices, which describe the strength of phonon-mediated transitions.
 
-```{code-block} python
+```{code-cell}  ipython3
 # Access the phonon interaction matrices (stored as module-level variables)
 EP = phonons._EP
 HP = phonons._HP
@@ -180,7 +181,7 @@ The phonon interaction matrices show strong interactions when the energy differe
 
 Let's examine how the phonon interaction strength depends on energy difference.
 
-```{code-block} python
+```{code-cell} python
 # Extract interaction strength along a cut through the matrix
 # Look at transitions from k=0 (center of grid)
 k_center = N_k // 2
@@ -227,7 +228,7 @@ The interaction strength peaks when the energy difference equals the phonon ener
 
 We calculate the many-body phonon scattering rates for electrons and holes.
 
-```{code-block} python
+```{code-cell}  ipython3
 # Create carrier distributions
 sigma_k = 1e8
 n_e = np.exp(-ky**2 / (2 * sigma_k**2))
@@ -264,7 +265,7 @@ print(f"Hole out-scattering rate range: {Wout_h.min():.2e} to {Wout_h.max():.2e}
 
 We visualize the phonon scattering rates as a function of momentum.
 
-```{code-block} python
+```{code-cell}  ipython3
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 ax = axes[0]
@@ -299,7 +300,7 @@ The scattering rates show how carriers at different momenta scatter due to phono
 
 The phonon coupling constant `Cq2` is used in the DC field module for phonon-assisted transport.
 
-```{code-block} python
+```{code-cell}  ipython3
 # Calculate phonon coupling constants
 # This requires interaction potential V and dielectric function E1D
 # For this demo, we'll use simplified arrays
@@ -325,7 +326,7 @@ plt.show()
 
 The module provides Fermi-Dirac and Bose-Einstein distribution functions.
 
-```{code-block} python
+```{code-cell}  ipython3
 # Calculate distribution functions for a range of energies
 E_range = np.linspace(-0.2*e0, 0.2*e0, 100)
 
@@ -368,7 +369,7 @@ print(f"Bose distribution at phonon energy: {N0_phonon:.4f}")
 
 We investigate how phonon interactions change with temperature.
 
-```{code-block} python
+```{code-cell}  ipython3
 # Calculate phonon interaction matrices at different temperatures
 temperatures = [10.0, 77.0, 150.0, 300.0]
 colors = ['blue', 'green', 'orange', 'red']
@@ -424,7 +425,7 @@ At higher temperatures, the Bose distribution increases, leading to more phonon 
 
 We examine how scattering rates depend on temperature.
 
-```{code-block} python
+```{code-cell}  ipython3
 # Calculate scattering rates at different temperatures
 temperatures = [10.0, 77.0, 150.0, 300.0]
 colors = ['blue', 'green', 'orange', 'red']

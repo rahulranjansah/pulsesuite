@@ -1,7 +1,11 @@
-_pycache_
+*_pycache_*
 .vscode
-PSTD3D/src/fields/
-PSTD3D/src/output/
-PSTD3D/src/dataQW/
-PSTD3D/src/__pycache__/
+src/pulsesuite/PSTD3D/fields/
+src/pulsesuite/PSTD3D/output/
+src/pulsesuite/PSTD3D/dataQW/
+src/pulsesuite/PSTD3D/sim/
+src/pulsesuite/PSTD3D/__pycache__/
 aiprompts
+cuda_test.py
+notes.txt
+integrations.md
