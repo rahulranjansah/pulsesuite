@@ -1,4 +1,4 @@
-*_pycache_*
+__pycache__/
 .vscode
 src/pulsesuite/PSTD3D/fields/
 src/pulsesuite/PSTD3D/output/
@@ -9,3 +9,6 @@ aiprompts
 cuda_test.py
 notes.txt
 integrations.md
+*.egg-info/
+.DS_Store
+*.pyc
