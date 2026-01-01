@@ -72,6 +72,7 @@ myst_enable_extensions = [
 
 myst_substitutions = {
     "SBEs": "{py:class}`~pulsesuite.PSTD3D.SBEs`",
+
 }
 
 # Hoverxref Extension
