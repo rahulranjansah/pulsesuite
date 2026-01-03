@@ -80,7 +80,7 @@ $$
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.constants import e as e0, hbar, c, epsilon_0 as eps0
-from pulsesuite.PSTD3D.qwoptics import *
+import pulsesuite.PSTD3D.qwoptics as qwoptics
 
 # Physical parameters (GaAs quantum wire)
 L_wire = 100e-9        # Wire length: 100 nm

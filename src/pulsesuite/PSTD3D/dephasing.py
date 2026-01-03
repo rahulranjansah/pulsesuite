@@ -13,7 +13,7 @@ Why Lrtz jit here? -> tackle nopython=True in the future
 import numpy as np
 from scipy.constants import hbar as hbar_SI
 from numba import jit
-from usefulsubs import Lrtz
+from .usefulsubs import Lrtz
 import os
 
 # Physical constants

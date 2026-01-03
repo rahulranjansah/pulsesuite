@@ -83,7 +83,7 @@ First, we import the necessary modules and set up the physical parameters.
 ```{code-cell}  ipython3
 import numpy as np
 import matplotlib.pyplot as plt
-from pulsesuite.PSTD3D.phonons import *
+import pulsesuite.PSTD3D.phonons as phonons
 from scipy.constants import e as e0, hbar, k as kB
 
 # Physical Parameters for GaAs Quantum Wire

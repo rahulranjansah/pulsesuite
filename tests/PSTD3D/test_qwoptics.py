@@ -13,22 +13,18 @@ import shutil
 from pathlib import Path
 from unittest.mock import patch, MagicMock
 
-# Import the module to test
-import sys
-sys.path.insert(0, '../src')
-import qwoptics as qw
+
+from pulsesuite.PSTD3D import qwoptics as qw
 from scipy.constants import e as e0, c as c0_SI, hbar as hbar_SI, epsilon_0 as eps0_SI
-from libpulsesuite.spliner import rescale_1D
+from pulsesuite.libpulsesuite.spliner import rescale_1D, rescale_1D_dp, rescale_1D_dpc
 
 # Patch rescale_1D into qwoptics module since it's used but not imported
 # The function is commented out in qwoptics.py, so we patch it here
 def _rescale_1D_wrapper(x_old, f_old, x_new, f_new):
     """Wrapper for rescale_1D that dispatches to appropriate function."""
     if np.iscomplexobj(f_old) or np.iscomplexobj(f_new):
-        from libpulsesuite.spliner import rescale_1D_dpc
         rescale_1D_dpc(x_old, f_old, x_new, f_new)
     else:
-        from libpulsesuite.spliner import rescale_1D_dp
         rescale_1D_dp(x_old, f_old, x_new, f_new)
 
 qw.rescale_1D = _rescale_1D_wrapper

@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from pulsesuite.PSTD3D.coulomb import *
+import pulsesuite.PSTD3D.coulomb as coulomb
 from scipy.constants import e as e0, hbar
 
 

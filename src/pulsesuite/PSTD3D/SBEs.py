@@ -8,16 +8,6 @@ propagation simulations for a quantum wire.
 
 import numpy as np
 from scipy.constants import m_e as me0_SI, hbar as hbar_SI, e as e0_SI, epsilon_0 as eps0_SI
-from qwoptics import Prop2QW, QWChi1, QW2Prop, WritePropFields, QWPolarization3, QWRho5, WriteSBESolns, InitializeQWOptics, Xcv, Ycv, Zcv, yw
-from usefulsubs import FFTG, iFFTG, printITR, TotalEnergy, Temperature, WriteIt, locator, GetArray0Index
-from dcfield import CalcI0, CalcPD, CalcVD, InitializeDC, GetEDrift, Transport, CalcI0n
-from dephasing import WriteDephasing, CalcGammaE, CalcGammaH, OffDiagDephasing2, InitializeDephasing
-from coulomb import CalcScreenedArrays, SetLorentzDelta, GetEps1Dqw, GetChi1Dqw, InitializeCoulomb, MBCE, MBCH
-from phonons import MBPH, MBPE, InitializePhonons, FermiDistr
-from emission import SpontEmission, InitializeEmission, Calchw
-from typespace import GetSpaceArray, GetKArray
-from libpulsesuite.spliner import locate
-
 
 from numba import jit, prange
 try:
@@ -27,6 +17,17 @@ except (ImportError, RuntimeError):
     _HAS_CUDA = False
     cuda = None
 import os
+
+from ..libpulsesuite.spliner import locate
+from .usefulsubs import FFTG, iFFTG, printITR, TotalEnergy, Temperature, WriteIt, locator, GetArray0Index
+from .dcfield import CalcI0, CalcPD, CalcVD, InitializeDC, GetEDrift, Transport, CalcI0n
+from .dephasing import WriteDephasing, CalcGammaE, CalcGammaH, OffDiagDephasing2, InitializeDephasing
+from .coulomb import CalcScreenedArrays, SetLorentzDelta, GetEps1Dqw, GetChi1Dqw, InitializeCoulomb, MBCE, MBCH
+from .phonons import MBPH, MBPE, InitializePhonons, FermiDistr
+from .emission import SpontEmission, InitializeEmission, Calchw
+from .typespace import GetSpaceArray, GetKArray
+from .qwoptics import Prop2QW, QWChi1, QW2Prop, WritePropFields, QWPolarization3, QWRho5, WriteSBESolns, InitializeQWOptics, Xcv, Ycv, Zcv, yw
+
 
 # Physical constants
 eV = 1.602176634e-19  # Electron volt in Joules
@@ -1286,9 +1287,8 @@ def Relaxation(ne, nh, VC, E1D, Rsp, dt, w, WriteFields):
     call the many-body perturbation theory functions MBPE and MBPH from the
     phonons module.
 
-    Possible Modifications
-    -----
-    WinE, WoutE, WinH, WoutH could be inplace arguments.
+    .. note::
+        **Possible Modifications:** WinE, WoutE, WinH, WoutH could be inplace arguments.
 
     Examples
     --------
@@ -1367,9 +1367,8 @@ def RelaxationE(ne, nh, VC, E1D):
     Calls MBPE (Many-Body Perturbation theory for Electrons) from the phonons
     module, which implements the full quantum kinetic theory calculation.
 
-    Possible Modifications
-    -----
-    WinE and WoutE could be inplace arguments.
+    .. note::
+        **Possible Modifications:** WinE and WoutE could be inplace arguments.
 
     See Also
     --------
@@ -1433,9 +1432,8 @@ def RelaxationH(ne, nh, VC, E1D):
     Calls MBPH (Many-Body Perturbation theory for Holes) from the phonons
     module, which implements the full quantum kinetic theory calculation.
 
-    Possible Modifications
-    -----
-    WinH, WoutH could be inplace arguments.
+    .. note::
+        **Possible Modifications:** WinH, WoutH could be inplace arguments.
 
     See Also
     --------

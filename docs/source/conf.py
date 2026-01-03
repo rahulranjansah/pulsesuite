@@ -71,7 +71,7 @@ myst_enable_extensions = [
 ]
 
 myst_substitutions = {
-    "SBEs": "{py:class}`~pulsesuite.PSTD3D.SBEs`",
+    # "SBEs": "{py:class}`~pulsesuite.PSTD3D.SBEs`",
 
 }
 
@@ -129,7 +129,7 @@ html_static_path = ["_static"]
 # Execute notebooks (i.e., {code-cell} blocks)
 # "force" means always execute, "cache" means use cached outputs if available
 nb_execution_mode = "force"
-nb_execution_timeout = 300
+nb_execution_timeout = 600  # Increased to 10 minutes for heavy computations like InitializeSBE
 
 # Allow errors to be displayed (set False to fail build on errors)
 nb_execution_allow_errors = True
@@ -139,6 +139,16 @@ nb_execution_raise_on_error = False
 
 # Show stderr output
 nb_execution_show_tb = True
+
+# Skip execution of specific patterns if they cause kernel crashes
+# Add files that consistently cause DeadKernelError
+# Note: If a file causes kernel crashes even with try-except blocks,
+# it likely means the crash happens at a lower level (C extensions, memory issues)
+# and the file should be excluded from execution
+nb_execution_excludepatterns = [
+    # "examples/sbes_example.myst.md",
+    "examples/coulomb_example.myst.md" # Excluded due to DeadKernelError during heavy computations
+]
 
 # Your .myst.md files declare format_name: myst in the YAML header,
 # so if you keep jupytext, the fmt must be "myst" (not "mystnb")

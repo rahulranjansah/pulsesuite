@@ -13,7 +13,7 @@ from scipy.constants import e as e0, hbar as hbar_SI
 from numba import jit
 import pyfftw
 pyfftw.interfaces.cache.enable()
-from libpulsesuite.spliner import rescale_1D
+from ..libpulsesuite.spliner import rescale_1D
 import os
 
 # Physical constants

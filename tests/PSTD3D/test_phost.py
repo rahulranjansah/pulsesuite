@@ -8,19 +8,16 @@ and FFT operations.
 
 import numpy as np
 import pytest
-import sys
 import os
 import tempfile
 import shutil
 from pathlib import Path
-
-# Add pythonic directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
-
-import phost
-from scipy.constants import e as e0, epsilon_0 as eps0, m_e as me0, c as c0
 import pyfftw
+from scipy.constants import e as e0, epsilon_0 as eps0, m_e as me0, c as c0
 
+from pulsesuite.PSTD3D import phost
+
+pyfftw.interfaces.cache.enable()
 
 # Physical constants
 pi = np.pi

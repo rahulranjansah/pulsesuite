@@ -10,13 +10,10 @@ import pytest
 import sys
 import os
 
-# Add pythonic directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
-
-import coulomb
+from pulsesuite.PSTD3D import coulomb
 from scipy.constants import e as e0, epsilon_0 as eps0, hbar as hbar_SI
 from scipy.special import kv
-from usefulsubs import K03
+from pulsesuite.PSTD3D.usefulsubs import K03
 
 
 # Physical constants

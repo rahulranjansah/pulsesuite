@@ -68,7 +68,7 @@ First, we import the necessary modules and set up the physical parameters.
 ```{code-cell} python
 import numpy as np
 import matplotlib.pyplot as plt
-from pulsesuite.PSTD3D.emission import *
+import pulsesuite.PSTD3D.emission as emission
 from scipy.constants import e as e0, hbar, k as kB
 
 # Physical Parameters for GaAs Quantum Wire

@@ -12,10 +12,7 @@ import os
 import shutil
 from pathlib import Path
 
-# Import the module to test
-import sys
-sys.path.insert(0, '../src')
-import usefulsubs as us
+from pulsesuite.PSTD3D import usefulsubs as us
 
 
 class TestArrayFlipping:

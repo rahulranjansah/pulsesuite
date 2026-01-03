@@ -12,10 +12,7 @@ import os
 import shutil
 from pathlib import Path
 
-# Import the module to test
-import sys
-sys.path.insert(0, '../src')
-import dcfield as dc
+from pulsesuite.PSTD3D import dcfield as dc
 from scipy.constants import e as e0, hbar as hbar_SI
 
 

@@ -9,13 +9,10 @@ import numpy as np
 import pytest
 import tempfile
 import os
-import sys
 from pathlib import Path
 from io import StringIO, BytesIO
 
-# Import the module to test
-sys.path.insert(0, '../src')
-import typespace as ts
+from pulsesuite.PSTD3D import typespace as ts
 
 
 class TestSSDataclass:

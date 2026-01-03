@@ -7,18 +7,14 @@ polarization functions, permittivity calculations, and file I/O operations.
 
 import numpy as np
 import pytest
-import sys
 import os
 import tempfile
 import shutil
 from pathlib import Path
 
-# Add pythonic directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
-
-import epsrtl
+from pulsesuite.PSTD3D import epsrtl
 from scipy.constants import hbar as hbar_SI, k as kB_SI, e as e0_SI, epsilon_0 as eps0_SI
-from usefulsubs import K03, theta
+from pulsesuite.PSTD3D.usefulsubs import K03, theta
 
 
 # Physical constants
