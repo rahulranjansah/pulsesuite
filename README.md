@@ -106,7 +106,7 @@ If you use PulseSuite in your research, please cite:
 ```bibtex
 @software{pulsesuite2025,
   title = {PulseSuite: Simulation suite for ultrafast laser-matter interactions},
-  author = {Sah, Rahul R. and Gulley, Jeremy R.},
+  author = {Sah, Rahul R., Emily S. Hatten, and Gulley, Jeremy R.},
   year = {2025},
   url = {https://github.com/rahulranjansah/pulsesuite}
 }
