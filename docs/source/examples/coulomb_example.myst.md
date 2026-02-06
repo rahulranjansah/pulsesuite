@@ -69,16 +69,21 @@ Beyond Hartree-Fock, the many-body collision terms (MBCE, MBCH) describe carrier
 First, we import the necessary modules and set up the physical parameters.
 
 ```{code-cell} python
+import os
 import numpy as np
 import matplotlib.pyplot as plt
-import pulsesuite.PSTD3D.coulomb as coulomb
 from scipy.constants import e as e0, hbar
+
+# Check if running in documentation build environment
+# Use smaller grids and mock data if needed
+IN_DOC_BUILD = os.environ.get('READTHEDOCS', '') == 'True' or os.environ.get('SPHINX_BUILD', '') == 'True'
 
 # Physical Parameters for GaAs Quantum Wire
 L = 200e-9              # Wire length (m)
 Delta0 = 5e-9           # Wire thickness (m)
-N_y = 128               # Spatial grid points
-N_k = 64                # Momentum grid points
+# Use smaller grids for documentation builds to avoid memory issues
+N_y = 64 if IN_DOC_BUILD else 128  # Spatial grid points
+N_k = 32 if IN_DOC_BUILD else 64   # Momentum grid points
 m_e = 0.067 * 9.109e-31 # Electron effective mass (kg)
 m_h = 0.45 * 9.109e-31  # Hole effective mass (kg)
 epsr = 12.0             # Relative dielectric constant
@@ -99,10 +104,12 @@ dk = ky[1] - ky[0]
 E_e = hbar**2 * ky**2 / (2 * m_e)
 E_h = hbar**2 * ky**2 / (2 * m_h)
 
-print(f"Spatial grid: {y.min():.2e} to {y.max():.2e} m")
-print(f"Momentum grid: {ky.min():.2e} to {ky.max():.2e} m^-1")
+print(f"Spatial grid: {y.min():.2e} to {y.max():.2e} m ({N_y} points)")
+print(f"Momentum grid: {ky.min():.2e} to {ky.max():.2e} m^-1 ({N_k} points)")
 print(f"Electron confinement: {alphae:.2e} m^-1")
 print(f"Hole confinement: {alphah:.2e} m^-1")
+if IN_DOC_BUILD:
+    print("Note: Using reduced grid sizes for documentation build")
 ```
 
 ## Momentum Difference Arrays
@@ -138,22 +145,34 @@ print(f"Index mapping array shape: {kkp.shape}")
 We initialize the Coulomb module, which sets up all internal arrays.
 
 ```{code-cell} python
-# Initialize Coulomb Module
-# Note: screened parameter is passed but not used in initialization
-screened = False  # We'll calculate screened arrays separately if needed
-
-# Wrap in try-except to prevent hangs during documentation builds
+# Import coulomb module
 try:
-    coulomb.InitializeCoulomb(
-        y, ky, L, Delta0, m_e, m_h, E_e, E_h,
-        ge, gh, alphae, alphah, epsr, Qy, kkp, screened
-    )
+    import pulsesuite.PSTD3D.coulomb as coulomb
+    COULOMB_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: Could not import coulomb module: {e}")
+    COULOMB_AVAILABLE = False
+    coulomb = None
 
-    print("Coulomb module initialized")
-    print(f"Unscreened Coulomb arrays calculated")
-except Exception as e:
-    print(f"Warning: InitializeCoulomb failed: {type(e).__name__}: {e}")
-    print("This may occur in documentation builds due to missing dependencies or memory constraints.")
+# Initialize Coulomb Module
+screened = False  # We'll calculate screened arrays separately if needed
+coulomb_initialized = False
+
+if COULOMB_AVAILABLE:
+    try:
+        coulomb.InitializeCoulomb(
+            y, ky, L, Delta0, m_e, m_h, E_e, E_h,
+            ge, gh, alphae, alphah, epsr, Qy, kkp, screened
+        )
+        coulomb_initialized = True
+        print("Coulomb module initialized successfully")
+        print(f"Unscreened Coulomb arrays calculated")
+    except Exception as e:
+        print(f"Warning: InitializeCoulomb failed: {type(e).__name__}: {e}")
+        print("Will use mock data for remaining examples.")
+        coulomb_initialized = False
+else:
+    print("Coulomb module not available. Using mock data for demonstration.")
 ```
 
 :::{note}
@@ -171,21 +190,27 @@ The `InitializeCoulomb` function sets up:
 We can calculate individual interaction integrals using `Vint` and `Vehint`.
 
 ```{code-cell} python
-# Calculate interaction integral for a specific momentum difference
-Q_test = 1e8  # Momentum difference (1/m)
+if COULOMB_AVAILABLE and coulomb_initialized:
+    try:
+        # Calculate interaction integral for a specific momentum difference
+        Q_test = 1e8  # Momentum difference (1/m)
+        Vint_val = coulomb.Vint(Q_test, y, alphae, alphah, Delta0)
+        print(f"Interaction integral for Q = {Q_test:.2e} m^-1: {Vint_val:.2e}")
 
-Vint_val = coulomb.Vint(Q_test, y, alphae, alphah, Delta0)
-
-print(f"Interaction integral for Q = {Q_test:.2e} m^-1: {Vint_val:.2e}")
-
-# Calculate electron-hole interaction for specific indices
-k_idx = N_k // 2  # Center of k-grid
-q_idx = N_k // 2  # Center of q-grid
-
-Vehint_val = coulomb.Vehint(k_idx + 1, q_idx + 1, y, ky, alphae, alphah, Delta0)
-# Note: Vehint uses 1-based indexing, so we add 1
-
-print(f"Electron-hole interaction V({k_idx}, {q_idx}): {Vehint_val:.2e}")
+        # Calculate electron-hole interaction for specific indices
+        k_idx = N_k // 2  # Center of k-grid
+        q_idx = N_k // 2  # Center of q-grid
+        Vehint_val = coulomb.Vehint(k_idx + 1, q_idx + 1, y, ky, alphae, alphah, Delta0)
+        # Note: Vehint uses 1-based indexing, so we add 1
+        print(f"Electron-hole interaction V({k_idx}, {q_idx}): {Vehint_val:.2e}")
+    except Exception as e:
+        print(f"Warning: Interaction integral calculation failed: {type(e).__name__}: {e}")
+        print("This may occur in documentation builds due to computational constraints.")
+else:
+    # Mock values for demonstration
+    print("Using mock values for demonstration:")
+    print(f"Interaction integral for Q = 1.00e+08 m^-1: 1.00e-21")
+    print(f"Electron-hole interaction V({N_k//2}, {N_k//2}): -1.00e-21")
 ```
 
 ## Momentum Dependence of Interaction Integrals
@@ -193,22 +218,51 @@ print(f"Electron-hole interaction V({k_idx}, {q_idx}): {Vehint_val:.2e}")
 Let's examine how the interaction integral depends on momentum difference.
 
 ```{code-cell} python
-# Calculate Vint for a range of momentum differences
-Q_range = np.linspace(1e6, 5e8, 50)
-Vint_range = np.zeros(len(Q_range))
+if COULOMB_AVAILABLE and coulomb_initialized:
+    try:
+        # Calculate Vint for a range of momentum differences
+        Q_range = np.linspace(1e6, 5e8, 30)  # Reduced points for doc builds
+        Vint_range = np.zeros(len(Q_range))
 
-for i, Q_val in enumerate(Q_range):
-    Vint_range[i] = coulomb.Vint(Q_val, y, alphae, alphah, Delta0)
+        for i, Q_val in enumerate(Q_range):
+            Vint_range[i] = coulomb.Vint(Q_val, y, alphae, alphah, Delta0)
 
-fig, ax = plt.subplots(figsize=(8, 5))
-ax.plot(Q_range/1e8, Vint_range, 'b-', linewidth=2)
-ax.set_xlabel('Momentum Difference $|k-q|$ ($10^8$ m$^{-1}$)')
-ax.set_ylabel('Interaction Integral')
-ax.set_title('Coulomb Interaction Integral vs Momentum Difference')
-ax.set_yscale('log')
-ax.grid(True, alpha=0.3)
-plt.tight_layout()
-plt.show()
+        fig, ax = plt.subplots(figsize=(8, 5))
+        ax.plot(Q_range/1e8, Vint_range, 'b-', linewidth=2)
+        ax.set_xlabel('Momentum Difference $|k-q|$ ($10^8$ m$^{-1}$)')
+        ax.set_ylabel('Interaction Integral')
+        ax.set_title('Coulomb Interaction Integral vs Momentum Difference')
+        ax.set_yscale('log')
+        ax.grid(True, alpha=0.3)
+        plt.tight_layout()
+        plt.show()
+    except Exception as e:
+        print(f"Warning: Vint calculation failed: {type(e).__name__}: {e}")
+        # Create mock plot
+        Q_range = np.linspace(1e6, 5e8, 30)
+        Vint_range = 1e-21 * np.exp(-Q_range / 1e8)  # Mock exponential decay
+        fig, ax = plt.subplots(figsize=(8, 5))
+        ax.plot(Q_range/1e8, Vint_range, 'b-', linewidth=2, label='Mock data')
+        ax.set_xlabel('Momentum Difference $|k-q|$ ($10^8$ m$^{-1}$)')
+        ax.set_ylabel('Interaction Integral')
+        ax.set_title('Coulomb Interaction Integral vs Momentum Difference (Mock)')
+        ax.set_yscale('log')
+        ax.grid(True, alpha=0.3)
+        plt.tight_layout()
+        plt.show()
+else:
+    # Mock plot
+    Q_range = np.linspace(1e6, 5e8, 30)
+    Vint_range = 1e-21 * np.exp(-Q_range / 1e8)  # Mock exponential decay
+    fig, ax = plt.subplots(figsize=(8, 5))
+    ax.plot(Q_range/1e8, Vint_range, 'b-', linewidth=2, label='Mock data')
+    ax.set_xlabel('Momentum Difference $|k-q|$ ($10^8$ m$^{-1}$)')
+    ax.set_ylabel('Interaction Integral')
+    ax.set_title('Coulomb Interaction Integral vs Momentum Difference (Mock)')
+    ax.set_yscale('log')
+    ax.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.show()
 ```
 
 :::{note}
@@ -220,35 +274,51 @@ The interaction integral decreases with increasing momentum difference, reflecti
 The unscreened Coulomb matrices are calculated during initialization. Let's examine them.
 
 ```{code-cell} python
-# Access the unscreened Coulomb arrays (stored as module-level variables)
-# In a real workflow, these would be returned from CalcCoulombArrays
-# For this example, we'll recalculate to show the interface
-
-# Wrap in try-except to prevent kernel crashes during documentation builds
-try:
-    Veh0, Vee0, Vhh0 = coulomb.CalcCoulombArrays(
-        y, ky, epsr, alphae, alphah, L, Delta0, Qy, kkp
-    )
-
-    print(f"Veh0 shape: {Veh0.shape}")
-    print(f"Vee0 shape: {Vee0.shape}")
-    print(f"Vhh0 shape: {Vhh0.shape}")
-    print(f"Veh0 range: {Veh0.min():.2e} to {Veh0.max():.2e} J")
-    print(f"Vee0 range: {Vee0.min():.2e} to {Vee0.max():.2e} J")
-    print(f"Vhh0 range: {Vhh0.min():.2e} to {Vhh0.max():.2e} J")
-except Exception as e:
-    print(f"Warning: CalcCoulombArrays failed: {type(e).__name__}: {e}")
-    print("This may occur in documentation builds due to memory constraints.")
-    # Create mock arrays for visualization
+# Create or retrieve unscreened Coulomb arrays
+if COULOMB_AVAILABLE and coulomb_initialized:
+    try:
+        Veh0, Vee0, Vhh0 = coulomb.CalcCoulombArrays(
+            y, ky, epsr, alphae, alphah, L, Delta0, Qy, kkp
+        )
+        print(f"Veh0 shape: {Veh0.shape}")
+        print(f"Vee0 shape: {Vee0.shape}")
+        print(f"Vhh0 shape: {Vhh0.shape}")
+        print(f"Veh0 range: {Veh0.min():.2e} to {Veh0.max():.2e} J")
+        print(f"Vee0 range: {Vee0.min():.2e} to {Vee0.max():.2e} J")
+        print(f"Vhh0 range: {Vhh0.min():.2e} to {Vhh0.max():.2e} J")
+    except Exception as e:
+        print(f"Warning: CalcCoulombArrays failed: {type(e).__name__}: {e}")
+        print("Creating mock Coulomb arrays for visualization.")
+        # Create mock arrays with realistic structure
+        Veh0 = np.zeros((N_k, N_k))
+        Vee0 = np.zeros((N_k, N_k))
+        Vhh0 = np.zeros((N_k, N_k))
+        # Create mock interaction: strongest at diagonal, decays with distance
+        for i in range(N_k):
+            for j in range(N_k):
+                dist = abs(i - j)
+                decay = np.exp(-dist / (N_k / 4))
+                Veh0[i, j] = -1e-21 * decay  # Attractive
+                Vee0[i, j] = 1e-21 * decay   # Repulsive
+                Vhh0[i, j] = 1e-21 * decay   # Repulsive
+        print("Using mock Coulomb arrays for documentation display.")
+else:
+    # Create mock arrays with realistic structure
     Veh0 = np.zeros((N_k, N_k))
     Vee0 = np.zeros((N_k, N_k))
     Vhh0 = np.zeros((N_k, N_k))
-    # Set some mock values along diagonal
+    # Create mock interaction: strongest at diagonal, decays with distance
     for i in range(N_k):
-        Veh0[i, i] = -1e-21  # Attractive interaction
-        Vee0[i, i] = 1e-21   # Repulsive interaction
-        Vhh0[i, i] = 1e-21   # Repulsive interaction
-    print("Using mock Coulomb arrays for documentation display.")
+        for j in range(N_k):
+            dist = abs(i - j)
+            decay = np.exp(-dist / (N_k / 4))
+            Veh0[i, j] = -1e-21 * decay  # Attractive
+            Vee0[i, j] = 1e-21 * decay   # Repulsive
+            Vhh0[i, j] = 1e-21 * decay   # Repulsive
+    print("Using mock Coulomb arrays for demonstration.")
+    print(f"Veh0 shape: {Veh0.shape}")
+    print(f"Vee0 shape: {Vee0.shape}")
+    print(f"Vhh0 shape: {Vhh0.shape}")
 ```
 
 ## Visualization of Coulomb Matrices
@@ -313,23 +383,25 @@ VC[:, :, 1] = Vee0  # Electron-electron
 VC[:, :, 2] = Vhh0  # Hole-hole
 
 # Calculate band gap renormalization
-# Wrap in try-except to prevent kernel crashes during documentation builds
-try:
+if COULOMB_AVAILABLE and coulomb_initialized:
+    try:
+        BGR = np.zeros((N_k, N_k), dtype=complex)
+        coulomb.BGRenorm(C, D, VC, BGR)
+        BGR_diag = np.diag(BGR)
+        print(f"Band gap renormalization range: {BGR_diag.min()/e0*1e3:.3f} to {BGR_diag.max()/e0*1e3:.3f} meV")
+        print(f"Average BGR: {np.mean(BGR_diag)/e0*1e3:.3f} meV")
+    except Exception as e:
+        print(f"Warning: BGRenorm failed: {type(e).__name__}: {e}")
+        # Create mock BGR
+        BGR = np.zeros((N_k, N_k), dtype=complex)
+        BGR_diag = -0.01 * e0 * (1 + 0.1 * np.random.randn(N_k))  # Mock with small variation
+        print("Using mock BGR values for documentation display.")
+else:
+    # Create mock BGR
     BGR = np.zeros((N_k, N_k), dtype=complex)
-    coulomb.BGRenorm(C, D, VC, BGR)
-
-    # Extract diagonal elements (k=k' terms)
-    BGR_diag = np.diag(BGR)
-
-    print(f"Band gap renormalization range: {BGR_diag.min()/e0*1e3:.3f} to {BGR_diag.max()/e0*1e3:.3f} meV")
-    print(f"Average BGR: {np.mean(BGR_diag)/e0*1e3:.3f} meV")
-except Exception as e:
-    print(f"Warning: BGRenorm failed: {type(e).__name__}: {e}")
-    print("This may occur if InitializeCoulomb was not successful.")
-    # Create mock BGR for visualization
-    BGR = np.zeros((N_k, N_k), dtype=complex)
-    BGR_diag = -0.01 * e0 * np.ones(N_k)  # Mock 10 meV renormalization
-    print("Using mock BGR values for documentation display.")
+    BGR_diag = -0.01 * e0 * (1 + 0.1 * np.random.randn(N_k))  # Mock with small variation
+    print(f"Band gap renormalization (mock): {BGR_diag.min()/e0*1e3:.3f} to {BGR_diag.max()/e0*1e3:.3f} meV")
+    print(f"Average BGR (mock): {np.mean(BGR_diag)/e0*1e3:.3f} meV")
 ```
 
 ## Electron and Hole Energy Renormalization
@@ -337,29 +409,35 @@ except Exception as e:
 We calculate individual energy renormalizations for electrons and holes.
 
 ```{code-cell} python
-# Electron energy renormalization
-# Wrap in try-except to prevent kernel crashes during documentation builds
-try:
-    EeRenorm = np.zeros((N_k, N_k), dtype=complex)
-    coulomb.EeRenorm(n_e, VC, EeRenorm)
-    EeRenorm_diag = np.diag(EeRenorm)
+# Electron and hole energy renormalization
+if COULOMB_AVAILABLE and coulomb_initialized:
+    try:
+        EeRenorm = np.zeros((N_k, N_k), dtype=complex)
+        coulomb.EeRenorm(n_e, VC, EeRenorm)
+        EeRenorm_diag = np.diag(EeRenorm)
 
-    # Hole energy renormalization
-    EhRenorm = np.zeros((N_k, N_k), dtype=complex)
-    coulomb.EhRenorm(n_h, VC, EhRenorm)
-    EhRenorm_diag = np.diag(EhRenorm)
+        EhRenorm = np.zeros((N_k, N_k), dtype=complex)
+        coulomb.EhRenorm(n_h, VC, EhRenorm)
+        EhRenorm_diag = np.diag(EhRenorm)
 
-    print(f"Electron energy renormalization: {EeRenorm_diag.min()/e0*1e3:.3f} to {EeRenorm_diag.max()/e0*1e3:.3f} meV")
-    print(f"Hole energy renormalization: {EhRenorm_diag.min()/e0*1e3:.3f} to {EhRenorm_diag.max()/e0*1e3:.3f} meV")
-except Exception as e:
-    print(f"Warning: Energy renormalization calculation failed: {type(e).__name__}: {e}")
-    print("This may occur if InitializeCoulomb was not successful.")
-    # Create mock renormalization for visualization
+        print(f"Electron energy renormalization: {EeRenorm_diag.min()/e0*1e3:.3f} to {EeRenorm_diag.max()/e0*1e3:.3f} meV")
+        print(f"Hole energy renormalization: {EhRenorm_diag.min()/e0*1e3:.3f} to {EhRenorm_diag.max()/e0*1e3:.3f} meV")
+    except Exception as e:
+        print(f"Warning: Energy renormalization calculation failed: {type(e).__name__}: {e}")
+        # Create mock renormalization
+        EeRenorm = np.zeros((N_k, N_k), dtype=complex)
+        EhRenorm = np.zeros((N_k, N_k), dtype=complex)
+        EeRenorm_diag = -0.005 * e0 * (1 + 0.1 * np.random.randn(N_k))
+        EhRenorm_diag = -0.005 * e0 * (1 + 0.1 * np.random.randn(N_k))
+        print("Using mock renormalization values for documentation display.")
+else:
+    # Create mock renormalization
     EeRenorm = np.zeros((N_k, N_k), dtype=complex)
     EhRenorm = np.zeros((N_k, N_k), dtype=complex)
-    EeRenorm_diag = -0.005 * e0 * np.ones(N_k)  # Mock 5 meV renormalization
-    EhRenorm_diag = -0.005 * e0 * np.ones(N_k)  # Mock 5 meV renormalization
-    print("Using mock renormalization values for documentation display.")
+    EeRenorm_diag = -0.005 * e0 * (1 + 0.1 * np.random.randn(N_k))
+    EhRenorm_diag = -0.005 * e0 * (1 + 0.1 * np.random.randn(N_k))
+    print(f"Electron energy renormalization (mock): {EeRenorm_diag.min()/e0*1e3:.3f} to {EeRenorm_diag.max()/e0*1e3:.3f} meV")
+    print(f"Hole energy renormalization (mock): {EhRenorm_diag.min()/e0*1e3:.3f} to {EhRenorm_diag.max()/e0*1e3:.3f} meV")
 
 # Visualize renormalization effects
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -405,21 +483,27 @@ VC_screened[:, :, 2] = Vhh0
 E1D = np.zeros((N_k, N_k))
 
 # Calculate screened arrays
-# Wrap in try-except to prevent hangs during documentation builds
-try:
-    coulomb.CalcScreenedArrays(True, L, np.real(n_e), np.real(n_h), VC_screened, E1D)
-
-    print(f"Screened Veh range: {VC_screened[:, :, 0].min():.2e} to {VC_screened[:, :, 0].max():.2e} J")
-    print(f"Dielectric function range: {E1D.min():.2f} to {E1D.max():.2f}")
-except Exception as e:
-    print(f"Warning: CalcScreenedArrays failed: {type(e).__name__}: {e}")
-    print("This may occur if InitializeCoulomb was not successful.")
-    # Set mock values for visualization (use unscreened values as fallback)
-    if 'Veh0' in locals():
+if COULOMB_AVAILABLE and coulomb_initialized:
+    try:
+        coulomb.CalcScreenedArrays(True, L, np.real(n_e), np.real(n_h), VC_screened, E1D)
+        print(f"Screened Veh range: {VC_screened[:, :, 0].min():.2e} to {VC_screened[:, :, 0].max():.2e} J")
+        print(f"Dielectric function range: {E1D.min():.2f} to {E1D.max():.2f}")
+    except Exception as e:
+        print(f"Warning: CalcScreenedArrays failed: {type(e).__name__}: {e}")
+        # Use unscreened values as fallback
         VC_screened[:, :, 0] = Veh0
         VC_screened[:, :, 1] = Vee0
         VC_screened[:, :, 2] = Vhh0
-    E1D[:] = 1.0  # No screening
+        E1D[:] = 1.0 + 0.1 * np.random.rand(N_k, N_k)  # Mock screening
+        print("Using mock screening values for documentation display.")
+else:
+    # Use mock screening
+    E1D[:] = 1.0 + 0.1 * np.random.rand(N_k, N_k)  # Mock screening
+    # Screened interactions are slightly reduced
+    VC_screened[:, :, 0] = Veh0 / (1.0 + 0.1)
+    VC_screened[:, :, 1] = Vee0 / (1.0 + 0.1)
+    VC_screened[:, :, 2] = Vhh0 / (1.0 + 0.1)
+    print("Using mock screening values for demonstration.")
 
 # Compare screened vs unscreened
 Veh_screened = VC_screened[:, :, 0]
@@ -465,9 +549,6 @@ The many-body collision terms (MBCE, MBCH) describe carrier-carrier scattering b
 # Many-body collision terms require initialized arrays from InitializeCoulomb
 # These are advanced calculations typically used in SBE time evolution
 
-# For demonstration, we'll show the interface
-# In practice, these would be called during SBE integration
-
 Win_e = np.zeros(N_k)
 Wout_e = np.zeros(N_k)
 Win_h = np.zeros(N_k)
@@ -480,29 +561,33 @@ nh_padded = np.zeros(N_k + 1)
 ne_padded[1:] = np.real(n_e)
 nh_padded[1:] = np.real(n_h)
 
-# Calculate many-body collision terms for electrons
-# Wrap in try-except to prevent kernel crashes during documentation builds
-try:
-    coulomb.MBCE2(ne_padded, nh_padded, ky, E_e, E_h, VC_screened,
-                  ge, ge, Win_e, Wout_e)
+# Calculate many-body collision terms
+if COULOMB_AVAILABLE and coulomb_initialized:
+    try:
+        coulomb.MBCE2(ne_padded, nh_padded, ky, E_e, E_h, VC_screened,
+                      ge, ge, Win_e, Wout_e)
+        coulomb.MBCH(ne_padded, nh_padded, ky, E_e, E_h, VC_screened,
+                     ge, gh, Win_h, Wout_h)
 
-    # Calculate many-body collision terms for holes
-    coulomb.MBCH(ne_padded, nh_padded, ky, E_e, E_h, VC_screened,
-                 ge, gh, Win_h, Wout_h)
-
-    print(f"Electron in-scattering rate range: {Win_e.min():.2e} to {Win_e.max():.2e} s^-1")
-    print(f"Electron out-scattering rate range: {Wout_e.min():.2e} to {Wout_e.max():.2e} s^-1")
-    print(f"Hole in-scattering rate range: {Win_h.min():.2e} to {Win_h.max():.2e} s^-1")
-    print(f"Hole out-scattering rate range: {Wout_h.min():.2e} to {Wout_h.max():.2e} s^-1")
-except Exception as e:
-    print(f"Warning: Many-body collision terms calculation failed: {type(e).__name__}: {e}")
-    print("This may occur in documentation builds due to memory constraints or if InitializeCoulomb was not successful.")
-    # Set mock values for visualization
+        print(f"Electron in-scattering rate range: {Win_e.min():.2e} to {Win_e.max():.2e} s^-1")
+        print(f"Electron out-scattering rate range: {Wout_e.min():.2e} to {Wout_e.max():.2e} s^-1")
+        print(f"Hole in-scattering rate range: {Win_h.min():.2e} to {Win_h.max():.2e} s^-1")
+        print(f"Hole out-scattering rate range: {Wout_h.min():.2e} to {Wout_h.max():.2e} s^-1")
+    except Exception as e:
+        print(f"Warning: Many-body collision terms calculation failed: {type(e).__name__}: {e}")
+        # Set mock values
+        Win_e[:] = 1e10 * np.exp(-ky**2 / (2 * (1e8)**2))
+        Wout_e[:] = 1e10 * np.exp(-ky**2 / (2 * (1e8)**2))
+        Win_h[:] = 1e10 * np.exp(-ky**2 / (2 * (1e8)**2))
+        Wout_h[:] = 1e10 * np.exp(-ky**2 / (2 * (1e8)**2))
+        print("Using mock scattering rates for documentation display.")
+else:
+    # Set mock values
     Win_e[:] = 1e10 * np.exp(-ky**2 / (2 * (1e8)**2))
     Wout_e[:] = 1e10 * np.exp(-ky**2 / (2 * (1e8)**2))
     Win_h[:] = 1e10 * np.exp(-ky**2 / (2 * (1e8)**2))
     Wout_h[:] = 1e10 * np.exp(-ky**2 / (2 * (1e8)**2))
-    print("Using mock scattering rates for documentation display.")
+    print("Using mock scattering rates for demonstration.")
 
 # Visualize scattering rates
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -569,13 +654,13 @@ This section explains the assumptions and rationale behind the parameter values 
 ### Grid and Numerical Parameters
 
 **Spatial grid:**
-- `N_y = 128`: Number of spatial points
-- **Rationale**: Sufficient resolution for integration while keeping computation time reasonable.
+- `N_y = 64-128`: Number of spatial points (reduced for documentation builds)
+- **Rationale**: Sufficient resolution for integration while keeping computation time reasonable. Smaller grids are used in documentation builds to avoid memory issues.
 
 **Momentum grid:**
-- `N_k = 64`: Number of momentum points
+- `N_k = 32-64`: Number of momentum points (reduced for documentation builds)
 - `k_range = [-2e8, 2e8] m^-1`: Momentum range
-- **Rationale**: 64 points balances resolution and speed. Range covers relevant k-space for transitions near the band gap.
+- **Rationale**: Balances resolution and speed. Range covers relevant k-space for transitions near the band gap. Smaller grids are used in documentation builds.
 
 **Momentum difference array:**
 - `N_Q = 2*N_k - 1`: All possible momentum differences
@@ -607,6 +692,7 @@ This section explains the assumptions and rationale behind the parameter values 
 2. **Off-diagonal coherence**: Only diagonal density matrices are used. Full SBE calculations include off-diagonal elements.
 3. **Frequency-dependent screening**: Uses static screening approximation. Dynamic screening requires frequency-dependent dielectric function.
 4. **Material parameters**: Bulk GaAs values. Confined systems may need adjusted parameters.
+5. **Documentation builds**: This example uses reduced grid sizes and mock data when running in documentation build environments to ensure reliable builds.
 :::
 
 ## Summary
@@ -621,4 +707,3 @@ This example demonstrated:
 6. **Many-body collision terms** (`MBCE`, `MBCH`) for carrier-carrier scattering
 
 The `coulomb` module provides a comprehensive framework for calculating Coulomb interactions in quantum wires, including unscreened and screened interactions, energy renormalization, and many-body collision terms essential for realistic SBE simulations.
-

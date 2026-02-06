@@ -6,10 +6,8 @@ src/pulsesuite/PSTD3D/dataQW/
 src/pulsesuite/PSTD3D/sim/
 src/pulsesuite/PSTD3D/__pycache__/
 tests/PSTD3D/dataQW/*
-aiprompts
-cuda_test.py
-notes.txt
 integrations.md
 *.egg-info/
 .DS_Store
 *.pyc
+.venv/

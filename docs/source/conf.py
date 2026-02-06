@@ -147,7 +147,7 @@ nb_execution_show_tb = True
 # and the file should be excluded from execution
 nb_execution_excludepatterns = [
     # "examples/sbes_example.myst.md",
-    "examples/coulomb_example.myst.md" # Excluded due to DeadKernelError during heavy computations
+    # "examples/coulomb_example.myst.md" # Excluded due to DeadKernelError during heavy computations
 ]
 
 # Your .myst.md files declare format_name: myst in the YAML header,

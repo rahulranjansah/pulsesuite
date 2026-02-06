@@ -1,0 +1,79 @@
+Def IFFT -> in phost.py (needs to placed elsewhere not present in usefulsubs)
+
+
+# Drop try except blocks and fix the nopython errors to priortize speed!
+# Check Ctrl + F (implemented) – for each codebase
+
+# Discrepancy check
+
+Coloumb.py - w test
+dephasing.py - w test
+usefulsubs.py - w test
+dcfield.py - w test
+epsrtl.py - w test
+qwoptics.py - w test
+phost.py - discrepancy checked - test y
+phonons.py - y - y
+Typesapce.py -  (yes and yes)
+
+
+sbes.py - no - no (eyeballed yes)
+
+Eyeball check required
+emission.py - no - no
+helpers.py - no - no (make it free of typehints, and follow more general structure)
+rhopj.py - no - no
+sbetests.new.py - no - no
+sbetestsprop.py – dummy sbetestprop - no – no
+
+To do
+Think about params files
+JIT everything possible to beat the benchmark speed
+
+
+
+(To be considered threading)
+
+
+# in myst.md (simple md just one imports)
+# integrate imports where we consider bunch of files together to get results
+
+
+# myst killing kernel
+
+couloumb.myst.md --> kills kernel why? no one knows, may be v extensive compute past
+run time fix required.
+
+
+# Prompts (Raw)
+
+...........
+Coder homie
+...........
+write these functions in python keep the name conventions as it is add more description as if documentation to the code keep the names same and drop non-pythonic elemnts and do not try to be over creative as I'll be guiding to better the codebase for openmp alternative use jit where possible  and hava a fallback too in case it doesnt work. think about nopython errors that could be potential cause of problems if using numpy and jit together. Fortran is case-insensitive so dont get fooled by it and redo the same task twice. put it in ... reference from ... dont use other pythonic files .....
+
+................
+Testing catalyst
+................
+write tests for .... name it as test_.....py put it in tests/ and make sure to check each and every functions and integrated tests wherever possible, can you use pyenv activate venv3.10 because everythin is already downloaded inside it
+
+................................
+Docs vs Code discrepancy checker
+................................
+can you help me mark all the discrepencies with documenatation code, actual code, and fortran code and the testcode within test so that i can mark them. (my goal is to keep them close to fortran code and real physics). Dont worry about indexing because python is 0-index and fortran is 1-index so there will be some difference in how code has been written as long as they are functionally equivalent, its fine. Same goes for signatures might be relevant in fortran not in python.
+
+# Optimization (GPU based)
+
+Cuda (implemented on triple loops in SBEs.py and qwoptics.py)
+H5py (To be implemented in I/O)
+fastmath checks
+Using dedicated pyfftw instead of scipy.fft
+
+# Suggestions (HPC based (CPU based))
+
+Thread only the spatial loop
+Use fastmath
+Precompute time envelopes
+Use HDF5 instead of text
+Keep I/O outside the hot loop
+pyfftw usage.
