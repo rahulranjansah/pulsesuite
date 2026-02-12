@@ -512,13 +512,16 @@ def polint1(xa, ya, x, dy=None):
 
     dyt = 0.0
     for m in range(n - 1):
-        den = ho[:n - m] - ho[1 + m:n]
+        # Neville stage: Fortran m_for = m+1, inner loop has nm = n - m_for elements
+        nm = n - m - 1
+        hp = ho[m + 1:n]               # xa[i + m_for] - x, i = 0..nm-1
+        den = ho[:nm] - hp
         if np.any(den == 0.0):
             raise ValueError('polint: calculation failure')
-        den = (c[1:n - m + 1] - d[:n - m]) / den
-        d[:n - m] = ho[1 + m:n] * den
-        c[:n - m] = ho[:n - m] * den
-        if 2 * ns < n - m:
+        den = (c[1:nm + 1] - d[:nm]) / den
+        d[:nm] = hp * den
+        c[:nm] = ho[:nm] * den
+        if 2 * (ns + 1) < nm:
             dyt = c[ns + 1]
         else:
             dyt = d[ns]
@@ -666,7 +669,8 @@ def bcucof(y, y1, y2, y12, d1, d2, c):
         0, 0, 0, 0, 0, 0, -1, 1, 0, 0, 2, -2, 0, 0, -1, 1
     ]
 
-    wt = np.array(wt_data, dtype=np.float64).reshape((16, 16))
+    # Fortran DATA fills column-major, so use order='F' to match
+    wt = np.array(wt_data, dtype=np.float64).reshape((16, 16), order='F')
 
     x = np.zeros(16)
     x[0:4] = y
@@ -675,8 +679,8 @@ def bcucof(y, y1, y2, y12, d1, d2, c):
     x[12:16] = y12 * d1 * d2
 
     x = np.dot(wt, x)
-    # Fortran reshape with order=(/2,1/) means transpose after reshape
-    c[:, :] = x.reshape((4, 4), order='F').T
+    # Fortran: c = reshape(x, (/4,4/)) — column-major fill, no transpose
+    c[:, :] = x.reshape((4, 4), order='F')
 
 
 def bcuint(y, y1, y2, y12, x1l, x1u, x2l, x2u, x1, x2):
