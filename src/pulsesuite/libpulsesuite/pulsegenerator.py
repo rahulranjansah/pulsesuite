@@ -11,12 +11,12 @@ Dependencies
 - ``spliner.rescale_1D``
 """
 
-import numpy as np
 from typing import Optional
+
+import numpy as np
 
 from .helpers import gauss_dp, sech, sech_dp
 from .spliner import rescale_1D
-
 
 # ── Analytic envelopes ──────────────────────────────────────────────────
 

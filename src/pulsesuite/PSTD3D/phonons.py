@@ -9,8 +9,8 @@ Author: Rahul R. Sah
 """
 
 import numpy as np
-from scipy.constants import hbar as hbar_SI, k as kB_SI
 from numba import jit
+from scipy.constants import hbar as hbar_SI, k as kB_SI
 
 # Physical constants
 hbar = hbar_SI

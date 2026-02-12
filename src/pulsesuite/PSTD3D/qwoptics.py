@@ -12,9 +12,11 @@ functions remain at module level.
 Author: Rahul R. Sah
 """
 
-import numpy as np
 import os
+
+import numpy as np
 from numba import jit, prange
+
 try:
     from numba import cuda
     _HAS_CUDA = cuda.is_available()
@@ -22,9 +24,10 @@ except (ImportError, RuntimeError):
     _HAS_CUDA = False
     cuda = None
 
-from .usefulsubs import FFTG, iFFTG, printIT, printIT2D, GetArray0Index
-from ..libpulsesuite.spliner import rescale_1D_dp, rescale_1D_dpc, rescale_1D
-from scipy.constants import e as e0, c as c0_SI, hbar as hbar_SI, epsilon_0 as eps0_SI
+from scipy.constants import c as c0_SI, e as e0, epsilon_0 as eps0_SI, hbar as hbar_SI
+
+from ..libpulsesuite.spliner import rescale_1D
+from .usefulsubs import FFTG, GetArray0Index, iFFTG, printIT, printIT2D
 
 # Physical constants
 twopi = 2.0 * np.pi

@@ -12,8 +12,9 @@ Author: Rahul R. Sah
 """
 
 import sys
+from typing import Any, Optional, Tuple, Union
+
 import numpy as np
-from typing import Any, Optional, Union, Tuple
 from numpy.typing import NDArray
 
 # ---------------------------------------------------------------------------

@@ -7,9 +7,14 @@ propagation simulations for a quantum wire.
 """
 
 import numpy as np
-from scipy.constants import m_e as me0_SI, hbar as hbar_SI, e as e0_SI, epsilon_0 as eps0_SI
-
 from numba import jit, prange
+from scipy.constants import (
+    e as e0_SI,
+    epsilon_0 as eps0_SI,
+    hbar as hbar_SI,
+    m_e as me0_SI,
+)
+
 try:
     from numba import cuda
     _HAS_CUDA = cuda.is_available()
@@ -25,15 +30,37 @@ except (ImportError, RuntimeError):
 import os
 
 from ..libpulsesuite.spliner import locate
-from .usefulsubs import FFTG, iFFTG, printITR, TotalEnergy, Temperature, WriteIt, locator, GetArray0Index
-from .dcfield import CalcI0, CalcPD, CalcVD, InitializeDC, GetEDrift, Transport, CalcI0n
-from .dephasing import WriteDephasing, CalcGammaE, CalcGammaH, OffDiagDephasing2, InitializeDephasing
-from .coulomb import CalcScreenedArrays, SetLorentzDelta, GetEps1Dqw, GetChi1Dqw, InitializeCoulomb, MBCE, MBCH
-from .phonons import MBPH, MBPE, InitializePhonons, FermiDistr
-from .emission import SpontEmission, InitializeEmission, Calchw
-from .typespace import GetSpaceArray, GetKArray
-from .qwoptics import QWOptics, QWChi1, WritePropFields, WriteSBESolns, yw
-
+from .coulomb import (
+    MBCE,
+    MBCH,
+    CalcScreenedArrays,
+    GetChi1Dqw,
+    GetEps1Dqw,
+    InitializeCoulomb,
+    SetLorentzDelta,
+)
+from .dcfield import CalcI0, CalcI0n, CalcPD, CalcVD, GetEDrift, InitializeDC, Transport
+from .dephasing import (
+    CalcGammaE,
+    CalcGammaH,
+    InitializeDephasing,
+    OffDiagDephasing2,
+    WriteDephasing,
+)
+from .emission import Calchw, InitializeEmission, SpontEmission
+from .phonons import MBPE, MBPH, FermiDistr, InitializePhonons
+from .qwoptics import QWChi1, QWOptics, WritePropFields, WriteSBESolns, yw
+from .typespace import GetKArray, GetSpaceArray
+from .usefulsubs import (
+    FFTG,
+    GetArray0Index,
+    Temperature,
+    TotalEnergy,
+    WriteIt,
+    iFFTG,
+    locator,
+    printITR,
+)
 
 # Physical constants
 eV = 1.602176634e-19  # Electron volt in Joules
@@ -3112,11 +3139,11 @@ def RecordEpsLqw(Qr, fe, fh, Ee, Eh, gap, area, gamE, gamH, dcv, ind):
         dkr = _kr[1] - _kr[0]
         with open('dataQW/Wire/Xqw/EpsL.params', 'w', encoding='utf-8') as f_params:
             f_params.write(f"Nq = {len(Qr)}\n")
-            f_params.write(f"Nw = 2000\n")
-            f_params.write(f" \n")
+            f_params.write("Nw = 2000\n")
+            f_params.write(" \n")
             f_params.write(f"hbar dw (eV) = {dw * hbar / e0}\n")
             f_params.write(f"dq (rad/m) = {dkr}\n")
-            f_params.write(f" \n")
+            f_params.write(" \n")
             f_params.write(f"wmin = {-wmax * hbar / e0}\n")
             f_params.write(f"wmax = {wmax * hbar / e0}\n")
             f_params.write(f"qmin = {Qr[0]}\n")
@@ -3259,13 +3286,13 @@ def RecordXqw(kr, fe, fh, Ee, Eh, gap, area, game, gamh, dcv, ind):
         with open('dataQW/Wire/Xqw/Xqw.params', 'w', encoding='utf-8') as f_params:
             f_params.write(f"Nq = {_Nk + 1}\n")
             f_params.write(f"Nw = {nwmax + 1}\n")
-            f_params.write(f" \n")
+            f_params.write(" \n")
             f_params.write(f"hbar dw (eV) = {dw * hbar / e0}\n")
             f_params.write(f"dq (rad/m) = {_dkr}\n")
-            f_params.write(f" \n")
-            f_params.write(f"wmin = 0.0\n")  # Start from 0 (not negative)
+            f_params.write(" \n")
+            f_params.write("wmin = 0.0\n")  # Start from 0 (not negative)
             f_params.write(f"wmax = {wmax * hbar / e0}\n")
-            f_params.write(f"qmin = 0.0\n")  # Start from 0 (not negative)
+            f_params.write("qmin = 0.0\n")  # Start from 0 (not negative)
             f_params.write(f"qmax = {_Nk * _dkr}\n")
         _Xqwparams = False
 
@@ -4436,7 +4463,7 @@ class SBESolver:
         WriteIt(self.r, "R")
         WriteIt(self.Ee / eV, "Ee.k")
         WriteIt(self.Eh / eV, "Eh.k")
-        WriteIt((self.Ee + self.Eh + self.gap - hbar * c0 * twopi / lam) / eV, "Echw.k")
+        WriteIt((self.Ee + self.Eh + self.gap - hbar * _c0 * twopi / lam) / eV, "Echw.k")
         WriteIt((self.Ee + self.Eh + self.gap) / eV, "Etrn.k")
 
         os.makedirs('dataQW', exist_ok=True)
@@ -4823,13 +4850,13 @@ class SBESolver:
             with open('dataQW/Wire/Xqw/Xqw.params', 'w', encoding='utf-8') as f_params:
                 f_params.write(f"Nq = {self.Nk + 1}\n")
                 f_params.write(f"Nw = {nwmax + 1}\n")
-                f_params.write(f" \n")
+                f_params.write(" \n")
                 f_params.write(f"hbar dw (eV) = {dw * hbar / e0}\n")
                 f_params.write(f"dq (rad/m) = {self.dkr}\n")
-                f_params.write(f" \n")
-                f_params.write(f"wmin = 0.0\n")
+                f_params.write(" \n")
+                f_params.write("wmin = 0.0\n")
                 f_params.write(f"wmax = {wmax * hbar / e0}\n")
-                f_params.write(f"qmin = 0.0\n")
+                f_params.write("qmin = 0.0\n")
                 f_params.write(f"qmax = {self.Nk * self.dkr}\n")
             self.Xqwparams = False
 
@@ -4863,11 +4890,11 @@ class SBESolver:
             dkr = self.kr[1] - self.kr[0]
             with open('dataQW/Wire/Xqw/EpsL.params', 'w', encoding='utf-8') as f_params:
                 f_params.write(f"Nq = {len(Qr)}\n")
-                f_params.write(f"Nw = 2000\n")
-                f_params.write(f" \n")
+                f_params.write("Nw = 2000\n")
+                f_params.write(" \n")
                 f_params.write(f"hbar dw (eV) = {dw * hbar / e0}\n")
                 f_params.write(f"dq (rad/m) = {dkr}\n")
-                f_params.write(f" \n")
+                f_params.write(" \n")
                 f_params.write(f"wmin = {-wmax * hbar / e0}\n")
                 f_params.write(f"wmax = {wmax * hbar / e0}\n")
                 f_params.write(f"qmin = {Qr[0]}\n")

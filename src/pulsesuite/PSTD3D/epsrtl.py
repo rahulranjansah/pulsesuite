@@ -7,11 +7,13 @@ for quantum wire systems.
 Author: Rahul R. Sah
 """
 
-import numpy as np
-from scipy.constants import e as e0, epsilon_0 as eps0, hbar as hbar_SI, k as kB_SI
-from numba import jit
-from .usefulsubs import K03, theta
 import os
+
+import numpy as np
+from numba import jit
+from scipy.constants import e as e0, epsilon_0 as eps0, hbar as hbar_SI, k as kB_SI
+
+from .usefulsubs import K03, theta
 
 # Physical constants
 pi = np.pi

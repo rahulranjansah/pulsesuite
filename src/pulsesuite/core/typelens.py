@@ -1,14 +1,16 @@
 from __future__ import annotations
-import sys
-import pathlib
+
 import math
+import pathlib
+import sys
 from dataclasses import dataclass, field
 from typing import Annotated, TextIO, Union
 
 import numpy as np
-from numba import njit, float64
 from guardrails.guardrails import with_guardrails
+from numba import float64, njit
 from typemedium import *
+
 # Project-wide precision alias
 dp = np.float64
 

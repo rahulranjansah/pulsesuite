@@ -5,19 +5,15 @@ Tests all quantum wire optics functions including field conversions,
 polarization calculations, charge densities, and I/O operations.
 """
 
-import numpy as np
-import pytest
-import tempfile
 import os
 import shutil
-from pathlib import Path
-from unittest.mock import patch, MagicMock
+import tempfile
 
+import numpy as np
+import pytest
 
 from pulsesuite.PSTD3D import qwoptics as qw
 from pulsesuite.PSTD3D.qwoptics import QWOptics
-from scipy.constants import e as e0, c as c0_SI, hbar as hbar_SI, epsilon_0 as eps0_SI
-from pulsesuite.libpulsesuite.spliner import rescale_1D, rescale_1D_dp, rescale_1D_dpc
 
 
 class TestYW:

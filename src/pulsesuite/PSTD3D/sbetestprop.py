@@ -9,11 +9,13 @@ Converted from Fortran program SBETest.
 Author: Rahul R. Sah
 """
 
-import numpy as np
 import os
+
+import numpy as np
 from scipy.constants import c as c0_SI
-from .typespace import GetSpaceArray, GetKArray
+
 from .SBEs import InitializeSBE, QWCalculator
+from .typespace import GetKArray, GetSpaceArray
 
 # Physical constants
 c0 = c0_SI  # Speed of light (m/s)
@@ -239,30 +241,30 @@ try:
     from qwoptics import _HAS_CUDA as qwoptics_cuda, _cuda_stats
     from SBEs import _HAS_CUDA as sbes_cuda, _sbe_cuda_stats
 
-    print(f"\nCUDA Status:")
+    print("\nCUDA Status:")
     print(f"  qwoptics.py: {'✓ CUDA AVAILABLE' if qwoptics_cuda else '✗ CUDA NOT AVAILABLE'}")
     print(f"  SBEs.py:     {'✓ CUDA AVAILABLE' if sbes_cuda else '✗ CUDA NOT AVAILABLE'}")
 
-    print(f"\nqwoptics.py Function Calls:")
-    print(f"  QWPolarization3:")
+    print("\nqwoptics.py Function Calls:")
+    print("  QWPolarization3:")
     print(f"    CUDA:     {_cuda_stats.get('QWPolarization3_cuda', 0):8d} calls")
     print(f"    JIT:      {_cuda_stats.get('QWPolarization3_jit', 0):8d} calls")
     print(f"    Fallback: {_cuda_stats.get('QWPolarization3_fallback', 0):8d} calls")
-    print(f"  QWRho5:")
+    print("  QWRho5:")
     print(f"    CUDA:     {_cuda_stats.get('QWRho5_cuda', 0):8d} calls")
     print(f"    JIT:      {_cuda_stats.get('QWRho5_jit', 0):8d} calls")
     print(f"    Fallback: {_cuda_stats.get('QWRho5_fallback', 0):8d} calls")
 
-    print(f"\nSBEs.py Function Calls:")
-    print(f"  dpdt:")
+    print("\nSBEs.py Function Calls:")
+    print("  dpdt:")
     print(f"    CUDA:     {_sbe_cuda_stats.get('dpdt_cuda', 0):8d} calls")
     print(f"    JIT:      {_sbe_cuda_stats.get('dpdt_jit', 0):8d} calls")
     print(f"    Fallback: {_sbe_cuda_stats.get('dpdt_fallback', 0):8d} calls")
-    print(f"  dCdt:")
+    print("  dCdt:")
     print(f"    CUDA:     {_sbe_cuda_stats.get('dCdt_cuda', 0):8d} calls")
     print(f"    JIT:      {_sbe_cuda_stats.get('dCdt_jit', 0):8d} calls")
     print(f"    Fallback: {_sbe_cuda_stats.get('dCdt_fallback', 0):8d} calls")
-    print(f"  dDdt:")
+    print("  dDdt:")
     print(f"    CUDA:     {_sbe_cuda_stats.get('dDdt_cuda', 0):8d} calls")
     print(f"    JIT:      {_sbe_cuda_stats.get('dDdt_jit', 0):8d} calls")
     print(f"    Fallback: {_sbe_cuda_stats.get('dDdt_fallback', 0):8d} calls")
@@ -289,7 +291,7 @@ try:
     total = total_cuda + total_jit + total_fallback
 
     if total > 0:
-        print(f"\nSummary:")
+        print("\nSummary:")
         print(f"  Total function calls: {total}")
         print(f"  CUDA:     {total_cuda:8d} ({100*total_cuda/total:.1f}%)")
         print(f"  JIT:      {total_jit:8d} ({100*total_jit/total:.1f}%)")
@@ -297,12 +299,12 @@ try:
 
         if total_cuda > 0:
             print(f"\n✓ CUDA IS BEING USED! ({total_cuda} calls)")
-            print(f"  The 'Grid size' warnings are normal - they indicate CUDA is active.")
-            print(f"  Small grid sizes mean your arrays are small, but CUDA still helps.")
+            print("  The 'Grid size' warnings are normal - they indicate CUDA is active.")
+            print("  Small grid sizes mean your arrays are small, but CUDA still helps.")
         elif total_jit > 0:
-            print(f"\nUsing JIT (CPU parallel) - CUDA not available or failed")
+            print("\nUsing JIT (CPU parallel) - CUDA not available or failed")
         else:
-            print(f"\n✗ Using Python fallback - JIT/CUDA not working")
+            print("\n✗ Using Python fallback - JIT/CUDA not working")
 
 except ImportError as e:
     print(f"Could not import CUDA statistics: {e}")

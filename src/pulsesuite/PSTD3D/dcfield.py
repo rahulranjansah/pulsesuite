@@ -16,12 +16,14 @@ Structure
 """
 
 import numpy as np
-from scipy.constants import e as e0, hbar as hbar_SI
-from numba import jit
 import pyfftw
+from numba import jit
+from scipy.constants import e as e0, hbar as hbar_SI
+
 pyfftw.interfaces.cache.enable()
-from ..libpulsesuite.spliner import rescale_1D
 import os
+
+from ..libpulsesuite.spliner import rescale_1D
 
 # Physical constants
 pi = np.pi

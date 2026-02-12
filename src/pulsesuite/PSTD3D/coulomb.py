@@ -15,11 +15,10 @@ Author: Rahul R. Sah
 """
 
 import numpy as np
-from scipy.special import kv
-from scipy.constants import e as e0, epsilon_0 as eps0, hbar as hbar_SI
-from .usefulsubs import K03, theta
 from numba import jit
+from scipy.constants import e as e0, epsilon_0 as eps0, hbar as hbar_SI
 
+from .usefulsubs import K03
 
 # Physical constants
 pi = np.pi

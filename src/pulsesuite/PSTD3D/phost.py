@@ -7,11 +7,13 @@ for propagation simulations.
 Author: Rahul R. Sah
 """
 
-import numpy as np
-from scipy.constants import e as e0, epsilon_0 as eps0, m_e as me0, c as c0_SI
-from numba import jit
 import os
+
+import numpy as np
 import pyfftw
+from numba import jit
+from scipy.constants import c as c0_SI, e as e0, epsilon_0 as eps0, m_e as me0
+
 pyfftw.interfaces.cache.enable()
 
 # Physical constants
@@ -776,6 +778,7 @@ _INSTANCE_ATTRS = frozenset([
 # Allow ``phost._osc = 2`` and ``phost._osc`` at module level
 # (tests do this heavily).
 import sys as _sys
+
 
 class _ModuleProxy(_sys.modules[__name__].__class__):
     """Module subclass that proxies attribute read/write to _instance."""

@@ -6,17 +6,13 @@ many-body arrays, screening calculations, and Semiconductor Bloch Equations term
 Tests both the CoulombModule class and the module-level backward-compat wrappers.
 """
 
+
 import numpy as np
 import pytest
-import sys
-import os
+from scipy.constants import hbar as hbar_SI
 
 from pulsesuite.PSTD3D import coulomb
 from pulsesuite.PSTD3D.coulomb import CoulombModule
-from scipy.constants import e as e0, epsilon_0 as eps0, hbar as hbar_SI
-from scipy.special import kv
-from pulsesuite.PSTD3D.usefulsubs import K03
-
 
 # Physical constants
 eV = 1.602176634e-19  # Electron volt in Joules

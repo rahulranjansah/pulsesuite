@@ -7,9 +7,15 @@ Author: Rahul R. Sah
 """
 
 import numpy as np
-from scipy.constants import hbar as hbar_SI, k as kB_SI, epsilon_0 as eps0_SI, c as c0_SI
+from scipy.constants import (
+    c as c0_SI,
+    epsilon_0 as eps0_SI,
+    hbar as hbar_SI,
+    k as kB_SI,
+)
+
 from ..libpulsesuite.helpers import LinearInterp_dp, LinearInterp_dpc
-from .usefulsubs import softtheta, Lrtz, Temperature
+from .usefulsubs import Lrtz, Temperature, softtheta
 
 # Physical constants
 pi = np.pi

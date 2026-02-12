@@ -10,11 +10,11 @@ Bugs:
 Why Lrtz jit here? -> tackle nopython=True in the future
 """
 
-import numpy as np
-from scipy.constants import hbar as hbar_SI
-from numba import jit
-from .usefulsubs import Lrtz
 import os
+
+import numpy as np
+from numba import jit
+from scipy.constants import hbar as hbar_SI
 
 # Physical constants
 pi = np.pi
@@ -687,6 +687,7 @@ _INSTANCE_ATTRS = frozenset([
 ])
 
 import sys as _sys
+
 
 class _ModuleProxy(_sys.modules[__name__].__class__):
     """Module subclass that proxies attribute read/write to _instance."""

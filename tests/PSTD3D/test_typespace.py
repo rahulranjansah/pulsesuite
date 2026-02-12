@@ -5,12 +5,12 @@ Tests all spatial grid structure functions including getters, setters,
 array generation, I/O operations, and field manipulation functions.
 """
 
+import os
+import tempfile
+from io import BytesIO, StringIO
+
 import numpy as np
 import pytest
-import tempfile
-import os
-from pathlib import Path
-from io import StringIO, BytesIO
 
 from pulsesuite.PSTD3D import typespace as ts
 

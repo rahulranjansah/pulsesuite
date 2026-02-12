@@ -11,14 +11,14 @@ Organised into:
   - Integration tests
 """
 
+import os
+
 import numpy as np
 import pytest
-import os
+from scipy.constants import hbar as hbar_SI
 
 from pulsesuite.PSTD3D import dcfield as dc
 from pulsesuite.PSTD3D.dcfield import DCFieldModule
-from scipy.constants import e as e0, hbar as hbar_SI
-
 
 # ============================================================================
 # Pure function tests (no module state needed)

@@ -9,8 +9,9 @@ density (Rho), and their combination (P+Rho).
 Author: Rahul R. Sah
 """
 
-import numpy as np
 import os
+
+import numpy as np
 
 try:
     from numba import jit
@@ -27,12 +28,18 @@ except ImportError:
         return decorator
 
 # Import required modules
-from .typespace import (
-    ss, ReadSpaceParams, GetNx, GetNy, GetNz,
-    GetXArray, GetYArray, GetKyArray
-)
 from .rhoPJ import QuantumWire
 from .SBEs import InitializeSBE
+from .typespace import (
+    GetKyArray,
+    GetNx,
+    GetNy,
+    GetNz,
+    GetXArray,
+    GetYArray,
+    ReadSpaceParams,
+    ss,
+)
 from .usefulsubs import WriteIT2D
 
 # Physical constants

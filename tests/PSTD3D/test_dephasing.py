@@ -5,16 +5,15 @@ Tests all dephasing calculation functions including initialization, dephasing ra
 off-diagonal dephasing matrices, and file I/O operations.
 """
 
-import numpy as np
-import pytest
 import os
 import tempfile
 from pathlib import Path
 
-from pulsesuite.PSTD3D import dephasing
+import numpy as np
+import pytest
 from scipy.constants import hbar as hbar_SI
-from pulsesuite.PSTD3D.usefulsubs import Lrtz
 
+from pulsesuite.PSTD3D import dephasing
 
 # Physical constants
 hbar = hbar_SI

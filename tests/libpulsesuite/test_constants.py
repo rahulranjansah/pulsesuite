@@ -4,10 +4,8 @@ Tests for Constants — verifies physical and mathematical constants against COD
 Every constant is checked against its known value and expected type.
 """
 import numpy as np
-import pytest
 
 from pulsesuite.core.constants import Constants
-
 
 # ---------------------------------------------------------------------------
 # Mathematical constants

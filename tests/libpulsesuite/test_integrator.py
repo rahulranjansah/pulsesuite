@@ -9,7 +9,6 @@ Tolerances (per aiprompts/test.txt):
     PDE / long : rtol<=1e-6  (stability)
 """
 
-import math
 import numpy as np
 import pytest
 

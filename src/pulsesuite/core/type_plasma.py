@@ -28,8 +28,8 @@ import re
 from typing import Annotated, Iterable, TextIO, Union
 
 import numpy as np
-
 from guardrails.guardrails import with_guardrails
+
 # from logger import Logger  # project‑wide tiny singleton
 
 # -----------------------------------------------------------------------------

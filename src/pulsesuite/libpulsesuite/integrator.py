@@ -26,19 +26,18 @@ Author: Rahul R. Sah
 """
 
 import sys
+
 import numpy as np
 
 from .nrutils import (
-    diagAdd,
-    assertEq,
-    nrerror,
-    outerprod,
     arth,
+    assertEq,
     cumsum,
+    diagAdd,
+    nrerror,
     outerdiff,
+    outerprod,
     upperTriangle,
-    dummy_jacobian_dp,
-    dummy_jacobian_dpc,
 )
 
 sp = np.float32

@@ -114,6 +114,15 @@ extend-select = [
 
 ignore = [
     "E501",  # Line too long (handled by formatter)
+    "E402",  # Module-level import not at top — common with try/except for optional deps
+    "E731",  # Lambda assignment — acceptable in scientific/test code
+    "E741",  # Ambiguous variable name (I, l, O) — standard physics notation
+    "E701",  # Multiple statements on one line — acceptable in compact expressions
+    "E712",  # Comparison to True/False — acceptable in tests for explicit checks
+    "E722",  # Bare except — legacy code, acceptable for now
+    "F403",  # Star imports — used in legacy typelens module
+    "F405",  # May be undefined from star imports — related to F403
+    "F841",  # Local variable assigned but never used — physics arrays often pre-allocated
 ]
 
 exclude = [

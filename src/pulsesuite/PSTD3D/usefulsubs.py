@@ -12,10 +12,12 @@ Bug fixes:
 
 """
 
-import numpy as np
-from numba import jit
-import pyfftw
 import os
+
+import numpy as np
+import pyfftw
+from numba import jit
+
 pyfftw.interfaces.cache.enable()
 
 # Imaginary unit

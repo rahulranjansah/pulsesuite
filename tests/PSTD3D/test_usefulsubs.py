@@ -5,12 +5,12 @@ Tests all utility functions including array flipping, FFT operations,
 derivatives, field manipulations, special functions, and I/O operations.
 """
 
-import numpy as np
-import pytest
-import tempfile
 import os
 import shutil
-from pathlib import Path
+import tempfile
+
+import numpy as np
+import pytest
 
 from pulsesuite.PSTD3D import usefulsubs as us
 

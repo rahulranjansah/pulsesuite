@@ -6,14 +6,13 @@ polarization time-stepping, material parameter setup, dispersion calculations,
 and FFT operations.
 """
 
-import numpy as np
-import pytest
 import os
 import tempfile
-import shutil
-from pathlib import Path
+
+import numpy as np
 import pyfftw
-from scipy.constants import e as e0, epsilon_0 as eps0, m_e as me0, c as c0
+import pytest
+from scipy.constants import c as c0, epsilon_0 as eps0
 
 from pulsesuite.PSTD3D import phost
 

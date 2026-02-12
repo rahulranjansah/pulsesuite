@@ -18,8 +18,8 @@ from typing import Optional, Tuple
 
 import numpy as np
 
-from pulsesuite.core.constants import pi, twopi, c0, eps0
-from pulsesuite.libpulsesuite.spliner import spline, seval
+from pulsesuite.core.constants import c0, eps0, pi, twopi
+from pulsesuite.libpulsesuite.spliner import seval, spline
 
 log = logging.getLogger(__name__)
 

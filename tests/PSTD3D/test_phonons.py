@@ -5,15 +5,11 @@ Tests all phonon interaction functions including initialization, many-body
 phonon-electron/hole interactions, distribution functions, and utility functions.
 """
 
-import numpy as np
-import pytest
-import os
-import tempfile
-from pathlib import Path
 
-from pulsesuite.PSTD3D import phonons
+import numpy as np
 from scipy.constants import hbar as hbar_SI, k as kB_SI
 
+from pulsesuite.PSTD3D import phonons
 
 # Physical constants
 hbar = hbar_SI

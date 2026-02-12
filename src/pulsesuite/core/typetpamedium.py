@@ -1,31 +1,35 @@
 from __future__ import annotations
-import pathlib
-import sys
-from typing import Annotated, TextIO, Union
+
+from pathlib import Path
+from typing import Annotated, Union
 
 import numpy as np
 from guardrails.guardrails import with_guardrails
-
-
 from typemedium import (
+    GetAlpha_nlms,
+    GetBeta_nlms,
+    GetDz_nlms,
+    GetK1_nlms,
+    GetK2_nlms,
+    GetLength_nlms,
+    GetMaterial_nlms,
+    GetN0_nlms,
+    GetN2I_nlms,
+    GetNz_nlms,
+    GetWavelength_nlms,
+    SetAlpha_nlms,
+    SetBeta_nlms,
+    SetDz_nlms,
+    SetK1_nlms,
+    SetK2_nlms,
+    SetLength_nlms,
+    SetMaterial_nlms,
+    SetN0_nlms,
+    SetN2I_nlms,
+    SetNz_nlms,
+    SetWavelength_nlms,
     nlms,
-    GetLength_nlms, SetLength_nlms,
-    GetNz_nlms, SetNz_nlms,
-    GetDz_nlms, SetDz_nlms,
-    GetN0_nlms, SetN0_nlms,
-    GetK2_nlms, SetK2_nlms,
-    GetK1_nlms, SetK1_nlms,
-    GetN2I_nlms, SetN2I_nlms,
-    GetBeta_nlms, SetBeta_nlms,
-    GetAlpha_nlms, SetAlpha_nlms,
-    GetMaterial_nlms, SetMaterial_nlms,
-    GetWavelength_nlms, SetWavelength_nlms,
-    readmediumparams as _readmediumparams,
-    writemediumparams as _writemediumparams
 )
-
-from constants import pfrmtA
-
 
 # -----------------------------------------------------------------------------
 # Constants
@@ -433,7 +437,7 @@ def writetpaparams(cmd: Union[str, Path], tpa: tpas) -> None:
     n = tpa.levels
     with open(cmd, "wb") as f:
         # header
-        np.array([tpa.conc], dtype=_dp).tofile(f)
+        np.array([tpa.conc], dtype=dp).tofile(f)
         np.array([n], dtype=np.int32).tofile(f)
         # matrices & vectors
         tpa.r[:n, :n].tofile(f)

@@ -4,10 +4,13 @@ import pathlib
 from typing import Annotated, Iterable, TextIO, Union
 
 import numpy as np
-
-from guardrails.guardrails import with_guardrails
 from constants import c0, pfrmtA
-from type_plasma import plasma_coefficients, readplasmaparams_sub as readplasmaparams, writeplasmaparams_sub as writeplasmaparams
+from guardrails.guardrails import with_guardrails
+from type_plasma import (
+    plasma_coefficients,
+    readplasmaparams_sub as readplasmaparams,
+    writeplasmaparams_sub as writeplasmaparams,
+)
 
 # -----------------------------------------------------------------------------
 # Project-wide aliases and version tags (mimic Fortran kinds)

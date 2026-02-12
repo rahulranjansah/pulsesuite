@@ -15,15 +15,10 @@ from typing import Optional
 import numpy as np
 from numba import njit, prange
 
-from .fftw import (
-    fft_1d, ifft_1d, fft_2d, ifft_2d,  # noqa: F401 (re‑export convenience)
-    fft_3d, ifft_3d,
-)
-
 # Import constants from libpulsesuite (module-level constants)
-from ..libpulsesuite.constants import c0, eps0, pi, twopi, hbar, ii
-
-
+from .fftw import (
+    fft_1d,  # noqa: F401 (re‑export convenience)
+    )
 
 # -----------------------------------------------------------------------------
 # 1.  Basic physics containers (Field, Medium, Flags)
@@ -116,6 +111,7 @@ def _shock_filter(freq: np.ndarray, w0: float):
 # 4.  Raman convolution (FFT domain multiply)
 # -----------------------------------------------------------------------------
 from functools import lru_cache
+
 
 @lru_cache(maxsize=8)
 def _raman_kernel(Nt: int, dt: float, t1: float, t2: float, fr: float):

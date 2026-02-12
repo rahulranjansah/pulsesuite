@@ -9,10 +9,11 @@ interpolation, and field conversions.
 Author: Rahul R. Sah
 """
 
+from typing import Optional, Union
+
 import numpy as np
-from scipy.constants import epsilon_0 as eps0_SI, c as c0_SI
 from numba import jit
-from typing import Union, Optional
+from scipy.constants import c as c0_SI, epsilon_0 as eps0_SI
 
 from pulsesuite.PSTD3D.usefulsubs import locator
 

@@ -208,9 +208,10 @@
 #   (Fourier shift property)
 #
 from __future__ import annotations
-from dataclasses import dataclass
-from typing import Optional, Tuple
+
 import os
+from typing import Optional, Tuple
+
 import numpy as np
 from numpy.typing import NDArray
 

@@ -10,13 +10,27 @@ Author: Rahul R. Sah
 
 import numpy as np
 import pyfftw
+
 pyfftw.interfaces.cache.enable()
 
 from numba import jit, prange
-from .typespace import GetXArray, GetYArray, GetZArray, GetKxArray, GetKyArray, GetKzArray, GetNx, GetNy, GetNz, GetDx, GetEpsr
-from .usefulsubs import EAtXYZ
-from .SBEs import QWCalculator
 from scipy.constants import epsilon_0 as eps0_SI
+
+from .SBEs import QWCalculator
+from .typespace import (
+    GetDx,
+    GetEpsr,
+    GetKxArray,
+    GetKyArray,
+    GetKzArray,
+    GetNx,
+    GetNy,
+    GetNz,
+    GetXArray,
+    GetYArray,
+    GetZArray,
+)
+from .usefulsubs import EAtXYZ
 
 # Physical constants
 eps0 = eps0_SI
