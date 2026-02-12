@@ -1,736 +1,776 @@
 """
+Material properties module.
+
+Accesses the materials database and retrieves various material parameters
+such as refractive index, dispersion coefficients, nonlinear index,
+absorption, and plasma parameters.
+
+Converted from materialproperties.F90.
+
 Author: Rahul R. Sah
 """
-import configparser
+
+import logging
+import os
+from enum import IntEnum
 from pathlib import Path
-import warnings
+from typing import Optional, Tuple
 
 import numpy as np
-from scipy.interpolate import CubicSpline
-from numba import njit, prange
-from typing import Annotated, Optional, Tuple
 
-from .constants import Constants
-try:
-    from guardrails.guardrails import with_guardrails
-except ImportError:
-    def with_guardrails(fn):
-        return fn
-from .helpers import Transforms
+from pulsesuite.core.constants import pi, twopi, c0, eps0
+from pulsesuite.libpulsesuite.spliner import spline, seval
 
+log = logging.getLogger(__name__)
 
-w2l = Transforms.w2l
-l2w = Transforms.l2w
+# ---------------------------------------------------------------------------
+# Error codes matching Fortran integer parameters
+# ---------------------------------------------------------------------------
 
-c0 = Constants.c0
-eps0 = Constants.eps0
-pi = Constants.pi
-twopi = Constants.twopi
+class MatError(IntEnum):
+    NOERROR = 0
+    NOFILE = 1
+    NOTFOUND = 2
+    FILE_FORMAT = 3
+    OUTOFRANGE = 4
+    BADVALUE = 5
+    DEFAULTUSED = 6
 
 
-# # get rid of these they are present in helpers in the hardisk
-# def l2w(lam: float) -> float:
-#     """Convert wavelength (m) to angular frequency (rad/s)."""
-#     return twopi * c0 / lam
+# ---------------------------------------------------------------------------
+# Database file paths
+# ---------------------------------------------------------------------------
+
+_PACKAGE_DATA_DIR = Path(__file__).resolve().parent / "data"
+_MASTER_DATABASE_FILE = str(_PACKAGE_DATA_DIR / "materials.ini")
+
+# User-overridable local database file
+_database_file: str = "materials.ini"
 
 
-# def w2l(w: float) -> float:
-#     """Convert angular frequency (rad/s) to wavelength (m)."""
-#     return twopi * c0 / w
+def set_database_file(path: str) -> None:
+    """Set the local materials database file path."""
+    global _database_file
+    _database_file = path
+    if not os.path.isfile(path):
+        log.warning("Cannot find material databasefile, %s", path)
 
-def n0_sellmeier(A: float,
-                 B: np.ndarray,
-                 C: np.ndarray,
-                 lam: float
-                 ) -> float:
+
+# ---------------------------------------------------------------------------
+# INI file reader (matches Fortran ReadIniTagStr behaviour)
+# ---------------------------------------------------------------------------
+
+def _read_ini_tag_str(
+    filepath: str, section: str, tag: str
+) -> Tuple[Optional[str], int]:
     """
-    Pure Sellmeier index formula:
-        n0 = sqrt(sum(B * lam^2/(lam^2 - C)) + A)
-    Clamped to 1.0 if NaN, <1.0, or >1e100.
+    Read a tag value from an INI-formatted materials database.
+
+    The INI format uses ``[SECTION]`` headers (case-sensitive) and
+    ``tag=value`` entries.  Lines starting with ``::`` are comments.
+
+    Returns (value_string, err) where *err* is 0 on success or non-zero
+    on failure.
     """
-    val = np.sqrt(np.sum(B * lam**2 / (lam**2 - C)) + A)
-    if np.isnan(val) or val < 1.0 or val > 1e100:
+    try:
+        with open(filepath, "r") as fh:
+            lines = fh.readlines()
+    except FileNotFoundError:
+        return None, 1
+
+    # Find section
+    section_header = f"[{section}]"
+    in_section = False
+    for line in lines:
+        stripped = line.strip()
+        if not in_section:
+            if stripped == section_header:
+                in_section = True
+            continue
+
+        # We are inside the target section
+        if stripped.startswith("["):
+            # Hit the next section without finding the tag
+            return None, -1
+
+        if stripped.startswith("::") or stripped == "":
+            continue
+
+        # Check for tag=
+        if stripped.startswith(tag + "="):
+            value = stripped[len(tag) + 1:].strip()
+            return value, 0
+
+    return None, -1
+
+
+# ---------------------------------------------------------------------------
+# Database reading helpers
+# ---------------------------------------------------------------------------
+
+def _read_dbs_tag_str(mat: str, param: str) -> Tuple[Optional[str], int]:
+    """Read a string value from the materials database for section *mat* and *param*."""
+    global _database_file
+
+    err = MatError.NOERROR
+    exists_local = os.path.isfile(_database_file)
+    exists_master = os.path.isfile(_MASTER_DATABASE_FILE)
+
+    result = None
+    err0 = -1
+
+    if exists_local:
+        log.debug("Looking in materials database: %s", _database_file)
+        result, err0 = _read_ini_tag_str(_database_file, mat.upper(), param)
+
+    if err0 != 0 or not exists_local:
+        if exists_master:
+            log.debug("Looking in materials database: %s", _MASTER_DATABASE_FILE)
+            result, err0 = _read_ini_tag_str(_MASTER_DATABASE_FILE, mat.upper(), param)
+
+    if not exists_local and not exists_master:
+        _mat_error_handler(MatError.NOFILE, param, mat, 0.0)
+        return None, MatError.NOFILE
+
+    if err0 != 0:
+        return None, MatError.NOTFOUND
+
+    return result, MatError.NOERROR
+
+
+def _read_dbs_tag_val(mat: str, param: str) -> Tuple[float, int]:
+    """Read a single float value from the materials database."""
+    s, err = _read_dbs_tag_str(mat, param)
+    if err != MatError.NOERROR:
+        return 0.0, err
+    try:
+        val = float(s.split(",")[0].strip())
+    except (ValueError, IndexError):
+        return 0.0, MatError.FILE_FORMAT
+    return val, MatError.NOERROR
+
+
+def _read_dbs_tag_array(mat: str, param: str) -> Tuple[Optional[np.ndarray], int]:
+    """Read a comma-separated array of floats from the materials database."""
+    s, err = _read_dbs_tag_str(mat, param)
+    if err != MatError.NOERROR:
+        return None, err
+    try:
+        vals = np.array([float(x.strip()) for x in s.split(",") if x.strip()])
+    except ValueError:
+        return None, MatError.FILE_FORMAT
+    return vals, MatError.NOERROR
+
+
+# ---------------------------------------------------------------------------
+# Discrete database value lookup
+# ---------------------------------------------------------------------------
+
+def _discrete_dbs_val(
+    param: str, mat: str, lam: float
+) -> Tuple[float, int]:
+    """
+    Look up a discrete parameter from the database, matching by wavelength.
+
+    Tries to find the closest wavelength match:
+    - Within 1 %: exact match (NOERROR)
+    - Within 5 %: approximate match (OUTOFRANGE)
+    - Negative wavelength entry: default value (DEFAULTUSED)
+    - Otherwise: NOTFOUND
+    """
+    params, err0 = _read_dbs_tag_array(mat, param)
+    if err0 != MatError.NOERROR:
+        return 0.0, MatError.NOTFOUND
+
+    lams, err0 = _read_dbs_tag_array(mat, f"{param}-wavelength")
+    if err0 != MatError.NOERROR:
+        return 0.0, MatError.NOTFOUND
+
+    if len(params) != len(lams):
+        _mat_error_handler(MatError.FILE_FORMAT, param, mat, lam)
+        return 0.0, MatError.FILE_FORMAT
+
+    rel_diff = np.abs(lams - lam) / abs(lam) if lam != 0.0 else np.abs(lams - lam)
+
+    # Within 1 %?
+    if np.min(rel_diff) < 0.01:
+        idx = int(np.argmin(rel_diff))
+        return float(params[idx]), MatError.NOERROR
+
+    # Within 5 %?
+    if np.min(rel_diff) < 0.05:
+        idx = int(np.argmin(rel_diff))
+        return float(params[idx]), MatError.OUTOFRANGE
+
+    # Default value (negative wavelength)?
+    if np.min(lams) < 0.0:
+        idx = int(np.argmin(lams))
+        return float(params[idx]), MatError.DEFAULTUSED
+
+    return 0.0, MatError.NOTFOUND
+
+
+# ---------------------------------------------------------------------------
+# Error handler
+# ---------------------------------------------------------------------------
+
+def _mat_error_handler(err: int, param: str, mat: str, lam: float) -> None:
+    """Default error handler mirroring the Fortran ``mat_error_handler``."""
+    if err == MatError.NOERROR:
+        return
+    if err == MatError.NOFILE:
+        raise FileNotFoundError(
+            f"No materials database exists.  Tried: {_database_file} and {_MASTER_DATABASE_FILE}"
+        )
+    if err == MatError.NOTFOUND:
+        raise LookupError(
+            f"Unknown material '{mat}', unknown parameter '{param}', "
+            f"or wavelength {lam:.2e} m out of range."
+        )
+    if err == MatError.FILE_FORMAT:
+        raise ValueError(
+            f"File format error reading material '{mat}', parameter '{param}', "
+            f"at wavelength {lam:.2e} m."
+        )
+    if err == MatError.OUTOFRANGE:
+        log.warning(
+            "Wavelength %.2e m is >1%% different from nearest wavelength for %s in %s.",
+            lam, param, mat,
+        )
+    if err == MatError.BADVALUE:
+        log.warning(
+            "Got a 'bad value' while getting %s for %s at %.2e m.", param, mat, lam
+        )
+    if err == MatError.DEFAULTUSED:
+        log.warning(
+            "Default value used for %s of %s at %.2e m.", param, mat, lam
+        )
+
+
+def _handle_err(err0: int, param: str, mat: str, lam: float, err: Optional[list] = None):
+    """If *err* list is provided, store error; otherwise call handler."""
+    if err is not None:
+        if err0 != MatError.NOERROR:
+            err[0] = err0
+    else:
+        _mat_error_handler(err0, param, mat, lam)
+
+
+# ---------------------------------------------------------------------------
+# Sellmeier coefficients
+# ---------------------------------------------------------------------------
+
+def sellmeiercoeff(
+    mat: str, lam: float
+) -> Tuple[float, np.ndarray, np.ndarray, int]:
+    """
+    Retrieve the Sellmeier coefficients from the materials database.
+
+    Returns (A, B, C, err).
+    """
+    A, err0 = _read_dbs_tag_val(mat, "Sellmeier-A")
+    if err0 != MatError.NOERROR:
+        A = 1.0
+    err0_reset = MatError.NOERROR
+
+    B, err0_reset = _read_dbs_tag_array(mat, "Sellmeier-B")
+    if err0_reset != MatError.NOERROR:
+        return A, np.array([]), np.array([]), MatError.NOTFOUND
+
+    C, err0_reset = _read_dbs_tag_array(mat, "Sellmeier-C")
+    if err0_reset != MatError.NOERROR:
+        return A, B, np.array([]), MatError.NOTFOUND
+
+    if len(B) != len(C):
+        _mat_error_handler(MatError.FILE_FORMAT, "Sellmeier", mat, lam)
+        return A, B, C, MatError.FILE_FORMAT
+
+    err = MatError.NOERROR
+
+    # Check wavelength limits
+    s, limit_err = _read_dbs_tag_str(mat, "Sellmeier-limits")
+    if limit_err == MatError.NOERROR and s is not None:
+        parts = [float(x.strip()) for x in s.split(",")]
+        if len(parts) >= 2:
+            lam1, lam2 = parts[0], parts[1]
+            if lam < lam1 or lam > lam2:
+                err = MatError.OUTOFRANGE
+
+    return A, B, C, err
+
+
+# ---------------------------------------------------------------------------
+# Refractive index from Sellmeier (wavelength domain)
+# ---------------------------------------------------------------------------
+
+def n0_sellmeier(A: float, B: np.ndarray, C: np.ndarray, lam: float) -> float:
+    """
+    Calculate the index of refraction from Sellmeier coefficients.
+
+    n0 = sqrt(A + sum(B * lam^2 / (lam^2 - C)))
+    """
+    val = np.sqrt(A + np.sum(B * lam ** 2 / (lam ** 2 - C)))
+    if np.isnan(val) or val < 1.0 or val > 1.0e100:
         return 1.0
     return float(val)
 
-##############
+
+def _dn_dl(A: float, B: np.ndarray, C: np.ndarray, lam: float) -> float:
+    """dn/dlambda for dispersion calculations."""
+    n = n0_sellmeier(A, B, C, lam)
+    return float(-lam / n * np.sum(B * C / (lam ** 2 - C) ** 2))
 
 
-class MaterialError(Exception):
-    """Custom exception for material property errors."""
-    pass
+def _ddn_dll(A: float, B: np.ndarray, C: np.ndarray, lam: float) -> float:
+    """d^2n/dlambda^2 for dispersion calculations."""
+    n = n0_sellmeier(A, B, C, lam)
+    dndl = _dn_dl(A, B, C, lam)
+    return float(
+        dndl / lam - dndl ** 2 / n
+        + 4.0 * lam ** 2 / n * np.sum(B * C / (lam ** 2 - C) ** 3)
+    )
 
 
-class MaterialProperties:
+# ---------------------------------------------------------------------------
+# Internal dispersion functions G (frequency domain)
+# ---------------------------------------------------------------------------
+
+def _G(B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
+    """G(w) = B / (1 - D * w^2)"""
+    return B / (1.0 - D * w ** 2)
+
+
+def _dG_dw(B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
+    g = _G(B, D, w)
+    result = np.where(B == 0.0, 0.0, 2.0 * D / B * w * g ** 2)
+    return result
+
+
+def _ddG_dww(B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
+    g = _G(B, D, w)
+    dg = _dG_dw(B, D, w)
+    return np.where(B == 0.0, 0.0, 2.0 * D / B * (g ** 2 + 2.0 * w * g * dg))
+
+
+def _dddG_dwww(B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
+    g = _G(B, D, w)
+    dg = _dG_dw(B, D, w)
+    ddg = _ddG_dww(B, D, w)
+    return np.where(
+        B == 0.0, 0.0,
+        4.0 * D / B * (2.0 * g * dg + w * dg ** 2 + w * g * ddg),
+    )
+
+
+def _ddddG_dwwww(B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
+    g = _G(B, D, w)
+    dg = _dG_dw(B, D, w)
+    ddg = _ddG_dww(B, D, w)
+    dddg = _dddG_dwww(B, D, w)
+    return np.where(
+        B == 0.0, 0.0,
+        4.0 * D / B * (
+            3.0 * dg ** 2 + 3.0 * g * ddg
+            + 3.0 * w * dg * ddg + w * g * dddg
+        ),
+    )
+
+
+def _dddddG_dwwwww(B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
+    g = _G(B, D, w)
+    dg = _dG_dw(B, D, w)
+    ddg = _ddG_dww(B, D, w)
+    dddg = _dddG_dwww(B, D, w)
+    ddddg = _ddddG_dwwww(B, D, w)
+    return np.where(
+        B == 0.0, 0.0,
+        4.0 * D / B * (
+            12.0 * dg * ddg + 4.0 * g * dddg
+            + 3.0 * w * ddg ** 2 + 4.0 * w * dg * dddg
+            + w * g * ddddg
+        ),
+    )
+
+
+# ---------------------------------------------------------------------------
+# Refractive index and derivatives in frequency domain
+# ---------------------------------------------------------------------------
+
+def _n0_w(A: float, B: np.ndarray, D: np.ndarray, w: float) -> float:
+    return float(np.sqrt(A + np.sum(_G(B, D, w))))
+
+
+def _dn_dw(A: float, B: np.ndarray, D: np.ndarray, w: float) -> float:
+    return float(np.sum(_dG_dw(B, D, w)) / (2.0 * _n0_w(A, B, D, w)))
+
+
+def _ddn_dww(A: float, B: np.ndarray, D: np.ndarray, w: float) -> float:
+    n = _n0_w(A, B, D, w)
+    dn = _dn_dw(A, B, D, w)
+    return float((np.sum(_ddG_dww(B, D, w)) / 2.0 - dn ** 2) / n)
+
+
+def _dddn_dwww(A: float, B: np.ndarray, D: np.ndarray, w: float) -> float:
+    n = _n0_w(A, B, D, w)
+    dn = _dn_dw(A, B, D, w)
+    ddn = _ddn_dww(A, B, D, w)
+    return float((np.sum(_dddG_dwww(B, D, w)) / 2.0 - 3.0 * dn * ddn) / n)
+
+
+def _ddddn_dwwww(A: float, B: np.ndarray, D: np.ndarray, w: float) -> float:
+    n = _n0_w(A, B, D, w)
+    dn = _dn_dw(A, B, D, w)
+    ddn = _ddn_dww(A, B, D, w)
+    dddn = _dddn_dwww(A, B, D, w)
+    return float(
+        (np.sum(_ddddG_dwwww(B, D, w)) / 2.0 - 3.0 * ddn ** 2 - 4.0 * dn * dddn) / n
+    )
+
+
+def _dddddn_dwwwww(A: float, B: np.ndarray, D: np.ndarray, w: float) -> float:
+    n = _n0_w(A, B, D, w)
+    dn = _dn_dw(A, B, D, w)
+    ddn = _ddn_dww(A, B, D, w)
+    dddn = _dddn_dwww(A, B, D, w)
+    ddddn = _ddddn_dwwww(A, B, D, w)
+    return float(
+        (np.sum(_dddddG_dwwwww(B, D, w)) / 2.0
+         - 10.0 * ddn * dddn - 5.0 * dn * ddddn) / n
+    )
+
+
+# ---------------------------------------------------------------------------
+# Wavelength / frequency helpers
+# ---------------------------------------------------------------------------
+
+def _l2w(lam: float) -> float:
+    return float(twopi * c0 / lam)
+
+
+def _w2l(w) -> float:
+    return twopi * c0 / w
+
+
+# ---------------------------------------------------------------------------
+# Public API — material property functions
+# ---------------------------------------------------------------------------
+
+def n0(mat: str, lam: float, err: Optional[list] = None) -> float:
     """
-    Port of the Fortran `materialproperties` module.
+    Calculate or retrieve the index of refraction.
 
-    Preserves all original routines and naming conventions.
+    Uses Sellmeier coefficients when available, otherwise looks for
+    discrete values in the database.
+
+    Parameters
+    ----------
+    mat : str
+        Material name (case-insensitive).
+    lam : float
+        Wavelength in metres.
+    err : list, optional
+        Single-element list ``[0]``; on return holds the error code.
+
+    Returns
+    -------
+    float
+        Linear refractive index.
     """
+    A, B, C, err0 = sellmeiercoeff(mat, lam)
 
-    # Error codes
-    MAT_ERR_NOERROR     = 0
-    MAT_ERR_NOFILE      = 1
-    MAT_ERR_NOTFOUND    = 2
-    MAT_ERR_FILE_FORMAT = 3
-    MAT_ERR_OUTOFRANGE  = 4
-    MAT_ERR_BADVALUE    = 5
-    MAT_ERR_DEFAULTUSED = 6
-
-    def __init__(self,
-                 databasefile: str = "materials_py.ini"):
-        """
-        Initialize with a local database and a system default.
-
-        Parameters
-        ----------
-        databasefile : str
-            Path to the user materials database.
-        """
-        self._local_path = Path(databasefile)
-        self._system_path = Path(Path("PKGDATADIR") / "materials_py.ini")
-
-        # Load configs (but postpone exceptions until access)
-        self._cfg_local = configparser.ConfigParser()
-        self._cfg_system = configparser.ConfigParser()
-        if self._local_path.exists():
-            self._cfg_local.read(self._local_path)
-        if self._system_path.exists():
-            self._cfg_system.read(self._system_path)
-
-    def _read_tag_str(self, mat: str, param: str) -> str:
-        """
-        Read a string parameter from local then system database.
-
-        Raises MaterialError if neither exists or not found.
-        """
-        section = mat.upper()
-        # Try local
-        if self._local_path.exists() and self._cfg_local.has_option(section, param):
-            return self._cfg_local.get(section, param)
-        # Try system
-        if self._system_path.exists() and self._cfg_system.has_option(section, param):
-            return self._cfg_system.get(section, param)
-        # Neither found
-        raise MaterialError(f"[{section}] {param} not found in any database.")
-
-    def _read_tag_array(self, mat: str, param: str) -> np.ndarray:
-        """
-        Read a comma-separated list of floats from INI and return as NumPy array.
-
-        Raises MaterialError on parse errors or missing.
-        """
-        s = self._read_tag_str(mat, param)
-        try:
-            arr = np.fromstring(s, sep=',', dtype=np.float64)
-        except ValueError as e:
-            raise MaterialError(f"Failed to parse array '{param}' for material {mat}: {e}")
-        return arr
-
-    def _read_tag_val(self,
-                      mat: str,
-                      param: str
-                      ) -> Tuple[float, int]:
-        """
-        Read a single real from the INI (for ReadDbsTagVal).
-        Returns (value, err_code).
-        """
-        try:
-            s = self._read_tag_str(mat, param)
-            return float(s), self.MAT_ERR_NOERROR
-        except MaterialError:
-            return 0.0, self.MAT_ERR_NOTFOUND
-
-    def _discrete_val(self,
-                      mat: str,
-                      param: str,
-                      lam: Annotated[float, np.float64]
-                      ) -> Tuple[float, int]:
-        """
-        Fallback lookup: choose nearest value within tolerances.
-
-        Returns
-        -------
-        val : float
-        err : int
-            One of the MAT_ERR_* codes.
-        """
-        vals = self._read_tag_array(mat, param)
-        lams = self._read_tag_array(mat, param + '-wavelength')
-        if vals.size != lams.size:
-            raise MaterialError(f"Mismatched array sizes for {param} in {mat}")
-
-        rel = np.abs(lams - lam) / lam
-        idx = np.argmin(rel)
-        if rel[idx] < 0.01:
-            return float(vals[idx]), self.MAT_ERR_NOERROR
-        if rel[idx] < 0.05:
-            return float(vals[idx]), self.MAT_ERR_OUTOFRANGE
-        if np.min(lams) < 0.0:
-            default_idx = np.argmin(lams)
-            return float(vals[default_idx]), self.MAT_ERR_DEFAULTUSED
-        return 0.0, self.MAT_ERR_NOTFOUND
-
-    # Example public method port: alpha
-    @with_guardrails
-    def alpha(self,
-              mat: str,
-              lam: Annotated[float, np.float64],
-              err: Optional[int] = None
-              ) -> Annotated[float, np.float64]:
-        """
-        Linear absorption coefficient. Mirrors Fortran `alpha`.
-
-        Parameters
-        ----------
-        mat : str
-        lam : float, np.float64
-        err : int, optional
-
-        Returns
-        -------
-        float
-        """
-        try:
-            A = self._read_tag_array(mat, 'Absorption')
-            lams = self._read_tag_array(mat, 'Absorption-lams')
-        except MaterialError:
-            # fallback to discrete
-            val, code = self._discrete_val(mat, 'alpha', lam)
-            if err is not None:
-                return val  # user inspects code separately
-            else:
-                raise
-
-        if A.size != lams.size:
-            raise MaterialError(f"Format error in alpha for {mat}")
-
-        if lam < lams.min() or lam > lams.max():
-            if err is not None:
-                return 1e100
-            else:
-                raise MaterialError(f"Wavelength out of range for alpha in {mat}")
-
-        # Spline interpolation
-        cs = CubicSpline(lams, A)
-        val = float(cs(lam))
-        if val < 0:
-            val = 0.0
-            if err is None:
-                warnings.warn(f"Negative alpha for {mat} at {lam}, clamped to zero.")
-        return val
-
-    @with_guardrails
-    def beta(self, mat: str, lam: Annotated[float,np.float64], err: Optional[int]=None) -> float:
-        return self._discrete_val(mat,'beta',lam)[0]
-
-    def _sellmeier_coeff(self, mat: str, lam: float) -> Tuple[float, np.ndarray, np.ndarray]:
-        """
-        Read Sellmeier A, B, C from the INI and return (A, B, C).
-        Warn if lam outside Sellmeier-limits.
-        """
-        # — scalar A
-        try:
-            A_str = self._read_tag_str(mat, 'Sellmeier-A')
-            A = float(A_str)
-        except MaterialError:
-            A = 1.0
-
-        # — arrays B and C
-        B = self._read_tag_array(mat, 'Sellmeier-B')
-        C = self._read_tag_array(mat, 'Sellmeier-C')
-        if B.shape != C.shape:
-            raise MaterialError(f"Sellmeier-B/C size mismatch for material '{mat}'")
-
-        # — optional limits
-        try:
-            lim_str = self._read_tag_str(mat, 'Sellmeier-limits')
-            low, high = [float(x) for x in lim_str.split(',')]
-        except MaterialError:
-            low, high = -np.inf, np.inf
-
-        if not (low <= lam <= high):
-            warnings.warn(f"Wavelength {lam:.2e} m is outside Sellmeier limits [{low:.2e}, {high:.2e}] for '{mat}'")
-
-        return A, B, C
-
-    @with_guardrails
-    def dn_dl(self,
-              mat: str,
-              lam: float,
-              err: Optional[int] = None
-              ) -> float:
-        A, B, C = self._sellmeier_coeff(mat, lam)
-        # fast path: call the jitted reducer
-        val = float(_sum_dn_dl(A, B, C, lam))
-        return val
-
-    @with_guardrails
-    def ddn_dll(self,
-               mat: str,
-               lam: float,
-               err: Optional[int] = None
-               ) -> float:
-        A, B, C = self._sellmeier_coeff(mat, lam)
-        val = float(_sum_ddn_dll(A, B, C, lam))
-        return val
-
-    # @with_guardrails
-    # def n0(self, mat: str, lam: Annotated[float,np.float64], err: Optional[int]=None) -> float:
-    #     try:
-    #         A,B,C = self._sellmeier_coeff(mat, lam)
-    #         val = np.sqrt(np.sum(B*lam**2/(lam**2-C))+A)
-    #         return float(val)
-    #     except (MaterialError, NotImplementedError):
-    #         return self._discrete_val(mat,'n0',lam)[0]
-    @with_guardrails
-    def n0(self,
-           mat: str,
-           lam: Annotated[float, np.float64],
-           err: Optional[int] = None
-           ) -> float:
-        """
-        Refractive index: tries Sellmeier, falls back to discrete lookup.
-        """
-        try:
-            # read A, B, C from INI
-            A, B, C = self._sellmeier_coeff(mat, lam)
-            # pure Sellmeier formula
-            val = n0_sellmeier(A, B, C, lam)
-        except MaterialError:
-            # fallback
-            val, code = self._discrete_val(mat, 'n0', lam)
-            if err is None and code != self.MAT_ERR_NOERROR:
-                mat_error_handler(code, 'n0', mat, lam)
-        else:
-            # if we read Sellmeier but lam was out of limits, warn via err handler
-            # (you could have _sellmeier_coeff set a flag for out-of-range)
-            # for now we assume _sellmeier_coeff did its own warning
-            pass
-
-        return val
-
-    @with_guardrails
-    def index_of_refraction(self,
-                            mat: str,
-                            lam: Annotated[float, np.float64],
-                            err: Optional[int] = None
-                            ) -> float:
-        """
-        Alias for n0(): more Pythonic name for the refractive index.
-        """
-        return self.n0(mat, lam, err)
-
-    @with_guardrails
-    def n2I(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        val,code=self._discrete_val(mat,'n2I',lam)
-        if code==self.MAT_ERR_NOTFOUND:
-            f,cd=self._discrete_val(mat,'n2F',lam)
-            if cd!=self.MAT_ERR_NOTFOUND:
-                val=f/(eps0*c0*self.n0(mat,lam))
-        return val
-
-    @with_guardrails
-    def n2F(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        val,code=self._discrete_val(mat,'n2F',lam)
-        if code==self.MAT_ERR_NOTFOUND:
-            i,cd=self._discrete_val(mat,'n2I',lam)
-            if cd!=self.MAT_ERR_NOTFOUND:
-                val=i*(eps0*c0*self.n0(mat,lam))
-        return val
-
-    @with_guardrails
-    def Vp(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        return c0/self.n0(mat,lam)
-
-    @with_guardrails
-    def k0(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        return twopi*self.n0(mat,lam)/lam
-
-    @with_guardrails
-    def Vg(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        return 1.0/self.k1(mat,lam)
-
-    @with_guardrails
-    def k1(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        try:
-            A,B,C=self._sellmeier_coeff(mat,lam)
-            D=C/(twopi*c0)**2; w=twopi*c0/lam
-            return float((_n0_w(A,B,D,w)+w*_dn_dw(A,B,D,w))/c0)
-        except MaterialError:
-            return self._discrete_val(mat,'k1',lam)[0]
-
-    @with_guardrails
-    def k2(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        try:
-            A,B,C=self._sellmeier_coeff(mat,lam)
-            D=C/(twopi*c0)**2; w=twopi*c0/lam
-            return float((2*_dn_dw(A,B,D,w)+w*_ddn_dww(A,B,D,w))/c0)
-        except MaterialError:
-            return self._discrete_val(mat,'k2',lam)[0]
-
-    @with_guardrails
-    def k3(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        try:
-            A,B,C=self._sellmeier_coeff(mat,lam)
-            D=C/(twopi*c0)**2; w=twopi*c0/lam
-            return float((3*_ddn_dww(A,B,D,w)+w*_dddn_dwww(A,B,D,w))/c0)
-        except MaterialError:
-            return self._discrete_val(mat,'k3',lam)[0]
-
-    @with_guardrails
-    def k4(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        try:
-            A,B,C=self._sellmeier_coeff(mat,lam)
-            D=C/(twopi*c0)**2; w=twopi*c0/lam
-            return float((4*_dddn_dwww(A,B,D,w)+w*_ddddn_dwwww(A,B,D,w))/c0)
-        except MaterialError:
-            return self._discrete_val(mat,'k4',lam)[0]
-
-    @with_guardrails
-    def k5(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        try:
-            A,B,C=self._sellmeier_coeff(mat,lam)
-            D=C/(twopi*c0)**2; w=twopi*c0/lam
-            return float((5*_ddddn_dwwww(A,B,D,w)+w*_dddddG_dwwwww(A,B,D,w))/c0)
-        except MaterialError:
-            return self._discrete_val(mat,'k5',lam)[0]
-
-    @with_guardrails
-    def k1_l(self, mat: str, lam: float, err: Optional[int]=None) -> float:
-        A, B, C = self._sellmeier_coeff(mat, lam)
-        # use the pure‐math helpers:
-        val = ( n0_sellmeier(A, B, C, lam)
-                - lam * dn_dl(A, B, C, lam) ) / c0
-        return val  # plus your err‐handling as before
-
-
-    @with_guardrails
-    def k2_l(self, mat: str, lam: float, err: Optional[int]=None) -> float:
-        A, B, C = self._sellmeier_coeff(mat, lam)
-        val = lam**3 / (2.0 * pi * c0**2) * ddn_dll(A, B, C, lam)
-        return val  # plus err‐handling
-
-
-    # ##Fix this thing  sellmeier_coeff should return A,B,C
-    # @with_guardrails
-    # def GetKW(self,
-    #           mat: str,
-    #           W: Annotated[np.ndarray, np.float64],
-    #           err: Optional[int] = None
-    #           ) -> np.ndarray:
-    #     """
-    #     Fortran GetKW: Kw[i] = 2π * n0(λ[i]) / λ[i], with λ = w2l(W).
-    #     """
-    #     lams = w2l(W)   # numpy-vectored: twopi*c0/W
-    #     mid  = lams.size // 2
-    #     A, B, C = self._sellmeier_coeff(mat, lams[mid])
-    #     if code != self.MAT_ERR_NOTFOUND:
-    #         Kw = twopi * n0_sellmeier(A, B, C, np.abs(lams)) / lams
-    #     else:
-    #         Kw = np.zeros_like(W)
-    #     if err is not None:
-    #         return Kw
-    #     if code != self.MAT_ERR_NOERROR:
-    #         mat_error_handler(code, 'GetKW', mat, lams[mid])
-    #     return Kw
-
-    @with_guardrails
-    def GetKW(self,
-              mat: str,
-              W: Annotated[np.ndarray, np.float64],
-              err: Optional[int] = None
-              ) -> np.ndarray:
-        """
-        Fortran GetKW: Kw[i] = 2π * n0(λ[i]) / λ[i], with λ = w2l(W).
-        """
-        lams = w2l(W)   # numpy-vectored: twopi*c0/W
-        mid  = lams.size // 2
-        A, B, C = self._sellmeier_coeff(mat, lams[mid])
-        Kw = np.zeros_like(W)
-        for i, lam in enumerate(lams):
-            Kw[i] = twopi * n0_sellmeier(A, B, C, abs(lam)) / lam
+    if err0 != MatError.NOTFOUND:
         if err is not None:
-            return Kw
-        return Kw
+            err[0] = err0
+        return n0_sellmeier(A, B, C, lam)
 
-    @with_guardrails
-    def Tr(self,
-           mat: str,
-           lam: Annotated[float, np.float64],
-           err: Optional[int] = None
-           ) -> float:
-        """
-        Raman response: discrete lookup with default=0 if not found.
-        """
-        val, code = self._discrete_val(mat, 'Raman-tr', lam)
-        if code == self.MAT_ERR_NOTFOUND:
-            code = self.MAT_ERR_DEFAULTUSED
-            val = 0.0
-        if err is not None:
-            return val
-        if code != self.MAT_ERR_NOERROR:
-            mat_error_handler(code, 'Raman-tr', mat, lam)
-        return val
+    val, err0 = _discrete_dbs_val("n0", mat, lam)
+    if val == 0.0 and err0 == MatError.NOERROR:
+        val = 1.0
+
+    _handle_err(err0, "n0", mat, lam, err)
+    return val if val != 0.0 else 1.0
 
 
-    # Plasma getters
-    @with_guardrails
-    def GetPlasmaElectronMass(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        return self._discrete_val(mat,'Plasma-mass',lam)[0]
+def n2I(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Retrieve the intensity-based nonlinear refractive index n2I [m^2/W]."""
+    n2I_val, err0 = _discrete_dbs_val("n2I", mat, lam)
 
-    @with_guardrails
-    def GetPlasmaBandGap(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        return self._discrete_val(mat,'Plasma-band_gap',lam)[0]
+    if err0 == MatError.NOTFOUND:
+        n2F_val, err0 = _discrete_dbs_val("n2F", mat, lam)
+        if err0 != MatError.NOTFOUND:
+            err1 = [0]
+            n0_val = n0(mat, lam, err1)
+            n2I_val = n2F_val / (eps0 * c0 * n0_val)
 
-    @with_guardrails
-    def GetPlasmaTrappingTime(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        return self._discrete_val(mat,'Plasma-trap_time',lam)[0]
-
-    @with_guardrails
-    def GetPlasmaCollisionTime(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        return self._discrete_val(mat,'Plasma-collision_time',lam)[0]
-
-    @with_guardrails
-    def GetPlasmaMaximumDensity(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        return self._discrete_val(mat,'Plasma-max_density',lam)[0]
-
-    @with_guardrails
-    def GetPlasmaOrder(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        return self._discrete_val(mat,'Plasma-multi_order',lam)[0]
-
-    @with_guardrails
-    def GetPlasmaCrossSection(self,mat:str,lam:Annotated[float,np.float64],err:Optional[int]=None)->float:
-        return self._discrete_val(mat,'Plasma-multi_cross_section',lam)[0]
+    _handle_err(err0, "n2I", mat, lam, err)
+    return n2I_val
 
 
-# CLI stubs (Python style would be to use argparse) (I used stub based over argparse)
+def n2F(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Retrieve the field-based nonlinear refractive index n2F [m^2/V^2]."""
+    n2F_val, err0 = _discrete_dbs_val("n2F", mat, lam)
 
-_default_mp = MaterialProperties()
+    if err0 == MatError.NOTFOUND:
+        n2I_val, err0 = _discrete_dbs_val("n2I", mat, lam)
+        if err0 != MatError.NOTFOUND:
+            err1 = [0]
+            n0_val = n0(mat, lam, err1)
+            n2F_val = n2I_val * (eps0 * c0 * n0_val)
 
-def MaterialOptions(opt: str) -> bool:
+    _handle_err(err0, "n2F", mat, lam, err)
+    return n2F_val
+
+
+def alpha(mat: str, lam: float, err: Optional[list] = None) -> float:
     """
-    Parse one command-line option.
-    Returns True if handled (i.e. started with --material-datafile=).
+    Return the linear absorption coefficient [1/m].
+
+    Uses spline interpolation of the Absorption array when available,
+    falls back to discrete lookup.
     """
-    prefix = "--material-datafile="
-    if opt.startswith(prefix):
-        fn = opt[len(prefix):]
-        p = Path(fn)
-        if p.exists():
-            # update the local INI path and reload
-            _default_mp._local_path = p
-            _default_mp._cfg_local.read(p)
+    err0 = MatError.NOERROR
+    alpha_val = 0.0
+
+    A_arr, err0 = _read_dbs_tag_array(mat, "Absorption")
+
+    if err0 == MatError.NOERROR:
+        lams, err0 = _read_dbs_tag_array(mat, "Absorption-lams")
+
+    if err0 == MatError.NOERROR and A_arr is not None and lams is not None:
+        if len(A_arr) != len(lams):
+            _mat_error_handler(MatError.FILE_FORMAT, "alpha", mat, lam)
+            return 0.0
+
+        if lam < np.min(lams) or lam > np.max(lams):
+            alpha_val = 1e100
+            err0 = MatError.OUTOFRANGE
         else:
-            warnings.warn(f"Cannot find material database file: {fn}")
-        return True
-    return False
+            b = np.zeros(len(A_arr))
+            spline(lams, A_arr, b)
+            alpha_val = float(seval(lam, lams, A_arr, b))
 
-def MatHelp():
+        if alpha_val < 0.0:
+            alpha_val = 0.0
+            err0 = MatError.BADVALUE
+    else:
+        alpha_val, err0 = _discrete_dbs_val("alpha", mat, lam)
+
+    _handle_err(err0, "alpha", mat, lam, err)
+    return alpha_val
+
+
+def beta(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Retrieve the two-photon absorption coefficient."""
+    val, err0 = _discrete_dbs_val("beta", mat, lam)
+    _handle_err(err0, "beta", mat, lam, err)
+    return val
+
+
+def Vp(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Calculate the phase velocity [m/s]."""
+    err0_list = [MatError.NOERROR]
+    val = c0 / n0(mat, lam, err0_list)
+    _handle_err(err0_list[0], "Vp", mat, lam, err)
+    return float(val)
+
+
+def k0_val(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Calculate the magnitude of the wavevector k0 = 2*pi*n0/lam."""
+    err0_list = [MatError.NOERROR]
+    val = 2.0 * pi * n0(mat, lam, err0_list) / lam
+    _handle_err(err0_list[0], "k0", mat, lam, err)
+    return float(val)
+
+
+def Vg(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Calculate the group velocity as 1/k1 [m/s]."""
+    err0_list = [MatError.NOERROR]
+    val = 1.0 / k1(mat, lam, err0_list)
+    _handle_err(err0_list[0], "Vg", mat, lam, err)
+    return float(val)
+
+
+def k1(mat: str, lam: float, err: Optional[list] = None) -> float:
     """
-    Print help for the material-datafile flag.
+    Calculate dk/dw (first-order dispersion, inverse group velocity) [s/m].
+
+    Uses frequency-domain Sellmeier when available, then falls back to
+    discrete k1 or Vg values.
     """
-    print("Material Options:")
-    print("  --material-datafile=filename")
-    print(f"     Select the local materials database file. "
-          f"The system file   ({_default_mp._system_path!r}) will still be searched.")
+    w = _l2w(lam)
+    err0 = MatError.NOERROR
+    val = 0.0
+
+    A, B, D, err0 = sellmeiercoeff(mat, lam)
+    if err0 != MatError.NOTFOUND:
+        D = D / (twopi * c0) ** 2
+        val = (_n0_w(A, B, D, w) + w * _dn_dw(A, B, D, w)) / c0
+    else:
+        val, err0 = _discrete_dbs_val("k1", mat, lam)
+
+    if err0 == MatError.NOTFOUND:
+        vg_val, err0 = _discrete_dbs_val("Vg", mat, lam)
+        if err0 != MatError.NOTFOUND:
+            val = 1.0 / vg_val
+
+    _handle_err(err0, "k1", mat, lam, err)
+    return float(val)
 
 
-def mat_error_handler(err:int,param:str,mat:str,lam:float):
-    """Map error codes to warnings or exceptions."""
-    if err==MaterialProperties.MAT_ERR_NOERROR: return
-    msg=f"Error {err} on {param} for {mat} at {lam}"
-    if err in (MaterialProperties.MAT_ERR_NOFILE,MaterialProperties.MAT_ERR_NOTFOUND):
-        raise MaterialError(msg)
-    warnings.warn(msg)
+def k2(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Calculate d^2k/dw^2 (group velocity dispersion) [s^2/m]."""
+    w = _l2w(lam)
+    err0 = MatError.NOERROR
+    val = 0.0
 
-# Numba-elemental dispersion kernels
-def _G(A: float, B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
+    A, B, D, err0 = sellmeiercoeff(mat, lam)
+    if err0 != MatError.NOTFOUND:
+        D = D / (twopi * c0) ** 2
+        val = (2.0 * _dn_dw(A, B, D, w) + w * _ddn_dww(A, B, D, w)) / c0
+    else:
+        val, err0 = _discrete_dbs_val("k2", mat, lam)
+
+    _handle_err(err0, "k2", mat, lam, err)
+    return float(val)
+
+
+def k3(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Calculate d^3k/dw^3 (third-order dispersion) [s^3/m]."""
+    w = _l2w(lam)
+    err0 = MatError.NOERROR
+    val = 0.0
+
+    A, B, D, err0 = sellmeiercoeff(mat, lam)
+    if err0 != MatError.NOTFOUND:
+        D = D / (twopi * c0) ** 2
+        val = (3.0 * _ddn_dww(A, B, D, w) + w * _dddn_dwww(A, B, D, w)) / c0
+    else:
+        val, err0 = _discrete_dbs_val("k3", mat, lam)
+
+    _handle_err(err0, "k3", mat, lam, err)
+    return float(val)
+
+
+def k4(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Calculate d^4k/dw^4 (fourth-order dispersion) [s^4/m]."""
+    w = _l2w(lam)
+    err0 = MatError.NOERROR
+    val = 0.0
+
+    A, B, D, err0 = sellmeiercoeff(mat, lam)
+    if err0 != MatError.NOTFOUND:
+        D = D / (twopi * c0) ** 2
+        val = (4.0 * _dddn_dwww(A, B, D, w) + w * _ddddn_dwwww(A, B, D, w)) / c0
+    else:
+        val, err0 = _discrete_dbs_val("k4", mat, lam)
+
+    _handle_err(err0, "k4", mat, lam, err)
+    return float(val)
+
+
+def k5(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Calculate d^5k/dw^5 (fifth-order dispersion) [s^5/m]."""
+    w = _l2w(lam)
+    err0 = MatError.NOERROR
+    val = 0.0
+
+    A, B, D, err0 = sellmeiercoeff(mat, lam)
+    if err0 != MatError.NOTFOUND:
+        D = D / (twopi * c0) ** 2
+        val = (5.0 * _ddddn_dwwww(A, B, D, w) + w * _dddddn_dwwwww(A, B, D, w)) / c0
+    else:
+        val, err0 = _discrete_dbs_val("k5", mat, lam)
+
+    _handle_err(err0, "k5", mat, lam, err)
+    return float(val)
+
+
+def GetKW(mat: str, W: np.ndarray, err: Optional[list] = None) -> np.ndarray:
     """
-    Elemental dispersion G(A,B,D,w) = B / (1 – D w²), vectorized.
+    Create an array of k values for the given angular frequencies.
+
+    Parameters
+    ----------
+    mat : str
+        Material name.
+    W : ndarray
+        Angular frequency array [rad/s].
+    err : list, optional
+        Single-element list for error code.
+
+    Returns
+    -------
+    ndarray
+        k(w) array.
     """
-    return B / (1.0 - D * w * w)
+    err0 = MatError.NOERROR
+    Kw = np.zeros(len(W))
+    lams = _w2l(W)
+    mid = len(lams) // 2
 
-def _dG_dw(A: float, B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
-    """
-    ∂G/∂w = 2 D/B · w · G², with B==0 → 0
-    """
-    Gv = _G(A, B, D, w)
-    return np.where(B == 0.0, 0.0, 2.0 * D / B * w * Gv * Gv)
+    A, B, C, err0 = sellmeiercoeff(mat, float(lams[mid]))
 
-@njit(parallel=True)
-def _G_elem(B,D,w):
-    return B/(1-D*w*w)
+    if err0 != MatError.NOTFOUND:
+        for i in range(len(lams)):
+            Kw[i] = twopi * n0_sellmeier(A, B, C, abs(float(lams[i]))) / float(lams[i])
 
-@njit(parallel=True)
-def _dG_dw_elem(B,D,w):
-    return 0.0 if B==0.0 else 2.0*D/B*w*_G_elem(B,D,w)**2
-
-@njit(parallel=True)
-def _ddG_dww_elem(B,D,w):
-    g=_G_elem(B,D,w); dg=_dG_dw_elem(B,D,w)
-    return 0.0 if g!=g else 2.0*D/B*(g*g+2.0*w*g*dg)
-
-@njit(parallel=True)
-def _dddG_dwww_elem(B,D,w):
-    g=_G_elem(B,D,w); dg=_dG_dw_elem(B,D,w); ddg=_ddG_dww_elem(B,D,w)
-    return 0.0 if B==0.0 else 4.0*D/B*(2.0*g*dg + w*(dg*dg+g*ddg))
-
-@njit(parallel=True)
-def _ddddG_dwwww_elem(B,D,w):
-    dg=_dG_dw_elem(B,D,w); ddg=_ddG_dww_elem(B,D,w); dddg=_dddG_dwww_elem(B,D,w)
-    return 4.0*D/B*(3.0*dg*dg+3.0*g*ddg+3.0*w*dg*ddg+w*g*dddg)
-
-@njit(parallel=True)
-def _dddddG_dwwwww_elem(B,D,w):
-    dg=_dG_dw_elem(B,D,w); ddg=_ddG_dww_elem(B,D,w); dddg=_dddG_dwww_elem(B,D,w); ddddg=_ddddG_dwwww_elem(B,D,w)
-    return 4.0*D/B*(12.0*dg*ddg+4.0*g*dddg+3.0*w*ddg*ddg+4.0*w*dg*dddg+w*g*ddddg)
-
-@njit(parallel=True)
-def _dddddG_dwwwww(A,B,D,w):
-    # reuse element func
-    return _sum_kernel(None,B,D,w,_dddddG_dwwwww_elem)
+    _handle_err(err0, "K(w)", mat, float(lams[mid]), err)
+    return Kw
 
 
-@njit(parallel=True)
-def _sum_kernel(arr,B,D,w,func):
-    s=0.0
-    for i in prange(B.shape[0]): s+=func(B[i],D[i],w)
-    return s
+def Tr(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Retrieve the Raman response parameter [s]."""
+    val, err0 = _discrete_dbs_val("Raman-tr", mat, lam)
 
-@njit(parallel=True)
-def _n0_w(A,B,D,w): return np.sqrt(A+_sum_kernel(None,B,D,w,_G_elem))
+    if err0 == MatError.NOTFOUND:
+        err0 = MatError.DEFAULTUSED
+        val = 0.0
 
-@njit(parallel=True)
-def _dn_dw(A,B,D,w): return _sum_kernel(None,B,D,w,_dG_dw_elem)/(2.0*_n0_w(A,B,D,w))
-
-@njit(parallel=True)
-def _ddn_dww(A,B,D,w):
-    return (_sum_kernel(None,B,D,w,_ddG_dww_elem)/2.0 - _dn_dw(A,B,D,w)**2)/_n0_w(A,B,D,w)
-
-@njit(parallel=True)
-def _dddn_dwww(A,B,D,w):
-    return (_sum_kernel(None,B,D,w,_dddG_dwww_elem)/2.0 - 3.0*_dn_dw(A,B,D,w)*_ddn_dww(A,B,D,w))/_n0_w(A,B,D,w)
-
-@njit(parallel=True)
-def _ddddn_dwwww(A,B,D,w):
-    return (_sum_kernel(None,B,D,w,_ddddG_dwwww_elem)/2.0 - 3.0*_ddn_dww(A,B,D,w)**2 - 4.0*_dn_dw(A,B,D,w)*_dddn_dwww(A,B,D,w))/_n0_w(A,B,D,w)
-
-@njit(parallel=True)
-def _ddddd_n_dwwwww(A,B,D,w):
-    return (_dddddG_dwwwww(A,B,D,w)/2.0 - 10.0*_ddn_dww(A,B,D,w)*_dddn_dwww(A,B,D,w) - 5.0*_dn_dw(A,B,D,w)*_ddddn_dwwww(A,B,D,w))/_n0_w(A,B,D,w)
+    _handle_err(err0, "Raman-tr", mat, lam, err)
+    return val
 
 
+# ---------------------------------------------------------------------------
+# Plasma parameter getters
+# ---------------------------------------------------------------------------
 
-@njit(parallel=True)
-def _sum_dn_dl(A: float, B: np.ndarray, C: np.ndarray, lam: float) -> float:
-    # compute Σ [Bᵢ*Cᵢ/(lam²−Cᵢ)²]
-    s_bc = 0.0
-    # also build Σ [Bᵢ*lam²/(lam²−Cᵢ)] for n₀
-    s_g  = 0.0
-    lam2 = lam*lam
-    for i in prange(B.shape[0]):
-        denom = lam2 - C[i]
-        s_bc += B[i]*C[i]/(denom*denom)
-        s_g  += B[i]*lam2/denom
-    n0 = np.sqrt(s_g + A)
-    return -lam / n0 * s_bc
+def _plasma_getter(param: str, mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Generic getter for plasma parameters."""
+    val, err0 = _discrete_dbs_val(param, mat, lam)
+    _handle_err(err0, param, mat, lam, err)
+    return val
 
-@njit(parallel=True)
-def _sum_ddn_dll(A: float, B: np.ndarray, C: np.ndarray, lam: float) -> float:
-    # first get dn/dl and n₀
-    dndl = _sum_dn_dl(A, B, C, lam)
-    n0   = np.sqrt( (B*lam*lam/(lam*lam - C)).sum() + A )
-    lam2 = lam*lam
-    # compute Σ [Bᵢ*Cᵢ/(lam²−Cᵢ)³]
-    s3 = 0.0
-    for i in prange(B.shape[0]):
-        denom = lam2 - C[i]
-        s3   += B[i]*C[i]/(denom*denom*denom)
-    return dndl/lam - dndl*dndl/n0 + 4.0*lam2/n0 * s3
 
-@with_guardrails
-def verify_G(mat: str, lam: Annotated[float, np.float64]) -> None:
-    """
-    Run finite-difference checks on the internal dispersion kernels,
-    mirroring the Fortran verify_G subroutine.
-    """
-    mp = _default_mp
+def GetPlasmaElectronMass(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Retrieve the plasma electron mass."""
+    return _plasma_getter("Plasma-mass", mat, lam, err)
 
-    # 1) grab Sellmeier coeffs A, B, C
-    A, B, C = mp._sellmeier_coeff(mat, lam)
-    # 2) build D array as in Fortran: D = C / (2π c0)^2
-    D = C / (2 * np.pi * c0)**2
 
-    diff = 1e-5
-    w  = l2w(lam)
-    w1 = w * (1 - diff)
-    w2 = w * (1 + diff)
-    lam1, lam2 = w2l(w1), w2l(w2)
-    dw = w2 - w1
+def GetPlasmaBandGap(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Retrieve the plasma band gap."""
+    return _plasma_getter("Plasma-band_gap", mat, lam, err)
 
-    # --- Table 1: G-kernels vs finite diff ---
-    print(f"{'What':5s} {'Symbolic':20s} {'Finite Diff.':20s} {'Fractional Err.':20s}")
-    # G1
-    n1 = np.sum(_dG_dw(A, B, D, w))
-    n2 = (np.sum(_G(A, B, D, w2)) - np.sum(_G(A, B, D, w1))) / dw
-    print(f"{'G1':5s} {n1:20.10e} {n2:20.10e} {(n1 - n2)/n1:20.10e}")
-    # G2
-    n1 = np.sum(_ddG_dww_elem(A, B, D, w))
-    n2 = (np.sum(_dG_dw(A, B, D, w2)) - np.sum(_dG_dw(A, B, D, w1))) / dw
-    print(f"{'G2':5s} {n1:20.10e} {n2:20.10e} {(n1 - n2)/n1:20.10e}")
-    # G3
-    n1 = np.sum(_dddG_dwww_elem(A, B, D, w))
-    n2 = (np.sum(_ddG_dww_elem(A, B, D, w2)) - np.sum(_ddG_dww_elem(A, B, D, w1))) / dw
-    print(f"{'G3':5s} {n1:20.10e} {n2:20.10e} {(n1 - n2)/n1:20.10e}")
-    # G4
-    n1 = np.sum(_ddddG_dwwww_elem(A, B, D, w))
-    n2 = (np.sum(_dddG_dwww_elem(A, B, D, w2)) - np.sum(_dddG_dwww_elem(A, B, D, w1))) / dw
-    print(f"{'G4':5s} {n1:20.10e} {n2:20.10e} {(n1 - n2)/n1:20.10e}")
-    # G5
-    n1 = np.sum(_dddddG_dwwwww_elem(A, B, D, w))
-    n2 = (np.sum(_ddddG_dwwww_elem(A, B, D, w2)) - np.sum(_ddddG_dwwww_elem(A, B, D, w1))) / dw
-    print(f"{'G5':5s} {n1:20.10e} {n2:20.10e} {(n1 - n2)/n1:20.10e}")
 
-    print()
+def GetPlasmaTrappingTime(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Retrieve the plasma trapping time."""
+    return _plasma_getter("Plasma-trap_time", mat, lam, err)
 
-    # --- Table 2: dn/dw etc. vs finite diff ---
-    print(f"{'What':5s} {'Symbolic':20s} {'Finite Diff.':20s} {'Fractional Err.':20s}")
-    # n1 = dn/dw
-    n1 = _dn_dw(A, B, D, w)
-    n2 = (_n0_w(A, B, D, w2) - _n0_w(A, B, D, w1)) / dw
-    print(f"{'n1':5s} {n1:20.10e} {n2:20.10e} {(n1 - n2)/n1:20.10e}")
-    # n2 = d²n/dω²
-    n1 = _ddn_dww(A, B, D, w)
-    n2 = (_dn_dw(A, B, D, w2) - _dn_dw(A, B, D, w1)) / dw
-    print(f"{'n2':5s} {n1:20.10e} {n2:20.10e} {(n1 - n2)/n1:20.10e}")
-    # n3 = d³n/dω³
-    n1 = _dddn_dwww(A, B, D, w)
-    n2 = (_ddn_dww(A, B, D, w2) - _ddn_dww(A, B, D, w1)) / dw
-    print(f"{'n3':5s} {n1:20.10e} {n2:20.10e} {(n1 - n2)/n1:20.10e}")
-    # n4 = d⁴n/dω⁴
-    n1 = _ddddn_dwwww(A, B, D, w)
-    n2 = (_dddn_dwww(A, B, D, w2) - _dddn_dwww(A, B, D, w1)) / dw
-    print(f"{'n4':5s} {n1:20.10e} {n2:20.10e} {(n1 - n2)/n1:20.10e}")
-    # n5 = d⁵n/dω⁵
-    n1 = _ddddd_n_dwwwww(A, B, D, w)
-    n2 = (_ddddn_dwwww(A, B, D, w2) - _ddddn_dwwww(A, B, D, w1)) / dw
-    print(f"{'n5':5s} {n1:20.10e} {n2:20.10e} {(n1 - n2)/n1:20.10e}")
 
-    print()
+def GetPlasmaCollisionTime(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Retrieve the plasma collision time."""
+    return _plasma_getter("Plasma-collision_time", mat, lam, err)
 
-    # --- Table 3: new (w-domain) vs old (λ-domain) ---
-    print(f"{'What':5s} {'New':20s} {'Old':20s} {'Fractional Err.':20s}")
-    # n0
-    n1 = _n0_w(A, B, D, w)
-    n2 = n0_sellmeier(A, B, C, lam)
-    print(f"{'n0':5s} {n1:20.10e} {n2:20.10e} {(n1 - n2)/n1:20.10e}")
-    # k1
-    n1 = mp.k1(mat, lam)
-    n2 = mp.k1_l(mat, lam)
-    print(f"{'k1':5s} {n1:20.10e} {n2:20.10e} {(n1 - n2)/n1:20.10e}")
-    # k2
-    n1 = mp.k2(mat, lam)
-    n2 = mp.k2_l(mat, lam)
-    print(f"{'k2':5s} {n1:20.10e} {n2:20.10e} {(n1 - n2)/n1:20.10e}")
 
+def GetPlasmaMaximumDensity(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Retrieve the plasma maximum density."""
+    return _plasma_getter("Plasma-max_density", mat, lam, err)
+
+
+def GetPlasmaOrder(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Retrieve the plasma multi-photon ionisation order."""
+    return _plasma_getter("Plasma-multi_order", mat, lam, err)
+
+
+def GetPlasmaCrossSection(mat: str, lam: float, err: Optional[list] = None) -> float:
+    """Retrieve the plasma multi-photon cross section."""
+    return _plasma_getter("Plasma-multi_cross_section", mat, lam, err)

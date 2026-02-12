@@ -40,3 +40,36 @@
 38. *Resource Management with Context Managers:* Use context managers (`with` statement) for resources.
 39. *Favor Immutability:* Prefer immutable data structures when appropriate.
 40. *Makefile Structure:* Include targets for build, run, test, lint, format, clean, db-up, db-down.
+
+---
+
+## Fortran → Python Naming Philosophy
+
+This codebase serves **physicists migrating from Fortran**. The following
+naming rules override generic PEP 8 conventions where they conflict:
+
+1.  **Keep Numerical Recipes names.** Users grep for `bsstep`, `stifbs`,
+    `pzextr`, `rkqs_dp` — these carry meaning in the community. Renaming
+    `rkqs_dp` to `adaptive_rk_step_real` buys nothing and breaks the mental
+    mapping.
+
+2.  **Keep type-suffixed wrappers.** `rkck_dp` vs `rkck_dpc` tells the
+    caller at a glance what data type they're working with. The one-line
+    wrappers cost zero performance and make call sites self-documenting.
+
+3.  **Keep camelCase public names.** `arrayCopy`, `outerprod`, `diagAdd`
+    match the Fortran module API. Consistency within the domain matters more
+    than style guides. (NumPy has `loadtxt`, SciPy has `odeint`.)
+
+4.  **Fix genuine Python traps.**
+    - 0-based indexing — 1-based was a trap in Python, not just style.
+    - Collapse `assert_eq2/3/4/n` into one `assertEq(*args)` — genuinely
+      simpler, not just stylistically different.
+    - Duck-typed internals (`_rkck`, `_rk4`) — implementation is Pythonic,
+      API preserves Fortran familiarity.
+
+5.  **Remove dead cruft.** Unused imports, dead code paths, backup copies —
+    these serve nobody. If it helps a Fortran user find and trust the
+    equivalent routine, keep it. If it's leftover mechanical noise, remove it.
+
+**Rule of thumb:** *familiarity for the domain user* > *style guide purity*.

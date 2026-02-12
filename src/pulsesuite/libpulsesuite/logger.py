@@ -1,179 +1,85 @@
 """
-Author: Rahul R. Sah
+Thin wrapper around Python's ``logging`` module with pulsesuite-specific
+log levels that mirror the Fortran ``logger.F90`` hierarchy.
+
+Usage
+-----
+>>> from pulsesuite.core.logger import get_logger
+>>> log = get_logger(__name__)
+>>> log.info("standard message")        # LOGSTD equivalent
+>>> log.debug2("inner-loop detail")     # custom level
 """
+import logging
 import sys
-import threading
-from contextlib import ContextDecorator
 
-class Logger(ContextDecorator):
+# ── Custom levels (below DEBUG=10) ──────────────────────────────────────
+DEBUG2 = 9
+DEBUG3 = 8
+
+logging.addLevelName(DEBUG2, "DEBUG2")
+logging.addLevelName(DEBUG3, "DEBUG3")
+
+
+class _PulseLogger(logging.Logger):
+    """Logger subclass that adds ``debug2`` and ``debug3`` convenience methods."""
+
+    def debug2(self, msg, *args, **kwargs):
+        if self.isEnabledFor(DEBUG2):
+            self._log(DEBUG2, msg, args, **kwargs)
+
+    def debug3(self, msg, *args, **kwargs):
+        if self.isEnabledFor(DEBUG3):
+            self._log(DEBUG3, msg, args, **kwargs)
+
+
+logging.setLoggerClass(_PulseLogger)
+
+# ── Mapping from Fortran integer levels to Python levels ────────────────
+FORTRAN_LEVEL_MAP = {
+    0: logging.ERROR,       # LOGERROR
+    1: logging.WARNING,     # LOGWARN
+    2: logging.INFO,        # LOGSTD
+    3: logging.DEBUG,       # LOGVERBOSE
+    4: logging.DEBUG,       # LOGDEBUG  (Python DEBUG = 10)
+    5: DEBUG2,              # LOGDEBUG2
+    6: DEBUG3,              # LOGDEBUG3
+}
+
+
+def get_logger(name: str | None = None) -> _PulseLogger:
+    """Return a logger under the ``pulsesuite`` hierarchy.
+
+    If *name* is a fully qualified module name (e.g.
+    ``pulsesuite.core.integrator``), the logger inherits from the
+    ``pulsesuite`` root logger so a single ``set_level()`` call
+    controls everything.
     """
-    High-performance logger for scientific/HPC applications.
+    return logging.getLogger(name or "pulsesuite")
 
-    Provides log levels, error/warning/info/debug, and assertion logic.
-    Thread-safe and context-enabled. All methods use camelCase.
 
-    Parameters
-    ----------
-    logLevel : int, optional
-        Initial log level (default: 2 = LOGSTD)
-    output : file-like, optional
-        Output stream (default: sys.stdout)
+def set_level(level: int | str = logging.INFO) -> None:
+    """Set the log level for *all* pulsesuite loggers at once.
+
+    Accepts Python level ints/names **or** legacy Fortran integer levels
+    (0-6).
     """
-    # Log level constants
-    LOGERROR   = 0
-    LOGWARN    = 1
-    LOGSTD     = 2
-    LOGVERBOSE = 3
-    LOGDEBUG   = 4
-    LOGDEBUG2  = 5
-    LOGDEBUG3  = 6
-    LOGNAMES = [
-        "ERROR  ", "WARNING", "STD    ", "VERBOSE", "DEBUG  ", "DEBUG2 ", "DEBUG3 "
-    ]
+    if isinstance(level, int) and level in FORTRAN_LEVEL_MAP:
+        level = FORTRAN_LEVEL_MAP[level]
+    root = logging.getLogger("pulsesuite")
+    root.setLevel(level)
 
-    _instance = None
-    _lock = threading.Lock()
 
-    def __init__(self, logLevel=LOGSTD, output=sys.stdout):
-        self.logLevel = logLevel
-        self.output = output
-        self._logLock = threading.Lock()
+def setup(level: int | str = logging.INFO, stream=None) -> None:
+    """One-time setup: attach a stderr handler with the pulsesuite format.
 
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        # No cleanup needed, but method required for context manager
-        return False
-
-    @classmethod
-    def getInstance(cls):
-        """Singleton access to the logger."""
-        with cls._lock:
-            if cls._instance is None:
-                cls._instance = Logger()
-            return cls._instance
-
-    def setLogLevel(self, level):
-        """Set the log level."""
-        self.logLevel = int(level)
-
-    def getLogLevel(self):
-        """Get the current log level."""
-        return self.logLevel
-
-    def incrLogLevel(self):
-        """Increase the log level by 1."""
-        self.logLevel += 1
-
-    def decrLogLevel(self):
-        """Decrease the log level by 1."""
-        self.logLevel -= 1
-
-    def getLogLevelStr(self, level=None):
-        """Get the string representation of a log level."""
-        lvl = self.logLevel if level is None else int(level)
-        idx = max(0, min(lvl, len(self.LOGNAMES)-1))
-        return self.LOGNAMES[idx]
-
-    def _log(self, msg, level):
-        if self.logLevel < level:
-            return
-        with self._logLock:
-            print(f"{self.getLogLevelStr(level)}: {msg}", file=self.output)
-
-    def error(self, msg, exitCode=1, file=None, line=None):
-        """
-        Log an error message and exit.
-
-        Parameters
-        ----------
-        msg : str
-            The error message.
-        exitCode : int, optional
-            Exit code (default: 1)
-        file : str, optional
-            File name for error location.
-        line : int, optional
-            Line number for error location.
-        """
-        fullMsg = self._makeMsg(msg, file, line)
-        self._log(fullMsg, self.LOGERROR)
-        sys.exit(exitCode)
-
-    def assertTrue(self, test, msg, file=None, line=None):
-        """
-        Assert that a condition is true, else log error and exit.
-
-        Parameters
-        ----------
-        test : bool
-            Condition to check.
-        msg : str
-            Message to log if assertion fails.
-        file : str, optional
-            File name for error location.
-        line : int, optional
-            Line number for error location.
-        """
-        if not test:
-            self.error(msg, exitCode=16, file=file, line=line)
-
-    def warning(self, msg, file=None, line=None):
-        """
-        Log a warning message.
-        """
-        if self.logLevel < self.LOGWARN:
-            return
-        fullMsg = self._makeMsg(msg, file, line)
-        self._log(fullMsg, self.LOGWARN)
-
-    def std(self, msg, file=None, line=None):
-        """
-        Log a standard message.
-        """
-        if self.logLevel < self.LOGSTD:
-            return
-        fullMsg = self._makeMsg(msg, file, line)
-        self._log(fullMsg, self.LOGSTD)
-
-    def verbose(self, msg, file=None, line=None):
-        """
-        Log a verbose message.
-        """
-        if self.logLevel < self.LOGVERBOSE:
-            return
-        fullMsg = self._makeMsg(msg, file, line)
-        self._log(fullMsg, self.LOGVERBOSE)
-
-    def debug(self, msg, file=None, line=None):
-        """
-        Log a debug message.
-        """
-        if self.logLevel < self.LOGDEBUG:
-            return
-        fullMsg = self._makeMsg(msg, file, line)
-        self._log(fullMsg, self.LOGDEBUG)
-
-    def debug2(self, msg, file=None, line=None):
-        """
-        Log a debug2 message.
-        """
-        if self.logLevel < self.LOGDEBUG2:
-            return
-        fullMsg = self._makeMsg(msg, file, line)
-        self._log(fullMsg, self.LOGDEBUG2)
-
-    def debug3(self, msg, file=None, line=None):
-        """
-        Log a debug3 message.
-        """
-        if self.logLevel < self.LOGDEBUG3:
-            return
-        fullMsg = self._makeMsg(msg, file, line)
-        self._log(fullMsg, self.LOGDEBUG3)
-
-    def _makeMsg(self, msg, file, line):
-        if file is not None and line is not None:
-            return f"{file}:{line} : {msg}"
-        return msg
+    Safe to call multiple times — extra calls are no-ops.
+    """
+    root = logging.getLogger("pulsesuite")
+    if root.handlers:
+        return
+    handler = logging.StreamHandler(stream or sys.stderr)
+    handler.setFormatter(
+        logging.Formatter("%(levelname)-7s: %(message)s")
+    )
+    root.addHandler(handler)
+    set_level(level)

@@ -77,3 +77,9 @@ Precompute time envelopes
 Use HDF5 instead of text
 Keep I/O outside the hot loop
 pyfftw usage.
+
+
+how do i run it?
+
+
+(pulsesuite) [astavak@archlinux ~mn/hardisk/pulsesuite/src/pulsesuite/PSTD3D]$ python -m pulsesuite.PSTD3D.sbetestpro

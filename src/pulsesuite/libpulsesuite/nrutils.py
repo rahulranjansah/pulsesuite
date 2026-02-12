@@ -1,404 +1,751 @@
 """
 High-performance numerical utilities for scientific computing, ported from Fortran's nrutils.F90.
 
-Implements array/matrix utilities, polynomial evaluation, and more, using NumPy and Numba for speed.
-All functions use camelCase. Designed for use in HPC and large-scale data processing.
+1:1 port of the Numerical Recipes ``nrutils`` module. Every public Fortran
+routine has a Python callable with the same camelCase name.  Vectorised with
+NumPy; no Numba or guardrails required.
 
-Dependencies: constants.py, logger.py, numerictypes.py
+Fortran interfaces that dispatch on type/rank are replaced by a single Python
+function that inspects shape and dtype at runtime.
 
 Author: Rahul R. Sah
 """
+
+import sys
 import numpy as np
-from numba import njit, prange
-from typing import Any, Optional, Union, Sequence
-from .numerictypes import NumericTypes
-from typing import Annotated, Tuple
+from typing import Any, Optional, Union, Tuple
 from numpy.typing import NDArray
-try:
-    from guardrails.guardrails import with_guardrails
-except ImportError:
-    # Fallback if guardrails not available
-    def with_guardrails(fn):
-        return fn
-from .constants import Constants
-from .logger import Logger
 
-# Type aliases for clarity
-sp = NumericTypes.sp
-dp = NumericTypes.dp
+# ---------------------------------------------------------------------------
+# Fortran kind-parameter aliases  (SP = single, DP = double)
+# ---------------------------------------------------------------------------
+sp = np.float32
+dp = np.float64
 
-def arrayCopy(src: np.ndarray, dest: np.ndarray) -> tuple[int, int]:
+
+# ===================================================================
+#  Array copy / swap utilities
+#  Fortran: array_copy, swap_*, masked_swap_*
+# ===================================================================
+
+def arrayCopy(src: np.ndarray, dest: np.ndarray) -> Tuple[int, int]:
     """
-    Copy elements from src to dest, up to the minimum size.
+    Copy elements from *src* into *dest* up to the smaller size.
+
+    Mirrors Fortran's ``array_copy``.
 
     Parameters
     ----------
-    src : np.ndarray
+    src : ndarray
         Source array.
-    dest : np.ndarray
-        Destination array.
+    dest : ndarray
+        Destination array (modified in-place).
 
     Returns
     -------
     nCopied : int
-        Number of elements copied.
+        Number of elements actually copied.
     nNotCopied : int
-        Number of elements not copied (src.size - nCopied).
+        ``src.size - nCopied``.
     """
     nCopied = min(src.size, dest.size)
     nNotCopied = src.size - nCopied
     dest.flat[:nCopied] = src.flat[:nCopied]
     return nCopied, nNotCopied
 
-def swap(a: Any, b: Any) -> tuple[Any, Any]:
+
+def swap(a: Any, b: Any) -> Tuple[Any, Any]:
     """
-    Swap two variables or arrays.
+    Swap two scalars, arrays, or any objects.
+
+    Fortran's ``swap_*`` interfaces (scalar, vector, matrix) are handled
+    by Python's generic assignment.
 
     Parameters
     ----------
     a, b : Any
-        Variables or arrays to swap.
+        Values to swap.
 
     Returns
     -------
-    b, a : tuple
-        Swapped values.
+    (b, a) : tuple
+        Swapped pair.
     """
     return b, a
 
-def reallocate(arr: np.ndarray, newShape: Union[int, tuple[int, ...]]) -> np.ndarray:
+
+def maskedSwap(a: np.ndarray, b: np.ndarray, mask: np.ndarray) -> None:
     """
-    Reallocate an array to a new shape, copying data up to the new size.
+    Swap elements of *a* and *b* where *mask* is True (in-place).
+
+    Fortran's ``masked_swap_*`` interfaces.  Uses vectorised boolean
+    indexing — no Python loop.
 
     Parameters
     ----------
-    arr : np.ndarray
+    a, b : ndarray  (same shape, modified in-place)
+    mask : ndarray of bool
+        Boolean mask; swap only where True.
+    """
+    tmp = a[mask].copy()
+    a[mask] = b[mask]
+    b[mask] = tmp
+
+
+def reallocate(arr: np.ndarray, newShape: Union[int, Tuple[int, ...]]) -> np.ndarray:
+    """
+    Reallocate *arr* to *newShape*, copying the overlapping region.
+
+    Fortran's ``reallocate_*`` family (1-D, 2-D, etc.).
+
+    Parameters
+    ----------
+    arr : ndarray
         Original array.
     newShape : int or tuple of int
-        New shape.
+        Desired shape.
 
     Returns
     -------
-    np.ndarray
-        Reallocated array with data copied.
+    ndarray
+        New array (same dtype) with data copied from the overlap.
     """
     newArr = np.empty(newShape, dtype=arr.dtype)
-    minShape = tuple(min(a, b) for a, b in zip(arr.shape, newArr.shape))
-    if arr.ndim == 1:
-        newArr[:minShape[0]] = arr[:minShape[0]]
-    elif arr.ndim == 2:
-        newArr[:minShape[0], :minShape[1]] = arr[:minShape[0], :minShape[1]]
-    else:
-        # For higher dimensions, use slicing
-        slices = tuple(slice(0, m) for m in minShape)
-        newArr[slices] = arr[slices]
+    slices = tuple(
+        slice(0, min(o, n))
+        for o, n in zip(arr.shape, newArr.shape)
+    )
+    newArr[slices] = arr[slices]
     return newArr
 
-@njit(cache=True)
+
+# ===================================================================
+#  Index / location utilities (0-based)
+#  Fortran: imaxloc, iminloc, ifirstloc
+# ===================================================================
+
 def imaxloc(arr: np.ndarray) -> int:
-    """
-    Return the index of the maximum value in the array (1-based, Fortran style).
+    """Index of the maximum value (0-based)."""
+    return int(np.argmax(arr))
 
-    Parameters
-    ----------
-    arr : np.ndarray
-        Input array.
 
-    Returns
-    -------
-    int
-        Index of the maximum value (1-based).
-    """
-    return np.argmax(arr) + 1
-
-@njit(cache=True)
 def iminloc(arr: np.ndarray) -> int:
+    """Index of the minimum value (0-based)."""
+    return int(np.argmin(arr))
+
+
+def ifirstloc(mask: np.ndarray) -> int:
+    """Index of the first True in a boolean array (0-based).
+
+    Returns -1 when no True is found.
     """
-    Return the index of the minimum value in the array (1-based, Fortran style).
+    locs = np.flatnonzero(mask)
+    if locs.size == 0:
+        return -1
+    return int(locs[0])
+
+
+# ===================================================================
+#  Assertion / error utilities
+#  Fortran: nrerror, assert_eq2/3/4/n
+# ===================================================================
+
+def nrerror(msg: str) -> None:
+    """
+    Report a fatal error and stop (Fortran's ``nrerror``).
 
     Parameters
     ----------
-    arr : np.ndarray
-        Input array.
+    msg : str
+        Error message printed to stderr.
 
-    Returns
-    -------
-    int
-        Index of the minimum value (1-based).
+    Raises
+    ------
+    SystemExit
     """
-    return np.argmin(arr) + 1
+    print(f"nrerror: {msg}", file=sys.stderr)
+    raise SystemExit(msg)
 
-def assertTrue(test: bool, msg: str = "Assertion failed", file: Optional[str] = None, line: Optional[int] = None):
+
+def assertTrue(
+    test: bool,
+    msg: str = "Assertion failed",
+    file: Optional[str] = None,
+    line: Optional[int] = None,
+) -> None:
     """
-    Assert that a condition is true, else log error and exit.
-    Uses Logger for error reporting.
+    Assert *test* is ``True``; call ``nrerror`` on failure.
+
+    Parameters
+    ----------
+    test : bool
+    msg : str
+    file, line : optional
+        Source location for diagnostics.
     """
     if not test:
-        Logger.getInstance().error(msg)
-        raise ValueError(msg)
+        loc = f"{file}:{line} : " if file is not None and line is not None else ""
+        nrerror(f"{loc}{msg}")
 
-def assertEq(*args, msg: str = "Equality assertion failed") -> int:
+
+def assertEq(*args: Any, msg: str = "Equality assertion failed") -> Any:
     """
-    Assert that all arguments are equal. Returns the value if true, else logs error and exits.
+    Assert all positional arguments are equal; return the common value.
+
+    Replaces Fortran's ``assert_eq2``, ``assert_eq3``, ``assert_eq4``,
+    and ``assert_eqn`` interfaces with a single variadic dispatcher.
+
+    Parameters
+    ----------
+    *args
+        Values that must be equal.
+    msg : str
+        Message on failure.
+
+    Returns
+    -------
+    value
+        The common value.
     """
     first = args[0]
-    if all(a == first for a in args):
+    if all(a == first for a in args[1:]):
         return first
-    Logger.getInstance().error(msg)
-    return -1  # Not reached
+    nrerror(msg)
 
-@njit(cache=True)
+
+# ===================================================================
+#  Progressions
+#  Fortran: arth, geop, cumsum, cumprod
+# ===================================================================
+
 def arth(first: float, increment: float, n: int) -> np.ndarray:
-    """Arithmetic progression of length n."""
-    arr: np.ndarray = np.empty(n, dtype=np.float64)
-    if n > 0:
-        arr[0] = first
-    for k in range(1, n):
-        arr[k] = arr[k-1] + increment
-    return arr
+    """
+    Arithmetic progression of length *n*.
 
-@njit(cache=True)
+    $a_k = \\text{first} + k \\cdot \\text{increment},\\quad k = 0, \\dots, n-1$
+
+    Fortran's ``arth`` (SP/DP/I4B interfaces).
+
+    Parameters
+    ----------
+    first : float
+        Starting value.
+    increment : float
+        Common difference.
+    n : int
+        Length.
+
+    Returns
+    -------
+    ndarray of float64
+    """
+    return first + np.arange(n, dtype=np.float64) * increment
+
+
 def geop(first: float, factor: float, n: int) -> np.ndarray:
-    """Geometric progression of length n."""
-    arr: np.ndarray = np.empty(n, dtype=np.float64)
-    if n > 0:
-        arr[0] = first
-    for k in range(1, n):
-        arr[k] = arr[k-1] * factor
-    return arr
+    """
+    Geometric progression of length *n*.
 
-@njit(cache=True)
+    $a_k = \\text{first} \\cdot \\text{factor}^k,\\quad k = 0, \\dots, n-1$
+
+    Fortran's ``geop`` (SP/DP interfaces).
+
+    Parameters
+    ----------
+    first : float
+        Starting value.
+    factor : float
+        Common ratio.
+    n : int
+        Length.
+
+    Returns
+    -------
+    ndarray of float64
+    """
+    return first * np.power(factor, np.arange(n, dtype=np.float64))
+
+
 def cumsum(arr: np.ndarray, seed: Optional[Union[float, int]] = None) -> np.ndarray:
     """
-    Cumulative sum of an array, optionally with a seed value.
+    Cumulative sum, optionally offset by *seed*.
+
+    $S_j = \\text{seed} + \\sum_{i=0}^{j} a_i$
+
+    Fortran's ``cumsum`` (SP/DP interfaces).
+
+    Parameters
+    ----------
+    arr : ndarray
+    seed : float or int, optional
+        Additive offset applied to the running total.
+
+    Returns
+    -------
+    ndarray
     """
-    n = arr.size
-    out = np.empty_like(arr)
-    if n == 0:
-        return out
-    if seed is None:
-        out[0] = arr[0]
-    else:
-        out[0] = arr[0] + seed
-    for j in range(1, n):
-        out[j] = out[j-1] + arr[j]
+    out = np.cumsum(arr)
+    if seed is not None:
+        out = out + seed
     return out
 
-@njit(cache=True)
+
+def cumprod(arr: np.ndarray, seed: Optional[Union[float, int]] = None) -> np.ndarray:
+    """
+    Cumulative product, optionally scaled by *seed*.
+
+    $P_j = \\text{seed} \\cdot \\prod_{i=0}^{j} a_i$
+
+    Fortran's ``cumprod`` (SP/DP interfaces).
+
+    Parameters
+    ----------
+    arr : ndarray
+    seed : float or int, optional
+        Multiplicative scale applied to all products.
+
+    Returns
+    -------
+    ndarray
+    """
+    out = np.cumprod(arr)
+    if seed is not None:
+        out = out * seed
+    return out
+
+
+# ===================================================================
+#  Polynomial evaluation
+#  Fortran: poly, poly_term
+# ===================================================================
+
 def poly(x: Union[float, np.ndarray], coeffs: np.ndarray) -> Union[float, np.ndarray]:
     """
-    Evaluate a polynomial at x with given coefficients (Horner's method).
+    Evaluate polynomial at *x* via Horner's method.
+
+    $P(x) = c_0 + c_1 x + c_2 x^2 + \\cdots$
+
+    Coefficients are ordered lowest-degree first (Fortran convention).
+    Handles both real and complex coefficients/arguments.
+
+    Fortran's ``poly`` (SP/DP/SPC/DPC interfaces).
+
+    Parameters
+    ----------
+    x : float or ndarray
+        Evaluation point(s).
+    coeffs : ndarray
+        Polynomial coefficients, lowest degree first.
+
+    Returns
+    -------
+    float or ndarray
     """
     n = coeffs.size
     if n == 0:
-        return 0.0
+        return np.zeros_like(x) if isinstance(x, np.ndarray) else 0.0
     result = coeffs[-1]
-    for i in range(n-2, -1, -1):
+    for i in range(n - 2, -1, -1):
         result = x * result + coeffs[i]
     return result
 
-@njit(cache=True)
+
 def polyTerm(a: np.ndarray, b: Union[float, int]) -> np.ndarray:
     """
-    Evaluate a polynomial term recursively (Fortran's poly_term).
+    Recursive polynomial term (Fortran's ``poly_term``).
+
+    $u_0 = a_0,\\quad u_j = a_j + b \\cdot u_{j-1}$
+
+    Handles both real and complex arrays.
+
+    Fortran's ``poly_term`` (SP/DP interfaces).
+
+    Parameters
+    ----------
+    a : ndarray
+        Coefficient array.
+    b : float or int
+        Multiplier.
+
+    Returns
+    -------
+    ndarray
     """
     n = a.size
-    u = np.empty_like(a)
     if n == 0:
-        return u
+        return np.empty_like(a)
+    u = np.empty_like(a)
     u[0] = a[0]
     for j in range(1, n):
-        u[j] = a[j] + b * u[j-1]
+        u[j] = a[j] + b * u[j - 1]
     return u
 
-@njit(cache=True, parallel=True)
+
+# ===================================================================
+#  Outer operations  (vectorised via broadcasting / BLAS)
+#  Fortran: outerprod, outerdiff, outersum, outerand
+# ===================================================================
+
 def outerprod(a: np.ndarray, b: np.ndarray) -> np.ndarray:
-    """Outer product (parallel)."""
-    m, n = a.size, b.size
-    out = np.empty((m, n))
-    for i in prange(m):
-        for j in range(n):
-            out[i, j] = a[i] * b[j]
-    return out
+    """
+    Outer product: $M_{ij} = a_i \\cdot b_j$.
+
+    Uses ``np.outer`` (BLAS-backed for large arrays).
+    Handles real and complex vectors.
+
+    Fortran's ``outerprod`` (SP/DP interfaces).
+
+    Parameters
+    ----------
+    a, b : ndarray (1-D)
+
+    Returns
+    -------
+    ndarray, shape ``(a.size, b.size)``
+    """
+    return np.outer(a, b)
 
 
-@njit(cache=True, parallel=True)
 def outerdiff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
-    """Outer difference (parallel)."""
-    m, n = a.size, b.size
-    out = np.empty((m, n))
-    for i in prange(m):
-        for j in range(n):
-            out[i, j] = a[i] - b[j]
-    return out
+    """
+    Outer difference: $M_{ij} = a_i - b_j$.
 
-@njit(cache=True)
-def scatterAdd(dest: np.ndarray, source: np.ndarray, destIndex: np.ndarray):
-    """
-    Scatter-add: add source values to dest at indices destIndex (1-based).
-    """
-    for j in range(source.size):
-        i = destIndex[j] - 1  # Fortran to Python index
-        if 0 <= i < dest.size:
-            dest[i] += source[j]
+    Vectorised via broadcasting.
 
-@njit(cache=True)
-def scatterMax(dest: np.ndarray, source: np.ndarray, destIndex: np.ndarray):
-    """
-    Scatter-max: set dest[i] = max(dest[i], source[j]) at indices destIndex (1-based).
-    """
-    for j in range(source.size):
-        i = destIndex[j] - 1
-        if 0 <= i < dest.size:
-            dest[i] = max(dest[i], source[j])
+    Fortran's ``outerdiff`` (SP/DP interfaces).
 
-# Diagonal helpers (JIT'd)
-@njit(cache=True)
+    Parameters
+    ----------
+    a, b : ndarray (1-D)
+
+    Returns
+    -------
+    ndarray, shape ``(a.size, b.size)``
+    """
+    return a[:, np.newaxis] - b[np.newaxis, :]
+
+
+def outersum(a: np.ndarray, b: np.ndarray) -> np.ndarray:
+    """
+    Outer sum: $M_{ij} = a_i + b_j$.
+
+    Vectorised via broadcasting.
+
+    Fortran's ``outersum`` (SP/DP interfaces).
+
+    Parameters
+    ----------
+    a, b : ndarray (1-D)
+
+    Returns
+    -------
+    ndarray, shape ``(a.size, b.size)``
+    """
+    return a[:, np.newaxis] + b[np.newaxis, :]
+
+
+def outerand(a: np.ndarray, b: np.ndarray) -> np.ndarray:
+    """
+    Outer logical AND: $M_{ij} = a_i \\wedge b_j$.
+
+    Fortran's ``outerand``.
+
+    Parameters
+    ----------
+    a, b : ndarray of bool (1-D)
+
+    Returns
+    -------
+    ndarray of bool, shape ``(a.size, b.size)``
+    """
+    return a[:, np.newaxis] & b[np.newaxis, :]
+
+
+# ===================================================================
+#  Scatter operations  (0-based indexing)
+#  Fortran: scatter_add, scatter_max
+# ===================================================================
+
+def scatterAdd(dest: np.ndarray, source: np.ndarray, destIndex: np.ndarray) -> None:
+    """
+    Scatter-add: ``dest[i] += source[j]`` at 0-based indices.
+
+    Uses ``np.add.at`` for unbuffered accumulation (correct with
+    duplicate indices).
+
+    Fortran's ``scatter_add`` (SP/DP interfaces).
+
+    Parameters
+    ----------
+    dest : ndarray  (modified in-place)
+    source : ndarray
+    destIndex : ndarray of int
+        0-based target indices.
+    """
+    valid = (destIndex >= 0) & (destIndex < dest.size)
+    np.add.at(dest, destIndex[valid], source[valid])
+
+
+def scatterMax(dest: np.ndarray, source: np.ndarray, destIndex: np.ndarray) -> None:
+    """
+    Scatter-max: ``dest[i] = max(dest[i], source[j])`` at 0-based indices.
+
+    Uses ``np.maximum.at`` for unbuffered reduction.
+
+    Fortran's ``scatter_max`` (SP/DP interfaces).
+
+    Parameters
+    ----------
+    dest : ndarray  (modified in-place)
+    source : ndarray
+    destIndex : ndarray of int
+        0-based target indices.
+    """
+    valid = (destIndex >= 0) & (destIndex < dest.size)
+    np.maximum.at(dest, destIndex[valid], source[valid])
+
+
+# ===================================================================
+#  Diagonal helpers
+#  Fortran: diagadd, diagmult  (scalar & vector interfaces)
+# ===================================================================
+
 def _diagAddScalar(mat: np.ndarray, diag: float) -> None:
-    n: int = min(mat.shape[0], mat.shape[1])
-    for j in range(n):
-        mat[j, j] += diag
+    """Add scalar to diagonal of *mat* in-place."""
+    n = min(mat.shape[0], mat.shape[1])
+    idx = np.arange(n)
+    mat[idx, idx] += diag
 
-@njit(cache=True)
+
 def _diagAddVector(mat: np.ndarray, diagv: np.ndarray) -> None:
-    n: int = min(mat.shape[0], mat.shape[1], diagv.size)
-    for j in range(n):
-        mat[j, j] += diagv[j]
+    """Add vector to diagonal of *mat* in-place."""
+    n = min(mat.shape[0], mat.shape[1], diagv.size)
+    idx = np.arange(n)
+    mat[idx, idx] += diagv[:n]
 
-@njit(cache=True)
+
 def _diagMultScalar(mat: np.ndarray, diag: float) -> None:
-    n: int = min(mat.shape[0], mat.shape[1])
-    for j in range(n):
-        mat[j, j] *= diag
+    """Multiply diagonal of *mat* by scalar in-place."""
+    n = min(mat.shape[0], mat.shape[1])
+    idx = np.arange(n)
+    mat[idx, idx] *= diag
 
-@njit(cache=True)
+
 def _diagMultVector(mat: np.ndarray, diagv: np.ndarray) -> None:
-    n: int = min(mat.shape[0], mat.shape[1], diagv.size)
-    for j in range(n):
-        mat[j, j] *= diagv[j]
+    """Multiply diagonal of *mat* by vector in-place."""
+    n = min(mat.shape[0], mat.shape[1], diagv.size)
+    idx = np.arange(n)
+    mat[idx, idx] *= diagv[:n]
 
-# Python dispatch functions with type hints
-from typing import Union
 
 def diagAdd(mat: np.ndarray, diag: Union[float, np.ndarray]) -> None:
-    """Add scalar or vector diag to mat's diagonal."""
+    """
+    Add scalar or vector *diag* to the diagonal of *mat* in-place.
+
+    Dispatcher replacing Fortran's ``diagadd`` interface (scalar / vector).
+
+    Parameters
+    ----------
+    mat : ndarray, shape (M, N)  — modified in-place
+    diag : float or ndarray
+    """
     if isinstance(diag, (int, float, np.generic)):
         _diagAddScalar(mat, float(diag))
     else:
-        _diagAddVector(mat, diag)
+        _diagAddVector(mat, np.asarray(diag))
+
 
 def diagMult(mat: np.ndarray, diag: Union[float, np.ndarray]) -> None:
-    """Multiply scalar or vector diag onto mat's diagonal."""
+    """
+    Multiply the diagonal of *mat* by scalar or vector *diag* in-place.
+
+    Dispatcher replacing Fortran's ``diagmult`` interface (scalar / vector).
+
+    Parameters
+    ----------
+    mat : ndarray, shape (M, N)  — modified in-place
+    diag : float or ndarray
+    """
     if isinstance(diag, (int, float, np.generic)):
         _diagMultScalar(mat, float(diag))
     else:
-        _diagMultVector(mat, diag)
+        _diagMultVector(mat, np.asarray(diag))
 
-# Parallel functions
-@njit(cache=True, parallel=True)
+
 def getDiag(mat: np.ndarray) -> np.ndarray:
     """
-     Extract diagonal into a 1D array (parallel).
-    """
-    n = min(mat.shape[0], mat.shape[1])
-    out = np.empty(n)
-    for j in prange(n):
-        out[j] = mat[j, j]
-    return out
+    Extract diagonal of *mat* into a new 1-D array.
 
-@njit(cache=True, parallel=True)
-def putDiag(diagv: np.ndarray, mat: np.ndarray):
+    Fortran's ``get_diag`` (SP/DP interfaces).
+
+    Parameters
+    ----------
+    mat : ndarray, shape (M, N)
+
+    Returns
+    -------
+    ndarray, shape ``(min(M, N),)``
     """
-    Set the diagonal of mat to diagv (paralle).
+    return np.diag(mat).copy()
+
+
+def putDiag(diagv: np.ndarray, mat: np.ndarray) -> None:
+    """
+    Set the diagonal of *mat* to *diagv* in-place.
+
+    Fortran's ``put_diag`` (SP/DP interfaces).
+
+    Parameters
+    ----------
+    diagv : ndarray
+    mat : ndarray, shape (M, N)  — modified in-place
     """
     n = min(mat.shape[0], mat.shape[1], diagv.size)
-    for j in prange(n):
-        mat[j, j] = diagv[j]
+    idx = np.arange(n)
+    mat[idx, idx] = diagv[:n]
 
-@njit(cache=True, parallel=True)
-def unitMatrix(mat: np.ndarray):
-    """
-    Set mat to the identity matrix (in-place) (parallel rows).
-    """
-    rows, cols = mat.shape
-    for i in prange(rows):
-        for j in range(cols):
-            mat[i, j] = 0.0
-    for i in prange(min(rows, cols)):
-        mat[i, i] = 1.0
 
-@njit(cache=True, parallel=True)
+# ===================================================================
+#  Matrix utilities
+#  Fortran: unit_matrix, upper_triangle, lower_triangle
+# ===================================================================
+
+def unitMatrix(mat: np.ndarray) -> None:
+    """
+    Set *mat* to the identity matrix in-place ($I_{ij} = \\delta_{ij}$).
+
+    Fortran's ``unit_matrix``.
+
+    Parameters
+    ----------
+    mat : ndarray, shape (M, N)  — modified in-place
+    """
+    mat[:] = 0.0
+    np.fill_diagonal(mat, 1.0)
+
+
 def upperTriangle(j: int, k: int, extra: int = 0) -> np.ndarray:
     """
-    Return a boolean mask for the upper triangle of a (j, k) matrix (parallel rows).
-    """
-    out = np.empty((j, k))
-    for ii in prange(j):
-        for jj in range(k):
-            out[ii, jj] = 1.0 if ii < jj + extra else 0.0
-    return out
+    Float mask for the upper triangle of a ``(j, k)`` matrix.
 
-@njit(cache=True, parallel=True)
+    Entry $(r, c)$ is 1.0 where $r < c + \\text{extra}$, else 0.0.
+
+    Fortran's ``upper_triangle``.
+
+    Parameters
+    ----------
+    j : int — rows
+    k : int — columns
+    extra : int, optional
+        Diagonal offset (default 0).
+
+    Returns
+    -------
+    ndarray of float64, shape ``(j, k)``
+    """
+    return np.triu(np.ones((j, k), dtype=np.float64), 1 - extra)
+
+
 def lowerTriangle(j: int, k: int, extra: int = 0) -> np.ndarray:
     """
-    Return a boolean mask for the lower triangle of a (j, k) matrix (parallel reduction).
-    """
-    out = np.empty((j, k))
-    for ii in prange(j):
-        for jj in range(k):
-            out[ii, jj] = 1.0 if ii > jj - extra else 0.0
-    return out
+    Float mask for the lower triangle of a ``(j, k)`` matrix.
 
-@njit(cache=True, parallel=True)
+    Entry $(r, c)$ is 1.0 where $r > c - \\text{extra}$, else 0.0.
+
+    Fortran's ``lower_triangle``.
+
+    Parameters
+    ----------
+    j : int — rows
+    k : int — columns
+    extra : int, optional
+        Diagonal offset (default 0).
+
+    Returns
+    -------
+    ndarray of float64, shape ``(j, k)``
+    """
+    return np.tril(np.ones((j, k), dtype=np.float64), -1 + extra)
+
+
+# ===================================================================
+#  Vector utilities
+#  Fortran: vabs
+# ===================================================================
+
 def vabs(v: np.ndarray) -> float:
     """
-    Return the Euclidean norm of a vector (parallel reduction).
+    Euclidean norm $\\|v\\|_2 = \\sqrt{\\sum_i v_i^2}$.
+
+    Uses ``np.linalg.norm`` (BLAS-backed).
+
+    Fortran's ``vabs``.
+
+    Parameters
+    ----------
+    v : ndarray
+
+    Returns
+    -------
+    float
     """
-    s = 0.0
-    for i in prange(v.size):
-        s += v[i] * v[i]
-    return np.sqrt(s)
+    return float(np.linalg.norm(v))
 
 
-@with_guardrails
+# ===================================================================
+#  Dummy Jacobians for ODE integrators (project-specific additions)
+# ===================================================================
+
 def dummy_jacobian_dp(
     x: float,
-    y: Annotated[NDArray[np.float64], np.float64]
-) -> Tuple[
-      Annotated[NDArray[np.float64], np.float64],
-      Annotated[NDArray[np.float64], np.float64]
-]:
-    """Zero‐Jacobian for real ODEs."""
+    y: NDArray[np.float64],
+) -> Tuple[NDArray[np.float64], NDArray[np.float64]]:
+    """
+    Zero-Jacobian placeholder for real (float64) ODE systems.
+
+    Returns $(\\mathbf{0},\\; \\mathbf{0})$ with dimensions matching *y*.
+
+    Parameters
+    ----------
+    x : float
+        Independent variable (unused).
+    y : ndarray of float64, shape (n,)
+        State vector.
+
+    Returns
+    -------
+    dfdx : ndarray of float64, shape (n,)
+    dfdy : ndarray of float64, shape (n, n)
+    """
     n = y.size
     return np.zeros(n, dtype=np.float64), np.zeros((n, n), dtype=np.float64)
 
-@njit(cache=True)
-def _dummy_jacobian_dp_impl(x, y):
-    # Calls the guardrails-wrapped version under the hood,
-    # but remains pure Numba for speed.
-    return dummy_jacobian_dp(x, y)
 
-
-@with_guardrails
 def dummy_jacobian_dpc(
     x: float,
-    y: Annotated[NDArray[np.complex128], np.complex128]
-) -> Tuple[
-      Annotated[NDArray[np.complex128], np.complex128],
-      Annotated[NDArray[np.complex128], np.complex128]
-]:
-    """Zero‐Jacobian for complex ODEs."""
+    y: NDArray[np.complex128],
+) -> Tuple[NDArray[np.complex128], NDArray[np.complex128]]:
+    """
+    Zero-Jacobian placeholder for complex (complex128) ODE systems.
+
+    Returns $(\\mathbf{0},\\; \\mathbf{0})$ with dimensions matching *y*.
+
+    Parameters
+    ----------
+    x : float
+        Independent variable (unused).
+    y : ndarray of complex128, shape (n,)
+        State vector.
+
+    Returns
+    -------
+    dfdx : ndarray of complex128, shape (n,)
+    dfdy : ndarray of complex128, shape (n, n)
+    """
     n = y.size
     return np.zeros(n, dtype=np.complex128), np.zeros((n, n), dtype=np.complex128)
 
-@njit(cache=True)
-def _dummy_jacobian_dpc_impl(x, y):
-    return dummy_jacobian_dpc(x, y)
 
-
-
-# TODO: Implement all masked_swap, complex, and advanced poly/outerprod variants as needed.
-# TODO: Add more Fortran-style interfaces if required by downstream code.
-
-# TODOs are left for masked swap, complex, and advanced poly/outerprod variants,
-# as these are less commonly used and can be added if required by downstream code.
+# Backward-compatible aliases (used by integrator tests)
+_dummy_jacobian_dp_impl = dummy_jacobian_dp
+_dummy_jacobian_dpc_impl = dummy_jacobian_dpc

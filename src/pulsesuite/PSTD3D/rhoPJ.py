@@ -718,3 +718,270 @@ def ElongfromRho(space, Rho, Px, Py, Pz, ExlfromPRho, EylfromPRho, EzlfromPRho, 
     ExlfromRho[:] = pyfftw.interfaces.numpy_fft.ifftn(ExlfromRho)
     EylfromRho[:] = pyfftw.interfaces.numpy_fft.ifftn(EylfromRho)
     EzlfromRho[:] = pyfftw.interfaces.numpy_fft.ifftn(EzlfromRho)
+
+
+# ============================================================================
+# QWArray class — encapsulates all module-level state
+# ============================================================================
+
+
+class QWArray:
+    """Quantum wire array state for 3D Maxwell propagation.
+
+    Encapsulates all mutable module-level state (QW parameters, old
+    polarization/charge arrays) enabling multiple independent QW array
+    simulations.
+
+    Usage (mirrors Fortran workflow via shim)::
+
+        # Implicit via shim — zero caller changes:
+        QuantumWire(space, dt, n, Ex, Ey, Ez, ...)
+
+        # Explicit — for multi-instance:
+        qw = QWArray()
+        qw.QuantumWire(space, dt, n, Ex, Ey, Ez, ...)
+    """
+
+    def __init__(self):
+        """Initialize with defaults (matching Fortran module variables)."""
+        # QW array parameters (overwritten by read_qw_parameters)
+        self.Nw = 4
+        self.y0 = 0.0e-6
+        self.x0 = 0.0e-9
+        self.z0 = 0.0e-6
+        self.dxqw = 0.0e-9
+        self.ay = 5.0e-9
+        self.az = 5.0e-9
+
+        # Flags
+        self.QW = True
+        self.host = False
+        self.propagate = True
+
+        # Old polarization/charge arrays (persistent across timesteps)
+        self.PxxOld = None
+        self.PyyOld = None
+        self.PzzOld = None
+        self.RhoOld = None
+
+    def read_qw_parameters(self, filename):
+        """Read quantum wire parameters from file.
+
+        Parameters
+        ----------
+        filename : str
+            Path to the parameter file
+
+        Returns
+        -------
+        int
+            Error status: 0 for success, non-zero for error
+        """
+        def parse_line(line):
+            if '#' in line:
+                line = line.split('#')[0]
+            return line.strip()
+
+        try:
+            with open(filename, 'r', encoding='utf-8') as f:
+                lines = []
+                for line in f:
+                    parsed = parse_line(line)
+                    if parsed:
+                        lines.append(parsed)
+
+                if len(lines) < 6:
+                    raise ValueError(f"Expected 6 parameters, found {len(lines)}")
+
+                self.QW = bool(int(lines[0]))
+                self.Nw = int(lines[1])
+                self.x0 = float(lines[2])
+                self.dxqw = float(lines[3])
+                self.ay = float(lines[4])
+                self.az = float(lines[5])
+            return 0
+        except IOError as e:
+            print(f"Error opening quantum wire parameters file: {e}")
+            return 1
+        except (ValueError, IndexError) as e:
+            print(f"Error reading quantum wire parameters: {e}")
+            return 1
+
+    def QuantumWire(self, space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho,
+                    ExlfromPRho, EylfromPRho, EzlfromPRho,
+                    ExlfromP, EylfromP, EzlfromP,
+                    ExlfromRho, EylfromRho, EzlfromRho, RhoBound):
+        """Main quantum wire calculation routine.
+
+        Calculates polarization and charge density for quantum wires and
+        deposits them into 3D Maxwell grid.  Handles multiple wires and
+        computes longitudinal fields from polarization and charge density.
+
+        All output arrays are modified in-place.
+        """
+        Nx = GetNx(space)
+        Ny = GetNy(space)
+        Nz = GetNz(space)
+
+        Exx = np.zeros(Nx, dtype=np.complex128)
+        Eyy = np.zeros(Nx, dtype=np.complex128)
+        Ezz = np.zeros(Nx, dtype=np.complex128)
+        Jxx = np.zeros(Nx, dtype=np.complex128)
+        Jyy = np.zeros(Nx, dtype=np.complex128)
+        Jzz = np.zeros(Nx, dtype=np.complex128)
+        Vrr = np.zeros(Nx, dtype=np.complex128)
+
+        Pxx = np.zeros((Nx, self.Nw), dtype=np.complex128)
+        Pyy = np.zeros((Nx, self.Nw), dtype=np.complex128)
+        Pzz = np.zeros((Nx, self.Nw), dtype=np.complex128)
+        RhoEH = np.zeros((Nx, self.Nw), dtype=np.complex128)
+
+        Px = np.zeros((Nx, Ny, Nz), dtype=np.complex128)
+        Py = np.zeros((Nx, Ny, Nz), dtype=np.complex128)
+        Pz = np.zeros((Nx, Ny, Nz), dtype=np.complex128)
+
+        rx = GetXArray(space)
+        ry = GetYArray(space)
+        rz = GetZArray(space)
+        qx = GetKxArray(space)
+
+        gx = np.zeros(Nx, dtype=np.complex128)
+        gy = np.zeros(Ny, dtype=np.complex128)
+        gz = np.zeros(Nz, dtype=np.complex128)
+        xqw = np.zeros(self.Nw, dtype=np.float64)
+
+        DoQWP = [True]
+        DoQWDl = [True]
+        DoQWCurr = True
+
+        xqw[:] = 0.0
+
+        # Read parameters at the start of the subroutine
+        iostat = self.read_qw_parameters('params/qwarray.params')
+        if iostat != 0:
+            print("Error reading quantum wire parameters, using defaults")
+            self.QW = False
+            return
+
+        # Reallocate old arrays if needed
+        if self.PxxOld is not None:
+            self.PxxOld = None
+            self.PyyOld = None
+            self.PzzOld = None
+            self.RhoOld = None
+
+        if self.PxxOld is None:
+            self.PxxOld = np.zeros((Nx, self.Nw), dtype=np.complex128)
+            self.PyyOld = np.zeros((Nx, self.Nw), dtype=np.complex128)
+            self.PzzOld = np.zeros((Nx, self.Nw), dtype=np.complex128)
+            self.RhoOld = np.zeros((Nx, self.Nw), dtype=np.complex128)
+
+        Vrr[:] = 0.0
+        Pxx[:] = 0.0
+        Pyy[:] = 0.0
+        Pzz[:] = 0.0
+        Px[:] = 0.0
+        Py[:] = 0.0
+        Pz[:] = 0.0
+        RhoEH[:] = 0.0
+
+        for w in range(self.Nw):
+            Exx[:] = EAtXYZ(Ex, rx, ry, rz, xqw[w], self.y0, self.z0)
+            Eyy[:] = EAtXYZ(Ey, rx, ry, rz, xqw[w], self.y0, self.z0)
+            Ezz[:] = EAtXYZ(Ez, rx, ry, rz, xqw[w], self.y0, self.z0)
+
+            QWCalculator(Exx, Eyy, Ezz, Vrr, rx, qx, dt, w + 1,
+                         Pxx[:, w], Pyy[:, w], Pzz[:, w], RhoEH[:, w],
+                         DoQWP, DoQWDl)
+
+        # Time derivative of polarization → current density
+        for i in range(Nx):
+            Jxx[i] = np.sum(Pxx[i, :] - self.PxxOld[i, :]) / dt
+        for i in range(Nx):
+            Jyy[i] = np.sum(Pyy[i, :] - self.PyyOld[i, :]) / dt
+        for i in range(Nx):
+            Jzz[i] = np.sum(Pzz[i, :] - self.PzzOld[i, :]) / dt
+
+        Jxx[:] = (Jxx / float(self.Nw)
+                  + CalcJfx(np.sum(RhoEH, axis=1), np.sum(self.RhoOld, axis=1),
+                            dt, GetDx(space)) / float(self.Nw))
+        Jyy[:] = Jyy / float(self.Nw)
+        Jzz[:] = Jzz / float(self.Nw)
+
+        # Gate profiles
+        gx[:] = 1.0
+        for j in range(Ny):
+            gy[j] = np.exp(-((ry[j] - self.y0) ** 2) / (2.0 * self.ay ** 2))
+        for k in range(Nz):
+            gz[k] = np.exp(-((rz[k] - self.z0) ** 2) / (2.0 * self.az ** 2))
+
+        if DoQWCurr and self.propagate:
+            QWPlacement(Jxx, gx, gy, gz, Jx)
+            QWPlacement(Jyy, gx, gy, gz, Jy)
+            QWPlacement(Jzz, gx, gy, gz, Jz)
+
+        if DoQWDl[0] and self.propagate:
+            QWPlacement((np.sum(RhoEH, axis=1) / float(self.Nw)), gx, gy, gz, Rho)
+
+        if DoQWP[0] and self.propagate:
+            QWPlacement((np.sum(Pxx, axis=1) / float(self.Nw)), gx, gy, gz, Px)
+            QWPlacement((np.sum(Pyy, axis=1) / float(self.Nw)), gx, gy, gz, Py)
+            QWPlacement((np.sum(Pzz, axis=1) / float(self.Nw)), gx, gy, gz, Pz)
+
+            ElongfromRho(space, Rho, Px, Py, Pz, ExlfromPRho, EylfromPRho,
+                         EzlfromPRho, ExlfromP, EylfromP, EzlfromP,
+                         ExlfromRho, EylfromRho, EzlfromRho, RhoBound)
+
+        self.PxxOld[:] = Pxx
+        self.PyyOld[:] = Pyy
+        self.PzzOld[:] = Pzz
+        self.RhoOld[:] = RhoEH
+
+        if n % 100 == 0:
+            print(n, "RhoEH-max = ", np.max(np.abs(RhoEH[:, 0])),
+                  np.max(np.abs(RhoEH[:, 1])))
+            print(n, "Jxx-max = ", np.max(np.abs(Jxx[:])))
+            print(n, "Jyy-max = ", np.max(np.abs(Jyy[:])))
+            print(n, "Jzz-max = ", np.max(np.abs(Jzz[:])))
+            print("Difference check E*lfromPRho E*lfromP:",
+                  np.max(np.abs(ExlfromPRho - ExlfromP)),
+                  np.max(np.abs(EylfromPRho - EylfromP)),
+                  np.max(np.abs(EzlfromPRho - EzlfromP)))
+
+            for w in range(self.Nw):
+                print(n, "w = ", w)
+                print(n, "Pxx-max-min-w = ", np.max(np.real(Pxx[:, w])),
+                      np.min(np.real(Pxx[:, w])))
+                print(n, "Pyy-max-min-w = ", np.max(np.real(Pyy[:, w])),
+                      np.min(np.real(Pyy[:, w])))
+                print(n, "Pzz-max-min-w = ", np.max(np.real(Pzz[:, w])),
+                      np.min(np.real(Pzz[:, w])))
+
+
+# ============================================================================
+# Backward-compatible module-level shims
+# ============================================================================
+
+_default_qw = None
+
+
+def QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho,  # noqa: F811
+                ExlfromPRho, EylfromPRho, EzlfromPRho,
+                ExlfromP, EylfromP, EzlfromP,
+                ExlfromRho, EylfromRho, EzlfromRho, RhoBound):
+    """Backward-compatible shim — delegates to _default_qw."""
+    global _default_qw
+    if _default_qw is None:
+        _default_qw = QWArray()
+    _default_qw.QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho,
+                            ExlfromPRho, EylfromPRho, EzlfromPRho,
+                            ExlfromP, EylfromP, EzlfromP,
+                            ExlfromRho, EylfromRho, EzlfromRho, RhoBound)
+
+
+def read_qw_parameters(filename):  # noqa: F811
+    """Backward-compatible shim — delegates to _default_qw."""
+    global _default_qw
+    if _default_qw is None:
+        _default_qw = QWArray()
+    return _default_qw.read_qw_parameters(filename)

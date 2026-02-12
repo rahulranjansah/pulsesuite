@@ -1,230 +1,373 @@
-import sys
-import os
+"""
+Tests for helpers — grounded in mathematical identities and physics formulae.
+
+Covers all public functions from helpers.py matching Fortran helpers.F90:
+sech, arg, gauss, magsq, constrain, AmpToInten, FldToInten, IntenToAmp,
+l2f, l2w, w2l, GetSpaceArray, GetKArray, LinearInterp, BilinearInterp,
+TrilinearInterp, dfdt, LAX, noLAX, unwrap, factorial, isnan.
+
+Tolerances:
+    algebraic  :  rtol=1e-12, atol=1e-12  (float64)
+    physics    :  rtol=1e-8               (constant combinations)
+"""
 import numpy as np
 import pytest
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
-from pulsesuite.libpulsesuite.helpers import Intensity, MathOps, Transforms, Grid, Interpolator, Stencils, Smoothers, Utils
+from pulsesuite.libpulsesuite.helpers import (
+    sech, arg, gauss, magsq, constrain,
+    AmpToInten, FldToInten, IntenToAmp,
+    l2f, l2w, w2l,
+    GetSpaceArray, GetKArray,
+    LinearInterp, BilinearInterp, TrilinearInterp,
+    dfdt, dfdt_dp, dfdt_1D_dp, dfdt_1D_dpc,
+    LAX, noLAX,
+    unwrap, factorial,
+    isnan_dp, isnan_sp,
+    ec2, c0, pi,
+)
+
+RTOL = 1e-12
+ATOL = 1e-12
 
 
-# def testSech():
-#     x = np.array([0.0, 1.0, -1.0])
-#     expected = 1.0 / np.cosh(x)
-#     assert np.allclose(Helpers.sech(x), expected)
+# ===================================================================
+# sech
+# ===================================================================
 
-# def testArg():
-#     z = np.array([1+0j, 0+1j, -1+0j, 0-1j])
-#     expected = np.angle(z)
-#     assert np.allclose(Helpers.arg(z), expected)
+class TestSech:
+    def test_sech_zero(self):
+        assert np.isclose(sech(np.float64(0.0)), 1.0, atol=ATOL)
 
-# def testGauss():
-#     x = np.array([0.0, 1.0, -1.0])
-#     expected = np.exp(-x**2)
-#     assert np.allclose(Helpers.gauss(x), expected)
+    def test_sech_identity(self):
+        """sech(x) = 1/cosh(x)."""
+        x = np.linspace(-5, 5, 50)
+        np.testing.assert_allclose(sech(x), 1.0 / np.cosh(x), rtol=RTOL, atol=ATOL)
 
-# def testMagsq():
-#     z = np.array([1+1j, 0+1j, 1+0j])
-#     expected = np.real(z)**2 + np.imag(z)**2
-#     assert np.allclose(Helpers.magsq(z), expected)
-
-# def testConstrain():
-#     x = np.array([-2, 0, 2, 4])
-#     result = Helpers.constrain(x, 3, -1)
-#     assert np.all(result >= -1) and np.all(result <= 3)
-
-# def testAmpToInten():
-#     e = np.array([1.0, 2.0])
-#     n0 = 1.5
-#     out = Helpers.ampToInten(e, n0)
-#     assert out.shape == e.shape
-
-# def testFldToInten():
-#     e = np.array([1+1j, 2+0j])
-#     n0 = 1.5
-#     out = Helpers.fldToInten(e, n0)
-#     assert out.shape == e.shape
-
-# def testIntenToAmp():
-#     inten = np.array([1.0, 4.0])
-#     n0 = 1.5
-#     out = Helpers.intenToAmp(inten, n0)
-#     assert out.shape == inten.shape
-
-# def testL2f():
-#     lam = np.array([1.0, 2.0])
-#     out = Helpers.l2f(lam)
-#     assert out.shape == lam.shape
-
-# def testL2w():
-#     lam = np.array([1.0, 2.0])
-#     out = Helpers.l2w(lam)
-#     assert out.shape == lam.shape
-
-# def testW2l():
-#     w = np.array([1.0, 2.0])
-#     out = Helpers.w2l(w)
-#     assert out.shape == w.shape
-
-# def testIsnan():
-#     x = np.array([0.0, np.nan, 1.0])
-#     out = Helpers.isnan(x)
-#     assert out[1] == True and out[0] == False
-
-# def testFactorial():
-#     p = np.array([0, 1, 5])
-#     expected = np.array([1, 1, math.factorial(5)])
-#     assert np.allclose(Helpers.factorial(p), expected)
-
-# def testUnwrap():
-#     phase = np.array([0, np.pi, 2*np.pi, 3*np.pi])
-#     out = Helpers.unwrap(phase)
-#     assert out.shape == phase.shape
-
-# def testLinearInterp():
-#     x = np.array([0, 1, 2])
-#     f = np.array([0, 10, 20])
-#     x0 = 1.5
-#     expected = 15.0
-#     assert np.isclose(Helpers.linearInterp(f, x, x0), expected)
-
-# def testGetSpaceArray():
-#     arr = Helpers.getSpaceArray(5, 4.0)
-#     assert arr.shape == (5,)
-#     assert np.isclose(arr[0], -2.0)
-#     assert np.isclose(arr[-1], 2.0)
-
-# def testGetKArray():
-#     arr = Helpers.getKArray(4, 2.0)
-#     assert arr.shape == (4,)
-
-# if __name__ == "__main__":
-#     testSech()
-#     testArg()
-#     testGauss()
-#     testMagsq()
-#     testConstrain()
-#     testAmpToInten()
-#     testFldToInten()
-#     testIntenToAmp()
-#     testL2f()
-#     testL2w()
-#     testW2l()
-#     testIsnan()
-#     testFactorial()
-#     testUnwrap()
-#     testLinearInterp()
-#     testGetSpaceArray()
-#     testGetKArray()
-#     print("All tests passed.")
+    def test_sech_even(self):
+        """sech is an even function: sech(-x) = sech(x)."""
+        x = np.array([0.5, 1.0, 2.0, 3.0])
+        np.testing.assert_allclose(sech(-x), sech(x), rtol=RTOL, atol=ATOL)
 
 
+# ===================================================================
+# arg
+# ===================================================================
+
+class TestArg:
+    def test_arg_real_positive(self):
+        assert np.isclose(arg(np.complex128(1.0 + 0j)), 0.0, atol=ATOL)
+
+    def test_arg_imaginary(self):
+        assert np.isclose(arg(np.complex128(0.0 + 1j)), np.pi / 2, atol=ATOL)
+
+    def test_arg_negative_real(self):
+        assert np.isclose(arg(np.complex128(-1.0 + 0j)), np.pi, atol=ATOL)
+
+    def test_arg_matches_numpy_angle(self):
+        z = np.array([1 + 0j, 0 + 1j, -1 + 0j, 0 - 1j, 1 + 1j])
+        np.testing.assert_allclose(arg(z), np.angle(z), rtol=RTOL, atol=ATOL)
 
 
-EPS = 1e-9
+# ===================================================================
+# gauss
+# ===================================================================
 
-def test_intensity_roundtrip_scalar():
-    e = 2.5
-    I = Intensity.amp_to_inten(e, n0=1.33)
-    e_back = Intensity.inten_to_amp(I, n0=1.33)
-    assert abs(e - e_back) < EPS
+class TestGauss:
+    def test_gauss_zero(self):
+        assert np.isclose(gauss(np.float64(0.0)), 1.0, atol=ATOL)
 
-def test_intensity_field_array():
-    arr = np.array([1+2j, -3+4j, 0-1j])
-    I = Intensity.fld_to_inten(arr, n0=1.0)
-    expected = (2.0 * 8.854187817e-12 * 299792458) * np.abs(arr)**2
-    assert np.allclose(I, expected)
+    def test_gauss_identity(self):
+        """gauss(x) = exp(-x^2)."""
+        x = np.linspace(-3, 3, 30)
+        np.testing.assert_allclose(gauss(x), np.exp(-x**2), rtol=RTOL, atol=ATOL)
 
-@pytest.mark.parametrize("x", [0.0, -1.5, 3.14])
-def test_mathops_gauss_sech(x):
-    # gauss
-    g = MathOps.gauss(np.array([x]))[0]
-    assert g == pytest.approx(np.exp(-x**2))
-    # sech
-    s = MathOps.sech(np.array([x]))[0]
-    assert s == pytest.approx(1.0/np.cosh(x))
+    def test_gauss_even(self):
+        x = np.array([0.5, 1.0, 2.0])
+        np.testing.assert_allclose(gauss(-x), gauss(x), rtol=RTOL, atol=ATOL)
 
-def test_mathops_magsq_and_constrain():
-    data = np.array([-2.0, -1.0, 0.0, 1.0, 2.0])
-    msq = MathOps.magsq(data + 1j*data)
-    assert np.all(msq == (data**2 + data**2))
-    clipped = MathOps.constrain(data, low=-1.0, high=1.0)
-    assert clipped.min() >= -1.0 and clipped.max() <= 1.0
+    def test_gauss_large_array(self):
+        big = np.random.rand(500_000)
+        out = gauss(big)
+        assert out.size == big.size
 
-def test_transforms_inverse():
-    lam = 0.75
-    w = Transforms.l2w(lam)
-    lam_back = Transforms.w2l(w)
-    assert lam_back == pytest.approx(lam)
 
-def test_grid_endpoints_and_length():
-    arr3 = Grid.get_space_array(3, 10.0)
-    assert np.allclose(arr3, np.array([-5.0, 0.0, 5.0]))
-    k4 = Grid.get_k_array(4, length=2*np.pi)
-    # should be [0,1, -2, -1] when scaled by dk=1
-    assert np.allclose(k4, np.array([0,1,-2,-1]))
+# ===================================================================
+# magsq
+# ===================================================================
 
-def test_interpolator_1d_and_complex():
-    xp = np.array([0, 1, 2])
-    fp_real = np.array([0.0, 2.0, 4.0])
-    assert Interpolator.linear(1.5, xp, fp_real) == pytest.approx(3.0)
-    fp_c = np.array([0+0j, 1+1j, 2+2j])
-    out_c = Interpolator.linear_complex(0.5, xp, fp_c)
-    assert out_c == pytest.approx(0.5+0.5j)
+class TestMagsq:
+    def test_magsq_real(self):
+        """magsq(x+0j) = x^2."""
+        z = np.array([1 + 0j, 2 + 0j, -3 + 0j])
+        np.testing.assert_allclose(magsq(z), np.array([1, 4, 9], dtype=float), rtol=RTOL, atol=ATOL)
 
-def test_interpolator_bilinear_and_trilinear():
-    xp = yp = zp = np.linspace(0,1,2)
-    fp = np.zeros((2,2,2))
-    fp[1,1,1] = 8.0
-    # at the corner (1,1,1) should return 8
-    assert Interpolator.bilinear(1,1,xp,yp,fp[:,:,1]) == pytest.approx(8.0)
-    assert Interpolator.trilinear(1,1,1,xp,yp,zp,fp) == pytest.approx(8.0)
+    def test_magsq_identity(self):
+        """|z|^2 = Re(z)^2 + Im(z)^2."""
+        z = np.array([1 + 1j, 3 - 4j, 0 + 2j])
+        expected = np.real(z)**2 + np.imag(z)**2
+        np.testing.assert_allclose(magsq(z), expected, rtol=RTOL, atol=ATOL)
 
-def test_stencils_locator_and_gradient():
-    x = np.linspace(0,10,11)
-    assert Stencils.locator(x, 4.2) == 4
-    f = np.array([0,1,4,9,16], dtype=float)
-    grad = Stencils.gradient(f, 1.0)
-    # simple derivative of x^2 is 2x, check interior
-    assert grad[2] == pytest.approx(2*2, rel=1e-3)
 
-def test_dfdt_index_and_full():
-    f = np.arange(20.0)
-    # central derivative ~ slope=1, central index
-    assert Stencils.dfdt_index_real(f, 1.0, 10) == pytest.approx(1.0)
-    full = Stencils.dfdt1d_real(f, 1.0)
-    assert full.shape == f.shape
+# ===================================================================
+# constrain
+# ===================================================================
 
-def test_smoothers_lax_and_no_lax():
-    u = np.arange(27).reshape((3,3,3)).astype(complex)
-    # at center
-    val_lax = Smoothers.lax(u,1,1,1)
-    neighbors = [u[0,1,1],u[2,1,1],u[1,0,1],u[1,2,1],u[1,1,0],u[1,1,2]]
-    assert val_lax == pytest.approx(sum(neighbors)/6)
-    assert Smoothers.no_lax(u,1,1,1) == u[1,1,1]
+class TestConstrain:
+    def test_constrain_clips(self):
+        x = np.array([-5.0, 0.0, 5.0, 10.0])
+        result = constrain(x, 8.0, -2.0)
+        assert np.all(result >= -2.0) and np.all(result <= 8.0)
 
-def test_utils_unwrap_and_factorial():
-    ph = np.array([0,2*np.pi,4*np.pi])
-    u = Utils.unwrap_phase(ph)
-    assert u[-1] > u[0]
-    assert Utils.factorial(6) == 720
+    def test_constrain_passthrough(self):
+        """Values within bounds should be unchanged."""
+        x = np.array([1.0, 2.0, 3.0])
+        result = constrain(x, 5.0, 0.0)
+        np.testing.assert_allclose(result, x, rtol=RTOL, atol=ATOL)
 
-def test_large_array_performance():
-    big = np.random.rand(2_000_000)
-    out = MathOps.gauss(big)
-    assert out.size == big.size
+    def test_constrain_integer(self):
+        x = np.array([-10, 0, 10], dtype=np.int64)
+        result = constrain(x, 5, -5)
+        assert np.all(result >= -5) and np.all(result <= 5)
 
-if __name__ == "__main__":
-    test_intensity_roundtrip_scalar()
-    test_intensity_field_array()
-    test_mathops_gauss_sech()
-    test_mathops_magsq_and_constrain()
-    test_transforms_inverse()
-    test_grid_endpoints_and_length()
-    test_interpolator_1d_and_complex()
-    test_interpolator_bilinear_and_trilinear()
-    test_stencils_locator_and_gradient()
-    test_dfdt_index_and_full()
-    test_smoothers_lax_and_no_lax()
-    test_utils_unwrap_and_factorial()
-    test_large_array_performance()
-    print("All tests passed.")
+
+# ===================================================================
+# Field conversion: AmpToInten, FldToInten, IntenToAmp
+# ===================================================================
+
+class TestFieldConversions:
+    def test_amp_to_inten_roundtrip(self):
+        """IntenToAmp(AmpToInten(E)) = E for positive E."""
+        e = 2.5
+        n0 = 1.33
+        I = AmpToInten(e, n0)
+        e_back = IntenToAmp(I, n0)
+        assert np.isclose(e, e_back, rtol=1e-10)
+
+    def test_amp_to_inten_formula(self):
+        """I = n0 * 2 * eps0 * c0 * E^2."""
+        e = 3.0
+        n0 = 1.5
+        expected = n0 * ec2 * e**2
+        assert np.isclose(AmpToInten(e, n0), expected, rtol=RTOL)
+
+    def test_fld_to_inten_complex(self):
+        """FldToInten uses |E|^2."""
+        e = 1.0 + 2.0j
+        n0 = 1.0
+        expected = n0 * ec2 * (1.0**2 + 2.0**2)
+        assert np.isclose(FldToInten(e, n0), expected, rtol=1e-10)
+
+    def test_no_n0_defaults(self):
+        """When n0 is not passed, formula uses n0=1 effectively."""
+        e = 2.0
+        I_default = AmpToInten(e)
+        I_n1 = AmpToInten(e, 1.0)
+        assert np.isclose(I_default, I_n1, rtol=RTOL)
+
+
+# ===================================================================
+# Wavelength / frequency conversions
+# ===================================================================
+
+class TestWavelengthFrequency:
+    def test_l2f_identity(self):
+        """f = c0 / lam."""
+        lam = 800e-9  # 800 nm
+        assert np.isclose(l2f(lam), c0 / lam, rtol=RTOL)
+
+    def test_l2w_w2l_roundtrip(self):
+        """w2l(l2w(lam)) = lam."""
+        lam = 1.55e-6
+        assert np.isclose(w2l(l2w(lam)), lam, rtol=RTOL)
+
+    def test_l2w_formula(self):
+        """omega = 2*pi*c0 / lam."""
+        lam = 532e-9
+        assert np.isclose(l2w(lam), 2 * pi * c0 / lam, rtol=RTOL)
+
+
+# ===================================================================
+# GetSpaceArray, GetKArray
+# ===================================================================
+
+class TestGridArrays:
+    def test_space_array_centered(self):
+        """N=3, length=10 -> [-5, 0, 5]."""
+        arr = GetSpaceArray(3, 10.0)
+        np.testing.assert_allclose(arr, [-5.0, 0.0, 5.0], rtol=RTOL, atol=ATOL)
+
+    def test_space_array_symmetry(self):
+        arr = GetSpaceArray(11, 20.0)
+        np.testing.assert_allclose(arr, -arr[::-1], atol=ATOL)
+
+    def test_space_array_n1(self):
+        arr = GetSpaceArray(1, 10.0)
+        assert arr.shape == (1,)
+        assert arr[0] == 0.0
+
+    def test_k_array_shape_and_dc(self):
+        k = GetKArray(8, 2 * np.pi)
+        assert k.shape == (8,)
+        assert np.isclose(k[0], 0.0, atol=ATOL)
+
+    def test_k_array_fft_convention(self):
+        """k array: positive freqs up to N//2, then negative freqs."""
+        N = 8
+        length = 2 * np.pi
+        k = GetKArray(N, length)
+        dk = 2 * pi / length
+        # Implementation uses i <= N//2 (inclusive), so Nyquist is positive
+        expected = np.array([0, 1, 2, 3, 4, -3, -2, -1], dtype=float) * dk
+        np.testing.assert_allclose(k, expected, rtol=RTOL, atol=ATOL)
+
+
+# ===================================================================
+# LinearInterp, BilinearInterp, TrilinearInterp
+# ===================================================================
+
+class TestLinearInterp:
+    def test_linear_interp_exact(self):
+        """Interpolating a linear function should be exact."""
+        x = np.array([0.0, 1.0, 2.0, 3.0])
+        f = 2.0 * x + 1.0  # f(x) = 2x + 1
+        assert np.isclose(LinearInterp(f, x, 1.5), 4.0, rtol=1e-10)
+
+    def test_linear_interp_at_node(self):
+        x = np.array([0.0, 1.0, 2.0])
+        f = np.array([10.0, 20.0, 30.0])
+        assert np.isclose(LinearInterp(f, x, 1.0), 20.0, rtol=1e-10)
+
+    def test_linear_interp_complex(self):
+        x = np.array([0.0, 1.0, 2.0])
+        f = np.array([0 + 0j, 1 + 1j, 2 + 2j])
+        val = LinearInterp(f, x, 0.5)
+        assert np.isclose(val, 0.5 + 0.5j, rtol=1e-10)
+
+
+class TestBilinearInterp:
+    def test_bilinear_plane(self):
+        """Bilinear interp of f(x,y)=x+y should be exact."""
+        x = np.linspace(0, 1, 5)
+        y = np.linspace(0, 1, 5)
+        X, Y = np.meshgrid(x, y, indexing='ij')
+        f = X + Y
+        val = BilinearInterp(f, x, y, 0.5, 0.5)
+        assert np.isclose(val, 1.0, rtol=1e-8)
+
+
+class TestTrilinearInterp:
+    def test_trilinear_plane(self):
+        """Trilinear interp of f(x,y,z)=x+y+z should be exact."""
+        x = np.linspace(0, 1, 5)
+        y = np.linspace(0, 1, 5)
+        z = np.linspace(0, 1, 5)
+        X, Y, Z = np.meshgrid(x, y, z, indexing='ij')
+        f = X + Y + Z
+        val = TrilinearInterp(f, x, y, z, 0.5, 0.5, 0.5)
+        assert np.isclose(val, 1.5, rtol=1e-8)
+
+
+# ===================================================================
+# dfdt (five-point stencil derivative)
+# ===================================================================
+
+class TestDfdt:
+    def test_dfdt_index_linear(self):
+        """Derivative of f(t) = t is 1 everywhere."""
+        f = np.arange(20, dtype=float)
+        dt = 1.0
+        val = dfdt_dp(f, dt, 10)
+        assert np.isclose(val, 1.0, rtol=1e-8)
+
+    def test_dfdt_1d_quadratic(self):
+        """Derivative of f(t) = t^2 is 2t. Interior points should be exact for 5pt stencil."""
+        t = np.linspace(0, 5, 100)
+        dt = t[1] - t[0]
+        f = t**2
+        deriv = dfdt_1D_dp(f, dt)
+        # Check interior (away from boundaries)
+        interior = slice(5, 95)
+        np.testing.assert_allclose(deriv[interior], 2 * t[interior], rtol=1e-4)
+
+    def test_dfdt_1d_complex(self):
+        """Derivative of f(t) = t + i*t is (1 + i) everywhere."""
+        t = np.linspace(0, 5, 100)
+        dt = t[1] - t[0]
+        f = t + 1j * t
+        deriv = dfdt_1D_dpc(f, dt)
+        interior = slice(5, 95)
+        np.testing.assert_allclose(deriv[interior], np.full(90, 1.0 + 1.0j), rtol=1e-4)
+
+    def test_dfdt_shape_preserved(self):
+        f = np.arange(20, dtype=float)
+        result = dfdt_1D_dp(f, 1.0)
+        assert result.shape == f.shape
+
+
+# ===================================================================
+# LAX / noLAX
+# ===================================================================
+
+class TestLaxSmoothing:
+    def test_lax_average(self):
+        """LAX returns average of 6 nearest neighbors in 3D."""
+        u = np.arange(27, dtype=complex).reshape((3, 3, 3))
+        val = LAX(u, 1, 1, 1)
+        neighbors = [u[0, 1, 1], u[2, 1, 1], u[1, 0, 1], u[1, 2, 1], u[1, 1, 0], u[1, 1, 2]]
+        assert np.isclose(val, sum(neighbors) / 6.0)
+
+    def test_noLAX_identity(self):
+        """noLAX returns the center value unchanged."""
+        u = np.arange(27, dtype=complex).reshape((3, 3, 3))
+        assert noLAX(u, 1, 1, 1) == u[1, 1, 1]
+
+
+# ===================================================================
+# unwrap
+# ===================================================================
+
+class TestUnwrap:
+    def test_unwrap_monotone(self):
+        """Unwrapping a linearly increasing phase should be monotone."""
+        phase = np.linspace(0, 6 * np.pi, 100) % (2 * np.pi)
+        u = unwrap(phase)
+        # Should be monotonically increasing (up to floating point)
+        diffs = np.diff(u)
+        assert np.all(diffs >= -1e-10)
+
+    def test_unwrap_no_wraps(self):
+        """If phase is already smooth, unwrap should not change it."""
+        phase = np.linspace(0, np.pi, 50)
+        u = unwrap(phase)
+        np.testing.assert_allclose(u, phase, atol=1e-10)
+
+
+# ===================================================================
+# factorial
+# ===================================================================
+
+class TestFactorial:
+    @pytest.mark.parametrize("n, expected", [
+        (0, 1), (1, 1), (5, 120), (6, 720), (10, 3628800),
+    ])
+    def test_factorial_values(self, n, expected):
+        assert factorial(n) == expected
+
+
+# ===================================================================
+# isnan
+# ===================================================================
+
+class TestIsnan:
+    def test_isnan_dp(self):
+        assert isnan_dp(np.nan) == True
+        assert isnan_dp(0.0) == False
+
+    def test_isnan_sp(self):
+        assert isnan_sp(np.float32(np.nan)) == True
+        assert isnan_sp(np.float32(1.0)) == False
+
+    def test_isnan_array(self):
+        x = np.array([0.0, np.nan, 1.0])
+        result = isnan_dp(x)
+        assert result[1] == True and result[0] == False and result[2] == False
