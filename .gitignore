@@ -11,3 +11,4 @@ integrations.md
 .DS_Store
 *.pyc
 .venv/
+*.dat

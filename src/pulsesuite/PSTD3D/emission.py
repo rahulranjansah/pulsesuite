@@ -78,8 +78,17 @@ def InitializeEmission(ky, Ee, Eh, dcv, epsr, geh, ehint):
 
     # Pre-calculate square array
     _square = np.zeros(len(_HOmega), dtype=np.float64)
-    _square[:] = (3.0 * dcv**2 * ehint / eps0 / np.sqrt(epsr) * ehint / hbar *
-                   Lrtz(_HOmega[:], hbar * geh) * np.exp(-_HOmega[:] / kB / _Temp))
+    _square[:] = (
+        3.0
+        * dcv**2
+        * ehint
+        / eps0
+        / np.sqrt(epsr)
+        * ehint
+        / hbar
+        * Lrtz(_HOmega[:], hbar * geh)
+        * np.exp(-_HOmega[:] / kB / _Temp)
+    )
 
 
 def SpontEmission(ne, nh, Ee, Eh, gap, geh, VC, Rsp):
@@ -153,9 +162,11 @@ def Ec(ne, nh, VC):
     Vhh = VC[:, :, 2]
 
     for k in range(Nk):
-        Ec_result[k] = (np.sum(ne[:] * (Vee[k, k] - Vee[:, k]) + nh[:] * (Vhh[k, k] - Vhh[:, k])) +
-                        np.sum(ne[:] * Veh[k, k] * _idel[:, k] - nh[:] * Veh[k, k] * _idel[:, k]) -
-                        Veh[k, k])
+        Ec_result[k] = (
+            np.sum(ne[:] * (Vee[k, k] - Vee[:, k]) + nh[:] * (Vhh[k, k] - Vhh[:, k]))
+            + np.sum(ne[:] * Veh[k, k] * _idel[:, k] - nh[:] * Veh[k, k] * _idel[:, k])
+            - Veh[k, k]
+        )
 
     return Ec_result
 
@@ -338,9 +349,13 @@ def PLSpectrum(ne, nh, Ee, Eh, gap, geh, VC, hw, t, PLS):
 
     # Parallel loop over photon energies
     for w in range(len(hw)):
-        PLS[w] = (PLS[w] + _RScale * np.sum(hw[w] * rho0(hw[w]) * nenh[:] *
-                                             np.exp(-np.abs(hw[w] - E[:]) / kB / tempavg) *
-                                             Lrtz(hw[w] - E[:], hbar * geh) *
-                                             softtheta(hw[w] - E[X * Nk // 2], hbar * geh)))
+        PLS[w] = PLS[w] + _RScale * np.sum(
+            hw[w]
+            * rho0(hw[w])
+            * nenh[:]
+            * np.exp(-np.abs(hw[w] - E[:]) / kB / tempavg)
+            * Lrtz(hw[w] - E[:], hbar * geh)
+            * softtheta(hw[w] - E[X * Nk // 2], hbar * geh)
+        )
 
     PLS[:] = PLS[:] * softtheta(t, geh)

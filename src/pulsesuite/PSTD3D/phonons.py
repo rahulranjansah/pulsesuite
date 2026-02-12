@@ -41,12 +41,12 @@ def _InitializePhonons_loop_jit(Nk, Ee, Eh, NO_val, hbar_val, Gph, Oph):
 
     for k1 in range(Nk):
         for k in range(Nk):
-            denom1 = (Ee[k] - Ee[k1] - hbar_val * Oph)**2 + (hbar_val * Gph)**2
-            denom2 = (Ee[k] - Ee[k1] + hbar_val * Oph)**2 + (hbar_val * Gph)**2
+            denom1 = (Ee[k] - Ee[k1] - hbar_val * Oph) ** 2 + (hbar_val * Gph) ** 2
+            denom2 = (Ee[k] - Ee[k1] + hbar_val * Oph) ** 2 + (hbar_val * Gph) ** 2
             EP[k, k1] = NO_val / denom1 + (NO_val + 1.0) / denom2
 
-            denom1 = (Eh[k] - Eh[k1] - hbar_val * Oph)**2 + (hbar_val * Gph)**2
-            denom2 = (Eh[k] - Eh[k1] + hbar_val * Oph)**2 + (hbar_val * Gph)**2
+            denom1 = (Eh[k] - Eh[k1] - hbar_val * Oph) ** 2 + (hbar_val * Gph) ** 2
+            denom2 = (Eh[k] - Eh[k1] + hbar_val * Oph) ** 2 + (hbar_val * Gph) ** 2
             HP[k, k1] = NO_val / denom1 + (NO_val + 1.0) / denom2
 
     return EP, HP
@@ -112,11 +112,17 @@ def InitializePhonons(ky, Ee, Eh, L, epsr, Gph, Oph):
         # Fallback to pure Python
         for k1 in range(Nk):
             for k in range(Nk):
-                _EP[k, k1] = (_NO / ((Ee[k] - Ee[k1] - hbar * Oph)**2 + (hbar * Gph)**2) +
-                              (_NO + 1.0) / ((Ee[k] - Ee[k1] + hbar * Oph)**2 + (hbar * Gph)**2))
+                _EP[k, k1] = _NO / (
+                    (Ee[k] - Ee[k1] - hbar * Oph) ** 2 + (hbar * Gph) ** 2
+                ) + (_NO + 1.0) / (
+                    (Ee[k] - Ee[k1] + hbar * Oph) ** 2 + (hbar * Gph) ** 2
+                )
 
-                _HP[k, k1] = (_NO / ((Eh[k] - Eh[k1] - hbar * Oph)**2 + (hbar * Gph)**2) +
-                              (_NO + 1.0) / ((Eh[k] - Eh[k1] + hbar * Oph)**2 + (hbar * Gph)**2))
+                _HP[k, k1] = _NO / (
+                    (Eh[k] - Eh[k1] - hbar * Oph) ** 2 + (hbar * Gph) ** 2
+                ) + (_NO + 1.0) / (
+                    (Eh[k] - Eh[k1] + hbar * Oph) ** 2 + (hbar * Gph) ** 2
+                )
 
     # Multiply by scaling factor and idel matrix
     # Multiplication by idel ensures that k != k1
@@ -181,7 +187,9 @@ def MBPE(ne, VC, E1D, Win, Wout):
     global _EPT, _EP, _Vscale
 
     Nk = len(ne)
-    Vep = VC[:, :, 1] / E1D * _Vscale  # Fortran uses VC(:,:,2) which is 1-based -> Python uses index 1
+    Vep = (
+        VC[:, :, 1] / E1D * _Vscale
+    )  # Fortran uses VC(:,:,2) which is 1-based -> Python uses index 1
 
     try:
         Win_add, Wout_add = _MBPE_jit(Nk, Vep, ne, _EPT, _EP)
@@ -245,7 +253,9 @@ def MBPH(nh, VC, E1D, Win, Wout):
     global _HPT, _HP, _Vscale
 
     Nk = len(nh)
-    Vhp = VC[:, :, 2] / E1D * _Vscale  # Fortran uses VC(:,:,3) which is 1-based -> Python uses index 2
+    Vhp = (
+        VC[:, :, 2] / E1D * _Vscale
+    )  # Fortran uses VC(:,:,3) which is 1-based -> Python uses index 2
 
     try:
         Win_add, Wout_add = _MBPH_jit(Nk, Vhp, nh, _HPT, _HP)
@@ -294,7 +304,9 @@ def Cq2(q, V, E1D):
 
     Cq2_result = np.zeros(len(q))
     for i in range(len(q)):
-        idx = iq[i]  # iq is already calculated with nint, Fortran uses 1+iq for 1-based indexing
+        idx = iq[
+            i
+        ]  # iq is already calculated with nint, Fortran uses 1+iq for 1-based indexing
         # Convert to 0-based: Fortran V(1+iq, 1) -> Python V[iq, 0]
         if 0 <= idx < V.shape[0] and 0 <= idx < E1D.shape[0]:
             Cq2_result[i] = V[idx, 0] / E1D[idx, 0] * _Vscale
@@ -366,4 +378,3 @@ def N00():
     """
     global _NO
     return _NO
-

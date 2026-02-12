@@ -9,6 +9,7 @@ Usage
 >>> log.info("standard message")        # LOGSTD equivalent
 >>> log.debug2("inner-loop detail")     # custom level
 """
+
 import logging
 import sys
 
@@ -36,13 +37,13 @@ logging.setLoggerClass(_PulseLogger)
 
 # ── Mapping from Fortran integer levels to Python levels ────────────────
 FORTRAN_LEVEL_MAP = {
-    0: logging.ERROR,       # LOGERROR
-    1: logging.WARNING,     # LOGWARN
-    2: logging.INFO,        # LOGSTD
-    3: logging.DEBUG,       # LOGVERBOSE
-    4: logging.DEBUG,       # LOGDEBUG  (Python DEBUG = 10)
-    5: DEBUG2,              # LOGDEBUG2
-    6: DEBUG3,              # LOGDEBUG3
+    0: logging.ERROR,  # LOGERROR
+    1: logging.WARNING,  # LOGWARN
+    2: logging.INFO,  # LOGSTD
+    3: logging.DEBUG,  # LOGVERBOSE
+    4: logging.DEBUG,  # LOGDEBUG  (Python DEBUG = 10)
+    5: DEBUG2,  # LOGDEBUG2
+    6: DEBUG3,  # LOGDEBUG3
 }
 
 
@@ -78,8 +79,6 @@ def setup(level: int | str = logging.INFO, stream=None) -> None:
     if root.handlers:
         return
     handler = logging.StreamHandler(stream or sys.stderr)
-    handler.setFormatter(
-        logging.Formatter("%(levelname)-7s: %(message)s")
-    )
+    handler.setFormatter(logging.Formatter("%(levelname)-7s: %(message)s"))
     root.addHandler(handler)
     set_level(level)

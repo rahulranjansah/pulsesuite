@@ -1,6 +1,7 @@
 """
 Author: Rahul R. Sah
 """
+
 import math
 from typing import Optional, Tuple
 
@@ -23,14 +24,36 @@ class Units:
     >>> Units.unitVal('1.5 km', 'm')
     1500.0
     """
+
     _si_prefixes = {
-        'y': 1e-24, 'z': 1e-21, 'a': 1e-18, 'f': 1e-15, 'p': 1e-12, 'n': 1e-9,
-        'u': 1e-6, 'm': 1e-3, 'c': 1e-2, 'd': 1e-1, 'da': 1e1, 'h': 1e2, 'k': 1e3,
-        'M': 1e6, 'G': 1e9, 'T': 1e12, 'P': 1e15, 'E': 1e18, 'Z': 1e21, 'Y': 1e24
+        "y": 1e-24,
+        "z": 1e-21,
+        "a": 1e-18,
+        "f": 1e-15,
+        "p": 1e-12,
+        "n": 1e-9,
+        "u": 1e-6,
+        "m": 1e-3,
+        "c": 1e-2,
+        "d": 1e-1,
+        "da": 1e1,
+        "h": 1e2,
+        "k": 1e3,
+        "M": 1e6,
+        "G": 1e9,
+        "T": 1e12,
+        "P": 1e15,
+        "E": 1e18,
+        "Z": 1e21,
+        "Y": 1e24,
     }
     _binary_prefixes = {
-        'Ki': 2.0**10, 'Mi': 2.0**20, 'Gi': 2.0**30, 'Ti': 2.0**40,
-        'Pi': 2.0**50, 'Ei': 2.0**60
+        "Ki": 2.0**10,
+        "Mi": 2.0**20,
+        "Gi": 2.0**30,
+        "Ti": 2.0**40,
+        "Pi": 2.0**50,
+        "Ei": 2.0**60,
     }
     _all_prefixes = {**_si_prefixes, **_binary_prefixes}
 
@@ -74,16 +97,16 @@ class Units:
         """
         unit = unit.strip()
         if len(unit) <= 1:
-            return '', unit
+            return "", unit
         # Try binary prefix first
         for pre in sorted(cls._binary_prefixes, key=len, reverse=True):
             if unit.startswith(pre):
-                return pre, unit[len(pre):]
+                return pre, unit[len(pre) :]
         # Then SI prefix
         for pre in sorted(cls._si_prefixes, key=len, reverse=True):
             if unit.startswith(pre):
-                return pre, unit[len(pre):]
-        return '', unit
+                return pre, unit[len(pre) :]
+        return "", unit
 
     @classmethod
     def unitPrefix(cls, unit: str) -> str:
@@ -93,7 +116,9 @@ class Units:
         return cls.splitUnit(unit)[0]
 
     @classmethod
-    def unitForVal(cls, base: str, val: float, binary: bool = False) -> Tuple[float, str]:
+    def unitForVal(
+        cls, base: str, val: float, binary: bool = False
+    ) -> Tuple[float, str]:
         """
         Returns the closest prefix for a value and scales the value.
 
@@ -116,20 +141,45 @@ class Units:
             return val, base
         if not binary:
             exp = int(math.floor(math.log10(absval))) if absval > 0 else 0
-            for e, pre in [(-24, 'y'), (-21, 'z'), (-18, 'a'), (-15, 'f'), (-12, 'p'),
-                           (-9, 'n'), (-6, 'u'), (-3, 'm'), (-2, 'c'), (0, ''), (3, 'k'),
-                           (6, 'M'), (9, 'G'), (12, 'T'), (15, 'P'), (18, 'E'), (21, 'Z'), (24, 'Y')]:
+            for e, pre in [
+                (-24, "y"),
+                (-21, "z"),
+                (-18, "a"),
+                (-15, "f"),
+                (-12, "p"),
+                (-9, "n"),
+                (-6, "u"),
+                (-3, "m"),
+                (-2, "c"),
+                (0, ""),
+                (3, "k"),
+                (6, "M"),
+                (9, "G"),
+                (12, "T"),
+                (15, "P"),
+                (18, "E"),
+                (21, "Z"),
+                (24, "Y"),
+            ]:
                 if exp <= e:
                     scale = cls._si_prefixes.get(pre, 1.0)
                     return val / scale, pre + base
-            return val / 1e24, 'Y' + base
+            return val / 1e24, "Y" + base
         else:
             exp2 = int(math.floor(math.log(absval) / math.log(2))) if absval > 0 else 0
-            for e, pre in [(0, ''), (10, 'Ki'), (20, 'Mi'), (30, 'Gi'), (40, 'Ti'), (50, 'Pi'), (60, 'Ei')]:
+            for e, pre in [
+                (0, ""),
+                (10, "Ki"),
+                (20, "Mi"),
+                (30, "Gi"),
+                (40, "Ti"),
+                (50, "Pi"),
+                (60, "Ei"),
+            ]:
                 if exp2 <= e:
                     scale = cls._binary_prefixes.get(pre, 1.0)
                     return val / scale, pre + base
-            return val / 2.0**60, 'Ei' + base
+            return val / 2.0**60, "Ei" + base
 
     @classmethod
     def unitVal(cls, n: str, unit: Optional[str] = None) -> float:
@@ -153,7 +203,7 @@ class Units:
         if not parts:
             Logger.getInstance().error(f"No number in: {n}")
         val = float(parts[0])
-        unitin = parts[1] if len(parts) > 1 else ''
+        unitin = parts[1] if len(parts) > 1 else ""
         scaleout = 1.0
         baseout = None
         if unit:
@@ -163,14 +213,18 @@ class Units:
             prefix, basein = cls.splitUnit(unitin)
             scalein = cls.prefixVal(prefix)
             if unit and baseout is not None and basein != baseout:
-                Logger.getInstance().error(f"Base units do not match ({basein} != {baseout}).")
+                Logger.getInstance().error(
+                    f"Base units do not match ({basein} != {baseout})."
+                )
             val = val * scalein / scaleout
         else:
             val = val / scaleout
         return val
 
     @classmethod
-    def writeWithUnit(cls, val: float, base: str, frmt: Optional[str] = None, binary: bool = False) -> str:
+    def writeWithUnit(
+        cls, val: float, base: str, frmt: Optional[str] = None, binary: bool = False
+    ) -> str:
         """
         Formats a value for printing with the closest prefix.
 
@@ -192,5 +246,5 @@ class Units:
         """
         val0, uni = cls.unitForVal(base, val, binary)
         if frmt is None:
-            frmt = '%.2e'
+            frmt = "%.2e"
         return f"{frmt % val0} {uni}"

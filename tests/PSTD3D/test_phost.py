@@ -41,8 +41,11 @@ class TestNw2NoGam:
         """Test nw2_no_gam with basic inputs."""
         wL = 1.5e15
         result = phost.nw2_no_gam(wL)
-        expected = phost._A0 + phost._B[0] * phost._w[0]**2 / (phost._w[0]**2 - wL**2) + \
-                   phost._B[1] * phost._w[1]**2 / (phost._w[1]**2 - wL**2)
+        expected = (
+            phost._A0
+            + phost._B[0] * phost._w[0] ** 2 / (phost._w[0] ** 2 - wL**2)
+            + phost._B[1] * phost._w[1] ** 2 / (phost._w[1] ** 2 - wL**2)
+        )
         assert np.allclose(result, expected, rtol=1e-10, atol=1e-10)
 
     def test_nw2_no_gam_zero_frequency(self):
@@ -86,8 +89,8 @@ class TestNw2:
         result = phost.nw2(wL)
         expected = phost._A0
         for n in range(phost._osc):
-            denom = phost._w[n]**2 - ii * 2.0 * phost._gam[n] * wL - wL**2
-            expected += phost._B[n] * phost._w[n]**2 / denom
+            denom = phost._w[n] ** 2 - ii * 2.0 * phost._gam[n] * wL - wL**2
+            expected += phost._B[n] * phost._w[n] ** 2 / denom
         assert np.allclose(result, expected, rtol=1e-10, atol=1e-10)
 
     def test_nw2_zero_frequency(self):
@@ -121,8 +124,11 @@ class TestNl2NoGam:
         """Test nl2_no_gam with basic inputs."""
         lam = 1e-6
         result = phost.nl2_no_gam(lam)
-        expected = phost._A0 + phost._B[0] * lam**2 / (lam**2 - phost._C[0]) + \
-                   phost._B[1] * lam**2 / (lam**2 - phost._C[1])
+        expected = (
+            phost._A0
+            + phost._B[0] * lam**2 / (lam**2 - phost._C[0])
+            + phost._B[1] * lam**2 / (lam**2 - phost._C[1])
+        )
         assert np.allclose(result, expected, rtol=1e-10, atol=1e-10)
 
     def test_nl2_no_gam_none_b_c(self):
@@ -154,8 +160,8 @@ class TestNl2:
         wL = twopi * c0 / (lam + 1e-100)
         expected = phost._A0
         for n in range(phost._osc):
-            denom = phost._w[n]**2 - ii * 2.0 * phost._gam[n] * wL - wL**2
-            expected += phost._B[n] * phost._w[n]**2 / denom
+            denom = phost._w[n] ** 2 - ii * 2.0 * phost._gam[n] * wL - wL**2
+            expected += phost._B[n] * phost._w[n] ** 2 / denom
         assert np.allclose(result, expected, rtol=1e-6, atol=1e-6)
 
     def test_nl2_none_b_w_gam(self):
@@ -184,7 +190,9 @@ class TestNwpNoGam:
         nw = np.sqrt(phost.nw2_no_gam(wL))
         expected = 0.0
         for n in range(phost._osc):
-            expected += phost._B[n] * phost._w[n]**2 * wL / ((phost._w[n]**2 - wL**2)**2)
+            expected += (
+                phost._B[n] * phost._w[n] ** 2 * wL / ((phost._w[n] ** 2 - wL**2) ** 2)
+            )
         expected = expected / nw
         assert np.allclose(result, expected, rtol=1e-8, atol=1e-8)
 
@@ -239,7 +247,12 @@ class TestEpsrwpNoGam:
         result = phost.epsrwp_no_gam(wL)
         expected = 0.0
         for n in range(phost._osc):
-            expected += phost._B[n] * phost._w[n]**2 * (2 * wL) / ((phost._w[n]**2 - wL**2)**2)
+            expected += (
+                phost._B[n]
+                * phost._w[n] ** 2
+                * (2 * wL)
+                / ((phost._w[n] ** 2 - wL**2) ** 2)
+            )
         assert np.allclose(result, expected, rtol=1e-10, atol=1e-10)
 
     def test_epsrwp_no_gam_none_b_w(self):
@@ -380,10 +393,14 @@ class TestCalcNextP:
         """Test CalcNextP with basic inputs."""
         N1, N2 = 16, 16
         dt = 1e-15
-        P1 = (np.random.random((N1, N2, phost._osc)) +
-             1j * np.random.random((N1, N2, phost._osc))) * 1e-6
-        P2 = (np.random.random((N1, N2, phost._osc)) +
-             1j * np.random.random((N1, N2, phost._osc))) * 1e-6
+        P1 = (
+            np.random.random((N1, N2, phost._osc))
+            + 1j * np.random.random((N1, N2, phost._osc))
+        ) * 1e-6
+        P2 = (
+            np.random.random((N1, N2, phost._osc))
+            + 1j * np.random.random((N1, N2, phost._osc))
+        ) * 1e-6
         E = (np.random.random((N1, N2)) + 1j * np.random.random((N1, N2))) * 1e6
 
         result = phost.CalcNextP(P1, P2, E, dt)
@@ -394,10 +411,14 @@ class TestCalcNextP:
         """Test CalcNextP with different array sizes."""
         dt = 1e-15
         for N1, N2 in [(8, 8), (16, 16), (32, 32)]:
-            P1 = (np.random.random((N1, N2, phost._osc)) +
-                 1j * np.random.random((N1, N2, phost._osc))) * 1e-6
-            P2 = (np.random.random((N1, N2, phost._osc)) +
-                 1j * np.random.random((N1, N2, phost._osc))) * 1e-6
+            P1 = (
+                np.random.random((N1, N2, phost._osc))
+                + 1j * np.random.random((N1, N2, phost._osc))
+            ) * 1e-6
+            P2 = (
+                np.random.random((N1, N2, phost._osc))
+                + 1j * np.random.random((N1, N2, phost._osc))
+            ) * 1e-6
             E = (np.random.random((N1, N2)) + 1j * np.random.random((N1, N2))) * 1e6
             result = phost.CalcNextP(P1, P2, E, dt)
             assert result.shape == (N1, N2, phost._osc)
@@ -553,7 +574,7 @@ class TestMakeTransverse:
         qsq = np.zeros((N1, N2), dtype=complex)
         for j in range(N2):
             for i in range(N1):
-                qsq[i, j] = qx[i]**2 + qy[j]**2
+                qsq[i, j] = qx[i] ** 2 + qy[j] ** 2
 
         phost.MakeTransverse(Ex, Ey, qx, qy, qsq)
 
@@ -572,7 +593,7 @@ class TestMakeTransverse:
         qsq = np.zeros((N1, N2), dtype=complex)
         for j in range(N2):
             for i in range(N1):
-                qsq[i, j] = qx[i]**2 + qy[j]**2
+                qsq[i, j] = qx[i] ** 2 + qy[j] ** 2
         # Avoid division by zero
         qsq = np.maximum(qsq, 1e-10)
 
@@ -602,7 +623,7 @@ class TestSetHostMaterial:
         n0 = 1.0
 
         phost.SetParamsAlAs()
-        phost.SetHostMaterial(True, 'AlAs', lam, epsr, n0)
+        phost.SetHostMaterial(True, "AlAs", lam, epsr, n0)
 
         assert epsr > 0.0
         assert n0 > 0.0
@@ -614,7 +635,7 @@ class TestSetHostMaterial:
         n0 = 1.0
 
         phost.SetParamsGaAs()
-        phost.SetHostMaterial(True, 'GaAs', lam, epsr, n0)
+        phost.SetHostMaterial(True, "GaAs", lam, epsr, n0)
 
         assert epsr > 0.0
         assert n0 > 0.0
@@ -626,7 +647,7 @@ class TestSetHostMaterial:
         n0 = 1.0
 
         phost.SetParamsSilica()
-        phost.SetHostMaterial(True, 'fsil', lam, epsr, n0)
+        phost.SetHostMaterial(True, "fsil", lam, epsr, n0)
 
         assert epsr > 0.0
         assert n0 > 0.0
@@ -641,7 +662,7 @@ class TestSetHostMaterial:
         # Note: In Python, assignment to parameter doesn't modify original variable
         # The function assigns epsr = n0**2 internally, but doesn't modify the input
         # We just check that the function completes without error
-        phost.SetHostMaterial(False, 'none', lam, epsr, n0)
+        phost.SetHostMaterial(False, "none", lam, epsr, n0)
 
         # The function should complete successfully
         assert True
@@ -653,7 +674,7 @@ class TestSetHostMaterial:
         n0 = 1.0
 
         with pytest.raises(ValueError):
-            phost.SetHostMaterial(True, 'UnknownMaterial', lam, epsr, n0)
+            phost.SetHostMaterial(True, "UnknownMaterial", lam, epsr, n0)
 
 
 class TestInitializeHost:
@@ -714,7 +735,7 @@ class TestCalcWq:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('fields/host', exist_ok=True)
+            os.makedirs("fields/host", exist_ok=True)
 
             try:
                 N1, N2 = 16, 16
@@ -726,7 +747,7 @@ class TestCalcWq:
 
                 assert phost._omega_q.shape == (N1, N2)
                 assert np.all(np.isfinite(phost._omega_q))
-                assert os.path.exists('fields/host/w.q.dat')
+                assert os.path.exists("fields/host/w.q.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -741,8 +762,9 @@ class TestCalcEpsrWq:
     def test_calc_epsr_wq_basic(self):
         """Test CalcEpsrWq with basic inputs."""
         N1, N2 = 16, 16
-        phost._omega_q = (np.random.random((N1, N2)) +
-                         1j * np.random.random((N1, N2))) * 1e15
+        phost._omega_q = (
+            np.random.random((N1, N2)) + 1j * np.random.random((N1, N2))
+        ) * 1e15
         phost._EpsrWq = np.zeros((N1, N2), dtype=complex)
 
         phost.SetParamsAlAs()
@@ -832,8 +854,9 @@ class TestEpsrQ:
     def test_epsr_q_basic(self):
         """Test Epsr_q with basic inputs."""
         N1, N2 = 16, 16
-        phost._EpsrWq = (np.random.random((N1, N2)) +
-                        1j * np.random.random((N1, N2))) * 10.0
+        phost._EpsrWq = (
+            np.random.random((N1, N2)) + 1j * np.random.random((N1, N2))
+        ) * 10.0
         q = np.random.random((N1, N2)) * 1e7
 
         result = phost.Epsr_q(q)
@@ -851,8 +874,9 @@ class TestEpsrQij:
     def test_epsr_qij_basic(self):
         """Test Epsr_qij with basic inputs."""
         N1, N2 = 16, 16
-        phost._EpsrWq = (np.random.random((N1, N2)) +
-                        1j * np.random.random((N1, N2))) * 10.0
+        phost._EpsrWq = (
+            np.random.random((N1, N2)) + 1j * np.random.random((N1, N2))
+        ) * 10.0
 
         i, j = 5, 7
         result = phost.Epsr_qij(i, j)
@@ -869,8 +893,9 @@ class TestWq:
     def test_wq_basic(self):
         """Test wq with basic inputs."""
         N1, N2 = 16, 16
-        phost._omega_q = (np.random.random((N1, N2)) +
-                         1j * np.random.random((N1, N2))) * 1e15
+        phost._omega_q = (
+            np.random.random((N1, N2)) + 1j * np.random.random((N1, N2))
+        ) * 1e15
 
         i, j = 5, 7
         result = phost.wq(i, j)
@@ -937,7 +962,7 @@ class TestSetInitialP:
         qsq = np.zeros((N1, N2), dtype=complex)
         for j in range(N2):
             for i in range(N1):
-                qsq[i, j] = qx[i]**2 + qy[j]**2
+                qsq[i, j] = qx[i] ** 2 + qy[j] ** 2
         dt = 1e-15
         Px = np.zeros((N1, N2), dtype=complex)
         Py = np.zeros((N1, N2), dtype=complex)
@@ -999,8 +1024,8 @@ class TestWriteHostDispersion:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('fields/host', exist_ok=True)
-            os.makedirs('fields/host/nogam', exist_ok=True)
+            os.makedirs("fields/host", exist_ok=True)
+            os.makedirs("fields/host/nogam", exist_ok=True)
 
             try:
                 phost.SetParamsAlAs()
@@ -1008,12 +1033,12 @@ class TestWriteHostDispersion:
                 phost.WriteHostDispersion()
 
                 # Check that files were created
-                assert os.path.exists('fields/host/n.w.real.dat')
-                assert os.path.exists('fields/host/n.w.imag.dat')
-                assert os.path.exists('fields/host/epsr.w.real.dat')
-                assert os.path.exists('fields/host/epsr.w.imag.dat')
-                assert os.path.exists('fields/host/nogam/n.w.real.dat')
-                assert os.path.exists('fields/host/n.l.real.dat')
+                assert os.path.exists("fields/host/n.w.real.dat")
+                assert os.path.exists("fields/host/n.w.imag.dat")
+                assert os.path.exists("fields/host/epsr.w.real.dat")
+                assert os.path.exists("fields/host/epsr.w.imag.dat")
+                assert os.path.exists("fields/host/nogam/n.w.real.dat")
+                assert os.path.exists("fields/host/n.l.real.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -1022,7 +1047,7 @@ class TestWriteHostDispersion:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('fields/host', exist_ok=True)
+            os.makedirs("fields/host", exist_ok=True)
 
             try:
                 old_w = phost._w
@@ -1049,7 +1074,7 @@ class TestIntegration:
         lam = 1e-6
         epsr = 1.0
         n0 = 1.0
-        phost.SetHostMaterial(True, 'AlAs', lam, epsr, n0)
+        phost.SetHostMaterial(True, "AlAs", lam, epsr, n0)
 
         assert epsr > 0.0
         assert n0 > 0.0
@@ -1140,4 +1165,3 @@ class TestIntegration:
 
         assert Px.shape == (N1, N2)
         assert Py.shape == (N1, N2)
-

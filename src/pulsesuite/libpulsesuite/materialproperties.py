@@ -27,6 +27,7 @@ log = logging.getLogger(__name__)
 # Error codes matching Fortran integer parameters
 # ---------------------------------------------------------------------------
 
+
 class MatError(IntEnum):
     NOERROR = 0
     NOFILE = 1
@@ -59,6 +60,7 @@ def set_database_file(path: str) -> None:
 # ---------------------------------------------------------------------------
 # INI file reader (matches Fortran ReadIniTagStr behaviour)
 # ---------------------------------------------------------------------------
+
 
 def _read_ini_tag_str(
     filepath: str, section: str, tag: str
@@ -98,7 +100,7 @@ def _read_ini_tag_str(
 
         # Check for tag=
         if stripped.startswith(tag + "="):
-            value = stripped[len(tag) + 1:].strip()
+            value = stripped[len(tag) + 1 :].strip()
             return value, 0
 
     return None, -1
@@ -107,6 +109,7 @@ def _read_ini_tag_str(
 # ---------------------------------------------------------------------------
 # Database reading helpers
 # ---------------------------------------------------------------------------
+
 
 def _read_dbs_tag_str(mat: str, param: str) -> Tuple[Optional[str], int]:
     """Read a string value from the materials database for section *mat* and *param*."""
@@ -166,9 +169,8 @@ def _read_dbs_tag_array(mat: str, param: str) -> Tuple[Optional[np.ndarray], int
 # Discrete database value lookup
 # ---------------------------------------------------------------------------
 
-def _discrete_dbs_val(
-    param: str, mat: str, lam: float
-) -> Tuple[float, int]:
+
+def _discrete_dbs_val(param: str, mat: str, lam: float) -> Tuple[float, int]:
     """
     Look up a discrete parameter from the database, matching by wavelength.
 
@@ -214,6 +216,7 @@ def _discrete_dbs_val(
 # Error handler
 # ---------------------------------------------------------------------------
 
+
 def _mat_error_handler(err: int, param: str, mat: str, lam: float) -> None:
     """Default error handler mirroring the Fortran ``mat_error_handler``."""
     if err == MatError.NOERROR:
@@ -235,19 +238,21 @@ def _mat_error_handler(err: int, param: str, mat: str, lam: float) -> None:
     if err == MatError.OUTOFRANGE:
         log.warning(
             "Wavelength %.2e m is >1%% different from nearest wavelength for %s in %s.",
-            lam, param, mat,
+            lam,
+            param,
+            mat,
         )
     if err == MatError.BADVALUE:
         log.warning(
             "Got a 'bad value' while getting %s for %s at %.2e m.", param, mat, lam
         )
     if err == MatError.DEFAULTUSED:
-        log.warning(
-            "Default value used for %s of %s at %.2e m.", param, mat, lam
-        )
+        log.warning("Default value used for %s of %s at %.2e m.", param, mat, lam)
 
 
-def _handle_err(err0: int, param: str, mat: str, lam: float, err: Optional[list] = None):
+def _handle_err(
+    err0: int, param: str, mat: str, lam: float, err: Optional[list] = None
+):
     """If *err* list is provided, store error; otherwise call handler."""
     if err is not None:
         if err0 != MatError.NOERROR:
@@ -260,9 +265,8 @@ def _handle_err(err0: int, param: str, mat: str, lam: float, err: Optional[list]
 # Sellmeier coefficients
 # ---------------------------------------------------------------------------
 
-def sellmeiercoeff(
-    mat: str, lam: float
-) -> Tuple[float, np.ndarray, np.ndarray, int]:
+
+def sellmeiercoeff(mat: str, lam: float) -> Tuple[float, np.ndarray, np.ndarray, int]:
     """
     Retrieve the Sellmeier coefficients from the materials database.
 
@@ -303,13 +307,14 @@ def sellmeiercoeff(
 # Refractive index from Sellmeier (wavelength domain)
 # ---------------------------------------------------------------------------
 
+
 def n0_sellmeier(A: float, B: np.ndarray, C: np.ndarray, lam: float) -> float:
     """
     Calculate the index of refraction from Sellmeier coefficients.
 
     n0 = sqrt(A + sum(B * lam^2 / (lam^2 - C)))
     """
-    val = np.sqrt(A + np.sum(B * lam ** 2 / (lam ** 2 - C)))
+    val = np.sqrt(A + np.sum(B * lam**2 / (lam**2 - C)))
     if np.isnan(val) or val < 1.0 or val > 1.0e100:
         return 1.0
     return float(val)
@@ -318,7 +323,7 @@ def n0_sellmeier(A: float, B: np.ndarray, C: np.ndarray, lam: float) -> float:
 def _dn_dl(A: float, B: np.ndarray, C: np.ndarray, lam: float) -> float:
     """dn/dlambda for dispersion calculations."""
     n = n0_sellmeier(A, B, C, lam)
-    return float(-lam / n * np.sum(B * C / (lam ** 2 - C) ** 2))
+    return float(-lam / n * np.sum(B * C / (lam**2 - C) ** 2))
 
 
 def _ddn_dll(A: float, B: np.ndarray, C: np.ndarray, lam: float) -> float:
@@ -326,8 +331,7 @@ def _ddn_dll(A: float, B: np.ndarray, C: np.ndarray, lam: float) -> float:
     n = n0_sellmeier(A, B, C, lam)
     dndl = _dn_dl(A, B, C, lam)
     return float(
-        dndl / lam - dndl ** 2 / n
-        + 4.0 * lam ** 2 / n * np.sum(B * C / (lam ** 2 - C) ** 3)
+        dndl / lam - dndl**2 / n + 4.0 * lam**2 / n * np.sum(B * C / (lam**2 - C) ** 3)
     )
 
 
@@ -335,21 +339,22 @@ def _ddn_dll(A: float, B: np.ndarray, C: np.ndarray, lam: float) -> float:
 # Internal dispersion functions G (frequency domain)
 # ---------------------------------------------------------------------------
 
+
 def _G(B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
     """G(w) = B / (1 - D * w^2)"""
-    return B / (1.0 - D * w ** 2)
+    return B / (1.0 - D * w**2)
 
 
 def _dG_dw(B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
     g = _G(B, D, w)
-    result = np.where(B == 0.0, 0.0, 2.0 * D / B * w * g ** 2)
+    result = np.where(B == 0.0, 0.0, 2.0 * D / B * w * g**2)
     return result
 
 
 def _ddG_dww(B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
     g = _G(B, D, w)
     dg = _dG_dw(B, D, w)
-    return np.where(B == 0.0, 0.0, 2.0 * D / B * (g ** 2 + 2.0 * w * g * dg))
+    return np.where(B == 0.0, 0.0, 2.0 * D / B * (g**2 + 2.0 * w * g * dg))
 
 
 def _dddG_dwww(B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
@@ -357,8 +362,9 @@ def _dddG_dwww(B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
     dg = _dG_dw(B, D, w)
     ddg = _ddG_dww(B, D, w)
     return np.where(
-        B == 0.0, 0.0,
-        4.0 * D / B * (2.0 * g * dg + w * dg ** 2 + w * g * ddg),
+        B == 0.0,
+        0.0,
+        4.0 * D / B * (2.0 * g * dg + w * dg**2 + w * g * ddg),
     )
 
 
@@ -368,11 +374,9 @@ def _ddddG_dwwww(B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
     ddg = _ddG_dww(B, D, w)
     dddg = _dddG_dwww(B, D, w)
     return np.where(
-        B == 0.0, 0.0,
-        4.0 * D / B * (
-            3.0 * dg ** 2 + 3.0 * g * ddg
-            + 3.0 * w * dg * ddg + w * g * dddg
-        ),
+        B == 0.0,
+        0.0,
+        4.0 * D / B * (3.0 * dg**2 + 3.0 * g * ddg + 3.0 * w * dg * ddg + w * g * dddg),
     )
 
 
@@ -383,10 +387,16 @@ def _dddddG_dwwwww(B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
     dddg = _dddG_dwww(B, D, w)
     ddddg = _ddddG_dwwww(B, D, w)
     return np.where(
-        B == 0.0, 0.0,
-        4.0 * D / B * (
-            12.0 * dg * ddg + 4.0 * g * dddg
-            + 3.0 * w * ddg ** 2 + 4.0 * w * dg * dddg
+        B == 0.0,
+        0.0,
+        4.0
+        * D
+        / B
+        * (
+            12.0 * dg * ddg
+            + 4.0 * g * dddg
+            + 3.0 * w * ddg**2
+            + 4.0 * w * dg * dddg
             + w * g * ddddg
         ),
     )
@@ -395,6 +405,7 @@ def _dddddG_dwwwww(B: np.ndarray, D: np.ndarray, w: float) -> np.ndarray:
 # ---------------------------------------------------------------------------
 # Refractive index and derivatives in frequency domain
 # ---------------------------------------------------------------------------
+
 
 def _n0_w(A: float, B: np.ndarray, D: np.ndarray, w: float) -> float:
     return float(np.sqrt(A + np.sum(_G(B, D, w))))
@@ -407,7 +418,7 @@ def _dn_dw(A: float, B: np.ndarray, D: np.ndarray, w: float) -> float:
 def _ddn_dww(A: float, B: np.ndarray, D: np.ndarray, w: float) -> float:
     n = _n0_w(A, B, D, w)
     dn = _dn_dw(A, B, D, w)
-    return float((np.sum(_ddG_dww(B, D, w)) / 2.0 - dn ** 2) / n)
+    return float((np.sum(_ddG_dww(B, D, w)) / 2.0 - dn**2) / n)
 
 
 def _dddn_dwww(A: float, B: np.ndarray, D: np.ndarray, w: float) -> float:
@@ -423,7 +434,7 @@ def _ddddn_dwwww(A: float, B: np.ndarray, D: np.ndarray, w: float) -> float:
     ddn = _ddn_dww(A, B, D, w)
     dddn = _dddn_dwww(A, B, D, w)
     return float(
-        (np.sum(_ddddG_dwwww(B, D, w)) / 2.0 - 3.0 * ddn ** 2 - 4.0 * dn * dddn) / n
+        (np.sum(_ddddG_dwwww(B, D, w)) / 2.0 - 3.0 * ddn**2 - 4.0 * dn * dddn) / n
     )
 
 
@@ -434,14 +445,15 @@ def _dddddn_dwwwww(A: float, B: np.ndarray, D: np.ndarray, w: float) -> float:
     dddn = _dddn_dwww(A, B, D, w)
     ddddn = _ddddn_dwwww(A, B, D, w)
     return float(
-        (np.sum(_dddddG_dwwwww(B, D, w)) / 2.0
-         - 10.0 * ddn * dddn - 5.0 * dn * ddddn) / n
+        (np.sum(_dddddG_dwwwww(B, D, w)) / 2.0 - 10.0 * ddn * dddn - 5.0 * dn * ddddn)
+        / n
     )
 
 
 # ---------------------------------------------------------------------------
 # Wavelength / frequency helpers
 # ---------------------------------------------------------------------------
+
 
 def _l2w(lam: float) -> float:
     return float(twopi * c0 / lam)
@@ -454,6 +466,7 @@ def _w2l(w) -> float:
 # ---------------------------------------------------------------------------
 # Public API — material property functions
 # ---------------------------------------------------------------------------
+
 
 def n0(mat: str, lam: float, err: Optional[list] = None) -> float:
     """
@@ -734,7 +747,10 @@ def Tr(mat: str, lam: float, err: Optional[list] = None) -> float:
 # Plasma parameter getters
 # ---------------------------------------------------------------------------
 
-def _plasma_getter(param: str, mat: str, lam: float, err: Optional[list] = None) -> float:
+
+def _plasma_getter(
+    param: str, mat: str, lam: float, err: Optional[list] = None
+) -> float:
     """Generic getter for plasma parameters."""
     val, err0 = _discrete_dbs_val(param, mat, lam)
     _handle_err(err0, param, mat, lam, err)

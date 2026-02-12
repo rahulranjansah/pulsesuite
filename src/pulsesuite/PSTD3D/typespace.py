@@ -15,13 +15,16 @@ import numpy as np
 
 try:
     from numba import jit
+
     JIT_AVAILABLE = True
 except ImportError:
     JIT_AVAILABLE = False
+
     # Fallback: create a no-op decorator
     def jit(*args, **kwargs):  # noqa: ARG001, ARG002
         def decorator(func):
             return func
+
         if args and callable(args[0]):
             # Called as @jit without parentheses
             return args[0]
@@ -127,6 +130,7 @@ class ss:
     epsr : float
         Background dielectric constant
     """
+
     Dims: int
     Nx: int
     Ny: int
@@ -203,7 +207,7 @@ def ReadSpaceParams(filename, space):
     The file is opened, read, and closed automatically.
     After reading, dumpspace is called to log the parameters.
     """
-    with open(filename, 'r', encoding='utf-8') as f:
+    with open(filename, "r", encoding="utf-8") as f:
         readspaceparams_sub(f, space)
     dumpspace(space)
 
@@ -246,7 +250,9 @@ def WriteSpaceParams_sub(file_handle, space):
     file_handle.write(f"{space.dx:25.15E} : The Width of the X pixel. (m)\n")
     file_handle.write(f"{space.dy:25.15E} : The Width of the Y pixel. (m)\n")
     file_handle.write(f"{space.dz:25.15E} : The Width of the Z pixel. (m)\n")
-    file_handle.write(f"{space.epsr:25.15E} : The relative background dielectric constant\n")
+    file_handle.write(
+        f"{space.epsr:25.15E} : The relative background dielectric constant\n"
+    )
 
 
 def writespaceparams(filename, space):
@@ -271,7 +277,7 @@ def writespaceparams(filename, space):
     -----
     The file is opened in write mode, written to, and closed automatically.
     """
-    with open(filename, 'w', encoding='utf-8') as f:
+    with open(filename, "w", encoding="utf-8") as f:
         WriteSpaceParams_sub(f, space)
 
 
@@ -309,6 +315,7 @@ def dumpspace(params, level=None):
 
 # Getter functions - these are simple property accessors
 # JIT compilation not needed for simple attribute access
+
 
 def GetNx(space):
     """
@@ -369,6 +376,7 @@ def GetNz(space):
 
 # Getter functions with special logic - these can benefit from JIT
 # but need to be careful about nopython compatibility
+
 
 @jit
 def _GetDx_core(Nx, dx):
@@ -557,6 +565,7 @@ def GetEpsr(space):
 # Setter functions - simple attribute modifiers
 # JIT not needed for simple assignments
 
+
 def SetNx(space, N):
     """
     Set the number of points in the x dimension.
@@ -686,6 +695,7 @@ def SetDz(space, dl):
 # Width calculation functions
 # These are simple calculations, JIT may help but not critical
 
+
 @jit
 def _GetXWidth_core(dx, Nx):
     """
@@ -796,6 +806,7 @@ def GetZWidth(space):
 
 # Array generation functions
 # These use numpy operations that may not be JIT-compatible
+
 
 def GetSpaceArray(N, L):
     """
@@ -1014,6 +1025,7 @@ def GetKzArray(space):
 
 # Differential functions for conjugate coordinate system
 
+
 def GetDQx(space):
     """
     Get the differential for the conjugate coordinate system in x.
@@ -1106,6 +1118,7 @@ def GetDQz(space):
 
 # Volume element functions
 
+
 def GetDVol(space):
     """
     Get the volume element.
@@ -1151,6 +1164,7 @@ def GetDQVol(space):
 # Field I/O functions
 # These handle binary and text file I/O
 
+
 def writefield(fnout, e, space, binmode, single, fnspace=None):
     """
     Write the space structure and field to a file.
@@ -1189,9 +1203,9 @@ def writefield(fnout, e, space, binmode, single, fnspace=None):
         close_file = False
     else:
         if binmode:
-            file_handle = open(fnout, 'wb')
+            file_handle = open(fnout, "wb")
         else:
-            file_handle = open(fnout, 'w', encoding='utf-8')
+            file_handle = open(fnout, "w", encoding="utf-8")
         close_file = True
 
     try:
@@ -1247,9 +1261,9 @@ def readspace_only(fnin, space, binmode, single, fnspace=None):
         close_file = False
     else:
         if binmode:
-            file_handle = open(fnin, 'rb')
+            file_handle = open(fnin, "rb")
         else:
-            file_handle = open(fnin, 'r', encoding='utf-8')
+            file_handle = open(fnin, "r", encoding="utf-8")
         close_file = True
 
     try:
@@ -1267,6 +1281,7 @@ def readspace_only(fnin, space, binmode, single, fnspace=None):
 
 
 # Helper functions for binary I/O
+
 
 def writefield_to_unit(file_handle, e, binmode):
     """
@@ -1301,7 +1316,9 @@ def writefield_to_unit(file_handle, e, binmode):
         for k in range(e.shape[2]):
             for j in range(e.shape[1]):
                 for i in range(e.shape[0]):
-                    file_handle.write(f"{np.real(e[i, j, k]):25.15E} {np.imag(e[i, j, k]):25.15E}\n")
+                    file_handle.write(
+                        f"{np.real(e[i, j, k]):25.15E} {np.imag(e[i, j, k]):25.15E}\n"
+                    )
 
 
 def unformatted_write_space(file_handle, space):
@@ -1327,14 +1344,14 @@ def unformatted_write_space(file_handle, space):
     """
     # Write space structure fields as a dictionary
     space_dict = {
-        'Dims': space.Dims,
-        'Nx': space.Nx,
-        'Ny': space.Ny,
-        'Nz': space.Nz,
-        'dx': space.dx,
-        'dy': space.dy,
-        'dz': space.dz,
-        'epsr': space.epsr
+        "Dims": space.Dims,
+        "Nx": space.Nx,
+        "Ny": space.Ny,
+        "Nz": space.Nz,
+        "dx": space.dx,
+        "dy": space.dy,
+        "dz": space.dz,
+        "epsr": space.epsr,
     }
     np.save(file_handle, space_dict)
 
@@ -1362,14 +1379,14 @@ def unformatted_read_space(file_handle, space):
     Uses numpy's load to read the dataclass fields from binary format.
     """
     space_dict = np.load(file_handle, allow_pickle=True).item()
-    space.Dims = int(space_dict['Dims'])
-    space.Nx = int(space_dict['Nx'])
-    space.Ny = int(space_dict['Ny'])
-    space.Nz = int(space_dict['Nz'])
-    space.dx = float(space_dict['dx'])
-    space.dy = float(space_dict['dy'])
-    space.dz = float(space_dict['dz'])
-    space.epsr = float(space_dict['epsr'])
+    space.Dims = int(space_dict["Dims"])
+    space.Nx = int(space_dict["Nx"])
+    space.Ny = int(space_dict["Ny"])
+    space.Nz = int(space_dict["Nz"])
+    space.dx = float(space_dict["dx"])
+    space.dy = float(space_dict["dy"])
+    space.dz = float(space_dict["dz"])
+    space.epsr = float(space_dict["epsr"])
 
 
 def initialize_field(e):
@@ -1534,9 +1551,9 @@ def readfield(fnin, e, space, binmode, single, fnspace=None):
         close_file = False
     else:
         if binmode:
-            file_handle = open(fnin, 'rb')
+            file_handle = open(fnin, "rb")
         else:
-            file_handle = open(fnin, 'r', encoding='utf-8')
+            file_handle = open(fnin, "r", encoding="utf-8")
         close_file = True
 
     try:
@@ -1573,4 +1590,3 @@ def readfield(fnin, e, space, binmode, single, fnspace=None):
             file_handle.close()
 
     return e
-

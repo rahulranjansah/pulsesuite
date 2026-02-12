@@ -80,13 +80,13 @@ def read_qw_parameters(filename):
     def parse_line(line):
         """Parse a line, stripping comments and whitespace."""
         # Remove comments (# style)
-        if '#' in line:
-            line = line.split('#')[0]
+        if "#" in line:
+            line = line.split("#")[0]
         # Strip whitespace
         return line.strip()
 
     try:
-        with open(filename, 'r', encoding='utf-8') as f:
+        with open(filename, "r", encoding="utf-8") as f:
             # Read and parse each line, skipping empty lines
             lines = []
             for line in f:
@@ -114,7 +114,28 @@ def read_qw_parameters(filename):
 
 # (Porting to 3D)
 # def QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho)
-def QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho, ExlfromPRho, EylfromPRho, EzlfromPRho, ExlfromP, EylfromP, EzlfromP, ExlfromRho, EylfromRho, EzlfromRho, RhoBound):
+def QuantumWire(
+    space,
+    dt,
+    n,
+    Ex,
+    Ey,
+    Ez,
+    Jx,
+    Jy,
+    Jz,
+    Rho,
+    ExlfromPRho,
+    EylfromPRho,
+    EzlfromPRho,
+    ExlfromP,
+    EylfromP,
+    EzlfromP,
+    ExlfromRho,
+    EylfromRho,
+    EzlfromRho,
+    RhoBound,
+):
     """
     Main quantum wire calculation routine.
 
@@ -216,7 +237,7 @@ def QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho, ExlfromPRho, EylfromP
     xqw = np.zeros(_Nw, dtype=np.float64)
 
     # NQ0, k, w
-    DoQWP = [True]   # modified as a list in SBEs.py (line 278)
+    DoQWP = [True]  # modified as a list in SBEs.py (line 278)
     DoQWDl = [True]  # modified as a list in SBEs.py (line 279)
     DoQWCurr = True
 
@@ -225,7 +246,7 @@ def QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho, ExlfromPRho, EylfromP
     xqw[:] = 0.0
 
     # Read parameters at the start of the subroutine
-    iostat = read_qw_parameters('params/qwarray.params')
+    iostat = read_qw_parameters("params/qwarray.params")
     if iostat != 0:
         print("Error reading quantum wire parameters, using defaults")
         _QW = False  # Disable QW if there was an error
@@ -304,7 +325,22 @@ def QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho, ExlfromPRho, EylfromP
         # !$omp end parallel do
 
         # spatial solve per wire, and temporal solve for internal quantum states (solving in 1D)
-        QWCalculator(Exx, Eyy, Ezz, Vrr, rx, qx, dt, w + 1, Pxx[:, w], Pyy[:, w], Pzz[:, w], RhoEH[:, w], DoQWP, DoQWDl)
+        QWCalculator(
+            Exx,
+            Eyy,
+            Ezz,
+            Vrr,
+            rx,
+            qx,
+            dt,
+            w + 1,
+            Pxx[:, w],
+            Pyy[:, w],
+            Pzz[:, w],
+            RhoEH[:, w],
+            DoQWP,
+            DoQWDl,
+        )
 
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # DEBUG PRINT 1: Check values after the QWCalculator loop.
@@ -333,7 +369,9 @@ def QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho, ExlfromPRho, EylfromP
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     # To account for two wires, moved down and fixed all errors? I guess!
-    Jxx[:] = Jxx[:] / float(_Nw) + CalcJfx(np.sum(RhoEH, axis=1), np.sum(_RhoOld, axis=1), dt, GetDx(space)) / float(_Nw)
+    Jxx[:] = Jxx[:] / float(_Nw) + CalcJfx(
+        np.sum(RhoEH, axis=1), np.sum(_RhoOld, axis=1), dt, GetDx(space)
+    ) / float(_Nw)
     Jyy[:] = Jyy[:] / float(_Nw)
     Jzz[:] = Jzz[:] / float(_Nw)
 
@@ -344,11 +382,11 @@ def QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho, ExlfromPRho, EylfromP
 
     for j in range(Ny):
         # gy(j)   = (pi * ay**2) ** (-1d0 / 4d0) * exp( -((ry(j) - y0) ** 2) / (2d0 * ay ** 2) )
-        gy[j] = np.exp(-((ry[j] - _y0) ** 2) / (2.0 * _ay ** 2))
+        gy[j] = np.exp(-((ry[j] - _y0) ** 2) / (2.0 * _ay**2))
 
     for k in range(Nz):
         # gz(k)   = (pi * az**2) ** (-1d0 / 4d0) * exp( -((rz(k) - z0) ** 2) / (2d0 * az ** 2) )
-        gz[k] = np.exp(-((rz[k] - _z0) ** 2) / (2.0 * _az ** 2))
+        gz[k] = np.exp(-((rz[k] - _z0) ** 2) / (2.0 * _az**2))
 
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # DEBUG PRINT 3: Check the gate profiles.
@@ -390,7 +428,23 @@ def QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho, ExlfromPRho, EylfromP
         QWPlacement((np.sum(Pzz, axis=1) / float(_Nw)), gx, gy, gz, Pz)
 
         # call ElongfromRho(space, Rho, Px, Py, Pz, ExlfromRho, EylfromRho, EzlfromRho)
-        ElongfromRho(space, Rho, Px, Py, Pz, ExlfromPRho, EylfromPRho, EzlfromPRho, ExlfromP, EylfromP, EzlfromP, ExlfromRho, EylfromRho, EzlfromRho, RhoBound)
+        ElongfromRho(
+            space,
+            Rho,
+            Px,
+            Py,
+            Pz,
+            ExlfromPRho,
+            EylfromPRho,
+            EzlfromPRho,
+            ExlfromP,
+            EylfromP,
+            EzlfromP,
+            ExlfromRho,
+            EylfromRho,
+            EzlfromRho,
+            RhoBound,
+        )
 
     _PxxOld[:] = Pxx
     _PyyOld[:] = Pyy
@@ -399,17 +453,39 @@ def QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho, ExlfromPRho, EylfromP
 
     # print(_QW)
     if n % 100 == 0:
-        print(n, "RhoEH-max = ", np.max(np.abs(RhoEH[:, 0])), np.max(np.abs(RhoEH[:, 1])))
+        print(
+            n, "RhoEH-max = ", np.max(np.abs(RhoEH[:, 0])), np.max(np.abs(RhoEH[:, 1]))
+        )
         print(n, "Jxx-max = ", np.max(np.abs(Jxx[:])))
         print(n, "Jyy-max = ", np.max(np.abs(Jyy[:])))
         print(n, "Jzz-max = ", np.max(np.abs(Jzz[:])))
-        print("Difference check E*lfromPRho E*lfromP:", np.max(np.abs(ExlfromPRho - ExlfromP)), np.max(np.abs(EylfromPRho - EylfromP)), np.max(np.abs(EzlfromPRho - EzlfromP)))
+        print(
+            "Difference check E*lfromPRho E*lfromP:",
+            np.max(np.abs(ExlfromPRho - ExlfromP)),
+            np.max(np.abs(EylfromPRho - EylfromP)),
+            np.max(np.abs(EzlfromPRho - EzlfromP)),
+        )
 
         for w in range(_Nw):
             print(n, "w = ", w)
-            print(n, "Pxx-max-min-w = ", np.max(np.real(Pxx[:, w])), np.min(np.real(Pxx[:, w])))
-            print(n, "Pyy-max-min-w = ", np.max(np.real(Pyy[:, w])), np.min(np.real(Pyy[:, w])))
-            print(n, "Pzz-max-min-w = ", np.max(np.real(Pzz[:, w])), np.min(np.real(Pzz[:, w])))
+            print(
+                n,
+                "Pxx-max-min-w = ",
+                np.max(np.real(Pxx[:, w])),
+                np.min(np.real(Pxx[:, w])),
+            )
+            print(
+                n,
+                "Pyy-max-min-w = ",
+                np.max(np.real(Pyy[:, w])),
+                np.min(np.real(Pyy[:, w])),
+            )
+            print(
+                n,
+                "Pzz-max-min-w = ",
+                np.max(np.real(Pzz[:, w])),
+                np.min(np.real(Pzz[:, w])),
+            )
 
 
 def CalcJfx(RhoNew, RhoPrev, dt, dx):
@@ -447,9 +523,33 @@ def CalcJfx(RhoNew, RhoPrev, dt, dx):
 
 
 @jit(nopython=True, parallel=True)
-def _ElongfromRho_loop_jit(Rho_k, Px, Py, Pz, qx, qy, qz, qx2, qy2, qz2, small, inv_epsr,
-                            ExlfromPRho, EylfromPRho, EzlfromPRho, ExlfromP, EylfromP, EzlfromP,
-                            ExlfromRho, EylfromRho, EzlfromRho, RhoB_k, Nx, Ny, Nz):
+def _ElongfromRho_loop_jit(
+    Rho_k,
+    Px,
+    Py,
+    Pz,
+    qx,
+    qy,
+    qz,
+    qx2,
+    qy2,
+    qz2,
+    small,
+    inv_epsr,
+    ExlfromPRho,
+    EylfromPRho,
+    EzlfromPRho,
+    ExlfromP,
+    EylfromP,
+    EzlfromP,
+    ExlfromRho,
+    EylfromRho,
+    EzlfromRho,
+    RhoB_k,
+    Nx,
+    Ny,
+    Nz,
+):
     """
     JIT-compiled parallel version of ElongfromRho k-space loop.
 
@@ -486,7 +586,7 @@ def _ElongfromRho_loop_jit(Rho_k, Px, Py, Pz, qx, qy, qz, qx2, qy2, qz2, small, 
     ii_val = 1j  # Imaginary unit
 
     # Parallel over k & j, i innermost (collapse outer loops)
-    for k in prange(Nz): # pylint: disable=not-an-iterable
+    for k in prange(Nz):  # pylint: disable=not-an-iterable
         for j in range(Ny):
             for i in range(Nx):
                 # combined denominator
@@ -544,10 +644,12 @@ def _QWPlacement_jit(Fwire, gx, gy, gz, Fgrid, Nx, Ny, Nz):
         Fgrid is modified in-place.
     """
     # Parallel loop over k, j, i (collapse outer loops for better parallelization)
-    for k in prange(Nz): # pylint: disable=not-an-iterable
+    for k in prange(Nz):  # pylint: disable=not-an-iterable
         for j in range(Ny):
             for i in range(Nx):
-                Fgrid[i, j, k] = Fgrid[i, j, k] + gx[i] * gy[j] * gz[k] * Fwire[i]  # with SHO gate in y and z
+                Fgrid[i, j, k] = (
+                    Fgrid[i, j, k] + gx[i] * gy[j] * gz[k] * Fwire[i]
+                )  # with SHO gate in y and z
 
 
 def QWPlacement(Fwire, gx, gy, gz, Fgrid):
@@ -593,10 +695,28 @@ def QWPlacement(Fwire, gx, gy, gz, Fgrid):
         for k in range(Nz):
             for j in range(Ny):
                 for i in range(Nx):
-                    Fgrid[i, j, k] = Fgrid[i, j, k] + gx[i] * gy[j] * gz[k] * Fwire[i]  # with SHO gate in y and z
+                    Fgrid[i, j, k] = (
+                        Fgrid[i, j, k] + gx[i] * gy[j] * gz[k] * Fwire[i]
+                    )  # with SHO gate in y and z
 
 
-def ElongfromRho(space, Rho, Px, Py, Pz, ExlfromPRho, EylfromPRho, EzlfromPRho, ExlfromP, EylfromP, EzlfromP, ExlfromRho, EylfromRho, EzlfromRho, RhoBound):
+def ElongfromRho(
+    space,
+    Rho,
+    Px,
+    Py,
+    Pz,
+    ExlfromPRho,
+    EylfromPRho,
+    EzlfromPRho,
+    ExlfromP,
+    EylfromP,
+    EzlfromP,
+    ExlfromRho,
+    EylfromRho,
+    EzlfromRho,
+    RhoBound,
+):
     """
     Calculate longitudinal electric fields from polarization and charge density.
 
@@ -682,9 +802,33 @@ def ElongfromRho(space, Rho, Px, Py, Pz, ExlfromPRho, EylfromPRho, EzlfromPRho, 
 
     # Try JIT-compiled parallel version, fallback to regular loop if it fails
     try:
-        _ElongfromRho_loop_jit(Rho_k, Px, Py, Pz, qx, qy, qz, qx2, qy2, qz2, small, inv_epsr,
-                                ExlfromPRho, EylfromPRho, EzlfromPRho, ExlfromP, EylfromP, EzlfromP,
-                                ExlfromRho, EylfromRho, EzlfromRho, RhoB_k, Nx, Ny, Nz)
+        _ElongfromRho_loop_jit(
+            Rho_k,
+            Px,
+            Py,
+            Pz,
+            qx,
+            qy,
+            qz,
+            qx2,
+            qy2,
+            qz2,
+            small,
+            inv_epsr,
+            ExlfromPRho,
+            EylfromPRho,
+            EzlfromPRho,
+            ExlfromP,
+            EylfromP,
+            EzlfromP,
+            ExlfromRho,
+            EylfromRho,
+            EzlfromRho,
+            RhoB_k,
+            Nx,
+            Ny,
+            Nz,
+        )
     except (TypeError, ValueError, RuntimeError):
         # Fallback to regular Python loop
         for k in range(Nz):
@@ -694,7 +838,9 @@ def ElongfromRho(space, Rho, Px, Py, Pz, ExlfromPRho, EylfromPRho, EzlfromPRho, 
                     qsquare = qx2[i] + qy2[j] + qz2[k] + small
 
                     # dot-product of k·P
-                    qdotP = qx[i] * Px[i, j, k] + qy[j] * Py[i, j, k] + qz[k] * Pz[i, j, k]
+                    qdotP = (
+                        qx[i] * Px[i, j, k] + qy[j] * Py[i, j, k] + qz[k] * Pz[i, j, k]
+                    )
 
                     RhoB_k[i, j, k] = -ii * qdotP  # ρ_bound(k) = -i k·P(k)
 
@@ -791,13 +937,14 @@ class QWArray:
         int
             Error status: 0 for success, non-zero for error
         """
+
         def parse_line(line):
-            if '#' in line:
-                line = line.split('#')[0]
+            if "#" in line:
+                line = line.split("#")[0]
             return line.strip()
 
         try:
-            with open(filename, 'r', encoding='utf-8') as f:
+            with open(filename, "r", encoding="utf-8") as f:
                 lines = []
                 for line in f:
                     parsed = parse_line(line)
@@ -821,10 +968,29 @@ class QWArray:
             print(f"Error reading quantum wire parameters: {e}")
             return 1
 
-    def QuantumWire(self, space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho,
-                    ExlfromPRho, EylfromPRho, EzlfromPRho,
-                    ExlfromP, EylfromP, EzlfromP,
-                    ExlfromRho, EylfromRho, EzlfromRho, RhoBound):
+    def QuantumWire(
+        self,
+        space,
+        dt,
+        n,
+        Ex,
+        Ey,
+        Ez,
+        Jx,
+        Jy,
+        Jz,
+        Rho,
+        ExlfromPRho,
+        EylfromPRho,
+        EzlfromPRho,
+        ExlfromP,
+        EylfromP,
+        EzlfromP,
+        ExlfromRho,
+        EylfromRho,
+        EzlfromRho,
+        RhoBound,
+    ):
         """Main quantum wire calculation routine.
 
         Calculates polarization and charge density for quantum wires and
@@ -871,7 +1037,7 @@ class QWArray:
         xqw[:] = 0.0
 
         # Read parameters at the start of the subroutine
-        iostat = self.read_qw_parameters('params/qwarray.params')
+        iostat = self.read_qw_parameters("params/qwarray.params")
         if iostat != 0:
             print("Error reading quantum wire parameters, using defaults")
             self.QW = False
@@ -904,9 +1070,22 @@ class QWArray:
             Eyy[:] = EAtXYZ(Ey, rx, ry, rz, xqw[w], self.y0, self.z0)
             Ezz[:] = EAtXYZ(Ez, rx, ry, rz, xqw[w], self.y0, self.z0)
 
-            QWCalculator(Exx, Eyy, Ezz, Vrr, rx, qx, dt, w + 1,
-                         Pxx[:, w], Pyy[:, w], Pzz[:, w], RhoEH[:, w],
-                         DoQWP, DoQWDl)
+            QWCalculator(
+                Exx,
+                Eyy,
+                Ezz,
+                Vrr,
+                rx,
+                qx,
+                dt,
+                w + 1,
+                Pxx[:, w],
+                Pyy[:, w],
+                Pzz[:, w],
+                RhoEH[:, w],
+                DoQWP,
+                DoQWDl,
+            )
 
         # Time derivative of polarization → current density
         for i in range(Nx):
@@ -916,18 +1095,18 @@ class QWArray:
         for i in range(Nx):
             Jzz[i] = np.sum(Pzz[i, :] - self.PzzOld[i, :]) / dt
 
-        Jxx[:] = (Jxx / float(self.Nw)
-                  + CalcJfx(np.sum(RhoEH, axis=1), np.sum(self.RhoOld, axis=1),
-                            dt, GetDx(space)) / float(self.Nw))
+        Jxx[:] = Jxx / float(self.Nw) + CalcJfx(
+            np.sum(RhoEH, axis=1), np.sum(self.RhoOld, axis=1), dt, GetDx(space)
+        ) / float(self.Nw)
         Jyy[:] = Jyy / float(self.Nw)
         Jzz[:] = Jzz / float(self.Nw)
 
         # Gate profiles
         gx[:] = 1.0
         for j in range(Ny):
-            gy[j] = np.exp(-((ry[j] - self.y0) ** 2) / (2.0 * self.ay ** 2))
+            gy[j] = np.exp(-((ry[j] - self.y0) ** 2) / (2.0 * self.ay**2))
         for k in range(Nz):
-            gz[k] = np.exp(-((rz[k] - self.z0) ** 2) / (2.0 * self.az ** 2))
+            gz[k] = np.exp(-((rz[k] - self.z0) ** 2) / (2.0 * self.az**2))
 
         if DoQWCurr and self.propagate:
             QWPlacement(Jxx, gx, gy, gz, Jx)
@@ -942,9 +1121,23 @@ class QWArray:
             QWPlacement((np.sum(Pyy, axis=1) / float(self.Nw)), gx, gy, gz, Py)
             QWPlacement((np.sum(Pzz, axis=1) / float(self.Nw)), gx, gy, gz, Pz)
 
-            ElongfromRho(space, Rho, Px, Py, Pz, ExlfromPRho, EylfromPRho,
-                         EzlfromPRho, ExlfromP, EylfromP, EzlfromP,
-                         ExlfromRho, EylfromRho, EzlfromRho, RhoBound)
+            ElongfromRho(
+                space,
+                Rho,
+                Px,
+                Py,
+                Pz,
+                ExlfromPRho,
+                EylfromPRho,
+                EzlfromPRho,
+                ExlfromP,
+                EylfromP,
+                EzlfromP,
+                ExlfromRho,
+                EylfromRho,
+                EzlfromRho,
+                RhoBound,
+            )
 
         self.PxxOld[:] = Pxx
         self.PyyOld[:] = Pyy
@@ -952,24 +1145,42 @@ class QWArray:
         self.RhoOld[:] = RhoEH
 
         if n % 100 == 0:
-            print(n, "RhoEH-max = ", np.max(np.abs(RhoEH[:, 0])),
-                  np.max(np.abs(RhoEH[:, 1])))
+            print(
+                n,
+                "RhoEH-max = ",
+                np.max(np.abs(RhoEH[:, 0])),
+                np.max(np.abs(RhoEH[:, 1])),
+            )
             print(n, "Jxx-max = ", np.max(np.abs(Jxx[:])))
             print(n, "Jyy-max = ", np.max(np.abs(Jyy[:])))
             print(n, "Jzz-max = ", np.max(np.abs(Jzz[:])))
-            print("Difference check E*lfromPRho E*lfromP:",
-                  np.max(np.abs(ExlfromPRho - ExlfromP)),
-                  np.max(np.abs(EylfromPRho - EylfromP)),
-                  np.max(np.abs(EzlfromPRho - EzlfromP)))
+            print(
+                "Difference check E*lfromPRho E*lfromP:",
+                np.max(np.abs(ExlfromPRho - ExlfromP)),
+                np.max(np.abs(EylfromPRho - EylfromP)),
+                np.max(np.abs(EzlfromPRho - EzlfromP)),
+            )
 
             for w in range(self.Nw):
                 print(n, "w = ", w)
-                print(n, "Pxx-max-min-w = ", np.max(np.real(Pxx[:, w])),
-                      np.min(np.real(Pxx[:, w])))
-                print(n, "Pyy-max-min-w = ", np.max(np.real(Pyy[:, w])),
-                      np.min(np.real(Pyy[:, w])))
-                print(n, "Pzz-max-min-w = ", np.max(np.real(Pzz[:, w])),
-                      np.min(np.real(Pzz[:, w])))
+                print(
+                    n,
+                    "Pxx-max-min-w = ",
+                    np.max(np.real(Pxx[:, w])),
+                    np.min(np.real(Pxx[:, w])),
+                )
+                print(
+                    n,
+                    "Pyy-max-min-w = ",
+                    np.max(np.real(Pyy[:, w])),
+                    np.min(np.real(Pyy[:, w])),
+                )
+                print(
+                    n,
+                    "Pzz-max-min-w = ",
+                    np.max(np.real(Pzz[:, w])),
+                    np.min(np.real(Pzz[:, w])),
+                )
 
 
 # ============================================================================
@@ -979,18 +1190,54 @@ class QWArray:
 _default_qw = None
 
 
-def QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho,  # noqa: F811
-                ExlfromPRho, EylfromPRho, EzlfromPRho,
-                ExlfromP, EylfromP, EzlfromP,
-                ExlfromRho, EylfromRho, EzlfromRho, RhoBound):
+def QuantumWire(
+    space,
+    dt,
+    n,
+    Ex,
+    Ey,
+    Ez,
+    Jx,
+    Jy,
+    Jz,
+    Rho,  # noqa: F811
+    ExlfromPRho,
+    EylfromPRho,
+    EzlfromPRho,
+    ExlfromP,
+    EylfromP,
+    EzlfromP,
+    ExlfromRho,
+    EylfromRho,
+    EzlfromRho,
+    RhoBound,
+):
     """Backward-compatible shim — delegates to _default_qw."""
     global _default_qw
     if _default_qw is None:
         _default_qw = QWArray()
-    _default_qw.QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho,
-                            ExlfromPRho, EylfromPRho, EzlfromPRho,
-                            ExlfromP, EylfromP, EzlfromP,
-                            ExlfromRho, EylfromRho, EzlfromRho, RhoBound)
+    _default_qw.QuantumWire(
+        space,
+        dt,
+        n,
+        Ex,
+        Ey,
+        Ez,
+        Jx,
+        Jy,
+        Jz,
+        Rho,
+        ExlfromPRho,
+        EylfromPRho,
+        EzlfromPRho,
+        ExlfromP,
+        EylfromP,
+        EzlfromP,
+        ExlfromRho,
+        EylfromRho,
+        EzlfromRho,
+        RhoBound,
+    )
 
 
 def read_qw_parameters(filename):  # noqa: F811

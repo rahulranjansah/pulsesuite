@@ -15,17 +15,21 @@ import numpy as np
 
 try:
     from numba import jit
+
     JIT_AVAILABLE = True
 except ImportError:
     JIT_AVAILABLE = False
+
     # Fallback: create a no-op decorator
     def jit(*args, **kwargs):
         def decorator(func):
             return func
+
         if args and callable(args[0]):
             # Called as @jit without parentheses
             return args[0]
         return decorator
+
 
 # Import required modules
 from .rhoPJ import QuantumWire
@@ -49,18 +53,38 @@ twopi = 2.0 * pi
 
 # Global parameters (matching Fortran defaults)
 DEFAULT_DT = 10e-18  # Time step (s) - note: 10e-18 in this version
-DEFAULT_NT = 10000   # Number of time steps
+DEFAULT_NT = 10000  # Number of time steps
 DEFAULT_TP = 50e-15  # Pulse peak time (s)
 DEFAULT_LAM = 800e-9  # Wavelength (m)
-DEFAULT_TW = 10e-15   # Pulse width (s)
-DEFAULT_N0 = 3.1     # Background refractive index
-DEFAULT_E0X = 2e8    # Peak Ex field (V/m)
-DEFAULT_E0Y = 0.0    # Peak Ey field (V/m)
-DEFAULT_E0Z = 0.0    # Peak Ez field (V/m)
+DEFAULT_TW = 10e-15  # Pulse width (s)
+DEFAULT_N0 = 3.1  # Background refractive index
+DEFAULT_E0X = 2e8  # Peak Ex field (V/m)
+DEFAULT_E0Y = 0.0  # Peak Ey field (V/m)
+DEFAULT_E0Z = 0.0  # Peak Ez field (V/m)
 
 
-def initializefields(F1, F2, F3, F4, F5, F6, F7, F8, F9, F10,
-                     F11, F12, F13, F14, F15, F16, F17, F18, F19, F20):
+def initializefields(
+    F1,
+    F2,
+    F3,
+    F4,
+    F5,
+    F6,
+    F7,
+    F8,
+    F9,
+    F10,
+    F11,
+    F12,
+    F13,
+    F14,
+    F15,
+    F16,
+    F17,
+    F18,
+    F19,
+    F20,
+):
     """
     Initialize all field arrays to zero.
 
@@ -144,8 +168,8 @@ def _compute_plane_wave_jit(u, Emax0, w0, tw):
 
     for i in range(N):
         u_val = u[i]
-        gaussian = np.exp(-u_val**2 / w0tw**2)
-        supergaussian = np.exp(-u_val**20 / w0tw20)
+        gaussian = np.exp(-(u_val**2) / w0tw**2)
+        supergaussian = np.exp(-(u_val**20) / w0tw20)
         carrier = np.cos(u_val)
         result[i] = Emax0 * gaussian * carrier * supergaussian
 
@@ -204,8 +228,12 @@ def MakePlaneWaveX(Ey, space, t, Emax0, lam, tw, tp):
     except:
         # Fallback to NumPy
         w0tw = w0 * tw
-        field = (Emax0 * np.exp(-u**2 / w0tw**2) * np.cos(u) *
-                 np.exp(-u**20 / (2.0 * w0tw)**20))
+        field = (
+            Emax0
+            * np.exp(-(u**2) / w0tw**2)
+            * np.cos(u)
+            * np.exp(-(u**20) / (2.0 * w0tw) ** 20)
+        )
 
     # Populate 3D array (field is uniform in y and z)
     Nx = GetNx(space)
@@ -269,8 +297,12 @@ def MakePlaneWaveY(Ex, space, t, Emax0, lam, tw, tp):
     except:
         # Fallback to NumPy
         w0tw = w0 * tw
-        field = (Emax0 * np.exp(-u**2 / w0tw**2) * np.cos(u) *
-                 np.exp(-u**20 / (2.0 * w0tw)**20))
+        field = (
+            Emax0
+            * np.exp(-(u**2) / w0tw**2)
+            * np.cos(u)
+            * np.exp(-(u**20) / (2.0 * w0tw) ** 20)
+        )
 
     # Populate 3D array (field is uniform in x and z)
     Nx = GetNx(space)
@@ -335,8 +367,12 @@ def MakePlaneWaveZ(Ez, space, t, Emax0, lam, tw, tp):
     except:
         # Fallback to NumPy
         w0tw = w0 * tw
-        field = (Emax0 * np.exp(-u**2 / w0tw**2) * np.cos(u) *
-                 np.exp(-u**20 / (2.0 * w0tw)**20))
+        field = (
+            Emax0
+            * np.exp(-(u**2) / w0tw**2)
+            * np.cos(u)
+            * np.exp(-(u**20) / (2.0 * w0tw) ** 20)
+        )
 
     # Populate 3D array (field is uniform in y and z)
     Nx = GetNx(space)
@@ -387,7 +423,7 @@ def MakePlaneWaveTemporal(Ex, t, Emax0, lam, tw, tp):
     u = w0 * (t - tp)
 
     # Compute Gaussian pulse envelope
-    env = Emax0 * np.cos(u) * np.exp(-(t - tp)**2 / tw**2)
+    env = Emax0 * np.cos(u) * np.exp(-((t - tp) ** 2) / tw**2)
 
     # Set uniform field everywhere
     Ex[:, :, :] = env
@@ -446,19 +482,21 @@ def int2str(n):
     return str(n)
 
 
-def SBETest(space_params_file='params/space.params',
-            dt=DEFAULT_DT,
-            Nt=DEFAULT_NT,
-            tp=DEFAULT_TP,
-            lam=DEFAULT_LAM,
-            tw=DEFAULT_TW,
-            n0=DEFAULT_N0,
-            E0x=DEFAULT_E0X,
-            E0y=DEFAULT_E0Y,
-            E0z=DEFAULT_E0Z,
-            output_dir='fields',
-            write_2d_slices=True,
-            slice_interval=10):
+def SBETest(
+    space_params_file="params/space.params",
+    dt=DEFAULT_DT,
+    Nt=DEFAULT_NT,
+    tp=DEFAULT_TP,
+    lam=DEFAULT_LAM,
+    tw=DEFAULT_TW,
+    n0=DEFAULT_N0,
+    E0x=DEFAULT_E0X,
+    E0y=DEFAULT_E0Y,
+    E0z=DEFAULT_E0Z,
+    output_dir="fields",
+    write_2d_slices=True,
+    slice_interval=10,
+):
     """
     Main SBE test program with full longitudinal field analysis.
 
@@ -511,9 +549,9 @@ def SBETest(space_params_file='params/space.params',
     6. Tracks max/min values for all fields
     7. Writes time series and 2D slices to files
     """
-    print("="*70)
+    print("=" * 70)
     print("SBE Test Program - Full Longitudinal Field Analysis")
-    print("="*70)
+    print("=" * 70)
 
     # Read spatial grid structure
     space = ss(Dims=0, Nx=0, Ny=0, Nz=0, dx=0.0, dy=0.0, dz=0.0, epsr=1.0)
@@ -579,10 +617,28 @@ def SBETest(space_params_file='params/space.params',
     EzlRho_max, EzlRho_min = -np.inf, np.inf
 
     # Initialize the Maxwell arrays
-    initializefields(Ex, Ey, Ez, Jx, Jy, Jz, Rho, Exl, Eyl, Ezl,
-                    ExlfromPRho, EylfromPRho, EzlfromPRho,
-                    ExlfromP, EylfromP, EzlfromP,
-                    ExlfromRho, EylfromRho, EzlfromRho, RhoBound)
+    initializefields(
+        Ex,
+        Ey,
+        Ez,
+        Jx,
+        Jy,
+        Jz,
+        Rho,
+        Exl,
+        Eyl,
+        Ezl,
+        ExlfromPRho,
+        EylfromPRho,
+        EzlfromPRho,
+        ExlfromP,
+        EylfromP,
+        EzlfromP,
+        ExlfromRho,
+        EylfromRho,
+        EzlfromRho,
+        RhoBound,
+    )
 
     # Calculate angular frequencies and optical cycle (for Y-direction)
     w0y = twopi * c0 / lam
@@ -607,35 +663,35 @@ def SBETest(space_params_file='params/space.params',
     # Open files to record data
     file_handles = {}
     output_files = {
-        'Ex': f'{output_dir}/Ex.dat',
-        'Ey': f'{output_dir}/Ey.dat',
-        'Ez': f'{output_dir}/Ez.dat',
-        'Jx': f'{output_dir}/Jx.dat',
-        'Jy': f'{output_dir}/Jy.dat',
-        'Jz': f'{output_dir}/Jz.dat',
-        'Rho': f'{output_dir}/Rho.dat',
-        'Eywireloc': f'{output_dir}/Eywireloc.dat',
-        'Exl': f'{output_dir}/Exl.dat',
-        'Eyl': f'{output_dir}/Eyl.dat',
-        'Ezl': f'{output_dir}/Ezl.dat',
-        'ExlfromPRho': f'{output_dir}/ExlfromPRho.dat',
-        'EylfromPRho': f'{output_dir}/EylfromPRho.dat',
-        'EzlfromPRho': f'{output_dir}/EzlfromPRho.dat',
-        'ExlfromP': f'{output_dir}/ExlfromP.dat',
-        'EylfromP': f'{output_dir}/EylfromP.dat',
-        'EzlfromP': f'{output_dir}/EzlfromP.dat',
-        'ExlfromRho': f'{output_dir}/ExlfromRho.dat',
-        'EylfromRho': f'{output_dir}/EylfromRho.dat',
-        'EzlfromRho': f'{output_dir}/EzlfromRho.dat',
-        'final_max_min': f'{output_dir}/final_max_min.dat',
-        'RhoBound': f'{output_dir}/RhoBound.dat',
+        "Ex": f"{output_dir}/Ex.dat",
+        "Ey": f"{output_dir}/Ey.dat",
+        "Ez": f"{output_dir}/Ez.dat",
+        "Jx": f"{output_dir}/Jx.dat",
+        "Jy": f"{output_dir}/Jy.dat",
+        "Jz": f"{output_dir}/Jz.dat",
+        "Rho": f"{output_dir}/Rho.dat",
+        "Eywireloc": f"{output_dir}/Eywireloc.dat",
+        "Exl": f"{output_dir}/Exl.dat",
+        "Eyl": f"{output_dir}/Eyl.dat",
+        "Ezl": f"{output_dir}/Ezl.dat",
+        "ExlfromPRho": f"{output_dir}/ExlfromPRho.dat",
+        "EylfromPRho": f"{output_dir}/EylfromPRho.dat",
+        "EzlfromPRho": f"{output_dir}/EzlfromPRho.dat",
+        "ExlfromP": f"{output_dir}/ExlfromP.dat",
+        "EylfromP": f"{output_dir}/EylfromP.dat",
+        "EzlfromP": f"{output_dir}/EzlfromP.dat",
+        "ExlfromRho": f"{output_dir}/ExlfromRho.dat",
+        "EylfromRho": f"{output_dir}/EylfromRho.dat",
+        "EzlfromRho": f"{output_dir}/EzlfromRho.dat",
+        "final_max_min": f"{output_dir}/final_max_min.dat",
+        "RhoBound": f"{output_dir}/RhoBound.dat",
     }
 
     for key, filename in output_files.items():
-        file_handles[key] = open(filename, 'w', encoding='utf-8')
+        file_handles[key] = open(filename, "w", encoding="utf-8")
 
     print("Starting time loop...")
-    print("="*70)
+    print("=" * 70)
 
     # Time loop
     t = 0.0
@@ -647,17 +703,37 @@ def SBETest(space_params_file='params/space.params',
         MakePlaneWaveY(Ex, space, t, E0x, lam, tw, tp)
 
         # Update quantum wire response with full longitudinal field decomposition
-        QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho,
-                   ExlfromPRho, EylfromPRho, EzlfromPRho,
-                   ExlfromP, EylfromP, EzlfromP,
-                   ExlfromRho, EylfromRho, EzlfromRho, RhoBound)
+        QuantumWire(
+            space,
+            dt,
+            n,
+            Ex,
+            Ey,
+            Ez,
+            Jx,
+            Jy,
+            Jz,
+            Rho,
+            ExlfromPRho,
+            EylfromPRho,
+            EzlfromPRho,
+            ExlfromP,
+            EylfromP,
+            EzlfromP,
+            ExlfromRho,
+            EylfromRho,
+            EzlfromRho,
+            RhoBound,
+        )
 
         # Check differences (diagnostic)
         if n % 120 == 0:
             diff_x = np.max(np.abs(ExlfromPRho - ExlfromP))
             diff_y = np.max(np.abs(EylfromPRho - EylfromP))
             diff_z = np.max(np.abs(EzlfromPRho - EzlfromP))
-            print(f"  After QuantumWire difference check: {diff_x:.4e}, {diff_y:.4e}, {diff_z:.4e}")
+            print(
+                f"  After QuantumWire difference check: {diff_x:.4e}, {diff_y:.4e}, {diff_z:.4e}"
+            )
             print(f"  ExlfromP:    {np.max(np.abs(ExlfromP)):.4e}")
             print(f"  ExlfromPRho: {np.max(np.abs(ExlfromPRho)):.4e}")
             print(f"  ExlfromRho:  {np.max(np.abs(ExlfromRho)):.4e}")
@@ -734,96 +810,112 @@ def SBETest(space_params_file='params/space.params',
         EzlRho_min = min(EzlRho_min, np.min(np.real(EzlfromRho)))
 
         # Write time series data to files
-        file_handles['Ex'].write(f"{t:.15e} {np.real(Ex[0, 0, 0]):.15e}\n")
-        file_handles['Ey'].write(f"{t:.15e} {np.real(Ey[0, Ny//2, 0]):.15e}\n")
-        file_handles['Ez'].write(f"{t:.15e} {np.real(Ez[0, 0, 0]):.15e}\n")
-        file_handles['Jx'].write(f"{t:.15e} {np.real(Jx[0, Ny//2, 0]):.15e}\n")
-        file_handles['Jy'].write(f"{t:.15e} {np.real(Jy[0, Ny//2, 0]):.15e}\n")
-        file_handles['Jz'].write(f"{t:.15e} {np.real(Jz[0, Ny//2, 0]):.15e}\n")
-        file_handles['Rho'].write(f"{t:.15e} {np.real(Rho[0, Ny//2, 0]):.15e}\n")
-        file_handles['Eywireloc'].write(f"{t:.15e} {np.real(Ey[Nx//4, Ny//2, Nz//2]):.15e}\n")
+        file_handles["Ex"].write(f"{t:.15e} {np.real(Ex[0, 0, 0]):.15e}\n")
+        file_handles["Ey"].write(f"{t:.15e} {np.real(Ey[0, Ny//2, 0]):.15e}\n")
+        file_handles["Ez"].write(f"{t:.15e} {np.real(Ez[0, 0, 0]):.15e}\n")
+        file_handles["Jx"].write(f"{t:.15e} {np.real(Jx[0, Ny//2, 0]):.15e}\n")
+        file_handles["Jy"].write(f"{t:.15e} {np.real(Jy[0, Ny//2, 0]):.15e}\n")
+        file_handles["Jz"].write(f"{t:.15e} {np.real(Jz[0, Ny//2, 0]):.15e}\n")
+        file_handles["Rho"].write(f"{t:.15e} {np.real(Rho[0, Ny//2, 0]):.15e}\n")
+        file_handles["Eywireloc"].write(
+            f"{t:.15e} {np.real(Ey[Nx//4, Ny//2, Nz//2]):.15e}\n"
+        )
 
-        file_handles['ExlfromPRho'].write(f"{t:.15e} {np.real(ExlfromPRho[0, 0, 0]):.15e}\n")
-        file_handles['EylfromPRho'].write(f"{t:.15e} {np.real(EylfromPRho[0, 0, 0]):.15e}\n")
-        file_handles['EzlfromPRho'].write(f"{t:.15e} {np.real(EzlfromPRho[0, 0, 0]):.15e}\n")
+        file_handles["ExlfromPRho"].write(
+            f"{t:.15e} {np.real(ExlfromPRho[0, 0, 0]):.15e}\n"
+        )
+        file_handles["EylfromPRho"].write(
+            f"{t:.15e} {np.real(EylfromPRho[0, 0, 0]):.15e}\n"
+        )
+        file_handles["EzlfromPRho"].write(
+            f"{t:.15e} {np.real(EzlfromPRho[0, 0, 0]):.15e}\n"
+        )
 
-        file_handles['ExlfromP'].write(f"{t:.15e} {np.real(ExlfromP[0, 0, 0]):.15e}\n")
-        file_handles['EylfromP'].write(f"{t:.15e} {np.real(EylfromP[0, 0, 0]):.15e}\n")
-        file_handles['EzlfromP'].write(f"{t:.15e} {np.real(EzlfromP[0, 0, 0]):.15e}\n")
+        file_handles["ExlfromP"].write(f"{t:.15e} {np.real(ExlfromP[0, 0, 0]):.15e}\n")
+        file_handles["EylfromP"].write(f"{t:.15e} {np.real(EylfromP[0, 0, 0]):.15e}\n")
+        file_handles["EzlfromP"].write(f"{t:.15e} {np.real(EzlfromP[0, 0, 0]):.15e}\n")
 
-        file_handles['ExlfromRho'].write(f"{t:.15e} {np.real(ExlfromRho[0, 0, 0]):.15e}\n")
-        file_handles['EylfromRho'].write(f"{t:.15e} {np.real(EylfromRho[0, 0, 0]):.15e}\n")
-        file_handles['EzlfromRho'].write(f"{t:.15e} {np.real(EzlfromRho[0, 0, 0]):.15e}\n")
+        file_handles["ExlfromRho"].write(
+            f"{t:.15e} {np.real(ExlfromRho[0, 0, 0]):.15e}\n"
+        )
+        file_handles["EylfromRho"].write(
+            f"{t:.15e} {np.real(EylfromRho[0, 0, 0]):.15e}\n"
+        )
+        file_handles["EzlfromRho"].write(
+            f"{t:.15e} {np.real(EzlfromRho[0, 0, 0]):.15e}\n"
+        )
 
-        file_handles['RhoBound'].write(f"{t:.15e} {np.real(RhoBound[0, Ny//2, 0]):.15e}\n")
+        file_handles["RhoBound"].write(
+            f"{t:.15e} {np.real(RhoBound[0, Ny//2, 0]):.15e}\n"
+        )
 
         # Write 2D slices at intervals
         if write_2d_slices and (n % slice_interval == 0):
             # ExlfromPRho slices
-            WriteIT2D(np.real(ExlfromPRho[:, :, Nz//2]), f'ExPRho.{int2str(n)}.z')
-            WriteIT2D(np.real(EylfromPRho[:, :, Nz//2]), f'EyPRho.{int2str(n)}.z')
-            WriteIT2D(np.real(EzlfromPRho[:, :, Nz//2]), f'EzPRho.{int2str(n)}.z')
+            WriteIT2D(np.real(ExlfromPRho[:, :, Nz // 2]), f"ExPRho.{int2str(n)}.z")
+            WriteIT2D(np.real(EylfromPRho[:, :, Nz // 2]), f"EyPRho.{int2str(n)}.z")
+            WriteIT2D(np.real(EzlfromPRho[:, :, Nz // 2]), f"EzPRho.{int2str(n)}.z")
 
-            WriteIT2D(np.real(ExlfromPRho[:, Ny//2, :]), f'ExPRho.{int2str(n)}.y')
-            WriteIT2D(np.real(EylfromPRho[:, Ny//2, :]), f'EyPRho.{int2str(n)}.y')
-            WriteIT2D(np.real(EzlfromPRho[:, Ny//2, :]), f'EzPRho.{int2str(n)}.y')
+            WriteIT2D(np.real(ExlfromPRho[:, Ny // 2, :]), f"ExPRho.{int2str(n)}.y")
+            WriteIT2D(np.real(EylfromPRho[:, Ny // 2, :]), f"EyPRho.{int2str(n)}.y")
+            WriteIT2D(np.real(EzlfromPRho[:, Ny // 2, :]), f"EzPRho.{int2str(n)}.y")
 
-            WriteIT2D(np.real(ExlfromPRho[Nx//2, :, :]), f'ExPRho.{int2str(n)}.x')
-            WriteIT2D(np.real(EylfromPRho[Nx//2, :, :]), f'EyPRho.{int2str(n)}.x')
-            WriteIT2D(np.real(EzlfromPRho[Nx//2, :, :]), f'EzPRho.{int2str(n)}.x')
+            WriteIT2D(np.real(ExlfromPRho[Nx // 2, :, :]), f"ExPRho.{int2str(n)}.x")
+            WriteIT2D(np.real(EylfromPRho[Nx // 2, :, :]), f"EyPRho.{int2str(n)}.x")
+            WriteIT2D(np.real(EzlfromPRho[Nx // 2, :, :]), f"EzPRho.{int2str(n)}.x")
 
             # Rho slices
-            WriteIT2D(np.real(Rho[:, :, Nz//2]), f'Rho.{int2str(n)}.z')
-            WriteIT2D(np.real(Rho[:, Ny//2, :]), f'Rho.{int2str(n)}.y')
-            WriteIT2D(np.real(Rho[Nx//2, :, :]), f'Rho.{int2str(n)}.x')
+            WriteIT2D(np.real(Rho[:, :, Nz // 2]), f"Rho.{int2str(n)}.z")
+            WriteIT2D(np.real(Rho[:, Ny // 2, :]), f"Rho.{int2str(n)}.y")
+            WriteIT2D(np.real(Rho[Nx // 2, :, :]), f"Rho.{int2str(n)}.x")
 
             # ExlfromP slices
-            WriteIT2D(np.real(ExlfromP[:, :, Nz//2]), f'ExP.{int2str(n)}.z')
-            WriteIT2D(np.real(EylfromP[:, :, Nz//2]), f'EyP.{int2str(n)}.z')
-            WriteIT2D(np.real(EzlfromP[:, :, Nz//2]), f'EzP.{int2str(n)}.z')
+            WriteIT2D(np.real(ExlfromP[:, :, Nz // 2]), f"ExP.{int2str(n)}.z")
+            WriteIT2D(np.real(EylfromP[:, :, Nz // 2]), f"EyP.{int2str(n)}.z")
+            WriteIT2D(np.real(EzlfromP[:, :, Nz // 2]), f"EzP.{int2str(n)}.z")
 
-            WriteIT2D(np.real(ExlfromP[:, Ny//2, :]), f'ExP.{int2str(n)}.y')
-            WriteIT2D(np.real(EylfromP[:, Ny//2, :]), f'EyP.{int2str(n)}.y')
-            WriteIT2D(np.real(EzlfromP[:, Ny//2, :]), f'EzP.{int2str(n)}.y')
+            WriteIT2D(np.real(ExlfromP[:, Ny // 2, :]), f"ExP.{int2str(n)}.y")
+            WriteIT2D(np.real(EylfromP[:, Ny // 2, :]), f"EyP.{int2str(n)}.y")
+            WriteIT2D(np.real(EzlfromP[:, Ny // 2, :]), f"EzP.{int2str(n)}.y")
 
-            WriteIT2D(np.real(ExlfromP[Nx//2, :, :]), f'ExP.{int2str(n)}.x')
-            WriteIT2D(np.real(EylfromP[Nx//2, :, :]), f'EyP.{int2str(n)}.x')
-            WriteIT2D(np.real(EzlfromP[Nx//2, :, :]), f'EzP.{int2str(n)}.x')
+            WriteIT2D(np.real(ExlfromP[Nx // 2, :, :]), f"ExP.{int2str(n)}.x")
+            WriteIT2D(np.real(EylfromP[Nx // 2, :, :]), f"EyP.{int2str(n)}.x")
+            WriteIT2D(np.real(EzlfromP[Nx // 2, :, :]), f"EzP.{int2str(n)}.x")
 
             # ExlfromRho slices
-            WriteIT2D(np.real(ExlfromRho[:, :, Nz//2]), f'ExRho.{int2str(n)}.z')
-            WriteIT2D(np.real(EylfromRho[:, :, Nz//2]), f'EyRho.{int2str(n)}.z')
-            WriteIT2D(np.real(EzlfromRho[:, :, Nz//2]), f'EzRho.{int2str(n)}.z')
+            WriteIT2D(np.real(ExlfromRho[:, :, Nz // 2]), f"ExRho.{int2str(n)}.z")
+            WriteIT2D(np.real(EylfromRho[:, :, Nz // 2]), f"EyRho.{int2str(n)}.z")
+            WriteIT2D(np.real(EzlfromRho[:, :, Nz // 2]), f"EzRho.{int2str(n)}.z")
 
-            WriteIT2D(np.real(ExlfromRho[:, Ny//2, :]), f'ExRho.{int2str(n)}.y')
-            WriteIT2D(np.real(EylfromRho[:, Ny//2, :]), f'EyRho.{int2str(n)}.y')
-            WriteIT2D(np.real(EzlfromRho[:, Ny//2, :]), f'EzRho.{int2str(n)}.y')
+            WriteIT2D(np.real(ExlfromRho[:, Ny // 2, :]), f"ExRho.{int2str(n)}.y")
+            WriteIT2D(np.real(EylfromRho[:, Ny // 2, :]), f"EyRho.{int2str(n)}.y")
+            WriteIT2D(np.real(EzlfromRho[:, Ny // 2, :]), f"EzRho.{int2str(n)}.y")
 
-            WriteIT2D(np.real(ExlfromRho[Nx//2, :, :]), f'ExRho.{int2str(n)}.x')
-            WriteIT2D(np.real(EylfromRho[Nx//2, :, :]), f'EyRho.{int2str(n)}.x')
-            WriteIT2D(np.real(EzlfromRho[Nx//2, :, :]), f'EzRho.{int2str(n)}.x')
+            WriteIT2D(np.real(ExlfromRho[Nx // 2, :, :]), f"ExRho.{int2str(n)}.x")
+            WriteIT2D(np.real(EylfromRho[Nx // 2, :, :]), f"EyRho.{int2str(n)}.x")
+            WriteIT2D(np.real(EzlfromRho[Nx // 2, :, :]), f"EzRho.{int2str(n)}.x")
 
             # Exl slices
-            WriteIT2D(np.real(Exl[:, :, Nz//2]), f'Exl.{int2str(n)}.z')
-            WriteIT2D(np.real(Eyl[:, :, Nz//2]), f'Eyl.{int2str(n)}.z')
-            WriteIT2D(np.real(Ezl[:, :, Nz//2]), f'Ezl.{int2str(n)}.z')
+            WriteIT2D(np.real(Exl[:, :, Nz // 2]), f"Exl.{int2str(n)}.z")
+            WriteIT2D(np.real(Eyl[:, :, Nz // 2]), f"Eyl.{int2str(n)}.z")
+            WriteIT2D(np.real(Ezl[:, :, Nz // 2]), f"Ezl.{int2str(n)}.z")
 
-            WriteIT2D(np.real(Exl[:, Ny//2, :]), f'Exl.{int2str(n)}.y')
-            WriteIT2D(np.real(Eyl[:, Ny//2, :]), f'Eyl.{int2str(n)}.y')
-            WriteIT2D(np.real(Ezl[:, Ny//2, :]), f'Ezl.{int2str(n)}.y')
+            WriteIT2D(np.real(Exl[:, Ny // 2, :]), f"Exl.{int2str(n)}.y")
+            WriteIT2D(np.real(Eyl[:, Ny // 2, :]), f"Eyl.{int2str(n)}.y")
+            WriteIT2D(np.real(Ezl[:, Ny // 2, :]), f"Ezl.{int2str(n)}.y")
 
-            WriteIT2D(np.real(Exl[Nx//2, :, :]), f'Exl.{int2str(n)}.x')
-            WriteIT2D(np.real(Eyl[Nx//2, :, :]), f'Eyl.{int2str(n)}.x')
-            WriteIT2D(np.real(Ezl[Nx//2, :, :]), f'Ezl.{int2str(n)}.x')
+            WriteIT2D(np.real(Exl[Nx // 2, :, :]), f"Exl.{int2str(n)}.x")
+            WriteIT2D(np.real(Eyl[Nx // 2, :, :]), f"Eyl.{int2str(n)}.x")
+            WriteIT2D(np.real(Ezl[Nx // 2, :, :]), f"Ezl.{int2str(n)}.x")
 
             # RhoBound slices
-            WriteIT2D(np.real(RhoBound[:, :, Nz//2]), f'RhoB.{int2str(n)}.z')
-            WriteIT2D(np.real(RhoBound[:, Ny//2, :]), f'RhoB.{int2str(n)}.y')
-            WriteIT2D(np.real(RhoBound[Nx//2, :, :]), f'RhoB.{int2str(n)}.x')
+            WriteIT2D(np.real(RhoBound[:, :, Nz // 2]), f"RhoB.{int2str(n)}.z")
+            WriteIT2D(np.real(RhoBound[:, Ny // 2, :]), f"RhoB.{int2str(n)}.y")
+            WriteIT2D(np.real(RhoBound[Nx // 2, :, :]), f"RhoB.{int2str(n)}.x")
 
         # Write max/min summary every 1000 steps
         if n % 1000 == 0:
-            fh = file_handles['final_max_min']
+            fh = file_handles["final_max_min"]
             fh.write(f"Max/Min Field Values Over {n} Time Steps\n")
             fh.write(f"Ex:           Max = {Ex_max:.6e}  Min = {Ex_min:.6e}\n")
             fh.write(f"Ey:           Max = {Ey_max:.6e}  Min = {Ey_min:.6e}\n")
@@ -835,9 +927,15 @@ def SBETest(space_params_file='params/space.params',
             fh.write(f"Exl:          Max = {Exl_max:.6e}  Min = {Exl_min:.6e}\n")
             fh.write(f"Eyl:          Max = {Eyl_max:.6e}  Min = {Eyl_min:.6e}\n")
             fh.write(f"Ezl:          Max = {Ezl_max:.6e}  Min = {Ezl_min:.6e}\n")
-            fh.write(f"ExlfromPRho:  Max = {ExlPRho_max:.6e}  Min = {ExlPRho_min:.6e}\n")
-            fh.write(f"EylfromPRho:  Max = {EylPRho_max:.6e}  Min = {EylPRho_min:.6e}\n")
-            fh.write(f"EzlfromPRho:  Max = {EzlPRho_max:.6e}  Min = {EzlPRho_min:.6e}\n")
+            fh.write(
+                f"ExlfromPRho:  Max = {ExlPRho_max:.6e}  Min = {ExlPRho_min:.6e}\n"
+            )
+            fh.write(
+                f"EylfromPRho:  Max = {EylPRho_max:.6e}  Min = {EylPRho_min:.6e}\n"
+            )
+            fh.write(
+                f"EzlfromPRho:  Max = {EzlPRho_max:.6e}  Min = {EzlPRho_min:.6e}\n"
+            )
             fh.write(f"ExlfromP:     Max = {ExlP_max:.6e}  Min = {ExlP_min:.6e}\n")
             fh.write(f"EylfromP:     Max = {EylP_max:.6e}  Min = {EylP_min:.6e}\n")
             fh.write(f"EzlfromP:     Max = {EzlP_max:.6e}  Min = {EzlP_min:.6e}\n")
@@ -850,9 +948,9 @@ def SBETest(space_params_file='params/space.params',
         t = t + dt
 
     # Print final statistics
-    print("="*70)
+    print("=" * 70)
     print("FINAL FIELD MAX/MIN VALUES OVER ALL TIME STEPS")
-    print("="*70)
+    print("=" * 70)
     print(f"Ex:           Max = {Ex_max:.6e}  Min = {Ex_min:.6e}")
     print(f"Ey:           Max = {Ey_max:.6e}  Min = {Ey_min:.6e}")
     print(f"Ez:           Max = {Ez_max:.6e}  Min = {Ez_min:.6e}")
@@ -874,7 +972,7 @@ def SBETest(space_params_file='params/space.params',
     print(f"EzlfromRho:   Max = {EzlRho_max:.6e}  Min = {EzlRho_min:.6e}")
 
     # Write final max/min to file
-    fh = file_handles['final_max_min']
+    fh = file_handles["final_max_min"]
     fh.write("Max/Min Field Values Over All Time Steps\n")
     fh.write(f"Ex:           Max = {Ex_max:.6e}  Min = {Ex_min:.6e}\n")
     fh.write(f"Ey:           Max = {Ey_max:.6e}  Min = {Ey_min:.6e}\n")
@@ -900,27 +998,43 @@ def SBETest(space_params_file='params/space.params',
     for fh in file_handles.values():
         fh.close()
 
-    print("="*70)
+    print("=" * 70)
     print("Simulation complete!")
     print(f"Output files written to: {output_dir}/")
-    print("="*70)
+    print("=" * 70)
 
     # Return field arrays and statistics
     return {
-        'Ex': Ex, 'Ey': Ey, 'Ez': Ez,
-        'Jx': Jx, 'Jy': Jy, 'Jz': Jz,
-        'Rho': Rho,
-        'Exl': Exl, 'Eyl': Eyl, 'Ezl': Ezl,
-        'ExlfromPRho': ExlfromPRho, 'EylfromPRho': EylfromPRho, 'EzlfromPRho': EzlfromPRho,
-        'ExlfromP': ExlfromP, 'EylfromP': EylfromP, 'EzlfromP': EzlfromP,
-        'ExlfromRho': ExlfromRho, 'EylfromRho': EylfromRho, 'EzlfromRho': EzlfromRho,
-        'RhoBound': RhoBound,
-        'stats': {
-            'Ex_max': Ex_max, 'Ex_min': Ex_min,
-            'Ey_max': Ey_max, 'Ey_min': Ey_min,
-            'Ez_max': Ez_max, 'Ez_min': Ez_min,
-            'Rho_max': Rho_max, 'Rho_min': Rho_min,
-        }
+        "Ex": Ex,
+        "Ey": Ey,
+        "Ez": Ez,
+        "Jx": Jx,
+        "Jy": Jy,
+        "Jz": Jz,
+        "Rho": Rho,
+        "Exl": Exl,
+        "Eyl": Eyl,
+        "Ezl": Ezl,
+        "ExlfromPRho": ExlfromPRho,
+        "EylfromPRho": EylfromPRho,
+        "EzlfromPRho": EzlfromPRho,
+        "ExlfromP": ExlfromP,
+        "EylfromP": EylfromP,
+        "EzlfromP": EzlfromP,
+        "ExlfromRho": ExlfromRho,
+        "EylfromRho": EylfromRho,
+        "EzlfromRho": EzlfromRho,
+        "RhoBound": RhoBound,
+        "stats": {
+            "Ex_max": Ex_max,
+            "Ex_min": Ex_min,
+            "Ey_max": Ey_max,
+            "Ey_min": Ey_min,
+            "Ez_max": Ez_max,
+            "Ez_min": Ez_min,
+            "Rho_max": Rho_max,
+            "Rho_min": Rho_min,
+        },
     }
 
 
@@ -936,12 +1050,13 @@ def main():
     except Exception as e:
         print(f"\nError during simulation: {e}")
         import traceback
+
         traceback.print_exc()
         return 1
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import sys
-    sys.exit(main())
 
+    sys.exit(main())

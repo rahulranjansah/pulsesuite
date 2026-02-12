@@ -58,6 +58,7 @@ ec2 = 2.0 * eps0 * c0  # Stores the result of 2.0 * eps0 * c0 for later use
 ################ INTERFACE DISPATCHERS #################
 #######################################################
 
+
 def sech(t: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
     """
     Hyperbolic secant function.
@@ -150,7 +151,9 @@ def magsq(Z: Union[complex, np.ndarray]) -> Union[float, np.ndarray]:
         return magsq_dp(Z_arr)
 
 
-def constrain(x: Union[float, int, np.ndarray], H: Union[float, int], L: Union[float, int]) -> Union[float, int, np.ndarray]:
+def constrain(
+    x: Union[float, int, np.ndarray], H: Union[float, int], L: Union[float, int]
+) -> Union[float, int, np.ndarray]:
     """
     Constrains values between limits.
 
@@ -203,7 +206,9 @@ def LinearInterp(f: np.ndarray, x: np.ndarray, x0: float) -> Union[float, comple
         return LinearInterp_dp(f, x, x0)
 
 
-def BilinearInterp(f: np.ndarray, x: np.ndarray, y: np.ndarray, x0: float, y0: float) -> Union[float, complex]:
+def BilinearInterp(
+    f: np.ndarray, x: np.ndarray, y: np.ndarray, x0: float, y0: float
+) -> Union[float, complex]:
     """
     Bilinear interpolation.
 
@@ -233,7 +238,15 @@ def BilinearInterp(f: np.ndarray, x: np.ndarray, y: np.ndarray, x0: float, y0: f
         return BilinearInterp_dp(f, x, y, x0, y0)
 
 
-def TrilinearInterp(f: np.ndarray, x: np.ndarray, y: np.ndarray, z: np.ndarray, x0: float, y0: float, z0: float) -> Union[float, complex]:
+def TrilinearInterp(
+    f: np.ndarray,
+    x: np.ndarray,
+    y: np.ndarray,
+    z: np.ndarray,
+    x0: float,
+    y0: float,
+    z0: float,
+) -> Union[float, complex]:
     """
     Trilinear interpolation.
 
@@ -267,7 +280,9 @@ def TrilinearInterp(f: np.ndarray, x: np.ndarray, y: np.ndarray, z: np.ndarray, 
         return TrilinearInterp_dp(f, x, y, z, x0, y0, z0)
 
 
-def dfdt(f: np.ndarray, dt: float, k: Optional[int] = None) -> Union[float, complex, np.ndarray]:
+def dfdt(
+    f: np.ndarray, dt: float, k: Optional[int] = None
+) -> Union[float, complex, np.ndarray]:
     """
     First derivative with respect to t.
 
@@ -303,6 +318,7 @@ def dfdt(f: np.ndarray, dt: float, k: Optional[int] = None) -> Union[float, comp
 #######################################################
 ################ FIELD CONVERSION FUNCTIONS #################
 ######################################################
+
 
 def AmpToInten(e: float, n0: Optional[float] = None) -> float:
     """
@@ -388,6 +404,7 @@ def IntenToAmp(inten: float, n0: Optional[float] = None) -> float:
 #######################################################
 ################ ELEMENTAL FUNCTIONS - DOUBLE PRECISION #################
 #######################################################
+
 
 def arg_dp(Z: Union[complex, np.ndarray]) -> Union[float, np.ndarray]:
     """
@@ -518,9 +535,9 @@ def gauss_dp(x: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
         try:
             return _gauss_dp_jit(float(x_arr))
         except:
-            return np.exp(-x_arr**2)
+            return np.exp(-(x_arr**2))
     else:
-        return np.exp(-x_arr**2)
+        return np.exp(-(x_arr**2))
 
 
 def gauss_sp(x: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
@@ -544,9 +561,9 @@ def gauss_sp(x: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
         try:
             return _gauss_sp_jit(float(x_arr))
         except:
-            return np.exp(-x_arr**2)
+            return np.exp(-(x_arr**2))
     else:
-        return np.exp(-x_arr**2)
+        return np.exp(-(x_arr**2))
 
 
 @jit(nopython=True, cache=True)
@@ -582,9 +599,9 @@ def magsq_dp(Z: Union[complex, np.ndarray]) -> Union[float, np.ndarray]:
         try:
             return _magsq_dp_jit(float(np.real(Z_arr)), float(np.imag(Z_arr)))
         except:
-            return np.real(Z_arr)**2 + np.imag(Z_arr)**2
+            return np.real(Z_arr) ** 2 + np.imag(Z_arr) ** 2
     else:
-        return np.real(Z_arr)**2 + np.imag(Z_arr)**2
+        return np.real(Z_arr) ** 2 + np.imag(Z_arr) ** 2
 
 
 def magsq_sp(Z: Union[complex, np.ndarray]) -> Union[float, np.ndarray]:
@@ -608,9 +625,9 @@ def magsq_sp(Z: Union[complex, np.ndarray]) -> Union[float, np.ndarray]:
         try:
             return _magsq_sp_jit(float(np.real(Z_arr)), float(np.imag(Z_arr)))
         except:
-            return np.real(Z_arr)**2 + np.imag(Z_arr)**2
+            return np.real(Z_arr) ** 2 + np.imag(Z_arr) ** 2
     else:
-        return np.real(Z_arr)**2 + np.imag(Z_arr)**2
+        return np.real(Z_arr) ** 2 + np.imag(Z_arr) ** 2
 
 
 #######################################################
@@ -638,9 +655,14 @@ def LAX(u: np.ndarray, i: int, j: int, k: int) -> complex:
     complex
         Lax average: (u(i-1,j,k) + u(i+1,j,k) + u(i,j-1,k) + u(i,j+1,k) + u(i,j,k-1) + u(i,j,k+1)) / 6.0
     """
-    return (u[i-1, j, k] + u[i+1, j, k] +
-            u[i, j-1, k] + u[i, j+1, k] +
-            u[i, j, k-1] + u[i, j, k+1]) / 6.0
+    return (
+        u[i - 1, j, k]
+        + u[i + 1, j, k]
+        + u[i, j - 1, k]
+        + u[i, j + 1, k]
+        + u[i, j, k - 1]
+        + u[i, j, k + 1]
+    ) / 6.0
 
 
 def noLAX(u: np.ndarray, i: int, j: int, k: int) -> complex:
@@ -672,7 +694,10 @@ def noLAX(u: np.ndarray, i: int, j: int, k: int) -> complex:
 # CONSTRAINT FUNCTIONS
 # ============================================================================
 
-def constrain_dp(x: Union[float, np.ndarray], H: float, L: float) -> Union[float, np.ndarray]:
+
+def constrain_dp(
+    x: Union[float, np.ndarray], H: float, L: float
+) -> Union[float, np.ndarray]:
     """
     Constrains a number between a high and a low value.
 
@@ -716,10 +741,10 @@ def constrain_int(x: Union[int, np.ndarray], H: int, L: int) -> Union[int, np.nd
     return np.maximum(np.minimum(L, H), np.minimum(np.maximum(L, H), x_arr))
 
 
-
 #######################################################
 ################ WAVELENGTH/FREQUENCY CONVERSION FUNCTIONS #################
 #######################################################
+
 
 def l2f(lam: float) -> float:
     """
@@ -782,6 +807,7 @@ def w2l(w: float) -> float:
 ################ SPACE ARRAY FUNCTIONS #################
 #######################################################
 
+
 def GetSpaceArray(N: int, length: float) -> np.ndarray:
     """
     Helper function to calculate the spatial array.
@@ -841,6 +867,7 @@ def GetKArray(N: int, length: float) -> np.ndarray:
 ################ PHASE UNWRAPPING #################
 #######################################################
 
+
 def unwrap(phase: np.ndarray) -> np.ndarray:
     """
     Reconstructs a smooth phase from one that has been wrapped by modulo 2π.
@@ -891,6 +918,7 @@ def unwrap(phase: np.ndarray) -> np.ndarray:
 ################ FACTORIAL FUNCTIONS #################
 #######################################################
 
+
 def factorial(p: int) -> int:
     """
     Computes the factorial of an integer.
@@ -919,6 +947,7 @@ def factorial(p: int) -> int:
 ################ INTERPOLATION FUNCTIONS #############
 #######################################################
 
+
 def LinearInterp_dpc(f: np.ndarray, x: np.ndarray, x0: float) -> complex:
     """
     Computes a linear interpolation of a complex 1D array at a specified position.
@@ -938,7 +967,7 @@ def LinearInterp_dpc(f: np.ndarray, x: np.ndarray, x0: float) -> complex:
         Interpolated value at x0
     """
     i = locator(x, x0)
-    f0 = (f[i] * (x[i+1] - x0) + f[i+1] * (x0 - x[i])) / (x[i+1] - x[i])
+    f0 = (f[i] * (x[i + 1] - x0) + f[i + 1] * (x0 - x[i])) / (x[i + 1] - x[i])
     return f0
 
 
@@ -961,11 +990,13 @@ def LinearInterp_dp(f: np.ndarray, x: np.ndarray, x0: float) -> float:
         Interpolated value at x0
     """
     i = locator(x, x0)
-    f0 = (f[i] * (x[i+1] - x0) + f[i+1] * (x0 - x[i])) / (x[i+1] - x[i])
+    f0 = (f[i] * (x[i + 1] - x0) + f[i + 1] * (x0 - x[i])) / (x[i + 1] - x[i])
     return f0
 
 
-def BilinearInterp_dpc(f: np.ndarray, x: np.ndarray, y: np.ndarray, x0: float, y0: float) -> complex:
+def BilinearInterp_dpc(
+    f: np.ndarray, x: np.ndarray, y: np.ndarray, x0: float, y0: float
+) -> complex:
     """
     Computes a linear interpolation of a complex 2D array at a specified position.
 
@@ -989,12 +1020,14 @@ def BilinearInterp_dpc(f: np.ndarray, x: np.ndarray, y: np.ndarray, x0: float, y
     """
     j = locator(y, y0)
     f1 = LinearInterp_dpc(f[:, j], x, x0)
-    f2 = LinearInterp_dpc(f[:, j+1], x, x0)
-    f0 = (f1 * (y[j+1] - y0) + f2 * (y0 - y[j])) / (y[j+1] - y[j])
+    f2 = LinearInterp_dpc(f[:, j + 1], x, x0)
+    f0 = (f1 * (y[j + 1] - y0) + f2 * (y0 - y[j])) / (y[j + 1] - y[j])
     return f0
 
 
-def BilinearInterp_dp(f: np.ndarray, x: np.ndarray, y: np.ndarray, x0: float, y0: float) -> float:
+def BilinearInterp_dp(
+    f: np.ndarray, x: np.ndarray, y: np.ndarray, x0: float, y0: float
+) -> float:
     """
     Computes a linear interpolation of a real 2D array at a specified position.
 
@@ -1018,12 +1051,20 @@ def BilinearInterp_dp(f: np.ndarray, x: np.ndarray, y: np.ndarray, x0: float, y0
     """
     j = locator(y, y0)
     f1 = LinearInterp_dp(f[:, j], x, x0)
-    f2 = LinearInterp_dp(f[:, j+1], x, x0)
-    f0 = (f1 * (y[j+1] - y0) + f2 * (y0 - y[j])) / (y[j+1] - y[j])
+    f2 = LinearInterp_dp(f[:, j + 1], x, x0)
+    f0 = (f1 * (y[j + 1] - y0) + f2 * (y0 - y[j])) / (y[j + 1] - y[j])
     return f0
 
 
-def TrilinearInterp_dpc(f: np.ndarray, x: np.ndarray, y: np.ndarray, z: np.ndarray, x0: float, y0: float, z0: float) -> complex:
+def TrilinearInterp_dpc(
+    f: np.ndarray,
+    x: np.ndarray,
+    y: np.ndarray,
+    z: np.ndarray,
+    x0: float,
+    y0: float,
+    z0: float,
+) -> complex:
     """
     Computes a linear interpolation of a complex 3D array at a specified position.
 
@@ -1051,12 +1092,20 @@ def TrilinearInterp_dpc(f: np.ndarray, x: np.ndarray, y: np.ndarray, z: np.ndarr
     """
     k = locator(z, z0)
     f1 = BilinearInterp_dpc(f[:, :, k], x, y, x0, y0)
-    f2 = BilinearInterp_dpc(f[:, :, k+1], x, y, x0, y0)
-    f0 = (f1 * (z[k+1] - z0) + f2 * (z0 - z[k])) / (z[k+1] - z[k])
+    f2 = BilinearInterp_dpc(f[:, :, k + 1], x, y, x0, y0)
+    f0 = (f1 * (z[k + 1] - z0) + f2 * (z0 - z[k])) / (z[k + 1] - z[k])
     return f0
 
 
-def TrilinearInterp_dp(f: np.ndarray, x: np.ndarray, y: np.ndarray, z: np.ndarray, x0: float, y0: float, z0: float) -> float:
+def TrilinearInterp_dp(
+    f: np.ndarray,
+    x: np.ndarray,
+    y: np.ndarray,
+    z: np.ndarray,
+    x0: float,
+    y0: float,
+    z0: float,
+) -> float:
     """
     Computes a linear interpolation of a real 3D array at a specified position.
 
@@ -1084,14 +1133,15 @@ def TrilinearInterp_dp(f: np.ndarray, x: np.ndarray, y: np.ndarray, z: np.ndarra
     """
     k = locator(z, z0)
     f1 = BilinearInterp_dp(f[:, :, k], x, y, x0, y0)
-    f2 = BilinearInterp_dp(f[:, :, k+1], x, y, x0, y0)
-    f0 = (f1 * (z[k+1] - z0) + f2 * (z0 - z[k])) / (z[k+1] - z[k])
+    f2 = BilinearInterp_dp(f[:, :, k + 1], x, y, x0, y0)
+    f0 = (f1 * (z[k + 1] - z0) + f2 * (z0 - z[k])) / (z[k + 1] - z[k])
     return f0
 
 
 #######################################################
 ################ DERIVATIVE FUNCTIONS #################
 #######################################################
+
 
 def dfdt_dp(f: np.ndarray, dt: float, k: int) -> float:
     """
@@ -1118,7 +1168,7 @@ def dfdt_dp(f: np.ndarray, dt: float, k: int) -> float:
 
     if k >= 2 and k < N - 2:
         # Five-point stencil: (-f(k+2) + 8*f(k+1) - 8*f(k-1) + f(k-2)) / (12*dt)
-        return (-f[k+2] + 8.0 * f[k+1] - 8.0 * f[k-1] + f[k-2]) / dt / 12.0
+        return (-f[k + 2] + 8.0 * f[k + 1] - 8.0 * f[k - 1] + f[k - 2]) / dt / 12.0
     elif k == 0:
         # k==1 in FORTRAN (1-based) = k==0 (0-based): Forward difference
         return (f[1] - 0.0) / 2.0 / dt
@@ -1127,10 +1177,10 @@ def dfdt_dp(f: np.ndarray, dt: float, k: int) -> float:
         return (f[2] - f[0]) / 2.0 / dt
     elif k == N - 1:
         # k==N in FORTRAN (1-based) = k==N-1 (0-based): Backward difference
-        return (0.0 - f[N-2]) / 2.0 / dt
+        return (0.0 - f[N - 2]) / 2.0 / dt
     elif k == N - 2:
         # k==N-1 in FORTRAN (1-based) = k==N-2 (0-based): Central difference
-        return (f[N-1] - f[N-3]) / 2.0 / dt
+        return (f[N - 1] - f[N - 3]) / 2.0 / dt
     else:
         return 0.0
 
@@ -1160,7 +1210,7 @@ def dfdt_dpc(f: np.ndarray, dt: float, k: int) -> complex:
 
     if k >= 2 and k < N - 2:
         # Five-point stencil: (-f(k+2) + 8*f(k+1) - 8*f(k-1) + f(k-2)) / (12*dt)
-        return (-f[k+2] + 8.0 * f[k+1] - 8.0 * f[k-1] + f[k-2]) / dt / 12.0
+        return (-f[k + 2] + 8.0 * f[k + 1] - 8.0 * f[k - 1] + f[k - 2]) / dt / 12.0
     elif k == 0:
         # k==1 in FORTRAN (1-based) = k==0 (0-based): Forward difference
         return (f[1] - 0.0) / 2.0 / dt
@@ -1169,10 +1219,10 @@ def dfdt_dpc(f: np.ndarray, dt: float, k: int) -> complex:
         return (f[2] - f[0]) / 2.0 / dt
     elif k == N - 1:
         # k==N in FORTRAN (1-based) = k==N-1 (0-based): Backward difference
-        return (0.0 - f[N-2]) / 2.0 / dt
+        return (0.0 - f[N - 2]) / 2.0 / dt
     elif k == N - 2:
         # k==N-1 in FORTRAN (1-based) = k==N-2 (0-based): Central difference
-        return (f[N-1] - f[N-3]) / 2.0 / dt
+        return (f[N - 1] - f[N - 3]) / 2.0 / dt
     else:
         return 0.0
 
@@ -1185,15 +1235,17 @@ def _dfdt_1D_dp_jit(f: np.ndarray, dt: float) -> np.ndarray:
 
     for k in range(N):
         if k >= 2 and k < N - 2:
-            dfdt_arr[k] = (-f[k+2] + 8.0 * f[k+1] - 8.0 * f[k-1] + f[k-2]) / dt / 12.0
+            dfdt_arr[k] = (
+                (-f[k + 2] + 8.0 * f[k + 1] - 8.0 * f[k - 1] + f[k - 2]) / dt / 12.0
+            )
         elif k == 0:
             dfdt_arr[k] = (f[1] - 0.0) / 2.0 / dt
         elif k == 1:
             dfdt_arr[k] = (f[2] - f[0]) / 2.0 / dt
         elif k == N - 1:
-            dfdt_arr[k] = (0.0 - f[N-2]) / 2.0 / dt
+            dfdt_arr[k] = (0.0 - f[N - 2]) / 2.0 / dt
         elif k == N - 2:
-            dfdt_arr[k] = (f[N-1] - f[N-3]) / 2.0 / dt
+            dfdt_arr[k] = (f[N - 1] - f[N - 3]) / 2.0 / dt
         else:
             dfdt_arr[k] = 0.0
 
@@ -1208,15 +1260,17 @@ def _dfdt_1D_dpc_jit(f: np.ndarray, dt: float) -> np.ndarray:
 
     for k in range(N):
         if k >= 2 and k < N - 2:
-            dfdt_arr[k] = (-f[k+2] + 8.0 * f[k+1] - 8.0 * f[k-1] + f[k-2]) / dt / 12.0
+            dfdt_arr[k] = (
+                (-f[k + 2] + 8.0 * f[k + 1] - 8.0 * f[k - 1] + f[k - 2]) / dt / 12.0
+            )
         elif k == 0:
             dfdt_arr[k] = (f[1] - 0.0) / 2.0 / dt
         elif k == 1:
             dfdt_arr[k] = (f[2] - f[0]) / 2.0 / dt
         elif k == N - 1:
-            dfdt_arr[k] = (0.0 - f[N-2]) / 2.0 / dt
+            dfdt_arr[k] = (0.0 - f[N - 2]) / 2.0 / dt
         elif k == N - 2:
-            dfdt_arr[k] = (f[N-1] - f[N-3]) / 2.0 / dt
+            dfdt_arr[k] = (f[N - 1] - f[N - 3]) / 2.0 / dt
         else:
             dfdt_arr[k] = 0.0
 
@@ -1281,6 +1335,7 @@ def dfdt_1D_dpc(f: np.ndarray, dt: float) -> np.ndarray:
 ################### ISNAN FUNCTIONS ################
 ####################################################
 
+
 def isnan_dp(X: Union[float, np.ndarray]) -> Union[bool, np.ndarray]:
     """
     A double precision isnan.
@@ -1317,4 +1372,3 @@ def isnan_sp(X: Union[float, np.ndarray]) -> Union[bool, np.ndarray]:
         True if X is NaN, False otherwise
     """
     return np.isnan(X)
-

@@ -218,7 +218,7 @@ def CalcAvgCoeff(ky, dk, k1, k2, i1, i2, x1, x2, x3, x4):
 
     # Create extended k array with boundary points
     k = np.zeros(Nk + 4)
-    k[2:Nk+2] = ky[:]
+    k[2 : Nk + 2] = ky[:]
 
     k[1] = ky[0] - dk
     k[0] = ky[0] - 2.0 * dk
@@ -322,8 +322,12 @@ def DC_Step_FD(ne, nh, nemid, nhmid, ky, Edc, dt, me, mh):
     neu = np.roll(nemid, 1)
     nhu = np.roll(nhmid, 1)
 
-    ne[:] = ne[:] + (-e0 * Edc - CalcPD(ky, me, ne) * 1e13) / hbar * (neu - ned) / dky * dt
-    nh[:] = nh[:] + (+e0 * Edc - CalcPD(ky, mh, nh) * 1e13) / hbar * (nhu - nhd) / dky * dt
+    ne[:] = (
+        ne[:] + (-e0 * Edc - CalcPD(ky, me, ne) * 1e13) / hbar * (neu - ned) / dky * dt
+    )
+    nh[:] = (
+        nh[:] + (+e0 * Edc - CalcPD(ky, mh, nh) * 1e13) / hbar * (nhu - nhd) / dky * dt
+    )
 
 
 # ============================================================================
@@ -383,15 +387,23 @@ def _ThetaEM_jit(Ephn, m, g, ky, n, Cq2, v, N0, q, k, hbar_val, pi_val):
         return 0.0
 
     xq = Ephn - hbar_val * ky[q_idx] * v
-    Ek = hbar_val**2 * ky[k_idx]**2 / 2.0 / m
-    Ekmq = hbar_val**2 * ky[kmq]**2 / 2.0 / m
+    Ek = hbar_val**2 * ky[k_idx] ** 2 / 2.0 / m
+    Ekmq = hbar_val**2 * ky[kmq] ** 2 / 2.0 / m
 
     lrtz_val = _Lrtz_jit(Ekmq - Ek + xq, hbar_val * g)
     theta_val = _theta_jit(xq)
 
-    ThetaEM_val = (4.0 * pi_val / hbar_val * Cq2[q_idx] * n[k_idx] *
-                   (1.0 - n[kmq]) * (N0 + 1.0) *
-                   lrtz_val * theta_val)
+    ThetaEM_val = (
+        4.0
+        * pi_val
+        / hbar_val
+        * Cq2[q_idx]
+        * n[k_idx]
+        * (1.0 - n[kmq])
+        * (N0 + 1.0)
+        * lrtz_val
+        * theta_val
+    )
 
     return ThetaEM_val
 
@@ -412,15 +424,23 @@ def _ThetaABS_jit(Ephn, m, g, ky, n, Cq2, v, N0, q, k, hbar_val, pi_val):
         return 0.0
 
     xq = Ephn - hbar_val * ky[q_idx] * v
-    Ek = hbar_val**2 * ky[k_idx]**2 / 2.0 / m
-    Ekmq = hbar_val**2 * ky[kmq]**2 / 2.0 / m
+    Ek = hbar_val**2 * ky[k_idx] ** 2 / 2.0 / m
+    Ekmq = hbar_val**2 * ky[kmq] ** 2 / 2.0 / m
 
     lrtz_val = _Lrtz_jit(Ek - Ekmq - xq, hbar_val * g)
     theta_val = _theta_jit(xq)
 
-    ThetaABS_val = (4.0 * pi_val / hbar_val * Cq2[q_idx] * n[kmq] *
-                    (1.0 - n[k_idx]) * N0 *
-                    lrtz_val * theta_val)
+    ThetaABS_val = (
+        4.0
+        * pi_val
+        / hbar_val
+        * Cq2[q_idx]
+        * n[kmq]
+        * (1.0 - n[k_idx])
+        * N0
+        * lrtz_val
+        * theta_val
+    )
 
     return ThetaABS_val
 
@@ -431,7 +451,7 @@ def _dndEk_jit(Ephn, m, q, dndq, hbar_val):
     N = len(q)
     dndEk = np.zeros(N)
     for i in range(N):
-        dndEk[i] = dndq[i] * 4.0 * q[i]**3 / (q[i]**4 - x0**2) * m / hbar_val**2
+        dndEk[i] = dndq[i] * 4.0 * q[i] ** 3 / (q[i] ** 4 - x0**2) * m / hbar_val**2
     return dndEk
 
 
@@ -441,11 +461,13 @@ def _ThetaEMABS_jit(Ephn, m, q, dndk, Cq2, v, hbar_val, pi_val):
     N = len(q)
     dndEk_val = np.zeros(N)
     for i in range(N):
-        dndEk_val[i] = dndk[i] * 4.0 * q[i]**3 / (q[i]**4 - x0**2) * m / hbar_val**2
+        dndEk_val[i] = dndk[i] * 4.0 * q[i] ** 3 / (q[i] ** 4 - x0**2) * m / hbar_val**2
 
     ThetaEMABS = np.zeros(N)
     for i in range(N):
-        ThetaEMABS[i] = 4.0 * pi_val / hbar_val * Cq2[i] * hbar_val * q[i] * v * (-dndEk_val[i])
+        ThetaEMABS[i] = (
+            4.0 * pi_val / hbar_val * Cq2[i] * hbar_val * q[i] * v * (-dndEk_val[i])
+        )
     return ThetaEMABS
 
 
@@ -742,7 +764,7 @@ class DCFieldModule:
         (useful for testing).  Default ``'dataQW'``.
     """
 
-    def __init__(self, ky, me, mh, WithPhns=True, datadir='dataQW'):
+    def __init__(self, ky, me, mh, WithPhns=True, datadir="dataQW"):
         Nk = len(ky)
         dky = ky[2] - ky[1] if Nk > 2 else ky[1] - ky[0] if Nk > 1 else 1.0
         self.dkk = dky
@@ -755,11 +777,11 @@ class DCFieldModule:
 
         self.Y = GetKArray(Nk, (Nk - 1) * dky)
 
-        self.xe = me / hbar**2 * np.abs(ky) / (np.abs(ky) + dky * 1e-5)**2 / dky
-        self.xh = mh / hbar**2 * np.abs(ky) / (np.abs(ky) + dky * 1e-5)**2 / dky
+        self.xe = me / hbar**2 * np.abs(ky) / (np.abs(ky) + dky * 1e-5) ** 2 / dky
+        self.xh = mh / hbar**2 * np.abs(ky) / (np.abs(ky) + dky * 1e-5) ** 2 / dky
 
         self.qinv = np.zeros(Nk + 2)
-        self.qinv[1:Nk+1] = ky / (np.abs(ky) + dky * 1e-5)**2
+        self.qinv[1 : Nk + 1] = ky / (np.abs(ky) + dky * 1e-5) ** 2
 
         self.kmin = ky[0] - 2 * dky
         self.kmax = ky[Nk - 1] + 2 * dky
@@ -767,10 +789,8 @@ class DCFieldModule:
         # Output files (optional)
         if datadir is not None:
             os.makedirs(datadir, exist_ok=True)
-            self.fe_file = open(os.path.join(datadir, 'Fe.dat'), 'w',
-                                encoding='utf-8')
-            self.fh_file = open(os.path.join(datadir, 'Fh.dat'), 'w',
-                                encoding='utf-8')
+            self.fe_file = open(os.path.join(datadir, "Fe.dat"), "w", encoding="utf-8")
+            self.fh_file = open(os.path.join(datadir, "Fh.dat"), "w", encoding="utf-8")
         else:
             self.fe_file = None
             self.fh_file = None
@@ -791,8 +811,7 @@ class DCFieldModule:
     # DC field calculations (version 2: finite-difference derivative)
     # ------------------------------------------------------------------
 
-    def CalcDCE2(self, DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0, ne, Ee,
-                 Vee, n, j, DC):
+    def CalcDCE2(self, DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0, ne, Ee, Vee, n, j, DC):
         """
         Calculate DC field contribution for electrons (version 2).
 
@@ -847,9 +866,9 @@ class DCFieldModule:
         else:
             Fd = np.zeros(len(ky))
 
-        self.ERate = np.sum(
-            Fd[:] / hbar / (np.abs(ky) + 1e-5)**2 * ky[:] * ne[:]
-        ) / (np.sum(ne[:]) + 1e-20)
+        self.ERate = np.sum(Fd[:] / hbar / (np.abs(ky) + 1e-5) ** 2 * ky[:] * ne[:]) / (
+            np.sum(ne[:]) + 1e-20
+        )
 
         Fd = np.sum(Fd) / (np.sum(np.abs(ne)) + 1e-20) * 2.0
 
@@ -869,8 +888,7 @@ class DCFieldModule:
 
         DC[:] = np.real(DC0)
 
-    def CalcDCH2(self, DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0, nh, Eh,
-                 Vhh, n, j, DC):
+    def CalcDCH2(self, DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0, nh, Eh, Vhh, n, j, DC):
         """
         Calculate DC field contribution for holes (version 2).
 
@@ -925,9 +943,9 @@ class DCFieldModule:
         else:
             Fd = np.zeros(len(ky))
 
-        self.HRate = np.sum(
-            Fd[:] / hbar / (np.abs(ky) + 1e-5)**2 * ky[:] * nh[:]
-        ) / (np.sum(nh[:]) + 1e-20)
+        self.HRate = np.sum(Fd[:] / hbar / (np.abs(ky) + 1e-5) ** 2 * ky[:] * nh[:]) / (
+            np.sum(nh[:]) + 1e-20
+        )
 
         Fd = np.sum(Fd) / (np.sum(np.abs(nh)) + 1e-20) * 2.0
 
@@ -951,8 +969,7 @@ class DCFieldModule:
     # DC field calculations (original: FFT-based derivative)
     # ------------------------------------------------------------------
 
-    def CalcDCE(self, DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0, ne, Ee,
-                Vee, DC):
+    def CalcDCE(self, DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0, ne, Ee, Vee, DC):
         """
         Calculate DC field contribution for electrons (original version).
 
@@ -1013,14 +1030,13 @@ class DCFieldModule:
 
         DC[:] = -(-e0 * Edc - Fd) / hbar * np.real(dndk)
 
-        self.ERate = np.sum(
-            Fd[:] / hbar / (np.abs(ky) + 1e-5)**2 * ky[:] * ne[:]
-        ) / (np.sum(ne[:]) + 1e-20)
+        self.ERate = np.sum(Fd[:] / hbar / (np.abs(ky) + 1e-5) ** 2 * ky[:] * ne[:]) / (
+            np.sum(ne[:]) + 1e-20
+        )
 
         self.VEDrift = v
 
-    def CalcDCH(self, DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0, nh, Eh,
-                Vhh, DC):
+    def CalcDCH(self, DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0, nh, Eh, Vhh, DC):
         """
         Calculate DC field contribution for holes (original version).
 
@@ -1081,9 +1097,9 @@ class DCFieldModule:
 
         DC[:] = -(+e0 * Edc - Fd) / hbar * np.real(dndk)
 
-        self.HRate = np.sum(
-            Fd[:] / hbar / (np.abs(ky) + 1e-5)**2 * ky[:] * nh[:]
-        ) / (np.sum(nh[:]) + 1e-20)
+        self.HRate = np.sum(Fd[:] / hbar / (np.abs(ky) + 1e-5) ** 2 * ky[:] * nh[:]) / (
+            np.sum(nh[:]) + 1e-20
+        )
 
         self.VHDrift = v
 
@@ -1247,9 +1263,7 @@ _WithPhns = True  # Module-level flag, read by InitializeDC
 def _require_instance():
     """Return the singleton or raise if not yet initialized."""
     if _instance is None:
-        raise RuntimeError(
-            "DCFieldModule not initialized. Call InitializeDC() first."
-        )
+        raise RuntimeError("DCFieldModule not initialized. Call InitializeDC() first.")
     return _instance
 
 
@@ -1275,30 +1289,33 @@ def InitializeDC(ky, me, mh):
 
 # --- stateful wrappers (delegate to singleton) ---
 
-def CalcDCE2(DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0, ne, Ee, Vee, n, j,
-             DC):
+
+def CalcDCE2(DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0, ne, Ee, Vee, n, j, DC):
     """Backward-compatible wrapper for :meth:`DCFieldModule.CalcDCE2`."""
-    _require_instance().CalcDCE2(DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0,
-                                 ne, Ee, Vee, n, j, DC)
+    _require_instance().CalcDCE2(
+        DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0, ne, Ee, Vee, n, j, DC
+    )
 
 
-def CalcDCH2(DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0, nh, Eh, Vhh, n, j,
-             DC):
+def CalcDCH2(DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0, nh, Eh, Vhh, n, j, DC):
     """Backward-compatible wrapper for :meth:`DCFieldModule.CalcDCH2`."""
-    _require_instance().CalcDCH2(DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0,
-                                 nh, Eh, Vhh, n, j, DC)
+    _require_instance().CalcDCH2(
+        DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0, nh, Eh, Vhh, n, j, DC
+    )
 
 
 def CalcDCE(DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0, ne, Ee, Vee, DC):
     """Backward-compatible wrapper for :meth:`DCFieldModule.CalcDCE`."""
-    _require_instance().CalcDCE(DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0,
-                                ne, Ee, Vee, DC)
+    _require_instance().CalcDCE(
+        DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0, ne, Ee, Vee, DC
+    )
 
 
 def CalcDCH(DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0, nh, Eh, Vhh, DC):
     """Backward-compatible wrapper for :meth:`DCFieldModule.CalcDCH`."""
-    _require_instance().CalcDCH(DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0,
-                                nh, Eh, Vhh, DC)
+    _require_instance().CalcDCH(
+        DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0, nh, Eh, Vhh, DC
+    )
 
 
 def CalcI0(ne, nh, Ee, Eh, VC, dk, ky, I0):
@@ -1348,19 +1365,19 @@ def __getattr__(name):
     attributes.  Returns ``None`` when the singleton has not been created yet.
     """
     _attr_map = {
-        '_Y': 'Y',
-        '_xe': 'xe',
-        '_xh': 'xh',
-        '_qinv': 'qinv',
-        '_ERate': 'ERate',
-        '_HRate': 'HRate',
-        '_VEDrift': 'VEDrift',
-        '_VHDrift': 'VHDrift',
-        '_dkk': 'dkk',
-        '_kmin': 'kmin',
-        '_kmax': 'kmax',
-        '_fe_file': 'fe_file',
-        '_fh_file': 'fh_file',
+        "_Y": "Y",
+        "_xe": "xe",
+        "_xh": "xh",
+        "_qinv": "qinv",
+        "_ERate": "ERate",
+        "_HRate": "HRate",
+        "_VEDrift": "VEDrift",
+        "_VHDrift": "VHDrift",
+        "_dkk": "dkk",
+        "_kmin": "kmin",
+        "_kmax": "kmax",
+        "_fe_file": "fe_file",
+        "_fh_file": "fh_file",
     }
     if name in _attr_map:
         if _instance is None:

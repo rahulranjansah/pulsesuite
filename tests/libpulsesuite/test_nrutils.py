@@ -28,6 +28,7 @@ ATOL = 1e-12
 #  arrayCopy — copied elements must be bitwise-identical to the source
 # ======================================================================
 
+
 class TestArrayCopy:
     def test_full_copy(self):
         src = np.arange(10, dtype=np.float64)
@@ -68,6 +69,7 @@ class TestArrayCopy:
 #  swap — mathematical involution: swap(swap(a, b)) == (a, b)
 # ======================================================================
 
+
 class TestSwap:
     def test_scalar_involution(self):
         a, b = 3.14, 2.72
@@ -88,6 +90,7 @@ class TestSwap:
 # ======================================================================
 #  maskedSwap — only swaps at True positions; rest unchanged
 # ======================================================================
+
 
 class TestMaskedSwap:
     def test_partial_mask(self):
@@ -117,6 +120,7 @@ class TestMaskedSwap:
 # ======================================================================
 #  reallocate — data preservation in the overlapping region
 # ======================================================================
+
 
 class TestReallocate:
     def test_grow_1d(self):
@@ -148,16 +152,17 @@ class TestReallocate:
 #  imaxloc / iminloc — 0-based indices
 # ======================================================================
 
+
 class TestMaxMinLoc:
     def test_simple(self):
         arr = np.array([1.0, 5.0, 3.0, 2.0])
-        assert nrutils.imaxloc(arr) == 1   # 5.0 at index 1
-        assert nrutils.iminloc(arr) == 0   # 1.0 at index 0
+        assert nrutils.imaxloc(arr) == 1  # 5.0 at index 1
+        assert nrutils.iminloc(arr) == 0  # 1.0 at index 0
 
     def test_negative_values(self):
         arr = np.array([-10.0, -3.0, -7.0])
-        assert nrutils.imaxloc(arr) == 1   # -3 at index 1
-        assert nrutils.iminloc(arr) == 0   # -10 at index 0
+        assert nrutils.imaxloc(arr) == 1  # -3 at index 1
+        assert nrutils.iminloc(arr) == 0  # -10 at index 0
 
     def test_single_element(self):
         arr = np.array([42.0])
@@ -168,6 +173,7 @@ class TestMaxMinLoc:
 # ======================================================================
 #  ifirstloc — first True location (0-based, -1 if not found)
 # ======================================================================
+
 
 class TestIfirstloc:
     def test_first_element_true(self):
@@ -186,6 +192,7 @@ class TestIfirstloc:
 # ======================================================================
 #  nrerror / assertTrue / assertEq — program halts on violation
 # ======================================================================
+
 
 class TestAssertions:
     def test_nrerror_raises_system_exit(self):
@@ -214,6 +221,7 @@ class TestAssertions:
 #  arth — arithmetic progression
 #  Identity: sum = n/2 · (2·first + (n-1)·increment)
 # ======================================================================
+
 
 class TestArth:
     def test_gauss_sum_formula(self):
@@ -248,6 +256,7 @@ class TestArth:
 #  Identity: sum = first · (factor^n − 1) / (factor − 1)  when factor ≠ 1
 # ======================================================================
 
+
 class TestGeop:
     def test_geometric_sum(self):
         """Sum of GP: a(r^n - 1)/(r - 1)."""
@@ -277,6 +286,7 @@ class TestGeop:
 #  cumsum is the discrete antiderivative: diff(cumsum(a)) == a[1:]
 # ======================================================================
 
+
 class TestCumsum:
     def test_discrete_antiderivative(self):
         """diff(cumsum(a)) == a[1:]  (fundamental theorem of discrete calculus)."""
@@ -297,7 +307,8 @@ class TestCumsum:
         np.testing.assert_allclose(
             nrutils.cumsum(a, seed=s),
             nrutils.cumsum(a) + s,
-            rtol=RTOL, atol=ATOL,
+            rtol=RTOL,
+            atol=ATOL,
         )
 
     def test_single_element(self):
@@ -326,7 +337,8 @@ class TestCumprod:
         np.testing.assert_allclose(
             nrutils.cumprod(a, seed=s),
             s * nrutils.cumprod(a),
-            rtol=RTOL, atol=ATOL,
+            rtol=RTOL,
+            atol=ATOL,
         )
 
 
@@ -335,16 +347,21 @@ class TestCumprod:
 #  Verified against known Taylor series and algebraic identities
 # ======================================================================
 
+
 class TestPoly:
     def test_quadratic(self):
         """P(x) = 1 + 2x + 3x²   →   P(2) = 17."""
         coeffs = np.array([1.0, 2.0, 3.0])
-        np.testing.assert_allclose(nrutils.poly(2.0, coeffs), 17.0, rtol=RTOL, atol=ATOL)
+        np.testing.assert_allclose(
+            nrutils.poly(2.0, coeffs), 17.0, rtol=RTOL, atol=ATOL
+        )
 
     def test_constant(self):
         """P(x) = c  for all x."""
         coeffs = np.array([42.0])
-        np.testing.assert_allclose(nrutils.poly(99.0, coeffs), 42.0, rtol=RTOL, atol=ATOL)
+        np.testing.assert_allclose(
+            nrutils.poly(99.0, coeffs), 42.0, rtol=RTOL, atol=ATOL
+        )
 
     def test_empty_coefficients(self):
         """No coefficients → P(x) = 0."""
@@ -374,6 +391,7 @@ class TestPoly:
 #  polyTerm — recurrence u_j = a_j + b · u_{j-1}
 # ======================================================================
 
+
 class TestPolyTerm:
     def test_recurrence(self):
         a = np.array([1.0, 2.0, 3.0])
@@ -397,6 +415,7 @@ class TestPolyTerm:
 #  outerprod — rank-1 matrix: M = a ⊗ b
 #  Property: trace(a ⊗ b) = a · b  (when lengths equal)
 # ======================================================================
+
 
 class TestOuterprod:
     def test_trace_equals_dot(self):
@@ -429,6 +448,7 @@ class TestOuterprod:
 #  Antisymmetry: outerdiff(a, b) = -outerdiff(b, a)^T
 # ======================================================================
 
+
 class TestOuterdiff:
     def test_antisymmetry(self):
         a = RNG.standard_normal(10)
@@ -447,12 +467,15 @@ class TestOuterdiff:
         a = np.array([1.0, 2.0])
         b = np.array([3.0, 4.0])
         expected = np.array([[-2.0, -3.0], [-1.0, -2.0]])
-        np.testing.assert_allclose(nrutils.outerdiff(a, b), expected, rtol=RTOL, atol=ATOL)
+        np.testing.assert_allclose(
+            nrutils.outerdiff(a, b), expected, rtol=RTOL, atol=ATOL
+        )
 
 
 # ======================================================================
 #  outersum — M_ij = a_i + b_j
 # ======================================================================
+
 
 class TestOutersum:
     def test_symmetry_relation(self):
@@ -476,6 +499,7 @@ class TestOutersum:
 #  outerand — boolean outer product
 # ======================================================================
 
+
 class TestOuterand:
     def test_truth_table(self):
         a = np.array([True, False])
@@ -486,13 +510,16 @@ class TestOuterand:
     def test_all_false(self):
         a = np.array([False, False])
         b = np.array([True, True])
-        np.testing.assert_array_equal(nrutils.outerand(a, b), np.zeros((2, 2), dtype=bool))
+        np.testing.assert_array_equal(
+            nrutils.outerand(a, b), np.zeros((2, 2), dtype=bool)
+        )
 
 
 # ======================================================================
 #  scatterAdd — conservation of total: sum(dest_after) == sum(dest_before) + sum(source)
 #  scatterMax — maximum propagation
 # ======================================================================
+
 
 class TestScatterAdd:
     def test_sum_conservation(self):
@@ -502,7 +529,9 @@ class TestScatterAdd:
         indices = np.array([1, 3])  # 0-based
         before = dest.sum()
         nrutils.scatterAdd(dest, source, indices)
-        np.testing.assert_allclose(dest.sum(), before + source.sum(), rtol=RTOL, atol=ATOL)
+        np.testing.assert_allclose(
+            dest.sum(), before + source.sum(), rtol=RTOL, atol=ATOL
+        )
 
     def test_specific_positions(self):
         dest = np.zeros(5)
@@ -551,6 +580,7 @@ class TestScatterMax:
 #  diagMult(I, s) → tr = n·s
 # ======================================================================
 
+
 class TestDiagAdd:
     def test_scalar_trace(self):
         """diagAdd(I, s): tr(I + sI) = n(1+s)."""
@@ -583,6 +613,7 @@ class TestDiagMult:
 #  getDiag / putDiag — extraction then insertion is identity
 # ======================================================================
 
+
 class TestGetPutDiag:
     def test_roundtrip(self):
         """putDiag(getDiag(M), M') then getDiag(M') recovers original diagonal."""
@@ -600,6 +631,7 @@ class TestGetPutDiag:
 # ======================================================================
 #  unitMatrix — identity matrix: A · I = A
 # ======================================================================
+
 
 class TestUnitMatrix:
     def test_idempotent_multiplication(self):
@@ -628,6 +660,7 @@ class TestUnitMatrix:
 #  upperTriangle / lowerTriangle — complementarity
 #  upper(extra=0) + lower(extra=0) + I == ones  (for square)
 # ======================================================================
+
 
 class TestTriangles:
     def test_upper_lower_complement(self):
@@ -665,10 +698,13 @@ class TestTriangles:
 #  Properties: positive definite, homogeneous, triangle inequality
 # ======================================================================
 
+
 class TestVabs:
     def test_pythagorean_triple(self):
         """‖(3, 4)‖ = 5  (Pythagorean triple)."""
-        np.testing.assert_allclose(nrutils.vabs(np.array([3.0, 4.0])), 5.0, rtol=RTOL, atol=ATOL)
+        np.testing.assert_allclose(
+            nrutils.vabs(np.array([3.0, 4.0])), 5.0, rtol=RTOL, atol=ATOL
+        )
 
     def test_positive_definite(self):
         """‖v‖ = 0 iff v = 0."""
@@ -682,7 +718,8 @@ class TestVabs:
         np.testing.assert_allclose(
             nrutils.vabs(alpha * v),
             abs(alpha) * nrutils.vabs(v),
-            rtol=RTOL, atol=ATOL,
+            rtol=RTOL,
+            atol=ATOL,
         )
 
     def test_triangle_inequality(self):
@@ -702,6 +739,7 @@ class TestVabs:
 # ======================================================================
 #  dummy Jacobians — zero matrices of correct shape and dtype
 # ======================================================================
+
 
 class TestDummyJacobians:
     @pytest.mark.parametrize("n", [1, 5, 20])
@@ -727,6 +765,7 @@ class TestDummyJacobians:
 #  Backward-compatible aliases
 # ======================================================================
 
+
 class TestBackwardCompat:
     def test_impl_aliases_exist(self):
         """_dummy_jacobian_*_impl must be importable (used by integrator tests)."""
@@ -734,6 +773,7 @@ class TestBackwardCompat:
             _dummy_jacobian_dp_impl,
             _dummy_jacobian_dpc_impl,
         )
+
         assert _dummy_jacobian_dp_impl is nrutils.dummy_jacobian_dp
         assert _dummy_jacobian_dpc_impl is nrutils.dummy_jacobian_dpc
 
@@ -741,6 +781,7 @@ class TestBackwardCompat:
 # ======================================================================
 #  Lazy type aliases  (sp, dp)
 # ======================================================================
+
 
 class TestTypeAliases:
     def test_sp_is_float32(self):

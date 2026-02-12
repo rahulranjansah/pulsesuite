@@ -167,7 +167,7 @@ class TestDriftVt:
         ky = np.linspace(-1e9, 1e9, 64)
         dkk = ky[1] - ky[0]
         me = 9.109e-31
-        n = np.exp(-(ky / 1e9)**2)
+        n = np.exp(-((ky / 1e9) ** 2))
         Ec = ky**2 * hbar_SI**2 / (2.0 * me)
 
         v = dc.DriftVt(n, Ec, dkk)
@@ -221,7 +221,7 @@ class TestCalcI0n:
 
     def test_symmetric_distribution(self):
         ky = np.linspace(-1e9, 1e9, 64)
-        ne = np.exp(-(ky / 1e9)**2).astype(complex)
+        ne = np.exp(-((ky / 1e9) ** 2)).astype(complex)
 
         Ie = dc.CalcI0n(ne, 9.109e-31, ky)
 
@@ -261,7 +261,7 @@ class TestCalcPD:
 
     def test_symmetric_distribution(self):
         ky = np.linspace(-1e9, 1e9, 64)
-        n = np.exp(-(ky / 1e9)**2).astype(complex)
+        n = np.exp(-((ky / 1e9) ** 2)).astype(complex)
 
         p = dc.CalcPD(ky, 9.109e-31, n)
 
@@ -277,8 +277,7 @@ class TestThetaEM:
         n = np.ones(Nk, dtype=float) * 0.5
         Cq2 = np.ones(Nk, dtype=float) * 1e-20
 
-        result = dc.ThetaEM(1e-20, 9.109e-31, 1e12, ky, n, Cq2, 1e5, 0.1,
-                            16, 16)
+        result = dc.ThetaEM(1e-20, 9.109e-31, 1e12, ky, n, Cq2, 1e5, 0.1, 16, 16)
 
         assert np.isfinite(result)
         assert result >= 0.0
@@ -290,8 +289,7 @@ class TestThetaEM:
         Cq2 = np.ones(Nk, dtype=float) * 1e-20
 
         r1 = dc.ThetaEM(1e-20, 9.109e-31, 1e12, ky, n, Cq2, 1e5, 0.1, 1, 1)
-        r2 = dc.ThetaEM(1e-20, 9.109e-31, 1e12, ky, n, Cq2, 1e5, 0.1,
-                         Nk, Nk)
+        r2 = dc.ThetaEM(1e-20, 9.109e-31, 1e12, ky, n, Cq2, 1e5, 0.1, Nk, Nk)
 
         assert np.isfinite(r1)
         assert np.isfinite(r2)
@@ -306,8 +304,7 @@ class TestThetaABS:
         n = np.ones(Nk, dtype=float) * 0.5
         Cq2 = np.ones(Nk, dtype=float) * 1e-20
 
-        result = dc.ThetaABS(1e-20, 9.109e-31, 1e12, ky, n, Cq2, 1e5, 0.1,
-                             16, 16)
+        result = dc.ThetaABS(1e-20, 9.109e-31, 1e12, ky, n, Cq2, 1e5, 0.1, 16, 16)
 
         assert np.isfinite(result)
         assert result >= 0.0
@@ -375,8 +372,7 @@ class TestCalcAvgCoeff:
         dk = ky[1] - ky[0]
         k1, k2 = ky[10], ky[15]
 
-        x1, x2, x3, x4 = dc.CalcAvgCoeff(ky, dk, k1, k2, 11, 16,
-                                           0.0, 0.0, 0.0, 0.0)
+        x1, x2, x3, x4 = dc.CalcAvgCoeff(ky, dk, k1, k2, 11, 16, 0.0, 0.0, 0.0, 0.0)
 
         assert np.isfinite(x1)
         assert np.isfinite(x2)
@@ -428,7 +424,9 @@ class TestDC_Step_Scale:
             assert ne.shape == (Nk,)
             assert nh.shape == (Nk,)
         except Exception as e:
-            assert "TypingError" in type(e).__name__ or "numba" in type(e).__name__.lower()
+            assert (
+                "TypingError" in type(e).__name__ or "numba" in type(e).__name__.lower()
+            )
 
     def test_zero_field(self):
         Nk = 32
@@ -440,7 +438,9 @@ class TestDC_Step_Scale:
             dc.DC_Step_Scale(ne, nh, ky, 0.0, 1e-15)
             assert ne.shape == (Nk,)
         except Exception as e:
-            assert "TypingError" in type(e).__name__ or "numba" in type(e).__name__.lower()
+            assert (
+                "TypingError" in type(e).__name__ or "numba" in type(e).__name__.lower()
+            )
 
 
 class TestDC_Step_FD:
@@ -454,8 +454,7 @@ class TestDC_Step_FD:
         nemid = np.ones(Nk, dtype=complex) * 0.5
         nhmid = np.ones(Nk, dtype=complex) * 0.5
 
-        dc.DC_Step_FD(ne, nh, nemid, nhmid, ky, 1e6, 1e-15, 9.109e-31,
-                      1.672e-27)
+        dc.DC_Step_FD(ne, nh, nemid, nhmid, ky, 1e6, 1e-15, 9.109e-31, 1.672e-27)
 
         assert ne.shape == (Nk,)
         assert nh.shape == (Nk,)
@@ -470,8 +469,7 @@ class TestDC_Step_FD:
         nemid = np.ones(Nk, dtype=complex) * 0.5
         nhmid = np.ones(Nk, dtype=complex) * 0.5
 
-        dc.DC_Step_FD(ne, nh, nemid, nhmid, ky, 0.0, 1e-15, 9.109e-31,
-                      1.672e-27)
+        dc.DC_Step_FD(ne, nh, nemid, nhmid, ky, 0.0, 1e-15, 9.109e-31, 1.672e-27)
 
         assert np.all(np.isfinite(ne))
         assert np.all(np.isfinite(nh))
@@ -535,8 +533,7 @@ class TestDCFieldModuleInit(_DCFieldFixture):
 
     def test_WithPhns_false(self):
         ky = np.linspace(-1e9, 1e9, 32)
-        m = DCFieldModule(ky, 9.109e-31, 1.672e-27, WithPhns=False,
-                          datadir=None)
+        m = DCFieldModule(ky, 9.109e-31, 1.672e-27, WithPhns=False, datadir=None)
         assert m.WithPhns is False
 
     def test_no_files_when_datadir_none(self):
@@ -546,13 +543,13 @@ class TestDCFieldModuleInit(_DCFieldFixture):
 
     def test_files_created_with_datadir(self, tmp_path):
         ky = np.linspace(-1e9, 1e9, 32)
-        datadir = str(tmp_path / 'dataQW')
+        datadir = str(tmp_path / "dataQW")
         m = DCFieldModule(ky, 9.109e-31, 1.672e-27, datadir=datadir)
 
         assert m.fe_file is not None
         assert m.fh_file is not None
-        assert os.path.exists(os.path.join(datadir, 'Fe.dat'))
-        assert os.path.exists(os.path.join(datadir, 'Fh.dat'))
+        assert os.path.exists(os.path.join(datadir, "Fe.dat"))
+        assert os.path.exists(os.path.join(datadir, "Fh.dat"))
         m.close()
 
     def test_kmin_kmax(self):
@@ -581,8 +578,9 @@ class TestDCFieldModuleDCCalc(_DCFieldFixture):
         m = self.make_instance()
         ky, Cq2, ne, Ee, Vee, DC = self._make_inputs()
 
-        m.CalcDCE2(False, ky, Cq2, 1e6, 9.109e-31, 1e12, 1e-20, 0.1,
-                   ne, Ee, Vee, 1, 1, DC)
+        m.CalcDCE2(
+            False, ky, Cq2, 1e6, 9.109e-31, 1e12, 1e-20, 0.1, ne, Ee, Vee, 1, 1, DC
+        )
 
         assert np.allclose(DC, 0.0, atol=1e-20)
 
@@ -590,8 +588,9 @@ class TestDCFieldModuleDCCalc(_DCFieldFixture):
         m = self.make_instance()
         ky, Cq2, ne, Ee, Vee, DC = self._make_inputs()
 
-        m.CalcDCE2(True, ky, Cq2, 1e6, 9.109e-31, 1e12, 1e-20, 0.1,
-                   ne, Ee, Vee, 1, 1, DC)
+        m.CalcDCE2(
+            True, ky, Cq2, 1e6, 9.109e-31, 1e12, 1e-20, 0.1, ne, Ee, Vee, 1, 1, DC
+        )
 
         assert np.all(np.isfinite(DC))
 
@@ -599,8 +598,9 @@ class TestDCFieldModuleDCCalc(_DCFieldFixture):
         m = self.make_instance()
         ky, Cq2, nh, Eh, Vhh, DC = self._make_inputs()
 
-        m.CalcDCH2(False, ky, Cq2, 1e6, 1.672e-27, 1e12, 1e-20, 0.1,
-                   nh, Eh, Vhh, 1, 1, DC)
+        m.CalcDCH2(
+            False, ky, Cq2, 1e6, 1.672e-27, 1e12, 1e-20, 0.1, nh, Eh, Vhh, 1, 1, DC
+        )
 
         assert np.allclose(DC, 0.0, atol=1e-20)
 
@@ -608,8 +608,9 @@ class TestDCFieldModuleDCCalc(_DCFieldFixture):
         m = self.make_instance()
         ky, Cq2, nh, Eh, Vhh, DC = self._make_inputs()
 
-        m.CalcDCH2(True, ky, Cq2, 1e6, 1.672e-27, 1e12, 1e-20, 0.1,
-                   nh, Eh, Vhh, 1, 1, DC)
+        m.CalcDCH2(
+            True, ky, Cq2, 1e6, 1.672e-27, 1e12, 1e-20, 0.1, nh, Eh, Vhh, 1, 1, DC
+        )
 
         assert np.all(np.isfinite(DC))
 
@@ -617,8 +618,7 @@ class TestDCFieldModuleDCCalc(_DCFieldFixture):
         m = self.make_instance()
         ky, Cq2, ne, Ee, Vee, DC = self._make_inputs()
 
-        m.CalcDCE(False, ky, Cq2, 1e6, 9.109e-31, 1e12, 1e-20, 0.1,
-                  ne, Ee, Vee, DC)
+        m.CalcDCE(False, ky, Cq2, 1e6, 9.109e-31, 1e12, 1e-20, 0.1, ne, Ee, Vee, DC)
 
         assert np.allclose(DC, 0.0, atol=1e-20)
 
@@ -626,8 +626,7 @@ class TestDCFieldModuleDCCalc(_DCFieldFixture):
         m = self.make_instance()
         ky, Cq2, ne, Ee, Vee, DC = self._make_inputs()
 
-        m.CalcDCE(True, ky, Cq2, 1e6, 9.109e-31, 1e12, 1e-20, 0.1,
-                  ne, Ee, Vee, DC)
+        m.CalcDCE(True, ky, Cq2, 1e6, 9.109e-31, 1e12, 1e-20, 0.1, ne, Ee, Vee, DC)
 
         assert np.all(np.isfinite(DC))
 
@@ -635,8 +634,7 @@ class TestDCFieldModuleDCCalc(_DCFieldFixture):
         m = self.make_instance()
         ky, Cq2, nh, Eh, Vhh, DC = self._make_inputs()
 
-        m.CalcDCH(False, ky, Cq2, 1e6, 1.672e-27, 1e12, 1e-20, 0.1,
-                  nh, Eh, Vhh, DC)
+        m.CalcDCH(False, ky, Cq2, 1e6, 1.672e-27, 1e12, 1e-20, 0.1, nh, Eh, Vhh, DC)
 
         assert np.allclose(DC, 0.0, atol=1e-20)
 
@@ -644,8 +642,7 @@ class TestDCFieldModuleDCCalc(_DCFieldFixture):
         m = self.make_instance()
         ky, Cq2, nh, Eh, Vhh, DC = self._make_inputs()
 
-        m.CalcDCH(True, ky, Cq2, 1e6, 1.672e-27, 1e12, 1e-20, 0.1,
-                  nh, Eh, Vhh, DC)
+        m.CalcDCH(True, ky, Cq2, 1e6, 1.672e-27, 1e12, 1e-20, 0.1, nh, Eh, Vhh, DC)
 
         assert np.all(np.isfinite(DC))
 
@@ -653,8 +650,9 @@ class TestDCFieldModuleDCCalc(_DCFieldFixture):
         m = self.make_instance()
         ky, Cq2, ne, Ee, Vee, DC = self._make_inputs()
 
-        m.CalcDCE2(True, ky, Cq2, 1e6, 9.109e-31, 1e12, 1e-20, 0.1,
-                   ne, Ee, Vee, 1, 1, DC)
+        m.CalcDCE2(
+            True, ky, Cq2, 1e6, 9.109e-31, 1e12, 1e-20, 0.1, ne, Ee, Vee, 1, 1, DC
+        )
 
         assert m.ERate != 0.0
         assert m.VEDrift != 0.0
@@ -663,8 +661,9 @@ class TestDCFieldModuleDCCalc(_DCFieldFixture):
         m = self.make_instance()
         ky, Cq2, nh, Eh, Vhh, DC = self._make_inputs()
 
-        m.CalcDCH2(True, ky, Cq2, 1e6, 1.672e-27, 1e12, 1e-20, 0.1,
-                   nh, Eh, Vhh, 1, 1, DC)
+        m.CalcDCH2(
+            True, ky, Cq2, 1e6, 1.672e-27, 1e12, 1e-20, 0.1, nh, Eh, Vhh, 1, 1, DC
+        )
 
         assert m.HRate != 0.0
         assert m.VHDrift != 0.0
@@ -953,8 +952,9 @@ class TestIntegration:
         Vee = np.eye(Nk) * 1e-20
         DC = np.zeros(Nk, dtype=float)
 
-        m.CalcDCE2(True, ky, Cq2, 1e6, 9.109e-31, 1e12, 1e-20, 0.1,
-                   ne, Ee, Vee, 1, 1, DC)
+        m.CalcDCE2(
+            True, ky, Cq2, 1e6, 9.109e-31, 1e12, 1e-20, 0.1, ne, Ee, Vee, 1, 1, DC
+        )
 
         assert m.ERate != 0.0
         assert m.VEDrift != 0.0
@@ -998,10 +998,10 @@ class TestPhysicalProperties:
         ky = np.linspace(-1e9, 1e9, 64)
         me = 9.109e-31
 
-        ne_sym = np.exp(-(ky / 1e9)**2).astype(complex)
+        ne_sym = np.exp(-((ky / 1e9) ** 2)).astype(complex)
         Ie_sym = dc.CalcI0n(ne_sym, me, ky)
 
-        ne_asym = np.exp(-((ky - 1e8) / 1e9)**2).astype(complex)
+        ne_asym = np.exp(-(((ky - 1e8) / 1e9) ** 2)).astype(complex)
         Ie_asym = dc.CalcI0n(ne_asym, me, ky)
 
         assert abs(Ie_sym) < abs(Ie_asym)
@@ -1026,8 +1026,11 @@ class TestNumericalStability:
         cases = [
             (np.ones(Nk), np.linspace(0, 1e-19, Nk), np.eye(Nk) * 1e-20),
             (np.zeros(Nk), np.linspace(0, 1e-19, Nk), np.zeros((Nk, Nk))),
-            (np.random.random(Nk), np.random.random(Nk) * 1e-19,
-             np.random.random((Nk, Nk)) * 1e-21),
+            (
+                np.random.random(Nk),
+                np.random.random(Nk) * 1e-19,
+                np.random.random((Nk, Nk)) * 1e-21,
+            ),
         ]
 
         for n, En, V in cases:
@@ -1050,5 +1053,5 @@ class TestNumericalStability:
             assert np.isfinite(v)
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v', '--tb=short'])
+if __name__ == "__main__":
+    pytest.main([__file__, "-v", "--tb=short"])

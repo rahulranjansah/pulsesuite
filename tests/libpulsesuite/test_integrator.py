@@ -22,6 +22,7 @@ ATOL = 1e-12
 
 # ─── helper ODEs with known analytical solutions ─────────────────────
 
+
 def _decay(t, y):
     """dy/dt = -y  =>  y(t) = y0 * exp(-t)"""
     return -y
@@ -54,6 +55,18 @@ def _stiff_jacobian(x, y):
     return dfdx, dfdy
 
 
+def _dummy_jacobian_dp(x, y):
+    """No-op Jacobian for real ODE systems (used by rkqs, bsstep)."""
+    n = y.size
+    return np.zeros(n), np.zeros((n, n))
+
+
+def _dummy_jacobian_dpc(x, y):
+    """No-op Jacobian for complex ODE systems."""
+    n = y.size
+    return np.zeros(n, dtype=np.complex128), np.zeros((n, n), dtype=np.complex128)
+
+
 def _lotka_volterra(t, y):
     """
     Lotka-Volterra predator-prey:
@@ -62,10 +75,12 @@ def _lotka_volterra(t, y):
     Conservation: gamma*ln(x) + beta*ln(y) - delta*x - alpha*y ≈ const
     """
     alpha, beta, gamma, delta = 1.5, 1.0, 3.0, 1.0
-    return np.array([
-        alpha * y[0] - beta * y[0] * y[1],
-        -gamma * y[1] + delta * y[0] * y[1],
-    ])
+    return np.array(
+        [
+            alpha * y[0] - beta * y[0] * y[1],
+            -gamma * y[1] + delta * y[0] * y[1],
+        ]
+    )
 
 
 def _lotka_volterra_invariant(y):
@@ -77,6 +92,7 @@ def _lotka_volterra_invariant(y):
 # ═════════════════════════════════════════════════════════════════════
 #  Cash-Karp Runge-Kutta step  (rkck)
 # ═════════════════════════════════════════════════════════════════════
+
 
 class TestRkck:
     def test_dp_exponential_decay(self):
@@ -133,6 +149,7 @@ class TestRkck:
 #  Classic RK4  (rk4)
 # ═════════════════════════════════════════════════════════════════════
 
+
 class TestRk4:
     def test_dp_single_step(self):
         """RK4 single step on exp decay."""
@@ -182,6 +199,7 @@ class TestRk4:
 #  Forward Euler  (idiot)
 # ═════════════════════════════════════════════════════════════════════
 
+
 class TestIdiot:
     def test_dp_euler_step(self):
         """Euler: y1 = y0 + h*f = 1 + h*(-1) = 1 - h."""
@@ -204,8 +222,10 @@ class TestIdiot:
         """Halving h reduces error by ~2 (1st order) on linear ODE."""
         # Use truly linear ODE dy/dt = c (constant) for exact 1st-order check
         c = -1.0
+
         def const_deriv(t, y):
             return np.array([c])
+
         h1, h2 = 0.1, 0.05
         y1 = np.array([1.0])
         I.idiot_dp(y1, const_deriv(0.0, y1), 0.0, h1, const_deriv)
@@ -227,6 +247,7 @@ class TestIdiot:
 #  Adaptive RKQS step  (rkqs)
 # ═════════════════════════════════════════════════════════════════════
 
+
 class TestRkqs:
     def test_dp_single_step(self):
         """rkqs single adaptive step on decay."""
@@ -234,7 +255,14 @@ class TestRkqs:
         dydt = _decay(0.0, y)
         yscale = np.maximum(np.abs(y), 1.0)
         t_new, hdid, hnext = I.rkqs_dp(
-            y, dydt, 0.0, 0.1, 1e-8, yscale, _decay, I.dummy_jacobian_dp,
+            y,
+            dydt,
+            0.0,
+            0.1,
+            1e-8,
+            yscale,
+            _decay,
+            _dummy_jacobian_dp,
         )
         np.testing.assert_allclose(y[0], np.exp(-hdid), rtol=1e-6)
 
@@ -244,7 +272,14 @@ class TestRkqs:
         dydt = _harmonic_complex(0.0, y)
         yscale = np.maximum(np.abs(y), 1.0)
         t_new, hdid, hnext = I.rkqs_dpc(
-            y, dydt, 0.0, 0.1, 1e-8, yscale, _harmonic_complex, I.dummy_jacobian_dpc,
+            y,
+            dydt,
+            0.0,
+            0.1,
+            1e-8,
+            yscale,
+            _harmonic_complex,
+            _dummy_jacobian_dpc,
         )
         np.testing.assert_allclose(np.abs(y[0]), 1.0, rtol=1e-6)
 
@@ -255,7 +290,13 @@ class TestRkqs:
         dydt = D(0.0, y)
         yscale = np.maximum(np.abs(y), 1.0)
         t_new, hdid, hnext = I.rkqs_3D_dpc(
-            y, dydt, 0.0, 0.1, 1e-6, yscale, D,
+            y,
+            dydt,
+            0.0,
+            0.1,
+            1e-6,
+            yscale,
+            D,
         )
         assert y.shape == (2, 3, 4)
         assert t_new > 0.0
@@ -263,12 +304,21 @@ class TestRkqs:
     def test_step_rejected_for_bad_accuracy(self):
         """rkqs should take smaller hdid than htry if error too large."""
         y = np.array([100.0])  # large value → large derivative
+
         def stiff(t, y):
             return -100.0 * y
+
         dydt = stiff(0.0, y)
         yscale = np.maximum(np.abs(y), 1.0)
         t_new, hdid, hnext = I.rkqs_dp(
-            y, dydt, 0.0, 1.0, 1e-10, yscale, stiff, I.dummy_jacobian_dp,
+            y,
+            dydt,
+            0.0,
+            1.0,
+            1e-10,
+            yscale,
+            stiff,
+            _dummy_jacobian_dp,
         )
         assert hdid < 1.0  # must have rejected the trial step
 
@@ -277,12 +327,21 @@ class TestRkqs:
 #  Adaptive ODE drivers  (odeint)
 # ═════════════════════════════════════════════════════════════════════
 
+
 class TestOdeint:
     def test_dp_exp_decay(self):
         """odeint_dp: dy/dt = -y from 0 to 1 gives exp(-1)."""
         y = np.array([1.0])
         nok, nbad = I.odeint_dp(
-            y, 0.0, 1.0, 1e-8, 0.1, 1e-15, _decay, I.rkqs_dp, I.dummy_jacobian_dp,
+            y,
+            0.0,
+            1.0,
+            1e-8,
+            0.1,
+            1e-15,
+            _decay,
+            I.rkqs_dp,
+            _dummy_jacobian_dp,
         )
         np.testing.assert_allclose(y[0], np.exp(-1.0), rtol=1e-6)
         assert nok > 0
@@ -291,8 +350,15 @@ class TestOdeint:
         """odeint_dpc: one full rotation exp(2pi*i) ≈ 1."""
         y = np.array([1.0 + 0j])
         nok, nbad = I.odeint_dpc(
-            y, 0.0, 1.0, 1e-8, 0.01, 1e-15,
-            _harmonic_complex, I.rkqs_dpc, I.dummy_jacobian_dpc,
+            y,
+            0.0,
+            1.0,
+            1e-8,
+            0.01,
+            1e-15,
+            _harmonic_complex,
+            I.rkqs_dpc,
+            _dummy_jacobian_dpc,
         )
         np.testing.assert_allclose(y[0], 1.0 + 0j, atol=1e-5)
 
@@ -300,8 +366,15 @@ class TestOdeint:
         """odeint_dp on harmonic oscillator: y0(2pi)≈1, y1(2pi)≈0."""
         y = np.array([1.0, 0.0])
         I.odeint_dp(
-            y, 0.0, 2 * np.pi, 1e-10, 0.01, 1e-15,
-            _harmonic_real, I.bsstep, I.dummy_jacobian_dp,
+            y,
+            0.0,
+            2 * np.pi,
+            1e-10,
+            0.01,
+            1e-15,
+            _harmonic_real,
+            I.bsstep,
+            _dummy_jacobian_dp,
         )
         np.testing.assert_allclose(y[0], 1.0, atol=1e-4)
         np.testing.assert_allclose(y[1], 0.0, atol=1e-4)
@@ -310,8 +383,15 @@ class TestOdeint:
         """odeint_dp handles x1 > x2 (backward integration)."""
         y = np.array([np.exp(-1.0)])
         I.odeint_dp(
-            y, 1.0, 0.0, 1e-8, 0.1, 1e-15,
-            _decay, I.rkqs_dp, I.dummy_jacobian_dp,
+            y,
+            1.0,
+            0.0,
+            1e-8,
+            0.1,
+            1e-15,
+            _decay,
+            I.rkqs_dp,
+            _dummy_jacobian_dp,
         )
         np.testing.assert_allclose(y[0], 1.0, rtol=1e-5)
 
@@ -320,7 +400,14 @@ class TestOdeint:
         D = lambda t, y: -y
         y = np.ones((2, 2, 2), dtype=np.complex128)
         nok, nbad, h1_out = I.odeint_3D_dpc(
-            y, 0.0, 0.1, 1e-6, 0.01, 1e-15, D, I.rkqs_3D_dpc,
+            y,
+            0.0,
+            0.1,
+            1e-6,
+            0.01,
+            1e-15,
+            D,
+            I.rkqs_3D_dpc,
         )
         expected = np.exp(-0.1)
         np.testing.assert_allclose(y.real, expected, rtol=1e-4)
@@ -332,7 +419,14 @@ class TestOdeint:
         y = np.ones((2, 2, 2), dtype=np.complex128)
         eps = complex(1e-6, 1e-6)
         nok, nbad, h1_out = I.odeint_3D_dpc_TOM(
-            y, 0.0, 0.1, eps, 0.01, 1e-15, D, I.rkqs_3D_dpc_TOM,
+            y,
+            0.0,
+            0.1,
+            eps,
+            0.01,
+            1e-15,
+            D,
+            I.rkqs_3D_dpc_TOM,
         )
         expected = np.exp(-0.1)
         np.testing.assert_allclose(y.real, expected, rtol=1e-3)
@@ -342,8 +436,15 @@ class TestOdeint:
         y = np.array([1.0, 1.0])
         C0 = _lotka_volterra_invariant(y)
         I.odeint_dp(
-            y, 0.0, 0.5, 1e-12, 0.001, 1e-30,
-            _lotka_volterra, I.bsstep, I.dummy_jacobian_dp,
+            y,
+            0.0,
+            0.5,
+            1e-12,
+            0.001,
+            1e-30,
+            _lotka_volterra,
+            I.bsstep,
+            _dummy_jacobian_dp,
         )
         assert y[0] > 0.0 and y[1] > 0.0, "populations must stay positive"
         C1 = _lotka_volterra_invariant(y)
@@ -353,6 +454,7 @@ class TestOdeint:
 # ═════════════════════════════════════════════════════════════════════
 #  Simple fixed-step driver  (simpleint)
 # ═════════════════════════════════════════════════════════════════════
+
 
 class TestSimpleint:
     def test_dp_with_rk4(self):
@@ -385,6 +487,7 @@ class TestSimpleint:
 #  Modified midpoint  (mmid)
 # ═════════════════════════════════════════════════════════════════════
 
+
 class TestMmid:
     def test_convergence_order_2(self):
         """Modified midpoint is 2nd order: error ~ h^2."""
@@ -410,13 +513,21 @@ class TestMmid:
 #  Bulirsch-Stoer  (bsstep)
 # ═════════════════════════════════════════════════════════════════════
 
+
 class TestBsstep:
     def test_exp_decay(self):
         """bsstep via odeint on exp decay."""
         y = np.array([1.0])
         nok, nbad = I.odeint_dp(
-            y, 0.0, 1.0, 1e-10, 0.1, 1e-15,
-            _decay, I.bsstep, I.dummy_jacobian_dp,
+            y,
+            0.0,
+            1.0,
+            1e-10,
+            0.1,
+            1e-15,
+            _decay,
+            I.bsstep,
+            _dummy_jacobian_dp,
         )
         np.testing.assert_allclose(y[0], np.exp(-1.0), rtol=1e-8)
 
@@ -424,8 +535,15 @@ class TestBsstep:
         """bsstep preserves harmonic oscillator over one period."""
         y = np.array([1.0, 0.0])
         I.odeint_dp(
-            y, 0.0, 2 * np.pi, 1e-10, 0.1, 1e-15,
-            _harmonic_real, I.bsstep, I.dummy_jacobian_dp,
+            y,
+            0.0,
+            2 * np.pi,
+            1e-10,
+            0.1,
+            1e-15,
+            _harmonic_real,
+            I.bsstep,
+            _dummy_jacobian_dp,
         )
         np.testing.assert_allclose(y[0], 1.0, atol=1e-6)
         np.testing.assert_allclose(y[1], 0.0, atol=1e-6)
@@ -434,6 +552,7 @@ class TestBsstep:
 # ═════════════════════════════════════════════════════════════════════
 #  LU decomposition  (ludcmp, lubksb)
 # ═════════════════════════════════════════════════════════════════════
+
 
 class TestLU:
     def test_solve_2x2(self):
@@ -496,12 +615,15 @@ class TestLU:
 #  Semi-implicit midpoint  (simpr)
 # ═════════════════════════════════════════════════════════════════════
 
+
 class TestSimpr:
     def test_stiff_decay_single_step(self):
         """simpr handles stiff ODE dy/dt=-100*y with reasonable accuracy."""
         lam = -100.0
+
         def stiff100(t, y):
             return lam * y
+
         y = np.array([1.0])
         dydx = stiff100(0.0, y)
         dfdx = np.zeros(1)
@@ -527,13 +649,21 @@ class TestSimpr:
 #  Stiff Bulirsch-Stoer  (stifbs)
 # ═════════════════════════════════════════════════════════════════════
 
+
 class TestStifbs:
     def test_exp_decay(self):
         """stifbs via odeint on simple exp decay."""
         y = np.array([1.0])
         nok, nbad = I.odeint_dp(
-            y, 0.0, 1.0, 1e-8, 0.1, 1e-15,
-            _decay, I.stifbs, I.dummy_jacobian_dp,
+            y,
+            0.0,
+            1.0,
+            1e-8,
+            0.1,
+            1e-15,
+            _decay,
+            I.stifbs,
+            _dummy_jacobian_dp,
         )
         np.testing.assert_allclose(y[0], np.exp(-1.0), rtol=1e-6)
 
@@ -541,8 +671,15 @@ class TestStifbs:
         """stifbs on stiff dy/dt=-1000*y with proper Jacobian."""
         y = np.array([1.0])
         nok, nbad = I.odeint_dp(
-            y, 0.0, 0.01, 1e-6, 0.001, 1e-15,
-            _stiff_decay, I.stifbs, _stiff_jacobian,
+            y,
+            0.0,
+            0.01,
+            1e-6,
+            0.001,
+            1e-15,
+            _stiff_decay,
+            I.stifbs,
+            _stiff_jacobian,
         )
         np.testing.assert_allclose(y[0], np.exp(-10.0), rtol=0.01)
 
@@ -550,8 +687,15 @@ class TestStifbs:
         """stifbs on 2D harmonic oscillator over one period."""
         y = np.array([1.0, 0.0])
         I.odeint_dp(
-            y, 0.0, 2 * np.pi, 1e-8, 0.1, 1e-15,
-            _harmonic_real, I.stifbs, I.dummy_jacobian_dp,
+            y,
+            0.0,
+            2 * np.pi,
+            1e-8,
+            0.1,
+            1e-15,
+            _harmonic_real,
+            I.stifbs,
+            _dummy_jacobian_dp,
         )
         np.testing.assert_allclose(y[0], 1.0, atol=1e-4)
         np.testing.assert_allclose(y[1], 0.0, atol=1e-4)
@@ -560,6 +704,7 @@ class TestStifbs:
 # ═════════════════════════════════════════════════════════════════════
 #  Module constants
 # ═════════════════════════════════════════════════════════════════════
+
 
 class TestConstants:
     def test_safety(self):
@@ -581,6 +726,7 @@ class TestConstants:
 #  Cash-Karp tableau verification
 # ═════════════════════════════════════════════════════════════════════
 
+
 class TestButcherTableau:
     def test_c_weights_sum_to_one(self):
         """5th-order weights must sum to 1 (consistency condition)."""
@@ -594,13 +740,16 @@ class TestButcherTableau:
         np.testing.assert_allclose(I._b41 + I._b42 + I._b43, I._a4, rtol=RTOL)
         np.testing.assert_allclose(I._b51 + I._b52 + I._b53 + I._b54, I._a5, rtol=RTOL)
         np.testing.assert_allclose(
-            I._b61 + I._b62 + I._b63 + I._b64 + I._b65, I._a6, rtol=RTOL,
+            I._b61 + I._b62 + I._b63 + I._b64 + I._b65,
+            I._a6,
+            rtol=RTOL,
         )
 
 
 # ═════════════════════════════════════════════════════════════════════
 #  pzextr (polynomial extrapolation)
 # ═════════════════════════════════════════════════════════════════════
+
 
 class TestPzextr:
     def test_single_estimate(self):
@@ -624,12 +773,12 @@ class TestPzextr:
         d_save = np.zeros((nv, 10))
 
         h1 = 0.1
-        yest1 = np.array([5.0 + 3.0 * h1 ** 2])
-        I.pzextr(1, h1 ** 2, yest1, yz, dy, x_save, d_save)
+        yest1 = np.array([5.0 + 3.0 * h1**2])
+        I.pzextr(1, h1**2, yest1, yz, dy, x_save, d_save)
 
         h2 = 0.05
-        yest2 = np.array([5.0 + 3.0 * h2 ** 2])
-        I.pzextr(2, h2 ** 2, yest2, yz, dy, x_save, d_save)
+        yest2 = np.array([5.0 + 3.0 * h2**2])
+        I.pzextr(2, h2**2, yest2, yz, dy, x_save, d_save)
 
         np.testing.assert_allclose(yz[0], 5.0, rtol=1e-10)
 
@@ -638,14 +787,22 @@ class TestPzextr:
 #  Physics validation: conservation laws
 # ═════════════════════════════════════════════════════════════════════
 
+
 class TestPhysics:
     def test_energy_conservation_shm(self):
         """Simple harmonic motion: E = 0.5*(v^2 + x^2) is conserved."""
         y = np.array([1.0, 0.0])  # x=1, v=0
         E0 = 0.5 * (y[0] ** 2 + y[1] ** 2)
         I.odeint_dp(
-            y, 0.0, 2 * np.pi, 1e-10, 0.01, 1e-15,
-            _harmonic_real, I.bsstep, I.dummy_jacobian_dp,
+            y,
+            0.0,
+            2 * np.pi,
+            1e-10,
+            0.01,
+            1e-15,
+            _harmonic_real,
+            I.bsstep,
+            _dummy_jacobian_dp,
         )
         E = 0.5 * (y[0] ** 2 + y[1] ** 2)
         np.testing.assert_allclose(E, E0, rtol=1e-6)
@@ -654,8 +811,15 @@ class TestPhysics:
         """|exp(i*omega*t)| = 1 for all t."""
         y = np.array([1.0 + 0j])
         I.odeint_dpc(
-            y, 0.0, 5.0, 1e-8, 0.01, 1e-15,
-            _harmonic_complex, I.rkqs_dpc, I.dummy_jacobian_dpc,
+            y,
+            0.0,
+            5.0,
+            1e-8,
+            0.01,
+            1e-15,
+            _harmonic_complex,
+            I.rkqs_dpc,
+            _dummy_jacobian_dpc,
         )
         np.testing.assert_allclose(np.abs(y[0]), 1.0, rtol=1e-5)
 
@@ -666,8 +830,15 @@ class TestPhysics:
         for t_end in [0.1, 0.5, 1.0, 2.0]:
             y_test = np.array([1.0])
             I.odeint_dp(
-                y_test, 0.0, t_end, 1e-8, 0.1, 1e-15,
-                _decay, I.rkqs_dp, I.dummy_jacobian_dp,
+                y_test,
+                0.0,
+                t_end,
+                1e-8,
+                0.1,
+                1e-15,
+                _decay,
+                I.rkqs_dp,
+                _dummy_jacobian_dp,
             )
             results.append(y_test[0])
         for i in range(len(results) - 1):
@@ -677,8 +848,12 @@ class TestPhysics:
         """For linear ODE dy/dt=-y, solution is linear in y0."""
         y1 = np.array([2.0])
         y2 = np.array([3.0])
-        I.odeint_dp(y1, 0.0, 1.0, 1e-10, 0.1, 1e-15, _decay, I.rkqs_dp, I.dummy_jacobian_dp)
-        I.odeint_dp(y2, 0.0, 1.0, 1e-10, 0.1, 1e-15, _decay, I.rkqs_dp, I.dummy_jacobian_dp)
+        I.odeint_dp(
+            y1, 0.0, 1.0, 1e-10, 0.1, 1e-15, _decay, I.rkqs_dp, _dummy_jacobian_dp
+        )
+        I.odeint_dp(
+            y2, 0.0, 1.0, 1e-10, 0.1, 1e-15, _decay, I.rkqs_dp, _dummy_jacobian_dp
+        )
         np.testing.assert_allclose(y2[0] / y1[0], 3.0 / 2.0, rtol=1e-8)
 
     def test_time_reversal_symmetry(self):
@@ -686,12 +861,26 @@ class TestPhysics:
         y = np.array([1.0, 0.0])
         y_init = y.copy()
         I.odeint_dp(
-            y, 0.0, np.pi, 1e-10, 0.01, 1e-15,
-            _harmonic_real, I.rkqs_dp, I.dummy_jacobian_dp,
+            y,
+            0.0,
+            np.pi,
+            1e-10,
+            0.01,
+            1e-15,
+            _harmonic_real,
+            I.rkqs_dp,
+            _dummy_jacobian_dp,
         )
         I.odeint_dp(
-            y, np.pi, 0.0, 1e-10, 0.01, 1e-15,
-            _harmonic_real, I.rkqs_dp, I.dummy_jacobian_dp,
+            y,
+            np.pi,
+            0.0,
+            1e-10,
+            0.01,
+            1e-15,
+            _harmonic_real,
+            I.rkqs_dp,
+            _dummy_jacobian_dp,
         )
         np.testing.assert_allclose(y, y_init, atol=1e-4)
 
@@ -700,18 +889,29 @@ class TestPhysics:
 #  Parametric stepper comparison
 # ═════════════════════════════════════════════════════════════════════
 
+
 class TestStepperComparison:
-    @pytest.mark.parametrize("stepper,tol", [
-        (I.rkqs_dp, 1e-6),
-        (I.bsstep, 1e-6),
-        (I.stifbs, 1e-4),
-    ])
+    @pytest.mark.parametrize(
+        "stepper,tol",
+        [
+            (I.rkqs_dp, 1e-6),
+            (I.bsstep, 1e-6),
+            (I.stifbs, 1e-4),
+        ],
+    )
     def test_all_steppers_solve_decay(self, stepper, tol):
         """All adaptive steppers converge on exp decay."""
         y = np.array([1.0])
         I.odeint_dp(
-            y, 0.0, 1.0, 1e-8, 0.1, 1e-15,
-            _decay, stepper, I.dummy_jacobian_dp,
+            y,
+            0.0,
+            1.0,
+            1e-8,
+            0.1,
+            1e-15,
+            _decay,
+            stepper,
+            _dummy_jacobian_dp,
         )
         np.testing.assert_allclose(y[0], np.exp(-1.0), rtol=tol)
 

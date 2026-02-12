@@ -65,7 +65,9 @@ Pxx2 = np.zeros(Nr, dtype=np.complex128)  # Polarizations along wire 2 (C/m^2)
 Pyy2 = np.zeros(Nr, dtype=np.complex128)
 Pzz2 = np.zeros(Nr, dtype=np.complex128)
 
-Pxx_mid = np.zeros(Nr, dtype=np.complex128)  # Polarizations along wire 1 and 2 mid_point avg (C/m^2)
+Pxx_mid = np.zeros(
+    Nr, dtype=np.complex128
+)  # Polarizations along wire 1 and 2 mid_point avg (C/m^2)
 Pyy_mid = np.zeros(Nr, dtype=np.complex128)
 Pzz_mid = np.zeros(Nr, dtype=np.complex128)
 
@@ -148,21 +150,21 @@ qrr = GetKArray(Nr, Nr * drr)
 InitializeSBE(qrr, rr, 0.0, Emax0, lamX, 2, True)
 
 # Create output directory
-os.makedirs('fields', exist_ok=True)
+os.makedirs("fields", exist_ok=True)
 
 # Open files to record data
-file_Ex = open('fields/Ex.dat', 'w', encoding='utf-8')
-file_Ey = open('fields/Ey.dat', 'w', encoding='utf-8')
-file_Ez = open('fields/Ez.dat', 'w', encoding='utf-8')
-file_Px1 = open('fields/Px1.dat', 'w', encoding='utf-8')
-file_Py1 = open('fields/Py1.dat', 'w', encoding='utf-8')
-file_Pz1 = open('fields/Pz1.dat', 'w', encoding='utf-8')
-file_Px2 = open('fields/Px2.dat', 'w', encoding='utf-8')
-file_Py2 = open('fields/Py2.dat', 'w', encoding='utf-8')
-file_Pz2 = open('fields/Pz2.dat', 'w', encoding='utf-8')
-file_Px_mid = open('fields/Px_mid.dat', 'w', encoding='utf-8')
-file_Py_mid = open('fields/Py_mid.dat', 'w', encoding='utf-8')
-file_Pz_mid = open('fields/Pz_mid.dat', 'w', encoding='utf-8')
+file_Ex = open("fields/Ex.dat", "w", encoding="utf-8")
+file_Ey = open("fields/Ey.dat", "w", encoding="utf-8")
+file_Ez = open("fields/Ez.dat", "w", encoding="utf-8")
+file_Px1 = open("fields/Px1.dat", "w", encoding="utf-8")
+file_Py1 = open("fields/Py1.dat", "w", encoding="utf-8")
+file_Pz1 = open("fields/Pz1.dat", "w", encoding="utf-8")
+file_Px2 = open("fields/Px2.dat", "w", encoding="utf-8")
+file_Py2 = open("fields/Py2.dat", "w", encoding="utf-8")
+file_Pz2 = open("fields/Pz2.dat", "w", encoding="utf-8")
+file_Px_mid = open("fields/Px_mid.dat", "w", encoding="utf-8")
+file_Py_mid = open("fields/Py_mid.dat", "w", encoding="utf-8")
+file_Pz_mid = open("fields/Pz_mid.dat", "w", encoding="utf-8")
 
 # Begin Time-Evolving the SBEs
 for n in range(1, Nt + 1):
@@ -170,20 +172,30 @@ for n in range(1, Nt + 1):
     print(n, Nt)
 
     # Calculate E-fields
-    Exx[:] = (E0x * np.exp(-(w0x * (t - tpx))**2 / (w0x * twx)**2) *
-              np.cos(w0x * (t - tpx)) *
-              np.exp(-(w0x * (t - tpx))**20 / (2 * twx * w0x)**20))
+    Exx[:] = (
+        E0x
+        * np.exp(-((w0x * (t - tpx)) ** 2) / (w0x * twx) ** 2)
+        * np.cos(w0x * (t - tpx))
+        * np.exp(-((w0x * (t - tpx)) ** 20) / (2 * twx * w0x) ** 20)
+    )
 
-    Eyy[:] = (E0y * np.exp(-(w0y * (t - tpy))**2 / (w0y * twy)**2) *
-              np.cos(w0y * (t - tpy)) *
-              np.exp(-(w0y * (t - tpy))**20 / (2 * twy * w0y)**20))
+    Eyy[:] = (
+        E0y
+        * np.exp(-((w0y * (t - tpy)) ** 2) / (w0y * twy) ** 2)
+        * np.cos(w0y * (t - tpy))
+        * np.exp(-((w0y * (t - tpy)) ** 20) / (2 * twy * w0y) ** 20)
+    )
 
     # Eyy = E0y * exp(-(t-tpy)**2 / (twy)**2) * cos(w0y*(t-tpy)) * exp(-(t-tpy)**20 / (2*twy)**20)
     # Ezz = E0z * exp(-(w0z*(t-tpz))**2 / (w0z*twz)**2) * cos(w0z*(t-tpz)) * exp(-(w0z*(t-tpz))**20 / (2*twz*w0z)**20)
 
     # Time-Evolve the SBEs from t(n) to t(n+1)
-    QWCalculator(Exx, Eyy, Ezz, Vrr, rr, qrr, dt, 1, Pxx1, Pyy1, Pzz1, Rho, boolT, boolF)
-    QWCalculator(Exx, Eyy, Ezz, Vrr, rr, qrr, dt, 2, Pxx2, Pyy2, Pzz2, Rho, boolT, boolF)
+    QWCalculator(
+        Exx, Eyy, Ezz, Vrr, rr, qrr, dt, 1, Pxx1, Pyy1, Pzz1, Rho, boolT, boolF
+    )
+    QWCalculator(
+        Exx, Eyy, Ezz, Vrr, rr, qrr, dt, 2, Pxx2, Pyy2, Pzz2, Rho, boolT, boolF
+    )
 
     # Print*, "AAA"
     # stop
@@ -200,17 +212,39 @@ for n in range(1, Nt + 1):
 
     # Print the electric field for the record
     file_Ex.write(f"{t} {np.real(Exx[Nr // 2])}\n")  # Record to file in 'fields/Ex.dat'
-    file_Ey.write(f"{t} {np.real(Ezz[Nr // 2])}\n")  # Record to file in 'fields/Ey.dat' (matches Fortran unit=445)
-    file_Ez.write(f"{t} {np.real(Eyy[Nr // 2])}\n")  # Record to file in 'fields/Ez.dat' (matches Fortran unit=446)
-    file_Px1.write(f"{t} {np.real(Pxx1[Nr // 2])}\n")  # Record to file in 'fields/Px1.dat'
-    file_Py1.write(f"{t} {np.real(Pyy1[Nr // 2])}\n")  # Record to file in 'fields/Py1.dat'
-    file_Pz1.write(f"{t} {np.real(Pzz1[Nr // 2])}\n")  # Record to file in 'fields/Pz1.dat'
-    file_Px2.write(f"{t} {np.real(Pxx2[Nr // 2])}\n")  # Record to file in 'fields/Px2.dat'
-    file_Py2.write(f"{t} {np.real(Pyy2[Nr // 2])}\n")  # Record to file in 'fields/Py2.dat'
-    file_Pz2.write(f"{t} {np.real(Pzz2[Nr // 2])}\n")  # Record to file in 'fields/Pz2.dat'
-    file_Px_mid.write(f"{t} {np.real(Pxx_mid[Nr // 2])}\n")  # Record to file in 'fields/Px_mid.dat'
-    file_Py_mid.write(f"{t} {np.real(Pyy_mid[Nr // 2])}\n")  # Record to file in 'fields/Py_mid.dat'
-    file_Pz_mid.write(f"{t} {np.real(Pzz_mid[Nr // 2])}\n")  # Record to file in 'fields/Pz_mid.dat'
+    file_Ey.write(
+        f"{t} {np.real(Ezz[Nr // 2])}\n"
+    )  # Record to file in 'fields/Ey.dat' (matches Fortran unit=445)
+    file_Ez.write(
+        f"{t} {np.real(Eyy[Nr // 2])}\n"
+    )  # Record to file in 'fields/Ez.dat' (matches Fortran unit=446)
+    file_Px1.write(
+        f"{t} {np.real(Pxx1[Nr // 2])}\n"
+    )  # Record to file in 'fields/Px1.dat'
+    file_Py1.write(
+        f"{t} {np.real(Pyy1[Nr // 2])}\n"
+    )  # Record to file in 'fields/Py1.dat'
+    file_Pz1.write(
+        f"{t} {np.real(Pzz1[Nr // 2])}\n"
+    )  # Record to file in 'fields/Pz1.dat'
+    file_Px2.write(
+        f"{t} {np.real(Pxx2[Nr // 2])}\n"
+    )  # Record to file in 'fields/Px2.dat'
+    file_Py2.write(
+        f"{t} {np.real(Pyy2[Nr // 2])}\n"
+    )  # Record to file in 'fields/Py2.dat'
+    file_Pz2.write(
+        f"{t} {np.real(Pzz2[Nr // 2])}\n"
+    )  # Record to file in 'fields/Pz2.dat'
+    file_Px_mid.write(
+        f"{t} {np.real(Pxx_mid[Nr // 2])}\n"
+    )  # Record to file in 'fields/Px_mid.dat'
+    file_Py_mid.write(
+        f"{t} {np.real(Pyy_mid[Nr // 2])}\n"
+    )  # Record to file in 'fields/Py_mid.dat'
+    file_Pz_mid.write(
+        f"{t} {np.real(Pzz_mid[Nr // 2])}\n"
+    )  # Record to file in 'fields/Pz_mid.dat'
 
     t = t + dt
 
@@ -233,17 +267,21 @@ file_Pz_mid.close()
 # ============================================================================
 # CUDA USAGE STATISTICS SUMMARY
 # ============================================================================
-print("\n" + "="*80)
+print("\n" + "=" * 80)
 print("CUDA/JIT USAGE STATISTICS")
-print("="*80)
+print("=" * 80)
 
 try:
     from qwoptics import _HAS_CUDA as qwoptics_cuda, _cuda_stats
     from SBEs import _HAS_CUDA as sbes_cuda, _sbe_cuda_stats
 
     print("\nCUDA Status:")
-    print(f"  qwoptics.py: {'✓ CUDA AVAILABLE' if qwoptics_cuda else '✗ CUDA NOT AVAILABLE'}")
-    print(f"  SBEs.py:     {'✓ CUDA AVAILABLE' if sbes_cuda else '✗ CUDA NOT AVAILABLE'}")
+    print(
+        f"  qwoptics.py: {'✓ CUDA AVAILABLE' if qwoptics_cuda else '✗ CUDA NOT AVAILABLE'}"
+    )
+    print(
+        f"  SBEs.py:     {'✓ CUDA AVAILABLE' if sbes_cuda else '✗ CUDA NOT AVAILABLE'}"
+    )
 
     print("\nqwoptics.py Function Calls:")
     print("  QWPolarization3:")
@@ -270,23 +308,29 @@ try:
     print(f"    Fallback: {_sbe_cuda_stats.get('dDdt_fallback', 0):8d} calls")
 
     # Summary
-    total_cuda = (_cuda_stats.get('QWPolarization3_cuda', 0) +
-                  _cuda_stats.get('QWRho5_cuda', 0) +
-                  _sbe_cuda_stats.get('dpdt_cuda', 0) +
-                  _sbe_cuda_stats.get('dCdt_cuda', 0) +
-                  _sbe_cuda_stats.get('dDdt_cuda', 0))
+    total_cuda = (
+        _cuda_stats.get("QWPolarization3_cuda", 0)
+        + _cuda_stats.get("QWRho5_cuda", 0)
+        + _sbe_cuda_stats.get("dpdt_cuda", 0)
+        + _sbe_cuda_stats.get("dCdt_cuda", 0)
+        + _sbe_cuda_stats.get("dDdt_cuda", 0)
+    )
 
-    total_jit = (_cuda_stats.get('QWPolarization3_jit', 0) +
-                 _cuda_stats.get('QWRho5_jit', 0) +
-                 _sbe_cuda_stats.get('dpdt_jit', 0) +
-                 _sbe_cuda_stats.get('dCdt_jit', 0) +
-                 _sbe_cuda_stats.get('dDdt_jit', 0))
+    total_jit = (
+        _cuda_stats.get("QWPolarization3_jit", 0)
+        + _cuda_stats.get("QWRho5_jit", 0)
+        + _sbe_cuda_stats.get("dpdt_jit", 0)
+        + _sbe_cuda_stats.get("dCdt_jit", 0)
+        + _sbe_cuda_stats.get("dDdt_jit", 0)
+    )
 
-    total_fallback = (_cuda_stats.get('QWPolarization3_fallback', 0) +
-                      _cuda_stats.get('QWRho5_fallback', 0) +
-                      _sbe_cuda_stats.get('dpdt_fallback', 0) +
-                      _sbe_cuda_stats.get('dCdt_fallback', 0) +
-                      _sbe_cuda_stats.get('dDdt_fallback', 0))
+    total_fallback = (
+        _cuda_stats.get("QWPolarization3_fallback", 0)
+        + _cuda_stats.get("QWRho5_fallback", 0)
+        + _sbe_cuda_stats.get("dpdt_fallback", 0)
+        + _sbe_cuda_stats.get("dCdt_fallback", 0)
+        + _sbe_cuda_stats.get("dDdt_fallback", 0)
+    )
 
     total = total_cuda + total_jit + total_fallback
 
@@ -299,8 +343,12 @@ try:
 
         if total_cuda > 0:
             print(f"\n✓ CUDA IS BEING USED! ({total_cuda} calls)")
-            print("  The 'Grid size' warnings are normal - they indicate CUDA is active.")
-            print("  Small grid sizes mean your arrays are small, but CUDA still helps.")
+            print(
+                "  The 'Grid size' warnings are normal - they indicate CUDA is active."
+            )
+            print(
+                "  Small grid sizes mean your arrays are small, but CUDA still helps."
+            )
         elif total_jit > 0:
             print("\nUsing JIT (CPU parallel) - CUDA not available or failed")
         else:
@@ -312,13 +360,13 @@ except ImportError as e:
 except Exception as e:
     print(f"Error reading CUDA statistics: {e}")
     import traceback
+
     traceback.print_exc()
 
-print("="*80 + "\n")
+print("=" * 80 + "\n")
 
 # deallocate(Exx,Eyy,Ezz,Pxx,Pyy,Pzz,Rho,rr,qrr)
 # Arrays are automatically deallocated when program exits
-
 
 
 # """

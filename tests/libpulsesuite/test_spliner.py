@@ -13,6 +13,7 @@ Tolerances:
     polint on polynomial : rtol=1e-10 (Neville's algorithm)
     rescale              : rtol=1e-4  (grid transfer, boundary effects)
 """
+
 import numpy as np
 import pytest
 
@@ -54,6 +55,7 @@ ATOL = 1e-10
 # locate (binary search)
 # ===================================================================
 
+
 class TestLocate:
     def test_locate_interior(self):
         x = np.linspace(0, 10, 11)  # [0,1,...,10]
@@ -75,6 +77,7 @@ class TestLocate:
 # ===================================================================
 # spline_dp / seval_dp (real cubic spline)
 # ===================================================================
+
 
 class TestSplineDp:
     def test_quadratic_exact(self):
@@ -123,6 +126,7 @@ class TestSplineDp:
 # spline_dpc / seval_dpc (complex cubic spline)
 # ===================================================================
 
+
 class TestSplineDpc:
     def test_complex_linear(self):
         """Complex spline on a linear complex function."""
@@ -155,6 +159,7 @@ class TestSplineDpc:
 # spline2_dp / seval2_dp (second derivative version, real)
 # ===================================================================
 
+
 class TestSpline2Dp:
     def test_linear(self):
         """spline2/seval2 on a linear function should be exact."""
@@ -182,6 +187,7 @@ class TestSpline2Dp:
 # spline2_dpc / seval2_dpc (second derivative version, complex)
 # ===================================================================
 
+
 class TestSpline2Dpc:
     def test_complex_linear(self):
         x = np.linspace(0, 1, 10)
@@ -195,6 +201,7 @@ class TestSpline2Dpc:
 # ===================================================================
 # polint1 (1D Neville polynomial interpolation)
 # ===================================================================
+
 
 class TestPolint1:
     def test_linear(self):
@@ -222,12 +229,13 @@ class TestPolint1:
 # polint2 (2D polynomial interpolation)
 # ===================================================================
 
+
 class TestPolint2:
     def test_bilinear(self):
         """polint2 on f(x,y) = x + y."""
         x = np.array([0.0, 1.0, 2.0])
         y = np.array([0.0, 1.0, 2.0])
-        X, Y = np.meshgrid(x, y, indexing='ij')
+        X, Y = np.meshgrid(x, y, indexing="ij")
         Z = X + Y
         val = polint2(x, y, Z, 0.5, 0.5)
         assert np.isclose(val, 1.0, atol=1e-8)
@@ -237,13 +245,14 @@ class TestPolint2:
 # polint3 (3D polynomial interpolation)
 # ===================================================================
 
+
 class TestPolint3:
     def test_trilinear(self):
         """polint3 on f(x,y,z) = x + y + z."""
         x = np.array([0.0, 1.0, 2.0])
         y = np.array([0.0, 1.0, 2.0])
         z = np.array([0.0, 1.0, 2.0])
-        X, Y, Z = np.meshgrid(x, y, z, indexing='ij')
+        X, Y, Z = np.meshgrid(x, y, z, indexing="ij")
         V = X + Y + Z
         val = polint3(x, y, z, V, 0.5, 0.5, 0.5)
         assert np.isclose(val, 1.5, atol=1e-8)
@@ -252,6 +261,7 @@ class TestPolint3:
 # ===================================================================
 # bcucof / bcuint (bicubic interpolation)
 # ===================================================================
+
 
 class TestBicubic:
     def test_bcuint_constant(self):
@@ -288,6 +298,7 @@ class TestBicubic:
 # rescale_1D_dp (real 1D rescaling)
 # ===================================================================
 
+
 class TestRescale1dDp:
     def test_upsample_linear(self):
         """Rescale a linear function to a finer grid."""
@@ -315,6 +326,7 @@ class TestRescale1dDp:
 # rescale_1D_dpc (complex 1D rescaling)
 # ===================================================================
 
+
 class TestRescale1dDpc:
     def test_complex_upsample(self):
         """Rescale a complex linear function to a finer grid."""
@@ -331,6 +343,7 @@ class TestRescale1dDpc:
 # rescale_1D_cyl_dpc (cylindrical boundary)
 # ===================================================================
 
+
 class TestRescale1dCylDpc:
     def test_first_point_preserved(self):
         """Cylindrical rescale sets z1[0] = z0[0]."""
@@ -346,18 +359,19 @@ class TestRescale1dCylDpc:
 # rescale_2D_dp (real 2D rescaling)
 # ===================================================================
 
+
 class TestRescale2dDp:
     def test_upsample_plane(self):
         """Rescale f(x,y) = x + y to a finer grid."""
         x0 = np.linspace(0, 1, 5)
         y0 = np.linspace(0, 1, 5)
-        X0, Y0 = np.meshgrid(x0, y0, indexing='ij')
+        X0, Y0 = np.meshgrid(x0, y0, indexing="ij")
         z0 = X0 + Y0
         x1 = np.linspace(0, 1, 10)
         y1 = np.linspace(0, 1, 10)
         z1 = np.zeros((10, 10))
         rescale_2D_dp(x0, y0, z0, x1, y1, z1)
-        X1, Y1 = np.meshgrid(x1, y1, indexing='ij')
+        X1, Y1 = np.meshgrid(x1, y1, indexing="ij")
         expected = X1 + Y1
         np.testing.assert_allclose(z1, expected, rtol=1e-2, atol=1e-2)
 
@@ -366,11 +380,12 @@ class TestRescale2dDp:
 # rescale_2D_dpc (complex 2D rescaling)
 # ===================================================================
 
+
 class TestRescale2dDpc:
     def test_complex_plane(self):
         x0 = np.linspace(0, 1, 5)
         y0 = np.linspace(0, 1, 5)
-        X0, Y0 = np.meshgrid(x0, y0, indexing='ij')
+        X0, Y0 = np.meshgrid(x0, y0, indexing="ij")
         z0 = (1 + 1j) * (X0 + Y0)
         x1 = np.linspace(0, 1, 8)
         y1 = np.linspace(0, 1, 8)
@@ -382,6 +397,7 @@ class TestRescale2dDpc:
 # ===================================================================
 # GetValAt_1D, GetValAt_1D_dpc
 # ===================================================================
+
 
 class TestGetValAt1D:
     def test_real_interpolation(self):
@@ -407,11 +423,12 @@ class TestGetValAt1D:
 # GetValAt_2D
 # ===================================================================
 
+
 class TestGetValAt2D:
     def test_plane(self):
         x = np.linspace(0, 1, 10)
         y = np.linspace(0, 1, 10)
-        X, Y = np.meshgrid(x, y, indexing='ij')
+        X, Y = np.meshgrid(x, y, indexing="ij")
         e = X + Y
         val = GetValAt_2D(e, x, y, 0.5, 0.5)
         assert np.isclose(val, 1.0, atol=0.1)
@@ -426,6 +443,7 @@ class TestGetValAt2D:
 # ===================================================================
 # GetValAt_3D
 # ===================================================================
+
 
 class TestGetValAt3D:
     def test_constant(self):
@@ -447,6 +465,7 @@ class TestGetValAt3D:
 # ===================================================================
 # Unified interfaces: spline(), seval(), rescale_1D(), rescale_2D()
 # ===================================================================
+
 
 class TestUnifiedSpline:
     def test_spline_dp_interface(self):

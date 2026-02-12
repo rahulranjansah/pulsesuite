@@ -5,7 +5,6 @@ Tests all phonon interaction functions including initialization, many-body
 phonon-electron/hole interactions, distribution functions, and utility functions.
 """
 
-
 import numpy as np
 from scipy.constants import hbar as hbar_SI, k as kB_SI
 
@@ -177,7 +176,9 @@ class TestInitializePhonons:
         phonons.InitializePhonons(ky, Ee, Eh, L, epsr, Gph, Oph)
 
         # Check formula: Vscale = hbar * Oph * epsr * (1/epsrINF - 1/epsr0)
-        expected_Vscale = hbar * Oph * epsr * (1.0 / phonons._epsrINF - 1.0 / phonons._epsr0)
+        expected_Vscale = (
+            hbar * Oph * epsr * (1.0 / phonons._epsrINF - 1.0 / phonons._epsr0)
+        )
         assert np.allclose(phonons._Vscale, expected_Vscale, rtol=1e-10, atol=1e-12)
 
     def test_InitializePhonons_different_temperatures(self):
@@ -661,8 +662,9 @@ class TestIntegratedWorkflows:
 
     def test_initialization_workflow(self):
         """Test complete initialization workflow."""
-        phonons.InitializePhonons(self.ky, self.Ee, self.Eh, self.L, self.epsr,
-                                  self.Gph, self.Oph)
+        phonons.InitializePhonons(
+            self.ky, self.Ee, self.Eh, self.L, self.epsr, self.Gph, self.Oph
+        )
 
         # Check all globals are set
         assert phonons._EP is not None
@@ -675,8 +677,9 @@ class TestIntegratedWorkflows:
 
     def test_MBPE_workflow(self):
         """Test complete MBPE workflow."""
-        phonons.InitializePhonons(self.ky, self.Ee, self.Eh, self.L, self.epsr,
-                                  self.Gph, self.Oph)
+        phonons.InitializePhonons(
+            self.ky, self.Ee, self.Eh, self.L, self.epsr, self.Gph, self.Oph
+        )
 
         ne = np.random.random(self.Nk) * 0.5
         VC = np.random.random((self.Nk, self.Nk, 3)) * 1e-20
@@ -693,8 +696,9 @@ class TestIntegratedWorkflows:
 
     def test_MBPH_workflow(self):
         """Test complete MBPH workflow."""
-        phonons.InitializePhonons(self.ky, self.Ee, self.Eh, self.L, self.epsr,
-                                  self.Gph, self.Oph)
+        phonons.InitializePhonons(
+            self.ky, self.Ee, self.Eh, self.L, self.epsr, self.Gph, self.Oph
+        )
 
         nh = np.random.random(self.Nk) * 0.5
         VC = np.random.random((self.Nk, self.Nk, 3)) * 1e-20
@@ -711,8 +715,9 @@ class TestIntegratedWorkflows:
 
     def test_combined_electron_hole_workflow(self):
         """Test combined electron and hole phonon interactions."""
-        phonons.InitializePhonons(self.ky, self.Ee, self.Eh, self.L, self.epsr,
-                                  self.Gph, self.Oph)
+        phonons.InitializePhonons(
+            self.ky, self.Ee, self.Eh, self.L, self.epsr, self.Gph, self.Oph
+        )
 
         ne = np.random.random(self.Nk) * 0.5
         nh = np.random.random(self.Nk) * 0.5
@@ -734,8 +739,9 @@ class TestIntegratedWorkflows:
 
     def test_Cq2_workflow(self):
         """Test Cq2 workflow."""
-        phonons.InitializePhonons(self.ky, self.Ee, self.Eh, self.L, self.epsr,
-                                  self.Gph, self.Oph)
+        phonons.InitializePhonons(
+            self.ky, self.Ee, self.Eh, self.L, self.epsr, self.Gph, self.Oph
+        )
 
         q = np.linspace(-1e7, 1e7, self.Nk)
         V = np.random.random((self.Nk, self.Nk)) * 1e-20
@@ -900,4 +906,3 @@ class TestNumericalPrecision:
 
         # Results should be identical
         assert np.allclose(result1, result2, rtol=1e-12, atol=1e-12)
-

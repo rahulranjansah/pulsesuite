@@ -7,6 +7,7 @@ for the (modified) nonlinear Schrödinger / UPPE equations.
 * All expensive maths are JIT‑compiled; only plan creation and
   dataclass bookkeeping run in the CPython interpreter.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field as _field
@@ -18,11 +19,12 @@ from numba import njit, prange
 # Import constants from libpulsesuite (module-level constants)
 from .fftw import (
     fft_1d,  # noqa: F401 (re‑export convenience)
-    )
+)
 
 # -----------------------------------------------------------------------------
 # 1.  Basic physics containers (Field, Medium, Flags)
 # -----------------------------------------------------------------------------
+
 
 @dataclass(slots=True)
 class Field:
@@ -48,16 +50,16 @@ class Field:
         return 2 * np.pi * 3e8 / self.lambda0
 
     def intensity(self) -> np.ndarray:  # |E|^2, vacuum
-        return (self.Exy.real ** 2 + self.Exy.imag ** 2)
+        return self.Exy.real**2 + self.Exy.imag**2
 
 
 @dataclass(slots=True)
 class Medium:
-    n0: float          # linear refractive index
-    n2: float          # Kerr coeff (m^2/W)
-    n4i: float = 0.0   # HO Kerr imaginary
+    n0: float  # linear refractive index
+    n2: float  # Kerr coeff (m^2/W)
+    n4i: float = 0.0  # HO Kerr imaginary
     tc: float = 1.2e-15  # collision time (s)
-    sigma: float = 5e-20 # Drude absorption coeff (m^2)
+    sigma: float = 5e-20  # Drude absorption coeff (m^2)
     rho_max: float = 6e28  # max plasma density (m^-3)
     # add more as needed
 
@@ -72,12 +74,13 @@ class RKFlags:
     photo: bool = False
     drude_0: bool = False
 
-    gulley_t: bool = False   # switch to Gulley plasma once intensity high
+    gulley_t: bool = False  # switch to Gulley plasma once intensity high
 
 
 # -----------------------------------------------------------------------------
 # 2.  Cached nonlinear constants (Gamma, etc.)
 # -----------------------------------------------------------------------------
+
 
 def calc_gamma(field: Field, medium: Medium) -> complex:
     k0 = 2 * np.pi / field.lambda0 * medium.n0
@@ -131,8 +134,9 @@ def raman_conv(e_time: np.ndarray, field: Field, t1=12.2e-15, t2=32e-15, fr=0.18
 # 5.  Right‑hand‑side (nonlinear polarisation & plasma) – Numba kernel
 # -----------------------------------------------------------------------------
 @njit(fastmath=True)
-def _rhs_line(e: np.ndarray, gamma: complex, gamma4: complex,
-             do_kerr: bool, do_kerr4: bool) -> np.ndarray:
+def _rhs_line(
+    e: np.ndarray, gamma: complex, gamma4: complex, do_kerr: bool, do_kerr4: bool
+) -> np.ndarray:
     """RHS for one temporal line (no Raman, plasma, shock)."""
     Nt = e.size
     out = np.empty_like(e)
@@ -151,8 +155,9 @@ def _rhs_line(e: np.ndarray, gamma: complex, gamma4: complex,
 # 6.  Vectorised wrapper over (Nx, Ny, Nt)
 # -----------------------------------------------------------------------------
 
+
 def rhs(Exy: np.ndarray, field: Field, medium: Medium, flags: RKFlags):
-    gamma  = calc_gamma(field, medium)
+    gamma = calc_gamma(field, medium)
     gamma4 = calc_gamma4(field, medium) if flags.kerr4 else 0.0j
 
     Nx, Ny, _ = Exy.shape
@@ -160,8 +165,9 @@ def rhs(Exy: np.ndarray, field: Field, medium: Medium, flags: RKFlags):
 
     for j in range(Ny):
         for i in range(Nx):
-            dE[i, j, :] = _rhs_line(Exy[i, j, :], gamma, gamma4,
-                                     flags.kerr, flags.kerr4)
+            dE[i, j, :] = _rhs_line(
+                Exy[i, j, :], gamma, gamma4, flags.kerr, flags.kerr4
+            )
     return dE
 
 
@@ -169,8 +175,14 @@ def rhs(Exy: np.ndarray, field: Field, medium: Medium, flags: RKFlags):
 # 7.  4th‑order Runge–Kutta step (adaptive dz optional)
 # -----------------------------------------------------------------------------
 
-def rk4_step(field: Field, medium: Medium, dz: float, flags: RKFlags,
-             sub_steps: Optional[int] = None):
+
+def rk4_step(
+    field: Field,
+    medium: Medium,
+    dz: float,
+    flags: RKFlags,
+    sub_steps: Optional[int] = None,
+):
     """Advance `field.Exy` by `dz` in‑place using RK4."""
     Exy = field.Exy
     if sub_steps is None:
@@ -181,13 +193,14 @@ def rk4_step(field: Field, medium: Medium, dz: float, flags: RKFlags,
         k1 = rhs(Exy, field, medium, flags) * dz_sub
         k2 = rhs(Exy + 0.5 * k1, field, medium, flags) * dz_sub
         k3 = rhs(Exy + 0.5 * k2, field, medium, flags) * dz_sub
-        k4 = rhs(Exy + k3,        field, medium, flags) * dz_sub
+        k4 = rhs(Exy + k3, field, medium, flags) * dz_sub
         Exy += (k1 + 2 * (k2 + k3) + k4) / 6.0
 
 
 # -----------------------------------------------------------------------------
 # 8.  Public convenience integrator class
 # -----------------------------------------------------------------------------
+
 
 class RK4Integrator:
     """Ease‑of‑use wrapper that keeps medium/flags constant."""
@@ -210,6 +223,10 @@ class RK4Integrator:
 
 
 __all__ = [
-    "Field", "Medium", "RKFlags", "RK4Integrator",
-    "rk4_step", "rhs",
+    "Field",
+    "Medium",
+    "RKFlags",
+    "RK4Integrator",
+    "rk4_step",
+    "rhs",
 ]

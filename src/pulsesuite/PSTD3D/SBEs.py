@@ -17,12 +17,14 @@ from scipy.constants import (
 
 try:
     from numba import cuda
+
     _HAS_CUDA = cuda.is_available()
 except (ImportError, RuntimeError):
     _HAS_CUDA = False
     cuda = None
 try:
     import cupy as cp
+
     _HAS_CUPY = cp.cuda.runtime.getDeviceCount() > 0
 except (ImportError, RuntimeError):
     _HAS_CUPY = False
@@ -77,38 +79,38 @@ ii = 1j  # Imaginary unit
 #######################################################
 ################ Initial QW Parameters #################
 #######################################################
-_L = 100e-9                 # Length of quantum wire (m)
-_Delta0 = 5e-9              # z-thickness of quantum wire (m)
-_gap = 1.5 * eV             # Band gap (J, 1.53 eV)
-_me = 0.07 * me0            # Electron effective mass (kg)
-_mh = 0.45 * me0            # Hole effective mass (kg)
-_HO = 100e-3 * eV           # Energy level separation (J, default 100 meV)
-_gam_e = 1.0 / 1e-12        # Electron lifetime frequency (Hz)
-_gam_h = 1.0 / 1e-12        # Hole lifetime frequency (Hz)
-_gam_eh = 1.0 / 1e-12       # Energy level broadening rate (Hz)
-_wL = 0.0                   # Laser frequency (rad/s), only for calculating chi1
-_epsr = 9.1                 # Background dielectric constant
-_Oph = 36e-3 * eV / hbar    # Phonon frequency (Hz)
-_Gph = 3e-3 * eV / hbar     # Inverse phonon lifetime (Hz)
-_Edc = 0.0e6                # Background DC field in +y-direction (V/m)
+_L = 100e-9  # Length of quantum wire (m)
+_Delta0 = 5e-9  # z-thickness of quantum wire (m)
+_gap = 1.5 * eV  # Band gap (J, 1.53 eV)
+_me = 0.07 * me0  # Electron effective mass (kg)
+_mh = 0.45 * me0  # Hole effective mass (kg)
+_HO = 100e-3 * eV  # Energy level separation (J, default 100 meV)
+_gam_e = 1.0 / 1e-12  # Electron lifetime frequency (Hz)
+_gam_h = 1.0 / 1e-12  # Hole lifetime frequency (Hz)
+_gam_eh = 1.0 / 1e-12  # Energy level broadening rate (Hz)
+_wL = 0.0  # Laser frequency (rad/s), only for calculating chi1
+_epsr = 9.1  # Background dielectric constant
+_Oph = 36e-3 * eV / hbar  # Phonon frequency (Hz)
+_Gph = 3e-3 * eV / hbar  # Inverse phonon lifetime (Hz)
+_Edc = 0.0e6  # Background DC field in +y-direction (V/m)
 
 #######################################################
 ################ Booleans SBE terms #################
 #######################################################
-_Optics = True              # Include basic optical coupling
-_Excitons = True            # Include excitons & band gap renormalization (HTF-EH)
-_EHs = True                 # Include electron-hole (non-HTF) effects
-_Screened = True            # Include carrier coulomb screening
-_Phonon = True              # Include electron-phonon collisions
-_DCTrans = False            # Include transport from DC field
-_LF = True                  # Include influence of the longitudinal field
-_FreePot = False            # Include a free charge potential under dipole approximation
-_DiagDph = True             # Include Diagonal Dephasing
-_OffDiagDph = True          # Include Off-Diagonal Dephasing
-_OBE = False                # Ignore all Many-body effects and just solve k-resolved OBEs
-_Recomb = False             # Include electron-hole recombination
-_ReadDC = False             # Read in DC field value from file
-_PLSpec = False             # Record the Photoluminescence spectrum
+_Optics = True  # Include basic optical coupling
+_Excitons = True  # Include excitons & band gap renormalization (HTF-EH)
+_EHs = True  # Include electron-hole (non-HTF) effects
+_Screened = True  # Include carrier coulomb screening
+_Phonon = True  # Include electron-phonon collisions
+_DCTrans = False  # Include transport from DC field
+_LF = True  # Include influence of the longitudinal field
+_FreePot = False  # Include a free charge potential under dipole approximation
+_DiagDph = True  # Include Diagonal Dephasing
+_OffDiagDph = True  # Include Off-Diagonal Dephasing
+_OBE = False  # Ignore all Many-body effects and just solve k-resolved OBEs
+_Recomb = False  # Include electron-hole recombination
+_ReadDC = False  # Read in DC field value from file
+_PLSpec = False  # Record the Photoluminescence spectrum
 _ignorewire = False
 _debug1 = False
 _Xqwparams = False
@@ -116,96 +118,96 @@ _Xqwparams = False
 # ============================================================================
 ################ Semiconductor Bloch Eq. arrays (time-evolution scheme) #################
 #######################################################
-_YY1 = None                 # EH Coherence at time t(n-1), shape: (Nk, Nk, Nw)
-_YY2 = None                 # EH Coherence at time t(n), shape: (Nk, Nk, Nw)
-_YY3 = None                 # EH Coherence at time t(n+1), shape: (Nk, Nk, Nw)
-_CC1 = None                 # EE Coherence at time t(n-1), shape: (Nk, Nk, Nw)
-_CC2 = None                 # EE Coherence at time t(n), shape: (Nk, Nk, Nw)
-_CC3 = None                 # EE Coherence at time t(n+1), shape: (Nk, Nk, Nw)
-_DD1 = None                 # HH Coherence at time t(n-1), shape: (Nk, Nk, Nw)
-_DD2 = None                 # HH Coherence at time t(n), shape: (Nk, Nk, Nw)
-_DD3 = None                 # HH Coherence at time t(n+1), shape: (Nk, Nk, Nw)
+_YY1 = None  # EH Coherence at time t(n-1), shape: (Nk, Nk, Nw)
+_YY2 = None  # EH Coherence at time t(n), shape: (Nk, Nk, Nw)
+_YY3 = None  # EH Coherence at time t(n+1), shape: (Nk, Nk, Nw)
+_CC1 = None  # EE Coherence at time t(n-1), shape: (Nk, Nk, Nw)
+_CC2 = None  # EE Coherence at time t(n), shape: (Nk, Nk, Nw)
+_CC3 = None  # EE Coherence at time t(n+1), shape: (Nk, Nk, Nw)
+_DD1 = None  # HH Coherence at time t(n-1), shape: (Nk, Nk, Nw)
+_DD2 = None  # HH Coherence at time t(n), shape: (Nk, Nk, Nw)
+_DD3 = None  # HH Coherence at time t(n+1), shape: (Nk, Nk, Nw)
 
-_qwPx = None                # QW polarization x-component, shape: (Nr, Nw)
-_qwPy = None                # QW polarization y-component, shape: (Nr, Nw)
-_qwPz = None                # QW polarization z-component, shape: (Nr, Nw)
+_qwPx = None  # QW polarization x-component, shape: (Nr, Nw)
+_qwPy = None  # QW polarization y-component, shape: (Nr, Nw)
+_qwPz = None  # QW polarization z-component, shape: (Nr, Nw)
 
-_Id = None                  # Identity matrix, shape: (Nk, Nk)
-_Ia = None                  # Anti-Identity matrix Ia = 1-Id, shape: (Nk, Nk)
+_Id = None  # Identity matrix, shape: (Nk, Nk)
+_Ia = None  # Anti-Identity matrix Ia = 1-Id, shape: (Nk, Nk)
 
 #######################################################
 ################ QW Arrays Required for Solving SBEs #################
 #######################################################
-_Ee = None                  # Electron energies (J), shape: (Nk,)
-_Eh = None                  # Hole energies (J), shape: (Nk,)
-_r = None                   # k_y arrays (1/m) for FFT, shape: (Nr,)
-_Qr = None                  # k_y arrays (1/m) for FFT, shape: (Nr,)
-_QE = None                  # k_y arrays (1/m) for practical use, shape: (Nr-1,)
-_kr = None                  # k_y arrays (1/m) for practical use, shape: (Nk,)
+_Ee = None  # Electron energies (J), shape: (Nk,)
+_Eh = None  # Hole energies (J), shape: (Nk,)
+_r = None  # k_y arrays (1/m) for FFT, shape: (Nr,)
+_Qr = None  # k_y arrays (1/m) for FFT, shape: (Nr,)
+_QE = None  # k_y arrays (1/m) for practical use, shape: (Nr-1,)
+_kr = None  # k_y arrays (1/m) for practical use, shape: (Nk,)
 
-_Px0 = None                 # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
-_Px1 = None                 # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
-_Px0W = None                # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
-_Px1W = None                # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
-_Py0 = None                 # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
-_Py1 = None                 # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
-_Py0W = None                # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
-_Py1W = None                # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
-_Pz0 = None                 # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
-_Pz1 = None                 # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
-_Pz0W = None                # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
-_Pz1W = None                # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
+_Px0 = None  # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
+_Px1 = None  # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
+_Px0W = None  # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
+_Px1W = None  # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
+_Py0 = None  # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
+_Py1 = None  # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
+_Py0W = None  # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
+_Py1W = None  # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
+_Pz0 = None  # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
+_Pz1 = None  # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
+_Pz0W = None  # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
+_Pz1W = None  # Old polarizations to calc Jp = dP/dt, shape: (Nr,)
 
-_EPEnergy = 0.0             # Book keeping for total energy to wires
-_EPEnergyW = 0.0            # Book keeping for total energy to wires
-_I0 = None                  # Drift Current in each wire, shape: (Nw,)
-_ErI0 = None                # E_Current in each wire, shape: (Nw,)
+_EPEnergy = 0.0  # Book keeping for total energy to wires
+_EPEnergyW = 0.0  # Book keeping for total energy to wires
+_I0 = None  # Drift Current in each wire, shape: (Nw,)
+_ErI0 = None  # E_Current in each wire, shape: (Nw,)
 
-_hw = np.zeros(500)         # Photoluminescence spectrum frequency array
-_PLS = np.zeros(500)        # Photoluminescence spectrum array
+_hw = np.zeros(500)  # Photoluminescence spectrum frequency array
+_PLS = np.zeros(500)  # Photoluminescence spectrum array
 
-_dkr = 0.0                  # dk (1/m)
-_dr = 0.0                   # dy (m)
-_Nr1 = 0                    # Beginning yy-array point
-_Nr2 = 0                    # Ending yy-array point
-_start = False              # Has this module been initiated?
-_qw = None                  # QWOptics instance (created in InitializeSBE)
+_dkr = 0.0  # dk (1/m)
+_dr = 0.0  # dy (m)
+_Nr1 = 0  # Beginning yy-array point
+_Nr2 = 0  # Ending yy-array point
+_start = False  # Has this module been initiated?
+_qw = None  # QWOptics instance (created in InitializeSBE)
 
 #######################################################
 ################ TBD QW Parameters #################
 #######################################################
-_dcv = None                 # Carrier dipole moment (C m)
-_ehint = 1.0                # Electron-Hole space integral, TBD, default is 1.0
-_Emax0 = 0.0                # Initial Peak Field Value
-_alphae = 0.0               # Gaussian inverse radius of wire (1/m)
-_alphah = 0.0               # Gaussian inverse radius of wire (1/m)
-_qc = 0.0                   # Gaussian inverse radius of wire (1/m)
-_area = 1e-16               # Area of wire (m^2), 1e-16 is default, real value TBD
-_t = 0.0                    # Time variable
-_wph = 0.0                  # Frequency variable
-_chiw = 0.0 + 0.0j          # Susceptibility
-_wL = 0.0                   # Laser frequency (rad/s)
-_c0 = 299792458.0           # Speed of light (m/s)
-_uw = 100                   # Unit number offset for wire output files
-_vhh0 = 0.0                 # Velocity
-_ETHz = 0.0                 # THz field
+_dcv = None  # Carrier dipole moment (C m)
+_ehint = 1.0  # Electron-Hole space integral, TBD, default is 1.0
+_Emax0 = 0.0  # Initial Peak Field Value
+_alphae = 0.0  # Gaussian inverse radius of wire (1/m)
+_alphah = 0.0  # Gaussian inverse radius of wire (1/m)
+_qc = 0.0  # Gaussian inverse radius of wire (1/m)
+_area = 1e-16  # Area of wire (m^2), 1e-16 is default, real value TBD
+_t = 0.0  # Time variable
+_wph = 0.0  # Frequency variable
+_chiw = 0.0 + 0.0j  # Susceptibility
+_wL = 0.0  # Laser frequency (rad/s)
+_c0 = 299792458.0  # Speed of light (m/s)
+_uw = 100  # Unit number offset for wire output files
+_vhh0 = 0.0  # Velocity
+_ETHz = 0.0  # THz field
 
 #######################################################
 ################ Numerical Parameters #################
 #######################################################
-_Nr = 0                     # # of points in quantum wire y-space
-_Nk = 0                     # # of points in reduced quantum wire k-space (Nr/2-1)
-_small = 1e-200             # Smallest # worthy of consideration
-_NK0 = 0                    # Frequency equal zero index
-_NQ0 = 0                    # Frequency equal zero index
+_Nr = 0  # # of points in quantum wire y-space
+_Nk = 0  # # of points in reduced quantum wire k-space (Nr/2-1)
+_small = 1e-200  # Smallest # worthy of consideration
+_NK0 = 0  # Frequency equal zero index
+_NQ0 = 0  # Frequency equal zero index
 _nqq = 0
 _nqq10 = 0
-_kkp = None                 # kr - krp index matrix, shape: (Nk, Nk)
+_kkp = None  # kr - krp index matrix, shape: (Nk, Nk)
 
 #######################################################
 ################ SBE Booleans #################
 #######################################################
-_wireoff = True             # Wait to turn QW on when field is strong
+_wireoff = True  # Wait to turn QW on when field is strong
 
 #######################################################
 ################ Book Keeping Variables for Printing of Data #################
@@ -222,6 +224,7 @@ _file_973 = None  # File handle for PdotE.w.dat
 #######################################################
 # Functions
 #######################################################
+
 
 def QWCalculator(Exx, Eyy, Ezz, Vrr, rr, q, dt, w, Pxx, Pyy, Pzz, Rho, DoQWP, DoQWDl):
     """
@@ -308,7 +311,9 @@ def QWCalculator(Exx, Eyy, Ezz, Vrr, rr, q, dt, w, Pxx, Pyy, Pzz, Rho, DoQWP, Do
 
     # Only do the QW calculation if the field was once large compared
     # to its initial maximum value. Otherwise just do book keeping.
-    field_magnitude = np.max(np.sqrt(np.abs(Exx)**2 + np.abs(Eyy)**2 + np.abs(Ezz)**2))
+    field_magnitude = np.max(
+        np.sqrt(np.abs(Exx) ** 2 + np.abs(Eyy) ** 2 + np.abs(Ezz) ** 2)
+    )
 
     if _wireoff and field_magnitude < 1e-3 * _Emax0:
         # E isn't big enough yet. Do nothing.
@@ -356,13 +361,34 @@ def QWCalculator(Exx, Eyy, Ezz, Vrr, rr, q, dt, w, Pxx, Pyy, Pzz, Rho, DoQWP, Do
     RhoE = np.zeros(len(rr), dtype=complex)
     RhoH = np.zeros(len(rr), dtype=complex)
 
-    _qw.QW2Prop(_r, _Qr, Ex, Ey, Ez, Vr, Px, Py, Pz, re, rh, rr,
-                Pxx, Pyy, Pzz, RhoE, RhoH, w, _xxx, WriteFields, _LF)
+    _qw.QW2Prop(
+        _r,
+        _Qr,
+        Ex,
+        Ey,
+        Ez,
+        Vr,
+        Px,
+        Py,
+        Pz,
+        re,
+        rh,
+        rr,
+        Pxx,
+        Pyy,
+        Pzz,
+        RhoE,
+        RhoH,
+        w,
+        _xxx,
+        WriteFields,
+        _LF,
+    )
 
     Rho[:] = RhoH - RhoE
 
     if WriteFields:
-        WritePropFields(rr, Exx, Eyy, Ezz, Vrr, Pxx, Pyy, Pzz, RhoE, RhoH, 'r', w, _xxx)
+        WritePropFields(rr, Exx, Eyy, Ezz, Vrr, Pxx, Pyy, Pzz, RhoE, RhoH, "r", w, _xxx)
 
     # Allocate polarization history arrays on first call
     if _Px0 is None:
@@ -382,20 +408,24 @@ def QWCalculator(Exx, Eyy, Ezz, Vrr, rr, q, dt, w, Pxx, Pyy, Pzz, Rho, DoQWP, Do
         _EPEnergyW = 0.0
 
         # Open output files
-        os.makedirs('output', exist_ok=True)
-        _file_972 = open('output/PdotE.p.dat', 'w', encoding='utf-8')
-        _file_973 = open('output/PdotE.w.dat', 'w', encoding='utf-8')
+        os.makedirs("output", exist_ok=True)
+        _file_972 = open("output/PdotE.p.dat", "w", encoding="utf-8")
+        _file_973 = open("output/PdotE.w.dat", "w", encoding="utf-8")
 
     # Calculate energy transfer: dE/dt = P · dE/dt
     drr = rr[1] - rr[0] if len(rr) > 1 else 1.0
 
-    _EPEnergy += (np.sum((np.real(Pxx) - _Px0) * np.real(Exx) * 0.5) * drr * _area +
-                  np.sum((np.real(Pyy) - _Py0) * np.real(Eyy) * 0.5) * drr * _area +
-                  np.sum((np.real(Pzz) - _Pz0) * np.real(Ezz) * 0.5) * drr * _area)
+    _EPEnergy += (
+        np.sum((np.real(Pxx) - _Px0) * np.real(Exx) * 0.5) * drr * _area
+        + np.sum((np.real(Pyy) - _Py0) * np.real(Eyy) * 0.5) * drr * _area
+        + np.sum((np.real(Pzz) - _Pz0) * np.real(Ezz) * 0.5) * drr * _area
+    )
 
-    _EPEnergyW += (np.sum((np.real(Px) - _Px0W) * np.real(Ex) * 0.5) * _dr * _area +
-                   np.sum((np.real(Py) - _Py0W) * np.real(Ey) * 0.5) * _dr * _area +
-                   np.sum((np.real(Pz) - _Pz0W) * np.real(Ez) * 0.5) * _dr * _area)
+    _EPEnergyW += (
+        np.sum((np.real(Px) - _Px0W) * np.real(Ex) * 0.5) * _dr * _area
+        + np.sum((np.real(Py) - _Py0W) * np.real(Ey) * 0.5) * _dr * _area
+        + np.sum((np.real(Pz) - _Pz0W) * np.real(Ez) * 0.5) * _dr * _area
+    )
 
     # Update polarization history
     _Px0[:] = _Px1
@@ -413,10 +443,10 @@ def QWCalculator(Exx, Eyy, Ezz, Vrr, rr, q, dt, w, Pxx, Pyy, Pzz, Rho, DoQWP, Do
 
     # Write energy to files
     if _file_972 is not None:
-        _file_972.write(f'{_t} {_EPEnergy / e0}\n')
+        _file_972.write(f"{_t} {_EPEnergy / e0}\n")
         _file_972.flush()
     if _file_973 is not None:
-        _file_973.write(f'{_t} {_EPEnergyW / e0}\n')
+        _file_973.write(f"{_t} {_EPEnergyW / e0}\n")
         _file_973.flush()
 
     # Optionally ignore wire contribution
@@ -467,7 +497,9 @@ def Checkin(p1, p2, p3, C1, C2, C3, D1, D2, D3, w):
     _DD3[:, :, w - 1] = D3
 
 
-def Preparation(p2, C2, D2, Ex, Ey, Ez, Vr, w, Heh, Hee, Hhh, VC, E1D, GamE, GamH, OffG, Rsp):
+def Preparation(
+    p2, C2, D2, Ex, Ey, Ez, Vr, w, Heh, Hee, Hhh, VC, E1D, GamE, GamH, OffG, Rsp
+):
     """
     Prepare Hamiltonians, screening, and dephasing arrays for SBE time step.
 
@@ -696,23 +728,75 @@ def CalcH(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh):
     # Try CuPy (GPU) first, then JIT (CPU parallel), then pure-Python fallback
     if _HAS_CUPY:
         try:
-            _CalcH_cupy(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
-                        _Nk, _Ee, _Eh, _gap, _Excitons, _LF, _FreePot)
+            _CalcH_cupy(
+                Meh,
+                Wee,
+                Whh,
+                C,
+                D,
+                p,
+                VC,
+                Heh,
+                Hee,
+                Hhh,
+                _Nk,
+                _Ee,
+                _Eh,
+                _gap,
+                _Excitons,
+                _LF,
+                _FreePot,
+            )
             return
         except Exception:
             pass
 
     try:
-        _CalcH_jit(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
-                   _Nk, _Ee, _Eh, _gap, _Excitons, _LF, _FreePot)
+        _CalcH_jit(
+            Meh,
+            Wee,
+            Whh,
+            C,
+            D,
+            p,
+            VC,
+            Heh,
+            Hee,
+            Hhh,
+            _Nk,
+            _Ee,
+            _Eh,
+            _gap,
+            _Excitons,
+            _LF,
+            _FreePot,
+        )
     except Exception:
-        _CalcH_fallback(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
-                        _Nk, _Ee, _Eh, _gap, _Excitons, _LF, _FreePot)
+        _CalcH_fallback(
+            Meh,
+            Wee,
+            Whh,
+            C,
+            D,
+            p,
+            VC,
+            Heh,
+            Hee,
+            Hhh,
+            _Nk,
+            _Ee,
+            _Eh,
+            _gap,
+            _Excitons,
+            _LF,
+            _FreePot,
+        )
 
 
 @jit(nopython=True, cache=True, parallel=True)
-def _CalcH_jit(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
-               Nk, Ee, Eh, gap, excitons, lf, freepot):
+def _CalcH_jit(
+    Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh, Nk, Ee, Eh, gap, excitons, lf, freepot
+):
     """JIT-compiled CalcH with parallel outer loops."""
     # Contiguous transposed copies for cache-friendly access
     Ct = C.T.copy()
@@ -773,8 +857,10 @@ def _CalcH_jit(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
                     kmin = max(0, -q_d)
                     kmax = min(Nk - 1, Nk - 1 - q_d)
                     for k in range(kmin, kmax + 1):
-                        Hee[k1, k2] = Hee[k1, k2] + (V[Nk + q_d, 1] * C[k, k + q_d] -
-                                                       V[Nk + q_d, 0] * D[k + q_d, k])
+                        Hee[k1, k2] = Hee[k1, k2] + (
+                            V[Nk + q_d, 1] * C[k, k + q_d]
+                            - V[Nk + q_d, 0] * D[k + q_d, k]
+                        )
 
         # H^{hh}: hole-hole Coulomb exchange + direct
         for k2 in prange(Nk):
@@ -792,8 +878,10 @@ def _CalcH_jit(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
                     kmin = max(0, -q_d)
                     kmax = min(Nk - 1, Nk - 1 - q_d)
                     for k in range(kmin, kmax + 1):
-                        Hhh[k1, k2] = Hhh[k1, k2] + (V[Nk + q_d, 2] * D[k, k + q_d] -
-                                                       V[Nk + q_d, 0] * C[k + q_d, k])
+                        Hhh[k1, k2] = Hhh[k1, k2] + (
+                            V[Nk + q_d, 2] * D[k, k + q_d]
+                            - V[Nk + q_d, 0] * C[k + q_d, k]
+                        )
 
     elif excitons and not lf:
         # Hartree-Fock: H^{eh} still full, Hee/Hhh diagonal only
@@ -824,8 +912,9 @@ def _CalcH_jit(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
                     Hhh[k1, k2] = Hhh[k1, k2] - V[Nk + q, 2] * Dt[k1 + q, k2 + q]
 
 
-def _CalcH_cupy(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
-                Nk, Ee, Eh, gap, excitons, lf, freepot):
+def _CalcH_cupy(
+    Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh, Nk, Ee, Eh, gap, excitons, lf, freepot
+):
     """CuPy GPU-accelerated CalcH using vectorized q-loop.
 
     Transfers arrays to GPU, performs the Hamiltonian construction with
@@ -877,8 +966,8 @@ def _CalcH_cupy(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
 
             # Slices for valid index range at this q
             if q > 0:
-                s = slice(0, Nk - q)      # k1 (or k2) range
-                sq = slice(q, Nk)          # k1+q (or k2+q) range
+                s = slice(0, Nk - q)  # k1 (or k2) range
+                sq = slice(q, Nk)  # k1+q (or k2+q) range
             else:
                 s = slice(-q, Nk)
                 sq = slice(0, Nk + q)
@@ -924,8 +1013,8 @@ def _CalcH_cupy(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
 
         elif not lf:
             # Hartree-Fock: Hee/Hhh diagonal only
-            C_diag = cp.diag(C_g)   # C[j, j] = n_e(j)
-            D_diag = cp.diag(D_g)   # D[j, j] = n_h(j)
+            C_diag = cp.diag(C_g)  # C[j, j] = n_e(j)
+            D_diag = cp.diag(D_g)  # D[j, j] = n_h(j)
             for k in range(Nk):
                 # Hee[k,k] -= sum_{j!=k} V_ee(j-k) * C[j,j]
                 j = cp.arange(Nk)
@@ -940,8 +1029,9 @@ def _CalcH_cupy(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
     Hhh[:] = cp.asnumpy(Hhh_g)
 
 
-def _CalcH_fallback(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
-                    Nk, Ee, Eh, gap, excitons, lf, freepot):
+def _CalcH_fallback(
+    Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh, Nk, Ee, Eh, gap, excitons, lf, freepot
+):
     """Pure Python fallback CalcH (no JIT, no GPU)."""
     Ct = C.T
     Dt = D.T
@@ -987,8 +1077,9 @@ def _CalcH_fallback(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
                 kmin = max(0, -q)
                 kmax = min(Nk - 1, Nk - 1 - q)
                 for k in range(kmin, kmax + 1):
-                    Hee[k1, k2] += (V[Nk + q, 1] * C[k, k + q] -
-                                    V[Nk + q, 0] * D[k + q, k]) * noq0[2 * Nk + q]
+                    Hee[k1, k2] += (
+                        V[Nk + q, 1] * C[k, k + q] - V[Nk + q, 0] * D[k + q, k]
+                    ) * noq0[2 * Nk + q]
 
         for k2 in range(Nk):
             for k1 in range(Nk):
@@ -1001,8 +1092,9 @@ def _CalcH_fallback(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
                 kmin = max(0, -q)
                 kmax = min(Nk - 1, Nk - 1 - q)
                 for k in range(kmin, kmax + 1):
-                    Hhh[k1, k2] += (V[Nk + q, 2] * D[k, k + q] -
-                                    V[Nk + q, 0] * C[k + q, k]) * noq0[2 * Nk + q]
+                    Hhh[k1, k2] += (
+                        V[Nk + q, 2] * D[k, k + q] - V[Nk + q, 0] * C[k + q, k]
+                    ) * noq0[2 * Nk + q]
 
     elif excitons and not lf:
         for k2 in range(Nk):
@@ -1197,7 +1289,7 @@ def ReadQWParams():
     global _L, _Delta0, _gap, _me, _mh, _HO, _gam_e, _gam_h, _gam_eh
     global _epsr, _Oph, _Gph, _Edc, _jmax, _ntmax
 
-    with open('params/qw.params', 'r', encoding='utf-8') as f:
+    with open("params/qw.params", "r", encoding="utf-8") as f:
         _L = float(f.readline().split()[0])
         _Delta0 = float(f.readline().split()[0])
         gap_eV = float(f.readline().split()[0])
@@ -1286,7 +1378,7 @@ def ReadMBParams():
     global _LF, _FreePot, _DiagDph, _OffDiagDph, _Recomb, _PLSpec
     global _ignorewire, _Xqwparams
 
-    with open('params/mb.params', 'r', encoding='utf-8') as f:
+    with open("params/mb.params", "r", encoding="utf-8") as f:
         _Optics = bool(int(f.readline().split()[0]))
         _Excitons = bool(int(f.readline().split()[0]))
         _EHs = bool(int(f.readline().split()[0]))
@@ -1362,33 +1454,33 @@ def WriteSBEsData(n):
     """
     global _CC1, _CC2, _CC3, _DD1, _DD2, _DD3, _YY1, _YY2, _YY3, _Nk
 
-    backup_dir = 'dataQW/backup/'
+    backup_dir = "dataQW/backup/"
     os.makedirs(backup_dir, exist_ok=True)
 
     # Generate filenames
     filenames = {
-        'CC1': f'{backup_dir}CC1.{n}.dat',
-        'CC2': f'{backup_dir}CC2.{n}.dat',
-        'CC3': f'{backup_dir}CC3.{n}.dat',
-        'DD1': f'{backup_dir}DD1.{n}.dat',
-        'DD2': f'{backup_dir}DD2.{n}.dat',
-        'DD3': f'{backup_dir}DD3.{n}.dat',
-        'YY1': f'{backup_dir}YY1.{n}.dat',
-        'YY2': f'{backup_dir}YY2.{n}.dat',
-        'YY3': f'{backup_dir}YY3.{n}.dat',
+        "CC1": f"{backup_dir}CC1.{n}.dat",
+        "CC2": f"{backup_dir}CC2.{n}.dat",
+        "CC3": f"{backup_dir}CC3.{n}.dat",
+        "DD1": f"{backup_dir}DD1.{n}.dat",
+        "DD2": f"{backup_dir}DD2.{n}.dat",
+        "DD3": f"{backup_dir}DD3.{n}.dat",
+        "YY1": f"{backup_dir}YY1.{n}.dat",
+        "YY2": f"{backup_dir}YY2.{n}.dat",
+        "YY3": f"{backup_dir}YY3.{n}.dat",
     }
 
     # Write data
     arrays = [_CC1, _CC2, _CC3, _DD1, _DD2, _DD3, _YY1, _YY2, _YY3]
-    keys = ['CC1', 'CC2', 'CC3', 'DD1', 'DD2', 'DD3', 'YY1', 'YY2', 'YY3']
+    keys = ["CC1", "CC2", "CC3", "DD1", "DD2", "DD3", "YY1", "YY2", "YY3"]
 
     for key, arr in zip(keys, arrays):
-        with open(filenames[key], 'w', encoding='utf-8') as f:
+        with open(filenames[key], "w", encoding="utf-8") as f:
             for w in range(arr.shape[2]):
                 for k2 in range(_Nk):
                     for k1 in range(_Nk):
                         val = arr[k1, k2, w]
-                        f.write(f'{np.real(val)} {np.imag(val)}\n')
+                        f.write(f"{np.real(val)} {np.imag(val)}\n")
 
 
 def ReadSBEsData(Nt):
@@ -1447,27 +1539,27 @@ def ReadSBEsData(Nt):
     """
     global _CC1, _CC2, _CC3, _DD1, _DD2, _DD3, _YY1, _YY2, _YY3, _Nk
 
-    backup_dir = 'dataQW/backup/'
+    backup_dir = "dataQW/backup/"
 
     # Generate filenames
     filenames = {
-        'CC1': f'{backup_dir}CC1.{Nt}.dat',
-        'CC2': f'{backup_dir}CC2.{Nt}.dat',
-        'CC3': f'{backup_dir}CC3.{Nt}.dat',
-        'DD1': f'{backup_dir}DD1.{Nt}.dat',
-        'DD2': f'{backup_dir}DD2.{Nt}.dat',
-        'DD3': f'{backup_dir}DD3.{Nt}.dat',
-        'YY1': f'{backup_dir}YY1.{Nt}.dat',
-        'YY2': f'{backup_dir}YY2.{Nt}.dat',
-        'YY3': f'{backup_dir}YY3.{Nt}.dat',
+        "CC1": f"{backup_dir}CC1.{Nt}.dat",
+        "CC2": f"{backup_dir}CC2.{Nt}.dat",
+        "CC3": f"{backup_dir}CC3.{Nt}.dat",
+        "DD1": f"{backup_dir}DD1.{Nt}.dat",
+        "DD2": f"{backup_dir}DD2.{Nt}.dat",
+        "DD3": f"{backup_dir}DD3.{Nt}.dat",
+        "YY1": f"{backup_dir}YY1.{Nt}.dat",
+        "YY2": f"{backup_dir}YY2.{Nt}.dat",
+        "YY3": f"{backup_dir}YY3.{Nt}.dat",
     }
 
     # Read data
     arrays = [_CC1, _CC2, _CC3, _DD1, _DD2, _DD3, _YY1, _YY2, _YY3]
-    keys = ['CC1', 'CC2', 'CC3', 'DD1', 'DD2', 'DD3', 'YY1', 'YY2', 'YY3']
+    keys = ["CC1", "CC2", "CC3", "DD1", "DD2", "DD3", "YY1", "YY2", "YY3"]
 
     for key, arr in zip(keys, arrays):
-        with open(filenames[key], 'r', encoding='utf-8') as f:
+        with open(filenames[key], "r", encoding="utf-8") as f:
             for w in range(arr.shape[2]):
                 for k2 in range(_Nk):
                     for k1 in range(_Nk):
@@ -1566,26 +1658,35 @@ def Relaxation(ne, nh, VC, E1D, Rsp, dt, w, WriteFields):
         WinH, WoutH = RelaxationH(ne, nh, VC, E1D)
 
         if WriteFields:
-            wire_str = f'{w:02d}'
-            printITR(WinE * (1 - np.real(ne)), _kr, _xxx, f'Wire/Win/Win.e.{wire_str}.k.')
-            printITR(WinH * (1 - np.real(nh)), _kr, _xxx, f'Wire/Win/Win.h.{wire_str}.k.')
-            printITR(WoutE * np.real(ne), _kr, _xxx, f'Wire/Wout/Wout.e.{wire_str}.k.')
-            printITR(WoutH * np.real(nh), _kr, _xxx, f'Wire/Wout/Wout.h.{wire_str}.k.')
+            wire_str = f"{w:02d}"
+            printITR(
+                WinE * (1 - np.real(ne)), _kr, _xxx, f"Wire/Win/Win.e.{wire_str}.k."
+            )
+            printITR(
+                WinH * (1 - np.real(nh)), _kr, _xxx, f"Wire/Win/Win.h.{wire_str}.k."
+            )
+            printITR(WoutE * np.real(ne), _kr, _xxx, f"Wire/Wout/Wout.e.{wire_str}.k.")
+            printITR(WoutH * np.real(nh), _kr, _xxx, f"Wire/Wout/Wout.h.{wire_str}.k.")
 
         We = WinE + WoutE
         Wh = WinH + WoutH
 
-        ne[:] = (np.exp(-We * dt) *
-                ((-1 + np.exp(We * dt) + ne) * WinE + ne * WoutE) /
-                (We + _small))
+        ne[:] = (
+            np.exp(-We * dt)
+            * ((-1 + np.exp(We * dt) + ne) * WinE + ne * WoutE)
+            / (We + _small)
+        )
 
-        nh[:] = (np.exp(-Wh * dt) *
-                ((-1 + np.exp(Wh * dt) + nh) * WinH + nh * WoutH) /
-                (Wh + _small))
+        nh[:] = (
+            np.exp(-Wh * dt)
+            * ((-1 + np.exp(Wh * dt) + nh) * WinH + nh * WoutH)
+            / (Wh + _small)
+        )
 
     if _Recomb:
         ne[:] = ne * np.exp(-Rsp * nh * dt)
         nh[:] = nh * np.exp(-Rsp * ne * dt)
+
 
 def RelaxationE(ne, nh, VC, E1D):
     """
@@ -1710,12 +1811,12 @@ def RelaxationH(ne, nh, VC, E1D):
     if _EHs:
         MBCH(np.real(ne), np.real(nh), _kr, _Ee, _Eh, VC, _gam_eh, _gam_h, WinH, WoutH)
 
-
     # Phonon scattering (if enabled)
     if _Phonon:
         MBPH(np.real(nh), VC, E1D, WinH, WoutH)
 
     return WinH, WoutH
+
 
 def dpdt(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP):
     """
@@ -1832,9 +1933,15 @@ def _dpdt_jit(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP, ii_val, hbar_val):
             term3 = np.sum(Heh[:, kh] * C[:, ke])
             term4 = np.sum(Heh[ke, :] * D[:, kh])
 
-            dpdt_result[kh, ke] = (term1 + term2 - term3 - term4 + Heh[ke, kh]
-                                   - ii_val * hbar_val * (GamE[ke] + GamH[kh]) * p[kh, ke]
-                                   + OffP[kh, ke])
+            dpdt_result[kh, ke] = (
+                term1
+                + term2
+                - term3
+                - term4
+                + Heh[ke, kh]
+                - ii_val * hbar_val * (GamE[ke] + GamH[kh]) * p[kh, ke]
+                + OffP[kh, ke]
+            )
 
     dpdt_result = dpdt_result / (ii_val * hbar_val)
     return dpdt_result
@@ -1842,11 +1949,32 @@ def _dpdt_jit(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP, ii_val, hbar_val):
 
 # CUDA implementation for dpdt
 if _HAS_CUDA:
+
     @cuda.jit
-    def _dpdt_cuda_kernel_main(C_real, C_imag, D_real, D_imag, p_real, p_imag,
-                                Heh_real, Heh_imag, Hee_real, Hee_imag, Hhh_real, Hhh_imag,
-                                GamE, GamH, OffP_real, OffP_imag,
-                                dpdt_real, dpdt_imag, Nk, ii_real, ii_imag, hbar_val):
+    def _dpdt_cuda_kernel_main(
+        C_real,
+        C_imag,
+        D_real,
+        D_imag,
+        p_real,
+        p_imag,
+        Heh_real,
+        Heh_imag,
+        Hee_real,
+        Hee_imag,
+        Hhh_real,
+        Hhh_imag,
+        GamE,
+        GamH,
+        OffP_real,
+        OffP_imag,
+        dpdt_real,
+        dpdt_imag,
+        Nk,
+        ii_real,
+        ii_imag,
+        hbar_val,
+    ):
         """Main CUDA kernel for dpdt calculation."""
         ke = cuda.blockIdx.x
         kh = cuda.threadIdx.x
@@ -1908,22 +2036,48 @@ if _HAS_CUDA:
             gam_sum = GamE[ke] + GamH[kh]
             p_re = p_real[kh, ke]
             p_im = p_imag[kh, ke]
-            deph_re = -ii_real * hbar_val * gam_sum * p_re - (-ii_imag) * hbar_val * gam_sum * p_im
-            deph_im = -ii_real * hbar_val * gam_sum * p_im + (-ii_imag) * hbar_val * gam_sum * p_re
+            deph_re = (
+                -ii_real * hbar_val * gam_sum * p_re
+                - (-ii_imag) * hbar_val * gam_sum * p_im
+            )
+            deph_im = (
+                -ii_real * hbar_val * gam_sum * p_im
+                + (-ii_imag) * hbar_val * gam_sum * p_re
+            )
 
             offp_re = OffP_real[kh, ke]
             offp_im = OffP_imag[kh, ke]
 
             # Final result
-            result_real = term1_real + term2_real - term3_real - term4_real + heh_re + deph_re + offp_re
-            result_imag = term1_imag + term2_imag - term3_imag - term4_imag + heh_im + deph_im + offp_im
+            result_real = (
+                term1_real
+                + term2_real
+                - term3_real
+                - term4_real
+                + heh_re
+                + deph_re
+                + offp_re
+            )
+            result_imag = (
+                term1_imag
+                + term2_imag
+                - term3_imag
+                - term4_imag
+                + heh_im
+                + deph_im
+                + offp_im
+            )
 
             # Divide by (ii * hbar)
             denom = ii_real * hbar_val
             denom_im = ii_imag * hbar_val
             denom_sq = denom * denom + denom_im * denom_im
-            dpdt_real[kh, ke] = (result_real * denom + result_imag * denom_im) / denom_sq
-            dpdt_imag[kh, ke] = (result_imag * denom - result_real * denom_im) / denom_sq
+            dpdt_real[kh, ke] = (
+                result_real * denom + result_imag * denom_im
+            ) / denom_sq
+            dpdt_imag[kh, ke] = (
+                result_imag * denom - result_real * denom_im
+            ) / denom_sq
 
     def _dpdt_cuda(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP, ii_val, hbar_val):
         """CUDA wrapper for dpdt."""
@@ -1978,17 +2132,37 @@ if _HAS_CUDA:
         ii_imag = ii_val.imag
 
         _dpdt_cuda_kernel_main[blocks_per_grid, threads_per_block](
-            d_C_real, d_C_imag, d_D_real, d_D_imag, d_p_real, d_p_imag,
-            d_Heh_real, d_Heh_imag, d_Hee_real, d_Hee_imag, d_Hhh_real, d_Hhh_imag,
-            d_GamE, d_GamH, d_OffP_real, d_OffP_imag,
-            d_dpdt_real, d_dpdt_imag, Nk, ii_real, ii_imag, hbar_val
+            d_C_real,
+            d_C_imag,
+            d_D_real,
+            d_D_imag,
+            d_p_real,
+            d_p_imag,
+            d_Heh_real,
+            d_Heh_imag,
+            d_Hee_real,
+            d_Hee_imag,
+            d_Hhh_real,
+            d_Hhh_imag,
+            d_GamE,
+            d_GamH,
+            d_OffP_real,
+            d_OffP_imag,
+            d_dpdt_real,
+            d_dpdt_imag,
+            Nk,
+            ii_real,
+            ii_imag,
+            hbar_val,
         )
 
         # Copy back and combine
         dpdt_real = d_dpdt_real.copy_to_host()
         dpdt_imag = d_dpdt_imag.copy_to_host()
         return dpdt_real + 1j * dpdt_imag
+
 else:
+
     def _dpdt_cuda(*args, **kwargs):
         """Dummy CUDA function when CUDA is not available."""
         raise RuntimeError("CUDA not available")
@@ -2001,13 +2175,15 @@ def _dpdt_fallback(C, D, p, Heh, Hee, Hhh, GamE, GamH, OffP):
 
     for ke in range(Nk):
         for kh in range(Nk):
-            dpdt_result[kh, ke] = (np.sum(Hhh[kh, :] * p[:, ke]) +
-                                   np.sum(Hee[ke, :] * p[kh, :]) -
-                                   np.sum(Heh[:, kh] * C[:, ke]) -
-                                   np.sum(Heh[ke, :] * D[:, kh]) +
-                                   Heh[ke, kh] -
-                                   ii * hbar * (GamE[ke] + GamH[kh]) * p[kh, ke] +
-                                   OffP[kh, ke])
+            dpdt_result[kh, ke] = (
+                np.sum(Hhh[kh, :] * p[:, ke])
+                + np.sum(Hee[ke, :] * p[kh, :])
+                - np.sum(Heh[:, kh] * C[:, ke])
+                - np.sum(Heh[ke, :] * D[:, kh])
+                + Heh[ke, kh]
+                - ii * hbar * (GamE[ke] + GamH[kh]) * p[kh, ke]
+                + OffP[kh, ke]
+            )
 
     dpdt_result = dpdt_result / (ii * hbar)
     return dpdt_result
@@ -2098,7 +2274,9 @@ def dCdt(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE):
         except Exception:
             # Fallback to JIT
             try:
-                return _dCdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE, ii, hbar)
+                return _dCdt_jit(
+                    Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE, ii, hbar
+                )
             except Exception:
                 return _dCdt_fallback(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE)
     else:
@@ -2133,10 +2311,24 @@ def _dCdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE, ii_val, hbar_val):
 
 # CUDA implementation for dCdt
 if _HAS_CUDA:
+
     @cuda.jit
-    def _dCdt_cuda_kernel(Cee_real, Cee_imag, Phe_real, Phe_imag,
-                          Heh_real, Heh_imag, Hee_real, Hee_imag,
-                          dCdt_real, dCdt_imag, Nk, ii_real, ii_imag, hbar_val):
+    def _dCdt_cuda_kernel(
+        Cee_real,
+        Cee_imag,
+        Phe_real,
+        Phe_imag,
+        Heh_real,
+        Heh_imag,
+        Hee_real,
+        Hee_imag,
+        dCdt_real,
+        dCdt_imag,
+        Nk,
+        ii_real,
+        ii_imag,
+        hbar_val,
+    ):
         """CUDA kernel for dCdt calculation."""
         k2 = cuda.blockIdx.x
         k1 = cuda.threadIdx.x
@@ -2197,8 +2389,12 @@ if _HAS_CUDA:
             denom = ii_real * hbar_val
             denom_im = ii_imag * hbar_val
             denom_sq = denom * denom + denom_im * denom_im
-            dCdt_real[k1, k2] = (result_real * denom + result_imag * denom_im) / denom_sq
-            dCdt_imag[k1, k2] = (result_imag * denom - result_real * denom_im) / denom_sq
+            dCdt_real[k1, k2] = (
+                result_real * denom + result_imag * denom_im
+            ) / denom_sq
+            dCdt_imag[k1, k2] = (
+                result_imag * denom - result_real * denom_im
+            ) / denom_sq
 
     def _dCdt_cuda(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE, ii_val, hbar_val):
         """CUDA wrapper for dCdt."""
@@ -2236,16 +2432,29 @@ if _HAS_CUDA:
         ii_imag = ii_val.imag
 
         _dCdt_cuda_kernel[blocks_per_grid, threads_per_block](
-            d_Cee_real, d_Cee_imag, d_Phe_real, d_Phe_imag,
-            d_Heh_real, d_Heh_imag, d_Hee_real, d_Hee_imag,
-            d_dCdt_real, d_dCdt_imag, Nk, ii_real, ii_imag, hbar_val
+            d_Cee_real,
+            d_Cee_imag,
+            d_Phe_real,
+            d_Phe_imag,
+            d_Heh_real,
+            d_Heh_imag,
+            d_Hee_real,
+            d_Hee_imag,
+            d_dCdt_real,
+            d_dCdt_imag,
+            Nk,
+            ii_real,
+            ii_imag,
+            hbar_val,
         )
 
         # Copy back
         dCdt_real = d_dCdt_real.copy_to_host()
         dCdt_imag = d_dCdt_imag.copy_to_host()
         return dCdt_real + 1j * dCdt_imag
+
 else:
+
     def _dCdt_cuda(*args, **kwargs):
         """Dummy CUDA function when CUDA is not available."""
         raise RuntimeError("CUDA not available")
@@ -2261,10 +2470,12 @@ def _dCdt_fallback(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffE):
 
     for k2 in range(Nk):
         for k1 in range(Nk):
-            dCdt_result[k1, k2] = (np.sum(Hee[k2, :] * Cee[k1, :]) -
-                                   np.sum(Hee[:, k1] * Cee[:, k2]) +
-                                   np.sum(Heh[k2, :] * Peh[k1, :]) -
-                                   np.sum(Hhe[:, k1] * Phe[:, k2]))
+            dCdt_result[k1, k2] = (
+                np.sum(Hee[k2, :] * Cee[k1, :])
+                - np.sum(Hee[:, k1] * Cee[:, k2])
+                + np.sum(Heh[k2, :] * Peh[k1, :])
+                - np.sum(Hhe[:, k1] * Phe[:, k2])
+            )
 
     dCdt_result = dCdt_result / (ii * hbar)
     return dCdt_result
@@ -2361,7 +2572,9 @@ def dDdt(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH):
         except Exception:
             # Fallback to JIT
             try:
-                return _dDdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH, ii, hbar)
+                return _dDdt_jit(
+                    Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH, ii, hbar
+                )
             except Exception:
                 return _dDdt_fallback(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH)
     else:
@@ -2396,10 +2609,24 @@ def _dDdt_jit(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH, ii_val, hbar_val):
 
 # CUDA implementation for dDdt
 if _HAS_CUDA:
+
     @cuda.jit
-    def _dDdt_cuda_kernel(Dhh_real, Dhh_imag, Phe_real, Phe_imag,
-                          Heh_real, Heh_imag, Hhh_real, Hhh_imag,
-                          dDdt_real, dDdt_imag, Nk, ii_real, ii_imag, hbar_val):
+    def _dDdt_cuda_kernel(
+        Dhh_real,
+        Dhh_imag,
+        Phe_real,
+        Phe_imag,
+        Heh_real,
+        Heh_imag,
+        Hhh_real,
+        Hhh_imag,
+        dDdt_real,
+        dDdt_imag,
+        Nk,
+        ii_real,
+        ii_imag,
+        hbar_val,
+    ):
         """CUDA kernel for dDdt calculation."""
         k2 = cuda.blockIdx.x
         k1 = cuda.threadIdx.x
@@ -2460,8 +2687,12 @@ if _HAS_CUDA:
             denom = ii_real * hbar_val
             denom_im = ii_imag * hbar_val
             denom_sq = denom * denom + denom_im * denom_im
-            dDdt_real[k1, k2] = (result_real * denom + result_imag * denom_im) / denom_sq
-            dDdt_imag[k1, k2] = (result_imag * denom - result_real * denom_im) / denom_sq
+            dDdt_real[k1, k2] = (
+                result_real * denom + result_imag * denom_im
+            ) / denom_sq
+            dDdt_imag[k1, k2] = (
+                result_imag * denom - result_real * denom_im
+            ) / denom_sq
 
     def _dDdt_cuda(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH, ii_val, hbar_val):
         """CUDA wrapper for dDdt."""
@@ -2499,16 +2730,29 @@ if _HAS_CUDA:
         ii_imag = ii_val.imag
 
         _dDdt_cuda_kernel[blocks_per_grid, threads_per_block](
-            d_Dhh_real, d_Dhh_imag, d_Phe_real, d_Phe_imag,
-            d_Heh_real, d_Heh_imag, d_Hhh_real, d_Hhh_imag,
-            d_dDdt_real, d_dDdt_imag, Nk, ii_real, ii_imag, hbar_val
+            d_Dhh_real,
+            d_Dhh_imag,
+            d_Phe_real,
+            d_Phe_imag,
+            d_Heh_real,
+            d_Heh_imag,
+            d_Hhh_real,
+            d_Hhh_imag,
+            d_dDdt_real,
+            d_dDdt_imag,
+            Nk,
+            ii_real,
+            ii_imag,
+            hbar_val,
         )
 
         # Copy back
         dDdt_real = d_dDdt_real.copy_to_host()
         dDdt_imag = d_dDdt_imag.copy_to_host()
         return dDdt_real + 1j * dDdt_imag
+
 else:
+
     def _dDdt_cuda(*args, **kwargs):
         """Dummy CUDA function when CUDA is not available."""
         raise RuntimeError("CUDA not available")
@@ -2524,10 +2768,12 @@ def _dDdt_fallback(Cee, Dhh, Phe, Heh, Hee, Hhh, GamE, GamH, OffH):
 
     for k2 in range(Nk):
         for k1 in range(Nk):
-            dDdt_result[k1, k2] = (np.sum(Hhh[k2, :] * Dhh[k1, :]) -
-                                   np.sum(Hhh[:, k1] * Dhh[:, k2]) +
-                                   np.sum(Heh[:, k2] * Peh[:, k1]) -
-                                   np.sum(Hhe[k1, :] * Phe[k2, :]))
+            dDdt_result[k1, k2] = (
+                np.sum(Hhh[k2, :] * Dhh[k1, :])
+                - np.sum(Hhh[:, k1] * Dhh[:, k2])
+                + np.sum(Heh[:, k2] * Peh[:, k1])
+                - np.sum(Hhe[k1, :] * Phe[k2, :])
+            )
 
     dDdt_result = dDdt_result / (ii * hbar)
     return dDdt_result
@@ -2579,16 +2825,18 @@ def write_statistics(w, dt, ne2, nh2, Re, Rh):
     Ih = CalcI0n(1 - nh2, -_mh, _kr)
 
     # Write to file
-    os.makedirs('output', exist_ok=True)
-    with open(f'output/stats_{_uw+w:03d}.dat', 'a', encoding='utf-8') as f:
-        f.write(f"{_xxx*dt:18.6e} {ve:18.6e} {vh:18.6e} "
-                f"{ne_density:18.6e} {nh_density:18.6e} "
-                f"{Ee_total:18.6e} {Eh_total:18.6e} "
-                f"{Te:18.6e} {Th:18.6e} "
-                f"{re_max:18.6e} {rh_max:18.6e} "
-                f"{EDrift:18.6e} {momentum:18.6e} "
-                f"{pe:18.6e} {ph:18.6e} "
-                f"{I0_val:18.6e} {Ie:18.6e} {Ih:18.6e}\n")
+    os.makedirs("output", exist_ok=True)
+    with open(f"output/stats_{_uw+w:03d}.dat", "a", encoding="utf-8") as f:
+        f.write(
+            f"{_xxx*dt:18.6e} {ve:18.6e} {vh:18.6e} "
+            f"{ne_density:18.6e} {nh_density:18.6e} "
+            f"{Ee_total:18.6e} {Eh_total:18.6e} "
+            f"{Te:18.6e} {Th:18.6e} "
+            f"{re_max:18.6e} {rh_max:18.6e} "
+            f"{EDrift:18.6e} {momentum:18.6e} "
+            f"{pe:18.6e} {ph:18.6e} "
+            f"{I0_val:18.6e} {Ie:18.6e} {Ih:18.6e}\n"
+        )
 
 
 def CalcMeh(Ex, Ey, Ez, w, Meh):
@@ -2663,7 +2911,6 @@ def CalcMeh(Ex, Ey, Ez, w, Meh):
 
     Meh[:, :] = 0.0 + 0.0j
 
-
     for kh in range(_Nk):
         for ke in range(_Nk):
             # q = ke - kh (momentum transfer, photon momentum)
@@ -2671,9 +2918,11 @@ def CalcMeh(Ex, Ey, Ez, w, Meh):
             q = _kkp[ke, kh]
 
             # Dipole-field coupling: M = -η·(X·Ex + Y·Ey·yw + Z·Ez·(-1)^w)
-            Meh[ke, kh] = (-_ehint * _qw.Xcv(ke, kh) * Ex[q]
-                          - _ehint * _qw.Ycv(ke, kh) * Ey[q] * yw(w)
-                          - _ehint * _qw.Zcv(ke, kh) * Ez[q] * (-1)**w)
+            Meh[ke, kh] = (
+                -_ehint * _qw.Xcv(ke, kh) * Ex[q]
+                - _ehint * _qw.Ycv(ke, kh) * Ey[q] * yw(w)
+                - _ehint * _qw.Zcv(ke, kh) * Ez[q] * (-1) ** w
+            )
 
 
 def CalcWnn(q0, Vr, Wnn):
@@ -2870,16 +3119,51 @@ def CalcXqw(iq, w, kr, fe, fh, Ee, Eh, gap, area, game, gamh, dcv):
 
     # Try JIT-compiled version first
     try:
-        return _CalcXqw_jit(iq, w, kr, fe, fh, Ee, Eh, gap, area, game, gamh,
-                            dcv, _Nk, _twopi, hbar, e0, eps0, ii)
+        return _CalcXqw_jit(
+            iq,
+            w,
+            kr,
+            fe,
+            fh,
+            Ee,
+            Eh,
+            gap,
+            area,
+            game,
+            gamh,
+            dcv,
+            _Nk,
+            _twopi,
+            hbar,
+            e0,
+            eps0,
+            ii,
+        )
     except Exception:
-        return _CalcXqw_fallback(iq, w, kr, fe, fh, Ee, Eh, gap, area, game,
-                                 gamh, dcv)
+        return _CalcXqw_fallback(iq, w, kr, fe, fh, Ee, Eh, gap, area, game, gamh, dcv)
 
 
 @jit(nopython=True)
-def _CalcXqw_jit(iq, w, kr, fe, fh, Ee, Eh, gap, area, game, gamh, dcv,
-                 Nk, twopi, hbar_val, e0_val, eps0_val, ii_val):
+def _CalcXqw_jit(
+    iq,
+    w,
+    kr,
+    fe,
+    fh,
+    Ee,
+    Eh,
+    gap,
+    area,
+    game,
+    gamh,
+    dcv,
+    Nk,
+    twopi,
+    hbar_val,
+    e0_val,
+    eps0_val,
+    ii_val,
+):
     """JIT-compiled version of CalcXqw."""
     dkr = kr[1] - kr[0]
 
@@ -2925,15 +3209,17 @@ def _CalcXqw_jit(iq, w, kr, fe, fh, Ee, Eh, gap, area, game, gamh, dcv,
     # First sum: absorption from valence to conduction
     for ik in range(kmin, kmax):
         numerator = x * (fc[ik] - fv[ik + iq])
-        denominator = (Ev[ik + iq] - Ec[ik] - hbar_val * w
-                      - ii_val * (hgh[ik + iq] + hge[ik]))
+        denominator = (
+            Ev[ik + iq] - Ec[ik] - hbar_val * w - ii_val * (hgh[ik + iq] + hge[ik])
+        )
         Xqw += numerator / denominator
 
     # Second sum: stimulated emission from conduction to valence
     for ik in range(kmin, kmax):
         numerator = x * (fv[ik] - fc[ik + iq])
-        denominator = (Ec[ik + iq] - Ev[ik] - hbar_val * w
-                      - ii_val * (hge[ik + iq] + hgh[ik]))
+        denominator = (
+            Ec[ik + iq] - Ev[ik] - hbar_val * w - ii_val * (hge[ik + iq] + hgh[ik])
+        )
         Xqw += numerator / denominator
 
     return Xqw
@@ -2972,13 +3258,19 @@ def _CalcXqw_fallback(iq, w, kr, fe, fh, Ee, Eh, gap, area, game, gamh, dcv):
 
     # First sum: absorption
     for ik in range(kmin, kmax):
-        Xqw += (x * (fc[ik] - fv[ik + iq]) /
-                (Ev[ik + iq] - Ec[ik] - hbar * w - ii * (hgh[ik + iq] + hge[ik])))
+        Xqw += (
+            x
+            * (fc[ik] - fv[ik + iq])
+            / (Ev[ik + iq] - Ec[ik] - hbar * w - ii * (hgh[ik + iq] + hge[ik]))
+        )
 
     # Second sum: stimulated emission
     for ik in range(kmin, kmax):
-        Xqw += (x * (fv[ik] - fc[ik + iq]) /
-                (Ec[ik + iq] - Ev[ik] - hbar * w - ii * (hge[ik + iq] + hgh[ik])))
+        Xqw += (
+            x
+            * (fv[ik] - fc[ik + iq])
+            / (Ec[ik + iq] - Ev[ik] - hbar * w - ii * (hge[ik + iq] + hgh[ik]))
+        )
 
     return Xqw
 
@@ -3105,15 +3397,17 @@ def RecordEpsLqw(Qr, fe, fh, Ee, Eh, gap, area, gamE, gamH, dcv, ind):
     n1D = 1.5e8  # Override with fixed value (as in Fortran: !2.908d8)
 
     # Create output directory
-    os.makedirs('dataQW/Wire/Xqw', exist_ok=True)
+    os.makedirs("dataQW/Wire/Xqw", exist_ok=True)
 
     # Generate filenames with zero-padded index
-    filename = f'dataQW/Wire/Xqw/EpsL.{ind:06d}.dat'
-    filename2 = f'dataQW/Wire/Xqw/ChiL.{ind:06d}.dat'
+    filename = f"dataQW/Wire/Xqw/EpsL.{ind:06d}.dat"
+    filename2 = f"dataQW/Wire/Xqw/ChiL.{ind:06d}.dat"
 
     # Open output files
-    with open(filename, 'w', encoding='utf-8') as f_eps, \
-         open(filename2, 'w', encoding='utf-8') as f_chi:
+    with (
+        open(filename, "w", encoding="utf-8") as f_eps,
+        open(filename2, "w", encoding="utf-8") as f_chi,
+    ):
 
         # Loop over frequencies
         for iw in range(nwmax + 1):
@@ -3124,20 +3418,34 @@ def RecordEpsLqw(Qr, fe, fh, Ee, Eh, gap, area, gamE, gamH, dcv, ind):
                 q = iq * (_kr[1] - _kr[0])
 
                 # Calculate analytical RPA dielectric function
-                epr_eps, epi_eps = GetEps1Dqw(_alphae, _alphah, _Delta0, _L,
-                                               _epsr, _me, _mh, n1D, q, w)
-                f_eps.write(f'{epr_eps - 1.0:12.3e} {epi_eps:12.3e}\n')
+                epr_eps, epi_eps = GetEps1Dqw(
+                    _alphae, _alphah, _Delta0, _L, _epsr, _me, _mh, n1D, q, w
+                )
+                f_eps.write(f"{epr_eps - 1.0:12.3e} {epi_eps:12.3e}\n")
 
                 # Calculate numerical susceptibility from actual populations
-                epr_chi, epi_chi = GetChi1Dqw(_alphae, _alphah, _Delta0, _L,
-                                               _epsr, gamE, gamH, _kr, Ee, Eh,
-                                               fe, fh, q, w)
-                f_chi.write(f'{epr_chi:12.3e} {epi_chi:12.3e}\n')
+                epr_chi, epi_chi = GetChi1Dqw(
+                    _alphae,
+                    _alphah,
+                    _Delta0,
+                    _L,
+                    _epsr,
+                    gamE,
+                    gamH,
+                    _kr,
+                    Ee,
+                    Eh,
+                    fe,
+                    fh,
+                    q,
+                    w,
+                )
+                f_chi.write(f"{epr_chi:12.3e} {epi_chi:12.3e}\n")
 
     # Write parameter file (only once)
     if _Xqwparams:
         dkr = _kr[1] - _kr[0]
-        with open('dataQW/Wire/Xqw/EpsL.params', 'w', encoding='utf-8') as f_params:
+        with open("dataQW/Wire/Xqw/EpsL.params", "w", encoding="utf-8") as f_params:
             f_params.write(f"Nq = {len(Qr)}\n")
             f_params.write("Nw = 2000\n")
             f_params.write(" \n")
@@ -3264,26 +3572,27 @@ def RecordXqw(kr, fe, fh, Ee, Eh, gap, area, game, gamh, dcv, ind):
     for iw in range(nwmax + 1):
         w = iw * dw
         for iq in range(_Nk + 1):
-            Xqw[iq, iw] = CalcXqw(iq, w, kr, fe, fh, Ee, Eh, gap, area,
-                                  game, gamh, dcv)
+            Xqw[iq, iw] = CalcXqw(iq, w, kr, fe, fh, Ee, Eh, gap, area, game, gamh, dcv)
 
     # Create output directory
-    os.makedirs('dataQW/Wire/Xqw', exist_ok=True)
+    os.makedirs("dataQW/Wire/Xqw", exist_ok=True)
 
     # Generate filename with zero-padded index
-    filename = f'dataQW/Wire/Xqw/Xqw.{ind:06d}.dat'
+    filename = f"dataQW/Wire/Xqw/Xqw.{ind:06d}.dat"
 
     # Write data to file (3 columns: ω, Re[χ], Im[χ])
-    with open(filename, 'w', encoding='utf-8') as f:
+    with open(filename, "w", encoding="utf-8") as f:
         for iw in range(nwmax + 1):
             w = iw * dw
             for iq in range(_Nk + 1):
-                f.write(f'{w:16.6e} {np.real(Xqw[iq, iw]):16.6e} '
-                       f'{np.imag(Xqw[iq, iw]):16.6e}\n')
+                f.write(
+                    f"{w:16.6e} {np.real(Xqw[iq, iw]):16.6e} "
+                    f"{np.imag(Xqw[iq, iw]):16.6e}\n"
+                )
 
     # Write parameter file (only once)
     if _Xqwparams:
-        with open('dataQW/Wire/Xqw/Xqw.params', 'w', encoding='utf-8') as f_params:
+        with open("dataQW/Wire/Xqw/Xqw.params", "w", encoding="utf-8") as f_params:
             f_params.write(f"Nq = {_Nk + 1}\n")
             f_params.write(f"Nw = {nwmax + 1}\n")
             f_params.write(" \n")
@@ -3385,6 +3694,7 @@ def GetArrays(x, qx, kx):
     # Find index where qx is closest to zero
     _NQ0 = GetArray0Index(qx)
 
+
 @jit(nopython=True, parallel=True)
 def _MakeKKP_jit(Nk, kr, dkr, NQ0, kkp):
     """JIT-compiled parallel version of MakeKKP computation."""
@@ -3397,6 +3707,7 @@ def _MakeKKP_jit(Nk, kr, dkr, NQ0, kkp):
             q = kr[k] - kr[kp]
             # Map to nearest grid index
             kkp[k, kp] = int(np.round(q / dkr)) + NQ0
+
 
 def MakeKKP():
     """
@@ -3481,6 +3792,7 @@ def MakeKKP():
             for kp in range(_Nk):
                 q = _kr[k] - _kr[kp]
                 _kkp[k, kp] = int(np.round(q / _dkr)) + _NQ0
+
 
 def kindex(k):
     """
@@ -3676,8 +3988,8 @@ def InitializeSBE(q, rr, r0, Emaxxx, lam, Nw, QW):
 
     if not QW:
         # Minimal initialization if QW is disabled
-        os.makedirs('dataQW/Wire/info', exist_ok=True)
-        with open('dataQW/Wire/info/ETHz.t.dat', 'w', encoding='utf-8') as f:
+        os.makedirs("dataQW/Wire/info", exist_ok=True)
+        with open("dataQW/Wire/info/ETHz.t.dat", "w", encoding="utf-8") as f:
             pass  # Create empty file
         print("InitializeSBE? (QW disabled)")
         return
@@ -3747,7 +4059,7 @@ def InitializeSBE(q, rr, r0, Emaxxx, lam, Nw, QW):
 
     # Calculate Material constants
     # Dipole moment: dcv = sqrt((e0*hbar)² / (6*me0*gap) * (me0/me - 1))
-    _dcv = np.sqrt((e0 * hbar)**2 / (6.0 * me0 * _gap) * (me0 / _me - 1.0))
+    _dcv = np.sqrt((e0 * hbar) ** 2 / (6.0 * me0 * _gap) * (me0 / _me - 1.0))
 
     # Confinement parameters
     _alphae = np.sqrt(_me * _HO) / hbar
@@ -3768,8 +4080,10 @@ def InitializeSBE(q, rr, r0, Emaxxx, lam, Nw, QW):
     # Print material constants
     print(f"dcv / e0 = {_dcv / e0}")
     print(f"alphae = {_alphae}, alphah = {_alphah}")
-    print(f"1/qc = {1.0 / _qc}, sqrt(2) / sqrt(alphae² + alphah²) = "
-          f"{np.sqrt(2.0) / np.sqrt(_alphae**2 + _alphah**2)}")
+    print(
+        f"1/qc = {1.0 / _qc}, sqrt(2) / sqrt(alphae² + alphah²) = "
+        f"{np.sqrt(2.0) / np.sqrt(_alphae**2 + _alphah**2)}"
+    )
 
     # Final area calculation
     _area = np.sqrt(2.0 * pi) / np.sqrt(_alphae**2 + _alphah**2) * _Delta0
@@ -3796,7 +4110,9 @@ def InitializeSBE(q, rr, r0, Emaxxx, lam, Nw, QW):
     # Initialize diagonal elements with Fermi-Dirac distribution
     # at energy E = gap/2 (half the band gap)
     fermi_e = FermiDistr(_Ee + _gap / 2.0)
-    fermi_h = FermiDistr(_Ee + _gap / 2.0)  # Note: Fortran uses Ee here, which is correct
+    fermi_h = FermiDistr(
+        _Ee + _gap / 2.0
+    )  # Note: Fortran uses Ee here, which is correct
 
     for k in range(_Nk):
         for w in range(Nw):
@@ -3824,10 +4140,10 @@ def InitializeSBE(q, rr, r0, Emaxxx, lam, Nw, QW):
     WriteIt((_Ee + _Eh + _gap) / eV, "Etrn.k")
 
     # Write transition energies to file
-    os.makedirs('dataQW', exist_ok=True)
-    with open('dataQW/Etr.dat', 'w', encoding='utf-8') as f:
+    os.makedirs("dataQW", exist_ok=True)
+    with open("dataQW/Etr.dat", "w", encoding="utf-8") as f:
         for i in range(len(_kr)):
-            f.write(f'{_kr[i]} {(_Ee[i] + _Eh[i] + _gap) / eV}\n')
+            f.write(f"{_kr[i]} {(_Ee[i] + _Eh[i] + _gap) / eV}\n")
 
     # OBE mode: disable all many-body effects
     if _OBE:
@@ -3843,8 +4159,24 @@ def InitializeSBE(q, rr, r0, Emaxxx, lam, Nw, QW):
     MakeKKP()
 
     # Calculate constant material arrays
-    InitializeCoulomb(_r, _kr, _L, _Delta0, _me, _mh, _Ee, _Eh,
-                      _gam_e, _gam_h, _alphae, _alphah, _epsr, _Qr, _kkp, _Screened)
+    InitializeCoulomb(
+        _r,
+        _kr,
+        _L,
+        _Delta0,
+        _me,
+        _mh,
+        _Ee,
+        _Eh,
+        _gam_e,
+        _gam_h,
+        _alphae,
+        _alphah,
+        _epsr,
+        _Qr,
+        _kkp,
+        _Screened,
+    )
 
     InitializePhonons(_kr, _Ee, _Eh, _L, _epsr, _Gph, _Oph)
 
@@ -3873,21 +4205,22 @@ def InitializeSBE(q, rr, r0, Emaxxx, lam, Nw, QW):
     # Record initial susceptibility (with zero populations for testing)
     game = np.full(_Nk, _gam_e, dtype=float)
     gamh = np.full(_Nk, _gam_h, dtype=float)
-    RecordXqw(_kr, np.zeros(_Nk), np.zeros(_Nk), _Ee, _Eh, _gap, _area,
-              game, gamh, _dcv, 0)
+    RecordXqw(
+        _kr, np.zeros(_Nk), np.zeros(_Nk), _Ee, _Eh, _gap, _area, game, gamh, _dcv, 0
+    )
 
     # Open output files for each wire
-    os.makedirs('dataQW', exist_ok=True)
+    os.makedirs("dataQW", exist_ok=True)
     for w in range(1, Nw + 1):
-        wire_str = f'{w:02d}'
+        wire_str = f"{w:02d}"
         # Files are opened but not stored (Python handles file closing differently)
         # In Fortran, unit numbers are used; in Python we'll use context managers
         # when writing. For now, just create the files.
-        with open(f'dataQW/info.{wire_str}.t.dat', 'w', encoding='utf-8') as f:
+        with open(f"dataQW/info.{wire_str}.t.dat", "w", encoding="utf-8") as f:
             pass
-        with open(f'dataQW/EP.{wire_str}.t.dat', 'w', encoding='utf-8') as f:
+        with open(f"dataQW/EP.{wire_str}.t.dat", "w", encoding="utf-8") as f:
             pass
-        with open(f'dataQW/XQ.{wire_str}.t.dat', 'w', encoding='utf-8') as f:
+        with open(f"dataQW/XQ.{wire_str}.t.dat", "w", encoding="utf-8") as f:
             pass
 
     # Calculate photoluminescence spectrum frequency grid
@@ -3902,12 +4235,12 @@ def InitializeSBE(q, rr, r0, Emaxxx, lam, Nw, QW):
 
     # Read DC field from file if requested
     if _ReadDC:
-        with open('DC.txt', 'r', encoding='utf-8') as f:
+        with open("DC.txt", "r", encoding="utf-8") as f:
             _Edc = float(f.readline().split()[0])
 
     # Open THz field output file
-    os.makedirs('dataQW/Wire/info', exist_ok=True)
-    with open('dataQW/Wire/info/ETHz.t.dat', 'w', encoding='utf-8') as f:
+    os.makedirs("dataQW/Wire/info", exist_ok=True)
+    with open("dataQW/Wire/info/ETHz.t.dat", "w", encoding="utf-8") as f:
         pass
 
     # Mark initialization as complete
@@ -4096,7 +4429,9 @@ def SBECalculator(Ex, Ey, Ez, Vr, dt, Px, Py, Pz, Re, Rh, WriteFields, w):
     Checkout(p1, p2, C1, C2, D1, D2, w)
 
     # Prepare the needed arrays for the SBEs
-    Preparation(p2, C2, D2, Ex, Ey, Ez, Vr, w, Heh, Hee, Hhh, VC, E1D, GamE, GamH, OffG, Rsp)
+    Preparation(
+        p2, C2, D2, Ex, Ey, Ez, Vr, w, Heh, Hee, Hhh, VC, E1D, GamE, GamH, OffG, Rsp
+    )
 
     # Extract corrected energies (in eV)
     for k in range(_Nk):
@@ -4185,28 +4520,34 @@ def SBECalculator(Ex, Ey, Ez, Vr, dt, Px, Py, Pz, Re, Rh, WriteFields, w):
 
     # Print statistics for middle wire if WriteFields is True
     if w == int(np.ceil(len(_I0) / 2.0)) and WriteFields:
-        print(f"{_xxx:8d} Elec {np.sum(np.real(ne3)):18.6e} {np.max(np.real(ne3)):18.6e} "
-              f"{np.min(np.real(ne3)):18.6e} {CalcVD(_kr, _me, ne3):18.6e} "
-              f"{np.real(CalcPD(_kr, _me, ne3)):18.6e}")
-        print(f"{_xxx:8d} Hole {np.sum(np.real(nh3)):18.6e} {np.max(np.real(nh3)):18.6e} "
-              f"{np.min(np.real(nh3)):18.6e} {CalcVD(_kr, _mh, nh3):18.6e} "
-              f"{np.real(CalcPD(_kr, _mh, nh3)):18.6e}")
+        print(
+            f"{_xxx:8d} Elec {np.sum(np.real(ne3)):18.6e} {np.max(np.real(ne3)):18.6e} "
+            f"{np.min(np.real(ne3)):18.6e} {CalcVD(_kr, _me, ne3):18.6e} "
+            f"{np.real(CalcPD(_kr, _me, ne3)):18.6e}"
+        )
+        print(
+            f"{_xxx:8d} Hole {np.sum(np.real(nh3)):18.6e} {np.max(np.real(nh3)):18.6e} "
+            f"{np.min(np.real(nh3)):18.6e} {CalcVD(_kr, _mh, nh3):18.6e} "
+            f"{np.real(CalcPD(_kr, _mh, nh3)):18.6e}"
+        )
 
     # Calculate drift current
-    _I0[w-1] = CalcI0(ne2, nh2, _Ee, _Eh, VC, _dkr, _kr, _I0[w-1])
+    _I0[w - 1] = CalcI0(ne2, nh2, _Ee, _Eh, VC, _dkr, _kr, _I0[w - 1])
 
     # Write statistics to file
-    os.makedirs('dataQW', exist_ok=True)
-    with open(f'dataQW/info.{w:02d}.t.dat', 'a', encoding='utf-8') as f:
-        f.write(f"{_xxx*dt:18.6e} {CalcVD(_kr, _me, ne2):18.6e} {CalcVD(_kr, _mh, nh2):18.6e} "
-                f"{np.real(2*np.sum(ne2)/_L):18.6e} {np.real(2*np.sum(nh2)/_L):18.6e} "
-                f"{TotalEnergy(ne2, _Ee+_gap)/e0:18.6e} {TotalEnergy(nh2, _Eh)/e0:18.6e} "
-                f"{Temperature(ne2, _Ee):18.6e} {Temperature(nh2, _Eh):18.6e} "
-                f"{np.max(np.abs(Re)):18.6e} {np.max(np.abs(Rh)):18.6e} "
-                f"{GetEDrift():18.6e} {np.real(hbar*np.sum((ne2-nh2)*_kr))*2.0:18.6e} "
-                f"{np.real(hbar*np.sum(ne2*_kr)):18.6e} {np.real(-hbar*np.sum(nh2*_kr)):18.6e} "
-                f"{_I0[w-1]:18.6e} {CalcI0n(ne2, _me, _kr):18.6e} "
-                f"{CalcI0n(1-nh2, -_mh, _kr):18.6e}\n")
+    os.makedirs("dataQW", exist_ok=True)
+    with open(f"dataQW/info.{w:02d}.t.dat", "a", encoding="utf-8") as f:
+        f.write(
+            f"{_xxx*dt:18.6e} {CalcVD(_kr, _me, ne2):18.6e} {CalcVD(_kr, _mh, nh2):18.6e} "
+            f"{np.real(2*np.sum(ne2)/_L):18.6e} {np.real(2*np.sum(nh2)/_L):18.6e} "
+            f"{TotalEnergy(ne2, _Ee+_gap)/e0:18.6e} {TotalEnergy(nh2, _Eh)/e0:18.6e} "
+            f"{Temperature(ne2, _Ee):18.6e} {Temperature(nh2, _Eh):18.6e} "
+            f"{np.max(np.abs(Re)):18.6e} {np.max(np.abs(Rh)):18.6e} "
+            f"{GetEDrift():18.6e} {np.real(hbar*np.sum((ne2-nh2)*_kr))*2.0:18.6e} "
+            f"{np.real(hbar*np.sum(ne2*_kr)):18.6e} {np.real(-hbar*np.sum(nh2*_kr)):18.6e} "
+            f"{_I0[w-1]:18.6e} {CalcI0n(ne2, _me, _kr):18.6e} "
+            f"{CalcI0n(1-nh2, -_mh, _kr):18.6e}\n"
+        )
 
     # FFT to real space for output
     iFFTG(Ex)
@@ -4217,10 +4558,12 @@ def SBECalculator(Ex, Ey, Ez, Vr, dt, Px, Py, Pz, Re, Rh, WriteFields, w):
     iFFTG(Pz)
 
     # Write fields and polarizations at center point
-    with open(f'dataQW/EP.{w:02d}.t.dat', 'a', encoding='utf-8') as f:
-        f.write(f"{_xxx*dt:18.6e} {np.real(Ex[_Nr//2]):18.6e} {np.real(Ey[_Nr//2]):18.6e} "
-                f"{np.real(Ez[_Nr//2]):18.6e} {np.real(Px[_Nr//2]):18.6e} "
-                f"{np.real(Py[_Nr//2]):18.6e} {np.real(Pz[_Nr//2]):18.6e}\n")
+    with open(f"dataQW/EP.{w:02d}.t.dat", "a", encoding="utf-8") as f:
+        f.write(
+            f"{_xxx*dt:18.6e} {np.real(Ex[_Nr//2]):18.6e} {np.real(Ey[_Nr//2]):18.6e} "
+            f"{np.real(Ez[_Nr//2]):18.6e} {np.real(Px[_Nr//2]):18.6e} "
+            f"{np.real(Py[_Nr//2]):18.6e} {np.real(Pz[_Nr//2]):18.6e}\n"
+        )
 
     # FFT back to momentum space
     FFTG(Ex)
@@ -4238,11 +4581,12 @@ def SBECalculator(Ex, Ey, Ez, Vr, dt, Px, Py, Pz, Re, Rh, WriteFields, w):
 # SBESolver class — encapsulates all module-level state
 # ============================================================================
 
+
 class SBESolver:
     """Class-based SBE solver. Encapsulates all module-level state as instance
     attributes, enabling multiple independent quantum wire simulations."""
 
-    def __init__(self, q, rr, r0, Emaxxx, lam, Nw, QW, backend='auto'):
+    def __init__(self, q, rr, r0, Emaxxx, lam, Nw, QW, backend="auto"):
         """Initialize the SBE solver (equivalent to InitializeSBE)."""
 
         # --- Physical parameters (defaults, overwritten by _read_qw_params) ---
@@ -4361,8 +4705,8 @@ class SBESolver:
 
         # ===== Initialization logic (from InitializeSBE) =====
         if not QW:
-            os.makedirs('dataQW/Wire/info', exist_ok=True)
-            with open('dataQW/Wire/info/ETHz.t.dat', 'w', encoding='utf-8') as f:
+            os.makedirs("dataQW/Wire/info", exist_ok=True)
+            with open("dataQW/Wire/info/ETHz.t.dat", "w", encoding="utf-8") as f:
                 pass
             print("InitializeSBE? (QW disabled)")
             return
@@ -4413,20 +4757,28 @@ class SBESolver:
         self._get_arrays(self.r, self.Qr, self.kr)
         self.dr = (self.r[2] - self.r[1]) * (self.Nr - 1) / float(self.Nr)
 
-        self.dcv = np.sqrt((e0 * hbar)**2 / (6.0 * me0 * self.gap) * (me0 / self.me - 1.0))
+        self.dcv = np.sqrt(
+            (e0 * hbar) ** 2 / (6.0 * me0 * self.gap) * (me0 / self.me - 1.0)
+        )
         self.alphae = np.sqrt(self.me * self.HO) / hbar
         self.alphah = np.sqrt(self.mh * self.HO) / hbar
-        self.ehint = np.sqrt(2.0 * self.alphae * self.alphah / (self.alphae**2 + self.alphah**2))
+        self.ehint = np.sqrt(
+            2.0 * self.alphae * self.alphah / (self.alphae**2 + self.alphah**2)
+        )
         self.gam_eh = (self.gam_e + self.gam_h) / 2.0
         self.qc = 2.0 * self.alphae * self.alphah / (self.alphae + self.alphah)
         self.area = np.sqrt(pi) / self.qc * self.Delta0
 
         print(f"dcv / e0 = {self.dcv / e0}")
         print(f"alphae = {self.alphae}, alphah = {self.alphah}")
-        print(f"1/qc = {1.0 / self.qc}, sqrt(2) / sqrt(alphae² + alphah²) = "
-              f"{np.sqrt(2.0) / np.sqrt(self.alphae**2 + self.alphah**2)}")
+        print(
+            f"1/qc = {1.0 / self.qc}, sqrt(2) / sqrt(alphae² + alphah²) = "
+            f"{np.sqrt(2.0) / np.sqrt(self.alphae**2 + self.alphah**2)}"
+        )
 
-        self.area = np.sqrt(2.0 * pi) / np.sqrt(self.alphae**2 + self.alphah**2) * self.Delta0
+        self.area = (
+            np.sqrt(2.0 * pi) / np.sqrt(self.alphae**2 + self.alphah**2) * self.Delta0
+        )
 
         print(f"ehint = {self.ehint}")
         print(f"Wire Radius = {1.0 / self.qc}")
@@ -4455,21 +4807,33 @@ class SBESolver:
         self.YY2[:, :, :] = 0.0 + 0.0j
         self.YY3[:, :, :] = 0.0 + 0.0j
 
-        self.qw = QWOptics(self.r, self.L, self.dcv, self.kr, self.Qr,
-                           self.Ee, self.Eh, self.ehint, self.area, self.gap)
+        self.qw = QWOptics(
+            self.r,
+            self.L,
+            self.dcv,
+            self.kr,
+            self.Qr,
+            self.Ee,
+            self.Eh,
+            self.ehint,
+            self.area,
+            self.gap,
+        )
 
         WriteIt(self.kr, "kr")
         WriteIt(self.Qr, "Qr")
         WriteIt(self.r, "R")
         WriteIt(self.Ee / eV, "Ee.k")
         WriteIt(self.Eh / eV, "Eh.k")
-        WriteIt((self.Ee + self.Eh + self.gap - hbar * _c0 * twopi / lam) / eV, "Echw.k")
+        WriteIt(
+            (self.Ee + self.Eh + self.gap - hbar * _c0 * twopi / lam) / eV, "Echw.k"
+        )
         WriteIt((self.Ee + self.Eh + self.gap) / eV, "Etrn.k")
 
-        os.makedirs('dataQW', exist_ok=True)
-        with open('dataQW/Etr.dat', 'w', encoding='utf-8') as f:
+        os.makedirs("dataQW", exist_ok=True)
+        with open("dataQW/Etr.dat", "w", encoding="utf-8") as f:
             for i in range(len(self.kr)):
-                f.write(f'{self.kr[i]} {(self.Ee[i] + self.Eh[i] + self.gap) / eV}\n')
+                f.write(f"{self.kr[i]} {(self.Ee[i] + self.Eh[i] + self.gap) / eV}\n")
 
         if self.OBE:
             self.Optics = True
@@ -4482,16 +4846,40 @@ class SBESolver:
 
         self._make_kkp()
 
-        InitializeCoulomb(self.r, self.kr, self.L, self.Delta0, self.me, self.mh,
-                          self.Ee, self.Eh, self.gam_e, self.gam_h, self.alphae,
-                          self.alphah, self.epsr, self.Qr, self.kkp, self.Screened)
-        InitializePhonons(self.kr, self.Ee, self.Eh, self.L, self.epsr, self.Gph, self.Oph)
+        InitializeCoulomb(
+            self.r,
+            self.kr,
+            self.L,
+            self.Delta0,
+            self.me,
+            self.mh,
+            self.Ee,
+            self.Eh,
+            self.gam_e,
+            self.gam_h,
+            self.alphae,
+            self.alphah,
+            self.epsr,
+            self.Qr,
+            self.kkp,
+            self.Screened,
+        )
+        InitializePhonons(
+            self.kr, self.Ee, self.Eh, self.L, self.epsr, self.Gph, self.Oph
+        )
         InitializeDC(self.kr, self.me, self.mh)
         InitializeDephasing(self.kr, self.me, self.mh)
 
         if self.Recomb:
-            InitializeEmission(self.kr, self.Ee, self.Eh, np.abs(self.dcv),
-                               self.epsr, self.gam_eh, self.ehint)
+            InitializeEmission(
+                self.kr,
+                self.Ee,
+                self.Eh,
+                np.abs(self.dcv),
+                self.epsr,
+                self.gam_eh,
+                self.ehint,
+            )
 
         rr_offset = rr - r0
         self.Nr1 = locator(rr_offset, self.r[0])
@@ -4500,23 +4888,35 @@ class SBESolver:
         self.t = 0.0
         self.wph = (self.gap + hbar * self.Oph - hbar * self.wL) / hbar
 
-        self.chiw = QWChi1(lam, self.dkr, self.Ee + self.gap, self.Eh,
-                           self.area, self.gam_eh, self.dcv)
+        self.chiw = QWChi1(
+            lam, self.dkr, self.Ee + self.gap, self.Eh, self.area, self.gam_eh, self.dcv
+        )
         print(f"Quantum Wire Linear Chi = {self.chiw}")
 
         game = np.full(self.Nk, self.gam_e, dtype=float)
         gamh = np.full(self.Nk, self.gam_h, dtype=float)
-        self._record_Xqw(self.kr, np.zeros(self.Nk), np.zeros(self.Nk),
-                         self.Ee, self.Eh, self.gap, self.area, game, gamh, self.dcv, 0)
+        self._record_Xqw(
+            self.kr,
+            np.zeros(self.Nk),
+            np.zeros(self.Nk),
+            self.Ee,
+            self.Eh,
+            self.gap,
+            self.area,
+            game,
+            gamh,
+            self.dcv,
+            0,
+        )
 
-        os.makedirs('dataQW', exist_ok=True)
+        os.makedirs("dataQW", exist_ok=True)
         for w in range(1, Nw + 1):
-            wire_str = f'{w:02d}'
-            with open(f'dataQW/info.{wire_str}.t.dat', 'w', encoding='utf-8') as f:
+            wire_str = f"{w:02d}"
+            with open(f"dataQW/info.{wire_str}.t.dat", "w", encoding="utf-8") as f:
                 pass
-            with open(f'dataQW/EP.{wire_str}.t.dat', 'w', encoding='utf-8') as f:
+            with open(f"dataQW/EP.{wire_str}.t.dat", "w", encoding="utf-8") as f:
                 pass
-            with open(f'dataQW/XQ.{wire_str}.t.dat', 'w', encoding='utf-8') as f:
+            with open(f"dataQW/XQ.{wire_str}.t.dat", "w", encoding="utf-8") as f:
                 pass
 
         Estart = 0.8 * self.gap
@@ -4527,11 +4927,11 @@ class SBESolver:
         self.nqq10 = locate(self.Qr, 2.35e8)
 
         if self.ReadDC:
-            with open('DC.txt', 'r', encoding='utf-8') as f:
+            with open("DC.txt", "r", encoding="utf-8") as f:
                 self.Edc = float(f.readline().split()[0])
 
-        os.makedirs('dataQW/Wire/info', exist_ok=True)
-        with open('dataQW/Wire/info/ETHz.t.dat', 'w', encoding='utf-8') as f:
+        os.makedirs("dataQW/Wire/info", exist_ok=True)
+        with open("dataQW/Wire/info/ETHz.t.dat", "w", encoding="utf-8") as f:
             pass
 
         self.start = True
@@ -4543,7 +4943,7 @@ class SBESolver:
 
     def _read_qw_params(self):
         """Read quantum wire parameters from params/qw.params."""
-        with open('params/qw.params', 'r', encoding='utf-8') as f:
+        with open("params/qw.params", "r", encoding="utf-8") as f:
             self.L = float(f.readline().split()[0])
             self.Delta0 = float(f.readline().split()[0])
             gap_eV = float(f.readline().split()[0])
@@ -4569,7 +4969,7 @@ class SBESolver:
 
     def _read_mb_params(self):
         """Read many-body physics flags from params/mb.params."""
-        with open('params/mb.params', 'r', encoding='utf-8') as f:
+        with open("params/mb.params", "r", encoding="utf-8") as f:
             self.Optics = bool(int(f.readline().split()[0]))
             self.Excitons = bool(int(f.readline().split()[0]))
             self.EHs = bool(int(f.readline().split()[0]))
@@ -4653,20 +5053,68 @@ class SBESolver:
         """Dispatch Hamiltonian calculation to CuPy/JIT/fallback kernels."""
         if _HAS_CUPY:
             try:
-                _CalcH_cupy(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
-                            self.Nk, self.Ee, self.Eh, self.gap, self.Excitons,
-                            self.LF, self.FreePot)
+                _CalcH_cupy(
+                    Meh,
+                    Wee,
+                    Whh,
+                    C,
+                    D,
+                    p,
+                    VC,
+                    Heh,
+                    Hee,
+                    Hhh,
+                    self.Nk,
+                    self.Ee,
+                    self.Eh,
+                    self.gap,
+                    self.Excitons,
+                    self.LF,
+                    self.FreePot,
+                )
                 return
             except Exception:
                 pass
         try:
-            _CalcH_jit(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
-                       self.Nk, self.Ee, self.Eh, self.gap, self.Excitons,
-                       self.LF, self.FreePot)
+            _CalcH_jit(
+                Meh,
+                Wee,
+                Whh,
+                C,
+                D,
+                p,
+                VC,
+                Heh,
+                Hee,
+                Hhh,
+                self.Nk,
+                self.Ee,
+                self.Eh,
+                self.gap,
+                self.Excitons,
+                self.LF,
+                self.FreePot,
+            )
         except Exception:
-            _CalcH_fallback(Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh,
-                            self.Nk, self.Ee, self.Eh, self.gap, self.Excitons,
-                            self.LF, self.FreePot)
+            _CalcH_fallback(
+                Meh,
+                Wee,
+                Whh,
+                C,
+                D,
+                p,
+                VC,
+                Heh,
+                Hee,
+                Hhh,
+                self.Nk,
+                self.Ee,
+                self.Eh,
+                self.gap,
+                self.Excitons,
+                self.LF,
+                self.FreePot,
+            )
 
     def _calc_Meh(self, Ex, Ey, Ez, w, Meh):
         """Calculate dipole-field coupling matrix."""
@@ -4674,9 +5122,11 @@ class SBESolver:
         for kh in range(self.Nk):
             for ke in range(self.Nk):
                 q = self.kkp[ke, kh]
-                Meh[ke, kh] = (-self.ehint * self.qw.Xcv(ke, kh) * Ex[q]
-                               - self.ehint * self.qw.Ycv(ke, kh) * Ey[q] * yw(w)
-                               - self.ehint * self.qw.Zcv(ke, kh) * Ez[q] * (-1)**w)
+                Meh[ke, kh] = (
+                    -self.ehint * self.qw.Xcv(ke, kh) * Ex[q]
+                    - self.ehint * self.qw.Ycv(ke, kh) * Ey[q] * yw(w)
+                    - self.ehint * self.qw.Zcv(ke, kh) * Ez[q] * (-1) ** w
+                )
 
     def _calc_Wnn(self, q0, Vr, Wnn):
         """Calculate monopole-potential coupling matrix."""
@@ -4686,8 +5136,26 @@ class SBESolver:
                 q = self.kkp[k1, k2]
                 Wnn[k1, k2] = q0 * Vr[q]
 
-    def _preparation(self, p2, C2, D2, Ex, Ey, Ez, Vr, w,
-                     Heh, Hee, Hhh, VC, E1D, GamE, GamH, OffG, Rsp):
+    def _preparation(
+        self,
+        p2,
+        C2,
+        D2,
+        Ex,
+        Ey,
+        Ez,
+        Vr,
+        w,
+        Heh,
+        Hee,
+        Hhh,
+        VC,
+        E1D,
+        GamE,
+        GamH,
+        OffG,
+        Rsp,
+    ):
         """Prepare Hamiltonians, screening, and dephasing for one SBE time step."""
         Meh = np.zeros((self.Nk, self.Nk), dtype=complex)
         Wee = np.zeros((self.Nk, self.Nk), dtype=complex)
@@ -4717,8 +5185,9 @@ class SBESolver:
         if self.DiagDph:
             CalcGammaH(self.kr, ne, nh, VC, GamH)
         if self.OffDiagDph:
-            OffDiagDephasing2(ne, nh, p2, self.kr, self.Ee, self.Eh, g, VC,
-                              self.t, OffG[:, :, 0])
+            OffDiagDephasing2(
+                ne, nh, p2, self.kr, self.Ee, self.Eh, g, VC, self.t, OffG[:, :, 0]
+            )
         if self.Recomb:
             SpontEmission(ne, nh, self.Ee, self.Eh, self.gap, self.gam_eh, VC, Rsp)
 
@@ -4732,8 +5201,18 @@ class SBESolver:
         WinE = np.zeros(Nk, dtype=float)
         WoutE = np.zeros(Nk, dtype=float)
         if self.EHs:
-            MBCE(np.real(ne), np.real(nh), self.kr, self.Ee, self.Eh, VC,
-                 self.gam_eh, self.gam_e, WinE, WoutE)
+            MBCE(
+                np.real(ne),
+                np.real(nh),
+                self.kr,
+                self.Ee,
+                self.Eh,
+                VC,
+                self.gam_eh,
+                self.gam_e,
+                WinE,
+                WoutE,
+            )
         if self.Phonon:
             MBPE(np.real(ne), VC, E1D, WinE, WoutE)
         return WinE, WoutE
@@ -4744,8 +5223,18 @@ class SBESolver:
         WinH = np.zeros(Nk, dtype=float)
         WoutH = np.zeros(Nk, dtype=float)
         if self.EHs:
-            MBCH(np.real(ne), np.real(nh), self.kr, self.Ee, self.Eh, VC,
-                 self.gam_eh, self.gam_h, WinH, WoutH)
+            MBCH(
+                np.real(ne),
+                np.real(nh),
+                self.kr,
+                self.Ee,
+                self.Eh,
+                VC,
+                self.gam_eh,
+                self.gam_h,
+                WinH,
+                WoutH,
+            )
         if self.Phonon:
             MBPH(np.real(nh), VC, E1D, WinH, WoutH)
         return WinH, WoutH
@@ -4757,25 +5246,45 @@ class SBESolver:
             WinH, WoutH = self._relaxation_H(ne, nh, VC, E1D)
 
             if WriteFields:
-                wire_str = f'{w:02d}'
-                printITR(WinE * (1 - np.real(ne)), self.kr, self.xxx,
-                         f'Wire/Win/Win.e.{wire_str}.k.')
-                printITR(WinH * (1 - np.real(nh)), self.kr, self.xxx,
-                         f'Wire/Win/Win.h.{wire_str}.k.')
-                printITR(WoutE * np.real(ne), self.kr, self.xxx,
-                         f'Wire/Wout/Wout.e.{wire_str}.k.')
-                printITR(WoutH * np.real(nh), self.kr, self.xxx,
-                         f'Wire/Wout/Wout.h.{wire_str}.k.')
+                wire_str = f"{w:02d}"
+                printITR(
+                    WinE * (1 - np.real(ne)),
+                    self.kr,
+                    self.xxx,
+                    f"Wire/Win/Win.e.{wire_str}.k.",
+                )
+                printITR(
+                    WinH * (1 - np.real(nh)),
+                    self.kr,
+                    self.xxx,
+                    f"Wire/Win/Win.h.{wire_str}.k.",
+                )
+                printITR(
+                    WoutE * np.real(ne),
+                    self.kr,
+                    self.xxx,
+                    f"Wire/Wout/Wout.e.{wire_str}.k.",
+                )
+                printITR(
+                    WoutH * np.real(nh),
+                    self.kr,
+                    self.xxx,
+                    f"Wire/Wout/Wout.h.{wire_str}.k.",
+                )
 
             We = WinE + WoutE
             Wh = WinH + WoutH
 
-            ne[:] = (np.exp(-We * dt) *
-                     ((-1 + np.exp(We * dt) + ne) * WinE + ne * WoutE) /
-                     (We + self.small))
-            nh[:] = (np.exp(-Wh * dt) *
-                     ((-1 + np.exp(Wh * dt) + nh) * WinH + nh * WoutH) /
-                     (Wh + self.small))
+            ne[:] = (
+                np.exp(-We * dt)
+                * ((-1 + np.exp(We * dt) + ne) * WinE + ne * WoutE)
+                / (We + self.small)
+            )
+            nh[:] = (
+                np.exp(-Wh * dt)
+                * ((-1 + np.exp(Wh * dt) + nh) * WinH + nh * WoutH)
+                / (Wh + self.small)
+            )
 
         if self.Recomb:
             ne[:] = ne * np.exp(-Rsp * nh * dt)
@@ -4788,11 +5297,30 @@ class SBESolver:
     def calc_Xqw(self, iq, w, kr, fe, fh, Ee, Eh, gap, area, game, gamh, dcv):
         """Calculate linear optical susceptibility chi(q,w)."""
         try:
-            return _CalcXqw_jit(iq, w, kr, fe, fh, Ee, Eh, gap, area, game, gamh,
-                                dcv, self.Nk, twopi, hbar, e0, eps0, ii)
+            return _CalcXqw_jit(
+                iq,
+                w,
+                kr,
+                fe,
+                fh,
+                Ee,
+                Eh,
+                gap,
+                area,
+                game,
+                gamh,
+                dcv,
+                self.Nk,
+                twopi,
+                hbar,
+                e0,
+                eps0,
+                ii,
+            )
         except Exception:
-            return self._calc_Xqw_fallback(iq, w, kr, fe, fh, Ee, Eh, gap, area,
-                                           game, gamh, dcv)
+            return self._calc_Xqw_fallback(
+                iq, w, kr, fe, fh, Ee, Eh, gap, area, game, gamh, dcv
+            )
 
     def _calc_Xqw_fallback(self, iq, w, kr, fe, fh, Ee, Eh, gap, area, game, gamh, dcv):
         """Pure Python fallback for CalcXqw."""
@@ -4817,11 +5345,17 @@ class SBESolver:
             kmax = self.Nk
 
         for ik in range(kmin, kmax):
-            Xqw += (x * (fc[ik] - fv[ik + iq]) /
-                    (Ev[ik + iq] - Ec[ik] - hbar * w - ii * (hgh[ik + iq] + hge[ik])))
+            Xqw += (
+                x
+                * (fc[ik] - fv[ik + iq])
+                / (Ev[ik + iq] - Ec[ik] - hbar * w - ii * (hgh[ik + iq] + hge[ik]))
+            )
         for ik in range(kmin, kmax):
-            Xqw += (x * (fv[ik] - fc[ik + iq]) /
-                    (Ec[ik + iq] - Ev[ik] - hbar * w - ii * (hge[ik + iq] + hgh[ik])))
+            Xqw += (
+                x
+                * (fv[ik] - fc[ik + iq])
+                / (Ec[ik + iq] - Ev[ik] - hbar * w - ii * (hge[ik + iq] + hgh[ik]))
+            )
         return Xqw
 
     def _record_Xqw(self, kr, fe, fh, Ee, Eh, gap, area, game, gamh, dcv, ind):
@@ -4834,20 +5368,23 @@ class SBESolver:
         for iw in range(nwmax + 1):
             w = iw * dw
             for iq in range(self.Nk + 1):
-                Xqw[iq, iw] = self.calc_Xqw(iq, w, kr, fe, fh, Ee, Eh, gap, area,
-                                             game, gamh, dcv)
+                Xqw[iq, iw] = self.calc_Xqw(
+                    iq, w, kr, fe, fh, Ee, Eh, gap, area, game, gamh, dcv
+                )
 
-        os.makedirs('dataQW/Wire/Xqw', exist_ok=True)
-        filename = f'dataQW/Wire/Xqw/Xqw.{ind:06d}.dat'
-        with open(filename, 'w', encoding='utf-8') as f:
+        os.makedirs("dataQW/Wire/Xqw", exist_ok=True)
+        filename = f"dataQW/Wire/Xqw/Xqw.{ind:06d}.dat"
+        with open(filename, "w", encoding="utf-8") as f:
             for iw in range(nwmax + 1):
                 w = iw * dw
                 for iq in range(self.Nk + 1):
-                    f.write(f'{w:16.6e} {np.real(Xqw[iq, iw]):16.6e} '
-                            f'{np.imag(Xqw[iq, iw]):16.6e}\n')
+                    f.write(
+                        f"{w:16.6e} {np.real(Xqw[iq, iw]):16.6e} "
+                        f"{np.imag(Xqw[iq, iw]):16.6e}\n"
+                    )
 
         if self.Xqwparams:
-            with open('dataQW/Wire/Xqw/Xqw.params', 'w', encoding='utf-8') as f_params:
+            with open("dataQW/Wire/Xqw/Xqw.params", "w", encoding="utf-8") as f_params:
                 f_params.write(f"Nq = {self.Nk + 1}\n")
                 f_params.write(f"Nw = {nwmax + 1}\n")
                 f_params.write(" \n")
@@ -4868,27 +5405,52 @@ class SBESolver:
         n1D = np.sum(fe + fh) / 2.0 / self.L
         n1D = 1.5e8
 
-        os.makedirs('dataQW/Wire/Xqw', exist_ok=True)
-        filename = f'dataQW/Wire/Xqw/EpsL.{ind:06d}.dat'
-        filename2 = f'dataQW/Wire/Xqw/ChiL.{ind:06d}.dat'
+        os.makedirs("dataQW/Wire/Xqw", exist_ok=True)
+        filename = f"dataQW/Wire/Xqw/EpsL.{ind:06d}.dat"
+        filename2 = f"dataQW/Wire/Xqw/ChiL.{ind:06d}.dat"
 
-        with open(filename, 'w', encoding='utf-8') as f_eps, \
-             open(filename2, 'w', encoding='utf-8') as f_chi:
+        with (
+            open(filename, "w", encoding="utf-8") as f_eps,
+            open(filename2, "w", encoding="utf-8") as f_chi,
+        ):
             for iw in range(nwmax + 1):
                 w = iw * dw
                 for iq in range(len(self.kr) + 1):
                     q = iq * (self.kr[1] - self.kr[0])
-                    epr_eps, epi_eps = GetEps1Dqw(self.alphae, self.alphah, self.Delta0,
-                                                   self.L, self.epsr, self.me, self.mh, n1D, q, w)
-                    f_eps.write(f'{epr_eps - 1.0:12.3e} {epi_eps:12.3e}\n')
-                    epr_chi, epi_chi = GetChi1Dqw(self.alphae, self.alphah, self.Delta0,
-                                                   self.L, self.epsr, gamE, gamH, self.kr,
-                                                   Ee, Eh, fe, fh, q, w)
-                    f_chi.write(f'{epr_chi:12.3e} {epi_chi:12.3e}\n')
+                    epr_eps, epi_eps = GetEps1Dqw(
+                        self.alphae,
+                        self.alphah,
+                        self.Delta0,
+                        self.L,
+                        self.epsr,
+                        self.me,
+                        self.mh,
+                        n1D,
+                        q,
+                        w,
+                    )
+                    f_eps.write(f"{epr_eps - 1.0:12.3e} {epi_eps:12.3e}\n")
+                    epr_chi, epi_chi = GetChi1Dqw(
+                        self.alphae,
+                        self.alphah,
+                        self.Delta0,
+                        self.L,
+                        self.epsr,
+                        gamE,
+                        gamH,
+                        self.kr,
+                        Ee,
+                        Eh,
+                        fe,
+                        fh,
+                        q,
+                        w,
+                    )
+                    f_chi.write(f"{epr_chi:12.3e} {epi_chi:12.3e}\n")
 
         if self.Xqwparams:
             dkr = self.kr[1] - self.kr[0]
-            with open('dataQW/Wire/Xqw/EpsL.params', 'w', encoding='utf-8') as f_params:
+            with open("dataQW/Wire/Xqw/EpsL.params", "w", encoding="utf-8") as f_params:
                 f_params.write(f"Nq = {len(Qr)}\n")
                 f_params.write("Nw = 2000\n")
                 f_params.write(" \n")
@@ -4927,27 +5489,45 @@ class SBESolver:
 
     def write_sbes_data(self, n):
         """Write coherence matrices to backup files."""
-        backup_dir = 'dataQW/backup/'
+        backup_dir = "dataQW/backup/"
         os.makedirs(backup_dir, exist_ok=True)
-        arrays = [self.CC1, self.CC2, self.CC3, self.DD1, self.DD2, self.DD3,
-                  self.YY1, self.YY2, self.YY3]
-        keys = ['CC1', 'CC2', 'CC3', 'DD1', 'DD2', 'DD3', 'YY1', 'YY2', 'YY3']
+        arrays = [
+            self.CC1,
+            self.CC2,
+            self.CC3,
+            self.DD1,
+            self.DD2,
+            self.DD3,
+            self.YY1,
+            self.YY2,
+            self.YY3,
+        ]
+        keys = ["CC1", "CC2", "CC3", "DD1", "DD2", "DD3", "YY1", "YY2", "YY3"]
         for key, arr in zip(keys, arrays):
-            with open(f'{backup_dir}{key}.{n}.dat', 'w', encoding='utf-8') as f:
+            with open(f"{backup_dir}{key}.{n}.dat", "w", encoding="utf-8") as f:
                 for w in range(arr.shape[2]):
                     for k2 in range(self.Nk):
                         for k1 in range(self.Nk):
                             val = arr[k1, k2, w]
-                            f.write(f'{np.real(val)} {np.imag(val)}\n')
+                            f.write(f"{np.real(val)} {np.imag(val)}\n")
 
     def read_sbes_data(self, Nt):
         """Read coherence matrices from backup files."""
-        backup_dir = 'dataQW/backup/'
-        arrays = [self.CC1, self.CC2, self.CC3, self.DD1, self.DD2, self.DD3,
-                  self.YY1, self.YY2, self.YY3]
-        keys = ['CC1', 'CC2', 'CC3', 'DD1', 'DD2', 'DD3', 'YY1', 'YY2', 'YY3']
+        backup_dir = "dataQW/backup/"
+        arrays = [
+            self.CC1,
+            self.CC2,
+            self.CC3,
+            self.DD1,
+            self.DD2,
+            self.DD3,
+            self.YY1,
+            self.YY2,
+            self.YY3,
+        ]
+        keys = ["CC1", "CC2", "CC3", "DD1", "DD2", "DD3", "YY1", "YY2", "YY3"]
         for key, arr in zip(keys, arrays):
-            with open(f'{backup_dir}{key}.{Nt}.dat', 'r', encoding='utf-8') as f:
+            with open(f"{backup_dir}{key}.{Nt}.dat", "r", encoding="utf-8") as f:
                 for w in range(arr.shape[2]):
                     for k2 in range(self.Nk):
                         for k1 in range(self.Nk):
@@ -4978,16 +5558,18 @@ class SBESolver:
         Ie = CalcI0n(ne2, self.me, self.kr)
         Ih = CalcI0n(1 - nh2, -self.mh, self.kr)
 
-        os.makedirs('output', exist_ok=True)
-        with open(f'output/stats_{self.uw+w:03d}.dat', 'a', encoding='utf-8') as f:
-            f.write(f"{self.xxx*dt:18.6e} {ve:18.6e} {vh:18.6e} "
-                    f"{ne_density:18.6e} {nh_density:18.6e} "
-                    f"{Ee_total:18.6e} {Eh_total:18.6e} "
-                    f"{Te:18.6e} {Th:18.6e} "
-                    f"{re_max:18.6e} {rh_max:18.6e} "
-                    f"{EDrift:18.6e} {momentum:18.6e} "
-                    f"{pe:18.6e} {ph:18.6e} "
-                    f"{I0_val:18.6e} {Ie:18.6e} {Ih:18.6e}\n")
+        os.makedirs("output", exist_ok=True)
+        with open(f"output/stats_{self.uw+w:03d}.dat", "a", encoding="utf-8") as f:
+            f.write(
+                f"{self.xxx*dt:18.6e} {ve:18.6e} {vh:18.6e} "
+                f"{ne_density:18.6e} {nh_density:18.6e} "
+                f"{Ee_total:18.6e} {Eh_total:18.6e} "
+                f"{Te:18.6e} {Th:18.6e} "
+                f"{re_max:18.6e} {rh_max:18.6e} "
+                f"{EDrift:18.6e} {momentum:18.6e} "
+                f"{pe:18.6e} {ph:18.6e} "
+                f"{I0_val:18.6e} {Ie:18.6e} {Ih:18.6e}\n"
+            )
 
     # ------------------------------------------------------------------
     # SBE Calculator (core time-stepping)
@@ -5042,8 +5624,9 @@ class SBESolver:
             self.Id[k, k] = 1.0
 
         self._checkout(p1, p2, C1, C2, D1, D2, w)
-        self._preparation(p2, C2, D2, Ex, Ey, Ez, Vr, w, Heh, Hee, Hhh,
-                          VC, E1D, GamE, GamH, OffG, Rsp)
+        self._preparation(
+            p2, C2, D2, Ex, Ey, Ez, Vr, w, Heh, Hee, Hhh, VC, E1D, GamE, GamH, OffG, Rsp
+        )
 
         for k in range(self.Nk):
             Ene[k] = Hee[k, k] / eV
@@ -5098,12 +5681,37 @@ class SBESolver:
             WriteDephasing(self.kr, GamE, GamH, w, self.xxx)
 
         if self.Optics:
-            self.qw.QWPolarization3(self.r, self.kr, p3, self.ehint, self.area,
-                                    self.L, Px, Py, Pz, self.xxx, w)
+            self.qw.QWPolarization3(
+                self.r,
+                self.kr,
+                p3,
+                self.ehint,
+                self.area,
+                self.L,
+                Px,
+                Py,
+                Pz,
+                self.xxx,
+                w,
+            )
 
         if self.LF:
-            self.qw.QWRho5(self.Qr, self.kr, self.r, self.L, self.kkp, p3, C3, D3,
-                           ne3, nh3, Re, Rh, self.xxx, self.jjj)
+            self.qw.QWRho5(
+                self.Qr,
+                self.kr,
+                self.r,
+                self.L,
+                self.kkp,
+                p3,
+                C3,
+                D3,
+                ne3,
+                nh3,
+                Re,
+                Rh,
+                self.xxx,
+                self.jjj,
+            )
             Re[:] = 2.0 * e0 * Re / self.area * self.ehint
             Rh[:] = 2.0 * e0 * Rh / self.area * self.ehint
         else:
@@ -5111,37 +5719,44 @@ class SBESolver:
             Rh[:] = 0.0 + 0.0j
 
         if w == int(np.ceil(len(self.I0) / 2.0)) and WriteFields:
-            print(f"{self.xxx:8d} Elec {np.sum(np.real(ne3)):18.6e} "
-                  f"{np.max(np.real(ne3)):18.6e} {np.min(np.real(ne3)):18.6e} "
-                  f"{CalcVD(self.kr, self.me, ne3):18.6e} "
-                  f"{np.real(CalcPD(self.kr, self.me, ne3)):18.6e}")
-            print(f"{self.xxx:8d} Hole {np.sum(np.real(nh3)):18.6e} "
-                  f"{np.max(np.real(nh3)):18.6e} {np.min(np.real(nh3)):18.6e} "
-                  f"{CalcVD(self.kr, self.mh, nh3):18.6e} "
-                  f"{np.real(CalcPD(self.kr, self.mh, nh3)):18.6e}")
+            print(
+                f"{self.xxx:8d} Elec {np.sum(np.real(ne3)):18.6e} "
+                f"{np.max(np.real(ne3)):18.6e} {np.min(np.real(ne3)):18.6e} "
+                f"{CalcVD(self.kr, self.me, ne3):18.6e} "
+                f"{np.real(CalcPD(self.kr, self.me, ne3)):18.6e}"
+            )
+            print(
+                f"{self.xxx:8d} Hole {np.sum(np.real(nh3)):18.6e} "
+                f"{np.max(np.real(nh3)):18.6e} {np.min(np.real(nh3)):18.6e} "
+                f"{CalcVD(self.kr, self.mh, nh3):18.6e} "
+                f"{np.real(CalcPD(self.kr, self.mh, nh3)):18.6e}"
+            )
 
-        self.I0[w-1] = CalcI0(ne2, nh2, self.Ee, self.Eh, VC, self.dkr,
-                              self.kr, self.I0[w-1])
+        self.I0[w - 1] = CalcI0(
+            ne2, nh2, self.Ee, self.Eh, VC, self.dkr, self.kr, self.I0[w - 1]
+        )
 
-        os.makedirs('dataQW', exist_ok=True)
-        with open(f'dataQW/info.{w:02d}.t.dat', 'a', encoding='utf-8') as f:
-            f.write(f"{self.xxx*dt:18.6e} "
-                    f"{CalcVD(self.kr, self.me, ne2):18.6e} "
-                    f"{CalcVD(self.kr, self.mh, nh2):18.6e} "
-                    f"{np.real(2*np.sum(ne2)/self.L):18.6e} "
-                    f"{np.real(2*np.sum(nh2)/self.L):18.6e} "
-                    f"{TotalEnergy(ne2, self.Ee+self.gap)/e0:18.6e} "
-                    f"{TotalEnergy(nh2, self.Eh)/e0:18.6e} "
-                    f"{Temperature(ne2, self.Ee):18.6e} "
-                    f"{Temperature(nh2, self.Eh):18.6e} "
-                    f"{np.max(np.abs(Re)):18.6e} {np.max(np.abs(Rh)):18.6e} "
-                    f"{GetEDrift():18.6e} "
-                    f"{np.real(hbar*np.sum((ne2-nh2)*self.kr))*2.0:18.6e} "
-                    f"{np.real(hbar*np.sum(ne2*self.kr)):18.6e} "
-                    f"{np.real(-hbar*np.sum(nh2*self.kr)):18.6e} "
-                    f"{self.I0[w-1]:18.6e} "
-                    f"{CalcI0n(ne2, self.me, self.kr):18.6e} "
-                    f"{CalcI0n(1-nh2, -self.mh, self.kr):18.6e}\n")
+        os.makedirs("dataQW", exist_ok=True)
+        with open(f"dataQW/info.{w:02d}.t.dat", "a", encoding="utf-8") as f:
+            f.write(
+                f"{self.xxx*dt:18.6e} "
+                f"{CalcVD(self.kr, self.me, ne2):18.6e} "
+                f"{CalcVD(self.kr, self.mh, nh2):18.6e} "
+                f"{np.real(2*np.sum(ne2)/self.L):18.6e} "
+                f"{np.real(2*np.sum(nh2)/self.L):18.6e} "
+                f"{TotalEnergy(ne2, self.Ee+self.gap)/e0:18.6e} "
+                f"{TotalEnergy(nh2, self.Eh)/e0:18.6e} "
+                f"{Temperature(ne2, self.Ee):18.6e} "
+                f"{Temperature(nh2, self.Eh):18.6e} "
+                f"{np.max(np.abs(Re)):18.6e} {np.max(np.abs(Rh)):18.6e} "
+                f"{GetEDrift():18.6e} "
+                f"{np.real(hbar*np.sum((ne2-nh2)*self.kr))*2.0:18.6e} "
+                f"{np.real(hbar*np.sum(ne2*self.kr)):18.6e} "
+                f"{np.real(-hbar*np.sum(nh2*self.kr)):18.6e} "
+                f"{self.I0[w-1]:18.6e} "
+                f"{CalcI0n(ne2, self.me, self.kr):18.6e} "
+                f"{CalcI0n(1-nh2, -self.mh, self.kr):18.6e}\n"
+            )
 
         iFFTG(Ex)
         iFFTG(Ey)
@@ -5150,14 +5765,16 @@ class SBESolver:
         iFFTG(Py)
         iFFTG(Pz)
 
-        with open(f'dataQW/EP.{w:02d}.t.dat', 'a', encoding='utf-8') as f:
-            f.write(f"{self.xxx*dt:18.6e} "
-                    f"{np.real(Ex[self.Nr//2]):18.6e} "
-                    f"{np.real(Ey[self.Nr//2]):18.6e} "
-                    f"{np.real(Ez[self.Nr//2]):18.6e} "
-                    f"{np.real(Px[self.Nr//2]):18.6e} "
-                    f"{np.real(Py[self.Nr//2]):18.6e} "
-                    f"{np.real(Pz[self.Nr//2]):18.6e}\n")
+        with open(f"dataQW/EP.{w:02d}.t.dat", "a", encoding="utf-8") as f:
+            f.write(
+                f"{self.xxx*dt:18.6e} "
+                f"{np.real(Ex[self.Nr//2]):18.6e} "
+                f"{np.real(Ey[self.Nr//2]):18.6e} "
+                f"{np.real(Ez[self.Nr//2]):18.6e} "
+                f"{np.real(Px[self.Nr//2]):18.6e} "
+                f"{np.real(Py[self.Nr//2]):18.6e} "
+                f"{np.real(Pz[self.Nr//2]):18.6e}\n"
+            )
 
         FFTG(Ex)
         FFTG(Ey)
@@ -5172,8 +5789,9 @@ class SBESolver:
     # QWCalculator (public entry point per timestep)
     # ------------------------------------------------------------------
 
-    def QWCalculator(self, Exx, Eyy, Ezz, Vrr, rr, q, dt, w,
-                     Pxx, Pyy, Pzz, Rho, DoQWP, DoQWDl):
+    def QWCalculator(
+        self, Exx, Eyy, Ezz, Vrr, rr, q, dt, w, Pxx, Pyy, Pzz, Rho, DoQWP, DoQWDl
+    ):
         """Time-evolve quantum wire sources for Maxwell's equations."""
         Pxx[:] = 0.0 + 0.0j
         Pyy[:] = 0.0 + 0.0j
@@ -5194,7 +5812,9 @@ class SBESolver:
         if self.jjj == self.jmax:
             WriteFields = True
 
-        field_magnitude = np.max(np.sqrt(np.abs(Exx)**2 + np.abs(Eyy)**2 + np.abs(Ezz)**2))
+        field_magnitude = np.max(
+            np.sqrt(np.abs(Exx) ** 2 + np.abs(Eyy) ** 2 + np.abs(Ezz) ** 2)
+        )
 
         if self.wireoff and field_magnitude < 1e-3 * self.Emax0:
             return
@@ -5220,8 +5840,9 @@ class SBESolver:
         rh = np.zeros(self.Nr, dtype=complex)
 
         Edc0 = 0.0
-        self.qw.Prop2QW(rr, Exx, Eyy, Ezz, Vrr, Edc0, self.r, Ex, Ey, Ez, Vr,
-                        self.t, self.xxx)
+        self.qw.Prop2QW(
+            rr, Exx, Eyy, Ezz, Vrr, Edc0, self.r, Ex, Ey, Ez, Vr, self.t, self.xxx
+        )
 
         if self.debug1:
             Px = eps0 * 1.0 * Ex
@@ -5235,14 +5856,36 @@ class SBESolver:
         RhoE = np.zeros(len(rr), dtype=complex)
         RhoH = np.zeros(len(rr), dtype=complex)
 
-        self.qw.QW2Prop(self.r, self.Qr, Ex, Ey, Ez, Vr, Px, Py, Pz, re, rh, rr,
-                        Pxx, Pyy, Pzz, RhoE, RhoH, w, self.xxx, WriteFields, self.LF)
+        self.qw.QW2Prop(
+            self.r,
+            self.Qr,
+            Ex,
+            Ey,
+            Ez,
+            Vr,
+            Px,
+            Py,
+            Pz,
+            re,
+            rh,
+            rr,
+            Pxx,
+            Pyy,
+            Pzz,
+            RhoE,
+            RhoH,
+            w,
+            self.xxx,
+            WriteFields,
+            self.LF,
+        )
 
         Rho[:] = RhoH - RhoE
 
         if WriteFields:
-            WritePropFields(rr, Exx, Eyy, Ezz, Vrr, Pxx, Pyy, Pzz, RhoE, RhoH,
-                            'r', w, self.xxx)
+            WritePropFields(
+                rr, Exx, Eyy, Ezz, Vrr, Pxx, Pyy, Pzz, RhoE, RhoH, "r", w, self.xxx
+            )
 
         if self.Px0 is None:
             self.Px0 = np.zeros(len(Pxx))
@@ -5259,21 +5902,27 @@ class SBESolver:
             self.Pz1W = np.zeros(len(Pz))
             self.EPEnergy = 0.0
             self.EPEnergyW = 0.0
-            os.makedirs('output', exist_ok=True)
-            self.file_972 = open('output/PdotE.p.dat', 'w', encoding='utf-8')
-            self.file_973 = open('output/PdotE.w.dat', 'w', encoding='utf-8')
+            os.makedirs("output", exist_ok=True)
+            self.file_972 = open("output/PdotE.p.dat", "w", encoding="utf-8")
+            self.file_973 = open("output/PdotE.w.dat", "w", encoding="utf-8")
 
         drr = rr[1] - rr[0] if len(rr) > 1 else 1.0
 
         self.EPEnergy += (
-            np.sum((np.real(Pxx) - self.Px0) * np.real(Exx) * 0.5) * drr * self.area +
-            np.sum((np.real(Pyy) - self.Py0) * np.real(Eyy) * 0.5) * drr * self.area +
-            np.sum((np.real(Pzz) - self.Pz0) * np.real(Ezz) * 0.5) * drr * self.area)
+            np.sum((np.real(Pxx) - self.Px0) * np.real(Exx) * 0.5) * drr * self.area
+            + np.sum((np.real(Pyy) - self.Py0) * np.real(Eyy) * 0.5) * drr * self.area
+            + np.sum((np.real(Pzz) - self.Pz0) * np.real(Ezz) * 0.5) * drr * self.area
+        )
 
         self.EPEnergyW += (
-            np.sum((np.real(Px) - self.Px0W) * np.real(Ex) * 0.5) * self.dr * self.area +
-            np.sum((np.real(Py) - self.Py0W) * np.real(Ey) * 0.5) * self.dr * self.area +
-            np.sum((np.real(Pz) - self.Pz0W) * np.real(Ez) * 0.5) * self.dr * self.area)
+            np.sum((np.real(Px) - self.Px0W) * np.real(Ex) * 0.5) * self.dr * self.area
+            + np.sum((np.real(Py) - self.Py0W) * np.real(Ey) * 0.5)
+            * self.dr
+            * self.area
+            + np.sum((np.real(Pz) - self.Pz0W) * np.real(Ez) * 0.5)
+            * self.dr
+            * self.area
+        )
 
         self.Px0[:] = self.Px1
         self.Px1[:] = np.real(Pxx)
@@ -5289,10 +5938,10 @@ class SBESolver:
         self.Pz1W[:] = np.real(Pz)
 
         if self.file_972 is not None:
-            self.file_972.write(f'{self.t} {self.EPEnergy / e0}\n')
+            self.file_972.write(f"{self.t} {self.EPEnergy / e0}\n")
             self.file_972.flush()
         if self.file_973 is not None:
-            self.file_973.write(f'{self.t} {self.EPEnergyW / e0}\n')
+            self.file_973.write(f"{self.t} {self.EPEnergyW / e0}\n")
             self.file_973.flush()
 
         if self.ignorewire:
@@ -5331,11 +5980,13 @@ def InitializeSBE(q, rr, r0, Emaxxx, lam, Nw, QW):  # noqa: F811
     _default_solver = SBESolver(q, rr, r0, Emaxxx, lam, Nw, QW)
 
 
-def QWCalculator(Exx, Eyy, Ezz, Vrr, rr, q, dt, w,  # noqa: F811
-                 Pxx, Pyy, Pzz, Rho, DoQWP, DoQWDl):
+def QWCalculator(
+    Exx, Eyy, Ezz, Vrr, rr, q, dt, w, Pxx, Pyy, Pzz, Rho, DoQWP, DoQWDl  # noqa: F811
+):
     """Backward-compatible shim — delegates to _default_solver."""
-    _default_solver.QWCalculator(Exx, Eyy, Ezz, Vrr, rr, q, dt, w,
-                                 Pxx, Pyy, Pzz, Rho, DoQWP, DoQWDl)
+    _default_solver.QWCalculator(
+        Exx, Eyy, Ezz, Vrr, rr, q, dt, w, Pxx, Pyy, Pzz, Rho, DoQWP, DoQWDl
+    )
 
 
 def chiqw():  # noqa: F811
