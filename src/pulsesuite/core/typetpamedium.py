@@ -61,8 +61,17 @@ class tpas:
         sigItpa     : np.ndarray[dp]         # intensity-dependent TPA cross-section (m^4/W)
         tpa_material: str                    # name of the TPA material
     """
+
     __slots__ = (
-        'medium', 'conc', 'levels', 'r', 'sigspa', 'sigIspa', 'sigtpa', 'sigItpa', 'tpa_material'
+        "medium",
+        "conc",
+        "levels",
+        "r",
+        "sigspa",
+        "sigIspa",
+        "sigtpa",
+        "sigItpa",
+        "tpa_material",
     )
 
     def __init__(
@@ -75,17 +84,29 @@ class tpas:
         sigIspa: np.ndarray | None = None,
         sigtpa: np.ndarray | None = None,
         sigItpa: np.ndarray | None = None,
-        tpa_material: str = ""
+        tpa_material: str = "",
     ) -> None:
         self.medium = medium.copy() if medium else nlms()
         self.conc = dp(conc)
         self.levels = int(levels)
         shape = (TPA_MAX_LEVELS, TPA_MAX_LEVELS)
         self.r = np.zeros(shape, dtype=dp) if r is None else np.array(r, dtype=dp)
-        self.sigspa = np.zeros(shape, dtype=dp) if sigspa is None else np.array(sigspa, dtype=dp)
-        self.sigIspa = np.zeros((TPA_MAX_LEVELS,), dtype=dp) if sigIspa is None else np.array(sigIspa, dtype=dp)
-        self.sigtpa = np.zeros(shape, dtype=dp) if sigtpa is None else np.array(sigtpa, dtype=dp)
-        self.sigItpa = np.zeros((TPA_MAX_LEVELS,), dtype=dp) if sigItpa is None else np.array(sigItpa, dtype=dp)
+        self.sigspa = (
+            np.zeros(shape, dtype=dp) if sigspa is None else np.array(sigspa, dtype=dp)
+        )
+        self.sigIspa = (
+            np.zeros((TPA_MAX_LEVELS,), dtype=dp)
+            if sigIspa is None
+            else np.array(sigIspa, dtype=dp)
+        )
+        self.sigtpa = (
+            np.zeros(shape, dtype=dp) if sigtpa is None else np.array(sigtpa, dtype=dp)
+        )
+        self.sigItpa = (
+            np.zeros((TPA_MAX_LEVELS,), dtype=dp)
+            if sigItpa is None
+            else np.array(sigItpa, dtype=dp)
+        )
         self.tpa_material = tpa_material
 
     def copy(self) -> tpas:
@@ -199,43 +220,43 @@ class tpas:
 
     @property
     def relax(self) -> np.ndarray:
-        return self.r[:self.levels, :self.levels].copy()
+        return self.r[: self.levels, : self.levels].copy()
 
     @relax.setter
     def relax(self, arr: np.ndarray) -> None:
-        self.r[:self.levels, :self.levels] = arr[:self.levels, :self.levels]
+        self.r[: self.levels, : self.levels] = arr[: self.levels, : self.levels]
 
     @property
     def spa(self) -> np.ndarray:
-        return self.sigspa[:self.levels, :self.levels].copy()
+        return self.sigspa[: self.levels, : self.levels].copy()
 
     @spa.setter
     def spa(self, arr: np.ndarray) -> None:
-        self.sigspa[:self.levels, :self.levels] = arr[:self.levels, :self.levels]
+        self.sigspa[: self.levels, : self.levels] = arr[: self.levels, : self.levels]
 
     @property
     def spai(self) -> np.ndarray:
-        return self.sigIspa[:self.levels].copy()
+        return self.sigIspa[: self.levels].copy()
 
     @spai.setter
     def spai(self, arr: np.ndarray) -> None:
-        self.sigIspa[:self.levels] = arr[:self.levels]
+        self.sigIspa[: self.levels] = arr[: self.levels]
 
     @property
     def tpa(self) -> np.ndarray:
-        return self.sigtpa[:self.levels, :self.levels].copy()
+        return self.sigtpa[: self.levels, : self.levels].copy()
 
     @tpa.setter
     def tpa(self, arr: np.ndarray) -> None:
-        self.sigtpa[:self.levels, :self.levels] = arr[:self.levels, :self.levels]
+        self.sigtpa[: self.levels, : self.levels] = arr[: self.levels, : self.levels]
 
     @property
     def tpai(self) -> np.ndarray:
-        return self.sigItpa[:self.levels].copy()
+        return self.sigItpa[: self.levels].copy()
 
     @tpai.setter
     def tpai(self, arr: np.ndarray) -> None:
-        self.sigItpa[:self.levels] = arr[:self.levels]
+        self.sigItpa[: self.levels] = arr[: self.levels]
 
     @property
     def material(self) -> str:
@@ -268,162 +289,197 @@ class tpas:
 # Accessor functions (getters/setters) mirroring Fortran subroutines
 # -----------------------------------------------------------------------------
 
+
 @with_guardrails
 def GetLength_tpas(tpa: tpas) -> Annotated[float, dp]:
     return GetLength_nlms(tpa.medium)
+
 
 @with_guardrails
 def SetLength_tpas(tpa: tpas, L: Annotated[float, dp]) -> None:
     SetLength_nlms(tpa.medium, L)
 
+
 @with_guardrails
 def GetNz_tpas(tpa: tpas) -> int:
     return GetNz_nlms(tpa.medium)
+
 
 @with_guardrails
 def SetNz_tpas(tpa: tpas, N: int) -> None:
     SetNz_nlms(tpa.medium, N)
 
+
 @with_guardrails
 def GetDz_tpas(tpa: tpas) -> Annotated[float, dp]:
     return GetDz_nlms(tpa.medium)
+
 
 @with_guardrails
 def SetDz_tpas(tpa: tpas, Dz: Annotated[float, dp]) -> None:
     SetDz_nlms(tpa.medium, Dz)
 
+
 @with_guardrails
 def GetN0_tpas(tpa: tpas) -> Annotated[float, dp]:
     return GetN0_nlms(tpa.medium)
+
 
 @with_guardrails
 def SetN0_tpas(tpa: tpas, n0: Annotated[float, dp]) -> None:
     SetN0_nlms(tpa.medium, n0)
 
+
 @with_guardrails
 def GetK2_tpas(tpa: tpas) -> Annotated[float, dp]:
     return GetK2_nlms(tpa.medium)
+
 
 @with_guardrails
 def SetK2_tpas(tpa: tpas, k2: Annotated[float, dp]) -> None:
     SetK2_nlms(tpa.medium, k2)
 
+
 @with_guardrails
 def GetK1_tpas(tpa: tpas) -> Annotated[float, dp]:
     return GetK1_nlms(tpa.medium)
+
 
 @with_guardrails
 def SetK1_tpas(tpa: tpas, k1: Annotated[float, dp]) -> None:
     SetK1_nlms(tpa.medium, k1)
 
+
 @with_guardrails
 def GetN2I_tpas(tpa: tpas) -> Annotated[float, dp]:
     return GetN2I_nlms(tpa.medium)
+
 
 @with_guardrails
 def SetN2I_tpas(tpa: tpas, n2: Annotated[float, dp]) -> None:
     SetN2I_nlms(tpa.medium, n2)
 
+
 @with_guardrails
 def GetBeta_tpas(tpa: tpas) -> Annotated[float, dp]:
     return GetBeta_nlms(tpa.medium)
+
 
 @with_guardrails
 def SetBeta_tpas(tpa: tpas, beta: Annotated[float, dp]) -> None:
     SetBeta_nlms(tpa.medium, beta)
 
+
 @with_guardrails
 def GetAlpha_tpas(tpa: tpas) -> Annotated[float, dp]:
     return GetAlpha_nlms(tpa.medium)
+
 
 @with_guardrails
 def SetAlpha_tpas(tpa: tpas, alpha: Annotated[float, dp]) -> None:
     SetAlpha_nlms(tpa.medium, alpha)
 
+
 @with_guardrails
 def GetConcentration_tpas(tpa: tpas) -> Annotated[float, dp]:
     return tpa.conc
+
 
 @with_guardrails
 def SetConcentration_tpas(tpa: tpas, conc: Annotated[float, dp]) -> None:
     tpa.conc = conc
 
+
 @with_guardrails
 def GetLevels_tpas(tpa: tpas) -> int:
     return tpa.levels
+
 
 @with_guardrails
 def SetLevels_tpas(tpa: tpas, levels: int) -> None:
     tpa.levels = levels
 
+
 @with_guardrails
 def GetRelax_tpas(tpa: tpas) -> np.ndarray:
-    return tpa.r[:tpa.levels, :tpa.levels].copy()
+    return tpa.r[: tpa.levels, : tpa.levels].copy()
+
 
 @with_guardrails
 def SetRelax_tpas(tpa: tpas, r: np.ndarray) -> None:
-    tpa.r[:tpa.levels, :tpa.levels] = r[:tpa.levels, :tpa.levels]
+    tpa.r[: tpa.levels, : tpa.levels] = r[: tpa.levels, : tpa.levels]
+
 
 @with_guardrails
 def GetSigSpa_tpas(tpa: tpas) -> np.ndarray:
-    return tpa.sigspa[:tpa.levels, :tpa.levels].copy()
+    return tpa.sigspa[: tpa.levels, : tpa.levels].copy()
+
 
 @with_guardrails
 def SetSigSpa_tpas(tpa: tpas, sig: np.ndarray) -> None:
-    tpa.sigspa[:tpa.levels, :tpa.levels] = sig[:tpa.levels, :tpa.levels]
+    tpa.sigspa[: tpa.levels, : tpa.levels] = sig[: tpa.levels, : tpa.levels]
+
 
 @with_guardrails
 def GetSigSpaI_tpas(tpa: tpas) -> np.ndarray:
-    return tpa.sigIspa[:tpa.levels].copy()
+    return tpa.sigIspa[: tpa.levels].copy()
+
 
 @with_guardrails
 def SetSigSpaI_tpas(tpa: tpas, sig: np.ndarray) -> None:
-    tpa.sigIspa[:tpa.levels] = sig[:tpa.levels]
+    tpa.sigIspa[: tpa.levels] = sig[: tpa.levels]
+
 
 @with_guardrails
 def GetSigTpa_tpas(tpa: tpas) -> np.ndarray:
-    return tpa.sigtpa[:tpa.levels, :tpa.levels].copy()
+    return tpa.sigtpa[: tpa.levels, : tpa.levels].copy()
+
 
 @with_guardrails
 def SetSigTpa_tpas(tpa: tpas, sigtpa: np.ndarray) -> None:
-    tpa.sigtpa[:tpa.levels, :tpa.levels] = sigtpa[:tpa.levels, :tpa.levels]
+    tpa.sigtpa[: tpa.levels, : tpa.levels] = sigtpa[: tpa.levels, : tpa.levels]
+
 
 @with_guardrails
 def GetSigTpaI_tpas(tpa: tpas) -> np.ndarray:
-    return tpa.sigItpa[:tpa.levels].copy()
+    return tpa.sigItpa[: tpa.levels].copy()
+
 
 @with_guardrails
 def SetSigTpaI_tpas(tpa: tpas, sig: np.ndarray) -> None:
-    tpa.sigItpa[:tpa.levels] = sig[:tpa.levels]
+    tpa.sigItpa[: tpa.levels] = sig[: tpa.levels]
+
 
 @with_guardrails
 def GetMaterial_tpas(tpa: tpas) -> str:
     base = GetMaterial_nlms(tpa.medium)
     return f"{tpa.tpa_material.strip()}:{base}"
 
+
 @with_guardrails
 def SetMaterial_tpas(tpa: tpas, mat: str, tpa_mat: str) -> None:
     SetMaterial_nlms(tpa.medium, mat)
     tpa.tpa_material = tpa_mat
 
+
 @with_guardrails
 def GetWavelength_tpas(tpa: tpas) -> Annotated[float, dp]:
     return GetWavelength_nlms(tpa.medium)
+
 
 @with_guardrails
 def SetWavelength_tpas(tpa: tpas, lam: Annotated[float, dp]) -> None:
     SetWavelength_nlms(tpa.medium, lam)
 
+
 @with_guardrails
 def GetMedium_tpas(tpa: tpas) -> nlms:
     return tpa.medium.copy()
 
+
 @with_guardrails
 def SetMedium_tpas(tpa: tpas, medium: nlms) -> None:
     tpa.medium = medium.copy()
-
-
-
 
 
 # Doesnt talk with readmediumparams because its not being used change the file I/O of readmediumparams to match rb+
@@ -446,6 +502,7 @@ def writetpaparams(cmd: Union[str, Path], tpa: tpas) -> None:
         tpa.sigtpa[:n, :n].tofile(f)
         tpa.sigItpa[:n].tofile(f)
 
+
 @with_guardrails
 def readtpaparams(cmd: Union[str, Path], tpa: tpas) -> None:
     """
@@ -458,23 +515,24 @@ def readtpaparams(cmd: Union[str, Path], tpa: tpas) -> None:
         tpa.levels = int(np.fromfile(f, dtype=np.int32, count=1)[0])
         n = tpa.levels
         # matrices & vectors
-        tpa.r[:n, :n]      = np.fromfile(f, dtype=dp, count=n*n).reshape(n, n)
-        tpa.sigspa[:n, :n] = np.fromfile(f, dtype=dp, count=n*n).reshape(n, n)
-        tpa.sigIspa[:n]    = np.fromfile(f, dtype=dp, count=n)
-        tpa.sigtpa[:n, :n] = np.fromfile(f, dtype=dp, count=n*n).reshape(n, n)
-        tpa.sigItpa[:n]    = np.fromfile(f, dtype=dp, count=n)
+        tpa.r[:n, :n] = np.fromfile(f, dtype=dp, count=n * n).reshape(n, n)
+        tpa.sigspa[:n, :n] = np.fromfile(f, dtype=dp, count=n * n).reshape(n, n)
+        tpa.sigIspa[:n] = np.fromfile(f, dtype=dp, count=n)
+        tpa.sigtpa[:n, :n] = np.fromfile(f, dtype=dp, count=n * n).reshape(n, n)
+        tpa.sigItpa[:n] = np.fromfile(f, dtype=dp, count=n)
+
 
 def memmap_matrix(
-    cmd: Union[str, Path],
-    offset_bytes: int,
-    shape: tuple[int, int]
+    cmd: Union[str, Path], offset_bytes: int, shape: tuple[int, int]
 ) -> np.memmap:
     """
     Generic helper: memory-map a 2D float64 block out of a binary file.
     Example: after conc+levels header, r starts at byte offset = 8+4.
     """
-    return np.memmap(cmd, dtype=dp, mode="r", offset=offset_bytes,
-                     shape=shape, order="C")
+    return np.memmap(
+        cmd, dtype=dp, mode="r", offset=offset_bytes, shape=shape, order="C"
+    )
+
 
 # # -----------------------------------------------------------------------------
 # # Pythonic File I/O routines with original submodule names (for writing txt?)
@@ -560,7 +618,6 @@ def memmap_matrix(
 #     writetpaparams_sub(sys.stdout, tpa)
 
 # End of module
-
 
 
 # # -----------------------------------------------------------------------------
@@ -650,4 +707,3 @@ def memmap_matrix(
 #     writetpaparams_sub(sys.stdout, tpa)
 
 # # End of module
-

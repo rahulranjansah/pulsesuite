@@ -96,7 +96,9 @@ class TestFf0:
         T = 300.0  # K
         m = 0.067 * 9.109e-31
         result = epsrtl.ff0(E, T, m)
-        expected = epsrtl._n00 * np.sqrt(hbar**2 / twopi / m / kB / T) * np.exp(-E / kB / T)
+        expected = (
+            epsrtl._n00 * np.sqrt(hbar**2 / twopi / m / kB / T) * np.exp(-E / kB / T)
+        )
         assert np.allclose(result, expected, rtol=1e-10, atol=1e-10)
 
     def test_ff0_array(self):
@@ -105,7 +107,9 @@ class TestFf0:
         T = 300.0
         m = 0.067 * 9.109e-31
         result = epsrtl.ff0(E, T, m)
-        expected = epsrtl._n00 * np.sqrt(hbar**2 / twopi / m / kB / T) * np.exp(-E / kB / T)
+        expected = (
+            epsrtl._n00 * np.sqrt(hbar**2 / twopi / m / kB / T) * np.exp(-E / kB / T)
+        )
         assert np.allclose(result, expected, rtol=1e-10, atol=1e-10)
 
     def test_ff0_zero_energy(self):
@@ -211,7 +215,12 @@ class TestAtanJG:
         # Handle potential NaN/inf from log of complex numbers
         if np.isnan(result) or np.isinf(result):
             # Check if expected is also NaN/inf (acceptable for edge cases)
-            assert np.isnan(expected) or np.isinf(expected) or np.isnan(result) or np.isinf(result)
+            assert (
+                np.isnan(expected)
+                or np.isinf(expected)
+                or np.isnan(result)
+                or np.isinf(result)
+            )
         else:
             assert np.allclose(result, expected, rtol=1e-10, atol=1e-10)
 
@@ -230,7 +239,9 @@ class TestAtanJG:
         # Handle potential NaN/inf from log of complex numbers
         finite_mask = np.isfinite(result) & np.isfinite(expected)
         if np.any(finite_mask):
-            assert np.allclose(result[finite_mask], expected[finite_mask], rtol=1e-10, atol=1e-10)
+            assert np.allclose(
+                result[finite_mask], expected[finite_mask], rtol=1e-10, atol=1e-10
+            )
         # For NaN/inf cases, just check that both are NaN/inf
         assert True
 
@@ -291,7 +302,9 @@ class TestPiT:
         """Test PiT with basic inputs."""
         q = 1e7
         w = 1e15  # Hz
-        result = epsrtl.PiT(q, w, self.me, self.mh, self.Te, self.Th, self.dk, self.Ek, self.Ekq)
+        result = epsrtl.PiT(
+            q, w, self.me, self.mh, self.Te, self.Th, self.dk, self.Ek, self.Ekq
+        )
         assert isinstance(result, complex)
         assert np.isfinite(result)
 
@@ -299,15 +312,21 @@ class TestPiT:
         """Test PiT with zero frequency."""
         q = 1e7
         w = 0.0
-        result = epsrtl.PiT(q, w, self.me, self.mh, self.Te, self.Th, self.dk, self.Ek, self.Ekq)
+        result = epsrtl.PiT(
+            q, w, self.me, self.mh, self.Te, self.Th, self.dk, self.Ek, self.Ekq
+        )
         assert np.isfinite(result)
 
     def test_pit_different_temperatures(self):
         """Test PiT with different temperatures."""
         q = 1e7
         w = 1e15
-        result1 = epsrtl.PiT(q, w, self.me, self.mh, 100.0, 100.0, self.dk, self.Ek, self.Ekq)
-        result2 = epsrtl.PiT(q, w, self.me, self.mh, 1000.0, 1000.0, self.dk, self.Ek, self.Ekq)
+        result1 = epsrtl.PiT(
+            q, w, self.me, self.mh, 100.0, 100.0, self.dk, self.Ek, self.Ekq
+        )
+        result2 = epsrtl.PiT(
+            q, w, self.me, self.mh, 1000.0, 1000.0, self.dk, self.Ek, self.Ekq
+        )
         assert np.isfinite(result1)
         assert np.isfinite(result2)
 
@@ -468,12 +487,12 @@ class TestZeroT_L:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire', exist_ok=True)
+            os.makedirs("dataQW/Wire", exist_ok=True)
 
             try:
-                epsrtl.ZeroT_L('E', self.m, self.qy, self.kf)
+                epsrtl.ZeroT_L("E", self.m, self.qy, self.kf)
                 # Check that file was created
-                assert os.path.exists('dataQW/Wire/ChiL.E.dat')
+                assert os.path.exists("dataQW/Wire/ChiL.E.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -482,12 +501,12 @@ class TestZeroT_L:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire', exist_ok=True)
+            os.makedirs("dataQW/Wire", exist_ok=True)
 
             try:
-                epsrtl.ZeroT_L('H', self.m, self.qy, self.kf)
+                epsrtl.ZeroT_L("H", self.m, self.qy, self.kf)
                 # Check that file was created
-                assert os.path.exists('dataQW/Wire/ChiL.H.dat')
+                assert os.path.exists("dataQW/Wire/ChiL.H.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -496,13 +515,13 @@ class TestZeroT_L:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire', exist_ok=True)
+            os.makedirs("dataQW/Wire", exist_ok=True)
 
             try:
                 for Nk in [16, 32, 64]:
                     qy = np.linspace(1e6, 1e7, Nk)
-                    epsrtl.ZeroT_L('E', self.m, qy, self.kf)
-                    assert os.path.exists('dataQW/Wire/ChiL.E.dat')
+                    epsrtl.ZeroT_L("E", self.m, qy, self.kf)
+                    assert os.path.exists("dataQW/Wire/ChiL.E.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -526,12 +545,12 @@ class TestZeroT_T:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire', exist_ok=True)
+            os.makedirs("dataQW/Wire", exist_ok=True)
 
             try:
                 epsrtl.ZeroT_T(self.me, self.mh, self.Egap, self.dcv, self.qy, self.kf)
                 # Check that file was created
-                assert os.path.exists('dataQW/Wire/ChiT.dat')
+                assert os.path.exists("dataQW/Wire/ChiT.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -540,13 +559,13 @@ class TestZeroT_T:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire', exist_ok=True)
+            os.makedirs("dataQW/Wire", exist_ok=True)
 
             try:
                 for Nk in [16, 32, 64]:
                     qy = np.linspace(1e6, 1e7, Nk)
                     epsrtl.ZeroT_T(self.me, self.mh, self.Egap, self.dcv, qy, self.kf)
-                    assert os.path.exists('dataQW/Wire/ChiT.dat')
+                    assert os.path.exists("dataQW/Wire/ChiT.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -571,12 +590,14 @@ class TestQqGq:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire', exist_ok=True)
+            os.makedirs("dataQW/Wire", exist_ok=True)
 
             try:
-                epsrtl.QqGq(self.ky, self.Nk, self.dk, self.dw, self.EpsR, self.EpsI, 'E')
+                epsrtl.QqGq(
+                    self.ky, self.Nk, self.dk, self.dw, self.EpsR, self.EpsI, "E"
+                )
                 # Check that file was created (function writes to Omega_qp.{eh}.dat)
-                assert os.path.exists('dataQW/Wire/Omega_qp.E.dat')
+                assert os.path.exists("dataQW/Wire/Omega_qp.E.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -585,7 +606,7 @@ class TestQqGq:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire', exist_ok=True)
+            os.makedirs("dataQW/Wire", exist_ok=True)
 
             try:
                 for Nk in [16, 32, 64]:
@@ -595,8 +616,8 @@ class TestQqGq:
                     Nw = epsrtl._Nw
                     EpsR = np.random.random((Nk, 2 * Nw + 1))
                     EpsI = np.random.random((Nk, 2 * Nw + 1))
-                    epsrtl.QqGq(ky, Nk, dk, self.dw, EpsR, EpsI, 'H')
-                    assert os.path.exists('dataQW/Wire/Omega_qp.H.dat')
+                    epsrtl.QqGq(ky, Nk, dk, self.dw, EpsR, EpsI, "H")
+                    assert os.path.exists("dataQW/Wire/Omega_qp.H.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -620,12 +641,12 @@ class TestRecordEpsrT:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire', exist_ok=True)
+            os.makedirs("dataQW/Wire", exist_ok=True)
 
             try:
                 epsrtl.RecordEpsrT(self.Te, self.Th, self.me, self.mh, self.Eg, self.ky)
                 # Check that file was created
-                assert os.path.exists('dataQW/Wire/EpsT.dat')
+                assert os.path.exists("dataQW/Wire/EpsT.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -634,13 +655,13 @@ class TestRecordEpsrT:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire', exist_ok=True)
+            os.makedirs("dataQW/Wire", exist_ok=True)
 
             try:
                 for Nk in [16, 32, 64]:
                     ky = np.linspace(-1e7, 1e7, Nk)
                     epsrtl.RecordEpsrT(self.Te, self.Th, self.me, self.mh, self.Eg, ky)
-                    assert os.path.exists('dataQW/Wire/EpsT.dat')
+                    assert os.path.exists("dataQW/Wire/EpsT.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -663,12 +684,12 @@ class TestRecordEpsrL:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire', exist_ok=True)
+            os.makedirs("dataQW/Wire", exist_ok=True)
 
             try:
                 epsrtl.RecordEpsrL(self.Te, self.Th, self.me, self.mh, self.ky)
                 # Check that file was created
-                assert os.path.exists('dataQW/Wire/EpsL.dat')
+                assert os.path.exists("dataQW/Wire/EpsL.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -677,13 +698,13 @@ class TestRecordEpsrL:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire', exist_ok=True)
+            os.makedirs("dataQW/Wire", exist_ok=True)
 
             try:
                 for Nk in [16, 32, 64]:
                     ky = np.linspace(-1e7, 1e7, Nk)
                     epsrtl.RecordEpsrL(self.Te, self.Th, self.me, self.mh, ky)
-                    assert os.path.exists('dataQW/Wire/EpsL.dat')
+                    assert os.path.exists("dataQW/Wire/EpsL.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -703,12 +724,12 @@ class TestRecordEpsrL_T0:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire', exist_ok=True)
+            os.makedirs("dataQW/Wire", exist_ok=True)
 
             try:
                 epsrtl.RecordEpsrL_T0(self.me, self.ky)
                 # Check that file was created (function writes to EpsL.dat, not EpsL_T0.dat)
-                assert os.path.exists('dataQW/Wire/EpsL.dat')
+                assert os.path.exists("dataQW/Wire/EpsL.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -717,13 +738,13 @@ class TestRecordEpsrL_T0:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire', exist_ok=True)
+            os.makedirs("dataQW/Wire", exist_ok=True)
 
             try:
                 for Nk in [16, 32, 64]:
                     ky = np.linspace(-1e7, 1e7, Nk)
                     epsrtl.RecordEpsrL_T0(self.me, ky)
-                    assert os.path.exists('dataQW/Wire/EpsL.dat')
+                    assert os.path.exists("dataQW/Wire/EpsL.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -761,7 +782,9 @@ class TestIntegration:
         Ekq = epsrtl.Eng(self.me, self.ky)
 
         # Test PiT
-        PiT_result = epsrtl.PiT(1e7, 1e15, self.me, self.mh, self.Te, self.Th, dk, Ek, Ekq)
+        PiT_result = epsrtl.PiT(
+            1e7, 1e15, self.me, self.mh, self.Te, self.Th, dk, Ek, Ekq
+        )
         assert np.isfinite(PiT_result)
 
         # Test PiL
@@ -793,21 +816,21 @@ class TestIntegration:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire', exist_ok=True)
+            os.makedirs("dataQW/Wire", exist_ok=True)
 
             try:
                 # Record transverse permittivity
                 epsrtl.RecordEpsrT(self.Te, self.Th, self.me, self.mh, self.Eg, self.ky)
-                assert os.path.exists('dataQW/Wire/EpsT.dat')
+                assert os.path.exists("dataQW/Wire/EpsT.dat")
 
                 # Record longitudinal permittivity
                 epsrtl.RecordEpsrL(self.Te, self.Th, self.me, self.mh, self.ky)
-                assert os.path.exists('dataQW/Wire/EpsL.dat')
+                assert os.path.exists("dataQW/Wire/EpsL.dat")
 
                 # Record zero temperature longitudinal permittivity
                 # Note: RecordEpsrL_T0 writes to EpsL.dat, not EpsL_T0.dat
                 epsrtl.RecordEpsrL_T0(self.me, self.ky)
-                assert os.path.exists('dataQW/Wire/EpsL.dat')
+                assert os.path.exists("dataQW/Wire/EpsL.dat")
             finally:
                 os.chdir(old_cwd)
 
@@ -824,9 +847,10 @@ class TestIntegration:
         assert Ekq.shape == (Nk,)
 
         # Polarization calculations
-        PiT_result = epsrtl.PiT(1e7, 1e15, self.me, self.mh, self.Te, self.Th, dk, Ek, Ekq)
+        PiT_result = epsrtl.PiT(
+            1e7, 1e15, self.me, self.mh, self.Te, self.Th, dk, Ek, Ekq
+        )
         assert np.isfinite(PiT_result)
 
         PiL_result = epsrtl.PiL(1e7, 1e15, self.me, self.Te, dk, Ek, Ekq)
         assert np.isfinite(PiL_result)
-

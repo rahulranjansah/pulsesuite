@@ -38,13 +38,15 @@ def _CalcNextP_jit(E_size1, E_size2, osc, P1, P2, E, dt, gam, w, B, eps0_val):
 
     for n in range(osc):
         f1[n] = -(1.0 - gam[n] * dt) / (gam[n] * dt + 1.0)
-        f2[n] = (2.0 - w[n]**2 * dt**2) / (gam[n] * dt + 1.0)
-        f3[n] = (B[n] * w[n]**2 * dt**2) / (gam[n] * dt + 1.0) * eps0_val
+        f2[n] = (2.0 - w[n] ** 2 * dt**2) / (gam[n] * dt + 1.0)
+        f3[n] = (B[n] * w[n] ** 2 * dt**2) / (gam[n] * dt + 1.0) * eps0_val
 
     for n in range(osc):
         for j in range(E_size2):
             for i in range(E_size1):
-                CalcNextP[i, j, n] = f1[n] * P1[i, j, n] + f2[n] * P2[i, j, n] + f3[n] * E[i, j]
+                CalcNextP[i, j, n] = (
+                    f1[n] * P1[i, j, n] + f2[n] * P2[i, j, n] + f3[n] * E[i, j]
+                )
 
     return CalcNextP
 
@@ -136,7 +138,7 @@ class HostMaterial:
         self._N2 = 0
 
         # Material name
-        self._material = 'AlAs'
+        self._material = "AlAs"
 
         # Time-stepped polarization arrays
         self._Px_before = None
@@ -179,13 +181,13 @@ class HostMaterial:
         self._lambda0 = lam
 
         mat_trimmed = mat.strip()
-        if mat_trimmed == 'AlAs':
+        if mat_trimmed == "AlAs":
             self.SetParamsAlAs()
-        elif mat_trimmed == 'fsil':
+        elif mat_trimmed == "fsil":
             self.SetParamsSilica()
-        elif mat_trimmed == 'GaAs':
+        elif mat_trimmed == "GaAs":
             self.SetParamsGaAs()
-        elif mat_trimmed == 'none':
+        elif mat_trimmed == "none":
             self.SetParamsNone()
         else:
             print(f"ERROR: Host Material = {mat} Is Not Included In phost.f90 Code")
@@ -269,8 +271,12 @@ class HostMaterial:
 
         self._Nf = self._B * self._w**2 * eps0_val * me0_val / self._q**2
 
-        self._epsr_0 = self._A0 + np.sum(self._B * self._lambda0**2 / (self._lambda0**2 - self._C))
-        self._epsr_infty = self._A0 + np.sum(self._B * self._lambda0**2 / (self._lambda0**2 - self._C))
+        self._epsr_0 = self._A0 + np.sum(
+            self._B * self._lambda0**2 / (self._lambda0**2 - self._C)
+        )
+        self._epsr_infty = self._A0 + np.sum(
+            self._B * self._lambda0**2 / (self._lambda0**2 - self._C)
+        )
 
     def SetParamsGaAs(self):
         """Set material parameters for GaAs (Sellmeier coefficients)."""
@@ -294,8 +300,12 @@ class HostMaterial:
 
         self._Nf = self._B * self._w**2 * eps0_val * me0_val / self._q**2
 
-        self._epsr_0 = self._A0 + np.sum(self._B * self._lambda0**2 / (self._lambda0**2 - self._C))
-        self._epsr_infty = self._A0 + np.sum(self._B * self._lambda0**2 / (self._lambda0**2 - self._C))
+        self._epsr_0 = self._A0 + np.sum(
+            self._B * self._lambda0**2 / (self._lambda0**2 - self._C)
+        )
+        self._epsr_infty = self._A0 + np.sum(
+            self._B * self._lambda0**2 / (self._lambda0**2 - self._C)
+        )
 
     def SetParamsAlAs(self):
         """Set material parameters for AlAs (Sellmeier coefficients)."""
@@ -352,11 +362,27 @@ class HostMaterial:
         Computes the host material polarization response using a
         time-stepping scheme.  Modifies Px, Py in-place.
         """
-        self._Px_before = self._Px_now.copy() if self._Px_now is not None else np.zeros((Ex.shape[0], Ex.shape[1], self._osc), dtype=complex)
-        self._Py_before = self._Py_now.copy() if self._Py_now is not None else np.zeros((Ey.shape[0], Ey.shape[1], self._osc), dtype=complex)
+        self._Px_before = (
+            self._Px_now.copy()
+            if self._Px_now is not None
+            else np.zeros((Ex.shape[0], Ex.shape[1], self._osc), dtype=complex)
+        )
+        self._Py_before = (
+            self._Py_now.copy()
+            if self._Py_now is not None
+            else np.zeros((Ey.shape[0], Ey.shape[1], self._osc), dtype=complex)
+        )
 
-        self._Px_now = self._Px_after.copy() if self._Px_after is not None else np.zeros((Ex.shape[0], Ex.shape[1], self._osc), dtype=complex)
-        self._Py_now = self._Py_after.copy() if self._Py_after is not None else np.zeros((Ey.shape[0], Ey.shape[1], self._osc), dtype=complex)
+        self._Px_now = (
+            self._Px_after.copy()
+            if self._Px_after is not None
+            else np.zeros((Ex.shape[0], Ex.shape[1], self._osc), dtype=complex)
+        )
+        self._Py_now = (
+            self._Py_after.copy()
+            if self._Py_after is not None
+            else np.zeros((Ey.shape[0], Ey.shape[1], self._osc), dtype=complex)
+        )
 
         self._Px_after = self.CalcNextP(self._Px_before, self._Px_now, Ex, dt)
         self._Py_after = self.CalcNextP(self._Py_before, self._Py_now, Ey, dt)
@@ -376,14 +402,30 @@ class HostMaterial:
 
         Modifies Px, Py in-place.
         """
-        self._Px_before = self._Px_now.copy() if self._Px_now is not None else np.zeros((Ex.shape[0], Ex.shape[1], self._osc), dtype=complex)
-        self._Py_before = self._Py_now.copy() if self._Py_now is not None else np.zeros((Ey.shape[0], Ey.shape[1], self._osc), dtype=complex)
+        self._Px_before = (
+            self._Px_now.copy()
+            if self._Px_now is not None
+            else np.zeros((Ex.shape[0], Ex.shape[1], self._osc), dtype=complex)
+        )
+        self._Py_before = (
+            self._Py_now.copy()
+            if self._Py_now is not None
+            else np.zeros((Ey.shape[0], Ey.shape[1], self._osc), dtype=complex)
+        )
 
         if m > 2:
-            self._Px_now = self._Px_after.copy() if self._Px_after is not None else np.zeros((Ex.shape[0], Ex.shape[1], self._osc), dtype=complex)
+            self._Px_now = (
+                self._Px_after.copy()
+                if self._Px_after is not None
+                else np.zeros((Ex.shape[0], Ex.shape[1], self._osc), dtype=complex)
+            )
             self._Px_after = self.CalcNextP(self._Px_before, self._Px_now, Ex, dt)
 
-            self._Py_now = self._Py_after.copy() if self._Py_after is not None else np.zeros((Ey.shape[0], Ey.shape[1], self._osc), dtype=complex)
+            self._Py_now = (
+                self._Py_after.copy()
+                if self._Py_after is not None
+                else np.zeros((Ey.shape[0], Ey.shape[1], self._osc), dtype=complex)
+            )
             self._Py_after = self.CalcNextP(self._Py_before, self._Py_now, Ey, dt)
 
             epsb = self._A0
@@ -417,8 +459,19 @@ class HostMaterial:
         E_size1, E_size2 = E.shape
 
         try:
-            return _CalcNextP_jit(E_size1, E_size2, self._osc, P1, P2, E, dt,
-                                  self._gam, self._w, self._B, eps0_val)
+            return _CalcNextP_jit(
+                E_size1,
+                E_size2,
+                self._osc,
+                P1,
+                P2,
+                E,
+                dt,
+                self._gam,
+                self._w,
+                self._B,
+                eps0_val,
+            )
         except Exception:
             # Fallback to pure Python
             CalcNextP_result = np.zeros((E_size1, E_size2, self._osc), dtype=complex)
@@ -428,13 +481,19 @@ class HostMaterial:
 
             for n in range(self._osc):
                 f1[n] = -(1.0 - self._gam[n] * dt) / (self._gam[n] * dt + 1.0)
-                f2[n] = (2.0 - self._w[n]**2 * dt**2) / (self._gam[n] * dt + 1.0)
-                f3[n] = (self._B[n] * self._w[n]**2 * dt**2) / (self._gam[n] * dt + 1.0) * eps0_val
+                f2[n] = (2.0 - self._w[n] ** 2 * dt**2) / (self._gam[n] * dt + 1.0)
+                f3[n] = (
+                    (self._B[n] * self._w[n] ** 2 * dt**2)
+                    / (self._gam[n] * dt + 1.0)
+                    * eps0_val
+                )
 
             for n in range(self._osc):
                 for j in range(E_size2):
                     for i in range(E_size1):
-                        CalcNextP_result[i, j, n] = f1[n] * P1[i, j, n] + f2[n] * P2[i, j, n] + f3[n] * E[i, j]
+                        CalcNextP_result[i, j, n] = (
+                            f1[n] * P1[i, j, n] + f2[n] * P2[i, j, n] + f3[n] * E[i, j]
+                        )
 
             return CalcNextP_result
 
@@ -456,7 +515,9 @@ class HostMaterial:
             for n in range(self._osc):
                 for j in range(E_size2):
                     for i in range(E_size1):
-                        CalcMonoP_result[i, j, n] = eps0_val * E[i, j] * np.real(self._chi1[n])
+                        CalcMonoP_result[i, j, n] = (
+                            eps0_val * E[i, j] * np.real(self._chi1[n])
+                        )
 
             return CalcMonoP_result
 
@@ -468,17 +529,35 @@ class HostMaterial:
         Modifies Ex, Ey, Px, Py in-place.
         """
         for n in range(self._osc):
-            self._Px_after[:, :, n] = eps0_val * Ex[:, :] * self._B[n] * self._w[n]**2 / (self._w[n]**2 - self._omega_q[:, :]**2)
-            self._Py_after[:, :, n] = eps0_val * Ey[:, :] * self._B[n] * self._w[n]**2 / (self._w[n]**2 - self._omega_q[:, :]**2)
+            self._Px_after[:, :, n] = (
+                eps0_val
+                * Ex[:, :]
+                * self._B[n]
+                * self._w[n] ** 2
+                / (self._w[n] ** 2 - self._omega_q[:, :] ** 2)
+            )
+            self._Py_after[:, :, n] = (
+                eps0_val
+                * Ey[:, :]
+                * self._B[n]
+                * self._w[n] ** 2
+                / (self._w[n] ** 2 - self._omega_q[:, :] ** 2)
+            )
 
         for n in range(self._osc):
-            self._Px_now[:, :, n] = self._Px_after[:, :, n] * np.exp(-ii * self._omega_q[:, :] * (-dt))
-            self._Py_now[:, :, n] = self._Py_after[:, :, n] * np.exp(-ii * self._omega_q[:, :] * (-dt))
+            self._Px_now[:, :, n] = self._Px_after[:, :, n] * np.exp(
+                -ii * self._omega_q[:, :] * (-dt)
+            )
+            self._Py_now[:, :, n] = self._Py_after[:, :, n] * np.exp(
+                -ii * self._omega_q[:, :] * (-dt)
+            )
 
         MakeTransverse(Ex, Ey, qx, qy, qsq)
         for n in range(self._osc):
             MakeTransverse(self._Px_now[:, :, n], self._Py_now[:, :, n], qx, qy, qsq)
-            MakeTransverse(self._Px_after[:, :, n], self._Py_after[:, :, n], qx, qy, qsq)
+            MakeTransverse(
+                self._Px_after[:, :, n], self._Py_after[:, :, n], qx, qy, qsq
+            )
 
         for n in range(self._osc):
             IFFT(self._Px_now[:, :, n])
@@ -509,13 +588,15 @@ class HostMaterial:
 
         self._omega_q = (-x + np.sqrt(x**2 + 4 * np0 * q * c0)) / (2 * np0)
 
-        os.makedirs('fields/host', exist_ok=True)
-        with open('fields/host/w.q.dat', 'w', encoding='utf-8') as f:
+        os.makedirs("fields/host", exist_ok=True)
+        with open("fields/host/w.q.dat", "w", encoding="utf-8") as f:
             j_max = max(q.shape[1] // 2, 1)
             i_max = max(q.shape[0] // 2, 1)
             for j in range(j_max):
                 for i in range(i_max):
-                    f.write(f"{np.real(q[i, j]) * 1e-7} {np.real(self._omega_q[i, j]) * 1e-15} {np.imag(self._omega_q[i, j]) * 1e-15}\n")
+                    f.write(
+                        f"{np.real(q[i, j]) * 1e-7} {np.real(self._omega_q[i, j]) * 1e-15} {np.imag(self._omega_q[i, j]) * 1e-15}\n"
+                    )
 
     def CalcEpsrWq(self, q):
         """Calculate dielectric constant as function of frequency."""
@@ -525,7 +606,9 @@ class HostMaterial:
 
         for j in range(self._omega_q.shape[1]):
             for i in range(self._omega_q.shape[0]):
-                self._EpsrWq[i, j] = self.CalcEpsrWq_ij(np.abs(self._omega_q[i, j]), aw, bw)
+                self._EpsrWq[i, j] = self.CalcEpsrWq_ij(
+                    np.abs(self._omega_q[i, j]), aw, bw
+                )
 
     def CalcEpsrWq_ij(self, w_ij, aw, bw):
         """Calculate dielectric constant for a single frequency."""
@@ -547,11 +630,11 @@ class HostMaterial:
         ep1 = self.epsrwp_no_gam(self._w1)
         ep2 = self.epsrwp_no_gam(self._w2)
 
-        aw[0] = + 3.0 / self._w1**2 * (e1 - self._epsr_0) - ep1 / self._w1
-        aw[1] = - 2.0 / self._w1**3 * (e1 - self._epsr_0) + ep1 / self._w1**2
+        aw[0] = +3.0 / self._w1**2 * (e1 - self._epsr_0) - ep1 / self._w1
+        aw[1] = -2.0 / self._w1**3 * (e1 - self._epsr_0) + ep1 / self._w1**2
 
-        bw[0] = + 3.0 * self._w2**2 * (e2 - self._epsr_infty) + ep2 * self._w2**3
-        bw[1] = - 2.0 * self._w2**3 * (e2 - self._epsr_infty) - ep2 * self._w2**4
+        bw[0] = +3.0 * self._w2**2 * (e2 - self._epsr_infty) + ep2 * self._w2**3
+        bw[1] = -2.0 * self._w2**3 * (e2 - self._epsr_infty) - ep2 * self._w2**4
 
     def Epsr_q(self, q):
         """Return copy of the dielectric constant array."""
@@ -567,9 +650,13 @@ class HostMaterial:
 
         for j in range(len(qy)):
             for i in range(len(qx)):
-                self._omega_q[i, j] = np.sqrt(np.sin(qx[i] * dx / 2.0)**2 / dx**2 +
-                                               np.sin(qy[j] * dy / 2.0)**2 / dy**2)
-                self._omega_q[i, j] = 2.0 / dt * np.arcsin((c0 / n0) * dt * np.real(self._omega_q[i, j]))
+                self._omega_q[i, j] = np.sqrt(
+                    np.sin(qx[i] * dx / 2.0) ** 2 / dx**2
+                    + np.sin(qy[j] * dy / 2.0) ** 2 / dy**2
+                )
+                self._omega_q[i, j] = (
+                    2.0 / dt * np.arcsin((c0 / n0) * dt * np.real(self._omega_q[i, j]))
+                )
 
     def wq(self, i, j):
         """Return frequency at indices (i, j)."""
@@ -584,7 +671,7 @@ class HostMaterial:
 
         result = self._A0
         for n in range(self._osc):
-            result = result + self._B[n] * self._w[n]**2 / (self._w[n]**2 - wL**2)
+            result = result + self._B[n] * self._w[n] ** 2 / (self._w[n] ** 2 - wL**2)
 
         return result
 
@@ -595,7 +682,9 @@ class HostMaterial:
 
         result = self._A0
         for n in range(self._osc):
-            result = result + self._B[n] * self._w[n]**2 / (self._w[n]**2 - ii * 2.0 * self._gam[n] * wL - wL**2)
+            result = result + self._B[n] * self._w[n] ** 2 / (
+                self._w[n] ** 2 - ii * 2.0 * self._gam[n] * wL - wL**2
+            )
 
         return result
 
@@ -607,7 +696,9 @@ class HostMaterial:
         nw = np.sqrt(self.nw2_no_gam(wL))
         result = 0.0
         for n in range(self._osc):
-            result = result + self._B[n] * self._w[n]**2 * wL / ((self._w[n]**2 - wL**2)**2)
+            result = result + self._B[n] * self._w[n] ** 2 * wL / (
+                (self._w[n] ** 2 - wL**2) ** 2
+            )
 
         return result / nw
 
@@ -619,7 +710,9 @@ class HostMaterial:
         nw = np.sqrt(self.nw2(wL))
         result = 0.0
         for n in range(self._osc):
-            result = result + self._B[n] * self._w[n]**2 * (ii * self._gam[n] + wL) / ((self._w[n]**2 - ii * 2.0 * self._gam[n] * wL - wL**2)**2)
+            result = result + self._B[n] * self._w[n] ** 2 * (
+                ii * self._gam[n] + wL
+            ) / ((self._w[n] ** 2 - ii * 2.0 * self._gam[n] * wL - wL**2) ** 2)
 
         return result / nw
 
@@ -642,7 +735,9 @@ class HostMaterial:
         wL = twopi * c0 / (lam + 1e-100)
         result = self._A0
         for n in range(self._osc):
-            result = result + self._B[n] * self._w[n]**2 / (self._w[n]**2 - ii * 2.0 * self._gam[n] * wL - wL**2)
+            result = result + self._B[n] * self._w[n] ** 2 / (
+                self._w[n] ** 2 - ii * 2.0 * self._gam[n] * wL - wL**2
+            )
 
         return result
 
@@ -653,7 +748,9 @@ class HostMaterial:
 
         result = 0.0
         for n in range(self._osc):
-            result = result + self._B[n] * self._w[n]**2 * (2 * wL) / ((self._w[n]**2 - wL**2)**2)
+            result = result + self._B[n] * self._w[n] ** 2 * (2 * wL) / (
+                (self._w[n] ** 2 - wL**2) ** 2
+            )
 
         return result
 
@@ -671,19 +768,23 @@ class HostMaterial:
         xf = np.max(self._w) * 3.0
         dx = (xf - x0) / Nxx
 
-        os.makedirs('fields/host', exist_ok=True)
-        os.makedirs('fields/host/nogam', exist_ok=True)
+        os.makedirs("fields/host", exist_ok=True)
+        os.makedirs("fields/host/nogam", exist_ok=True)
 
-        f_nw_real = open('fields/host/n.w.real.dat', 'w', encoding='utf-8')
-        f_nw_imag = open('fields/host/n.w.imag.dat', 'w', encoding='utf-8')
-        f_epsrw_real = open('fields/host/epsr.w.real.dat', 'w', encoding='utf-8')
-        f_epsrw_imag = open('fields/host/epsr.w.imag.dat', 'w', encoding='utf-8')
-        f_nw_real_ng = open('fields/host/nogam/n.w.real.dat', 'w', encoding='utf-8')
-        f_nw_imag_ng = open('fields/host/nogam/n.w.imag.dat', 'w', encoding='utf-8')
-        f_epsrw_real_ng = open('fields/host/nogam/epsr.w.real.dat', 'w', encoding='utf-8')
-        f_epsrw_imag_ng = open('fields/host/nogam/epsr.w.imag.dat', 'w', encoding='utf-8')
-        f_q2w_real = open('fields/host/q2.w.real.dat', 'w', encoding='utf-8')
-        f_q2w_imag = open('fields/host/q2.w.imag.dat', 'w', encoding='utf-8')
+        f_nw_real = open("fields/host/n.w.real.dat", "w", encoding="utf-8")
+        f_nw_imag = open("fields/host/n.w.imag.dat", "w", encoding="utf-8")
+        f_epsrw_real = open("fields/host/epsr.w.real.dat", "w", encoding="utf-8")
+        f_epsrw_imag = open("fields/host/epsr.w.imag.dat", "w", encoding="utf-8")
+        f_nw_real_ng = open("fields/host/nogam/n.w.real.dat", "w", encoding="utf-8")
+        f_nw_imag_ng = open("fields/host/nogam/n.w.imag.dat", "w", encoding="utf-8")
+        f_epsrw_real_ng = open(
+            "fields/host/nogam/epsr.w.real.dat", "w", encoding="utf-8"
+        )
+        f_epsrw_imag_ng = open(
+            "fields/host/nogam/epsr.w.imag.dat", "w", encoding="utf-8"
+        )
+        f_q2w_real = open("fields/host/q2.w.real.dat", "w", encoding="utf-8")
+        f_q2w_imag = open("fields/host/q2.w.imag.dat", "w", encoding="utf-8")
 
         for l in range(1, Nxx + 1):
             x = x0 + l * dx
@@ -692,15 +793,15 @@ class HostMaterial:
             n = np.sqrt(n2)
             nX = np.sqrt(n2X)
 
-            f_nw_real.write(f'{x} {np.real(n)}\n')
-            f_nw_imag.write(f'{x} {np.imag(n)}\n')
-            f_epsrw_real.write(f'{x} {np.real(n2)}\n')
-            f_epsrw_imag.write(f'{x} {np.imag(n2)}\n')
-            exp_factor = np.exp(-((np.abs(n2X) - 9) / 8)**12)
-            f_nw_real_ng.write(f'{x} {np.real(nX) * exp_factor}\n')
-            f_nw_imag_ng.write(f'{x} {np.imag(nX) * exp_factor}\n')
-            f_epsrw_real_ng.write(f'{x} {np.real(n2X) * exp_factor}\n')
-            f_epsrw_imag_ng.write(f'{x} {np.imag(n2X) * exp_factor}\n')
+            f_nw_real.write(f"{x} {np.real(n)}\n")
+            f_nw_imag.write(f"{x} {np.imag(n)}\n")
+            f_epsrw_real.write(f"{x} {np.real(n2)}\n")
+            f_epsrw_imag.write(f"{x} {np.imag(n2)}\n")
+            exp_factor = np.exp(-(((np.abs(n2X) - 9) / 8) ** 12))
+            f_nw_real_ng.write(f"{x} {np.real(nX) * exp_factor}\n")
+            f_nw_imag_ng.write(f"{x} {np.imag(nX) * exp_factor}\n")
+            f_epsrw_real_ng.write(f"{x} {np.real(n2X) * exp_factor}\n")
+            f_epsrw_imag_ng.write(f"{x} {np.imag(n2X) * exp_factor}\n")
 
         f_nw_real.close()
         f_nw_imag.close()
@@ -718,14 +819,18 @@ class HostMaterial:
         xf = twopi * c0 / (np.min(self._w) + 1e-100) * 3.0
         dx = (xf - x0) / Nxx
 
-        f_nl_real = open('fields/host/n.l.real.dat', 'w', encoding='utf-8')
-        f_nl_imag = open('fields/host/n.l.imag.dat', 'w', encoding='utf-8')
-        f_epsrl_real = open('fields/host/epsr.l.real.dat', 'w', encoding='utf-8')
-        f_epsrl_imag = open('fields/host/epsr.l.imag.dat', 'w', encoding='utf-8')
-        f_nl_real_ng = open('fields/host/nogam/n.l.real.dat', 'w', encoding='utf-8')
-        f_nl_imag_ng = open('fields/host/nogam/n.l.imag.dat', 'w', encoding='utf-8')
-        f_epsrl_real_ng = open('fields/host/nogam/epsr.l.real.dat', 'w', encoding='utf-8')
-        f_epsrl_imag_ng = open('fields/host/nogam/epsr.l.imag.dat', 'w', encoding='utf-8')
+        f_nl_real = open("fields/host/n.l.real.dat", "w", encoding="utf-8")
+        f_nl_imag = open("fields/host/n.l.imag.dat", "w", encoding="utf-8")
+        f_epsrl_real = open("fields/host/epsr.l.real.dat", "w", encoding="utf-8")
+        f_epsrl_imag = open("fields/host/epsr.l.imag.dat", "w", encoding="utf-8")
+        f_nl_real_ng = open("fields/host/nogam/n.l.real.dat", "w", encoding="utf-8")
+        f_nl_imag_ng = open("fields/host/nogam/n.l.imag.dat", "w", encoding="utf-8")
+        f_epsrl_real_ng = open(
+            "fields/host/nogam/epsr.l.real.dat", "w", encoding="utf-8"
+        )
+        f_epsrl_imag_ng = open(
+            "fields/host/nogam/epsr.l.imag.dat", "w", encoding="utf-8"
+        )
 
         for l in range(1, Nxx + 1):
             x = x0 + (l - 1) * dx
@@ -736,15 +841,15 @@ class HostMaterial:
 
             x_um = x * 1e6
 
-            f_nl_real.write(f'{x_um} {np.real(n)}\n')
-            f_nl_imag.write(f'{x_um} {np.imag(n)}\n')
-            f_epsrl_real.write(f'{x_um} {np.real(n2)}\n')
-            f_epsrl_imag.write(f'{x_um} {np.imag(n2)}\n')
-            exp_factor = np.exp(-((np.abs(n2X) - 9) / 8)**12)
-            f_nl_real_ng.write(f'{x_um} {np.real(nX) * exp_factor}\n')
-            f_nl_imag_ng.write(f'{x_um} {np.imag(nX) * exp_factor}\n')
-            f_epsrl_real_ng.write(f'{x_um} {np.real(n2X) * exp_factor}\n')
-            f_epsrl_imag_ng.write(f'{x_um} {np.imag(n2X) * exp_factor}\n')
+            f_nl_real.write(f"{x_um} {np.real(n)}\n")
+            f_nl_imag.write(f"{x_um} {np.imag(n)}\n")
+            f_epsrl_real.write(f"{x_um} {np.real(n2)}\n")
+            f_epsrl_imag.write(f"{x_um} {np.imag(n2)}\n")
+            exp_factor = np.exp(-(((np.abs(n2X) - 9) / 8) ** 12))
+            f_nl_real_ng.write(f"{x_um} {np.real(nX) * exp_factor}\n")
+            f_nl_imag_ng.write(f"{x_um} {np.imag(nX) * exp_factor}\n")
+            f_epsrl_real_ng.write(f"{x_um} {np.real(n2X) * exp_factor}\n")
+            f_epsrl_imag_ng.write(f"{x_um} {np.imag(n2X) * exp_factor}\n")
 
         f_nl_real.close()
         f_nl_imag.close()
@@ -767,13 +872,37 @@ class HostMaterial:
 _instance = HostMaterial()
 
 # Attribute names that live on the instance (for __getattr__/__setattr__)
-_INSTANCE_ATTRS = frozenset([
-    '_osc', '_q', '_w', '_gam', '_B', '_C', '_chi1', '_Nf', '_A0', '_chi3',
-    '_epsr_0', '_epsr_infty', '_w1', '_w2', '_w0', '_lambda0',
-    '_N1', '_N2', '_material',
-    '_Px_before', '_Py_before', '_Px_now', '_Py_now', '_Px_after', '_Py_after',
-    '_omega_q', '_EpsrWq',
-])
+_INSTANCE_ATTRS = frozenset(
+    [
+        "_osc",
+        "_q",
+        "_w",
+        "_gam",
+        "_B",
+        "_C",
+        "_chi1",
+        "_Nf",
+        "_A0",
+        "_chi3",
+        "_epsr_0",
+        "_epsr_infty",
+        "_w1",
+        "_w2",
+        "_w0",
+        "_lambda0",
+        "_N1",
+        "_N2",
+        "_material",
+        "_Px_before",
+        "_Py_before",
+        "_Px_now",
+        "_Py_now",
+        "_Px_after",
+        "_Py_after",
+        "_omega_q",
+        "_EpsrWq",
+    ]
+)
 
 # Allow ``phost._osc = 2`` and ``phost._osc`` at module level
 # (tests do this heavily).
@@ -794,88 +923,116 @@ class _ModuleProxy(_sys.modules[__name__].__class__):
             return getattr(_instance, name)
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
 
+
 _sys.modules[__name__].__class__ = _ModuleProxy
 
 
 # ── Wrapper functions delegating to _instance ───────────────────────
 
+
 def SetHostMaterial(host, mat, lam, epsr=0.0, n0=1.0):
     return _instance.SetHostMaterial(host, mat, lam, epsr, n0)
+
 
 def InitializeHost(Nx, Ny, n0, qsq, host):
     _instance.InitializeHost(Nx, Ny, n0, qsq, host)
 
+
 def SetParamsAlAs():
     _instance.SetParamsAlAs()
+
 
 def SetParamsGaAs():
     _instance.SetParamsGaAs()
 
+
 def SetParamsSilica():
     _instance.SetParamsSilica()
+
 
 def SetParamsNone():
     _instance.SetParamsNone()
 
+
 def CalcPHost(Ex, Ey, dt, m, epsb, Px, Py):
     _instance.CalcPHost(Ex, Ey, dt, m, epsb, Px, Py)
+
 
 def CalcPHostOld(Ex, Ey, dt, m, epsb, Px, Py):
     _instance.CalcPHostOld(Ex, Ey, dt, m, epsb, Px, Py)
 
+
 def CalcNextP(P1, P2, E, dt):
     return _instance.CalcNextP(P1, P2, E, dt)
+
 
 def CalcMonoP(E):
     return _instance.CalcMonoP(E)
 
+
 def SetInitialP(Ex, Ey, qx, qy, qsq, dt, Px, Py, epsb):
     _instance.SetInitialP(Ex, Ey, qx, qy, qsq, dt, Px, Py, epsb)
+
 
 def CalcWq(q):
     _instance.CalcWq(q)
 
+
 def CalcEpsrWq(q):
     _instance.CalcEpsrWq(q)
+
 
 def CalcEpsrWq_ij(w_ij, aw, bw):
     return _instance.CalcEpsrWq_ij(w_ij, aw, bw)
 
+
 def DetermineCoeffs(aw, bw):
     _instance.DetermineCoeffs(aw, bw)
+
 
 def Epsr_q(q):
     return _instance.Epsr_q(q)
 
+
 def Epsr_qij(i, j):
     return _instance.Epsr_qij(i, j)
+
 
 def FDTD_Dispersion(qx, qy, dx, dy, dt, n0):
     _instance.FDTD_Dispersion(qx, qy, dx, dy, dt, n0)
 
+
 def wq(i, j):
     return _instance.wq(i, j)
+
 
 def nw2_no_gam(wL):
     return _instance.nw2_no_gam(wL)
 
+
 def nw2(wL):
     return _instance.nw2(wL)
+
 
 def nwp_no_gam(wL):
     return _instance.nwp_no_gam(wL)
 
+
 def nwp(wL):
     return _instance.nwp(wL)
+
 
 def nl2_no_gam(lam):
     return _instance.nl2_no_gam(lam)
 
+
 def nl2(lam):
     return _instance.nl2(lam)
 
+
 def epsrwp_no_gam(wL):
     return _instance.epsrwp_no_gam(wL)
+
 
 def WriteHostDispersion():
     _instance.WriteHostDispersion()

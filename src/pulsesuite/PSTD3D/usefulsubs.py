@@ -522,8 +522,8 @@ def test2Dfrom1D(x, y):
     gy = np.zeros(len(y), dtype=np.complex128)
     gxy = np.zeros((len(x), len(y)), dtype=np.complex128)
 
-    gy[:] = np.exp(-((y + 8e-6) / 2e-6) ** 12)
-    gx[:] = np.exp(-((x + 1e-6) / 4e-7) ** 2) * np.exp(-((x + 1e-6) / 8e-7) ** 12)
+    gy[:] = np.exp(-(((y + 8e-6) / 2e-6) ** 12))
+    gx[:] = np.exp(-(((x + 1e-6) / 4e-7) ** 2)) * np.exp(-(((x + 1e-6) / 8e-7) ** 12))
 
     if xyonly:
         for j in range(len(y)):
@@ -561,8 +561,8 @@ def testconv(y):
     func = np.zeros(len(y), dtype=np.complex128)
     conv = np.zeros(len(y), dtype=np.complex128)
 
-    gate[:] = np.exp(-((y + 8e-6) / 2e-6) ** 12)
-    func[:] = np.exp(-((y + 8e-6) / 2.33e-6) ** 2)
+    gate[:] = np.exp(-(((y + 8e-6) / 2e-6) ** 12))
+    func[:] = np.exp(-(((y + 8e-6) / 2.33e-6) ** 2))
 
     func[:] = pyfftw.interfaces.numpy_fft.fft(func)
     gate[:] = pyfftw.interfaces.numpy_fft.fft(gate)
@@ -889,7 +889,7 @@ def print2file(x, y, filename):
     -----
     The function writes: x(i), y(i), i for each element.
     """
-    with open(filename, 'w', encoding='utf-8') as f:
+    with open(filename, "w", encoding="utf-8") as f:
         for i in range(len(x)):
             f.write(f"{x[i]} {y[i]} {i}\n")
 
@@ -1064,7 +1064,7 @@ def GaussDelta(a, b):
     -----
     This is an elemental function that works with both scalars and arrays.
     """
-    return 1.0 / np.sqrt(pi) / b * np.exp(-(a / b) ** 2)
+    return 1.0 / np.sqrt(pi) / b * np.exp(-((a / b) ** 2))
 
 
 def delta(x, dky=None):
@@ -1275,7 +1275,7 @@ def Lrtz(a, b):
     -----
     This is an elemental function that works with both scalars and arrays.
     """
-    return (b / pi) / (a ** 2 + b ** 2)
+    return (b / pi) / (a**2 + b**2)
 
 
 def theta(x):
@@ -1362,9 +1362,15 @@ def _RotateField3D_jit(Ex0, Ey0, Ez0, R11, R12, R13, R21, R22, R23, R31, R32, R3
     for k in range(Nz):
         for j in range(Ny):
             for i in range(Nx):
-                Ex[i, j, k] = Ex0[i, j, k] * R11 + Ey0[i, j, k] * R12 + Ez0[i, j, k] * R13
-                Ey[i, j, k] = Ex0[i, j, k] * R21 + Ey0[i, j, k] * R22 + Ez0[i, j, k] * R23
-                Ez[i, j, k] = Ex0[i, j, k] * R31 + Ey0[i, j, k] * R32 + Ez0[i, j, k] * R33
+                Ex[i, j, k] = (
+                    Ex0[i, j, k] * R11 + Ey0[i, j, k] * R12 + Ez0[i, j, k] * R13
+                )
+                Ey[i, j, k] = (
+                    Ex0[i, j, k] * R21 + Ey0[i, j, k] * R22 + Ez0[i, j, k] * R23
+                )
+                Ez[i, j, k] = (
+                    Ex0[i, j, k] * R31 + Ey0[i, j, k] * R32 + Ez0[i, j, k] * R33
+                )
 
     return Ex, Ey, Ez
 
@@ -1546,9 +1552,12 @@ def RotateShiftEField(theta, qx, qy, Ex, Ey, FFTC=None, IFFTC=None):
     These should be passed as parameters or defined as module variables.
     """
     if FFTC is None:
+
         def FFTC(f):
             f[:, :] = pyfftw.interfaces.numpy_fft.fft2(f)
+
     if IFFTC is None:
+
         def IFFTC(f):
             f[:, :] = pyfftw.interfaces.numpy_fft.ifft2(f)
 
@@ -1584,25 +1593,57 @@ def RotateShiftEField(theta, qx, qy, Ex, Ey, FFTC=None, IFFTC=None):
 
 
 # Constants for Bessel functions
-_CBIK01_A = np.array([
-    0.125, 7.03125e-2, 7.32421875e-2, 1.1215209960938e-1,
-    2.2710800170898e-1, 5.7250142097473e-1, 1.7277275025845,
-    6.0740420012735, 2.4380529699556e1, 1.1001714026925e2,
-    5.5133589612202e2, 3.0380905109224e3
-], dtype=np.float64)
+_CBIK01_A = np.array(
+    [
+        0.125,
+        7.03125e-2,
+        7.32421875e-2,
+        1.1215209960938e-1,
+        2.2710800170898e-1,
+        5.7250142097473e-1,
+        1.7277275025845,
+        6.0740420012735,
+        2.4380529699556e1,
+        1.1001714026925e2,
+        5.5133589612202e2,
+        3.0380905109224e3,
+    ],
+    dtype=np.float64,
+)
 
-_CBIK01_A1 = np.array([
-    0.125, 0.2109375, 1.0986328125, 1.1775970458984e1,
-    2.1461706161499e2, 5.9511522710323e3, 2.3347645606175e5,
-    1.2312234987631e7, 8.401390346421e8, 7.2031420482627e10
-], dtype=np.float64)
+_CBIK01_A1 = np.array(
+    [
+        0.125,
+        0.2109375,
+        1.0986328125,
+        1.1775970458984e1,
+        2.1461706161499e2,
+        5.9511522710323e3,
+        2.3347645606175e5,
+        1.2312234987631e7,
+        8.401390346421e8,
+        7.2031420482627e10,
+    ],
+    dtype=np.float64,
+)
 
-_CBIK01_B = np.array([
-    -0.375, -1.171875e-1, -1.025390625e-1, -1.4419555664063e-1,
-    -2.7757644653320e-1, -6.7659258842468e-1, -1.9935317337513,
-    -6.8839142681099, -2.7248827311269e1, -1.2159789187654e2,
-    -6.0384407670507e2, -3.3022722944809e3
-], dtype=np.float64)
+_CBIK01_B = np.array(
+    [
+        -0.375,
+        -1.171875e-1,
+        -1.025390625e-1,
+        -1.4419555664063e-1,
+        -2.7757644653320e-1,
+        -6.7659258842468e-1,
+        -1.9935317337513,
+        -6.8839142681099,
+        -2.7248827311269e1,
+        -1.2159789187654e2,
+        -6.0384407670507e2,
+        -3.3022722944809e3,
+    ],
+    dtype=np.float64,
+)
 
 
 def cik01(z):
@@ -1679,11 +1720,11 @@ def cik01(z):
         cbi0 = 1.0 + 0.0j
         zr = 1.0 / z1
         for k in range(1, k0 + 1):
-            cbi0 = cbi0 + _CBIK01_A[k - 1] * (zr ** k)
+            cbi0 = cbi0 + _CBIK01_A[k - 1] * (zr**k)
         cbi0 = ca * cbi0
         cbi1 = 1.0 + 0.0j
         for k in range(1, k0 + 1):
-            cbi1 = cbi1 + _CBIK01_B[k - 1] * (zr ** k)
+            cbi1 = cbi1 + _CBIK01_B[k - 1] * (zr**k)
         cbi1 = ca * cbi1
 
     if a0 <= 9.0:
@@ -1707,7 +1748,7 @@ def cik01(z):
         zr2 = 1.0 / z2
         cbk0 = 1.0 + 0.0j
         for k in range(1, 11):
-            cbk0 = cbk0 + _CBIK01_A1[k - 1] * (zr2 ** k)
+            cbk0 = cbk0 + _CBIK01_A1[k - 1] * (zr2**k)
         cbk0 = cb * cbk0 / cbi0
 
     cbk1 = (1.0 / z1 - cbi1 * cbk0) / cbi0
@@ -1783,7 +1824,7 @@ def locator(x, x0):
     Returns 0 if x0 < x[0], and len(x)-2 if x0 >= x[-1].
     """
     # Use numpy's searchsorted which finds the right insertion point
-    i = np.searchsorted(x, x0, side='right') - 1
+    i = np.searchsorted(x, x0, side="right") - 1
     # Ensure i is within valid range for interpolation
     i = max(0, min(i, len(x) - 2))
     return i
@@ -1811,8 +1852,8 @@ def WriteIT2D(V, file):
     The file is written to 'dataQW/{file}.dat'.
     Each element is written on a separate line.
     """
-    filename = f'dataQW/{file}.dat'
-    with open(filename, 'w', encoding='utf-8') as f:
+    filename = f"dataQW/{file}.dat"
+    with open(filename, "w", encoding="utf-8") as f:
         for i in range(V.shape[0]):
             for j in range(V.shape[1]):
                 f.write(f"{V[i, j]}\n")
@@ -1841,8 +1882,8 @@ def ReadIT2D(V, file):
     The file is read from 'dataQW/{file}.dat'.
     The array shape must match the file contents.
     """
-    filename = f'dataQW/{file}.dat'
-    with open(filename, 'r', encoding='utf-8') as f:
+    filename = f"dataQW/{file}.dat"
+    with open(filename, "r", encoding="utf-8") as f:
         for i in range(V.shape[0]):
             for j in range(V.shape[1]):
                 V[i, j] = float(f.readline().strip())
@@ -1870,8 +1911,8 @@ def WriteIT1D(V, file):
     The file is written to 'dataQW/{file}.dat'.
     Each element is written on a separate line.
     """
-    filename = f'dataQW/{file}.dat'
-    with open(filename, 'w', encoding='utf-8') as f:
+    filename = f"dataQW/{file}.dat"
+    with open(filename, "w", encoding="utf-8") as f:
         for i in range(len(V)):
             f.write(f"{V[i]}\n")
 
@@ -1899,8 +1940,8 @@ def ReadIT1D(V, file):
     The file is read from 'dataQW/{file}.dat'.
     The array length must match the file contents.
     """
-    filename = f'dataQW/{file}.dat'
-    with open(filename, 'r', encoding='utf-8') as f:
+    filename = f"dataQW/{file}.dat"
+    with open(filename, "r", encoding="utf-8") as f:
         for i in range(len(V)):
             V[i] = float(f.readline().strip())
 
@@ -1943,7 +1984,9 @@ def EAtX(f, x, x0):
         return f0
 
     for j in range(f.shape[1]):
-        f0[j] = (f[i, j] * (x[i + 1] - x0) + f[i + 1, j] * (x0 - x[i])) / (x[i + 1] - x[i])
+        f0[j] = (f[i, j] * (x[i + 1] - x0) + f[i + 1, j] * (x0 - x[i])) / (
+            x[i + 1] - x[i]
+        )
 
     return f0
 
@@ -2046,11 +2089,13 @@ def printIT(Dx, z, n, file):
     The file is written to 'dataQW/{file}{n:06d}.dat'.
     Each line contains: z(i), real(Dx(i)), imag(Dx(i))
     """
-    filename = f'dataQW/{file}{n:06d}.dat'
+    filename = f"dataQW/{file}{n:06d}.dat"
     os.makedirs(os.path.dirname(filename), exist_ok=True)
-    with open(filename, 'w', encoding='utf-8') as f:
+    with open(filename, "w", encoding="utf-8") as f:
         for i in range(len(z)):
-            f.write(f"{np.float32(z[i])} {np.float32(np.real(Dx[i]))} {np.float32(np.imag(Dx[i]))}\n")
+            f.write(
+                f"{np.float32(z[i])} {np.float32(np.real(Dx[i]))} {np.float32(np.imag(Dx[i]))}\n"
+            )
 
 
 def printITR(Dx, z, n, file):
@@ -2079,9 +2124,9 @@ def printITR(Dx, z, n, file):
     The file is written to 'dataQW/{file}{n:06d}.dat'.
     Each line contains: z(i), Dx(i)
     """
-    filename = f'dataQW/{file}{n:06d}.dat'
+    filename = f"dataQW/{file}{n:06d}.dat"
     os.makedirs(os.path.dirname(filename), exist_ok=True)
-    with open(filename, 'w', encoding='utf-8') as f:
+    with open(filename, "w", encoding="utf-8") as f:
         for i in range(len(z)):
             f.write(f"{np.float32(z[i])} {np.float32(Dx[i])}\n")
 
@@ -2113,9 +2158,9 @@ def printIT2D(Dx, z, n, file):  # noqa: ARG001
     Each line contains: abs(Dx(i,j))
     The z parameter is kept for interface compatibility but not used.
     """
-    filename = f'dataQW/{file}{n:07d}.dat'
+    filename = f"dataQW/{file}{n:07d}.dat"
     os.makedirs(os.path.dirname(filename), exist_ok=True)
-    with open(filename, 'w', encoding='utf-8') as f:
+    with open(filename, "w", encoding="utf-8") as f:
         for j in range(Dx.shape[1]):
             for i in range(Dx.shape[0]):
                 f.write(f"{np.float32(np.abs(Dx[i, j]))}\n")
@@ -2143,7 +2188,7 @@ def gaussian(x, x0):
     -----
     This is an elemental function that works with both scalars and arrays.
     """
-    return np.exp(-x ** 2 / x0 ** 2)
+    return np.exp(-(x**2) / x0**2)
 
 
 def convolve(x, h):
@@ -2253,6 +2298,7 @@ def iFFTG(F):
 # These dispatch to 1D or 2D versions based on input array dimensions
 #######################################################
 
+
 def ReadIt(V, file):
     """
     Read array from file (interface-style wrapper).
@@ -2283,7 +2329,9 @@ def ReadIt(V, file):
     elif V.ndim == 2:
         ReadIT2D(V, file)
     else:
-        raise ValueError(f"ReadIt: Unsupported array dimension {V.ndim}. Only 1D and 2D arrays are supported.")
+        raise ValueError(
+            f"ReadIt: Unsupported array dimension {V.ndim}. Only 1D and 2D arrays are supported."
+        )
 
 
 def WriteIt(V, file):
@@ -2315,7 +2363,9 @@ def WriteIt(V, file):
     elif V.ndim == 2:
         WriteIT2D(V, file)
     else:
-        raise ValueError(f"WriteIt: Unsupported array dimension {V.ndim}. Only 1D and 2D arrays are supported.")
+        raise ValueError(
+            f"WriteIt: Unsupported array dimension {V.ndim}. Only 1D and 2D arrays are supported."
+        )
 
 
 def dfdy(f, qy):
@@ -2348,7 +2398,9 @@ def dfdy(f, qy):
     elif f.ndim == 2:
         return dfdy2D(f, qy)
     else:
-        raise ValueError(f"dfdy: Unsupported array dimension {f.ndim}. Only 1D and 2D arrays are supported.")
+        raise ValueError(
+            f"dfdy: Unsupported array dimension {f.ndim}. Only 1D and 2D arrays are supported."
+        )
 
 
 def dfdx(f, qx):
@@ -2381,7 +2433,9 @@ def dfdx(f, qx):
     elif f.ndim == 2:
         return dfdx2D(f, qx)
     else:
-        raise ValueError(f"dfdx: Unsupported array dimension {f.ndim}. Only 1D and 2D arrays are supported.")
+        raise ValueError(
+            f"dfdx: Unsupported array dimension {f.ndim}. Only 1D and 2D arrays are supported."
+        )
 
 
 def dfdy_q(f, qy):
@@ -2414,7 +2468,9 @@ def dfdy_q(f, qy):
     elif f.ndim == 2:
         return dfdy2D_q(f, qy)
     else:
-        raise ValueError(f"dfdy_q: Unsupported array dimension {f.ndim}. Only 1D and 2D arrays are supported.")
+        raise ValueError(
+            f"dfdy_q: Unsupported array dimension {f.ndim}. Only 1D and 2D arrays are supported."
+        )
 
 
 def dfdx_q(f, qx):
@@ -2447,7 +2503,9 @@ def dfdx_q(f, qx):
     elif f.ndim == 2:
         return dfdx2D_q(f, qx)
     else:
-        raise ValueError(f"dfdx_q: Unsupported array dimension {f.ndim}. Only 1D and 2D arrays are supported.")
+        raise ValueError(
+            f"dfdx_q: Unsupported array dimension {f.ndim}. Only 1D and 2D arrays are supported."
+        )
 
 
 def GFFT(f, dx, dy=None):
@@ -2484,7 +2542,9 @@ def GFFT(f, dx, dy=None):
             raise ValueError("GFFT: dy parameter is required for 2D arrays")
         GFFT_2D(f, dx, dy)
     else:
-        raise ValueError(f"GFFT: Unsupported array dimension {f.ndim}. Only 1D and 2D arrays are supported.")
+        raise ValueError(
+            f"GFFT: Unsupported array dimension {f.ndim}. Only 1D and 2D arrays are supported."
+        )
 
 
 def GIFFT(f, dq, dqy=None):
@@ -2521,7 +2581,9 @@ def GIFFT(f, dq, dqy=None):
             raise ValueError("GIFFT: dqy parameter is required for 2D arrays")
         GIFFT_2D(f, dq, dqy)
     else:
-        raise ValueError(f"GIFFT: Unsupported array dimension {f.ndim}. Only 1D and 2D arrays are supported.")
+        raise ValueError(
+            f"GIFFT: Unsupported array dimension {f.ndim}. Only 1D and 2D arrays are supported."
+        )
 
 
 def fflip(f):
@@ -2548,10 +2610,11 @@ def fflip(f):
     - Raises ValueError for unsupported array dimensions
     """
     if f.ndim != 1:
-        raise ValueError(f"fflip: Unsupported array dimension {f.ndim}. Only 1D arrays are supported.")
+        raise ValueError(
+            f"fflip: Unsupported array dimension {f.ndim}. Only 1D arrays are supported."
+        )
 
     if np.iscomplexobj(f):
         return fflip_dpc(f)
     else:
         return fflip_dp(f)
-

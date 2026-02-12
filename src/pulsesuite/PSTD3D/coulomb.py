@@ -32,6 +32,7 @@ ii = 1j  # Imaginary unit
 # Module-level pure functions (no mutable state)
 ###############################################################################
 
+
 # JIT-compatible K0 approximation for modified Bessel function
 # nopython friendly version of K03 which is in usefulsubs.py
 @jit(nopython=True, cache=True)
@@ -88,7 +89,7 @@ def _Vint_jit(Qyk, y, alphae, alphah, Delta0, N1, N2, Ny):
     for i in range(N1, N2 + 1):
         for j in range(N1, N2 + 1):
             # Distance in y-direction with thickness contribution
-            r_sq = (y[i] - y[j]) ** 2 + Delta0 ** 2
+            r_sq = (y[i] - y[j]) ** 2 + Delta0**2
             r = np.sqrt(r_sq)
 
             # Exponential factor from wavefunction overlap
@@ -135,13 +136,13 @@ def Vint(Qyk, y, alphae, alphah, Delta0):
     # Try JIT-compiled version first
     try:
         result = _Vint_jit(Qyk, y, alphae, alphah, Delta0, N1, N2, Ny)
-        if not hasattr(Vint, '_jit_used_printed'):
+        if not hasattr(Vint, "_jit_used_printed"):
             print("Vint: Using JIT-compiled version")
             Vint._jit_used_printed = True
         return result
     except Exception:
         # Fallback to original implementation
-        if not hasattr(Vint, '_fallback_used_printed'):
+        if not hasattr(Vint, "_fallback_used_printed"):
             print("Vint: JIT compilation failed, using fallback (slower)")
             Vint._fallback_used_printed = True
 
@@ -161,7 +162,7 @@ def Vint(Qyk, y, alphae, alphah, Delta0):
         for i in range(N1, N2 + 1):
             for j in range(N1, N2 + 1):
                 # Distance in y-direction with thickness contribution
-                r_sq = (y[i] - y[j]) ** 2 + Delta0 ** 2
+                r_sq = (y[i] - y[j]) ** 2 + Delta0**2
                 r = np.sqrt(r_sq)
 
                 # Exponential factor from wavefunction overlap
@@ -226,7 +227,7 @@ def Vehint(k, q, y, ky, alphae, alphah, Delta0):
     for i in range(N1, N2 + 1):
         for j in range(N1, N2 + 1):
             # Distance in y-direction with thickness contribution
-            r_sq = (y[i] - y[j]) ** 2 + Delta0 ** 2
+            r_sq = (y[i] - y[j]) ** 2 + Delta0**2
             r = np.sqrt(r_sq)
 
             # Exponential factor from wavefunction overlap
@@ -259,12 +260,13 @@ def GaussDelta(a, b):
     """
     if abs(b) < 1e-300:
         return 0.0
-    return 1.0 / (np.sqrt(pi) * b) * np.exp(-(a / b) ** 2)
+    return 1.0 / (np.sqrt(pi) * b) * np.exp(-((a / b) ** 2))
 
 
 ###############################################################################
 # Array builder functions (pure — no module state)
 ###############################################################################
+
 
 def MakeK3(ky):
     """
@@ -414,27 +416,39 @@ def CalcMBArrays(ky, Ee, Eh, ge, gh, k3, UnDel, LorentzDelta=False):
                     if k30_1b > 0:
                         k30 = k30_1b - 1
                         E_diff = Ee[k1] + Eh[k2] - Eh[k30] - Ee[k4]
-                        Ceh[k1_1b, k2_1b, k4_1b] = (2.0 * geh * UnDel[k1_1b, k4_1b] *
-                                                   UnDel[k2_1b, k30_1b] /
-                                                   (E_diff ** 2 + hgeh2))
+                        Ceh[k1_1b, k2_1b, k4_1b] = (
+                            2.0
+                            * geh
+                            * UnDel[k1_1b, k4_1b]
+                            * UnDel[k2_1b, k30_1b]
+                            / (E_diff**2 + hgeh2)
+                        )
 
                     # Vee(k1,k2,k30,k4)
                     k30_1b = k3[k1, k2, k4]
                     if k30_1b > 0:
                         k30 = k30_1b - 1
                         E_diff = Ee[k1] + Ee[k2] - Ee[k30] - Ee[k4]
-                        Cee[k1_1b, k2_1b, k4_1b] = (2.0 * ge * UnDel[k1_1b, k4_1b] *
-                                                   UnDel[k2_1b, k30_1b] /
-                                                   (E_diff ** 2 + hge2))
+                        Cee[k1_1b, k2_1b, k4_1b] = (
+                            2.0
+                            * ge
+                            * UnDel[k1_1b, k4_1b]
+                            * UnDel[k2_1b, k30_1b]
+                            / (E_diff**2 + hge2)
+                        )
 
                     # Vhh(k1,k2,k30,k4)
                     k30_1b = k3[k1, k2, k4]
                     if k30_1b > 0:
                         k30 = k30_1b - 1
                         E_diff = Eh[k1] + Eh[k2] - Eh[k30] - Eh[k4]
-                        Chh[k1_1b, k2_1b, k4_1b] = (2.0 * gh * UnDel[k1_1b, k4_1b] *
-                                                   UnDel[k2_1b, k30_1b] /
-                                                   (E_diff ** 2 + hgh2))
+                        Chh[k1_1b, k2_1b, k4_1b] = (
+                            2.0
+                            * gh
+                            * UnDel[k1_1b, k4_1b]
+                            * UnDel[k2_1b, k30_1b]
+                            / (E_diff**2 + hgh2)
+                        )
     else:
         for k1 in range(N):
             for k2 in range(N):
@@ -448,33 +462,46 @@ def CalcMBArrays(ky, Ee, Eh, ge, gh, k3, UnDel, LorentzDelta=False):
                     if k30_1b > 0:
                         k30 = k30_1b - 1
                         E_diff = Ee[k1] + Eh[k2] - Eh[k30] - Ee[k4]
-                        Ceh[k1_1b, k2_1b, k4_1b] = (twopi / hbar * UnDel[k1_1b, k4_1b] *
-                                                   UnDel[k2_1b, k30_1b] *
-                                                   GaussDelta(E_diff, hbar * geh))
+                        Ceh[k1_1b, k2_1b, k4_1b] = (
+                            twopi
+                            / hbar
+                            * UnDel[k1_1b, k4_1b]
+                            * UnDel[k2_1b, k30_1b]
+                            * GaussDelta(E_diff, hbar * geh)
+                        )
 
                     # Vee(k1,k2,k30,k4)
                     k30_1b = k3[k1, k2, k4]
                     if k30_1b > 0:
                         k30 = k30_1b - 1
                         E_diff = Ee[k1] + Ee[k2] - Ee[k30] - Ee[k4]
-                        Cee[k1_1b, k2_1b, k4_1b] = (twopi / hbar * UnDel[k1_1b, k4_1b] *
-                                                   UnDel[k2_1b, k30_1b] *
-                                                   GaussDelta(E_diff, hbar * ge))
+                        Cee[k1_1b, k2_1b, k4_1b] = (
+                            twopi
+                            / hbar
+                            * UnDel[k1_1b, k4_1b]
+                            * UnDel[k2_1b, k30_1b]
+                            * GaussDelta(E_diff, hbar * ge)
+                        )
 
                     # Vhh(k1,k2,k30,k4)
                     k30_1b = k3[k1, k2, k4]
                     if k30_1b > 0:
                         k30 = k30_1b - 1
                         E_diff = Eh[k1] + Eh[k2] - Eh[k30] - Eh[k4]
-                        Chh[k1_1b, k2_1b, k4_1b] = (twopi / hbar * UnDel[k1_1b, k4_1b] *
-                                                   UnDel[k2_1b, k30_1b] *
-                                                   GaussDelta(E_diff, hbar * gh))
+                        Chh[k1_1b, k2_1b, k4_1b] = (
+                            twopi
+                            / hbar
+                            * UnDel[k1_1b, k4_1b]
+                            * UnDel[k2_1b, k30_1b]
+                            * GaussDelta(E_diff, hbar * gh)
+                        )
 
     return Ceh, Cee, Chh
 
 
-def CalcCoulombArrays(y, ky, er, alphae, alphah, L, Delta0, Qy, kkp,
-                      ReadArrays=False, ScrewThis=False):
+def CalcCoulombArrays(
+    y, ky, er, alphae, alphah, L, Delta0, Qy, kkp, ReadArrays=False, ScrewThis=False
+):
     """
     Construct the unscreened Coulomb collision arrays Veh0, Vee0, Vhh0.
 
@@ -528,7 +555,7 @@ def CalcCoulombArrays(y, ky, er, alphae, alphah, L, Delta0, Qy, kkp,
     ee = np.zeros(NQ)
     hh = np.zeros(NQ)
 
-    prefactor = e0 ** 2 / (twopi * eps0 * er * L)
+    prefactor = e0**2 / (twopi * eps0 * er * L)
 
     for k in range(NQ):
         if k % 10 == 0:
@@ -585,8 +612,8 @@ def CalcChi1D(ky, alphae, alphah, Delta0, epsr, me, mh, qe, qh):
     Chi1De = np.zeros((N, N))
     Chi1Dh = np.zeros((N, N))
 
-    Re = np.sqrt((2.0 / alphae) ** 2 + Delta0 ** 2)
-    Rh = np.sqrt((2.0 / alphah) ** 2 + Delta0 ** 2)
+    Re = np.sqrt((2.0 / alphae) ** 2 + Delta0**2)
+    Rh = np.sqrt((2.0 / alphah) ** 2 + Delta0**2)
 
     for k2 in range(N):
         for k1 in range(N):
@@ -596,7 +623,7 @@ def CalcChi1D(ky, alphae, alphah, Delta0, epsr, me, mh, qe, qh):
         for k1 in range(N):
             Chi1Dh[k1, k2] = mh * K03(qh[k1, k2] * Rh) / qh[k1, k2]
 
-    scale = e0 ** 2 / (twopi * eps0 * epsr * hbar ** 2)
+    scale = e0**2 / (twopi * eps0 * epsr * hbar**2)
     Chi1De = Chi1De * scale
     Chi1Dh = Chi1Dh * scale
 
@@ -606,6 +633,7 @@ def CalcChi1D(ky, alphae, alphah, Delta0, epsr, me, mh, qe, qh):
 ###############################################################################
 # Standalone diagnostic functions (no module state needed)
 ###############################################################################
+
 
 def GetChi1Dqw(alphae, alphah, Delta0, epsr, game, gamh, ky, Ee, Eh, ne, nh, qq, w):
     """
@@ -649,10 +677,10 @@ def GetChi1Dqw(alphae, alphah, Delta0, epsr, game, gamh, ky, Ee, Eh, ne, nh, qq,
     qmine = alphae / 2.0
     qminh = alphah / 2.0
 
-    Re = np.sqrt((2.0 / alphae) ** 2 + Delta0 ** 2)
-    Rh = np.sqrt((2.0 / alphah) ** 2 + Delta0 ** 2)
+    Re = np.sqrt((2.0 / alphae) ** 2 + Delta0**2)
+    Rh = np.sqrt((2.0 / alphah) ** 2 + Delta0**2)
 
-    beta = e0 ** 2 / (4 * pi * eps0 * epsr)
+    beta = e0**2 / (4 * pi * eps0 * epsr)
 
     ql = abs(qq)
     Ke = K03(max(ql, qminh) * Re) * beta * 2
@@ -710,17 +738,17 @@ def GetEps1Dqw(alphae, alphah, Delta0, epsr, me, mh, n1D, q, w):
     qmine = alphae / 2.0
     qminh = alphah / 2.0
 
-    Re = np.sqrt((2.0 / alphae) ** 2 + Delta0 ** 2)
-    Rh = np.sqrt((2.0 / alphah) ** 2 + Delta0 ** 2)
+    Re = np.sqrt((2.0 / alphae) ** 2 + Delta0**2)
+    Rh = np.sqrt((2.0 / alphah) ** 2 + Delta0**2)
 
-    beta = e0 ** 2 / (4 * pi * eps0 * epsr)
+    beta = e0**2 / (4 * pi * eps0 * epsr)
 
     if abs(q) < 1.0:
         q = 1.0
     ql = abs(q)
 
-    Ce = 2 * beta * me / pi / hbar ** 2 / ql
-    Ch = 2 * beta * mh / pi / hbar ** 2 / ql
+    Ce = 2 * beta * me / pi / hbar**2 / ql
+    Ch = 2 * beta * mh / pi / hbar**2 / ql
 
     Ke = K03(max(ql, qminh) * Re)
     Kh = K03(max(ql, qmine) * Rh)
@@ -730,8 +758,11 @@ def GetEps1Dqw(alphae, alphah, Delta0, epsr, me, mh, n1D, q, w):
     OhmHp = hbar * ql / 2.0 / mh * abs(ql + pi * n1D)
     OhmHm = hbar * ql / 2.0 / mh * abs(ql - pi * n1D)
 
-    epr = 1.0 - Ce * Ke * np.log(abs((w ** 2 - OhmEm ** 2) / (w ** 2 - OhmEp ** 2))) - \
-          Ch * Kh * np.log(abs((w ** 2 - OhmHm ** 2) / (w ** 2 - OhmHp ** 2)))
+    epr = (
+        1.0
+        - Ce * Ke * np.log(abs((w**2 - OhmEm**2) / (w**2 - OhmEp**2)))
+        - Ch * Kh * np.log(abs((w**2 - OhmHm**2) / (w**2 - OhmHp**2)))
+    )
 
     epi = 0.0
     if min(OhmEm, OhmEp) < w < max(OhmEm, OhmEp):
@@ -749,6 +780,7 @@ def GetEps1Dqw(alphae, alphah, Delta0, epsr, me, mh, n1D, q, w):
 ###############################################################################
 # JIT core functions (module-level for numba compatibility)
 ###############################################################################
+
 
 @jit(nopython=True, parallel=True)
 def _CalcMVeh_core(p, Veh, MVeh, k3, UnDel):
@@ -769,9 +801,12 @@ def _CalcMVeh_core(p, Veh, MVeh, k3, UnDel):
                             q_1b = q + 1
                             qp_1b_val = qp + 1
 
-                            MVeh[k, kp, f] += (p[q, qp, f] * Veh[k, q] *
-                                             UnDel[k_1b, q_1b] *
-                                             UnDel[kp_1b, qp_1b_val])
+                            MVeh[k, kp, f] += (
+                                p[q, qp, f]
+                                * Veh[k, q]
+                                * UnDel[k_1b, q_1b]
+                                * UnDel[kp_1b, qp_1b_val]
+                            )
 
 
 @jit(nopython=True, parallel=True)
@@ -817,9 +852,14 @@ def _EeRenorm_core(ne, Vee, BGR, UnDel):
                 sum_vk_k += ne[i] * Vee[k, k]
                 sum_vk_ud += ne[i] * Vee[i, k] * UnDel[i_1b, k_1b]
 
-            BGR[k, kp] = (2.0 * sum_vkp_kp - sum_vkp_ud +
-                          2.0 * sum_vk_k - sum_vk_ud -
-                          2.0 * sum_vkp_kp - sum_vk_k)
+            BGR[k, kp] = (
+                2.0 * sum_vkp_kp
+                - sum_vkp_ud
+                + 2.0 * sum_vk_k
+                - sum_vk_ud
+                - 2.0 * sum_vkp_kp
+                - sum_vk_k
+            )
 
 
 @jit(nopython=True, parallel=True)
@@ -844,9 +884,14 @@ def _EhRenorm_core(nh, Vhh, BGR, UnDel):
                 sum_vk_k += nh[i] * Vhh[k, k]
                 sum_vk_ud += nh[i] * Vhh[i, k] * UnDel[i_1b, k_1b]
 
-            BGR[k, kp] = (2.0 * sum_vkp_kp - sum_vkp_ud +
-                          2.0 * sum_vk_k - sum_vk_ud -
-                          2.0 * sum_vkp_kp - sum_vk_k)
+            BGR[k, kp] = (
+                2.0 * sum_vkp_kp
+                - sum_vkp_ud
+                + 2.0 * sum_vk_k
+                - sum_vk_ud
+                - 2.0 * sum_vkp_kp
+                - sum_vk_k
+            )
 
 
 @jit(nopython=True, parallel=True)
@@ -863,14 +908,24 @@ def _MBCE2_core(ne, nh, Veh2, Vee2, Win, Wout, k3, Ceh, Cee):
                 k1p_1b = k3[kp - 1, k1 - 1, k - 1]
                 if k1p_1b > 0:
                     k1p = k1p_1b
-                    Win[k - 1] += (Veh2[k - 1, k1 - 1] * (1.0 - nh[kp]) * nh[k1p] *
-                                   ne[k1] * Ceh[k - 1, kp - 1, k1 - 1])
+                    Win[k - 1] += (
+                        Veh2[k - 1, k1 - 1]
+                        * (1.0 - nh[kp])
+                        * nh[k1p]
+                        * ne[k1]
+                        * Ceh[k - 1, kp - 1, k1 - 1]
+                    )
 
                 k1p_1b = k3[kp - 1, k - 1, k1 - 1]
                 if k1p_1b > 0:
                     k1p = k1p_1b
-                    Wout[k - 1] += (Veh2[k1 - 1, k - 1] * (1.0 - ne[k1]) * (1.0 - nh[kp]) *
-                                    nh[k1p] * Ceh[k1 - 1, kp - 1, k - 1])
+                    Wout[k - 1] += (
+                        Veh2[k1 - 1, k - 1]
+                        * (1.0 - ne[k1])
+                        * (1.0 - nh[kp])
+                        * nh[k1p]
+                        * Ceh[k1 - 1, kp - 1, k - 1]
+                    )
 
                 k2 = q1
                 k4 = q2
@@ -878,14 +933,24 @@ def _MBCE2_core(ne, nh, Veh2, Vee2, Win, Wout, k3, Ceh, Cee):
                 k30_1b = k3[k - 1, k2 - 1, k4 - 1]
                 if k30_1b > 0:
                     k30 = k30_1b
-                    Win[k - 1] += (Vee2[k - 1, k4 - 1] * (1.0 - ne[k2]) * ne[k30] *
-                                   ne[k4] * Cee[k - 1, k2 - 1, k4 - 1])
+                    Win[k - 1] += (
+                        Vee2[k - 1, k4 - 1]
+                        * (1.0 - ne[k2])
+                        * ne[k30]
+                        * ne[k4]
+                        * Cee[k - 1, k2 - 1, k4 - 1]
+                    )
 
                 k30_1b = k3[k4 - 1, k2 - 1, k - 1]
                 if k30_1b > 0:
                     k30 = k30_1b
-                    Wout[k - 1] += (Vee2[k4 - 1, k - 1] * (1.0 - ne[k4]) * (1.0 - ne[k2]) *
-                                    ne[k30] * Cee[k4 - 1, k2 - 1, k - 1])
+                    Wout[k - 1] += (
+                        Vee2[k4 - 1, k - 1]
+                        * (1.0 - ne[k4])
+                        * (1.0 - ne[k2])
+                        * ne[k30]
+                        * Cee[k4 - 1, k2 - 1, k - 1]
+                    )
 
 
 @jit(nopython=True, parallel=True)
@@ -902,14 +967,24 @@ def _MBCE_core(ne, nh, Veh2, Vee2, Win, Wout, k3, Ceh, Cee):
                 k1p_1b = k3[kp - 1, k1 - 1, k - 1]
                 if k1p_1b > 0:
                     k1p = k1p_1b
-                    Win[k - 1] += (Veh2[k - 1, k1 - 1] * (1.0 - nh[kp]) * nh[k1p] *
-                                   ne[k1] * Ceh[k - 1, kp - 1, k1 - 1])
+                    Win[k - 1] += (
+                        Veh2[k - 1, k1 - 1]
+                        * (1.0 - nh[kp])
+                        * nh[k1p]
+                        * ne[k1]
+                        * Ceh[k - 1, kp - 1, k1 - 1]
+                    )
 
                 k1p_1b = k3[kp - 1, k - 1, k1 - 1]
                 if k1p_1b > 0:
                     k1p = k1p_1b
-                    Wout[k - 1] += (Veh2[k1 - 1, k - 1] * (1.0 - ne[k1]) * (1.0 - nh[kp]) *
-                                    nh[k1p] * Ceh[k1 - 1, kp - 1, k - 1])
+                    Wout[k - 1] += (
+                        Veh2[k1 - 1, k - 1]
+                        * (1.0 - ne[k1])
+                        * (1.0 - nh[kp])
+                        * nh[k1p]
+                        * Ceh[k1 - 1, kp - 1, k - 1]
+                    )
 
                 k2 = q1
                 k4 = q2
@@ -917,14 +992,24 @@ def _MBCE_core(ne, nh, Veh2, Vee2, Win, Wout, k3, Ceh, Cee):
                 k30_1b = k3[k - 1, k2 - 1, k4 - 1]
                 if k30_1b > 0:
                     k30 = k30_1b
-                    Win[k - 1] += (Vee2[k - 1, k4 - 1] * (1.0 - ne[k2]) * ne[k30] *
-                                   ne[k4] * Cee[k - 1, k2 - 1, k4 - 1])
+                    Win[k - 1] += (
+                        Vee2[k - 1, k4 - 1]
+                        * (1.0 - ne[k2])
+                        * ne[k30]
+                        * ne[k4]
+                        * Cee[k - 1, k2 - 1, k4 - 1]
+                    )
 
                 k30_1b = k3[k4 - 1, k2 - 1, k - 1]
                 if k30_1b > 0:
                     k30 = k30_1b
-                    Wout[k - 1] += (Vee2[k4 - 1, k - 1] * (1.0 - ne[k4]) * (1.0 - ne[k2]) *
-                                    ne[k30] * Cee[k4 - 1, k2 - 1, k - 1])
+                    Wout[k - 1] += (
+                        Vee2[k4 - 1, k - 1]
+                        * (1.0 - ne[k4])
+                        * (1.0 - ne[k2])
+                        * ne[k30]
+                        * Cee[k4 - 1, k2 - 1, k - 1]
+                    )
 
 
 @jit(nopython=True, parallel=True)
@@ -941,14 +1026,24 @@ def _MBCH_core(ne, nh, Veh2, Vhh2, Win, Wout, k3, Ceh, Chh):
                 k1p_1b = k3[kp - 1, k1 - 1, k - 1]
                 if k1p_1b > 0:
                     k1p = k1p_1b
-                    Win[kp - 1] += (Veh2[k - 1, k1 - 1] * (1.0 - ne[k]) * nh[k1p] *
-                                    ne[k1] * Ceh[k - 1, kp - 1, k1 - 1])
+                    Win[kp - 1] += (
+                        Veh2[k - 1, k1 - 1]
+                        * (1.0 - ne[k])
+                        * nh[k1p]
+                        * ne[k1]
+                        * Ceh[k - 1, kp - 1, k1 - 1]
+                    )
 
                 k1p_1b = k3[kp - 1, k - 1, k1 - 1]
                 if k1p_1b > 0:
                     k1p = k1p_1b
-                    Wout[kp - 1] += (Veh2[k1 - 1, k - 1] * (1.0 - ne[k]) * (1.0 - nh[k1p]) *
-                                     ne[k1] * Ceh[k - 1, k1p - 1, k1 - 1])
+                    Wout[kp - 1] += (
+                        Veh2[k1 - 1, k - 1]
+                        * (1.0 - ne[k])
+                        * (1.0 - nh[k1p])
+                        * ne[k1]
+                        * Ceh[k - 1, k1p - 1, k1 - 1]
+                    )
 
                 k2p = q1
                 k4p = q2
@@ -956,19 +1051,30 @@ def _MBCH_core(ne, nh, Veh2, Vhh2, Win, Wout, k3, Ceh, Chh):
                 k3p_1b = k3[kp - 1, k2p - 1, k4p - 1]
                 if k3p_1b > 0:
                     k3p = k3p_1b
-                    Win[kp - 1] += (Vhh2[kp - 1, k4p - 1] * (1.0 - nh[k2p]) * nh[k3p] *
-                                    nh[k4p] * Chh[kp - 1, k2p - 1, k4p - 1])
+                    Win[kp - 1] += (
+                        Vhh2[kp - 1, k4p - 1]
+                        * (1.0 - nh[k2p])
+                        * nh[k3p]
+                        * nh[k4p]
+                        * Chh[kp - 1, k2p - 1, k4p - 1]
+                    )
 
                 k3p_1b = k3[k4p - 1, k2p - 1, kp - 1]
                 if k3p_1b > 0:
                     k3p = k3p_1b
-                    Wout[kp - 1] += (Vhh2[k4p - 1, kp - 1] * (1.0 - nh[k4p]) * (1.0 - nh[k2p]) *
-                                     nh[k3p] * Chh[k4p - 1, k2p - 1, kp - 1])
+                    Wout[kp - 1] += (
+                        Vhh2[k4p - 1, kp - 1]
+                        * (1.0 - nh[k4p])
+                        * (1.0 - nh[k2p])
+                        * nh[k3p]
+                        * Chh[k4p - 1, k2p - 1, kp - 1]
+                    )
 
 
 ###############################################################################
 # CoulombModule class — encapsulates Fortran module state
 ###############################################################################
+
 
 class CoulombModule:
     """
@@ -1015,9 +1121,26 @@ class CoulombModule:
         Current broadening mode flag.
     """
 
-    def __init__(self, y, ky, L, Delta0, me, mh, Ee, Eh, ge, gh,
-                 alphae, alphah, er, Qy, kkp, screened,
-                 LorentzDelta=False):
+    def __init__(
+        self,
+        y,
+        ky,
+        L,
+        Delta0,
+        me,
+        mh,
+        Ee,
+        Eh,
+        ge,
+        gh,
+        alphae,
+        alphah,
+        er,
+        Qy,
+        kkp,
+        screened,
+        LorentzDelta=False,
+    ):
         self.LorentzDelta = LorentzDelta
 
         # Utility arrays
@@ -1027,15 +1150,18 @@ class CoulombModule:
 
         # Many-body interaction arrays
         self.Ceh, self.Cee, self.Chh = CalcMBArrays(
-            ky, Ee, Eh, ge, gh, self.k3, self.UnDel, self.LorentzDelta)
+            ky, Ee, Eh, ge, gh, self.k3, self.UnDel, self.LorentzDelta
+        )
 
         # Unscreened Coulomb arrays
         self.Veh0, self.Vee0, self.Vhh0 = CalcCoulombArrays(
-            y, ky, er, alphae, alphah, L, Delta0, Qy, kkp)
+            y, ky, er, alphae, alphah, L, Delta0, Qy, kkp
+        )
 
         # Susceptibility arrays
         self.Chi1De, self.Chi1Dh = CalcChi1D(
-            ky, alphae, alphah, Delta0, er, me, mh, self.qe, self.qh)
+            ky, alphae, alphah, Delta0, er, me, mh, self.qe, self.qh
+        )
 
     def SetLorentzDelta(self, boolean):
         """Set the LorentzDelta flag."""
@@ -1059,9 +1185,11 @@ class CoulombModule:
         ndarray
             2D dielectric function matrix.
         """
-        eps1d = (np.ones_like(self.Chi1De) -
-                 self.Chi1De * 2 * np.log(np.abs((self.qe - pi * n1D) / (self.qe + n1D))) -
-                 self.Chi1Dh * 2 * np.log(np.abs((self.qh - pi * n1D) / (self.qh + n1D))))
+        eps1d = (
+            np.ones_like(self.Chi1De)
+            - self.Chi1De * 2 * np.log(np.abs((self.qe - pi * n1D) / (self.qe + n1D)))
+            - self.Chi1Dh * 2 * np.log(np.abs((self.qh - pi * n1D) / (self.qh + n1D)))
+        )
         return eps1d
 
     def CalcScreenedArrays(self, screened, L, ne, nh, VC, E1D):
@@ -1163,8 +1291,8 @@ class CoulombModule:
         Vee2 = VC[:, :, 1] ** 2
         ne = np.zeros(Nk + 1)
         nh = np.zeros(Nk + 1)
-        ne[1:Nk + 1] = np.abs(ne0)
-        nh[1:Nk + 1] = np.abs(nh0)
+        ne[1 : Nk + 1] = np.abs(ne0)
+        nh[1 : Nk + 1] = np.abs(nh0)
         _MBCE2_core(ne, nh, Veh2, Vee2, Win, Wout, self.k3, self.Ceh, self.Cee)
 
     def MBCE(self, ne0, nh0, ky, Ee, Eh, VC, geh, ge, Win, Wout):
@@ -1178,8 +1306,8 @@ class CoulombModule:
         Vee2 = VC[:, :, 1] ** 2
         ne = np.zeros(Nk + 1)
         nh = np.zeros(Nk + 1)
-        ne[1:Nk + 1] = np.abs(ne0)
-        nh[1:Nk + 1] = np.abs(nh0)
+        ne[1 : Nk + 1] = np.abs(ne0)
+        nh[1 : Nk + 1] = np.abs(nh0)
         _MBCE_core(ne, nh, Veh2, Vee2, Win, Wout, self.k3, self.Ceh, self.Cee)
 
     def MBCH(self, ne0, nh0, ky, Ee, Eh, VC, geh, gh, Win, Wout):
@@ -1193,8 +1321,8 @@ class CoulombModule:
         Vhh2 = VC[:, :, 2] ** 2
         ne = np.zeros(Nk + 1)
         nh = np.zeros(Nk + 1)
-        ne[1:Nk + 1] = np.abs(ne0)
-        nh[1:Nk + 1] = np.abs(nh0)
+        ne[1 : Nk + 1] = np.abs(ne0)
+        nh[1 : Nk + 1] = np.abs(nh0)
         _MBCH_core(ne, nh, Veh2, Vhh2, Win, Wout, self.k3, self.Ceh, self.Chh)
 
 
@@ -1208,8 +1336,8 @@ class CoulombModule:
 # These wrappers keep that import working without changes.
 ###############################################################################
 
-_instance = None        # Module-level CoulombModule singleton
-_LorentzDelta = False   # Needed because SetLorentzDelta is called before init
+_instance = None  # Module-level CoulombModule singleton
+_LorentzDelta = False  # Needed because SetLorentzDelta is called before init
 
 
 def SetLorentzDelta(boolean):
@@ -1220,14 +1348,30 @@ def SetLorentzDelta(boolean):
         _instance.SetLorentzDelta(boolean)
 
 
-def InitializeCoulomb(y, ky, L, Delta0, me, mh, Ee, Eh, ge, gh,
-                      alphae, alphah, er, Qy, kkp, screened):
+def InitializeCoulomb(
+    y, ky, L, Delta0, me, mh, Ee, Eh, ge, gh, alphae, alphah, er, Qy, kkp, screened
+):
     """Create / replace the module-level CoulombModule singleton."""
     global _instance
     _instance = CoulombModule(
-        y, ky, L, Delta0, me, mh, Ee, Eh, ge, gh,
-        alphae, alphah, er, Qy, kkp, screened,
-        LorentzDelta=_LorentzDelta)
+        y,
+        ky,
+        L,
+        Delta0,
+        me,
+        mh,
+        Ee,
+        Eh,
+        ge,
+        gh,
+        alphae,
+        alphah,
+        er,
+        Qy,
+        kkp,
+        screened,
+        LorentzDelta=_LorentzDelta,
+    )
 
 
 def _require_instance():
@@ -1238,32 +1382,42 @@ def _require_instance():
 
 # Wrappers that delegate to the singleton (used by SBEs.py)
 
+
 def CalcScreenedArrays(screened, L, ne, nh, VC, E1D):
     _require_instance().CalcScreenedArrays(screened, L, ne, nh, VC, E1D)
+
 
 def Eps1D(n1D, Nk):
     return _require_instance().Eps1D(n1D, Nk)
 
+
 def CalcMVeh(p, VC, MVeh, k3=None, UnDel=None):
     _require_instance().CalcMVeh(p, VC, MVeh)
+
 
 def undell(k, q):
     return _require_instance().undell(k, q)
 
+
 def BGRenorm(C, D, VC, BGR, UnDel=None):
     _require_instance().BGRenorm(C, D, VC, BGR)
+
 
 def EeRenorm(ne, VC, BGR, UnDel=None):
     _require_instance().EeRenorm(ne, VC, BGR)
 
+
 def EhRenorm(nh, VC, BGR, UnDel=None):
     _require_instance().EhRenorm(nh, VC, BGR)
+
 
 def MBCE2(ne0, nh0, ky, Ee, Eh, VC, geh, ge, Win, Wout, k3=None, Ceh=None, Cee=None):
     _require_instance().MBCE2(ne0, nh0, ky, Ee, Eh, VC, geh, ge, Win, Wout)
 
+
 def MBCE(ne0, nh0, ky, Ee, Eh, VC, geh, ge, Win, Wout, k3=None, Ceh=None, Cee=None):
     _require_instance().MBCE(ne0, nh0, ky, Ee, Eh, VC, geh, ge, Win, Wout)
+
 
 def MBCH(ne0, nh0, ky, Ee, Eh, VC, geh, gh, Win, Wout, k3=None, Ceh=None, Chh=None):
     _require_instance().MBCH(ne0, nh0, ky, Ee, Eh, VC, geh, gh, Win, Wout)
@@ -1272,11 +1426,19 @@ def MBCH(ne0, nh0, ky, Ee, Eh, VC, geh, gh, Win, Wout, k3=None, Ceh=None, Chh=No
 # Module-level __getattr__ for backward-compat reads of coulomb._k3, etc.
 def __getattr__(name):
     _attr_map = {
-        '_k3': 'k3', '_UnDel': 'UnDel', '_qe': 'qe', '_qh': 'qh',
-        '_Ceh': 'Ceh', '_Cee': 'Cee', '_Chh': 'Chh',
-        '_Veh0': 'Veh0', '_Vee0': 'Vee0', '_Vhh0': 'Vhh0',
-        '_Chi1De': 'Chi1De', '_Chi1Dh': 'Chi1Dh',
-        '_LorentzDelta': 'LorentzDelta',
+        "_k3": "k3",
+        "_UnDel": "UnDel",
+        "_qe": "qe",
+        "_qh": "qh",
+        "_Ceh": "Ceh",
+        "_Cee": "Cee",
+        "_Chh": "Chh",
+        "_Veh0": "Veh0",
+        "_Vee0": "Vee0",
+        "_Vhh0": "Vhh0",
+        "_Chi1De": "Chi1De",
+        "_Chi1Dh": "Chi1Dh",
+        "_LorentzDelta": "LorentzDelta",
     }
     if name in _attr_map:
         if _instance is None:

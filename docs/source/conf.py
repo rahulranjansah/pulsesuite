@@ -3,11 +3,12 @@
 PulseSuite documentation build configuration file.
 """
 
-from importlib.metadata import version as pkg_version
 import os
 import sys
-import sphinx_rtd_theme
 from datetime import datetime
+from importlib.metadata import version as pkg_version
+
+import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
@@ -51,7 +52,9 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 autodoc_member_order = "bysource"
 
 # MathJax configuration
-mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+mathjax_path = (
+    "https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+)
 mathjax2_config = {
     "tex2jax": {
         "inlineMath": [["$", "$"], ["\\(", "\\)"]],
@@ -72,7 +75,6 @@ myst_enable_extensions = [
 
 myst_substitutions = {
     # "SBEs": "{py:class}`~pulsesuite.PSTD3D.SBEs`",
-
 }
 
 # Hoverxref Extension
@@ -129,7 +131,9 @@ html_static_path = ["_static"]
 # Execute notebooks (i.e., {code-cell} blocks)
 # "force" means always execute, "cache" means use cached outputs if available
 nb_execution_mode = "force"
-nb_execution_timeout = 600  # Increased to 10 minutes for heavy computations like InitializeSBE
+nb_execution_timeout = (
+    600  # Increased to 10 minutes for heavy computations like InitializeSBE
+)
 
 # Allow errors to be displayed (set False to fail build on errors)
 nb_execution_allow_errors = True
@@ -147,7 +151,7 @@ nb_execution_show_tb = True
 # and the file should be excluded from execution
 nb_execution_excludepatterns = [
     # "examples/sbes_example.myst.md",
-    "examples/coulomb_example.myst.md" # Excluded due to DeadKernelError during heavy computations
+    "examples/coulomb_example.myst.md"  # Excluded due to DeadKernelError during heavy computations
 ]
 
 # Your .myst.md files declare format_name: myst in the YAML header,

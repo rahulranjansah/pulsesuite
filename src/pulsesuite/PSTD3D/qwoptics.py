@@ -19,6 +19,7 @@ from numba import jit, prange
 
 try:
     from numba import cuda
+
     _HAS_CUDA = cuda.is_available()
 except (ImportError, RuntimeError):
     _HAS_CUDA = False
@@ -44,8 +45,11 @@ _firsttime = True
 # JIT / CUDA kernels  (must be module-level for Numba)
 # ══════════════════════════════════════════════════════════════════════
 
+
 @jit(nopython=True, parallel=True)
-def _QWPolarization3_jit(y, ky, p, Xvc0, Yvc0, Zvc0, Expikr, Expikrc, QWWindow, yw_val, w, Px, Py, Pz):
+def _QWPolarization3_jit(
+    y, ky, p, Xvc0, Yvc0, Zvc0, Expikr, Expikrc, QWWindow, yw_val, w, Px, Py, Pz
+):
     """JIT-compiled version of QWPolarization3 inner loops."""
     Nr = len(y)
     Nk = len(ky)
@@ -69,10 +73,12 @@ def _QWPolarization3_jit(y, ky, p, Xvc0, Yvc0, Zvc0, Expikr, Expikrc, QWWindow, 
             for kh in range(Nk):
                 # Pz component
                 prod = p[kh, ke] * (+Zvc0[kh, ke]) * Expikr[ke, r] * Expikrc[kh, r]
-                Pz[r] = Pz[r] + prod.real * QWWindow[r] * ((-1)**w)
+                Pz[r] = Pz[r] + prod.real * QWWindow[r] * ((-1) ** w)
 
 
-def _QWPolarization3_fallback(y, ky, p, Xvc0, Yvc0, Zvc0, Expikr, Expikrc, QWWindow, yw_val, w, Px, Py, Pz):
+def _QWPolarization3_fallback(
+    y, ky, p, Xvc0, Yvc0, Zvc0, Expikr, Expikrc, QWWindow, yw_val, w, Px, Py, Pz
+):
     """Fallback pure Python version of QWPolarization3 inner loops."""
     Nr = len(y)
     Nk = len(ky)
@@ -81,27 +87,54 @@ def _QWPolarization3_fallback(y, ky, p, Xvc0, Yvc0, Zvc0, Expikr, Expikrc, QWWin
         for ke in range(Nk):
             for kh in range(Nk):
                 # Px component
-                Px[r] = Px[r] + np.real(p[kh, ke] * (+Xvc0[kh, ke]) * Expikr[ke, r] * Expikrc[kh, r]) * QWWindow[r]
+                Px[r] = (
+                    Px[r]
+                    + np.real(
+                        p[kh, ke] * (+Xvc0[kh, ke]) * Expikr[ke, r] * Expikrc[kh, r]
+                    )
+                    * QWWindow[r]
+                )
 
     for r in range(Nr):
         for ke in range(Nk):
             for kh in range(Nk):
                 # Py component
-                Py[r] = Py[r] + np.real(p[kh, ke] * (+Yvc0[kh, ke]) * Expikr[ke, r] * Expikrc[kh, r]) * QWWindow[r] * yw_val
+                Py[r] = (
+                    Py[r]
+                    + np.real(
+                        p[kh, ke] * (+Yvc0[kh, ke]) * Expikr[ke, r] * Expikrc[kh, r]
+                    )
+                    * QWWindow[r]
+                    * yw_val
+                )
 
     for r in range(Nr):
         for ke in range(Nk):
             for kh in range(Nk):
                 # Pz component
-                Pz[r] = Pz[r] + np.real(p[kh, ke] * (+Zvc0[kh, ke]) * Expikr[ke, r] * Expikrc[kh, r]) * QWWindow[r] * ((-1)**w)
+                Pz[r] = Pz[r] + np.real(
+                    p[kh, ke] * (+Zvc0[kh, ke]) * Expikr[ke, r] * Expikrc[kh, r]
+                ) * QWWindow[r] * ((-1) ** w)
 
 
 # CUDA implementation for QWPolarization3
 if _HAS_CUDA:
+
     @cuda.jit
-    def _QWPolarization3_cuda_kernel_px(p_real, p_imag, Xvc0_real, Xvc0_imag,
-                                        Expikr_real, Expikr_imag, Expikrc_real, Expikrc_imag,
-                                        QWWindow, Px, Nr, Nk):
+    def _QWPolarization3_cuda_kernel_px(
+        p_real,
+        p_imag,
+        Xvc0_real,
+        Xvc0_imag,
+        Expikr_real,
+        Expikr_imag,
+        Expikrc_real,
+        Expikrc_imag,
+        QWWindow,
+        Px,
+        Nr,
+        Nk,
+    ):
         """CUDA kernel for Px component of QWPolarization3."""
         idx = cuda.grid(1)
         total_threads = Nr * Nk * Nk
@@ -132,9 +165,21 @@ if _HAS_CUDA:
                 cuda.atomic.add(Px, r, val)
 
     @cuda.jit
-    def _QWPolarization3_cuda_kernel_py(p_real, p_imag, Yvc0_real, Yvc0_imag,
-                                        Expikr_real, Expikr_imag, Expikrc_real, Expikrc_imag,
-                                        QWWindow, yw_val, Py, Nr, Nk):
+    def _QWPolarization3_cuda_kernel_py(
+        p_real,
+        p_imag,
+        Yvc0_real,
+        Yvc0_imag,
+        Expikr_real,
+        Expikr_imag,
+        Expikrc_real,
+        Expikrc_imag,
+        QWWindow,
+        yw_val,
+        Py,
+        Nr,
+        Nk,
+    ):
         """CUDA kernel for Py component of QWPolarization3."""
         idx = cuda.grid(1)
         total_threads = Nr * Nk * Nk
@@ -165,9 +210,21 @@ if _HAS_CUDA:
                 cuda.atomic.add(Py, r, val)
 
     @cuda.jit
-    def _QWPolarization3_cuda_kernel_pz(p_real, p_imag, Zvc0_real, Zvc0_imag,
-                                        Expikr_real, Expikr_imag, Expikrc_real, Expikrc_imag,
-                                        QWWindow, w, Pz, Nr, Nk):
+    def _QWPolarization3_cuda_kernel_pz(
+        p_real,
+        p_imag,
+        Zvc0_real,
+        Zvc0_imag,
+        Expikr_real,
+        Expikr_imag,
+        Expikrc_real,
+        Expikrc_imag,
+        QWWindow,
+        w,
+        Pz,
+        Nr,
+        Nk,
+    ):
         """CUDA kernel for Pz component of QWPolarization3."""
         idx = cuda.grid(1)
         total_threads = Nr * Nk * Nk
@@ -198,8 +255,9 @@ if _HAS_CUDA:
                 val = prod_re * QWWindow[r] * w_sign
                 cuda.atomic.add(Pz, r, val)
 
-    def _QWPolarization3_cuda(y, ky, p, Xvc0, Yvc0, Zvc0, Expikr, Expikrc,
-                              QWWindow, yw_val, w, Px, Py, Pz):
+    def _QWPolarization3_cuda(
+        y, ky, p, Xvc0, Yvc0, Zvc0, Expikr, Expikrc, QWWindow, yw_val, w, Px, Py, Pz
+    ):
         """CUDA wrapper for QWPolarization3."""
         Nr = len(y)
         Nk = len(ky)
@@ -244,25 +302,56 @@ if _HAS_CUDA:
         blocks_per_grid = (total_elements + threads_per_block - 1) // threads_per_block
 
         _QWPolarization3_cuda_kernel_px[blocks_per_grid, threads_per_block](
-            d_p_real, d_p_imag, d_Xvc0_real, d_Xvc0_imag,
-            d_Expikr_real, d_Expikr_imag, d_Expikrc_real, d_Expikrc_imag,
-            d_QWWindow, d_Px, Nr, Nk
+            d_p_real,
+            d_p_imag,
+            d_Xvc0_real,
+            d_Xvc0_imag,
+            d_Expikr_real,
+            d_Expikr_imag,
+            d_Expikrc_real,
+            d_Expikrc_imag,
+            d_QWWindow,
+            d_Px,
+            Nr,
+            Nk,
         )
         _QWPolarization3_cuda_kernel_py[blocks_per_grid, threads_per_block](
-            d_p_real, d_p_imag, d_Yvc0_real, d_Yvc0_imag,
-            d_Expikr_real, d_Expikr_imag, d_Expikrc_real, d_Expikrc_imag,
-            d_QWWindow, yw_val, d_Py, Nr, Nk
+            d_p_real,
+            d_p_imag,
+            d_Yvc0_real,
+            d_Yvc0_imag,
+            d_Expikr_real,
+            d_Expikr_imag,
+            d_Expikrc_real,
+            d_Expikrc_imag,
+            d_QWWindow,
+            yw_val,
+            d_Py,
+            Nr,
+            Nk,
         )
         _QWPolarization3_cuda_kernel_pz[blocks_per_grid, threads_per_block](
-            d_p_real, d_p_imag, d_Zvc0_real, d_Zvc0_imag,
-            d_Expikr_real, d_Expikr_imag, d_Expikrc_real, d_Expikrc_imag,
-            d_QWWindow, w, d_Pz, Nr, Nk
+            d_p_real,
+            d_p_imag,
+            d_Zvc0_real,
+            d_Zvc0_imag,
+            d_Expikr_real,
+            d_Expikr_imag,
+            d_Expikrc_real,
+            d_Expikrc_imag,
+            d_QWWindow,
+            w,
+            d_Pz,
+            Nr,
+            Nk,
         )
 
         Px[:] = d_Px.copy_to_host()
         Py[:] = d_Py.copy_to_host()
         Pz[:] = d_Pz.copy_to_host()
+
 else:
+
     def _QWPolarization3_cuda(*args, **kwargs):
         """Dummy CUDA function when CUDA is not available."""
         raise RuntimeError("CUDA not available")
@@ -274,11 +363,15 @@ def _QWRho5_jit(Nr, Nk, CC, DD, Expikr, Expikrc, QWWindow, L, re, rh):
     for ri in prange(Nr):
         for k2 in range(Nk):
             for k1 in range(Nk):
-                re[ri] = re[ri] + CC[k1, k2] * Expikrc[k1, ri] * Expikr[k2, ri] * QWWindow[ri] / (2.0 * L)
+                re[ri] = re[ri] + CC[k1, k2] * Expikrc[k1, ri] * Expikr[
+                    k2, ri
+                ] * QWWindow[ri] / (2.0 * L)
                 # Complex conjugate: conj(z) = z.real - 1j*z.imag
                 dd_val = DD[k1, k2]
                 dd_conj = dd_val.real - 1j * dd_val.imag
-                rh[ri] = rh[ri] + dd_conj * Expikrc[k1, ri] * Expikr[k2, ri] * QWWindow[ri] / (2.0 * L)
+                rh[ri] = rh[ri] + dd_conj * Expikrc[k1, ri] * Expikr[k2, ri] * QWWindow[
+                    ri
+                ] / (2.0 * L)
 
 
 def _QWRho5_fallback(Nr, Nk, CC, DD, Expikr, Expikrc, QWWindow, L, re, rh):
@@ -286,16 +379,36 @@ def _QWRho5_fallback(Nr, Nk, CC, DD, Expikr, Expikrc, QWWindow, L, re, rh):
     for ri in range(Nr):
         for k2 in range(Nk):
             for k1 in range(Nk):
-                re[ri] = re[ri] + CC[k1, k2] * Expikrc[k1, ri] * Expikr[k2, ri] * QWWindow[ri] / (2.0 * L)
-                rh[ri] = rh[ri] + np.conj(DD[k1, k2]) * Expikrc[k1, ri] * Expikr[k2, ri] * QWWindow[ri] / (2.0 * L)
+                re[ri] = re[ri] + CC[k1, k2] * Expikrc[k1, ri] * Expikr[
+                    k2, ri
+                ] * QWWindow[ri] / (2.0 * L)
+                rh[ri] = rh[ri] + np.conj(DD[k1, k2]) * Expikrc[k1, ri] * Expikr[
+                    k2, ri
+                ] * QWWindow[ri] / (2.0 * L)
 
 
 # CUDA implementation for QWRho5
 if _HAS_CUDA:
+
     @cuda.jit
-    def _QWRho5_cuda_kernel(CC_real, CC_imag, DD_real, DD_imag,
-                            Expikr_real, Expikr_imag, Expikrc_real, Expikrc_imag,
-                            QWWindow, L, re_real, re_imag, rh_real, rh_imag, Nr, Nk):
+    def _QWRho5_cuda_kernel(
+        CC_real,
+        CC_imag,
+        DD_real,
+        DD_imag,
+        Expikr_real,
+        Expikr_imag,
+        Expikrc_real,
+        Expikrc_imag,
+        QWWindow,
+        L,
+        re_real,
+        re_imag,
+        rh_real,
+        rh_imag,
+        Nr,
+        Nk,
+    ):
         """CUDA kernel for QWRho5 calculation."""
         idx = cuda.grid(1)
         total_threads = Nr * Nk * Nk
@@ -372,9 +485,22 @@ if _HAS_CUDA:
         blocks_per_grid = (total_elements + threads_per_block - 1) // threads_per_block
 
         _QWRho5_cuda_kernel[blocks_per_grid, threads_per_block](
-            d_CC_real, d_CC_imag, d_DD_real, d_DD_imag,
-            d_Expikr_real, d_Expikr_imag, d_Expikrc_real, d_Expikrc_imag,
-            d_QWWindow, L, d_re_real, d_re_imag, d_rh_real, d_rh_imag, Nr, Nk
+            d_CC_real,
+            d_CC_imag,
+            d_DD_real,
+            d_DD_imag,
+            d_Expikr_real,
+            d_Expikr_imag,
+            d_Expikrc_real,
+            d_Expikrc_imag,
+            d_QWWindow,
+            L,
+            d_re_real,
+            d_re_imag,
+            d_rh_real,
+            d_rh_imag,
+            Nr,
+            Nk,
         )
 
         re_real_host = d_re_real.copy_to_host()
@@ -384,26 +510,36 @@ if _HAS_CUDA:
 
         re[:] = re_real_host + 1j * re_imag_host
         rh[:] = rh_real_host + 1j * rh_imag_host
+
 else:
+
     def _QWRho5_cuda(*args, **kwargs):
         """Dummy CUDA function when CUDA is not available."""
         raise RuntimeError("CUDA not available")
 
 
 @jit(nopython=True, parallel=True)
-def _GetVn1n2_jit(Nk, rcv, Hcc, Hvv, Hcv, Hvc, rvc, Vcc, Vvv, Vcv, Vvc, ii_val, hbar_val):
+def _GetVn1n2_jit(
+    Nk, rcv, Hcc, Hvv, Hcv, Hvc, rvc, Vcc, Vvv, Vcv, Vvc, ii_val, hbar_val
+):
     """JIT-compiled version of GetVn1n2 inner loops."""
     for k2 in prange(Nk):
         for k1 in range(Nk):
-            Vcv[k1, k2] = (-ii_val / hbar_val) * (rcv[k1] * Hvv[k1, k2] - Hcc[k1, k2] * rcv[k2])
+            Vcv[k1, k2] = (-ii_val / hbar_val) * (
+                rcv[k1] * Hvv[k1, k2] - Hcc[k1, k2] * rcv[k2]
+            )
 
     for k2 in prange(Nk):
         for k1 in range(Nk):
-            Vcc[k1, k2] = (-ii_val / hbar_val) * (rcv[k1] * Hvc[k1, k2] - Hcv[k1, k2] * rvc[k2])
+            Vcc[k1, k2] = (-ii_val / hbar_val) * (
+                rcv[k1] * Hvc[k1, k2] - Hcv[k1, k2] * rvc[k2]
+            )
 
     for k2 in prange(Nk):
         for k1 in range(Nk):
-            Vvv[k1, k2] = (-ii_val / hbar_val) * (rvc[k1] * Hcv[k1, k2] - Hvc[k1, k2] * rcv[k2])
+            Vvv[k1, k2] = (-ii_val / hbar_val) * (
+                rvc[k1] * Hcv[k1, k2] - Hvc[k1, k2] * rcv[k2]
+            )
 
 
 def _GetVn1n2_fallback(Nk, rcv, Hcc, Hvv, Hcv, Hvc, rvc, Vcc, Vvv, Vcv, Vvc):
@@ -424,6 +560,7 @@ def _GetVn1n2_fallback(Nk, rcv, Hcc, Hvv, Hcv, Hvc, rvc, Vcc, Vvv, Vcv, Vvc):
 # ══════════════════════════════════════════════════════════════════════
 # QWOptics class — encapsulates Fortran module state
 # ══════════════════════════════════════════════════════════════════════
+
 
 class QWOptics:
     """Quantum wire optics state and calculations.
@@ -480,7 +617,7 @@ class QWOptics:
 
         for kh in range(Nk):
             for ke in range(Nk):
-                self._Xcv0[ke, kh] = dcv * ((-1)**kh)
+                self._Xcv0[ke, kh] = dcv * ((-1) ** kh)
                 self._Ycv0[ke, kh] = dcv
                 self._Zcv0[ke, kh] = -dcv
 
@@ -508,9 +645,9 @@ class QWOptics:
             if abs(YY[k]) > L / 2.0:
                 self._QWWindow[k] = 0.0
 
-        self._QWWindow = np.exp(-(YY / (L / 2.0))**150)
+        self._QWWindow = np.exp(-((YY / (L / 2.0)) ** 150))
 
-        printIT(self._QWWindow * (ii)**0.0, YY, 0, 'Envl.y.')
+        printIT(self._QWWindow * (ii) ** 0.0, YY, 0, "Envl.y.")
 
     def CalcExpikr(self, y, ky):
         """Compute exp(i k r) phase arrays.
@@ -522,7 +659,7 @@ class QWOptics:
         ky : ndarray
             Momentum coordinate array, 1D array
         """
-        self._Expikr = np.exp(1j * np.outer(ky, y))   # Shape: (Nk, Nr)
+        self._Expikr = np.exp(1j * np.outer(ky, y))  # Shape: (Nk, Nr)
         self._Expikrc = np.conj(self._Expikr)
 
     # ── field conversion ──────────────────────────────────────────────
@@ -577,7 +714,30 @@ class QWOptics:
         FFTG(Ez)
         FFTG(Vr)
 
-    def QW2Prop(self, r, Qr, Ex, Ey, Ez, Vr, Px, Py, Pz, re, rh, RR, Pxx, Pyy, Pzz, RhoE, RhoH, w, xxx, WriteFields, Plasmonics):
+    def QW2Prop(
+        self,
+        r,
+        Qr,
+        Ex,
+        Ey,
+        Ez,
+        Vr,
+        Px,
+        Py,
+        Pz,
+        re,
+        rh,
+        RR,
+        Pxx,
+        Pyy,
+        Pzz,
+        RhoE,
+        RhoH,
+        w,
+        xxx,
+        WriteFields,
+        Plasmonics,
+    ):
         """Convert QW fields and polarizations back to propagation space.
 
         Parameters
@@ -630,7 +790,7 @@ class QWOptics:
             rh[:] = rh * total / (np.sum(rh) * dr + self._small)
 
         if WriteFields:
-            WriteQWFields(r, Ex, Ey, Ez, Vr, Px, Py, Pz, re, rh, 'r', w, xxx)
+            WriteQWFields(r, Ex, Ey, Ez, Vr, Px, Py, Pz, re, rh, "r", w, xxx)
 
         rescale_1D(r, Px, RR, Pxx)
         rescale_1D(r, Py, RR, Pyy)
@@ -684,17 +844,92 @@ class QWOptics:
         # Try CUDA first, then JIT, then fallback
         if _HAS_CUDA:
             try:
-                _QWPolarization3_cuda(y, ky, p, self._Xvc0, self._Yvc0, self._Zvc0, self._Expikr, self._Expikrc, self._QWWindow, yw(w), w, Px, Py, Pz)
+                _QWPolarization3_cuda(
+                    y,
+                    ky,
+                    p,
+                    self._Xvc0,
+                    self._Yvc0,
+                    self._Zvc0,
+                    self._Expikr,
+                    self._Expikrc,
+                    self._QWWindow,
+                    yw(w),
+                    w,
+                    Px,
+                    Py,
+                    Pz,
+                )
             except Exception:
                 try:
-                    _QWPolarization3_jit(y, ky, p, self._Xvc0, self._Yvc0, self._Zvc0, self._Expikr, self._Expikrc, self._QWWindow, yw(w), w, Px, Py, Pz)
+                    _QWPolarization3_jit(
+                        y,
+                        ky,
+                        p,
+                        self._Xvc0,
+                        self._Yvc0,
+                        self._Zvc0,
+                        self._Expikr,
+                        self._Expikrc,
+                        self._QWWindow,
+                        yw(w),
+                        w,
+                        Px,
+                        Py,
+                        Pz,
+                    )
                 except Exception:
-                    _QWPolarization3_fallback(y, ky, p, self._Xvc0, self._Yvc0, self._Zvc0, self._Expikr, self._Expikrc, self._QWWindow, yw(w), w, Px, Py, Pz)
+                    _QWPolarization3_fallback(
+                        y,
+                        ky,
+                        p,
+                        self._Xvc0,
+                        self._Yvc0,
+                        self._Zvc0,
+                        self._Expikr,
+                        self._Expikrc,
+                        self._QWWindow,
+                        yw(w),
+                        w,
+                        Px,
+                        Py,
+                        Pz,
+                    )
         else:
             try:
-                _QWPolarization3_jit(y, ky, p, self._Xvc0, self._Yvc0, self._Zvc0, self._Expikr, self._Expikrc, self._QWWindow, yw(w), w, Px, Py, Pz)
+                _QWPolarization3_jit(
+                    y,
+                    ky,
+                    p,
+                    self._Xvc0,
+                    self._Yvc0,
+                    self._Zvc0,
+                    self._Expikr,
+                    self._Expikrc,
+                    self._QWWindow,
+                    yw(w),
+                    w,
+                    Px,
+                    Py,
+                    Pz,
+                )
             except Exception:
-                _QWPolarization3_fallback(y, ky, p, self._Xvc0, self._Yvc0, self._Zvc0, self._Expikr, self._Expikrc, self._QWWindow, yw(w), w, Px, Py, Pz)
+                _QWPolarization3_fallback(
+                    y,
+                    ky,
+                    p,
+                    self._Xvc0,
+                    self._Yvc0,
+                    self._Zvc0,
+                    self._Expikr,
+                    self._Expikrc,
+                    self._QWWindow,
+                    yw(w),
+                    w,
+                    Px,
+                    Py,
+                    Pz,
+                )
 
         Px[:] = Px * 2 * ehint / area / L
         Py[:] = Py * 2 * ehint / area / L
@@ -757,21 +992,76 @@ class QWOptics:
         # Try CUDA first, then JIT, then fallback
         if _HAS_CUDA:
             try:
-                _QWRho5_cuda(Nr, Nk, CC, DD, self._Expikr, self._Expikrc, self._QWWindow, L, re, rh)
+                _QWRho5_cuda(
+                    Nr,
+                    Nk,
+                    CC,
+                    DD,
+                    self._Expikr,
+                    self._Expikrc,
+                    self._QWWindow,
+                    L,
+                    re,
+                    rh,
+                )
             except Exception:
                 try:
-                    _QWRho5_jit(Nr, Nk, CC, DD, self._Expikr, self._Expikrc, self._QWWindow, L, re, rh)
+                    _QWRho5_jit(
+                        Nr,
+                        Nk,
+                        CC,
+                        DD,
+                        self._Expikr,
+                        self._Expikrc,
+                        self._QWWindow,
+                        L,
+                        re,
+                        rh,
+                    )
                 except Exception:
-                    _QWRho5_fallback(Nr, Nk, CC, DD, self._Expikr, self._Expikrc, self._QWWindow, L, re, rh)
+                    _QWRho5_fallback(
+                        Nr,
+                        Nk,
+                        CC,
+                        DD,
+                        self._Expikr,
+                        self._Expikrc,
+                        self._QWWindow,
+                        L,
+                        re,
+                        rh,
+                    )
         else:
             try:
-                _QWRho5_jit(Nr, Nk, CC, DD, self._Expikr, self._Expikrc, self._QWWindow, L, re, rh)
+                _QWRho5_jit(
+                    Nr,
+                    Nk,
+                    CC,
+                    DD,
+                    self._Expikr,
+                    self._Expikrc,
+                    self._QWWindow,
+                    L,
+                    re,
+                    rh,
+                )
             except Exception:
-                _QWRho5_fallback(Nr, Nk, CC, DD, self._Expikr, self._Expikrc, self._QWWindow, L, re, rh)
+                _QWRho5_fallback(
+                    Nr,
+                    Nk,
+                    CC,
+                    DD,
+                    self._Expikr,
+                    self._Expikrc,
+                    self._QWWindow,
+                    L,
+                    re,
+                    rh,
+                )
 
         # Remove boundary effects
-        re[:] = re - np.real(np.sum(re[0:10]) + np.sum(re[Nr-10:Nr])) / 20.0
-        rh[:] = rh - np.real(np.sum(rh[0:10]) + np.sum(rh[Nr-10:Nr])) / 20.0
+        re[:] = re - np.real(np.sum(re[0:10]) + np.sum(re[Nr - 10 : Nr])) / 20.0
+        rh[:] = rh - np.real(np.sum(rh[0:10]) + np.sum(rh[Nr - 10 : Nr])) / 20.0
 
         # Normalize to match total numbers
         re[:] = re * NeTotal / (np.sum(np.abs(re)) * dr + self._small)
@@ -799,6 +1089,7 @@ class QWOptics:
 # Free functions — no instance state needed
 # ══════════════════════════════════════════════════════════════════════
 
+
 def yw(w):
     """Calculate wire-dependent sign factor.
 
@@ -812,7 +1103,7 @@ def yw(w):
     int
         Sign factor: (-1)**floor((w-1)/2)
     """
-    return (-1)**int(np.floor((w - 1) / 2.0))
+    return (-1) ** int(np.floor((w - 1) / 2.0))
 
 
 def QWChi1(lam, dky, Ee, Eh, area, geh, dcv):
@@ -843,7 +1134,15 @@ def QWChi1(lam, dky, Ee, Eh, area, geh, dcv):
     ww = twopi * c0 / lam
     denominator1 = Ee + Eh - ii * hbar * geh - hbar * ww
     denominator2 = Ee + Eh + ii * hbar * geh + hbar * ww
-    result = 4 * dcv**2 / eps0 / area * dky / twopi * np.sum((Ee + Eh) / (denominator1 * denominator2))
+    result = (
+        4
+        * dcv**2
+        / eps0
+        / area
+        * dky
+        / twopi
+        * np.sum((Ee + Eh) / (denominator1 * denominator2))
+    )
     return result
 
 
@@ -886,6 +1185,7 @@ def GetVn1n2(kr, rcv, Hcc, Hhh, Hcv, Vcc, Vvv, Vcv, Vvc):
 
 # ── I/O helpers ───────────────────────────────────────────────────────
 
+
 def printITReal2(Dx, z, n, file):
     """Print real part of complex field to file.
 
@@ -902,17 +1202,17 @@ def printITReal2(Dx, z, n, file):
     """
     global _firsttime
 
-    filename = f'dataQW/{file}{n:06d}.dat'
+    filename = f"dataQW/{file}{n:06d}.dat"
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
-    with open(filename, 'w', encoding='utf-8') as f:
+    with open(filename, "w", encoding="utf-8") as f:
         if _firsttime:
             for i in range(len(z)):
-                f.write(f'{np.float32(np.real(Dx[i]))} {np.float32(z[i])}\n')
+                f.write(f"{np.float32(np.real(Dx[i]))} {np.float32(z[i])}\n")
             _firsttime = False
         else:
             for i in range(len(z)):
-                f.write(f'{np.float32(np.real(Dx[i]))}\n')
+                f.write(f"{np.float32(np.real(Dx[i]))}\n")
 
 
 def printITReal(Dx, z, n, file):
@@ -929,12 +1229,12 @@ def printITReal(Dx, z, n, file):
     file : str
         Base filename (without extension)
     """
-    filename = f'dataQW/{file}{n:06d}.dat'
+    filename = f"dataQW/{file}{n:06d}.dat"
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
-    with open(filename, 'w', encoding='utf-8') as f:
+    with open(filename, "w", encoding="utf-8") as f:
         for i in range(len(z)):
-            f.write(f'{np.float32(z[i])} {np.float32(np.real(Dx[i]))}\n')
+            f.write(f"{np.float32(z[i])} {np.float32(np.real(Dx[i]))}\n")
 
 
 def printIT3D(Dx, z, n, file):
@@ -951,16 +1251,13 @@ def printIT3D(Dx, z, n, file):
     file : str
         Base filename (without extension)
     """
-    filename = f'dataQW/{file}{n:06d}.dat'
+    filename = f"dataQW/{file}{n:06d}.dat"
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
     Dx_ordered = Dx.transpose(2, 1, 0)
 
-    data = np.column_stack([
-        np.real(Dx.flatten()),
-        np.imag(Dx.flatten())
-    ])
-    np.savetxt(filename, data, fmt='%.6e')
+    data = np.column_stack([np.real(Dx.flatten()), np.imag(Dx.flatten())])
+    np.savetxt(filename, data, fmt="%.6e")
 
 
 def WriteSBESolns(ky, ne, nh, C, D, P, Ee, Eh, w, xxx):
@@ -981,17 +1278,17 @@ def WriteSBESolns(ky, ne, nh, C, D, P, Ee, Eh, w, xxx):
     xxx : int
         Time index
     """
-    wire = f'{w:02d}'
+    wire = f"{w:02d}"
 
-    printIT2D(C, ky, xxx, f'Wire/C/C.{wire}.k.kp.')
-    printIT2D(D, ky, xxx, f'Wire/D/D.{wire}.k.kp.')
-    printIT2D(P, ky, xxx, f'Wire/P/P.{wire}.k.kp.')
+    printIT2D(C, ky, xxx, f"Wire/C/C.{wire}.k.kp.")
+    printIT2D(D, ky, xxx, f"Wire/D/D.{wire}.k.kp.")
+    printIT2D(P, ky, xxx, f"Wire/P/P.{wire}.k.kp.")
 
-    printIT(ne, ky, xxx, f'Wire/ne/ne.{wire}.k.')
-    printIT(nh, ky, xxx, f'Wire/nh/nh.{wire}.k.')
+    printIT(ne, ky, xxx, f"Wire/ne/ne.{wire}.k.")
+    printIT(nh, ky, xxx, f"Wire/nh/nh.{wire}.k.")
 
-    printIT(Ee, ky, xxx, f'Wire/Ee/Ee.{wire}.k.')
-    printIT(Eh, ky, xxx, f'Wire/Eh/Eh.{wire}.k.')
+    printIT(Ee, ky, xxx, f"Wire/Ee/Ee.{wire}.k.")
+    printIT(Eh, ky, xxx, f"Wire/Eh/Eh.{wire}.k.")
 
 
 def WritePLSpectrum(hw, PLS, w, xxx):
@@ -1011,9 +1308,9 @@ def WritePLSpectrum(hw, PLS, w, xxx):
     PLS0 = np.zeros(len(hw), dtype=complex)
     PLS0[:] = PLS
 
-    wire = f'{w:02d}'
+    wire = f"{w:02d}"
 
-    printIT(PLS0, hw / e0, xxx, f'Wire/PL/pl.{wire}.hw.')
+    printIT(PLS0, hw / e0, xxx, f"Wire/PL/pl.{wire}.hw.")
 
 
 def WriteQWFields(QY, Ex, Ey, Ez, Vr, Px, Py, Pz, Re, Rh, sp, w, xxx):
@@ -1038,18 +1335,18 @@ def WriteQWFields(QY, Ex, Ey, Ez, Vr, Px, Py, Pz, Re, Rh, sp, w, xxx):
     xxx : int
         Time index
     """
-    wire = f'{w:02d}'
+    wire = f"{w:02d}"
 
-    printIT(Ex, QY, xxx, f'Wire/Ex/Ex.{wire}.{sp}.')
-    printIT(Ey, QY, xxx, f'Wire/Ey/Ey.{wire}.{sp}.')
-    printIT(Ez, QY, xxx, f'Wire/Ez/Ez.{wire}.{sp}.')
-    printIT(Vr, QY, xxx, f'Wire/Vr/Vr.{wire}.{sp}.')
-    printIT(Px, QY, xxx, f'Wire/Px/Px.{wire}.{sp}.')
-    printIT(Py, QY, xxx, f'Wire/Py/Py.{wire}.{sp}.')
-    printIT(Pz, QY, xxx, f'Wire/Pz/Pz.{wire}.{sp}.')
-    printIT(Re, QY, xxx, f'Wire/Re/Re.{wire}.{sp}.')
-    printIT(Rh, QY, xxx, f'Wire/Rh/Rh.{wire}.{sp}.')
-    printIT(Rh - Re, QY, xxx, f'Wire/Rho/Rho.{wire}.{sp}.')
+    printIT(Ex, QY, xxx, f"Wire/Ex/Ex.{wire}.{sp}.")
+    printIT(Ey, QY, xxx, f"Wire/Ey/Ey.{wire}.{sp}.")
+    printIT(Ez, QY, xxx, f"Wire/Ez/Ez.{wire}.{sp}.")
+    printIT(Vr, QY, xxx, f"Wire/Vr/Vr.{wire}.{sp}.")
+    printIT(Px, QY, xxx, f"Wire/Px/Px.{wire}.{sp}.")
+    printIT(Py, QY, xxx, f"Wire/Py/Py.{wire}.{sp}.")
+    printIT(Pz, QY, xxx, f"Wire/Pz/Pz.{wire}.{sp}.")
+    printIT(Re, QY, xxx, f"Wire/Re/Re.{wire}.{sp}.")
+    printIT(Rh, QY, xxx, f"Wire/Rh/Rh.{wire}.{sp}.")
+    printIT(Rh - Re, QY, xxx, f"Wire/Rho/Rho.{wire}.{sp}.")
 
 
 def WritePropFields(y, Ex, Ey, Ez, Vr, Px, Py, Pz, Re, Rh, sp, w, xxx):
@@ -1074,16 +1371,16 @@ def WritePropFields(y, Ex, Ey, Ez, Vr, Px, Py, Pz, Re, Rh, sp, w, xxx):
     xxx : int
         Time index
     """
-    wire = f'{w:02d}'
+    wire = f"{w:02d}"
 
-    printITReal2(Ex, y, xxx, f'Prop/Ex/Ex.{wire}.{sp}.')
-    printITReal2(Ey, y, xxx, f'Prop/Ey/Ey.{wire}.{sp}.')
-    printITReal2(Ez, y, xxx, f'Prop/Ez/Ez.{wire}.{sp}.')
-    printITReal2(Vr, y, xxx, f'Prop/Vr/Vr.{wire}.{sp}.')
-    printITReal2(Px, y, xxx, f'Prop/Px/Px.{wire}.{sp}.')
-    printITReal2(Py, y, xxx, f'Prop/Py/Py.{wire}.{sp}.')
-    printITReal2(Pz, y, xxx, f'Prop/Pz/Pz.{wire}.{sp}.')
-    printITReal2(Re, y, xxx, f'Prop/Re/Re.{wire}.{sp}.')
-    printITReal2(Rh, y, xxx, f'Prop/Rh/Rh.{wire}.{sp}.')
+    printITReal2(Ex, y, xxx, f"Prop/Ex/Ex.{wire}.{sp}.")
+    printITReal2(Ey, y, xxx, f"Prop/Ey/Ey.{wire}.{sp}.")
+    printITReal2(Ez, y, xxx, f"Prop/Ez/Ez.{wire}.{sp}.")
+    printITReal2(Vr, y, xxx, f"Prop/Vr/Vr.{wire}.{sp}.")
+    printITReal2(Px, y, xxx, f"Prop/Px/Px.{wire}.{sp}.")
+    printITReal2(Py, y, xxx, f"Prop/Py/Py.{wire}.{sp}.")
+    printITReal2(Pz, y, xxx, f"Prop/Pz/Pz.{wire}.{sp}.")
+    printITReal2(Re, y, xxx, f"Prop/Re/Re.{wire}.{sp}.")
+    printITReal2(Rh, y, xxx, f"Prop/Rh/Rh.{wire}.{sp}.")
 
-    printIT(Rh - Re, y, xxx, f'Prop/Rho/Rho.{wire}.{sp}.')
+    printIT(Rh - Re, y, xxx, f"Prop/Rho/Rho.{wire}.{sp}.")

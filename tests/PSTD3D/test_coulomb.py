@@ -6,7 +6,6 @@ many-body arrays, screening calculations, and Semiconductor Bloch Equations term
 Tests both the CoulombModule class and the module-level backward-compat wrappers.
 """
 
-
 import numpy as np
 import pytest
 from scipy.constants import hbar as hbar_SI
@@ -37,7 +36,7 @@ class TestGaussDelta:
         a = 1.0
         b = 0.5
         result = coulomb.GaussDelta(a, b)
-        expected = 1.0 / (np.sqrt(pi) * b) * np.exp(-(a / b) ** 2)
+        expected = 1.0 / (np.sqrt(pi) * b) * np.exp(-((a / b) ** 2))
         assert np.allclose(result, expected, rtol=1e-12, atol=1e-12)
 
     def test_gauss_delta_small_b(self):
@@ -59,7 +58,7 @@ class TestGaussDelta:
         a = 100.0
         b = 1.0
         result = coulomb.GaussDelta(a, b)
-        expected = 1.0 / (np.sqrt(pi) * b) * np.exp(-(a / b) ** 2)
+        expected = 1.0 / (np.sqrt(pi) * b) * np.exp(-((a / b) ** 2))
         assert np.allclose(result, expected, rtol=1e-12, atol=1e-12)
         assert result < 1e-100  # Should be very small
 
@@ -286,7 +285,9 @@ class TestVehint:
         """Test Vehint with valid indices."""
         k = 1
         q = 2
-        result = coulomb.Vehint(k, q, self.y, self.ky, self.alphae, self.alphah, self.Delta0)
+        result = coulomb.Vehint(
+            k, q, self.y, self.ky, self.alphae, self.alphah, self.Delta0
+        )
         assert result >= 0.0
         assert not np.isnan(result)
 
@@ -294,7 +295,9 @@ class TestVehint:
         """Test Vehint with same indices."""
         k = 1
         q = 1
-        result = coulomb.Vehint(k, q, self.y, self.ky, self.alphae, self.alphah, self.Delta0)
+        result = coulomb.Vehint(
+            k, q, self.y, self.ky, self.alphae, self.alphah, self.Delta0
+        )
         assert result >= 0.0
 
     def test_vehint_different_sizes(self):
@@ -303,7 +306,9 @@ class TestVehint:
             ky = np.linspace(-1e7, 1e7, Nk)
             k = 1
             q = 2
-            result = coulomb.Vehint(k, q, self.y, ky, self.alphae, self.alphah, self.Delta0)
+            result = coulomb.Vehint(
+                k, q, self.y, ky, self.alphae, self.alphah, self.Delta0
+            )
             assert result >= 0.0
 
 
@@ -336,8 +341,15 @@ class TestCalcCoulombArrays:
     def test_calc_coulomb_arrays_basic(self):
         """Test CalcCoulombArrays with basic inputs."""
         Veh0, Vee0, Vhh0 = coulomb.CalcCoulombArrays(
-            self.y, self.ky, self.er, self.alphae, self.alphah,
-            self.L, self.Delta0, self.Qy, self.kkp
+            self.y,
+            self.ky,
+            self.er,
+            self.alphae,
+            self.alphah,
+            self.L,
+            self.Delta0,
+            self.Qy,
+            self.kkp,
         )
         assert Veh0.shape == (self.N, self.N)
         assert Vee0.shape == (self.N, self.N)
@@ -349,8 +361,16 @@ class TestCalcCoulombArrays:
     def test_calc_coulomb_arrays_screw_this(self):
         """Test CalcCoulombArrays with ScrewThis=True."""
         Veh0, Vee0, Vhh0 = coulomb.CalcCoulombArrays(
-            self.y, self.ky, self.er, self.alphae, self.alphah,
-            self.L, self.Delta0, self.Qy, self.kkp, ScrewThis=True
+            self.y,
+            self.ky,
+            self.er,
+            self.alphae,
+            self.alphah,
+            self.L,
+            self.Delta0,
+            self.Qy,
+            self.kkp,
+            ScrewThis=True,
         )
         assert np.all(Veh0 == 0.0)
         assert np.all(Vee0 == 0.0)
@@ -372,8 +392,15 @@ class TestCalcCoulombArrays:
                         kkp[k, q] = -1
 
             Veh0, Vee0, Vhh0 = coulomb.CalcCoulombArrays(
-                self.y, ky, self.er, self.alphae, self.alphah,
-                self.L, self.Delta0, Qy, kkp
+                self.y,
+                ky,
+                self.er,
+                self.alphae,
+                self.alphah,
+                self.L,
+                self.Delta0,
+                Qy,
+                kkp,
             )
             assert Veh0.shape == (N, N)
             assert Vee0.shape == (N, N)
@@ -398,8 +425,14 @@ class TestCalcMBArrays:
     def test_calc_mb_arrays_lorentzian(self):
         """Test CalcMBArrays with Lorentzian broadening."""
         Ceh, Cee, Chh = coulomb.CalcMBArrays(
-            self.ky, self.Ee, self.Eh, self.ge, self.gh, self.k3, self.UnDel,
-            LorentzDelta=True
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.ge,
+            self.gh,
+            self.k3,
+            self.UnDel,
+            LorentzDelta=True,
         )
         assert Ceh.shape == (self.N + 1, self.N + 1, self.N + 1)
         assert Cee.shape == (self.N + 1, self.N + 1, self.N + 1)
@@ -411,8 +444,14 @@ class TestCalcMBArrays:
     def test_calc_mb_arrays_gaussian(self):
         """Test CalcMBArrays with Gaussian delta function."""
         Ceh, Cee, Chh = coulomb.CalcMBArrays(
-            self.ky, self.Ee, self.Eh, self.ge, self.gh, self.k3, self.UnDel,
-            LorentzDelta=False
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.ge,
+            self.gh,
+            self.k3,
+            self.UnDel,
+            LorentzDelta=False,
         )
         assert Ceh.shape == (self.N + 1, self.N + 1, self.N + 1)
         assert Cee.shape == (self.N + 1, self.N + 1, self.N + 1)
@@ -451,8 +490,15 @@ class TestCalcChi1D:
     def test_calc_chi1d_basic(self):
         """Test CalcChi1D with basic inputs."""
         Chi1De, Chi1Dh = coulomb.CalcChi1D(
-            self.ky, self.alphae, self.alphah, self.Delta0,
-            self.epsr, self.me, self.mh, self.qe, self.qh
+            self.ky,
+            self.alphae,
+            self.alphah,
+            self.Delta0,
+            self.epsr,
+            self.me,
+            self.mh,
+            self.qe,
+            self.qh,
         )
         assert Chi1De.shape == (self.N, self.N)
         assert Chi1Dh.shape == (self.N, self.N)
@@ -467,8 +513,15 @@ class TestCalcChi1D:
             ky = np.linspace(-1e7, 1e7, N)
             qe, qh = coulomb.MakeQs(ky, self.alphae, self.alphah)
             Chi1De, Chi1Dh = coulomb.CalcChi1D(
-                ky, self.alphae, self.alphah, self.Delta0,
-                self.epsr, self.me, self.mh, qe, qh
+                ky,
+                self.alphae,
+                self.alphah,
+                self.Delta0,
+                self.epsr,
+                self.me,
+                self.mh,
+                qe,
+                qh,
             )
             assert Chi1De.shape == (N, N)
             assert Chi1Dh.shape == (N, N)
@@ -498,9 +551,19 @@ class TestGetChi1Dqw:
         qq = 1e6
         w = 1e15
         chir, chii = coulomb.GetChi1Dqw(
-            self.alphae, self.alphah, self.Delta0, self.epsr,
-            self.game, self.gamh, self.ky, self.Ee, self.Eh,
-            self.ne, self.nh, qq, w
+            self.alphae,
+            self.alphah,
+            self.Delta0,
+            self.epsr,
+            self.game,
+            self.gamh,
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.ne,
+            self.nh,
+            qq,
+            w,
         )
         assert np.isfinite(chir)
         assert np.isfinite(chii)
@@ -510,9 +573,19 @@ class TestGetChi1Dqw:
         qq = 1e6
         w = 0.0
         chir, chii = coulomb.GetChi1Dqw(
-            self.alphae, self.alphah, self.Delta0, self.epsr,
-            self.game, self.gamh, self.ky, self.Ee, self.Eh,
-            self.ne, self.nh, qq, w
+            self.alphae,
+            self.alphah,
+            self.Delta0,
+            self.epsr,
+            self.game,
+            self.gamh,
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.ne,
+            self.nh,
+            qq,
+            w,
         )
         assert np.isfinite(chir)
         assert np.isfinite(chii)
@@ -522,9 +595,19 @@ class TestGetChi1Dqw:
         w = 1e15
         for qq in [1e5, 1e6, 1e7, 1e8]:
             chir, chii = coulomb.GetChi1Dqw(
-                self.alphae, self.alphah, self.Delta0, self.epsr,
-                self.game, self.gamh, self.ky, self.Ee, self.Eh,
-                self.ne, self.nh, qq, w
+                self.alphae,
+                self.alphah,
+                self.Delta0,
+                self.epsr,
+                self.game,
+                self.gamh,
+                self.ky,
+                self.Ee,
+                self.Eh,
+                self.ne,
+                self.nh,
+                qq,
+                w,
             )
             assert np.isfinite(chir)
             assert np.isfinite(chii)
@@ -548,8 +631,15 @@ class TestGetEps1Dqw:
         q = 1e6
         w = 1e15
         epr, epi = coulomb.GetEps1Dqw(
-            self.alphae, self.alphah, self.Delta0, self.epsr,
-            self.me, self.mh, n1D, q, w
+            self.alphae,
+            self.alphah,
+            self.Delta0,
+            self.epsr,
+            self.me,
+            self.mh,
+            n1D,
+            q,
+            w,
         )
         assert np.isfinite(epr)
         assert np.isfinite(epi)
@@ -560,8 +650,15 @@ class TestGetEps1Dqw:
         q = 1e6
         w = 0.0
         epr, epi = coulomb.GetEps1Dqw(
-            self.alphae, self.alphah, self.Delta0, self.epsr,
-            self.me, self.mh, n1D, q, w
+            self.alphae,
+            self.alphah,
+            self.Delta0,
+            self.epsr,
+            self.me,
+            self.mh,
+            n1D,
+            q,
+            w,
         )
         assert np.isfinite(epr)
         assert np.isfinite(epi)
@@ -572,8 +669,15 @@ class TestGetEps1Dqw:
         q = 0.1
         w = 1e15
         epr, epi = coulomb.GetEps1Dqw(
-            self.alphae, self.alphah, self.Delta0, self.epsr,
-            self.me, self.mh, n1D, q, w
+            self.alphae,
+            self.alphah,
+            self.Delta0,
+            self.epsr,
+            self.me,
+            self.mh,
+            n1D,
+            q,
+            w,
         )
         assert np.isfinite(epr)
         assert np.isfinite(epi)
@@ -584,8 +688,15 @@ class TestGetEps1Dqw:
         w = 1e15
         for n1D in [1e5, 1e6, 1e7, 1e8]:
             epr, epi = coulomb.GetEps1Dqw(
-                self.alphae, self.alphah, self.Delta0, self.epsr,
-                self.me, self.mh, n1D, q, w
+                self.alphae,
+                self.alphah,
+                self.Delta0,
+                self.epsr,
+                self.me,
+                self.mh,
+                n1D,
+                q,
+                w,
             )
             assert np.isfinite(epr)
             assert np.isfinite(epi)
@@ -594,6 +705,7 @@ class TestGetEps1Dqw:
 ###############################################################################
 # CoulombModule class tests
 ###############################################################################
+
 
 class _CoulombFixture:
     """Shared fixture builder for CoulombModule tests."""
@@ -625,8 +737,9 @@ class _CoulombFixture:
                 else:
                     kkp[k, q] = -1
 
-        return CoulombModule(y, ky, L, Delta0, me, mh, Ee, Eh, ge, gh,
-                             alphae, alphah, er, Qy, kkp, False)
+        return CoulombModule(
+            y, ky, L, Delta0, me, mh, Ee, Eh, ge, gh, alphae, alphah, er, Qy, kkp, False
+        )
 
 
 class TestCoulombModuleInit(_CoulombFixture):
@@ -722,8 +835,10 @@ class TestCoulombModuleSBETerms(_CoulombFixture):
     def test_calc_mveh(self):
         """Test CalcMVeh method."""
         Nf = 4
-        p = 0.1 * (np.random.random((self.N, self.N, Nf)) +
-                    1j * np.random.random((self.N, self.N, Nf)))
+        p = 0.1 * (
+            np.random.random((self.N, self.N, Nf))
+            + 1j * np.random.random((self.N, self.N, Nf))
+        )
         VC = np.zeros((self.N, self.N, 3))
         VC[:, :, 0] = 1e-20 * np.random.random((self.N, self.N))
         MVeh = np.zeros((self.N, self.N, Nf), dtype=complex)
@@ -789,8 +904,18 @@ class TestCoulombModuleMBRates(_CoulombFixture):
         """Test MBCE2 method."""
         Win = np.zeros(self.Nk)
         Wout = np.zeros(self.Nk)
-        self.cm.MBCE2(self.ne0, self.nh0, self.ky, self.Ee, self.Eh,
-                      self.VC, self.geh, self.ge, Win, Wout)
+        self.cm.MBCE2(
+            self.ne0,
+            self.nh0,
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.VC,
+            self.geh,
+            self.ge,
+            Win,
+            Wout,
+        )
         assert np.all(Win >= 0.0)
         assert np.all(Wout >= 0.0)
         assert np.all(np.isfinite(Win))
@@ -800,8 +925,18 @@ class TestCoulombModuleMBRates(_CoulombFixture):
         """Test MBCE method."""
         Win = np.zeros(self.Nk)
         Wout = np.zeros(self.Nk)
-        self.cm.MBCE(self.ne0, self.nh0, self.ky, self.Ee, self.Eh,
-                     self.VC, self.geh, self.ge, Win, Wout)
+        self.cm.MBCE(
+            self.ne0,
+            self.nh0,
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.VC,
+            self.geh,
+            self.ge,
+            Win,
+            Wout,
+        )
         assert np.all(Win >= 0.0)
         assert np.all(Wout >= 0.0)
 
@@ -812,10 +947,30 @@ class TestCoulombModuleMBRates(_CoulombFixture):
         Win2 = np.zeros(self.Nk)
         Wout2 = np.zeros(self.Nk)
 
-        self.cm.MBCE(self.ne0, self.nh0, self.ky, self.Ee, self.Eh,
-                     self.VC, self.geh, self.ge, Win1, Wout1)
-        self.cm.MBCE2(self.ne0, self.nh0, self.ky, self.Ee, self.Eh,
-                      self.VC, self.geh, self.ge, Win2, Wout2)
+        self.cm.MBCE(
+            self.ne0,
+            self.nh0,
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.VC,
+            self.geh,
+            self.ge,
+            Win1,
+            Wout1,
+        )
+        self.cm.MBCE2(
+            self.ne0,
+            self.nh0,
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.VC,
+            self.geh,
+            self.ge,
+            Win2,
+            Wout2,
+        )
         assert np.allclose(Win1, Win2, rtol=1e-10, atol=1e-12)
         assert np.allclose(Wout1, Wout2, rtol=1e-10, atol=1e-12)
 
@@ -823,8 +978,18 @@ class TestCoulombModuleMBRates(_CoulombFixture):
         """Test MBCH method."""
         Win = np.zeros(self.Nk)
         Wout = np.zeros(self.Nk)
-        self.cm.MBCH(self.ne0, self.nh0, self.ky, self.Ee, self.Eh,
-                     self.VC, self.geh, self.gh, Win, Wout)
+        self.cm.MBCH(
+            self.ne0,
+            self.nh0,
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.VC,
+            self.geh,
+            self.gh,
+            Win,
+            Wout,
+        )
         assert np.all(Win >= 0.0)
         assert np.all(Wout >= 0.0)
         assert np.all(np.isfinite(Win))
@@ -834,6 +999,7 @@ class TestCoulombModuleMBRates(_CoulombFixture):
 ###############################################################################
 # Backward-compat wrapper tests (via singleton)
 ###############################################################################
+
 
 class TestBackwardCompat(_CoulombFixture):
     """Test that module-level wrappers and __getattr__ work."""
@@ -866,8 +1032,9 @@ class TestBackwardCompat(_CoulombFixture):
                     kkp[k, q] = -1
 
         # Initialize the singleton
-        coulomb.InitializeCoulomb(y, ky, L, Delta0, me, mh, Ee, Eh, ge, gh,
-                                  alphae, alphah, er, Qy, kkp, False)
+        coulomb.InitializeCoulomb(
+            y, ky, L, Delta0, me, mh, Ee, Eh, ge, gh, alphae, alphah, er, Qy, kkp, False
+        )
 
     def test_getattr_k3(self):
         """Test that coulomb._k3 returns the singleton's k3."""
@@ -939,8 +1106,14 @@ class TestBackwardCompat(_CoulombFixture):
         coulomb._instance = None
         try:
             with pytest.raises(ValueError):
-                coulomb.CalcScreenedArrays(False, 1.0, np.zeros(4), np.zeros(4),
-                                           np.zeros((4, 4, 3)), np.zeros((4, 4)))
+                coulomb.CalcScreenedArrays(
+                    False,
+                    1.0,
+                    np.zeros(4),
+                    np.zeros(4),
+                    np.zeros((4, 4, 3)),
+                    np.zeros((4, 4)),
+                )
         finally:
             coulomb._instance = old
 
@@ -974,8 +1147,7 @@ class TestIntegration(_CoulombFixture):
 
         # CalcMVeh
         Nf = 4
-        p = 0.1 * (np.random.random((N, N, Nf)) +
-                    1j * np.random.random((N, N, Nf)))
+        p = 0.1 * (np.random.random((N, N, Nf)) + 1j * np.random.random((N, N, Nf)))
         MVeh = np.zeros((N, N, Nf), dtype=complex)
         cm.CalcMVeh(p, VC, MVeh)
         assert np.all(np.isfinite(MVeh))

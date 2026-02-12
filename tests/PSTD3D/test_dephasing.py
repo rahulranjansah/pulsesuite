@@ -369,8 +369,7 @@ class TestCalcOffDiagDeph_E:
     def test_calc_off_diag_deph_e_basic(self):
         """Test CalcOffDiagDeph_E with basic inputs."""
         result = dephasing.CalcOffDiagDeph_E(
-            self.ne0, self.nh0, self.ky, self.Ee0, self.Eh0,
-            self.gee, self.geh, self.VC
+            self.ne0, self.nh0, self.ky, self.Ee0, self.Eh0, self.gee, self.geh, self.VC
         )
         assert result.shape == (self.Nk, self.Nk)
         assert np.all(np.isfinite(result))
@@ -380,8 +379,7 @@ class TestCalcOffDiagDeph_E:
         ne0_zero = np.zeros(self.Nk, dtype=complex)
         nh0_zero = np.zeros(self.Nk, dtype=complex)
         result = dephasing.CalcOffDiagDeph_E(
-            ne0_zero, nh0_zero, self.ky, self.Ee0, self.Eh0,
-            self.gee, self.geh, self.VC
+            ne0_zero, nh0_zero, self.ky, self.Ee0, self.Eh0, self.gee, self.geh, self.VC
         )
         assert result.shape == (self.Nk, self.Nk)
         assert np.all(np.isfinite(result))
@@ -392,8 +390,14 @@ class TestCalcOffDiagDeph_E:
         dephasing._k_p_q = None
         with pytest.raises(RuntimeError):
             dephasing.CalcOffDiagDeph_E(
-                self.ne0, self.nh0, self.ky, self.Ee0, self.Eh0,
-                self.gee, self.geh, self.VC
+                self.ne0,
+                self.nh0,
+                self.ky,
+                self.Ee0,
+                self.Eh0,
+                self.gee,
+                self.geh,
+                self.VC,
             )
         dephasing._k_p_q = old_k_p_q
 
@@ -435,8 +439,7 @@ class TestCalcOffDiagDeph_H:
     def test_calc_off_diag_deph_h_basic(self):
         """Test CalcOffDiagDeph_H with basic inputs."""
         result = dephasing.CalcOffDiagDeph_H(
-            self.ne0, self.nh0, self.ky, self.Ee0, self.Eh0,
-            self.ghh, self.geh, self.VC
+            self.ne0, self.nh0, self.ky, self.Ee0, self.Eh0, self.ghh, self.geh, self.VC
         )
         assert result.shape == (self.Nk, self.Nk)
         assert np.all(np.isfinite(result))
@@ -446,8 +449,7 @@ class TestCalcOffDiagDeph_H:
         ne0_zero = np.zeros(self.Nk, dtype=complex)
         nh0_zero = np.zeros(self.Nk, dtype=complex)
         result = dephasing.CalcOffDiagDeph_H(
-            ne0_zero, nh0_zero, self.ky, self.Ee0, self.Eh0,
-            self.ghh, self.geh, self.VC
+            ne0_zero, nh0_zero, self.ky, self.Ee0, self.Eh0, self.ghh, self.geh, self.VC
         )
         assert result.shape == (self.Nk, self.Nk)
         assert np.all(np.isfinite(result))
@@ -458,8 +460,14 @@ class TestCalcOffDiagDeph_H:
         dephasing._k_p_q = None
         with pytest.raises(RuntimeError):
             dephasing.CalcOffDiagDeph_H(
-                self.ne0, self.nh0, self.ky, self.Ee0, self.Eh0,
-                self.ghh, self.geh, self.VC
+                self.ne0,
+                self.nh0,
+                self.ky,
+                self.Ee0,
+                self.Eh0,
+                self.ghh,
+                self.geh,
+                self.VC,
             )
         dephasing._k_p_q = old_k_p_q
 
@@ -501,8 +509,15 @@ class TestCalcOffDiagDeph_E2:
     def test_calc_off_diag_deph_e2_basic(self):
         """Test CalcOffDiagDeph_E2 with basic inputs."""
         result = dephasing.CalcOffDiagDeph_E2(
-            self.ne, self.nh, self.ky, self.Ee, self.Eh,
-            self.gee, self.geh, self.VC, self.Nk
+            self.ne,
+            self.nh,
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.gee,
+            self.geh,
+            self.VC,
+            self.Nk,
         )
         assert result.shape == (2 * self.Nk + 1, self.Nk)
         assert np.all(np.isfinite(result))
@@ -512,8 +527,15 @@ class TestCalcOffDiagDeph_E2:
         ne_zero = np.zeros(self.Nk, dtype=complex)
         nh_zero = np.zeros(self.Nk, dtype=complex)
         result = dephasing.CalcOffDiagDeph_E2(
-            ne_zero, nh_zero, self.ky, self.Ee, self.Eh,
-            self.gee, self.geh, self.VC, self.Nk
+            ne_zero,
+            nh_zero,
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.gee,
+            self.geh,
+            self.VC,
+            self.Nk,
         )
         assert result.shape == (2 * self.Nk + 1, self.Nk)
         assert np.all(np.isfinite(result))
@@ -534,7 +556,9 @@ class TestCalcOffDiagDeph_E2:
             VC[:, :, 0] = 1e-20 * np.random.random((Nk, Nk))
             VC[:, :, 1] = 1e-20 * np.random.random((Nk, Nk))
 
-            result = dephasing.CalcOffDiagDeph_E2(ne, nh, ky, Ee, Eh, 1e12, 1e12, VC, Nk)
+            result = dephasing.CalcOffDiagDeph_E2(
+                ne, nh, ky, Ee, Eh, 1e12, 1e12, VC, Nk
+            )
             assert result.shape == (2 * Nk + 1, Nk)
 
 
@@ -575,8 +599,15 @@ class TestCalcOffDiagDeph_H2:
     def test_calc_off_diag_deph_h2_basic(self):
         """Test CalcOffDiagDeph_H2 with basic inputs."""
         result = dephasing.CalcOffDiagDeph_H2(
-            self.ne, self.nh, self.ky, self.Ee, self.Eh,
-            self.ghh, self.geh, self.VC, self.Nk
+            self.ne,
+            self.nh,
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.ghh,
+            self.geh,
+            self.VC,
+            self.Nk,
         )
         assert result.shape == (2 * self.Nk + 1, self.Nk)
         assert np.all(np.isfinite(result))
@@ -586,8 +617,15 @@ class TestCalcOffDiagDeph_H2:
         ne_zero = np.zeros(self.Nk, dtype=complex)
         nh_zero = np.zeros(self.Nk, dtype=complex)
         result = dephasing.CalcOffDiagDeph_H2(
-            ne_zero, nh_zero, self.ky, self.Ee, self.Eh,
-            self.ghh, self.geh, self.VC, self.Nk
+            ne_zero,
+            nh_zero,
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.ghh,
+            self.geh,
+            self.VC,
+            self.Nk,
         )
         assert result.shape == (2 * self.Nk + 1, self.Nk)
         assert np.all(np.isfinite(result))
@@ -610,8 +648,10 @@ class TestOffDiagDephasing:
         # Create test arrays
         self.ne = 0.5 * np.ones(self.Nk, dtype=complex)
         self.nh = 0.5 * np.ones(self.Nk, dtype=complex)
-        self.p = 0.1 * (np.random.random((self.Nk, self.Nk)) +
-                       1j * np.random.random((self.Nk, self.Nk)))
+        self.p = 0.1 * (
+            np.random.random((self.Nk, self.Nk))
+            + 1j * np.random.random((self.Nk, self.Nk))
+        )
         self.Ee = 0.5 * 9.109e-31 * (self.ky / 1e7) ** 2 * (1.6e-19)
         self.Eh = 0.5 * 1.5 * 9.109e-31 * (self.ky / 1e7) ** 2 * (1.6e-19)
         self.g = np.array([1e12, 1e12, 1e12])  # [gee, ghh, geh]
@@ -633,8 +673,7 @@ class TestOffDiagDephasing:
     def test_off_diag_dephasing_basic(self):
         """Test OffDiagDephasing with basic inputs."""
         dephasing.OffDiagDephasing(
-            self.ne, self.nh, self.p, self.ky, self.Ee, self.Eh,
-            self.g, self.VC, self.x
+            self.ne, self.nh, self.p, self.ky, self.Ee, self.Eh, self.g, self.VC, self.x
         )
         assert self.x.shape == (self.Nk, self.Nk)
         assert np.all(np.isfinite(self.x))
@@ -644,8 +683,7 @@ class TestOffDiagDephasing:
         p_zero = np.zeros((self.Nk, self.Nk), dtype=complex)
         x = np.zeros((self.Nk, self.Nk), dtype=complex)
         dephasing.OffDiagDephasing(
-            self.ne, self.nh, p_zero, self.ky, self.Ee, self.Eh,
-            self.g, self.VC, x
+            self.ne, self.nh, p_zero, self.ky, self.Ee, self.Eh, self.g, self.VC, x
         )
         assert np.all(np.isfinite(x))
 
@@ -655,8 +693,15 @@ class TestOffDiagDephasing:
         dephasing._k_p_q = None
         with pytest.raises(RuntimeError):
             dephasing.OffDiagDephasing(
-                self.ne, self.nh, self.p, self.ky, self.Ee, self.Eh,
-                self.g, self.VC, self.x
+                self.ne,
+                self.nh,
+                self.p,
+                self.ky,
+                self.Ee,
+                self.Eh,
+                self.g,
+                self.VC,
+                self.x,
             )
         dephasing._k_p_q = old_k_p_q
 
@@ -678,8 +723,10 @@ class TestOffDiagDephasing2:
         # Create test arrays
         self.ne = 0.5 * np.ones(self.Nk, dtype=complex)
         self.nh = 0.5 * np.ones(self.Nk, dtype=complex)
-        self.p = 0.1 * (np.random.random((self.Nk, self.Nk)) +
-                       1j * np.random.random((self.Nk, self.Nk)))
+        self.p = 0.1 * (
+            np.random.random((self.Nk, self.Nk))
+            + 1j * np.random.random((self.Nk, self.Nk))
+        )
         self.Ee = 0.5 * 9.109e-31 * (self.ky / 1e7) ** 2 * (1.6e-19)
         self.Eh = 0.5 * 1.5 * 9.109e-31 * (self.ky / 1e7) ** 2 * (1.6e-19)
         self.g = np.array([1e12, 1e12, 1e12])  # [gee, ghh, geh]
@@ -702,8 +749,16 @@ class TestOffDiagDephasing2:
     def test_off_diag_dephasing2_basic(self):
         """Test OffDiagDephasing2 with basic inputs."""
         dephasing.OffDiagDephasing2(
-            self.ne, self.nh, self.p, self.ky, self.Ee, self.Eh,
-            self.g, self.VC, self.t, self.x
+            self.ne,
+            self.nh,
+            self.p,
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.g,
+            self.VC,
+            self.t,
+            self.x,
         )
         assert self.x.shape == (self.Nk, self.Nk)
         assert np.all(np.isfinite(self.x))
@@ -713,8 +768,16 @@ class TestOffDiagDephasing2:
         p_zero = np.zeros((self.Nk, self.Nk), dtype=complex)
         x = np.zeros((self.Nk, self.Nk), dtype=complex)
         dephasing.OffDiagDephasing2(
-            self.ne, self.nh, p_zero, self.ky, self.Ee, self.Eh,
-            self.g, self.VC, self.t, x
+            self.ne,
+            self.nh,
+            p_zero,
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.g,
+            self.VC,
+            self.t,
+            x,
         )
         assert np.all(np.isfinite(x))
 
@@ -725,13 +788,21 @@ class TestOffDiagDephasing2:
         assert dephasing._fh_file is not None
 
         dephasing.OffDiagDephasing2(
-            self.ne, self.nh, self.p, self.ky, self.Ee, self.Eh,
-            self.g, self.VC, self.t, self.x
+            self.ne,
+            self.nh,
+            self.p,
+            self.ky,
+            self.Ee,
+            self.Eh,
+            self.g,
+            self.VC,
+            self.t,
+            self.x,
         )
 
         # Check that files exist and have content
-        fe_path = Path('dataQW/Wire/info/MaxOffDiag.e.dat')
-        fh_path = Path('dataQW/Wire/info/MaxOffDiag.h.dat')
+        fe_path = Path("dataQW/Wire/info/MaxOffDiag.e.dat")
+        fh_path = Path("dataQW/Wire/info/MaxOffDiag.h.dat")
         if fe_path.exists():
             assert fe_path.stat().st_size > 0
         if fh_path.exists():
@@ -751,21 +822,21 @@ class TestPrintGam:
             # Change to temp directory
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW', exist_ok=True)
+            os.makedirs("dataQW", exist_ok=True)
 
             try:
                 Dx = np.array([1e12, 2e12, 3e12])
                 z = np.array([0.0, 1e-6, 2e-6])
                 n = 5
-                file = 'test_gam'
+                file = "test_gam"
 
                 dephasing.printGam(Dx, z, n, file)
 
-                filename = f'dataQW/{file}{n:05d}.dat'
+                filename = f"dataQW/{file}{n:05d}.dat"
                 assert os.path.exists(filename)
 
                 # Read and verify file contents
-                with open(filename, 'r') as f:
+                with open(filename, "r") as f:
                     lines = f.readlines()
                     assert len(lines) == len(Dx)
                     for i, line in enumerate(lines):
@@ -781,20 +852,20 @@ class TestPrintGam:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW', exist_ok=True)
+            os.makedirs("dataQW", exist_ok=True)
 
             try:
                 for N in [16, 32, 64, 101]:
                     Dx = np.random.random(N) * 1e12
                     z = np.linspace(0, 1e-6, N)
                     n = 10
-                    file = 'test_gam'
+                    file = "test_gam"
 
                     dephasing.printGam(Dx, z, n, file)
 
-                    filename = f'dataQW/{file}{n:05d}.dat'
+                    filename = f"dataQW/{file}{n:05d}.dat"
                     assert os.path.exists(filename)
-                    with open(filename, 'r') as f:
+                    with open(filename, "r") as f:
                         lines = f.readlines()
                         assert len(lines) == N
             finally:
@@ -805,17 +876,17 @@ class TestPrintGam:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW', exist_ok=True)
+            os.makedirs("dataQW", exist_ok=True)
 
             try:
                 Dx = np.array([1e12])
                 z = np.array([0.0])
                 n = 1
-                file = 'test_gam'
+                file = "test_gam"
 
                 dephasing.printGam(Dx, z, n, file)
 
-                filename = f'dataQW/{file}{n:05d}.dat'
+                filename = f"dataQW/{file}{n:05d}.dat"
                 assert os.path.exists(filename)
             finally:
                 os.chdir(old_cwd)
@@ -833,8 +904,8 @@ class TestWriteDephasing:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire/Ge', exist_ok=True)
-            os.makedirs('dataQW/Wire/Gh', exist_ok=True)
+            os.makedirs("dataQW/Wire/Ge", exist_ok=True)
+            os.makedirs("dataQW/Wire/Gh", exist_ok=True)
 
             try:
                 Nk = 32
@@ -847,17 +918,17 @@ class TestWriteDephasing:
                 dephasing.WriteDephasing(ky, gamE, gamH, w, xxx)
 
                 # Check that files were created
-                fe_path = Path(f'dataQW/Wire/Ge/Ge.{w:02d}.k.{xxx:05d}.dat')
-                fh_path = Path(f'dataQW/Wire/Gh/Gh.{w:02d}.k.{xxx:05d}.dat')
+                fe_path = Path(f"dataQW/Wire/Ge/Ge.{w:02d}.k.{xxx:05d}.dat")
+                fh_path = Path(f"dataQW/Wire/Gh/Gh.{w:02d}.k.{xxx:05d}.dat")
                 assert fe_path.exists()
                 assert fh_path.exists()
 
                 # Verify file contents
-                with open(fe_path, 'r') as f:
+                with open(fe_path, "r") as f:
                     lines = f.readlines()
                     assert len(lines) == Nk
 
-                with open(fh_path, 'r') as f:
+                with open(fh_path, "r") as f:
                     lines = f.readlines()
                     assert len(lines) == Nk
             finally:
@@ -868,8 +939,8 @@ class TestWriteDephasing:
         with tempfile.TemporaryDirectory() as tmpdir:
             old_cwd = os.getcwd()
             os.chdir(tmpdir)
-            os.makedirs('dataQW/Wire/Ge', exist_ok=True)
-            os.makedirs('dataQW/Wire/Gh', exist_ok=True)
+            os.makedirs("dataQW/Wire/Ge", exist_ok=True)
+            os.makedirs("dataQW/Wire/Gh", exist_ok=True)
 
             try:
                 Nk = 16
@@ -881,8 +952,8 @@ class TestWriteDephasing:
                     for xxx in [0, 1, 100, 9999]:
                         dephasing.WriteDephasing(ky, gamE, gamH, w, xxx)
 
-                        fe_path = Path(f'dataQW/Wire/Ge/Ge.{w:02d}.k.{xxx:05d}.dat')
-                        fh_path = Path(f'dataQW/Wire/Gh/Gh.{w:02d}.k.{xxx:05d}.dat')
+                        fe_path = Path(f"dataQW/Wire/Ge/Ge.{w:02d}.k.{xxx:05d}.dat")
+                        fh_path = Path(f"dataQW/Wire/Gh/Gh.{w:02d}.k.{xxx:05d}.dat")
                         assert fe_path.exists()
                         assert fh_path.exists()
             finally:
@@ -937,12 +1008,10 @@ class TestIntegration:
 
         # Calculate off-diagonal dephasing matrices
         De = dephasing.CalcOffDiagDeph_E(
-            self.ne0, self.nh0, self.ky, self.Ee0, self.Eh0,
-            1e12, 1e12, self.VC
+            self.ne0, self.nh0, self.ky, self.Ee0, self.Eh0, 1e12, 1e12, self.VC
         )
         Dh = dephasing.CalcOffDiagDeph_H(
-            self.ne0, self.nh0, self.ky, self.Ee0, self.Eh0,
-            1e12, 1e12, self.VC
+            self.ne0, self.nh0, self.ky, self.Ee0, self.Eh0, 1e12, 1e12, self.VC
         )
 
         assert De.shape == (self.Nk, self.Nk)
@@ -952,14 +1021,15 @@ class TestIntegration:
 
     def test_off_diag_dephasing_workflow(self):
         """Test complete off-diagonal dephasing workflow."""
-        p = 0.1 * (np.random.random((self.Nk, self.Nk)) +
-                  1j * np.random.random((self.Nk, self.Nk)))
+        p = 0.1 * (
+            np.random.random((self.Nk, self.Nk))
+            + 1j * np.random.random((self.Nk, self.Nk))
+        )
         g = np.array([1e12, 1e12, 1e12])
         x = np.zeros((self.Nk, self.Nk), dtype=complex)
 
         dephasing.OffDiagDephasing(
-            self.ne0, self.nh0, p, self.ky, self.Ee0, self.Eh0,
-            g, self.VC, x
+            self.ne0, self.nh0, p, self.ky, self.Ee0, self.Eh0, g, self.VC, x
         )
 
         assert x.shape == (self.Nk, self.Nk)
@@ -967,15 +1037,16 @@ class TestIntegration:
 
     def test_off_diag_dephasing2_workflow(self):
         """Test complete off-diagonal dephasing workflow (version 2)."""
-        p = 0.1 * (np.random.random((self.Nk, self.Nk)) +
-                  1j * np.random.random((self.Nk, self.Nk)))
+        p = 0.1 * (
+            np.random.random((self.Nk, self.Nk))
+            + 1j * np.random.random((self.Nk, self.Nk))
+        )
         g = np.array([1e12, 1e12, 1e12])
         x = np.zeros((self.Nk, self.Nk), dtype=complex)
         t = 0.0
 
         dephasing.OffDiagDephasing2(
-            self.ne0, self.nh0, p, self.ky, self.Ee0, self.Eh0,
-            g, self.VC, t, x
+            self.ne0, self.nh0, p, self.ky, self.Ee0, self.Eh0, g, self.VC, t, x
         )
 
         assert x.shape == (self.Nk, self.Nk)
@@ -984,12 +1055,26 @@ class TestIntegration:
     def test_version2_consistency(self):
         """Test that CalcOffDiagDeph_E2 and CalcOffDiagDeph_H2 produce valid results."""
         De2 = dephasing.CalcOffDiagDeph_E2(
-            self.ne0, self.nh0, self.ky, self.Ee0, self.Eh0,
-            1e12, 1e12, self.VC, self.Nk
+            self.ne0,
+            self.nh0,
+            self.ky,
+            self.Ee0,
+            self.Eh0,
+            1e12,
+            1e12,
+            self.VC,
+            self.Nk,
         )
         Dh2 = dephasing.CalcOffDiagDeph_H2(
-            self.ne0, self.nh0, self.ky, self.Ee0, self.Eh0,
-            1e12, 1e12, self.VC, self.Nk
+            self.ne0,
+            self.nh0,
+            self.ky,
+            self.Ee0,
+            self.Eh0,
+            1e12,
+            1e12,
+            self.VC,
+            self.Nk,
         )
 
         assert De2.shape == (2 * self.Nk + 1, self.Nk)
@@ -1047,4 +1132,3 @@ class TestIntegration:
         if dephasing._fh_file is not None:
             dephasing._fh_file.close()
             dephasing._fh_file = None
-

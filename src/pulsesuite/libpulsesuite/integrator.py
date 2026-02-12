@@ -87,7 +87,7 @@ _c6 = 512.0 / 1771.0
 _dc1 = _c1 - 2825.0 / 27648.0
 _dc3 = _c3 - 18575.0 / 48384.0
 _dc4 = _c4 - 13525.0 / 55296.0
-_dc5 = 0.0 - 277.0 / 14336.0       # c5 = 0 in the 5th-order formula
+_dc5 = 0.0 - 277.0 / 14336.0  # c5 = 0 in the 5th-order formula
 _dc6 = _c6 - 1.0 / 4.0
 
 
@@ -95,6 +95,7 @@ _dc6 = _c6 - 1.0 / 4.0
 #  Cash-Karp Runge-Kutta step  (rkck)
 #  Returns (yout, yerr).  Does NOT modify y.
 # ═════════════════════════════════════════════════════════════════════
+
 
 def _rkck(y, dydt, t, h, D):
     """Common Cash-Karp implementation, dtype/shape agnostic."""
@@ -110,13 +111,11 @@ def _rkck(y, dydt, t, h, D):
     ytmp = y + h * (_b51 * dydt + _b52 * ak2 + _b53 * ak3 + _b54 * ak4)
     ak5 = D(t + _a5 * h, ytmp)
 
-    ytmp = y + h * (_b61 * dydt + _b62 * ak2 + _b63 * ak3
-                    + _b64 * ak4 + _b65 * ak5)
+    ytmp = y + h * (_b61 * dydt + _b62 * ak2 + _b63 * ak3 + _b64 * ak4 + _b65 * ak5)
     ak6 = D(t + _a6 * h, ytmp)
 
     yout = y + h * (_c1 * dydt + _c3 * ak3 + _c4 * ak4 + _c6 * ak6)
-    yerr = h * (_dc1 * dydt + _dc3 * ak3 + _dc4 * ak4
-                + _dc5 * ak5 + _dc6 * ak6)
+    yerr = h * (_dc1 * dydt + _dc3 * ak3 + _dc4 * ak4 + _dc5 * ak5 + _dc6 * ak6)
     return yout, yerr
 
 
@@ -139,6 +138,7 @@ def rkck_3D_dpc(y, dydt, t, h, D):
 #  Classic 4th-order Runge-Kutta  (rk4)
 #  Modifies y in-place.  Returns t_new.
 # ═════════════════════════════════════════════════════════════════════
+
 
 def _rk4(y, dydt, t, h, D):
     """Common RK4 implementation."""
@@ -177,6 +177,7 @@ def rk4_3D_dpc(y, dydt, t, h, D):
 #  Modifies y in-place.  Returns t_new.
 # ═════════════════════════════════════════════════════════════════════
 
+
 def idiot_dp(y, dydt, t, h, D):
     """Forward Euler for real ODEs.  Modifies y in-place.  Returns t_new."""
     y[:] = y + dydt * h
@@ -193,6 +194,7 @@ def idiot_dpc(y, dydt, t, h, D):
 #  Adaptive Cash-Karp quality-controlled step  (rkqs)
 #  Modifies y in-place.  Returns (t_new, hdid, hnext).
 # ═════════════════════════════════════════════════════════════════════
+
 
 def rkqs_dp(y, dydt, t, htry, eps, yscale, D, jacobn):
     """
@@ -211,7 +213,7 @@ def rkqs_dp(y, dydt, t, htry, eps, yscale, D, jacobn):
         if errmax <= 1.0:
             break
 
-        htmp = SAFETY * h * errmax ** PSHRNK
+        htmp = SAFETY * h * errmax**PSHRNK
 
         if h >= 0.0:
             h = max(htmp, 0.1 * h)
@@ -223,7 +225,7 @@ def rkqs_dp(y, dydt, t, htry, eps, yscale, D, jacobn):
             raise RuntimeError("Stepsize underflow in rkqs")
 
     if errmax > ERRCON:
-        hnext = SAFETY * h * errmax ** PGROW
+        hnext = SAFETY * h * errmax**PGROW
     else:
         hnext = 5.0 * h
 
@@ -250,7 +252,7 @@ def rkqs_dpc(y, dydt, t, htry, eps, yscale, D, jacobn):
         if errmax <= 1.0:
             break
 
-        htmp = SAFETY * h * errmax ** PSHRNK
+        htmp = SAFETY * h * errmax**PSHRNK
 
         if h >= 0.0:
             h = max(htmp, 0.1 * h)
@@ -262,7 +264,7 @@ def rkqs_dpc(y, dydt, t, htry, eps, yscale, D, jacobn):
             raise RuntimeError("Stepsize underflow in rkqs")
 
     if errmax > ERRCON:
-        hnext = SAFETY * h * errmax ** PGROW
+        hnext = SAFETY * h * errmax**PGROW
     else:
         hnext = 5.0 * h
 
@@ -289,7 +291,7 @@ def rkqs_3D_dpc(y, dydt, t, htry, eps, yscale, D):
         if errmax <= 1.0:
             break
 
-        htmp = SAFETY * h * errmax ** PSHRNK
+        htmp = SAFETY * h * errmax**PSHRNK
 
         if h >= 0.0:
             h = max(htmp, 0.1 * h)
@@ -301,7 +303,7 @@ def rkqs_3D_dpc(y, dydt, t, htry, eps, yscale, D):
             raise RuntimeError("Stepsize underflow in rkqs 3D")
 
     if errmax > ERRCON:
-        hnext = SAFETY * h * errmax ** PGROW
+        hnext = SAFETY * h * errmax**PGROW
     else:
         hnext = 5.0 * h
 
@@ -333,7 +335,7 @@ def rkqs_3D_dpc_TOM(y, dydt, t, htry, eps, yscaleREAL, yscaleIMAG, D):
         if errmax <= 1.0:
             break
 
-        htmp = SAFETY * h * errmax ** PSHRNK
+        htmp = SAFETY * h * errmax**PSHRNK
 
         if h >= 0.0:
             h = max(htmp, 0.1 * h)
@@ -345,7 +347,7 @@ def rkqs_3D_dpc_TOM(y, dydt, t, htry, eps, yscaleREAL, yscaleIMAG, D):
             raise RuntimeError("Stepsize underflow in rkqs 3D TOM")
 
     if errmax > ERRCON:
-        hnext = SAFETY * h * errmax ** PGROW
+        hnext = SAFETY * h * errmax**PGROW
     else:
         hnext = 5.0 * h
 
@@ -359,6 +361,7 @@ def rkqs_3D_dpc_TOM(y, dydt, t, htry, eps, yscaleREAL, yscaleIMAG, D):
 #  Adaptive step-size ODE drivers  (odeint)
 #  Modifies y in-place.  Returns (nok, nbad).
 # ═════════════════════════════════════════════════════════════════════
+
 
 def odeint_dp(y, x1, x2, eps, h1, hmin, D, integ, jacobn):
     """
@@ -524,7 +527,14 @@ def odeint_3D_dpc_TOM(y, x1, x2, eps, h1, hmin, D, integ):
             h = x2 - x
 
         x, hdid, hnext = integ(
-            y, dydx, x, h, eps, yscaleREAL, yscaleIMAG, D,
+            y,
+            dydx,
+            x,
+            h,
+            eps,
+            yscaleREAL,
+            yscaleIMAG,
+            D,
         )
 
         if hdid == h:
@@ -549,6 +559,7 @@ def odeint_3D_dpc_TOM(y, x1, x2, eps, h1, hmin, D, integ):
 #  Simple fixed-step ODE driver  (simpleint)
 #  Modifies y in-place.  Returns nok.
 # ═════════════════════════════════════════════════════════════════════
+
 
 def simpleint_dp(y, t1, t2, h1, D, simple):
     """
@@ -610,6 +621,7 @@ def simpleint_dpc(y, t1, t2, h1, D, simple):
 #  Modified midpoint  (mmid)
 # ═════════════════════════════════════════════════════════════════════
 
+
 def mmid(y, dydx, xs, htot, nstep, D):
     """
     Modified midpoint method.
@@ -642,6 +654,7 @@ def mmid(y, dydx, xs, htot, nstep, D):
 #  Polynomial extrapolation  (pzextr)
 #  Uses explicit state arrays passed by the caller.
 # ═════════════════════════════════════════════════════════════════════
+
 
 def pzextr(iest, xest, yest, yz, dy, x_save, d_save):
     """
@@ -689,13 +702,13 @@ def pzextr(iest, xest, yest, yz, dy, x_save, d_save):
 
 # Persistent state across bsstep calls (Fortran SAVE variables)
 _bs = {
-    'first': True,
-    'kmax': 0,
-    'kopt': 0,
-    'epsold': -1.0,
-    'xnew': 0.0,
-    'a': np.zeros(KMAXX + 2),
-    'alf': np.zeros((KMAXX + 1, KMAXX + 1)),
+    "first": True,
+    "kmax": 0,
+    "kopt": 0,
+    "epsold": -1.0,
+    "xnew": 0.0,
+    "a": np.zeros(KMAXX + 2),
+    "alf": np.zeros((KMAXX + 1, KMAXX + 1)),
 }
 
 _NSEQ_BS = np.array([2, 4, 6, 8, 10, 12, 14, 16, 18])
@@ -720,26 +733,25 @@ def bsstep(y, dydx, x, htry, eps, yscale, D, jacobn):
     bs = _bs
 
     # Recompute work coefficients if eps changed
-    if eps != bs['epsold']:
-        bs['epsold'] = eps
-        bs['xnew'] = -1.0e29
-        bs['_hnext'] = -1.0e29
+    if eps != bs["epsold"]:
+        bs["epsold"] = eps
+        bs["xnew"] = -1.0e29
+        bs["_hnext"] = -1.0e29
 
         eps1 = _SAFE1_BS * eps
 
         # a(1) = nseq(1) + 1;  a(k+1) = a(k) + nseq(k+1)  (Fortran 1-based)
-        a = bs['a']
+        a = bs["a"]
         a[0] = _NSEQ_BS[0] + 1
         for k in range(1, KMAXX + 1):
             a[k] = a[k - 1] + _NSEQ_BS[k]
 
         # Compute alpha coefficients
-        alf = bs['alf']
-        for iq in range(2, KMAXX + 1):      # Fortran iq=2..KMAXX
-            for k in range(1, iq):            # Fortran k=1..iq-1
+        alf = bs["alf"]
+        for iq in range(2, KMAXX + 1):  # Fortran iq=2..KMAXX
+            for k in range(1, iq):  # Fortran k=1..iq-1
                 alf[k - 1, iq - 1] = eps1 ** (
-                    (a[k] - a[iq])
-                    / ((a[iq] - a[0] - 1.0) * (2.0 * k + 1.0))
+                    (a[k] - a[iq]) / ((a[iq] - a[0] - 1.0) * (2.0 * k + 1.0))
                 )
 
         # Find optimal order
@@ -748,21 +760,21 @@ def bsstep(y, dydx, x, htry, eps, yscale, D, jacobn):
             if a[ko] > a[ko - 1] * alf[ko - 2, ko - 1]:
                 kopt = ko
                 break
-        bs['kopt'] = kopt
-        bs['kmax'] = kopt
+        bs["kopt"] = kopt
+        bs["kmax"] = kopt
 
-    kmax = bs['kmax']
-    kopt = bs['kopt']
-    a = bs['a']
-    alf = bs['alf']
+    kmax = bs["kmax"]
+    kopt = bs["kopt"]
+    a = bs["a"]
+    alf = bs["alf"]
 
     h = htry
     ysav = y.copy()
 
-    if x != bs['xnew'] or h != bs.get('_hnext', -1.0e29):
-        bs['first'] = True
+    if x != bs["xnew"] or h != bs.get("_hnext", -1.0e29):
+        bs["first"] = True
         kopt = kmax
-        bs['kopt'] = kopt
+        bs["kopt"] = kopt
 
     reduct = False
 
@@ -775,9 +787,9 @@ def bsstep(y, dydx, x, htry, eps, yscale, D, jacobn):
     exitflag = False
 
     while True:
-        for k in range(1, kmax + 1):       # Fortran k=1..kmax
-            bs['xnew'] = x + h
-            if bs['xnew'] == x:
+        for k in range(1, kmax + 1):  # Fortran k=1..kmax
+            bs["xnew"] = x + h
+            if bs["xnew"] == x:
                 raise RuntimeError("Step size underflow in bsstep")
 
             yseq = mmid(ysav, dydx, x, h, _NSEQ_BS[k - 1], D)
@@ -788,11 +800,9 @@ def bsstep(y, dydx, x, htry, eps, yscale, D, jacobn):
             if k != 1:
                 errmax = max(TINY, np.max(np.abs(yerr / yscale))) / eps
                 km = k - 1
-                err[km - 1] = (errmax / _SAFE1_BS) ** (
-                    1.0 / (2.0 * km + 1.0)
-                )
+                err[km - 1] = (errmax / _SAFE1_BS) ** (1.0 / (2.0 * km + 1.0))
 
-            if k != 1 and (k >= kopt - 1 or bs['first']):
+            if k != 1 and (k >= kopt - 1 or bs["first"]):
                 if errmax < 1.0:
                     exitflag = True
                     break
@@ -818,9 +828,9 @@ def bsstep(y, dydx, x, htry, eps, yscale, D, jacobn):
         reduct = True
 
     # Accepted step
-    x_new = bs['xnew']
+    x_new = bs["xnew"]
     hdid = h
-    bs['first'] = False
+    bs["first"] = False
 
     wrkmin = 1.0e35
     kopt_new = 1
@@ -840,8 +850,8 @@ def bsstep(y, dydx, x, htry, eps, yscale, D, jacobn):
             hnext = h / fact
             kopt_new = kopt_new + 1
 
-    bs['kopt'] = kopt_new
-    bs['_hnext'] = hnext
+    bs["kopt"] = kopt_new
+    bs["_hnext"] = hnext
 
     return x_new, hdid, hnext
 
@@ -849,6 +859,7 @@ def bsstep(y, dydx, x, htry, eps, yscale, D, jacobn):
 # ═════════════════════════════════════════════════════════════════════
 #  LU decomposition with partial pivoting  (ludcmp)
 # ═════════════════════════════════════════════════════════════════════
+
 
 def ludcmp(a, indx):
     """
@@ -859,12 +870,12 @@ def ludcmp(a, indx):
     Returns d (+1.0 or -1.0 for even/odd row exchanges).
     """
     _TINY_LU = 1.0e-20
-    n = assertEq(a.shape[0], a.shape[1], indx.size, msg='ludcmp')
+    n = assertEq(a.shape[0], a.shape[1], indx.size, msg="ludcmp")
 
     d = 1.0
     vv = np.max(np.abs(a), axis=1)
     if np.any(vv == 0.0):
-        nrerror('singular matrix in ludcmp')
+        nrerror("singular matrix in ludcmp")
     vv = 1.0 / vv
 
     for j in range(n):
@@ -880,8 +891,8 @@ def ludcmp(a, indx):
         if a[j, j] == 0.0:
             a[j, j] = _TINY_LU
 
-        a[j + 1:, j] /= a[j, j]
-        a[j + 1:, j + 1:] -= outerprod(a[j + 1:, j], a[j, j + 1:])
+        a[j + 1 :, j] /= a[j, j]
+        a[j + 1 :, j + 1 :] -= outerprod(a[j + 1 :, j], a[j, j + 1 :])
 
     return d
 
@@ -890,6 +901,7 @@ def ludcmp(a, indx):
 #  LU back-substitution  (lubksb)
 # ═════════════════════════════════════════════════════════════════════
 
+
 def lubksb(a, indx, b):
     """
     LU back-substitution.
@@ -897,7 +909,7 @@ def lubksb(a, indx, b):
     Solves A*x = b given the LU factors in a and pivot indices in indx.
     Modifies b in-place with the solution.
     """
-    n = assertEq(a.shape[0], a.shape[1], indx.size, msg='lubksb')
+    n = assertEq(a.shape[0], a.shape[1], indx.size, msg="lubksb")
 
     ii = None
     for i in range(n):
@@ -911,12 +923,13 @@ def lubksb(a, indx, b):
         b[i] = summ
 
     for i in range(n - 1, -1, -1):
-        b[i] = (b[i] - np.dot(a[i, i + 1:], b[i + 1:])) / a[i, i]
+        b[i] = (b[i] - np.dot(a[i, i + 1 :], b[i + 1 :])) / a[i, i]
 
 
 # ═════════════════════════════════════════════════════════════════════
 #  Semi-implicit midpoint for stiff systems  (simpr)
 # ═════════════════════════════════════════════════════════════════════
+
 
 def simpr(y, dydx, dfdx, dfdy, xs, htot, nstep, derivs):
     """
@@ -968,14 +981,14 @@ def simpr(y, dydx, dfdx, dfdy, xs, htot, nstep, derivs):
 
 # Persistent state across stifbs calls (Fortran SAVE variables)
 _stiff = {
-    'first': True,
-    'kmax': 0,
-    'kopt': 0,
-    'nvold': -1,
-    'epsold': -1.0,
-    'xnew': 0.0,
-    'a': np.zeros(9),
-    'alf': np.zeros((7, 7)),
+    "first": True,
+    "kmax": 0,
+    "kopt": 0,
+    "nvold": -1,
+    "epsold": -1.0,
+    "xnew": 0.0,
+    "a": np.zeros(9),
+    "alf": np.zeros((7, 7)),
 }
 
 _IMAX_STIFF = 8
@@ -1004,16 +1017,16 @@ def stifbs(y, dydx, x, htry, eps, yscal, derivs, jacobn):
     st = _stiff
 
     # Recompute work coefficients if eps or problem size changed
-    if eps != st['epsold'] or st['nvold'] != nv:
-        st['epsold'] = eps
-        st['nvold'] = nv
-        st['xnew'] = -1.0e29
+    if eps != st["epsold"] or st["nvold"] != nv:
+        st["epsold"] = eps
+        st["nvold"] = nv
+        st["xnew"] = -1.0e29
 
         eps1 = _SAFE1_STIFF * eps
 
         # a = cumsum(nseq) + 1  (work function)
         a_work = cumsum(nseq.astype(np.float64), 1)
-        st['a'][:_IMAX_STIFF] = a_work
+        st["a"][:_IMAX_STIFF] = a_work
 
         # Compute alpha coefficients using nrutils
         a2 = a_work[1:]  # a(2:) in Fortran, 7 elements
@@ -1022,25 +1035,25 @@ def stifbs(y, dydx, x, htry, eps, yscal, derivs, jacobn):
         ap = outerprod(arth(3.0, 2.0, kmaxx), a2 - a_work[0] + 1.0)
         alf = np.zeros((kmaxx, kmaxx))
         alf[mask] = eps1 ** (od[mask] / ap[mask])
-        st['alf'] = alf
+        st["alf"] = alf
 
         # Recompute a with problem-size dependent seed
         a_work = cumsum(nseq.astype(np.float64), 1 + nv)
-        st['a'][:_IMAX_STIFF] = a_work
+        st["a"][:_IMAX_STIFF] = a_work
 
         # Find optimal order
         kopt = kmaxx
-        for ko in range(2, kmaxx):   # Fortran: kopt=2..kmaxx-1
+        for ko in range(2, kmaxx):  # Fortran: kopt=2..kmaxx-1
             if a_work[ko] > a_work[ko - 1] * alf[ko - 2, ko - 1]:
                 kopt = ko
                 break
-        st['kopt'] = kopt
-        st['kmax'] = kopt
+        st["kopt"] = kopt
+        st["kmax"] = kopt
 
-    kmax = st['kmax']
-    kopt = st['kopt']
-    a = st['a']
-    alf = st['alf']
+    kmax = st["kmax"]
+    kopt = st["kopt"]
+    a = st["a"]
+    alf = st["alf"]
 
     h = htry
     ysav = y.copy()
@@ -1048,10 +1061,10 @@ def stifbs(y, dydx, x, htry, eps, yscal, derivs, jacobn):
     # Jacobian at current point
     dfdx, dfdy = jacobn(x, y)
 
-    if h != st.get('_hnext', None) or x != st['xnew']:
-        st['first'] = True
+    if h != st.get("_hnext", None) or x != st["xnew"]:
+        st["first"] = True
         kopt = kmax
-        st['kopt'] = kopt
+        st["kopt"] = kopt
 
     reduct = False
 
@@ -1064,9 +1077,9 @@ def stifbs(y, dydx, x, htry, eps, yscal, derivs, jacobn):
     exitflag = False
 
     while True:
-        for k in range(1, kmax + 1):       # Fortran k=1..kmax
-            st['xnew'] = x + h
-            if st['xnew'] == x:
+        for k in range(1, kmax + 1):  # Fortran k=1..kmax
+            st["xnew"] = x + h
+            if st["xnew"] == x:
                 raise RuntimeError("Step size underflow in stifbs")
 
             yseq = simpr(ysav, dydx, dfdx, dfdy, x, h, nseq[k - 1], derivs)
@@ -1078,11 +1091,9 @@ def stifbs(y, dydx, x, htry, eps, yscal, derivs, jacobn):
                 errmax = np.max(np.abs(yerr / yscal))
                 errmax = max(_TINY_STIFF, errmax) / eps
                 km = k - 1
-                err[km - 1] = (errmax / _SAFE1_STIFF) ** (
-                    1.0 / (2.0 * km + 1.0)
-                )
+                err[km - 1] = (errmax / _SAFE1_STIFF) ** (1.0 / (2.0 * km + 1.0))
 
-            if k != 1 and (k >= kopt - 1 or st['first']):
+            if k != 1 and (k >= kopt - 1 or st["first"]):
                 if errmax < 1.0:
                     exitflag = True
                     break
@@ -1117,15 +1128,13 @@ def stifbs(y, dydx, x, htry, eps, yscal, derivs, jacobn):
         reduct = True
 
     # Accepted step
-    x_new = st['xnew']
+    x_new = st["xnew"]
     hdid = h
-    st['first'] = False
-    st['_hnext'] = None  # will be set below
+    st["first"] = False
+    st["_hnext"] = None  # will be set below
 
     # Find new optimal order (Fortran uses minloc-based approach)
-    kopt_new = 1 + np.argmin(
-        a[1:km + 1] * np.maximum(err[:km], _SCALMX_STIFF)
-    )
+    kopt_new = 1 + np.argmin(a[1 : km + 1] * np.maximum(err[:km], _SCALMX_STIFF))
     scale = max(err[kopt_new - 1], _SCALMX_STIFF)
     wrkmin = scale * a[kopt_new]
     hnext = h / scale
@@ -1136,7 +1145,7 @@ def stifbs(y, dydx, x, htry, eps, yscal, derivs, jacobn):
             hnext = h / fact
             kopt_new = kopt_new + 1
 
-    st['kopt'] = kopt_new
-    st['_hnext'] = hnext
+    st["kopt"] = kopt_new
+    st["_hnext"] = hnext
 
     return x_new, hdid, hnext

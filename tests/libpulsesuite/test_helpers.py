@@ -10,6 +10,7 @@ Tolerances:
     algebraic  :  rtol=1e-12, atol=1e-12  (float64)
     physics    :  rtol=1e-8               (constant combinations)
 """
+
 import numpy as np
 import pytest
 
@@ -52,6 +53,7 @@ ATOL = 1e-12
 # sech
 # ===================================================================
 
+
 class TestSech:
     def test_sech_zero(self):
         assert np.isclose(sech(np.float64(0.0)), 1.0, atol=ATOL)
@@ -70,6 +72,7 @@ class TestSech:
 # ===================================================================
 # arg
 # ===================================================================
+
 
 class TestArg:
     def test_arg_real_positive(self):
@@ -90,6 +93,7 @@ class TestArg:
 # gauss
 # ===================================================================
 
+
 class TestGauss:
     def test_gauss_zero(self):
         assert np.isclose(gauss(np.float64(0.0)), 1.0, atol=ATOL)
@@ -97,7 +101,7 @@ class TestGauss:
     def test_gauss_identity(self):
         """gauss(x) = exp(-x^2)."""
         x = np.linspace(-3, 3, 30)
-        np.testing.assert_allclose(gauss(x), np.exp(-x**2), rtol=RTOL, atol=ATOL)
+        np.testing.assert_allclose(gauss(x), np.exp(-(x**2)), rtol=RTOL, atol=ATOL)
 
     def test_gauss_even(self):
         x = np.array([0.5, 1.0, 2.0])
@@ -113,22 +117,26 @@ class TestGauss:
 # magsq
 # ===================================================================
 
+
 class TestMagsq:
     def test_magsq_real(self):
         """magsq(x+0j) = x^2."""
         z = np.array([1 + 0j, 2 + 0j, -3 + 0j])
-        np.testing.assert_allclose(magsq(z), np.array([1, 4, 9], dtype=float), rtol=RTOL, atol=ATOL)
+        np.testing.assert_allclose(
+            magsq(z), np.array([1, 4, 9], dtype=float), rtol=RTOL, atol=ATOL
+        )
 
     def test_magsq_identity(self):
         """|z|^2 = Re(z)^2 + Im(z)^2."""
         z = np.array([1 + 1j, 3 - 4j, 0 + 2j])
-        expected = np.real(z)**2 + np.imag(z)**2
+        expected = np.real(z) ** 2 + np.imag(z) ** 2
         np.testing.assert_allclose(magsq(z), expected, rtol=RTOL, atol=ATOL)
 
 
 # ===================================================================
 # constrain
 # ===================================================================
+
 
 class TestConstrain:
     def test_constrain_clips(self):
@@ -151,6 +159,7 @@ class TestConstrain:
 # ===================================================================
 # Field conversion: AmpToInten, FldToInten, IntenToAmp
 # ===================================================================
+
 
 class TestFieldConversions:
     def test_amp_to_inten_roundtrip(self):
@@ -187,6 +196,7 @@ class TestFieldConversions:
 # Wavelength / frequency conversions
 # ===================================================================
 
+
 class TestWavelengthFrequency:
     def test_l2f_identity(self):
         """f = c0 / lam."""
@@ -207,6 +217,7 @@ class TestWavelengthFrequency:
 # ===================================================================
 # GetSpaceArray, GetKArray
 # ===================================================================
+
 
 class TestGridArrays:
     def test_space_array_centered(self):
@@ -243,6 +254,7 @@ class TestGridArrays:
 # LinearInterp, BilinearInterp, TrilinearInterp
 # ===================================================================
 
+
 class TestLinearInterp:
     def test_linear_interp_exact(self):
         """Interpolating a linear function should be exact."""
@@ -267,7 +279,7 @@ class TestBilinearInterp:
         """Bilinear interp of f(x,y)=x+y should be exact."""
         x = np.linspace(0, 1, 5)
         y = np.linspace(0, 1, 5)
-        X, Y = np.meshgrid(x, y, indexing='ij')
+        X, Y = np.meshgrid(x, y, indexing="ij")
         f = X + Y
         val = BilinearInterp(f, x, y, 0.5, 0.5)
         assert np.isclose(val, 1.0, rtol=1e-8)
@@ -279,7 +291,7 @@ class TestTrilinearInterp:
         x = np.linspace(0, 1, 5)
         y = np.linspace(0, 1, 5)
         z = np.linspace(0, 1, 5)
-        X, Y, Z = np.meshgrid(x, y, z, indexing='ij')
+        X, Y, Z = np.meshgrid(x, y, z, indexing="ij")
         f = X + Y + Z
         val = TrilinearInterp(f, x, y, z, 0.5, 0.5, 0.5)
         assert np.isclose(val, 1.5, rtol=1e-8)
@@ -288,6 +300,7 @@ class TestTrilinearInterp:
 # ===================================================================
 # dfdt (five-point stencil derivative)
 # ===================================================================
+
 
 class TestDfdt:
     def test_dfdt_index_linear(self):
@@ -326,12 +339,20 @@ class TestDfdt:
 # LAX / noLAX
 # ===================================================================
 
+
 class TestLaxSmoothing:
     def test_lax_average(self):
         """LAX returns average of 6 nearest neighbors in 3D."""
         u = np.arange(27, dtype=complex).reshape((3, 3, 3))
         val = LAX(u, 1, 1, 1)
-        neighbors = [u[0, 1, 1], u[2, 1, 1], u[1, 0, 1], u[1, 2, 1], u[1, 1, 0], u[1, 1, 2]]
+        neighbors = [
+            u[0, 1, 1],
+            u[2, 1, 1],
+            u[1, 0, 1],
+            u[1, 2, 1],
+            u[1, 1, 0],
+            u[1, 1, 2],
+        ]
         assert np.isclose(val, sum(neighbors) / 6.0)
 
     def test_noLAX_identity(self):
@@ -343,6 +364,7 @@ class TestLaxSmoothing:
 # ===================================================================
 # unwrap
 # ===================================================================
+
 
 class TestUnwrap:
     def test_unwrap_monotone(self):
@@ -364,10 +386,18 @@ class TestUnwrap:
 # factorial
 # ===================================================================
 
+
 class TestFactorial:
-    @pytest.mark.parametrize("n, expected", [
-        (0, 1), (1, 1), (5, 120), (6, 720), (10, 3628800),
-    ])
+    @pytest.mark.parametrize(
+        "n, expected",
+        [
+            (0, 1),
+            (1, 1),
+            (5, 120),
+            (6, 720),
+            (10, 3628800),
+        ],
+    )
     def test_factorial_values(self, n, expected):
         assert factorial(n) == expected
 
@@ -375,6 +405,7 @@ class TestFactorial:
 # ===================================================================
 # isnan
 # ===================================================================
+
 
 class TestIsnan:
     def test_isnan_dp(self):

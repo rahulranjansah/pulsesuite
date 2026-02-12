@@ -20,6 +20,7 @@ from .spliner import rescale_1D
 
 # ── Analytic envelopes ──────────────────────────────────────────────────
 
+
 def GaussPulse(x: np.ndarray, FWHM: float) -> np.ndarray:
     """Gaussian envelope normalised to unit peak with given FWHM.
 
@@ -90,10 +91,14 @@ def FilePulse(fn: str, X: np.ndarray) -> np.ndarray:
 
 # ── Dispatchers ─────────────────────────────────────────────────────────
 
-def pulsegen(shp: str, FWHM: float,
-             X: Optional[np.ndarray] = None,
-             N: Optional[int] = None,
-             dx: Optional[float] = None) -> np.ndarray:
+
+def pulsegen(
+    shp: str,
+    FWHM: float,
+    X: Optional[np.ndarray] = None,
+    N: Optional[int] = None,
+    dx: Optional[float] = None,
+) -> np.ndarray:
     """Generate a pulse envelope.
 
     Mirrors the Fortran ``pulsegen`` interface (``pulsegen1`` / ``pulsegen2``).
@@ -140,8 +145,10 @@ def pulsegen(shp: str, FWHM: float,
 
 # ── Multi-pulse trains ──────────────────────────────────────────────────
 
-def multipulsegen(shp: str, t0: float, t: np.ndarray,
-                  sep: float, num: int) -> np.ndarray:
+
+def multipulsegen(
+    shp: str, t0: float, t: np.ndarray, sep: float, num: int
+) -> np.ndarray:
     """Generate a train of 2 or 3 identical pulses.
 
     Parameters
@@ -169,19 +176,25 @@ def multipulsegen(shp: str, t0: float, t: np.ndarray,
     if num == 2:
         tx = sep / 2.0
         if key == "gauss":
-            y = np.exp(-((t - tx) / t0) ** 2) + np.exp(-((t + tx) / t0) ** 2)
+            y = np.exp(-(((t - tx) / t0) ** 2)) + np.exp(-(((t + tx) / t0) ** 2))
         elif key == "uneven2a":
-            y = np.exp(-((t - tx) / t0) ** 2) + np.exp(-((t + tx) / t0) ** 2) / np.sqrt(2.0)
+            y = np.exp(-(((t - tx) / t0) ** 2)) + np.exp(
+                -(((t + tx) / t0) ** 2)
+            ) / np.sqrt(2.0)
         elif key == "uneven2b":
-            y = np.exp(-((t + tx) / t0) ** 2) + np.exp(-((t - tx) / t0) ** 2) / np.sqrt(2.0)
+            y = np.exp(-(((t + tx) / t0) ** 2)) + np.exp(
+                -(((t - tx) / t0) ** 2)
+            ) / np.sqrt(2.0)
         else:
             y = sech((t - tx) / t0) + sech((t + tx) / t0)
     elif num == 3:
         tx = sep
         if key == "gauss":
-            y = (np.exp(-((t - tx) / t0) ** 2)
-                 + np.exp(-(t / t0) ** 2)
-                 + np.exp(-((t + tx) / t0) ** 2))
+            y = (
+                np.exp(-(((t - tx) / t0) ** 2))
+                + np.exp(-((t / t0) ** 2))
+                + np.exp(-(((t + tx) / t0) ** 2))
+            )
         else:
             y = sech((t - tx) / t0) + sech(t / t0) + sech((t + tx) / t0)
     else:

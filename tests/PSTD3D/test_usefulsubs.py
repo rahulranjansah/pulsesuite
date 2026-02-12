@@ -47,14 +47,14 @@ class TestArrayFlipping:
 
     def test_fflip_dpc_complex(self):
         """Test flipping complex array."""
-        f = np.array([1+2j, 3+4j, 5+6j, 7+8j])
+        f = np.array([1 + 2j, 3 + 4j, 5 + 6j, 7 + 8j])
         result = us.fflip_dpc(f)
-        expected = np.array([7+8j, 5+6j, 3+4j, 1+2j])
+        expected = np.array([7 + 8j, 5 + 6j, 3 + 4j, 1 + 2j])
         assert np.allclose(result, expected, rtol=1e-12, atol=1e-12)
 
     def test_fflip_dpc_single_element(self):
         """Test flipping single element complex array."""
-        f = np.array([1+1j])
+        f = np.array([1 + 1j])
         result = us.fflip_dpc(f)
         assert np.allclose(result, f, rtol=1e-12, atol=1e-12)
 
@@ -78,8 +78,10 @@ class TestDerivatives1D:
         expected = k * np.cos(k * y)
 
         # Test interior points (avoid boundary effects)
-        interior = slice(N//4, 3*N//4)
-        assert np.allclose(np.real(df[interior]), expected[interior], rtol=1e-8, atol=1e-10)
+        interior = slice(N // 4, 3 * N // 4)
+        assert np.allclose(
+            np.real(df[interior]), expected[interior], rtol=1e-8, atol=1e-10
+        )
 
     def test_dfdy1D_quadratic(self):
         """Test derivative of periodic function (FFT assumes periodicity)."""
@@ -97,8 +99,10 @@ class TestDerivatives1D:
         expected = -k * np.sin(k * y)
 
         # Test interior points (avoid boundary effects)
-        interior = slice(N//4, 3*N//4)
-        assert np.allclose(np.real(df[interior]), expected[interior], rtol=1e-6, atol=1e-10)
+        interior = slice(N // 4, 3 * N // 4)
+        assert np.allclose(
+            np.real(df[interior]), expected[interior], rtol=1e-6, atol=1e-10
+        )
 
     def test_dfdy1D_gaussian(self):
         """Test derivative of Gaussian function (well-localized, minimal boundary effects)."""
@@ -108,11 +112,11 @@ class TestDerivatives1D:
         qy = 2.0 * np.pi * np.fft.fftfreq(N, dy)
 
         sigma = 3e-6
-        f = np.exp(-(y/sigma)**2)
+        f = np.exp(-((y / sigma) ** 2))
         f_complex = f.astype(np.complex128)
 
         df = us.dfdy1D(f_complex, qy)
-        expected = -2 * y / sigma**2 * np.exp(-(y/sigma)**2)
+        expected = -2 * y / sigma**2 * np.exp(-((y / sigma) ** 2))
 
         # Test interior points where Gaussian is significant (avoid boundary effects)
         # Gaussian is significant within ~3*sigma
@@ -121,7 +125,7 @@ class TestDerivatives1D:
 
     def test_dfdy1D_single_element(self):
         """Test derivative with single element array."""
-        f = np.array([1.0+0j])
+        f = np.array([1.0 + 0j])
         qy = np.array([0.0])
         result = us.dfdy1D(f, qy)
         assert np.allclose(result, np.zeros_like(f), rtol=1e-12, atol=1e-12)
@@ -142,8 +146,10 @@ class TestDerivatives1D:
         expected = k * np.cos(k * x)
 
         # Test interior points (avoid boundary effects)
-        interior = slice(N//4, 3*N//4)
-        assert np.allclose(np.real(df[interior]), expected[interior], rtol=1e-8, atol=1e-10)
+        interior = slice(N // 4, 3 * N // 4)
+        assert np.allclose(
+            np.real(df[interior]), expected[interior], rtol=1e-8, atol=1e-10
+        )
 
 
 class TestDerivatives2D:
@@ -181,8 +187,10 @@ class TestDerivatives2D:
             expected[i, :] = a * k * np.cos(k * y)
 
         # Test interior points (avoid boundary effects)
-        interior = slice(Ny//4, 3*Ny//4)
-        assert np.allclose(np.real(df[:, interior]), expected[:, interior], rtol=1e-7, atol=1e-10)
+        interior = slice(Ny // 4, 3 * Ny // 4)
+        assert np.allclose(
+            np.real(df[:, interior]), expected[:, interior], rtol=1e-7, atol=1e-10
+        )
 
     def test_dfdx2D_linear(self):
         """Test 2D derivative of periodic function in x (FFT assumes periodicity)."""
@@ -204,8 +212,10 @@ class TestDerivatives2D:
             expected[:, j] = a * k * np.cos(k * x)
 
         # Test interior points (avoid boundary effects)
-        interior = slice(Nx//4, 3*Nx//4)
-        assert np.allclose(np.real(df[interior, :]), expected[interior, :], rtol=1e-7, atol=1e-10)
+        interior = slice(Nx // 4, 3 * Nx // 4)
+        assert np.allclose(
+            np.real(df[interior, :]), expected[interior, :], rtol=1e-7, atol=1e-10
+        )
 
     def test_dfdy2D_single_element(self):
         """Test 2D derivative with single element in y."""
@@ -251,7 +261,9 @@ class TestDerivativesQSpace:
         # Check each column
         for i in range(Nx):
             for j in range(Ny):
-                assert np.allclose(df[i, j], f[i, j] * 1j * qy[j], rtol=1e-12, atol=1e-12)
+                assert np.allclose(
+                    df[i, j], f[i, j] * 1j * qy[j], rtol=1e-12, atol=1e-12
+                )
 
     def test_dfdx2D_q_simple(self):
         """Test 2D q-space derivative in x."""
@@ -264,11 +276,13 @@ class TestDerivativesQSpace:
         # Check each element
         for i in range(Nx):
             for j in range(Ny):
-                assert np.allclose(df[i, j], f[i, j] * 1j * qx[i], rtol=1e-12, atol=1e-12)
+                assert np.allclose(
+                    df[i, j], f[i, j] * 1j * qx[i], rtol=1e-12, atol=1e-12
+                )
 
     def test_dfdy1D_q_single_element(self):
         """Test q-space derivative with single element."""
-        f = np.array([1.0+1j])
+        f = np.array([1.0 + 1j])
         qy = np.array([0.0])
         result = us.dfdy1D_q(f, qy)
         assert np.allclose(result, np.zeros_like(f), rtol=1e-12, atol=1e-12)
@@ -307,10 +321,10 @@ class TestGaussianFFT:
         """Test FFT-IFFT round trip with Gaussian normalization."""
         N = 128
         dx = 1e-7
-        x = np.linspace(-N*dx/2, N*dx/2, N)
+        x = np.linspace(-N * dx / 2, N * dx / 2, N)
 
         # Create a Gaussian function
-        f_original = np.exp(-(x/3e-6)**2).astype(np.complex128)
+        f_original = np.exp(-((x / 3e-6) ** 2)).astype(np.complex128)
         f = f_original.copy()
 
         # Compute momentum space parameters
@@ -373,7 +387,9 @@ class TestFieldDerivatives:
         # Interior points (skip last row due to wraparound): should be +1 (forward diff)
         expected_interior = np.ones((Nx, Ny))  # Forward difference of linear function
         # Skip last row (wraparound) and test rows 0 to N-2
-        assert np.allclose(np.real(dE[:-1, :]), expected_interior[:-1, :], rtol=1e-10, atol=1e-10)
+        assert np.allclose(
+            np.real(dE[:-1, :]), expected_interior[:-1, :], rtol=1e-10, atol=1e-10
+        )
 
     def test_dEdy_forward_difference(self):
         """Test E field y-derivative with forward difference."""
@@ -394,7 +410,9 @@ class TestFieldDerivatives:
         # Interior points (skip last column due to wraparound): should be +1 (forward diff)
         expected_interior = np.ones((Nx, Ny))  # Forward difference of linear function
         # Skip last column (wraparound) and test columns 0 to N-2
-        assert np.allclose(np.real(dE[:, :-1]), expected_interior[:, :-1], rtol=1e-10, atol=1e-10)
+        assert np.allclose(
+            np.real(dE[:, :-1]), expected_interior[:, :-1], rtol=1e-10, atol=1e-10
+        )
 
     def test_dHdx_backward_difference(self):
         """Test H field x-derivative with backward difference."""
@@ -415,7 +433,9 @@ class TestFieldDerivatives:
         # Interior points (skip first row due to wraparound): should be +1 (backward diff)
         expected_interior = np.ones((Nx, Ny))  # Backward difference of linear function
         # Skip first row (wraparound) and test rows 1 to N-1
-        assert np.allclose(np.real(dH[1:, :]), expected_interior[1:, :], rtol=1e-10, atol=1e-10)
+        assert np.allclose(
+            np.real(dH[1:, :]), expected_interior[1:, :], rtol=1e-10, atol=1e-10
+        )
 
     def test_dHdy_backward_difference(self):
         """Test H field y-derivative with backward difference."""
@@ -436,7 +456,9 @@ class TestFieldDerivatives:
         # Interior points (skip first column due to wraparound): should be +1 (backward diff)
         expected_interior = np.ones((Nx, Ny))  # Backward difference of linear function
         # Skip first column (wraparound) and test columns 1 to N-1
-        assert np.allclose(np.real(dH[:, 1:]), expected_interior[:, 1:], rtol=1e-10, atol=1e-10)
+        assert np.allclose(
+            np.real(dH[:, 1:]), expected_interior[:, 1:], rtol=1e-10, atol=1e-10
+        )
 
     def test_dEdx_single_row(self):
         """Test E field x-derivative with single row."""
@@ -499,7 +521,7 @@ class TestFourierTransforms:
         q = 2 * np.pi * np.fft.fftfreq(N, dx)
 
         # Create a simple function
-        y_original = np.exp(-(x/3e-6)**2).astype(np.complex128)
+        y_original = np.exp(-((x / 3e-6) ** 2)).astype(np.complex128)
         y = y_original.copy()
 
         # Forward and inverse transform
@@ -518,7 +540,7 @@ class TestFourierTransforms:
 
         # Gaussian function
         sigma = 3e-6
-        y = np.exp(-(x/sigma)**2).astype(np.complex128)
+        y = np.exp(-((x / sigma) ** 2)).astype(np.complex128)
 
         us.FT(y, x, q)
 
@@ -531,14 +553,14 @@ class TestFlipFunction:
 
     def test_Flip_simple(self):
         """Test Flip with simple array."""
-        x = np.array([1+1j, 2+2j, 3+3j, 4+4j])
+        x = np.array([1 + 1j, 2 + 2j, 3 + 3j, 4 + 4j])
         result = us.Flip(x)
-        expected = np.array([4+4j, 3+3j, 2+2j, 1+1j])
+        expected = np.array([4 + 4j, 3 + 3j, 2 + 2j, 1 + 1j])
         assert np.allclose(result, expected, rtol=1e-12, atol=1e-12)
 
     def test_Flip_single_element(self):
         """Test Flip with single element."""
-        x = np.array([1+1j])
+        x = np.array([1 + 1j])
         result = us.Flip(x)
         assert np.allclose(result, x, rtol=1e-12, atol=1e-12)
 
@@ -579,7 +601,7 @@ class TestSpecialFunctions:
         a = np.array([0.0, 1.0, 2.0])
         b = 1.0
         result = us.GaussDelta(a, b)
-        expected = 1.0 / np.sqrt(np.pi) * np.exp(-(a/b)**2)
+        expected = 1.0 / np.sqrt(np.pi) * np.exp(-((a / b) ** 2))
         assert np.allclose(result, expected, rtol=1e-12, atol=1e-12)
 
     def test_delta_at_zero(self):
@@ -639,7 +661,7 @@ class TestEnergyFunctions:
         n = np.array([1.0, 2.0, 3.0], dtype=np.complex128)
         E = np.array([1.0, 2.0, 3.0])
         result = us.TotalEnergy(n, E)
-        expected = 1*1 + 2*2 + 3*3  # 14
+        expected = 1 * 1 + 2 * 2 + 3 * 3  # 14
         assert result == pytest.approx(expected, rel=1e-12)
 
     def test_AvgEnergy_simple(self):
@@ -655,7 +677,7 @@ class TestEnergyFunctions:
         n = np.array([2.0, 1.0, 1.0], dtype=np.complex128)
         E = np.array([1.0, 2.0, 4.0])
         result = us.AvgEnergy(n, E)
-        expected = (2*1 + 1*2 + 1*4) / (2 + 1 + 1)  # 8/4 = 2.0
+        expected = (2 * 1 + 1 * 2 + 1 * 4) / (2 + 1 + 1)  # 8/4 = 2.0
         assert result == pytest.approx(expected, rel=1e-12)
 
     def test_Temperature_simple(self):
@@ -723,14 +745,14 @@ class TestAngleConversion:
     def test_rad_simple(self):
         """Test degree to radian conversion."""
         assert us.rad(180.0) == pytest.approx(np.pi, rel=1e-12)
-        assert us.rad(90.0) == pytest.approx(np.pi/2, rel=1e-12)
+        assert us.rad(90.0) == pytest.approx(np.pi / 2, rel=1e-12)
         assert us.rad(0.0) == pytest.approx(0.0, abs=1e-12)
 
     def test_rad_array(self):
         """Test degree to radian with array."""
         degrees = np.array([0.0, 90.0, 180.0, 270.0, 360.0])
         result = us.rad(degrees)
-        expected = np.array([0.0, np.pi/2, np.pi, 3*np.pi/2, 2*np.pi])
+        expected = np.array([0.0, np.pi / 2, np.pi, 3 * np.pi / 2, 2 * np.pi])
         assert np.allclose(result, expected, rtol=1e-12, atol=1e-12)
 
 
@@ -844,7 +866,7 @@ class TestFieldShift:
         # Create a simple field
         Ex = np.zeros((Nx, Ny), dtype=np.complex128)
         Ey = np.zeros((Nx, Ny), dtype=np.complex128)
-        Ex[Nx//2, Ny//2] = 1.0
+        Ex[Nx // 2, Ny // 2] = 1.0
 
         Lx = 5 * dx  # Shift by 5 grid points (positive = shift LEFT in Fortran/Python)
         Ly = 0.0
@@ -853,8 +875,8 @@ class TestFieldShift:
 
         # Field should be shifted LEFT (index decreases, wraps around)
         # Fortran Cshift(Ex, +5, 1) shifts LEFT, Python np.roll(Ex, -5, axis=0) also shifts LEFT
-        expected_idx = (Nx//2 - 5) % Nx
-        assert Ex[expected_idx, Ny//2] == pytest.approx(1.0, rel=1e-12)
+        expected_idx = (Nx // 2 - 5) % Nx
+        assert Ex[expected_idx, Ny // 2] == pytest.approx(1.0, rel=1e-12)
 
 
 class TestBesselFunctions:
@@ -935,7 +957,7 @@ class TestLocator:
         x = np.linspace(0.0, 10.0, 101)
         x0 = 5.0
         idx = us.locator(x, x0)
-        assert x[idx] <= x0 < x[idx+1]
+        assert x[idx] <= x0 < x[idx + 1]
 
     def test_locator_start(self):
         """Test locator for point at start."""
@@ -987,7 +1009,7 @@ class TestInterpolation:
 
     def test_EAtX_single_element(self):
         """Test interpolation with single element."""
-        f = np.array([[1.0+1j, 2.0+2j, 3.0+3j]])
+        f = np.array([[1.0 + 1j, 2.0 + 2j, 3.0 + 3j]])
         x = np.array([0.0])
         x0 = 0.0
         result = us.EAtX(f, x, x0)
@@ -1043,7 +1065,7 @@ class TestGaussianFunction:
         x = np.linspace(-5.0, 5.0, 11)
         x0 = 2.0
         result = us.gaussian(x, x0)
-        expected = np.exp(-x**2 / x0**2)
+        expected = np.exp(-(x**2) / x0**2)
         assert np.allclose(result, expected, rtol=1e-12, atol=1e-12)
 
     def test_gaussian_decay(self):
@@ -1125,7 +1147,7 @@ class TestFileIO:
     def setup_method(self):
         """Set up temporary directory for each test."""
         self.test_dir = tempfile.mkdtemp()
-        self.dataQW_dir = os.path.join(self.test_dir, 'dataQW')
+        self.dataQW_dir = os.path.join(self.test_dir, "dataQW")
         os.makedirs(self.dataQW_dir, exist_ok=True)
         self.original_dir = os.getcwd()
         os.chdir(self.test_dir)
@@ -1138,7 +1160,7 @@ class TestFileIO:
     def test_WriteIT1D_ReadIT1D(self):
         """Test 1D array write and read."""
         V_original = np.random.random(10)
-        filename = 'test1d'
+        filename = "test1d"
 
         us.WriteIT1D(V_original, filename)
 
@@ -1150,7 +1172,7 @@ class TestFileIO:
     def test_WriteIT2D_ReadIT2D(self):
         """Test 2D array write and read."""
         V_original = np.random.random((5, 5))
-        filename = 'test2d'
+        filename = "test2d"
 
         us.WriteIT2D(V_original, filename)
 
@@ -1163,26 +1185,26 @@ class TestFileIO:
         """Test print2file function."""
         x = np.array([1.0, 2.0, 3.0])
         y = np.array([4.0, 5.0, 6.0])
-        filename = os.path.join(self.test_dir, 'test_print.dat')
+        filename = os.path.join(self.test_dir, "test_print.dat")
 
         us.print2file(x, y, filename)
 
         # Check file exists and has content
         assert os.path.exists(filename)
-        with open(filename, 'r') as f:
+        with open(filename, "r") as f:
             lines = f.readlines()
             assert len(lines) == 3
 
     def test_printIT(self):
         """Test printIT function."""
-        Dx = np.array([1+1j, 2+2j, 3+3j])
+        Dx = np.array([1 + 1j, 2 + 2j, 3 + 3j])
         z = np.array([0.0, 1.0, 2.0])
         n = 1
-        filename = 'testIT'
+        filename = "testIT"
 
         us.printIT(Dx, z, n, filename)
 
-        expected_file = os.path.join('dataQW', f'{filename}000001.dat')
+        expected_file = os.path.join("dataQW", f"{filename}000001.dat")
         assert os.path.exists(expected_file)
 
     def test_printITR(self):
@@ -1190,11 +1212,11 @@ class TestFileIO:
         Dx = np.array([1.0, 2.0, 3.0])
         z = np.array([0.0, 1.0, 2.0])
         n = 2
-        filename = 'testITR'
+        filename = "testITR"
 
         us.printITR(Dx, z, n, filename)
 
-        expected_file = os.path.join('dataQW', f'{filename}000002.dat')
+        expected_file = os.path.join("dataQW", f"{filename}000002.dat")
         assert os.path.exists(expected_file)
 
     def test_printIT2D(self):
@@ -1202,11 +1224,11 @@ class TestFileIO:
         Dx = np.random.random((3, 3)) + 1j * np.random.random((3, 3))
         z = np.array([0.0, 1.0, 2.0])
         n = 3
-        filename = 'testIT2D'
+        filename = "testIT2D"
 
         us.printIT2D(Dx, z, n, filename)
 
-        expected_file = os.path.join('dataQW', f'{filename}0000003.dat')
+        expected_file = os.path.join("dataQW", f"{filename}0000003.dat")
         assert os.path.exists(expected_file)
 
 
@@ -1234,15 +1256,19 @@ class TestFFTDerivativeIntegration:
         expected_df = k * np.cos(k * y)
 
         # Test interior points
-        interior = slice(N//4, 3*N//4)
-        assert np.allclose(np.real(df[interior]), expected_df[interior], rtol=1e-6, atol=1e-10)
+        interior = slice(N // 4, 3 * N // 4)
+        assert np.allclose(
+            np.real(df[interior]), expected_df[interior], rtol=1e-6, atol=1e-10
+        )
 
         # Second derivative: d2f/dy2 = -k^2*sin(k*y)
         d2f = us.dfdy1D(df, qy)
-        expected_d2f = -k**2 * np.sin(k * y)
+        expected_d2f = -(k**2) * np.sin(k * y)
 
         # Test interior points
-        assert np.allclose(np.real(d2f[interior]), expected_d2f[interior], rtol=1e-4, atol=1e-10)
+        assert np.allclose(
+            np.real(d2f[interior]), expected_d2f[interior], rtol=1e-4, atol=1e-10
+        )
 
     def test_derivative_2D_consistency(self):
         """Test consistency between 1D and 2D derivatives."""
@@ -1275,12 +1301,12 @@ class TestFieldRotationIntegration:
         Ex = np.random.random((Nx, Ny)) + 1j * np.random.random((Nx, Ny))
         Ey = np.random.random((Nx, Ny)) + 1j * np.random.random((Nx, Ny))
 
-        energy_before = np.sum(np.abs(Ex)**2 + np.abs(Ey)**2)
+        energy_before = np.sum(np.abs(Ex) ** 2 + np.abs(Ey) ** 2)
 
         theta = np.pi / 3
         us.RotateField(theta, Ex, Ey)
 
-        energy_after = np.sum(np.abs(Ex)**2 + np.abs(Ey)**2)
+        energy_after = np.sum(np.abs(Ex) ** 2 + np.abs(Ey) ** 2)
 
         assert energy_before == pytest.approx(energy_after, rel=1e-10)
 
@@ -1291,12 +1317,12 @@ class TestFieldRotationIntegration:
         Ey = np.random.random((Nx, Ny, Nz)) + 1j * np.random.random((Nx, Ny, Nz))
         Ez = np.random.random((Nx, Ny, Nz)) + 1j * np.random.random((Nx, Ny, Nz))
 
-        energy_before = np.sum(np.abs(Ex)**2 + np.abs(Ey)**2 + np.abs(Ez)**2)
+        energy_before = np.sum(np.abs(Ex) ** 2 + np.abs(Ey) ** 2 + np.abs(Ez) ** 2)
 
         theta = np.pi / 4
         us.RotateField3D(theta, Ex, Ey, Ez)
 
-        energy_after = np.sum(np.abs(Ex)**2 + np.abs(Ey)**2 + np.abs(Ez)**2)
+        energy_after = np.sum(np.abs(Ex) ** 2 + np.abs(Ey) ** 2 + np.abs(Ez) ** 2)
 
         assert energy_before == pytest.approx(energy_after, rel=1e-10)
 
@@ -1308,12 +1334,12 @@ class TestFFTRoundTripIntegration:
         """Test complete workflow with Gaussian FFT."""
         N = 128
         dx = 1e-7
-        x = np.arange(N) * dx - N*dx/2
+        x = np.arange(N) * dx - N * dx / 2
         dq = 2 * np.pi / (N * dx)
 
         # Create Gaussian
         sigma = 3e-6
-        f_original = np.exp(-(x/sigma)**2).astype(np.complex128)
+        f_original = np.exp(-((x / sigma) ** 2)).astype(np.complex128)
         f = f_original.copy()
 
         # Transform to momentum space
@@ -1333,14 +1359,14 @@ class TestFFTRoundTripIntegration:
         dqy = 2 * np.pi / (Ny * dy)
 
         # Create 2D Gaussian
-        x = np.arange(Nx) * dx - Nx*dx/2
-        y = np.arange(Ny) * dy - Ny*dy/2
+        x = np.arange(Nx) * dx - Nx * dx / 2
+        y = np.arange(Ny) * dy - Ny * dy / 2
         sigma = 3e-6
 
         f_original = np.zeros((Nx, Ny), dtype=np.complex128)
         for i in range(Nx):
             for j in range(Ny):
-                f_original[i, j] = np.exp(-((x[i]/sigma)**2 + (y[j]/sigma)**2))
+                f_original[i, j] = np.exp(-((x[i] / sigma) ** 2 + (y[j] / sigma) ** 2))
 
         f = f_original.copy()
 
@@ -1416,7 +1442,7 @@ class TestNumericalStability:
         qy = 2.0 * np.pi * np.fft.fftfreq(N, dy)
 
         # Create smooth function with noise
-        f = np.exp(-(y/3e-6)**2)
+        f = np.exp(-((y / 3e-6) ** 2))
         noise = 0.01 * np.random.random(N)
         f_noisy = (f + noise).astype(np.complex128)
 
@@ -1444,7 +1470,7 @@ class TestPhysicalProperties:
         Nx, Ny = 64, 64
         Field = np.random.random((Nx, Ny)) + 1j * np.random.random((Nx, Ny))
 
-        energy_before = np.sum(np.abs(Field)**2)
+        energy_before = np.sum(np.abs(Field) ** 2)
 
         # ABC with absorption
         abc = np.ones((Nx, Ny))
@@ -1453,7 +1479,7 @@ class TestPhysicalProperties:
 
         us.ApplyABC(Field, abc)
 
-        energy_after = np.sum(np.abs(Field)**2)
+        energy_after = np.sum(np.abs(Field) ** 2)
 
         # Energy should be reduced
         assert energy_after < energy_before
@@ -1463,14 +1489,14 @@ class TestPhysicalProperties:
         N = 128
         f = np.random.random(N) + 1j * np.random.random(N)
 
-        energy_real = np.sum(np.abs(f)**2)
+        energy_real = np.sum(np.abs(f) ** 2)
 
         F = np.fft.fft(f)
-        energy_fourier = np.sum(np.abs(F)**2) / N
+        energy_fourier = np.sum(np.abs(F) ** 2) / N
 
         # Parseval's theorem
         assert energy_real == pytest.approx(energy_fourier, rel=1e-10)
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v', '--tb=short'])
+if __name__ == "__main__":
+    pytest.main([__file__, "-v", "--tb=short"])

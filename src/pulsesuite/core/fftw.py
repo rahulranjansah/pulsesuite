@@ -220,15 +220,17 @@ try:
     from scipy.special import jn_zeros as _jn_zeros, jv as _Jv
 except Exception as _e:  # pragma: no cover
     import numpy.fft as _sfft  # fallback
+
     _jn_zeros = None  # type: ignore
     _Jv = None  # type: ignore
 
 try:  # optional pyFFTW acceleration
     import pyfftw  # type: ignore
+
     _HAS_PYFFTW = True
     # Enable pyFFTW multithreading and wisdom caching
     pyfftw.interfaces.cache.enable()
-    _FFTW_THREADS = int(os.environ.get('OMP_NUM_THREADS', os.cpu_count() or 1))
+    _FFTW_THREADS = int(os.environ.get("OMP_NUM_THREADS", os.cpu_count() or 1))
 except Exception:
     _HAS_PYFFTW = False
     _FFTW_THREADS = 1
@@ -238,19 +240,43 @@ _dc = np.complex128
 
 __all__ = [
     # 1D/2D/3D FFTs
-    "fft_1D", "ifft_1D", "fftc_1D", "ifftc_1D",
-    "fft_2D", "ifft_2D", "fftc_2D", "ifftc_2D",
-    "fft_3D", "ifft_3D", "fftc_3D", "ifftc_3D",
+    "fft_1D",
+    "ifft_1D",
+    "fftc_1D",
+    "ifftc_1D",
+    "fft_2D",
+    "ifft_2D",
+    "fftc_2D",
+    "ifftc_2D",
+    "fft_3D",
+    "ifft_3D",
+    "fftc_3D",
+    "ifftc_3D",
     # lowercase aliases
-    "fft_1d", "ifft_1d", "fftc_1d", "ifftc_1d",
-    "fft_2d", "ifft_2d", "fftc_2d", "ifftc_2d",
-    "fft_3d", "ifft_3d", "fftc_3d", "ifftc_3d",
+    "fft_1d",
+    "ifft_1d",
+    "fftc_1d",
+    "ifftc_1d",
+    "fft_2d",
+    "ifft_2d",
+    "fftc_2d",
+    "ifftc_2d",
+    "fft_3d",
+    "ifft_3d",
+    "fftc_3d",
+    "ifftc_3d",
     # Nyquist helpers
-    "nyquist_1D", "nyquist_2D", "nyquist_3D",
+    "nyquist_1D",
+    "nyquist_2D",
+    "nyquist_3D",
     # Init no-ops for API compatibility
-    "fftw_initialize_2D", "fftw_initialize_3D",
+    "fftw_initialize_2D",
+    "fftw_initialize_3D",
     # Hankel transform plumbing
-    "Transform", "iTransform", "HankelTransform", "CreateHT",
+    "Transform",
+    "iTransform",
+    "HankelTransform",
+    "CreateHT",
 ]
 
 
@@ -258,9 +284,10 @@ __all__ = [
 # Utility helpers
 # --------------------------------------------------------------------------------------
 
+
 def _asF(a: NDArray, dtype) -> NDArray:
     """Return Fortran-contiguous view/copy of `a` with dtype, no-copy if possible."""
-    b = np.asarray(a, dtype=dtype, order='F')
+    b = np.asarray(a, dtype=dtype, order="F")
     if not b.flags.f_contiguous:
         b = np.asfortranarray(b, dtype=dtype)
     return b
@@ -269,11 +296,14 @@ def _asF(a: NDArray, dtype) -> NDArray:
 def _fft1(a: NDArray[_dc], inverse: bool = False) -> NDArray[_dc]:
     if _HAS_PYFFTW:  # fastest path
         # Create aligned arrays for pyFFTW; overwrite_input is safe with a scratch copy
-        ain = pyfftw.byte_align(a.astype(_dc, copy=False, order='F'))
-        out = pyfftw.empty_aligned(ain.shape, dtype=_dc, order='F')
-        fft_obj = pyfftw.FFTW(ain, out,
-                              direction='FFTW_BACKWARD' if inverse else 'FFTW_FORWARD',
-                              threads=_FFTW_THREADS)
+        ain = pyfftw.byte_align(a.astype(_dc, copy=False, order="F"))
+        out = pyfftw.empty_aligned(ain.shape, dtype=_dc, order="F")
+        fft_obj = pyfftw.FFTW(
+            ain,
+            out,
+            direction="FFTW_BACKWARD" if inverse else "FFTW_FORWARD",
+            threads=_FFTW_THREADS,
+        )
         fft_obj()
         if inverse:
             out /= out.shape[-1]
@@ -285,15 +315,18 @@ def _fft1(a: NDArray[_dc], inverse: bool = False) -> NDArray[_dc]:
         return out.astype(_dc, copy=False)
 
 
-def _fftn(a: NDArray[_dc], axes: Tuple[int, ...], inverse: bool = False) -> NDArray[_dc]:
+def _fftn(
+    a: NDArray[_dc], axes: Tuple[int, ...], inverse: bool = False
+) -> NDArray[_dc]:
     if _HAS_PYFFTW:
-        ain = pyfftw.byte_align(a.astype(_dc, copy=False, order='F'))
-        out = pyfftw.empty_aligned(ain.shape, dtype=_dc, order='F')
+        ain = pyfftw.byte_align(a.astype(_dc, copy=False, order="F"))
+        out = pyfftw.empty_aligned(ain.shape, dtype=_dc, order="F")
         fft_obj = pyfftw.FFTW(
-            ain, out,
+            ain,
+            out,
             axes=axes,
-            direction='FFTW_BACKWARD' if inverse else 'FFTW_FORWARD',
-            threads=_FFTW_THREADS
+            direction="FFTW_BACKWARD" if inverse else "FFTW_FORWARD",
+            threads=_FFTW_THREADS,
         )
         fft_obj()
         if inverse:
@@ -315,6 +348,7 @@ def _fftn(a: NDArray[_dc], axes: Tuple[int, ...], inverse: bool = False) -> NDAr
 # --------------------------------------------------------------------------------------
 # Nyquist helpers (phase flip to center the FFT)
 # --------------------------------------------------------------------------------------
+
 
 def nyquist_1D(Z: NDArray[_dc]) -> None:
     s = (1.0 - 2.0 * (np.arange(Z.shape[0]) % 2)).astype(_dp)
@@ -339,6 +373,7 @@ def nyquist_3D(Z: NDArray[_dc]) -> None:
 # --------------------------------------------------------------------------------------
 # 1D FFTs (in-place semantics)
 # --------------------------------------------------------------------------------------
+
 
 def fft_1D(Z: NDArray[_dc]) -> None:
     Zf = _asF(Z, _dc)
@@ -368,6 +403,7 @@ def ifftc_1D(Z: NDArray[_dc]) -> None:
 # 2D FFTs
 # --------------------------------------------------------------------------------------
 
+
 def fft_2D(Z: NDArray[_dc]) -> None:
     Zf = _asF(Z, _dc)
     out = _fftn(Zf, axes=(0, 1), inverse=False)
@@ -396,6 +432,7 @@ def ifftc_2D(Z: NDArray[_dc]) -> None:
 # 3D FFTs
 # --------------------------------------------------------------------------------------
 
+
 def fftw_initialize_2D(Z: NDArray[_dc]) -> None:
     """API-compat stub: planning handled by SciPy/pyFFTW internally."""
     return
@@ -405,8 +442,10 @@ def fftw_initialize_3D(Z: NDArray[_dc]) -> None:
     """API-compat stub: planning handled by SciPy/pyFFTW internally."""
     return
 
+
 # 3D FFTs
 # --------------------------------------------------------------------------------------
+
 
 def fft_3D(Z: NDArray[_dc]) -> None:
     Zf = _asF(Z, _dc)
@@ -451,18 +490,20 @@ def CreateHT(Nr: int) -> None:
     global _HT, _a_zeros
     if _HT is not None and _HT.shape == (Nr, Nr):
         return
-    assert _jn_zeros is not None and _Jv is not None, "scipy.special is required for CreateHT"
+    assert (
+        _jn_zeros is not None and _Jv is not None
+    ), "scipy.special is required for CreateHT"
 
     # J0 zeros; SciPy returns 1..Nr+1 zeros for order 0
     a = _jn_zeros(0, Nr + 1).astype(_dp)
     aN1 = a[-1]
 
     # Build HT
-    mgrid, ngrid = np.meshgrid(a[:Nr], a[:Nr], indexing='ij')
+    mgrid, ngrid = np.meshgrid(a[:Nr], a[:Nr], indexing="ij")
     J0_arg = (mgrid * ngrid) / aN1
     J0 = _Jv(0, J0_arg).astype(_dp)
     J1 = _Jv(1, ngrid).astype(_dp)
-    HT = (2.0 / aN1) * (J0 / (J1 ** 2))
+    HT = (2.0 / aN1) * (J0 / (J1**2))
 
     _HT = np.asfortranarray(HT, dtype=_dp)
     _a_zeros = a
@@ -473,7 +514,9 @@ def HankelTransform(f: NDArray[_dc]) -> None:
     if _HT is None:
         raise RuntimeError("CreateHT must be called before HankelTransform")
     if f.shape[0] != _HT.shape[0]:
-        raise ValueError(f"HankelTransform: size mismatch {f.shape[0]} vs HT { _HT.shape}")
+        raise ValueError(
+            f"HankelTransform: size mismatch {f.shape[0]} vs HT { _HT.shape}"
+        )
     # Real-valued matrix multiply on complex vector; cast via real multiplication
     # Using einsum for cache-friendly matmul
     f[...] = (_HT @ f).astype(_dc, copy=False)
@@ -482,6 +525,7 @@ def HankelTransform(f: NDArray[_dc]) -> None:
 # --------------------------------------------------------------------------------------
 # Mixed transforms on 3D fields (r, y, t) with special 1×Nr×Nt radial case
 # --------------------------------------------------------------------------------------
+
 
 def Transform(Z: NDArray[_dc]) -> None:
     """If Z has shape (1, Nr, Nt), apply Hankel along r and FFT along t; else FFT3D.
@@ -522,6 +566,7 @@ def iTransform(Z: NDArray[_dc]) -> None:
             ifft_1D(Z[0, j, :])
     else:
         ifft_3D(Z)
+
 
 # -----------------------------------------------------------------------------
 # Aliases with lowercase _1d/_2d/_3d to match some imports in the codebase

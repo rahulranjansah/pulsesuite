@@ -29,6 +29,7 @@ dp = np.float64
 #  Fortran: array_copy, swap_*, masked_swap_*
 # ===================================================================
 
+
 def arrayCopy(src: np.ndarray, dest: np.ndarray) -> Tuple[int, int]:
     """
     Copy elements from *src* into *dest* up to the smaller size.
@@ -112,10 +113,7 @@ def reallocate(arr: np.ndarray, newShape: Union[int, Tuple[int, ...]]) -> np.nda
         New array (same dtype) with data copied from the overlap.
     """
     newArr = np.empty(newShape, dtype=arr.dtype)
-    slices = tuple(
-        slice(0, min(o, n))
-        for o, n in zip(arr.shape, newArr.shape)
-    )
+    slices = tuple(slice(0, min(o, n)) for o, n in zip(arr.shape, newArr.shape))
     newArr[slices] = arr[slices]
     return newArr
 
@@ -124,6 +122,7 @@ def reallocate(arr: np.ndarray, newShape: Union[int, Tuple[int, ...]]) -> np.nda
 #  Index / location utilities (0-based)
 #  Fortran: imaxloc, iminloc, ifirstloc
 # ===================================================================
+
 
 def imaxloc(arr: np.ndarray) -> int:
     """Index of the maximum value (0-based)."""
@@ -150,6 +149,7 @@ def ifirstloc(mask: np.ndarray) -> int:
 #  Assertion / error utilities
 #  Fortran: nrerror, assert_eq2/3/4/n
 # ===================================================================
+
 
 def nrerror(msg: str) -> None:
     """
@@ -218,6 +218,7 @@ def assertEq(*args: Any, msg: str = "Equality assertion failed") -> Any:
 #  Progressions
 #  Fortran: arth, geop, cumsum, cumprod
 # ===================================================================
+
 
 def arth(first: float, increment: float, n: int) -> np.ndarray:
     """
@@ -320,6 +321,7 @@ def cumprod(arr: np.ndarray, seed: Optional[Union[float, int]] = None) -> np.nda
 #  Fortran: poly, poly_term
 # ===================================================================
 
+
 def poly(x: Union[float, np.ndarray], coeffs: np.ndarray) -> Union[float, np.ndarray]:
     """
     Evaluate polynomial at *x* via Horner's method.
@@ -386,6 +388,7 @@ def polyTerm(a: np.ndarray, b: Union[float, int]) -> np.ndarray:
 #  Outer operations  (vectorised via broadcasting / BLAS)
 #  Fortran: outerprod, outerdiff, outersum, outerand
 # ===================================================================
+
 
 def outerprod(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """
@@ -467,6 +470,7 @@ def outerand(a: np.ndarray, b: np.ndarray) -> np.ndarray:
 #  Fortran: scatter_add, scatter_max
 # ===================================================================
 
+
 def scatterAdd(dest: np.ndarray, source: np.ndarray, destIndex: np.ndarray) -> None:
     """
     Scatter-add: ``dest[i] += source[j]`` at 0-based indices.
@@ -510,6 +514,7 @@ def scatterMax(dest: np.ndarray, source: np.ndarray, destIndex: np.ndarray) -> N
 #  Diagonal helpers
 #  Fortran: diagadd, diagmult  (scalar & vector interfaces)
 # ===================================================================
+
 
 def _diagAddScalar(mat: np.ndarray, diag: float) -> None:
     """Add scalar to diagonal of *mat* in-place."""
@@ -611,6 +616,7 @@ def putDiag(diagv: np.ndarray, mat: np.ndarray) -> None:
 #  Fortran: unit_matrix, upper_triangle, lower_triangle
 # ===================================================================
 
+
 def unitMatrix(mat: np.ndarray) -> None:
     """
     Set *mat* to the identity matrix in-place ($I_{ij} = \\delta_{ij}$).
@@ -674,6 +680,7 @@ def lowerTriangle(j: int, k: int, extra: int = 0) -> np.ndarray:
 #  Fortran: vabs
 # ===================================================================
 
+
 def vabs(v: np.ndarray) -> float:
     """
     Euclidean norm $\\|v\\|_2 = \\sqrt{\\sum_i v_i^2}$.
@@ -696,6 +703,7 @@ def vabs(v: np.ndarray) -> float:
 # ===================================================================
 #  Dummy Jacobians for ODE integrators (project-specific additions)
 # ===================================================================
+
 
 def dummy_jacobian_dp(
     x: float,

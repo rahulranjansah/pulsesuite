@@ -43,6 +43,8 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python :: Implementation :: CPython",
     "Topic :: Scientific/Engineering",
     "Topic :: Scientific/Engineering :: Physics",
@@ -97,7 +99,7 @@ doc = [
 where = ["src"]
 
 [tool.setuptools.package-data]
-"*" = ["*.md", "*.txt", "*.dat", "*.params"]
+"*" = ["*.md", "*.txt", "*.params"]
 
 # Ruff configuration for linting
 [tool.ruff]
@@ -122,6 +124,7 @@ ignore = [
     "E722",  # Bare except — legacy code, acceptable for now
     "F403",  # Star imports — used in legacy typelens module
     "F405",  # May be undefined from star imports — related to F403
+    "F811",  # Redefinition of unused name — backward-compatible shims intentionally override
     "F841",  # Local variable assigned but never used — physics arrays often pre-allocated
 ]
 

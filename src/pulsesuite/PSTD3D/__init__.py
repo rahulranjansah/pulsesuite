@@ -37,6 +37,7 @@ __all__ = [
     "phost",
 ]
 
+
 # Lazy import - only load modules when they're actually accessed
 def __getattr__(name):
     if name not in __all__:
@@ -44,6 +45,7 @@ def __getattr__(name):
 
     # Import the module on demand
     import importlib
+
     module = importlib.import_module(f".{name}", __name__)
     # Cache it in globals for future access
     globals()[name] = module

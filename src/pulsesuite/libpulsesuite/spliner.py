@@ -12,13 +12,16 @@ import numpy as np
 
 try:
     from numba import jit
+
     JIT_AVAILABLE = True
 except ImportError:
     JIT_AVAILABLE = False
+
     # Fallback: create a no-op decorator
     def jit(*args, **kwargs):  # noqa: ARG001, ARG002
         def decorator(func):
             return func
+
         if args and callable(args[0]):
             # Called as @jit without parentheses
             return args[0]
@@ -69,6 +72,7 @@ def iminloc(arr):
 
 
 # Main functions from lines 34-258
+
 
 def rescale_2D_dp(x0, y0, z0, x1, y1, z1):
     """
@@ -335,8 +339,15 @@ def GetValAt_3D(e, x0a, x1a, x2a, x0, x1, x2, N=None):
 
     # Note: Fortran uses 1-based indexing, so we need to adjust
     # i0:i1+1 in Python corresponds to i0+1:i1+1 in Fortran (1-based)
-    Z = polint3(x0a[i0:i1 + 1], x1a[j0:j1 + 1], x2a[k0:k1 + 1],
-                e[i0:i1 + 1, j0:j1 + 1, k0:k1 + 1], x0, x1, x2)
+    Z = polint3(
+        x0a[i0 : i1 + 1],
+        x1a[j0 : j1 + 1],
+        x2a[k0 : k1 + 1],
+        e[i0 : i1 + 1, j0 : j1 + 1, k0 : k1 + 1],
+        x0,
+        x1,
+        x2,
+    )
 
     return Z
 
@@ -397,8 +408,7 @@ def GetValAt_2D(e, x0a, x1a, x0, x1, N=None):
     if j1 >= len(x1a):
         j1 = len(x1a) - 1
 
-    Z = polint2(x0a[i0:i1 + 1], x1a[j0:j1 + 1],
-                e[i0:i1 + 1, j0:j1 + 1], x0, x1)
+    Z = polint2(x0a[i0 : i1 + 1], x1a[j0 : j1 + 1], e[i0 : i1 + 1, j0 : j1 + 1], x0, x1)
 
     return Z
 
@@ -474,9 +484,11 @@ def GetValAt_1D_dpc(e, x0, x1):
 
     return Z
 
+
 #######################################################################
 # Polint functions
 #######################################################################
+
 
 # Helper function: polint1 - polynomial interpolation for 1D arrays
 def polint1(xa, ya, x, dy=None):
@@ -514,11 +526,11 @@ def polint1(xa, ya, x, dy=None):
     for m in range(n - 1):
         # Neville stage: Fortran m_for = m+1, inner loop has nm = n - m_for elements
         nm = n - m - 1
-        hp = ho[m + 1:n]               # xa[i + m_for] - x, i = 0..nm-1
+        hp = ho[m + 1 : n]  # xa[i + m_for] - x, i = 0..nm-1
         den = ho[:nm] - hp
         if np.any(den == 0.0):
-            raise ValueError('polint: calculation failure')
-        den = (c[1:nm + 1] - d[:nm]) / den
+            raise ValueError("polint: calculation failure")
+        den = (c[1 : nm + 1] - d[:nm]) / den
         d[:nm] = hp * den
         c[:nm] = ho[:nm] * den
         if 2 * (ns + 1) < nm:
@@ -651,26 +663,266 @@ def bcucof(y, y1, y2, y12, d1, d2, c):
     # Format: 1,0,-3,2,4*0 means [1,0,-3,2,0,0,0,0]
     # Full 256-element array (16x16) from Fortran data statement
     wt_data = [
-        1, 0, -3, 2, 0, 0, 0, 0, -3, 0, 9, -6, 2, 0, -6, 4,
-        0, 0, 0, 0, 0, 0, 0, 0, 3, 0, -9, 6, -2, 0, 6, -4,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, -6, 0, 0, -6, 4,
-        0, 0, 3, -2, 0, 0, 0, 0, 0, 0, -9, 6, 0, 0, 6, -4,
-        0, 0, 0, 0, 1, 0, -3, 2, -2, 0, 6, -4, 1, 0, -3, 2,
-        0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 3, -2, 1, 0, -3, 2,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, 2, 0, 0, 3, -2,
-        0, 0, 0, 0, 0, 0, 3, -2, 0, 0, -6, 4, 0, 0, 3, -2,
-        0, 1, -2, 1, 0, 0, 0, 0, 0, -3, 6, -3, 0, 2, -4, 2,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 3, -6, 3, 0, -2, 4, -2,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, 3, 0, 0, 2, -2,
-        0, 0, -1, 1, 0, 0, 0, 0, 0, 0, 3, -3, 0, 0, -2, 2,
-        0, 0, 0, 0, 0, 1, -2, 1, 0, -2, 4, -2, 0, 1, -2, 1,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 2, -1, 0, 1, -2, 1,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, -1, 1,
-        0, 0, 0, 0, 0, 0, -1, 1, 0, 0, 2, -2, 0, 0, -1, 1
+        1,
+        0,
+        -3,
+        2,
+        0,
+        0,
+        0,
+        0,
+        -3,
+        0,
+        9,
+        -6,
+        2,
+        0,
+        -6,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        -9,
+        6,
+        -2,
+        0,
+        6,
+        -4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        9,
+        -6,
+        0,
+        0,
+        -6,
+        4,
+        0,
+        0,
+        3,
+        -2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -9,
+        6,
+        0,
+        0,
+        6,
+        -4,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -3,
+        2,
+        -2,
+        0,
+        6,
+        -4,
+        1,
+        0,
+        -3,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1,
+        0,
+        3,
+        -2,
+        1,
+        0,
+        -3,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -3,
+        2,
+        0,
+        0,
+        3,
+        -2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        -2,
+        0,
+        0,
+        -6,
+        4,
+        0,
+        0,
+        3,
+        -2,
+        0,
+        1,
+        -2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -3,
+        6,
+        -3,
+        0,
+        2,
+        -4,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        -6,
+        3,
+        0,
+        -2,
+        4,
+        -2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -3,
+        3,
+        0,
+        0,
+        2,
+        -2,
+        0,
+        0,
+        -1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        -3,
+        0,
+        0,
+        -2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        -2,
+        1,
+        0,
+        -2,
+        4,
+        -2,
+        0,
+        1,
+        -2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1,
+        2,
+        -1,
+        0,
+        1,
+        -2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        -1,
+        0,
+        0,
+        -1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1,
+        1,
+        0,
+        0,
+        2,
+        -2,
+        0,
+        0,
+        -1,
+        1,
     ]
 
     # Fortran DATA fills column-major, so use order='F' to match
-    wt = np.array(wt_data, dtype=np.float64).reshape((16, 16), order='F')
+    wt = np.array(wt_data, dtype=np.float64).reshape((16, 16), order="F")
 
     x = np.zeros(16)
     x[0:4] = y
@@ -680,7 +932,7 @@ def bcucof(y, y1, y2, y12, d1, d2, c):
 
     x = np.dot(wt, x)
     # Fortran: c = reshape(x, (/4,4/)) — column-major fill, no transpose
-    c[:, :] = x.reshape((4, 4), order='F')
+    c[:, :] = x.reshape((4, 4), order="F")
 
 
 def bcuint(y, y1, y2, y12, x1l, x1u, x2l, x2u, x1, x2):
@@ -782,7 +1034,9 @@ def spline2_dpc(x, z, z2):
         sig = (x[i] - x[i - 1]) / (x[i + 1] - x[i - 1])
         p = sig * z2[i - 1] + 2.0
         z2[i] = (sig - 1.0) / p
-        u[i] = ((z[i + 1] - z[i]) / (x[i + 1] - x[i]) - (z[i] - z[i - 1]) / (x[i] - x[i - 1]))
+        u[i] = (z[i + 1] - z[i]) / (x[i + 1] - x[i]) - (z[i] - z[i - 1]) / (
+            x[i] - x[i - 1]
+        )
         u[i] = (6.0 * u[i] / (x[i + 1] - x[i - 1]) - sig * u[i - 1]) / p
 
     z2[N - 1] = 0.0 + 0.0j
@@ -820,8 +1074,11 @@ def seval2_dpc(x0, x, z, z2):
     a = (x[i + 1] - x0) / h
     b = (x0 - x[i]) / h
 
-    z0 = (a * z[i] + b * z[i + 1] +
-          ((a ** 3 - a) * z2[i] + (b ** 3 - b) * z2[i + 1]) * h ** 2 / 6.0)
+    z0 = (
+        a * z[i]
+        + b * z[i + 1]
+        + ((a**3 - a) * z2[i] + (b**3 - b) * z2[i + 1]) * h**2 / 6.0
+    )
 
     return z0
 
@@ -860,13 +1117,16 @@ def spline2_dp(x, y, y2):
         sig = (x[i] - x[i - 1]) / (x[i + 1] - x[i - 1])
         p = sig * y2[i - 1] + 2.0
         y2[i] = (sig - 1.0) / p
-        u[i] = ((y[i + 1] - y[i]) / (x[i + 1] - x[i]) - (y[i] - y[i - 1]) / (x[i] - x[i - 1]))
+        u[i] = (y[i + 1] - y[i]) / (x[i + 1] - x[i]) - (y[i] - y[i - 1]) / (
+            x[i] - x[i - 1]
+        )
         u[i] = (6.0 * u[i] / (x[i + 1] - x[i - 1]) - sig * u[i - 1]) / p
 
     y2[N - 1] = 0.0
 
     for i in range(N - 2, -1, -1):
         y2[i] = y2[i] * y2[i + 1] + u[i]
+
 
 # sevals ###
 #######################################################################
@@ -895,7 +1155,7 @@ def locate(xx, x):
     n = len(xx)
     if x < xx[0]:
         return 0
-    if x >= xx[n-1]:
+    if x >= xx[n - 1]:
         return n - 1
 
     # Binary search
@@ -1165,8 +1425,11 @@ def seval2_dp(x0, x, y, y2):
     a = (x[i + 1] - x0) / h
     b = (x0 - x[i]) / h
 
-    y0 = (a * y[i] + b * y[i + 1] +
-          ((a ** 3 - a) * y2[i] + (b ** 3 - b) * y2[i + 1]) * h ** 2 / 6.0)
+    y0 = (
+        a * y[i]
+        + b * y[i + 1]
+        + ((a**3 - a) * y2[i] + (b**3 - b) * y2[i + 1]) * h**2 / 6.0
+    )
 
     return y0
 
@@ -1236,8 +1499,10 @@ def spline(x, *args):
             # spline_dp
             return spline_dp(x, arr1, b, c, d)
     else:
-        raise ValueError(f"spline: Invalid number of arguments ({n_args + 1} total). "
-                         "Expected either 3 args (x, y, y2) or 5 args (x, y, b, c, d).")
+        raise ValueError(
+            f"spline: Invalid number of arguments ({n_args + 1} total). "
+            "Expected either 3 args (x, y, y2) or 5 args (x, y, b, c, d)."
+        )
 
 
 def seval(pos, x, *args):
@@ -1305,8 +1570,11 @@ def seval(pos, x, *args):
             # seval_dp
             return seval_dp(pos, x, arr1, b, c, d)
     else:
-        raise ValueError(f"seval: Invalid number of arguments ({n_args + 2} total). "
-                         "Expected either 4 args (pos, x, y, y2) or 6 args (pos, x, y, b, c, d).")
+        raise ValueError(
+            f"seval: Invalid number of arguments ({n_args + 2} total). "
+            "Expected either 4 args (pos, x, y, y2) or 6 args (pos, x, y, b, c, d)."
+        )
+
 
 def rescale_1D(x0, y0=None, z0=None, x1=None, y1=None, z1=None):
     """
@@ -1357,13 +1625,16 @@ def rescale_1D(x0, y0=None, z0=None, x1=None, y1=None, z1=None):
     if z0 is not None:
         # rescale_1D_dpc with explicit z0
         if z1 is None:
-            raise ValueError("rescale_1D_dpc requires z1 to be provided when z0 is used")
+            raise ValueError(
+                "rescale_1D_dpc requires z1 to be provided when z0 is used"
+            )
         return rescale_1D_dpc(x0, z0, x1, z1)
     else:
         # rescale_1D_dp with y0
         if y1 is None:
             raise ValueError("rescale_1D_dp requires y1 to be provided when y0 is used")
         return rescale_1D_dp(x0, y0, x1, y1)
+
 
 def rescale_2D(x0, y0, z0, x1, y1, z1):
     """
@@ -1400,4 +1671,3 @@ def rescale_2D(x0, y0, z0, x1, y1, z1):
     else:
         # rescale_2D_dp
         return rescale_2D_dp(x0, y0, z0, x1, y1, z1)
-

@@ -29,16 +29,29 @@ This codebase is a Python port of production Fortran simulation tools using NumP
 
 ## Installation
 
+PulseSuite uses [uv](https://docs.astral.sh/uv/) for dependency management and [just](https://github.com/casey/just) as a command runner.
+
 ```bash
 # Clone the repository
 git clone https://github.com/rahulranjansah/pulsesuite.git
 cd pulsesuite
 
-# Install with pip
-pip install -e .
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Or install with dependencies
-pip install -e ".[doc]"
+# Sync all dependencies (core + test + doc) in one step
+uv sync --all-extras
+
+# Or install with pip (still works)
+pip install -e .
+```
+
+### Development
+
+```bash
+just              # run tests + lint + format check
+just test         # run test suite (just test -k coulomb to filter)
+just --list       # see all available commands
 ```
 
 ## Documentation
@@ -76,16 +89,16 @@ pulsesuite/
 - Numba ≥0.61.2 (optional, for JIT acceleration)
 - Numba-CUDA==0.23.0 (optional, for CUDA acceleration)
 
-## Quick Example
+## Running a simulation
 
-```python
-import numpy as np
-from pulsesuite.PSTD3D.coulomb import InitializeCoulomb
-from scipy.constants import e as e0, hbar
+The SBE test propagation script drives a full quantum wire simulation:
 
-# Initialize Coulomb module for quantum wire simulations
-# See documentation for complete examples
+```bash
+# Requires params/qw.params and params/mb.params in the working directory
+uv run python -m pulsesuite.PSTD3D.sbetestprop
 ```
+
+Output is written to `fields/` and `dataQW/`.
 
 For detailed examples and tutorials, see the [Examples Gallery](https://pulsesuite.readthedocs.io/en/latest/examples/gallery.html) in the documentation.
 

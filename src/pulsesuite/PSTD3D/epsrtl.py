@@ -143,7 +143,9 @@ def atanhc(x):
 
 
 @jit(nopython=True)
-def _PiT_jit(w, me, mh, Te, Th, dk, Ek, Ekq, n00_val, hbar_val, kB_val, twopi_val, pi_val):
+def _PiT_jit(
+    w, me, mh, Te, Th, dk, Ek, Ekq, n00_val, hbar_val, kB_val, twopi_val, pi_val
+):
     """JIT-compiled version of PiT. (Do I even need this?)"""
     a = 2.0 / pi_val * dk
     g = 2.35e15 / 1000.0
@@ -154,8 +156,16 @@ def _PiT_jit(w, me, mh, Te, Th, dk, Ek, Ekq, n00_val, hbar_val, kB_val, twopi_va
 
     for i in range(N):
         # ff0 calculation
-        ff0_Ek = n00_val * np.sqrt(hbar_val**2 / twopi_val / mh / kB_val / Th) * np.exp(-Ek[i] / kB_val / Th)
-        ff0_Ekq = n00_val * np.sqrt(hbar_val**2 / twopi_val / me / kB_val / Te) * np.exp(-Ekq[i] / kB_val / Te)
+        ff0_Ek = (
+            n00_val
+            * np.sqrt(hbar_val**2 / twopi_val / mh / kB_val / Th)
+            * np.exp(-Ek[i] / kB_val / Th)
+        )
+        ff0_Ekq = (
+            n00_val
+            * np.sqrt(hbar_val**2 / twopi_val / me / kB_val / Te)
+            * np.exp(-Ekq[i] / kB_val / Te)
+        )
 
         denom1_real = hbar_val * w - Ekq[i] - Ek[i]
         denom1_imag = hbar_val * g
@@ -207,7 +217,9 @@ def PiT(q, w, me, mh, Te, Th, dk, Ek, Ekq):
           (1 / (hbar*w - Ekq - Ek + i*hbar*g)))
     """
     try:
-        result_real, result_imag = _PiT_jit(w, me, mh, Te, Th, dk, Ek, Ekq, _n00, hbar, kB, twopi, pi)
+        result_real, result_imag = _PiT_jit(
+            w, me, mh, Te, Th, dk, Ek, Ekq, _n00, hbar, kB, twopi, pi
+        )
         return result_real + 1j * result_imag
     except Exception:
         # Fallback to pure Python
@@ -217,8 +229,9 @@ def PiT(q, w, me, mh, Te, Th, dk, Ek, Ekq):
         ff0_Ek = ff0(Ek, Th, mh)
         ff0_Ekq = ff0(Ekq, Te, me)
 
-        result = a * np.sum((1.0 - ff0_Ek - ff0_Ekq) *
-                           (1.0 / (hbar * w - Ekq - Ek + ii * hbar * g)))
+        result = a * np.sum(
+            (1.0 - ff0_Ek - ff0_Ekq) * (1.0 / (hbar * w - Ekq - Ek + ii * hbar * g))
+        )
 
         return result
 
@@ -275,8 +288,8 @@ def GetEpsrLEpsrT(n1D, dcv0, Te, Th, me, mh, Eg, ky):
     ZeroT_L("H", mh, qy, _kf)
     ZeroT_T(me, mh, Eg, dcv0, qy, _kf)
 
-    os.makedirs('dataQW/Wire', exist_ok=True)
-    with open('dataQW/Wire/qw.dat', 'w', encoding='utf-8') as f:
+    os.makedirs("dataQW/Wire", exist_ok=True)
+    with open("dataQW/Wire/qw.dat", "w", encoding="utf-8") as f:
         f.write(f"Nq {Nq}\n")
         f.write(f"Nw {_Nw * 2 + 1}\n")
         f.write(f"ky(1) {qy[0]}\n")
@@ -288,8 +301,25 @@ def GetEpsrLEpsrT(n1D, dcv0, Te, Th, me, mh, Eg, ky):
 
 
 @jit(nopython=True)
-def _RecordEpsrT_loop_jit(ky_size, Nw, dw, a, me, mh, Te, Th, dk, ky, Ek, Eg,
-                          n00_val, hbar_val, kB_val, twopi_val, pi_val):
+def _RecordEpsrT_loop_jit(
+    ky_size,
+    Nw,
+    dw,
+    a,
+    me,
+    mh,
+    Te,
+    Th,
+    dk,
+    ky,
+    Ek,
+    Eg,
+    n00_val,
+    hbar_val,
+    kB_val,
+    twopi_val,
+    pi_val,
+):
     """JIT-compiled loop for RecordEpsrT."""
     epsR = np.zeros((ky_size, 2 * Nw + 1))
     epsI = np.zeros((ky_size, 2 * Nw + 1))
@@ -316,8 +346,16 @@ def _RecordEpsrT_loop_jit(ky_size, Nw, dw, a, me, mh, Te, Th, dk, ky, Ek, Eg,
 
             for i in range(ky_size):
                 # ff0 calculation
-                ff0_Ek = n00_val * np.sqrt(hbar_val**2 / twopi_val / mh / kB_val / Th) * np.exp(-Ek[i] / kB_val / Th)
-                ff0_Ekq = n00_val * np.sqrt(hbar_val**2 / twopi_val / me / kB_val / Te) * np.exp(-Ekq_arr[i] / kB_val / Te)
+                ff0_Ek = (
+                    n00_val
+                    * np.sqrt(hbar_val**2 / twopi_val / mh / kB_val / Th)
+                    * np.exp(-Ek[i] / kB_val / Th)
+                )
+                ff0_Ekq = (
+                    n00_val
+                    * np.sqrt(hbar_val**2 / twopi_val / me / kB_val / Te)
+                    * np.exp(-Ekq_arr[i] / kB_val / Te)
+                )
 
                 denom1_real = hbar_val * ww - Ekq_arr[i] - Ek[i]
                 denom1_imag = hbar_val * g_pi
@@ -380,8 +418,25 @@ def RecordEpsrT(Te, Th, me, mh, Eg, ky):
     Ek = Eng(mh, ky)
 
     try:
-        epsR, epsI = _RecordEpsrT_loop_jit(ky_size, _Nw, _dw, a, me, mh, Te, Th, dk, ky, Ek, Eg,
-                                           _n00, hbar, kB, twopi, pi)
+        epsR, epsI = _RecordEpsrT_loop_jit(
+            ky_size,
+            _Nw,
+            _dw,
+            a,
+            me,
+            mh,
+            Te,
+            Th,
+            dk,
+            ky,
+            Ek,
+            Eg,
+            _n00,
+            hbar,
+            kB,
+            twopi,
+            pi,
+        )
     except Exception:
         # Fallback to pure Python
         for w_idx in range(2 * _Nw + 1):
@@ -401,13 +456,13 @@ def RecordEpsrT(Te, Th, me, mh, Eg, ky):
     print("min val EpsT imag", "max val EpsT imag")
     print(np.min(epsI), np.max(epsI))
 
-    os.makedirs('dataQW/Wire', exist_ok=True)
-    with open('dataQW/Wire/EpsT.dat', 'w', encoding='utf-8') as f:
+    os.makedirs("dataQW/Wire", exist_ok=True)
+    with open("dataQW/Wire/EpsT.dat", "w", encoding="utf-8") as f:
         for w_idx in range(2 * _Nw + 1):
             for q in range(ky_size):
                 f.write(f"{epsR[q, w_idx]} {epsI[q, w_idx]}\n")
 
-    with open("chi.0.w.dat", 'w', encoding='utf-8') as f:
+    with open("chi.0.w.dat", "w", encoding="utf-8") as f:
         idx = int(np.floor(1141.0 / 2.0 + 2))
         if idx >= ky_size:
             idx = ky_size - 1
@@ -455,8 +510,12 @@ def PiL(q, w, m, T, dk, Ek, Ekq):
     ff0_Ek = ff0(Ek, T, m)
     ff0_Ekq = ff0(Ekq, T, m)
 
-    result = 2.0 / pi * dk * np.sum((ff0_Ek - ff0_Ekq) *
-                                   (1.0 / (hbar * w - (Ekq - Ek) + ii * hbar * g)))
+    result = (
+        2.0
+        / pi
+        * dk
+        * np.sum((ff0_Ek - ff0_Ekq) * (1.0 / (hbar * w - (Ekq - Ek) + ii * hbar * g)))
+    )
 
     return result
 
@@ -566,8 +625,8 @@ def RecordEpsrL_T0(me, ky):
     print("min val EpsL imag", "max val EpsL imag")
     print(np.min(eps.imag), np.max(eps.imag))
 
-    os.makedirs('dataQW/Wire', exist_ok=True)
-    with open('dataQW/Wire/EpsL.dat', 'w', encoding='utf-8') as f:
+    os.makedirs("dataQW/Wire", exist_ok=True)
+    with open("dataQW/Wire/EpsL.dat", "w", encoding="utf-8") as f:
         for w_idx in range(2 * _Nw + 1):
             w = w_idx - _Nw
             print(f"writing {w}")
@@ -629,14 +688,16 @@ def QqGq(ky, Nk, dk, dw, EpsR, EpsI, eh):
                 Omega[q] = w * dw
                 Gam[q] = EpsI[q, w_idx] / dEpsRdw[w_idx]
 
-    os.makedirs('dataQW/Wire', exist_ok=True)
-    with open(f'dataQW/Wire/Omega_qp.{eh}.dat', 'w', encoding='utf-8') as f:
+    os.makedirs("dataQW/Wire", exist_ok=True)
+    with open(f"dataQW/Wire/Omega_qp.{eh}.dat", "w", encoding="utf-8") as f:
         for q in range(Nk):
             f.write(f"{ky[q]} {Omega[q]} {Gam[q]}\n")
 
 
 @jit(nopython=True)
-def _ZeroT_L_loop_jit(qy_size, Nw, dw, m, kf, qy, dq, Vc, hbar_val, e0_val, pi_val, ii_real, ii_imag):
+def _ZeroT_L_loop_jit(
+    qy_size, Nw, dw, m, kf, qy, dq, Vc, hbar_val, e0_val, pi_val, ii_real, ii_imag
+):
     """JIT-compiled loop for ZeroT_L."""
     Pi1 = np.zeros((qy_size, 2 * Nw + 1))
     Pi2 = np.zeros((qy_size, 2 * Nw + 1))
@@ -653,27 +714,32 @@ def _ZeroT_L_loop_jit(qy_size, Nw, dw, m, kf, qy, dq, Vc, hbar_val, e0_val, pi_v
             Aq = m / hbar_val**2 * q / (q**2 + dq**2)
 
             # Calculate xqw for first term
-            Eng_kf_q = hbar_val**2 * (kf - q)**2 / 2.0 / m
+            Eng_kf_q = hbar_val**2 * (kf - q) ** 2 / 2.0 / m
             Eng_kf = hbar_val**2 * kf**2 / 2.0 / m
-            Eng_kf_pq = hbar_val**2 * (kf + q)**2 / 2.0 / m
+            Eng_kf_pq = hbar_val**2 * (kf + q) ** 2 / 2.0 / m
             Eng_q = hbar_val**2 * q**2 / 2.0 / m
 
-            num1 = (Eng_kf_q - Eng_kf - hw_real)**2 + hw_imag**2
-            num2 = (Eng_kf_q - Eng_kf + hw_real)**2 + hw_imag**2
-            den1 = (Eng_kf_pq - Eng_kf - hw_real)**2 + hw_imag**2
-            den2 = (Eng_kf_pq - Eng_kf + hw_real)**2 + hw_imag**2
+            num1 = (Eng_kf_q - Eng_kf - hw_real) ** 2 + hw_imag**2
+            num2 = (Eng_kf_q - Eng_kf + hw_real) ** 2 + hw_imag**2
+            den1 = (Eng_kf_pq - Eng_kf - hw_real) ** 2 + hw_imag**2
+            den2 = (Eng_kf_pq - Eng_kf + hw_real) ** 2 + hw_imag**2
 
             xqw_mag = np.sqrt((num1 * num2) / (den1 * den2))
-            xqw_phase = np.arctan2(2.0 * hw_imag * (Eng_kf_q - Eng_kf), (Eng_kf_q - Eng_kf)**2 - hw_real**2 - hw_imag**2) - \
-                       np.arctan2(2.0 * hw_imag * (Eng_kf_pq - Eng_kf), (Eng_kf_pq - Eng_kf)**2 - hw_real**2 - hw_imag**2)
+            xqw_phase = np.arctan2(
+                2.0 * hw_imag * (Eng_kf_q - Eng_kf),
+                (Eng_kf_q - Eng_kf) ** 2 - hw_real**2 - hw_imag**2,
+            ) - np.arctan2(
+                2.0 * hw_imag * (Eng_kf_pq - Eng_kf),
+                (Eng_kf_pq - Eng_kf) ** 2 - hw_real**2 - hw_imag**2,
+            )
 
             Pi1[qq, ww_idx] = Aq / pi_val * np.log(xqw_mag)
 
             # Second term
-            num1 = (-Eng_kf_q + Eng_kf - hw_real)**2 + hw_imag**2
-            num2 = (-Eng_kf_q + Eng_kf + hw_real)**2 + hw_imag**2
-            den1 = (-Eng_kf_pq + Eng_kf - hw_real)**2 + hw_imag**2
-            den2 = (-Eng_kf_pq + Eng_kf + hw_real)**2 + hw_imag**2
+            num1 = (-Eng_kf_q + Eng_kf - hw_real) ** 2 + hw_imag**2
+            num2 = (-Eng_kf_q + Eng_kf + hw_real) ** 2 + hw_imag**2
+            den1 = (-Eng_kf_pq + Eng_kf - hw_real) ** 2 + hw_imag**2
+            den2 = (-Eng_kf_pq + Eng_kf + hw_real) ** 2 + hw_imag**2
 
             xqw_mag = np.sqrt((num1 * num2) / (den1 * den2))
             Pi1[qq, ww_idx] += Aq / pi_val * np.log(xqw_mag)
@@ -729,7 +795,9 @@ def ZeroT_L(B, m, qy, kf):
         Vc[qq] = (e0**2 / twopi / eps0 / _epsb) * K03(max(abs(qy[qq] * _R0), dq * _R0))
 
     try:
-        eps_real, eps_imag = _ZeroT_L_loop_jit(len(qy), _Nw, _dw, m, kf, qy, dq, Vc, hbar, e0, pi, ii.real, ii.imag)
+        eps_real, eps_imag = _ZeroT_L_loop_jit(
+            len(qy), _Nw, _dw, m, kf, qy, dq, Vc, hbar, e0, pi, ii.real, ii.imag
+        )
         eps = eps_real + 1j * eps_imag
     except Exception:
         # Fallback to pure Python
@@ -745,20 +813,24 @@ def ZeroT_L(B, m, qy, kf):
                 q = qy[qq]
                 Aq = m / hbar**2 * q / (q**2 + dq**2)
 
-                xqw = ((Eng(m, kf - q) - Eng(m, kf) - hw) *
-                       (Eng(m, kf - q) - Eng(m, kf) + hw) /
-                       (Eng(m, kf + q) - Eng(m, kf) - hw) /
-                       (Eng(m, kf + q) - Eng(m, kf) + hw))
+                xqw = (
+                    (Eng(m, kf - q) - Eng(m, kf) - hw)
+                    * (Eng(m, kf - q) - Eng(m, kf) + hw)
+                    / (Eng(m, kf + q) - Eng(m, kf) - hw)
+                    / (Eng(m, kf + q) - Eng(m, kf) + hw)
+                )
                 k = np.real(Aq * (hw - Eng(m, q)))
 
                 Pi1[qq, ww_idx] = Aq / pi * np.real(np.log(xqw))
 
                 # Second term
                 Aq = m / hbar**2 * q / (q**2 + dq**2)
-                xqw = ((-Eng(m, kf - q) + Eng(m, kf) - hw) *
-                       (-Eng(m, kf - q) + Eng(m, kf) + hw) /
-                       (-Eng(m, kf + q) + Eng(m, kf) - hw) /
-                       (-Eng(m, kf + q) + Eng(m, kf) + hw))
+                xqw = (
+                    (-Eng(m, kf - q) + Eng(m, kf) - hw)
+                    * (-Eng(m, kf - q) + Eng(m, kf) + hw)
+                    / (-Eng(m, kf + q) + Eng(m, kf) - hw)
+                    / (-Eng(m, kf + q) + Eng(m, kf) + hw)
+                )
                 k = np.real(Aq * (hw + Eng(m, q)))
 
                 Pi1[qq, ww_idx] += Aq / pi * np.real(np.log(xqw))
@@ -767,8 +839,8 @@ def ZeroT_L(B, m, qy, kf):
 
                 eps[qq, ww_idx] = -Vc[qq] * (Pi1[qq, ww_idx] + ii * Pi2[qq, ww_idx])
 
-    os.makedirs('dataQW/Wire', exist_ok=True)
-    with open(f'dataQW/Wire/ChiL.{B}.dat', 'w', encoding='utf-8') as f:
+    os.makedirs("dataQW/Wire", exist_ok=True)
+    with open(f"dataQW/Wire/ChiL.{B}.dat", "w", encoding="utf-8") as f:
         for ww_idx in range(2 * _Nw + 1):
             ww = ww_idx - _Nw
             print(f"writing {ww}")
@@ -777,7 +849,25 @@ def ZeroT_L(B, m, qy, kf):
 
 
 @jit(nopython=True)
-def _ZeroT_T_loop_jit(qy_size, Nw, dw, me, mh, Egap, qy, dq, Vc, kf, hbar_val, e0_val, pi_val, ii_real, ii_imag, c0_val, epsb_val):
+def _ZeroT_T_loop_jit(
+    qy_size,
+    Nw,
+    dw,
+    me,
+    mh,
+    Egap,
+    qy,
+    dq,
+    Vc,
+    kf,
+    hbar_val,
+    e0_val,
+    pi_val,
+    ii_real,
+    ii_imag,
+    c0_val,
+    epsb_val,
+):
     """JIT-compiled loop for ZeroT_T."""
     Pi1 = np.zeros((qy_size, 2 * Nw + 1))
     Pi2 = np.zeros((qy_size, 2 * Nw + 1))
@@ -810,9 +900,18 @@ def _ZeroT_T_loop_jit(qy_size, Nw, dw, me, mh, Egap, qy, dq, Vc, kf, hbar_val, e
             term4 = (-kf * (b + c) - c * q) / d_mag
 
             # Simplified atanJG calculation
-            Pi1[qq, ww_idx] = -Vc * (np.arctan(term1) + np.arctan(term2) - np.arctan(term3) + np.arctan(term4)) / d_mag
+            Pi1[qq, ww_idx] = (
+                -Vc
+                * (
+                    np.arctan(term1)
+                    + np.arctan(term2)
+                    - np.arctan(term3)
+                    + np.arctan(term4)
+                )
+                / d_mag
+            )
 
-            Pi2[qq, ww_idx] = q**2 * c0_val**2 / epsb_val / ((ww * dw)**2 + 9 * dw**2)
+            Pi2[qq, ww_idx] = q**2 * c0_val**2 / epsb_val / ((ww * dw) ** 2 + 9 * dw**2)
 
             # Calculate Pi3
             for kk in range(qy_size):
@@ -821,7 +920,7 @@ def _ZeroT_T_loop_jit(qy_size, Nw, dw, me, mh, Egap, qy, dq, Vc, kf, hbar_val, e
                 fT0_k = 1.0 if np.abs(k) < kf else 0.0
                 fT0_kq = 1.0 if np.abs(k + q) < kf else 0.0
 
-                Eng_me_kq = hbar_val**2 * (k + q)**2 / 2.0 / me
+                Eng_me_kq = hbar_val**2 * (k + q) ** 2 / 2.0 / me
                 Eng_mh_k = hbar_val**2 * k**2 / 2.0 / mh
 
                 denom1_real = hbar_val * ww * dw - Egap - Eng_me_kq - Eng_mh_k
@@ -832,8 +931,18 @@ def _ZeroT_T_loop_jit(qy_size, Nw, dw, me, mh, Egap, qy, dq, Vc, kf, hbar_val, e
                 denom2_imag = e0_val * 5e-3
                 denom2_mag2 = denom2_real**2 + denom2_imag**2
 
-                Pi3_real[qq, ww_idx] += Vc * dq * (1.0 - fT0_k - fT0_kq) * (denom1_real / denom1_mag2 - denom2_real / denom2_mag2)
-                Pi3_imag[qq, ww_idx] += Vc * dq * (1.0 - fT0_k - fT0_kq) * (-denom1_imag / denom1_mag2 + denom2_imag / denom2_mag2)
+                Pi3_real[qq, ww_idx] += (
+                    Vc
+                    * dq
+                    * (1.0 - fT0_k - fT0_kq)
+                    * (denom1_real / denom1_mag2 - denom2_real / denom2_mag2)
+                )
+                Pi3_imag[qq, ww_idx] += (
+                    Vc
+                    * dq
+                    * (1.0 - fT0_k - fT0_kq)
+                    * (-denom1_imag / denom1_mag2 + denom2_imag / denom2_mag2)
+                )
 
     return Pi1, Pi2, Pi3_real, Pi3_imag
 
@@ -882,8 +991,25 @@ def ZeroT_T(me, mh, Egap, dcv, qy, kf):
     Pi3 = np.zeros((len(qy), 2 * _Nw + 1), dtype=complex)
 
     try:
-        Pi1, Pi2, Pi3_real, Pi3_imag = _ZeroT_T_loop_jit(len(qy), _Nw, _dw, me, mh, Egap, qy, dq, Vc, kf,
-                                                          hbar, e0, pi, ii.real, ii.imag, c0, _epsb)
+        Pi1, Pi2, Pi3_real, Pi3_imag = _ZeroT_T_loop_jit(
+            len(qy),
+            _Nw,
+            _dw,
+            me,
+            mh,
+            Egap,
+            qy,
+            dq,
+            Vc,
+            kf,
+            hbar,
+            e0,
+            pi,
+            ii.real,
+            ii.imag,
+            c0,
+            _epsb,
+        )
         Pi3 = Pi3_real + 1j * Pi3_imag
     except Exception:
         # Fallback to pure Python
@@ -896,21 +1022,43 @@ def ZeroT_T(me, mh, Egap, dcv, qy, kf):
                 a = hbar * ww * _dw - Egap + ii * 1e-3 * e0
                 d = np.sqrt(a * (b + c) + b * c * q**2)
 
-                Pi1[qq, ww_idx] = np.real(-Vc * atanJG((+kf * (b + c) + b * q) / d) / d +
-                                          Vc * atanJG((-kf * (b + c) + b * q) / d) / d -
-                                          Vc * atanJG((+kf * (b + c) - c * q) / d) / d +
-                                          Vc * atanJG((-kf * (b + c) - c * q) / d) / d)
+                Pi1[qq, ww_idx] = np.real(
+                    -Vc * atanJG((+kf * (b + c) + b * q) / d) / d
+                    + Vc * atanJG((-kf * (b + c) + b * q) / d) / d
+                    - Vc * atanJG((+kf * (b + c) - c * q) / d) / d
+                    + Vc * atanJG((-kf * (b + c) - c * q) / d) / d
+                )
 
-                Pi2[qq, ww_idx] = q**2 * c0**2 / _epsb / ((ww * _dw)**2 + 9 * _dw**2)
+                Pi2[qq, ww_idx] = q**2 * c0**2 / _epsb / ((ww * _dw) ** 2 + 9 * _dw**2)
 
                 for kk in range(len(qy)):
                     k = qy[kk]
-                    Pi3[qq, ww_idx] += Vc * dq * (1.0 - fT0(k, kf) - fT0(k + q, kf)) * \
-                                       (+1.0 / (hbar * ww * _dw - Egap - Eng(me, k + q) - Eng(mh, k) + ii * e0 * 5e-3) -
-                                        1.0 / (hbar * ww * _dw + Egap + Eng(me, k + q) + Eng(mh, k) + ii * e0 * 5e-3))
+                    Pi3[qq, ww_idx] += (
+                        Vc
+                        * dq
+                        * (1.0 - fT0(k, kf) - fT0(k + q, kf))
+                        * (
+                            +1.0
+                            / (
+                                hbar * ww * _dw
+                                - Egap
+                                - Eng(me, k + q)
+                                - Eng(mh, k)
+                                + ii * e0 * 5e-3
+                            )
+                            - 1.0
+                            / (
+                                hbar * ww * _dw
+                                + Egap
+                                + Eng(me, k + q)
+                                + Eng(mh, k)
+                                + ii * e0 * 5e-3
+                            )
+                        )
+                    )
 
-    os.makedirs('dataQW/Wire', exist_ok=True)
-    with open('dataQW/Wire/ChiT.dat', 'w', encoding='utf-8') as f:
+    os.makedirs("dataQW/Wire", exist_ok=True)
+    with open("dataQW/Wire/ChiT.dat", "w", encoding="utf-8") as f:
         for ww_idx in range(2 * _Nw + 1):
             ww = ww_idx - _Nw
             print(f"writing {ww}")
@@ -919,8 +1067,24 @@ def ZeroT_T(me, mh, Egap, dcv, qy, kf):
 
 
 @jit(nopython=True)
-def _RecordEpsrL_loop_jit(ky_size, Nw, dw, me, mh, Te, Th, dk, ky, Vc,
-                          n00_val, hbar_val, kB_val, twopi_val, pi_val, e0_val):
+def _RecordEpsrL_loop_jit(
+    ky_size,
+    Nw,
+    dw,
+    me,
+    mh,
+    Te,
+    Th,
+    dk,
+    ky,
+    Vc,
+    n00_val,
+    hbar_val,
+    kB_val,
+    twopi_val,
+    pi_val,
+    e0_val,
+):
     """JIT-compiled loop for RecordEpsrL."""
     eps_real = np.zeros((ky_size, 2 * Nw + 1))
     eps_imag = np.zeros((ky_size, 2 * Nw + 1))
@@ -936,7 +1100,7 @@ def _RecordEpsrL_loop_jit(ky_size, Nw, dw, me, mh, Te, Th, dk, ky, Vc,
     m = me
     Ek = np.zeros(ky_size)
     for i in range(ky_size):
-        Ek[i] = hbar_val**2 * ky[i]**2 / 2.0 / m
+        Ek[i] = hbar_val**2 * ky[i] ** 2 / 2.0 / m
 
     for w_idx in range(2 * Nw + 1):
         w = w_idx - Nw
@@ -955,8 +1119,16 @@ def _RecordEpsrL_loop_jit(ky_size, Nw, dw, me, mh, Te, Th, dk, ky, Vc,
             tmp_imag = 0.0
 
             for i in range(ky_size):
-                ff0_Ek = n00_val * np.sqrt(hbar_val**2 / twopi_val / m / kB_val / T) * np.exp(-Ek[i] / kB_val / T)
-                ff0_Ekq = n00_val * np.sqrt(hbar_val**2 / twopi_val / m / kB_val / T) * np.exp(-Ekq_arr[i] / kB_val / T)
+                ff0_Ek = (
+                    n00_val
+                    * np.sqrt(hbar_val**2 / twopi_val / m / kB_val / T)
+                    * np.exp(-Ek[i] / kB_val / T)
+                )
+                ff0_Ekq = (
+                    n00_val
+                    * np.sqrt(hbar_val**2 / twopi_val / m / kB_val / T)
+                    * np.exp(-Ekq_arr[i] / kB_val / T)
+                )
 
                 denom1_real = hbar_val * ww - (Ekq_arr[i] - Ek[i])
                 denom1_imag = hbar_val * g
@@ -972,7 +1144,7 @@ def _RecordEpsrL_loop_jit(ky_size, Nw, dw, me, mh, Te, Th, dk, ky, Vc,
     T = Th
     m = mh
     for i in range(ky_size):
-        Ek[i] = hbar_val**2 * ky[i]**2 / 2.0 / m
+        Ek[i] = hbar_val**2 * ky[i] ** 2 / 2.0 / m
 
     for w_idx in range(2 * Nw + 1):
         w = w_idx - Nw
@@ -991,8 +1163,16 @@ def _RecordEpsrL_loop_jit(ky_size, Nw, dw, me, mh, Te, Th, dk, ky, Vc,
             tmp_imag = 0.0
 
             for i in range(ky_size):
-                ff0_Ek = n00_val * np.sqrt(hbar_val**2 / twopi_val / m / kB_val / T) * np.exp(-Ek[i] / kB_val / T)
-                ff0_Ekq = n00_val * np.sqrt(hbar_val**2 / twopi_val / m / kB_val / T) * np.exp(-Ekq_arr[i] / kB_val / T)
+                ff0_Ek = (
+                    n00_val
+                    * np.sqrt(hbar_val**2 / twopi_val / m / kB_val / T)
+                    * np.exp(-Ek[i] / kB_val / T)
+                )
+                ff0_Ekq = (
+                    n00_val
+                    * np.sqrt(hbar_val**2 / twopi_val / m / kB_val / T)
+                    * np.exp(-Ekq_arr[i] / kB_val / T)
+                )
 
                 denom1_real = hbar_val * ww - (Ekq_arr[i] - Ek[i])
                 denom1_imag = hbar_val * g
@@ -1009,8 +1189,12 @@ def _RecordEpsrL_loop_jit(ky_size, Nw, dw, me, mh, Te, Th, dk, ky, Vc,
         for q in range(ky_size):
             # eps = 1 - Vc * PiE - Vc * PiH
             # where PiE and PiH are complex
-            eps_real[q, w_idx] = 1.0 - Vc[q] * PiE_real[q, w_idx] - Vc[q] * PiH_real[q, w_idx]
-            eps_imag[q, w_idx] = -Vc[q] * PiE_imag[q, w_idx] - Vc[q] * PiH_imag[q, w_idx]
+            eps_real[q, w_idx] = (
+                1.0 - Vc[q] * PiE_real[q, w_idx] - Vc[q] * PiH_real[q, w_idx]
+            )
+            eps_imag[q, w_idx] = (
+                -Vc[q] * PiE_imag[q, w_idx] - Vc[q] * PiH_imag[q, w_idx]
+            )
 
     return eps_real, eps_imag
 
@@ -1064,8 +1248,9 @@ def RecordEpsrL(Te, Th, me, mh, ky):
     Ek = Eng(m, ky)
 
     try:
-        eps_real, eps_imag = _RecordEpsrL_loop_jit(ky_size, _Nw, _dw, me, mh, Te, Th, dk, ky, Vc,
-                                                    _n00, hbar, kB, twopi, pi, e0)
+        eps_real, eps_imag = _RecordEpsrL_loop_jit(
+            ky_size, _Nw, _dw, me, mh, Te, Th, dk, ky, Vc, _n00, hbar, kB, twopi, pi, e0
+        )
         eps = eps_real + 1j * eps_imag
     except Exception:
         # Fallback to pure Python
@@ -1102,8 +1287,8 @@ def RecordEpsrL(Te, Th, me, mh, ky):
     print("min val EpsL imag", "max val EpsL imag")
     print(np.min(eps.imag), np.max(eps.imag))
 
-    os.makedirs('dataQW/Wire', exist_ok=True)
-    with open('dataQW/Wire/EpsL.dat', 'w', encoding='utf-8') as f:
+    os.makedirs("dataQW/Wire", exist_ok=True)
+    with open("dataQW/Wire/EpsL.dat", "w", encoding="utf-8") as f:
         for w_idx in range(2 * _Nw + 1):
             for q in range(ky_size):
                 f.write(f"{eps[q, w_idx].real} {eps[q, w_idx].imag}\n")

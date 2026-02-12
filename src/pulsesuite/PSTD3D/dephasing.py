@@ -26,7 +26,9 @@ ii = 1j  # Imaginary unit
 
 
 @jit(nopython=True)
-def _CalcGammaE_jit(Vee2, Veh2, ne, nh, se, sh, k_p_q, k_m_q, k1p_m_q, k1p, xe, xh, pi_val, hbar_val):
+def _CalcGammaE_jit(
+    Vee2, Veh2, ne, nh, se, sh, k_p_q, k_m_q, k1p_m_q, k1p, xe, xh, pi_val, hbar_val
+):
     """JIT-compiled version of CalcGammaE."""
     Nk = len(ne) - 2
     GammaE = np.zeros(Nk)
@@ -34,10 +36,13 @@ def _CalcGammaE_jit(Vee2, Veh2, ne, nh, se, sh, k_p_q, k_m_q, k1p_m_q, k1p, xe, 
     # Electron-Electron dephasing of electrons
     for q in range(Nk):
         for k in range(Nk):
-            kpq_idx = k_p_q[k, q] + 1  # Convert to extended array index (0-based main array + 1)
+            kpq_idx = (
+                k_p_q[k, q] + 1
+            )  # Convert to extended array index (0-based main array + 1)
             if 1 <= kpq_idx < len(ne) - 1:
-                GammaE[k] = (GammaE[k] + pi_val / hbar_val * Vee2[q] *
-                            ne[kpq_idx] * se[kpq_idx] * np.abs(xe[q]))
+                GammaE[k] = GammaE[k] + pi_val / hbar_val * Vee2[q] * ne[kpq_idx] * se[
+                    kpq_idx
+                ] * np.abs(xe[q])
 
     # Electron-Hole dephasing of electrons
     for q in range(Nk):
@@ -46,18 +51,23 @@ def _CalcGammaE_jit(Vee2, Veh2, ne, nh, se, sh, k_p_q, k_m_q, k1p_m_q, k1p, xe, 
             k1p_idx = k1p[k, q] + 1  # Convert to extended array index
             kmq_idx = k_m_q[k, q] + 1  # Convert to extended array index
 
-            if (1 <= k1pmq_idx < len(nh) - 1 and 1 <= k1p_idx < len(nh) - 1 and
-                1 <= kmq_idx < len(ne) - 1):
-                GammaE[k] = (GammaE[k] + pi_val / hbar_val * Veh2[q] *
-                            (nh[k1pmq_idx] * sh[k1p_idx] * ne[kmq_idx] +
-                             sh[k1pmq_idx] * nh[k1p_idx] * se[kmq_idx]) *
-                            np.abs(xh[q]))
+            if (
+                1 <= k1pmq_idx < len(nh) - 1
+                and 1 <= k1p_idx < len(nh) - 1
+                and 1 <= kmq_idx < len(ne) - 1
+            ):
+                GammaE[k] = GammaE[k] + pi_val / hbar_val * Veh2[q] * (
+                    nh[k1pmq_idx] * sh[k1p_idx] * ne[kmq_idx]
+                    + sh[k1pmq_idx] * nh[k1p_idx] * se[kmq_idx]
+                ) * np.abs(xh[q])
 
     return GammaE
 
 
 @jit(nopython=True)
-def _CalcGammaH_jit(Vhh2, Veh2, ne, nh, se, sh, k_p_q, k_m_q, k1_m_q, k1, xe, xh, pi_val, hbar_val):
+def _CalcGammaH_jit(
+    Vhh2, Veh2, ne, nh, se, sh, k_p_q, k_m_q, k1_m_q, k1, xe, xh, pi_val, hbar_val
+):
     """JIT-compiled version of CalcGammaH."""
     Nk = len(ne) - 2
     GammaH = np.zeros(Nk)
@@ -65,10 +75,13 @@ def _CalcGammaH_jit(Vhh2, Veh2, ne, nh, se, sh, k_p_q, k_m_q, k1_m_q, k1, xe, xh
     # Hole-Hole dephasing of holes
     for q in range(Nk):
         for kp in range(Nk):
-            kpq_idx = k_p_q[kp, q] + 1  # Convert to extended array index (0-based main array + 1)
+            kpq_idx = (
+                k_p_q[kp, q] + 1
+            )  # Convert to extended array index (0-based main array + 1)
             if 1 <= kpq_idx < len(nh) - 1:
-                GammaH[kp] = (GammaH[kp] + pi_val / hbar_val * Vhh2[q] *
-                             nh[kpq_idx] * sh[kpq_idx] * np.abs(xh[q]))
+                GammaH[kp] = GammaH[kp] + pi_val / hbar_val * Vhh2[q] * nh[
+                    kpq_idx
+                ] * sh[kpq_idx] * np.abs(xh[q])
 
     # Electron-Hole dephasing of holes
     for q in range(Nk):
@@ -77,18 +90,23 @@ def _CalcGammaH_jit(Vhh2, Veh2, ne, nh, se, sh, k_p_q, k_m_q, k1_m_q, k1, xe, xh
             k1_idx = k1[kp, q] + 1  # Convert to extended array index
             kmq_idx = k_m_q[kp, q] + 1  # Convert to extended array index
 
-            if (1 <= k1mq_idx < len(ne) - 1 and 1 <= k1_idx < len(ne) - 1 and
-                1 <= kmq_idx < len(nh) - 1):
-                GammaH[kp] = (GammaH[kp] + pi_val / hbar_val * Veh2[q] *
-                             (ne[k1mq_idx] * se[k1_idx] * nh[kmq_idx] +
-                              se[k1mq_idx] * ne[k1_idx] * sh[kmq_idx]) *
-                             np.abs(xe[q]))
+            if (
+                1 <= k1mq_idx < len(ne) - 1
+                and 1 <= k1_idx < len(ne) - 1
+                and 1 <= kmq_idx < len(nh) - 1
+            ):
+                GammaH[kp] = GammaH[kp] + pi_val / hbar_val * Veh2[q] * (
+                    ne[k1mq_idx] * se[k1_idx] * nh[kmq_idx]
+                    + se[k1mq_idx] * ne[k1_idx] * sh[kmq_idx]
+                ) * np.abs(xe[q])
 
     return GammaH
 
 
 @jit(nopython=True)
-def _CalcOffDiagDeph_E_jit(ne, nh, Veh2, Vee2, Ee, Eh, k_p_q, k_m_q, gee, geh, pi_val, hbar_val):
+def _CalcOffDiagDeph_E_jit(
+    ne, nh, Veh2, Vee2, Ee, Eh, k_p_q, k_m_q, gee, geh, pi_val, hbar_val
+):
     """JIT-compiled version of CalcOffDiagDeph_E."""
     Nk = len(ne) - 2
     D = np.zeros((Nk, Nk))
@@ -102,10 +120,12 @@ def _CalcOffDiagDeph_E_jit(ne, nh, Veh2, Vee2, Ee, Eh, k_p_q, k_m_q, gee, geh, p
                     k1pq_idx = k_p_q[k1, q] + 1  # Convert to extended array index
                     if 1 <= k1pq_idx < len(Ee) - 1:
                         E_diff = Ee[k1pq_idx] + Ee[k + 1] - Ee[k1 + 1] - Ee[kpq_idx]
-                        D[k, q] = (D[k, q] + Vee2[k1 + 1, k1pq_idx] *
-                                  _Lrtz_jit(E_diff, hbar_val * gee, pi_val) *
-                                  (ne[k1pq_idx] * ne[k + 1] * (1.0 - ne[k1 + 1]) +
-                                   (1.0 - ne[k1pq_idx]) * (1.0 - ne[k + 1]) * ne[k1 + 1]))
+                        D[k, q] = D[k, q] + Vee2[k1 + 1, k1pq_idx] * _Lrtz_jit(
+                            E_diff, hbar_val * gee, pi_val
+                        ) * (
+                            ne[k1pq_idx] * ne[k + 1] * (1.0 - ne[k1 + 1])
+                            + (1.0 - ne[k1pq_idx]) * (1.0 - ne[k + 1]) * ne[k1 + 1]
+                        )
 
     # Electron-hole dephasing
     for q in range(Nk):
@@ -116,16 +136,20 @@ def _CalcOffDiagDeph_E_jit(ne, nh, Veh2, Vee2, Ee, Eh, k_p_q, k_m_q, gee, geh, p
                     k1mq_idx = k_m_q[k1, q] + 1  # Convert to extended array index
                     if 1 <= k1mq_idx < len(Eh) - 1:
                         E_diff = Eh[k1mq_idx] + Ee[k + 1] - Eh[k1 + 1] - Ee[kpq_idx]
-                        D[k, q] = (D[k, q] + Veh2[k + 1, kpq_idx] *
-                                  _Lrtz_jit(E_diff, hbar_val * geh, pi_val) *
-                                  (nh[k1mq_idx] * (1.0 - nh[k1 + 1]) * ne[k + 1] +
-                                   (1.0 - nh[k1mq_idx]) * nh[k1 + 1] * (1.0 - ne[k + 1])))
+                        D[k, q] = D[k, q] + Veh2[k + 1, kpq_idx] * _Lrtz_jit(
+                            E_diff, hbar_val * geh, pi_val
+                        ) * (
+                            nh[k1mq_idx] * (1.0 - nh[k1 + 1]) * ne[k + 1]
+                            + (1.0 - nh[k1mq_idx]) * nh[k1 + 1] * (1.0 - ne[k + 1])
+                        )
 
     return D * pi_val / hbar_val
 
 
 @jit(nopython=True)
-def _CalcOffDiagDeph_H_jit(ne, nh, Veh2, Vhh2, Ee, Eh, k_p_q, k_m_q, ghh, geh, pi_val, hbar_val):
+def _CalcOffDiagDeph_H_jit(
+    ne, nh, Veh2, Vhh2, Ee, Eh, k_p_q, k_m_q, ghh, geh, pi_val, hbar_val
+):
     """JIT-compiled version of CalcOffDiagDeph_H."""
     Nk = len(ne) - 2
     D = np.zeros((Nk, Nk))
@@ -139,10 +163,12 @@ def _CalcOffDiagDeph_H_jit(ne, nh, Veh2, Vhh2, Ee, Eh, k_p_q, k_m_q, ghh, geh, p
                     k1pq_idx = k_p_q[k1, q] + 1  # Convert to extended array index
                     if 1 <= k1pq_idx < len(Eh) - 1:
                         E_diff = Eh[k1pq_idx] + Eh[k + 1] - Eh[k1 + 1] - Eh[kpq_idx]
-                        D[k, q] = (D[k, q] + Vhh2[k1 + 1, k1pq_idx] *
-                                  _Lrtz_jit(E_diff, hbar_val * ghh, pi_val) *
-                                  (nh[k1pq_idx] * nh[k + 1] * (1.0 - nh[k1 + 1]) +
-                                   (1.0 - nh[k1pq_idx]) * (1.0 - nh[k + 1]) * nh[k1 + 1]))
+                        D[k, q] = D[k, q] + Vhh2[k1 + 1, k1pq_idx] * _Lrtz_jit(
+                            E_diff, hbar_val * ghh, pi_val
+                        ) * (
+                            nh[k1pq_idx] * nh[k + 1] * (1.0 - nh[k1 + 1])
+                            + (1.0 - nh[k1pq_idx]) * (1.0 - nh[k + 1]) * nh[k1 + 1]
+                        )
 
     # Electron-hole dephasing
     for q in range(Nk):
@@ -153,10 +179,12 @@ def _CalcOffDiagDeph_H_jit(ne, nh, Veh2, Vhh2, Ee, Eh, k_p_q, k_m_q, ghh, geh, p
                     k1mq_idx = k_m_q[k1, q] + 1  # Convert to extended array index
                     if 1 <= k1mq_idx < len(Ee) - 1:
                         E_diff = Ee[k1mq_idx] + Eh[k + 1] - Ee[k1 + 1] - Eh[kpq_idx]
-                        D[k, q] = (D[k, q] + Veh2[k1 + 1, k1mq_idx] *
-                                  _Lrtz_jit(E_diff, hbar_val * geh, pi_val) *
-                                  (ne[k1mq_idx] * (1.0 - ne[k1 + 1]) * nh[k + 1] +
-                                   (1.0 - ne[k1mq_idx]) * ne[k1 + 1] * (1.0 - nh[k + 1])))
+                        D[k, q] = D[k, q] + Veh2[k1 + 1, k1mq_idx] * _Lrtz_jit(
+                            E_diff, hbar_val * geh, pi_val
+                        ) * (
+                            ne[k1mq_idx] * (1.0 - ne[k1 + 1]) * nh[k + 1]
+                            + (1.0 - ne[k1mq_idx]) * ne[k1 + 1] * (1.0 - nh[k + 1])
+                        )
 
     return D * pi_val / hbar_val
 
@@ -213,11 +241,12 @@ def _CalcOffDiagDeph_E2_jit(ne, nh, Vsq, Ee, Eh, gee, geh, pi_val, hbar_val):
                     p_minus_q = p - q
                     if 0 <= k_plus_q < Nk and 0 <= p_minus_q < Nk:
                         E_diff = Ee[k_plus_q] + Ee[p_minus_q] - Ee[p] - Ee[k]
-                        D[q_arr_idx, k] = (D[q_arr_idx, k] +
-                                          Vsq[q_arr_idx, 1] *
-                                          _Lrtz_jit(E_diff, hbar_val * gee, pi_val) *
-                                          (ne[p_minus_q] * (1.0 - ne[p]) * (1.0 - ne[k]) +
-                                           (1.0 - ne[p_minus_q]) * ne[p] * ne[k]))
+                        D[q_arr_idx, k] = D[q_arr_idx, k] + Vsq[
+                            q_arr_idx, 1
+                        ] * _Lrtz_jit(E_diff, hbar_val * gee, pi_val) * (
+                            ne[p_minus_q] * (1.0 - ne[p]) * (1.0 - ne[k])
+                            + (1.0 - ne[p_minus_q]) * ne[p] * ne[k]
+                        )
 
     # Electron-hole dephasing
     for k in range(Nk):
@@ -231,11 +260,12 @@ def _CalcOffDiagDeph_E2_jit(ne, nh, Vsq, Ee, Eh, gee, geh, pi_val, hbar_val):
                     p_plus_q = p + q
                     if 0 <= k_plus_q < Nk and 0 <= p_plus_q < Nk:
                         E_diff = Ee[k_plus_q] + Eh[p_plus_q] - Eh[p] - Ee[k]
-                        D[q_arr_idx, k] = (D[q_arr_idx, k] +
-                                          Vsq[q_arr_idx, 0] *
-                                          _Lrtz_jit(E_diff, hbar_val * geh, pi_val) *
-                                          (nh[p_plus_q] * (1.0 - nh[p]) * (1.0 - ne[k]) +
-                                           (1.0 - nh[p_plus_q]) * nh[p] * ne[k]))
+                        D[q_arr_idx, k] = D[q_arr_idx, k] + Vsq[
+                            q_arr_idx, 0
+                        ] * _Lrtz_jit(E_diff, hbar_val * geh, pi_val) * (
+                            nh[p_plus_q] * (1.0 - nh[p]) * (1.0 - ne[k])
+                            + (1.0 - nh[p_plus_q]) * nh[p] * ne[k]
+                        )
 
     return D * pi_val / hbar_val
 
@@ -258,11 +288,12 @@ def _CalcOffDiagDeph_H2_jit(ne, nh, Vsq, Ee, Eh, ghh, geh, pi_val, hbar_val):
                     p_minus_q = p - q
                     if 0 <= k_plus_q < Nk and 0 <= p_minus_q < Nk:
                         E_diff = Eh[k_plus_q] + Eh[p_minus_q] - Eh[p] - Eh[k]
-                        D[q_arr_idx, k] = (D[q_arr_idx, k] +
-                                          Vsq[q_arr_idx, 2] *
-                                          _Lrtz_jit(E_diff, hbar_val * ghh, pi_val) *
-                                          (nh[p_minus_q] * (1.0 - nh[p]) * (1.0 - nh[k]) +
-                                           (1.0 - nh[p_minus_q]) * nh[p] * nh[k]))
+                        D[q_arr_idx, k] = D[q_arr_idx, k] + Vsq[
+                            q_arr_idx, 2
+                        ] * _Lrtz_jit(E_diff, hbar_val * ghh, pi_val) * (
+                            nh[p_minus_q] * (1.0 - nh[p]) * (1.0 - nh[k])
+                            + (1.0 - nh[p_minus_q]) * nh[p] * nh[k]
+                        )
 
     # Electron-hole dephasing
     for k in range(Nk):
@@ -276,11 +307,12 @@ def _CalcOffDiagDeph_H2_jit(ne, nh, Vsq, Ee, Eh, ghh, geh, pi_val, hbar_val):
                     p_plus_q = p + q
                     if 0 <= k_plus_q < Nk and 0 <= p_plus_q < Nk:
                         E_diff = Eh[k_plus_q] + Ee[p_plus_q] - Ee[p] - Eh[k]
-                        D[q_arr_idx, k] = (D[q_arr_idx, k] +
-                                          Vsq[q_arr_idx, 0] *
-                                          _Lrtz_jit(E_diff, hbar_val * geh, pi_val) *
-                                          (ne[p_plus_q] * (1.0 - ne[p]) * (1.0 - nh[k]) +
-                                           (1.0 - ne[p_plus_q]) * ne[p] * nh[k]))
+                        D[q_arr_idx, k] = D[q_arr_idx, k] + Vsq[
+                            q_arr_idx, 0
+                        ] * _Lrtz_jit(E_diff, hbar_val * geh, pi_val) * (
+                            ne[p_plus_q] * (1.0 - ne[p]) * (1.0 - nh[k])
+                            + (1.0 - ne[p_plus_q]) * ne[p] * nh[k]
+                        )
 
     return D * pi_val / hbar_val
 
@@ -301,7 +333,10 @@ def _OffDiagDephasing2_jit(Dh, De, p, pt, undel, ii_val, hbar_val):
                     q_arr_idx = q + Nk
                     kh_plus_q = kh + q
                     if 0 <= kh_plus_q < Nk and 0 <= q_arr_idx < Dh.shape[0]:
-                        x[kh, ke] = x[kh, ke] + Dh[q_arr_idx, kh] * p[kh_plus_q, ke] * undel[q_arr_idx]
+                        x[kh, ke] = (
+                            x[kh, ke]
+                            + Dh[q_arr_idx, kh] * p[kh_plus_q, ke] * undel[q_arr_idx]
+                        )
 
     # Second loop
     for ke in range(Nk):
@@ -313,7 +348,10 @@ def _OffDiagDephasing2_jit(Dh, De, p, pt, undel, ii_val, hbar_val):
                     q_arr_idx = q + Nk
                     ke_plus_q = ke + q
                     if 0 <= ke_plus_q < Nk and 0 <= q_arr_idx < De.shape[0]:
-                        x[kh, ke] = x[kh, ke] + De[q_arr_idx, ke] * pt[ke_plus_q, kh] * undel[q_arr_idx]
+                        x[kh, ke] = (
+                            x[kh, ke]
+                            + De[q_arr_idx, ke] * pt[ke_plus_q, kh] * undel[q_arr_idx]
+                        )
 
     return x * ii_val * hbar_val
 
@@ -335,7 +373,7 @@ def Vxx2(q, V):
     Vxx2_arr = np.zeros(len(q))
     for i in range(len(q)):
         idx = iq[i]
-        Vxx2_arr[i] = V[idx, 0]**2
+        Vxx2_arr[i] = V[idx, 0] ** 2
 
     return Vxx2_arr
 
@@ -349,8 +387,8 @@ def CalcOffDiagDeph_E2(ne, nh, ky, Ee, Eh, gee, geh, VC, Nk):  # noqa: ARG001
     Vsq = np.zeros((2 * Nk + 1, 3))
 
     for q in range(1, Nk):
-        Vsq[q + Nk, :] = VC[q, 0, :]**2
-        Vsq[-q + Nk, :] = VC[q, 0, :]**2
+        Vsq[q + Nk, :] = VC[q, 0, :] ** 2
+        Vsq[-q + Nk, :] = VC[q, 0, :] ** 2
 
     ne_real = np.abs(ne)
     nh_real = np.abs(nh)
@@ -367,8 +405,8 @@ def CalcOffDiagDeph_H2(ne, nh, ky, Ee, Eh, ghh, geh, VC, Nk):  # noqa: ARG001
     Vsq = np.zeros((2 * Nk + 1, 3))
 
     for q in range(1, Nk):
-        Vsq[q + Nk, :] = VC[q, 0, :]**2
-        Vsq[-q + Nk, :] = VC[q, 0, :]**2
+        Vsq[q + Nk, :] = VC[q, 0, :] ** 2
+        Vsq[-q + Nk, :] = VC[q, 0, :] ** 2
 
     ne_real = np.abs(ne)
     nh_real = np.abs(nh)
@@ -382,8 +420,8 @@ def printGam(Dx, z, n, file):
 
     Writes to 'dataQW/{file}{n:05d}.dat'.
     """
-    filename = f'dataQW/{file}{n:05d}.dat'
-    with open(filename, 'w', encoding='utf-8') as f:
+    filename = f"dataQW/{file}{n:05d}.dat"
+    with open(filename, "w", encoding="utf-8") as f:
         for i in range(len(z)):
             f.write(f"{np.float32(z[i])} {np.float32(Dx[i])}\n")
 
@@ -396,8 +434,8 @@ def WriteDephasing(ky, gamE, gamH, w, xxx):
     """
     wire = f"{w:02d}"
 
-    printGam(gamE, ky, xxx, f'Wire/Ge/Ge.{wire}.k.')
-    printGam(gamH, ky, xxx, f'Wire/Gh/Gh.{wire}.k.')
+    printGam(gamE, ky, xxx, f"Wire/Ge/Ge.{wire}.k.")
+    printGam(gamH, ky, xxx, f"Wire/Gh/Gh.{wire}.k.")
 
 
 # ── DephasingModule class ───────────────────────────────────────────
@@ -461,8 +499,8 @@ class DephasingModule:
         self._k1 = np.zeros((Nk, Nk), dtype=np.int32)
         self._k1p = np.zeros((Nk, Nk), dtype=np.int32)
 
-        self._xe = me / hbar**2 * np.abs(ky) / (np.abs(ky) + dk * 1e-5)**2 / dk
-        self._xh = mh / hbar**2 * np.abs(ky) / (np.abs(ky) + dk * 1e-5)**2 / dk
+        self._xe = me / hbar**2 * np.abs(ky) / (np.abs(ky) + dk * 1e-5) ** 2 / dk
+        self._xh = mh / hbar**2 * np.abs(ky) / (np.abs(ky) + dk * 1e-5) ** 2 / dk
 
         # Calculate k_p_q and k_m_q
         for q in range(Nk):
@@ -495,9 +533,9 @@ class DephasingModule:
                 k_val = np.clip(k1_0 - ky[q], kmin, kmax)
                 self._k1_m_q[kp, q] = int(np.round(k_val / dk)) + Nk0 - 1
 
-        os.makedirs('dataQW/Wire/info', exist_ok=True)
-        self._fe_file = open('dataQW/Wire/info/MaxOffDiag.e.dat', 'w', encoding='utf-8')
-        self._fh_file = open('dataQW/Wire/info/MaxOffDiag.h.dat', 'w', encoding='utf-8')
+        os.makedirs("dataQW/Wire/info", exist_ok=True)
+        self._fe_file = open("dataQW/Wire/info/MaxOffDiag.e.dat", "w", encoding="utf-8")
+        self._fh_file = open("dataQW/Wire/info/MaxOffDiag.h.dat", "w", encoding="utf-8")
 
     def CalcGammaE(self, ky, ne0, nh0, VC, GammaE):
         """
@@ -519,14 +557,28 @@ class DephasingModule:
         se = np.zeros(Nk + 2)
         sh = np.zeros(Nk + 2)
 
-        ne[1:Nk+1] = np.real(ne0[:])
-        nh[1:Nk+1] = np.real(nh0[:])
+        ne[1 : Nk + 1] = np.real(ne0[:])
+        nh[1 : Nk + 1] = np.real(nh0[:])
 
-        se[1:Nk+1] = 1.0 - ne[1:Nk+1]
-        sh[1:Nk+1] = 1.0 - nh[1:Nk+1]
+        se[1 : Nk + 1] = 1.0 - ne[1 : Nk + 1]
+        sh[1 : Nk + 1] = 1.0 - nh[1 : Nk + 1]
 
-        GammaE[:] = _CalcGammaE_jit(Vee2, Veh2, ne, nh, se, sh, self._k_p_q, self._k_m_q,
-                                     self._k1p_m_q, self._k1p, self._xe, self._xh, pi, hbar)
+        GammaE[:] = _CalcGammaE_jit(
+            Vee2,
+            Veh2,
+            ne,
+            nh,
+            se,
+            sh,
+            self._k_p_q,
+            self._k_m_q,
+            self._k1p_m_q,
+            self._k1p,
+            self._xe,
+            self._xh,
+            pi,
+            hbar,
+        )
 
     def CalcGammaH(self, ky, ne0, nh0, VC, GammaH):
         """
@@ -548,14 +600,28 @@ class DephasingModule:
         se = np.zeros(Nk + 2)
         sh = np.zeros(Nk + 2)
 
-        ne[1:Nk+1] = np.real(ne0[:])
-        nh[1:Nk+1] = np.real(nh0[:])
+        ne[1 : Nk + 1] = np.real(ne0[:])
+        nh[1 : Nk + 1] = np.real(nh0[:])
 
-        se[1:Nk+1] = 1.0 - ne[1:Nk+1]
-        sh[1:Nk+1] = 1.0 - nh[1:Nk+1]
+        se[1 : Nk + 1] = 1.0 - ne[1 : Nk + 1]
+        sh[1 : Nk + 1] = 1.0 - nh[1 : Nk + 1]
 
-        GammaH[:] = _CalcGammaH_jit(Vhh2, Veh2, ne, nh, se, sh, self._k_p_q, self._k_m_q,
-                                     self._k1_m_q, self._k1, self._xe, self._xh, pi, hbar)
+        GammaH[:] = _CalcGammaH_jit(
+            Vhh2,
+            Veh2,
+            ne,
+            nh,
+            se,
+            sh,
+            self._k_p_q,
+            self._k_m_q,
+            self._k1_m_q,
+            self._k1,
+            self._xe,
+            self._xh,
+            pi,
+            hbar,
+        )
 
     def CalcOffDiagDeph_E(self, ne0, nh0, ky, Ee0, Eh0, gee, geh, VC):
         """
@@ -575,16 +641,17 @@ class DephasingModule:
         Veh2 = np.zeros((Nk + 2, Nk + 2))
         Vee2 = np.zeros((Nk + 2, Nk + 2))
 
-        Veh2[1:Nk+1, 1:Nk+1] = VC[:, :, 0]**2
-        Vee2[1:Nk+1, 1:Nk+1] = VC[:, :, 1]**2
+        Veh2[1 : Nk + 1, 1 : Nk + 1] = VC[:, :, 0] ** 2
+        Vee2[1 : Nk + 1, 1 : Nk + 1] = VC[:, :, 1] ** 2
 
-        ne[1:Nk+1] = np.abs(ne0[:])
-        nh[1:Nk+1] = np.abs(nh0[:])
-        Ee[1:Nk+1] = Ee0[:]
-        Eh[1:Nk+1] = Eh0[:]
+        ne[1 : Nk + 1] = np.abs(ne0[:])
+        nh[1 : Nk + 1] = np.abs(nh0[:])
+        Ee[1 : Nk + 1] = Ee0[:]
+        Eh[1 : Nk + 1] = Eh0[:]
 
-        return _CalcOffDiagDeph_E_jit(ne, nh, Veh2, Vee2, Ee, Eh, self._k_p_q, self._k_m_q,
-                                      gee, geh, pi, hbar)
+        return _CalcOffDiagDeph_E_jit(
+            ne, nh, Veh2, Vee2, Ee, Eh, self._k_p_q, self._k_m_q, gee, geh, pi, hbar
+        )
 
     def CalcOffDiagDeph_H(self, ne0, nh0, ky, Ee0, Eh0, ghh, geh, VC):
         """
@@ -604,16 +671,17 @@ class DephasingModule:
         Veh2 = np.zeros((Nk + 2, Nk + 2))
         Vhh2 = np.zeros((Nk + 2, Nk + 2))
 
-        Veh2[1:Nk+1, 1:Nk+1] = VC[:, :, 0]**2
-        Vhh2[1:Nk+1, 1:Nk+1] = VC[:, :, 2]**2
+        Veh2[1 : Nk + 1, 1 : Nk + 1] = VC[:, :, 0] ** 2
+        Vhh2[1 : Nk + 1, 1 : Nk + 1] = VC[:, :, 2] ** 2
 
-        ne[1:Nk+1] = np.abs(ne0[:])
-        nh[1:Nk+1] = np.abs(nh0[:])
-        Ee[1:Nk+1] = Ee0[:]
-        Eh[1:Nk+1] = Eh0[:]
+        ne[1 : Nk + 1] = np.abs(ne0[:])
+        nh[1 : Nk + 1] = np.abs(nh0[:])
+        Ee[1 : Nk + 1] = Ee0[:]
+        Eh[1 : Nk + 1] = Eh0[:]
 
-        return _CalcOffDiagDeph_H_jit(ne, nh, Veh2, Vhh2, Ee, Eh, self._k_p_q, self._k_m_q,
-                                      ghh, geh, pi, hbar)
+        return _CalcOffDiagDeph_H_jit(
+            ne, nh, Veh2, Vhh2, Ee, Eh, self._k_p_q, self._k_m_q, ghh, geh, pi, hbar
+        )
 
     def OffDiagDephasing(self, ne, nh, p, ky, Ee, Eh, g, VC, x):
         """
@@ -637,8 +705,8 @@ class DephasingModule:
         pp = np.zeros((Nk + 2, Nk + 2), dtype=np.complex128)
         pt = np.zeros((Nk + 2, Nk + 2), dtype=np.complex128)
 
-        pt[1:Nk+1, 1:Nk+1] = p[:, :]
-        pp[1:Nk+1, 1:Nk+1] = p.T[:, :]
+        pt[1 : Nk + 1, 1 : Nk + 1] = p[:, :]
+        pp[1 : Nk + 1, 1 : Nk + 1] = p.T[:, :]
 
         x[:, :] = _OffDiagDephasing_jit(Dh, De, pt, pp, self._k_p_q, undel, ii, hbar)
 
@@ -663,10 +731,14 @@ class DephasingModule:
 
         # Write max/min values to files
         if self._fe_file is not None:
-            self._fe_file.write(f"{np.real(t)} {np.max(np.real(De))} {np.min(np.real(De))}\n")
+            self._fe_file.write(
+                f"{np.real(t)} {np.max(np.real(De))} {np.min(np.real(De))}\n"
+            )
             self._fe_file.flush()
         if self._fh_file is not None:
-            self._fh_file.write(f"{np.real(t)} {np.max(np.real(Dh))} {np.min(np.real(Dh))}\n")
+            self._fh_file.write(
+                f"{np.real(t)} {np.max(np.real(Dh))} {np.min(np.real(Dh))}\n"
+            )
             self._fh_file.flush()
 
 
@@ -681,10 +753,20 @@ class DephasingModule:
 _instance = DephasingModule()
 
 # Attribute names that live on the instance (for __getattr__/__setattr__)
-_INSTANCE_ATTRS = frozenset([
-    '_k_p_q', '_k_m_q', '_k1_m_q', '_k1p_m_q', '_k1', '_k1p',
-    '_xe', '_xh', '_fe_file', '_fh_file',
-])
+_INSTANCE_ATTRS = frozenset(
+    [
+        "_k_p_q",
+        "_k_m_q",
+        "_k1_m_q",
+        "_k1p_m_q",
+        "_k1",
+        "_k1p",
+        "_xe",
+        "_xh",
+        "_fe_file",
+        "_fh_file",
+    ]
+)
 
 import sys as _sys
 
@@ -703,28 +785,36 @@ class _ModuleProxy(_sys.modules[__name__].__class__):
             return getattr(_instance, name)
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
 
+
 _sys.modules[__name__].__class__ = _ModuleProxy
 
 
 # ── Wrapper functions delegating to _instance ───────────────────────
 
+
 def InitializeDephasing(ky, me, mh):
     _instance.InitializeDephasing(ky, me, mh)
+
 
 def CalcGammaE(ky, ne0, nh0, VC, GammaE):
     _instance.CalcGammaE(ky, ne0, nh0, VC, GammaE)
 
+
 def CalcGammaH(ky, ne0, nh0, VC, GammaH):
     _instance.CalcGammaH(ky, ne0, nh0, VC, GammaH)
+
 
 def CalcOffDiagDeph_E(ne0, nh0, ky, Ee0, Eh0, gee, geh, VC):
     return _instance.CalcOffDiagDeph_E(ne0, nh0, ky, Ee0, Eh0, gee, geh, VC)
 
+
 def CalcOffDiagDeph_H(ne0, nh0, ky, Ee0, Eh0, ghh, geh, VC):
     return _instance.CalcOffDiagDeph_H(ne0, nh0, ky, Ee0, Eh0, ghh, geh, VC)
 
+
 def OffDiagDephasing(ne, nh, p, ky, Ee, Eh, g, VC, x):
     _instance.OffDiagDephasing(ne, nh, p, ky, Ee, Eh, g, VC, x)
+
 
 def OffDiagDephasing2(ne, nh, p, ky, Ee, Eh, g, VC, t, x):
     _instance.OffDiagDephasing2(ne, nh, p, ky, Ee, Eh, g, VC, t, x)

@@ -22,28 +22,28 @@ class TestYW:
     def test_yw_wire_1(self):
         """Test yw with wire index 1."""
         result = qw.yw(1)
-        expected = (-1)**int(np.floor((1 - 1) / 2.0))
+        expected = (-1) ** int(np.floor((1 - 1) / 2.0))
         assert result == expected
         assert result == 1
 
     def test_yw_wire_2(self):
         """Test yw with wire index 2."""
         result = qw.yw(2)
-        expected = (-1)**int(np.floor((2 - 1) / 2.0))
+        expected = (-1) ** int(np.floor((2 - 1) / 2.0))
         assert result == expected
         assert result == 1
 
     def test_yw_wire_3(self):
         """Test yw with wire index 3."""
         result = qw.yw(3)
-        expected = (-1)**int(np.floor((3 - 1) / 2.0))
+        expected = (-1) ** int(np.floor((3 - 1) / 2.0))
         assert result == expected
         assert result == -1
 
     def test_yw_wire_4(self):
         """Test yw with wire index 4."""
         result = qw.yw(4)
-        expected = (-1)**int(np.floor((4 - 1) / 2.0))
+        expected = (-1) ** int(np.floor((4 - 1) / 2.0))
         assert result == expected
         assert result == -1
 
@@ -61,7 +61,7 @@ class TestYW:
     def test_yw_alternating_pattern(self, w):
         """Test yw follows alternating pattern."""
         result = qw.yw(w)
-        expected = (-1)**int(np.floor((w - 1) / 2.0))
+        expected = (-1) ** int(np.floor((w - 1) / 2.0))
         assert result == expected
 
 
@@ -118,7 +118,7 @@ class TestCalcQWWindow:
             right = inst._QWWindow[mid:][::-1]
         else:
             left = inst._QWWindow[:mid]
-            right = inst._QWWindow[mid+1:][::-1]
+            right = inst._QWWindow[mid + 1 :][::-1]
         # Use more relaxed tolerance for symmetry due to exponential calculation
         assert np.allclose(left, right, rtol=1e-6, atol=1e-8)
 
@@ -127,10 +127,18 @@ class TestCalcQWWindow:
         Nk = 4
         kr = np.linspace(-1e6, 1e6, Nk)
         for L in [5e-6, 10e-6, 20e-6, 50e-6]:
-            inst = QWOptics(self.YY, L, 1e-29, kr, kr,
-                            np.linspace(0, 1e-19, Nk),
-                            np.linspace(0, 1e-19, Nk),
-                            1.0, 1e-12, 1e-19)
+            inst = QWOptics(
+                self.YY,
+                L,
+                1e-29,
+                kr,
+                kr,
+                np.linspace(0, 1e-19, Nk),
+                np.linspace(0, 1e-19, Nk),
+                1.0,
+                1e-12,
+                1e-19,
+            )
             assert inst._QWWindow is not None
             assert len(inst._QWWindow) == self.Ny
 
@@ -149,8 +157,9 @@ class TestCalcExpikr:
         """Create a minimal QWOptics instance."""
         Ee = np.linspace(0, 1e-19, self.Nk)
         Eh = np.linspace(0, 1e-19, self.Nk)
-        return QWOptics(self.y, 10e-6, 1e-29, self.ky, self.ky,
-                        Ee, Eh, 1.0, 1e-12, 1e-19)
+        return QWOptics(
+            self.y, 10e-6, 1e-29, self.ky, self.ky, Ee, Eh, 1.0, 1e-12, 1e-19
+        )
 
     def test_CalcExpikr_creates_arrays(self):
         """Test that exp(ikr) arrays are created."""
@@ -168,10 +177,12 @@ class TestCalcExpikr:
         """Test exp(ikr) values are correct."""
         inst = self._make_instance()
         # Check a few values manually
-        for k_idx in [0, self.Nk//2, self.Nk-1]:
-            for r_idx in [0, self.Ny//2, self.Ny-1]:
+        for k_idx in [0, self.Nk // 2, self.Nk - 1]:
+            for r_idx in [0, self.Ny // 2, self.Ny - 1]:
                 expected = np.exp(1j * self.y[r_idx] * self.ky[k_idx])
-                assert np.allclose(inst._Expikr[k_idx, r_idx], expected, rtol=1e-12, atol=1e-12)
+                assert np.allclose(
+                    inst._Expikr[k_idx, r_idx], expected, rtol=1e-12, atol=1e-12
+                )
 
     def test_CalcExpikr_conjugate_relationship(self):
         """Test that Expikrc is conjugate of Expikr."""
@@ -204,8 +215,18 @@ class TestInitializeQWOptics:
         self.gap = 1e-19
 
     def _make_instance(self):
-        return QWOptics(self.RR, self.L, self.dcv, self.kr, self.Qr,
-                        self.Ee, self.Eh, self.ehint, self.area, self.gap)
+        return QWOptics(
+            self.RR,
+            self.L,
+            self.dcv,
+            self.kr,
+            self.Qr,
+            self.Ee,
+            self.Eh,
+            self.ehint,
+            self.area,
+            self.gap,
+        )
 
     def test_InitializeQWOptics_sets_attributes(self):
         """Test that initialization sets instance attributes."""
@@ -240,7 +261,7 @@ class TestInitializeQWOptics:
         # Check Xcv0 values: dcv * ((-1)**kh)
         for kh in range(self.Nk):
             for ke in range(self.Nk):
-                expected = self.dcv * ((-1)**kh)
+                expected = self.dcv * ((-1) ** kh)
                 assert np.allclose(inst._Xcv0[ke, kh], expected, rtol=1e-12, atol=1e-12)
 
         # Check Ycv0 values: dcv
@@ -274,10 +295,18 @@ class TestXcvYcvZcv:
         self.kr = np.linspace(-1e6, 1e6, self.Nk)
         self.RR = np.linspace(-10e-6, 10e-6, 64)
         self.dcv = 1e-29 + 1j * 1e-30
-        self.inst = QWOptics(self.RR, 10e-6, self.dcv, self.kr, self.kr,
-                             np.linspace(0, 1e-19, self.Nk),
-                             np.linspace(0, 1e-19, self.Nk),
-                             1.0, 1e-12, 1e-19)
+        self.inst = QWOptics(
+            self.RR,
+            10e-6,
+            self.dcv,
+            self.kr,
+            self.kr,
+            np.linspace(0, 1e-19, self.Nk),
+            np.linspace(0, 1e-19, self.Nk),
+            1.0,
+            1e-12,
+            1e-19,
+        )
 
     def test_Xcv_returns_value(self):
         """Test Xcv returns correct value."""
@@ -329,33 +358,38 @@ class TestQWChi1:
 
     def test_QWChi1_returns_complex(self):
         """Test that QWChi1 returns complex value."""
-        result = qw.QWChi1(self.lam, self.dky, self.Ee, self.Eh,
-                          self.area, self.geh, self.dcv)
+        result = qw.QWChi1(
+            self.lam, self.dky, self.Ee, self.Eh, self.area, self.geh, self.dcv
+        )
         assert isinstance(result, complex) or np.iscomplexobj(result)
 
     def test_QWChi1_finite(self):
         """Test that QWChi1 returns finite value."""
-        result = qw.QWChi1(self.lam, self.dky, self.Ee, self.Eh,
-                          self.area, self.geh, self.dcv)
+        result = qw.QWChi1(
+            self.lam, self.dky, self.Ee, self.Eh, self.area, self.geh, self.dcv
+        )
         assert np.isfinite(result)
 
     def test_QWChi1_different_wavelengths(self):
         """Test QWChi1 with different wavelengths."""
         for lam in [400e-9, 800e-9, 1200e-9, 1600e-9]:
-            result = qw.QWChi1(lam, self.dky, self.Ee, self.Eh,
-                              self.area, self.geh, self.dcv)
+            result = qw.QWChi1(
+                lam, self.dky, self.Ee, self.Eh, self.area, self.geh, self.dcv
+            )
             assert np.isfinite(result)
 
     def test_QWChi1_zero_dephasing(self):
         """Test QWChi1 with zero dephasing."""
-        result = qw.QWChi1(self.lam, self.dky, self.Ee, self.Eh,
-                          self.area, 0.0, self.dcv)
+        result = qw.QWChi1(
+            self.lam, self.dky, self.Ee, self.Eh, self.area, 0.0, self.dcv
+        )
         assert np.isfinite(result)
 
     def test_QWChi1_physical_values(self):
         """Test QWChi1 with physical parameter values."""
-        result = qw.QWChi1(self.lam, self.dky, self.Ee, self.Eh,
-                          self.area, self.geh, self.dcv)
+        result = qw.QWChi1(
+            self.lam, self.dky, self.Ee, self.Eh, self.area, self.geh, self.dcv
+        )
         # Susceptibility should be reasonable (not extremely large)
         assert abs(result) < 1e10
 
@@ -390,9 +424,21 @@ class TestProp2QW:
 
     def test_Prop2QW_initializes_outputs(self):
         """Test that outputs are initialized."""
-        self.inst.Prop2QW(self.RR, self.Exx, self.Eyy, self.Ezz, self.Vrr,
-                  self.Edc, self.R, self.Ex, self.Ey, self.Ez, self.Vr,
-                  self.t, self.xxx)
+        self.inst.Prop2QW(
+            self.RR,
+            self.Exx,
+            self.Eyy,
+            self.Ezz,
+            self.Vrr,
+            self.Edc,
+            self.R,
+            self.Ex,
+            self.Ey,
+            self.Ez,
+            self.Vr,
+            self.t,
+            self.xxx,
+        )
         # Outputs should be modified (not all zeros after rescaling)
         assert len(self.Ex) == self.NR
         assert len(self.Ey) == self.NR
@@ -406,9 +452,21 @@ class TestProp2QW:
         self.inst._QWWindow[:10] = 0.0  # Zero out first 10 points
         self.inst._QWWindow[-10:] = 0.0  # Zero out last 10 points
 
-        self.inst.Prop2QW(self.RR, self.Exx, self.Eyy, self.Ezz, self.Vrr,
-                  self.Edc, self.R, self.Ex, self.Ey, self.Ez, self.Vr,
-                  self.t, self.xxx)
+        self.inst.Prop2QW(
+            self.RR,
+            self.Exx,
+            self.Eyy,
+            self.Ezz,
+            self.Vrr,
+            self.Edc,
+            self.R,
+            self.Ex,
+            self.Ey,
+            self.Ez,
+            self.Vr,
+            self.t,
+            self.xxx,
+        )
 
         # After FFT, check that windowed regions are affected
         assert np.all(np.isfinite(self.Ex))
@@ -424,9 +482,21 @@ class TestProp2QW:
         self.Ezz = 1j * np.random.random(self.NRR)
         self.Vrr = 1j * np.random.random(self.NRR)
 
-        self.inst.Prop2QW(self.RR, self.Exx, self.Eyy, self.Ezz, self.Vrr,
-                  self.Edc, self.R, self.Ex, self.Ey, self.Ez, self.Vr,
-                  self.t, self.xxx)
+        self.inst.Prop2QW(
+            self.RR,
+            self.Exx,
+            self.Eyy,
+            self.Ezz,
+            self.Vrr,
+            self.Edc,
+            self.R,
+            self.Ex,
+            self.Ey,
+            self.Ez,
+            self.Vr,
+            self.t,
+            self.xxx,
+        )
 
         # After making real and FFT, should be complex but finite
         assert np.all(np.isfinite(self.Ex))
@@ -437,9 +507,21 @@ class TestProp2QW:
     def test_Prop2QW_without_window(self):
         """Test Prop2QW when window is None."""
         self.inst._QWWindow = None
-        self.inst.Prop2QW(self.RR, self.Exx, self.Eyy, self.Ezz, self.Vrr,
-                  self.Edc, self.R, self.Ex, self.Ey, self.Ez, self.Vr,
-                  self.t, self.xxx)
+        self.inst.Prop2QW(
+            self.RR,
+            self.Exx,
+            self.Eyy,
+            self.Ezz,
+            self.Vrr,
+            self.Edc,
+            self.R,
+            self.Ex,
+            self.Ey,
+            self.Ez,
+            self.Vr,
+            self.t,
+            self.xxx,
+        )
         # Should still work, just without windowing
         assert np.all(np.isfinite(self.Ex))
 
@@ -488,10 +570,29 @@ class TestQW2Prop:
 
     def test_QW2Prop_basic(self):
         """Test basic QW2Prop conversion."""
-        self.inst.QW2Prop(self.r, self.Qr, self.Ex, self.Ey, self.Ez, self.Vr,
-                  self.Px, self.Py, self.Pz, self.re, self.rh,
-                  self.RR, self.Pxx, self.Pyy, self.Pzz, self.RhoE, self.RhoH,
-                  self.w, self.xxx, self.WriteFields, self.Plasmonics)
+        self.inst.QW2Prop(
+            self.r,
+            self.Qr,
+            self.Ex,
+            self.Ey,
+            self.Ez,
+            self.Vr,
+            self.Px,
+            self.Py,
+            self.Pz,
+            self.re,
+            self.rh,
+            self.RR,
+            self.Pxx,
+            self.Pyy,
+            self.Pzz,
+            self.RhoE,
+            self.RhoH,
+            self.w,
+            self.xxx,
+            self.WriteFields,
+            self.Plasmonics,
+        )
 
         assert len(self.Pxx) == self.NRR
         assert len(self.Pyy) == self.NRR
@@ -506,10 +607,29 @@ class TestQW2Prop:
         self.re = np.abs(self.re) + 1e-10
         self.rh = np.abs(self.rh) + 1e-10
 
-        self.inst.QW2Prop(self.r, self.Qr, self.Ex, self.Ey, self.Ez, self.Vr,
-                  self.Px, self.Py, self.Pz, self.re, self.rh,
-                  self.RR, self.Pxx, self.Pyy, self.Pzz, self.RhoE, self.RhoH,
-                  self.w, self.xxx, self.WriteFields, self.Plasmonics)
+        self.inst.QW2Prop(
+            self.r,
+            self.Qr,
+            self.Ex,
+            self.Ey,
+            self.Ez,
+            self.Vr,
+            self.Px,
+            self.Py,
+            self.Pz,
+            self.re,
+            self.rh,
+            self.RR,
+            self.Pxx,
+            self.Pyy,
+            self.Pzz,
+            self.RhoE,
+            self.RhoH,
+            self.w,
+            self.xxx,
+            self.WriteFields,
+            self.Plasmonics,
+        )
 
         # Charge densities should be normalized
         assert np.all(np.isfinite(self.RhoE))
@@ -523,10 +643,29 @@ class TestQW2Prop:
         self.re = np.ones(self.Nr) * 0.5
         self.rh = np.ones(self.Nr) * 0.5
 
-        self.inst.QW2Prop(self.r, self.Qr, self.Ex, self.Ey, self.Ez, self.Vr,
-                  self.Px, self.Py, self.Pz, self.re, self.rh,
-                  self.RR, self.Pxx, self.Pyy, self.Pzz, self.RhoE, self.RhoH,
-                  self.w, self.xxx, self.WriteFields, self.Plasmonics)
+        self.inst.QW2Prop(
+            self.r,
+            self.Qr,
+            self.Ex,
+            self.Ey,
+            self.Ez,
+            self.Vr,
+            self.Px,
+            self.Py,
+            self.Pz,
+            self.re,
+            self.rh,
+            self.RR,
+            self.Pxx,
+            self.Pyy,
+            self.Pzz,
+            self.RhoE,
+            self.RhoH,
+            self.w,
+            self.xxx,
+            self.WriteFields,
+            self.Plasmonics,
+        )
 
         # Check that densities are normalized
         total_re = np.sum(np.abs(self.re)) * self.dr
@@ -548,7 +687,9 @@ class TestQWPolarization3:
         self.Nk = 64
         self.y = np.linspace(-10e-6, 10e-6, self.Nr)
         self.ky = np.linspace(-1e6, 1e6, self.Nk)
-        self.p = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
+        self.p = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
         self.ehint = 1.0
         self.area = 1e-12
         self.L = 10e-6
@@ -566,13 +707,34 @@ class TestQWPolarization3:
         self.Eh = np.linspace(0, 1e-19, self.Nk)
         self.gap = 1e-19
 
-        self.inst = QWOptics(self.RR, self.L, self.dcv, self.ky, self.Qr,
-                             self.Ee, self.Eh, self.ehint, self.area, self.gap)
+        self.inst = QWOptics(
+            self.RR,
+            self.L,
+            self.dcv,
+            self.ky,
+            self.Qr,
+            self.Ee,
+            self.Eh,
+            self.ehint,
+            self.area,
+            self.gap,
+        )
 
     def test_QWPolarization3_initializes_outputs(self):
         """Test that polarization outputs are initialized."""
-        self.inst.QWPolarization3(self.y, self.ky, self.p, self.ehint, self.area,
-                          self.L, self.Px, self.Py, self.Pz, self.xxx, self.w)
+        self.inst.QWPolarization3(
+            self.y,
+            self.ky,
+            self.p,
+            self.ehint,
+            self.area,
+            self.L,
+            self.Px,
+            self.Py,
+            self.Pz,
+            self.xxx,
+            self.w,
+        )
 
         assert len(self.Px) == self.Nr
         assert len(self.Py) == self.Nr
@@ -580,8 +742,19 @@ class TestQWPolarization3:
 
     def test_QWPolarization3_finite_values(self):
         """Test that polarization values are finite."""
-        self.inst.QWPolarization3(self.y, self.ky, self.p, self.ehint, self.area,
-                          self.L, self.Px, self.Py, self.Pz, self.xxx, self.w)
+        self.inst.QWPolarization3(
+            self.y,
+            self.ky,
+            self.p,
+            self.ehint,
+            self.area,
+            self.L,
+            self.Px,
+            self.Py,
+            self.Pz,
+            self.xxx,
+            self.w,
+        )
 
         assert np.all(np.isfinite(self.Px))
         assert np.all(np.isfinite(self.Py))
@@ -593,8 +766,19 @@ class TestQWPolarization3:
         self.inst._Yvc0 = None
         self.inst._Zvc0 = None
 
-        self.inst.QWPolarization3(self.y, self.ky, self.p, self.ehint, self.area,
-                          self.L, self.Px, self.Py, self.Pz, self.xxx, self.w)
+        self.inst.QWPolarization3(
+            self.y,
+            self.ky,
+            self.p,
+            self.ehint,
+            self.area,
+            self.L,
+            self.Px,
+            self.Py,
+            self.Pz,
+            self.xxx,
+            self.w,
+        )
 
         # Should return without error, outputs remain zero
         assert np.allclose(self.Px, 0.0, rtol=1e-12, atol=1e-12)
@@ -608,8 +792,19 @@ class TestQWPolarization3:
             Py = np.zeros(self.Nr, dtype=complex)
             Pz = np.zeros(self.Nr, dtype=complex)
 
-            self.inst.QWPolarization3(self.y, self.ky, self.p, self.ehint, self.area,
-                              self.L, Px, Py, Pz, self.xxx, w)
+            self.inst.QWPolarization3(
+                self.y,
+                self.ky,
+                self.p,
+                self.ehint,
+                self.area,
+                self.L,
+                Px,
+                Py,
+                Pz,
+                self.xxx,
+                w,
+            )
 
             assert np.all(np.isfinite(Px))
             assert np.all(np.isfinite(Py))
@@ -628,9 +823,15 @@ class TestQWRho5:
         self.R = np.linspace(-10e-6, 10e-6, self.Nr)
         self.L = 10e-6
         self.kkp = np.zeros((self.Nk, self.Nk), dtype=int)
-        self.p = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
-        self.CC = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
-        self.DD = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
+        self.p = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
+        self.CC = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
+        self.DD = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
         self.ne = np.random.random(self.Nk) + 1j * np.random.random(self.Nk)
         self.nh = np.random.random(self.Nk) + 1j * np.random.random(self.Nk)
         self.re = np.zeros(self.Nr, dtype=complex)
@@ -646,23 +847,59 @@ class TestQWRho5:
         self.area = 1e-12
         self.gap = 1e-19
 
-        self.inst = QWOptics(self.R, self.L, self.dcv, self.kr, self.Qr,
-                             self.Ee, self.Eh, self.ehint, self.area, self.gap)
+        self.inst = QWOptics(
+            self.R,
+            self.L,
+            self.dcv,
+            self.kr,
+            self.Qr,
+            self.Ee,
+            self.Eh,
+            self.ehint,
+            self.area,
+            self.gap,
+        )
 
     def test_QWRho5_initializes_outputs(self):
         """Test that charge density outputs are initialized."""
-        self.inst.QWRho5(self.Qr, self.kr, self.R, self.L, self.kkp, self.p,
-                 self.CC, self.DD, self.ne, self.nh, self.re, self.rh,
-                 self.xxx, self.jjj)
+        self.inst.QWRho5(
+            self.Qr,
+            self.kr,
+            self.R,
+            self.L,
+            self.kkp,
+            self.p,
+            self.CC,
+            self.DD,
+            self.ne,
+            self.nh,
+            self.re,
+            self.rh,
+            self.xxx,
+            self.jjj,
+        )
 
         assert len(self.re) == self.Nr
         assert len(self.rh) == self.Nr
 
     def test_QWRho5_finite_values(self):
         """Test that charge densities are finite."""
-        self.inst.QWRho5(self.Qr, self.kr, self.R, self.L, self.kkp, self.p,
-                 self.CC, self.DD, self.ne, self.nh, self.re, self.rh,
-                 self.xxx, self.jjj)
+        self.inst.QWRho5(
+            self.Qr,
+            self.kr,
+            self.R,
+            self.L,
+            self.kkp,
+            self.p,
+            self.CC,
+            self.DD,
+            self.ne,
+            self.nh,
+            self.re,
+            self.rh,
+            self.xxx,
+            self.jjj,
+        )
 
         assert np.all(np.isfinite(self.re))
         assert np.all(np.isfinite(self.rh))
@@ -672,9 +909,22 @@ class TestQWRho5:
         self.ne = np.ones(self.Nk) * 0.5
         self.nh = np.ones(self.Nk) * 0.5
 
-        self.inst.QWRho5(self.Qr, self.kr, self.R, self.L, self.kkp, self.p,
-                 self.CC, self.DD, self.ne, self.nh, self.re, self.rh,
-                 self.xxx, self.jjj)
+        self.inst.QWRho5(
+            self.Qr,
+            self.kr,
+            self.R,
+            self.L,
+            self.kkp,
+            self.p,
+            self.CC,
+            self.DD,
+            self.ne,
+            self.nh,
+            self.re,
+            self.rh,
+            self.xxx,
+            self.jjj,
+        )
 
         dr = self.R[1] - self.R[0]
         re_total = np.sum(np.abs(self.re)) * dr
@@ -691,9 +941,22 @@ class TestQWRho5:
         self.inst._Expikrc = None
         self.inst._QWWindow = None
 
-        self.inst.QWRho5(self.Qr, self.kr, self.R, self.L, self.kkp, self.p,
-                 self.CC, self.DD, self.ne, self.nh, self.re, self.rh,
-                 self.xxx, self.jjj)
+        self.inst.QWRho5(
+            self.Qr,
+            self.kr,
+            self.R,
+            self.L,
+            self.kkp,
+            self.p,
+            self.CC,
+            self.DD,
+            self.ne,
+            self.nh,
+            self.re,
+            self.rh,
+            self.xxx,
+            self.jjj,
+        )
 
         # Should return without error, outputs remain zero
         assert np.allclose(self.re, 0.0, rtol=1e-12, atol=1e-12)
@@ -708,9 +971,15 @@ class TestGetVn1n2:
         self.Nk = 32
         self.kr = np.linspace(-1e6, 1e6, self.Nk)
         self.rcv = np.random.random(self.Nk) + 1j * np.random.random(self.Nk)
-        self.Hcc = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
-        self.Hhh = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
-        self.Hcv = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
+        self.Hcc = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
+        self.Hhh = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
+        self.Hcv = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
 
         self.Vcc = np.zeros((self.Nk, self.Nk), dtype=complex)
         self.Vvv = np.zeros((self.Nk, self.Nk), dtype=complex)
@@ -719,8 +988,17 @@ class TestGetVn1n2:
 
     def test_GetVn1n2_initializes_outputs(self):
         """Test that interaction matrices are initialized."""
-        qw.GetVn1n2(self.kr, self.rcv, self.Hcc, self.Hhh, self.Hcv,
-                   self.Vcc, self.Vvv, self.Vcv, self.Vvc)
+        qw.GetVn1n2(
+            self.kr,
+            self.rcv,
+            self.Hcc,
+            self.Hhh,
+            self.Hcv,
+            self.Vcc,
+            self.Vvv,
+            self.Vcv,
+            self.Vvc,
+        )
 
         assert self.Vcc.shape == (self.Nk, self.Nk)
         assert self.Vvv.shape == (self.Nk, self.Nk)
@@ -729,8 +1007,17 @@ class TestGetVn1n2:
 
     def test_GetVn1n2_finite_values(self):
         """Test that interaction matrices have finite values."""
-        qw.GetVn1n2(self.kr, self.rcv, self.Hcc, self.Hhh, self.Hcv,
-                   self.Vcc, self.Vvv, self.Vcv, self.Vvc)
+        qw.GetVn1n2(
+            self.kr,
+            self.rcv,
+            self.Hcc,
+            self.Hhh,
+            self.Hcv,
+            self.Vcc,
+            self.Vvv,
+            self.Vcv,
+            self.Vvc,
+        )
 
         assert np.all(np.isfinite(self.Vcc))
         assert np.all(np.isfinite(self.Vvv))
@@ -739,8 +1026,17 @@ class TestGetVn1n2:
 
     def test_GetVn1n2_conjugate_relationship(self):
         """Test that Vvc is conjugate transpose of Vcv."""
-        qw.GetVn1n2(self.kr, self.rcv, self.Hcc, self.Hhh, self.Hcv,
-                   self.Vcc, self.Vvv, self.Vcv, self.Vvc)
+        qw.GetVn1n2(
+            self.kr,
+            self.rcv,
+            self.Hcc,
+            self.Hhh,
+            self.Hcv,
+            self.Vcc,
+            self.Vvv,
+            self.Vcv,
+            self.Vvc,
+        )
 
         assert np.allclose(self.Vvc, np.conj(self.Vcv.T), rtol=1e-10, atol=1e-12)
 
@@ -750,8 +1046,17 @@ class TestGetVn1n2:
         self.Hhh = np.zeros((self.Nk, self.Nk), dtype=complex)
         self.Hcv = np.zeros((self.Nk, self.Nk), dtype=complex)
 
-        qw.GetVn1n2(self.kr, self.rcv, self.Hcc, self.Hhh, self.Hcv,
-                   self.Vcc, self.Vvv, self.Vcv, self.Vvc)
+        qw.GetVn1n2(
+            self.kr,
+            self.rcv,
+            self.Hcc,
+            self.Hhh,
+            self.Hcv,
+            self.Vcc,
+            self.Vvv,
+            self.Vcv,
+            self.Vvc,
+        )
 
         # With zero H, V should be zero
         assert np.allclose(self.Vcc, 0.0, rtol=1e-12, atol=1e-12)
@@ -768,7 +1073,7 @@ class TestPrintFunctions:
         self.tmpdir = tempfile.mkdtemp()
         self.original_dir = os.getcwd()
         os.chdir(self.tmpdir)
-        os.makedirs('dataQW', exist_ok=True)
+        os.makedirs("dataQW", exist_ok=True)
 
     def teardown_method(self):
         """Clean up test fixtures."""
@@ -782,15 +1087,15 @@ class TestPrintFunctions:
         Dx = np.random.random(N) + 1j * np.random.random(N)
         z = np.linspace(0, 1, N)
         n = 0
-        file = 'test_file'
+        file = "test_file"
 
         qw.printITReal2(Dx, z, n, file)
 
-        filename = f'dataQW/{file}{n:06d}.dat'
+        filename = f"dataQW/{file}{n:06d}.dat"
         assert os.path.exists(filename)
 
         # Check file content
-        with open(filename, 'r') as f:
+        with open(filename, "r") as f:
             lines = f.readlines()
             assert len(lines) == N
             # First line should have both coordinate and field value
@@ -803,15 +1108,15 @@ class TestPrintFunctions:
         N = 32
         Dx = np.random.random(N) + 1j * np.random.random(N)
         z = np.linspace(0, 1, N)
-        file = 'test_file'
+        file = "test_file"
 
         # First write
         qw.printITReal2(Dx, z, 0, file)
         # Second write
         qw.printITReal2(Dx, z, 1, file)
 
-        filename1 = f'dataQW/{file}000000.dat'
-        filename2 = f'dataQW/{file}000001.dat'
+        filename1 = f"dataQW/{file}000000.dat"
+        filename2 = f"dataQW/{file}000001.dat"
         assert os.path.exists(filename1)
         assert os.path.exists(filename2)
 
@@ -821,14 +1126,14 @@ class TestPrintFunctions:
         Dx = np.random.random(N) + 1j * np.random.random(N)
         z = np.linspace(0, 1, N)
         n = 0
-        file = 'test_real'
+        file = "test_real"
 
         qw.printITReal(Dx, z, n, file)
 
-        filename = f'dataQW/{file}{n:06d}.dat'
+        filename = f"dataQW/{file}{n:06d}.dat"
         assert os.path.exists(filename)
 
-        with open(filename, 'r') as f:
+        with open(filename, "r") as f:
             lines = f.readlines()
             assert len(lines) == N
             # Each line should have coordinate and field value
@@ -841,14 +1146,14 @@ class TestPrintFunctions:
         Dx = np.random.random((N1, N2, N3)) + 1j * np.random.random((N1, N2, N3))
         z = np.array([0.0])  # Unused
         n = 0
-        file = 'test_3d'
+        file = "test_3d"
 
         qw.printIT3D(Dx, z, n, file)
 
-        filename = f'dataQW/{file}{n:06d}.dat'
+        filename = f"dataQW/{file}{n:06d}.dat"
         assert os.path.exists(filename)
 
-        with open(filename, 'r') as f:
+        with open(filename, "r") as f:
             lines = f.readlines()
             assert len(lines) == N1 * N2 * N3
             # Each line should have real and imaginary parts
@@ -864,15 +1169,39 @@ class TestWriteFunctions:
         self.tmpdir = tempfile.mkdtemp()
         self.original_dir = os.getcwd()
         os.chdir(self.tmpdir)
-        os.makedirs('dataQW', exist_ok=True)
-        for d in ['Wire/C', 'Wire/D', 'Wire/P', 'Wire/ne', 'Wire/nh',
-                   'Wire/Ee', 'Wire/Eh', 'Wire/PL', 'Wire/Ex', 'Wire/Ey',
-                   'Wire/Ez', 'Wire/Vr', 'Wire/Px', 'Wire/Py', 'Wire/Pz',
-                   'Wire/Re', 'Wire/Rh', 'Wire/Rho',
-                   'Prop', 'Prop/Ex', 'Prop/Ey', 'Prop/Ez', 'Prop/Vr',
-                   'Prop/Px', 'Prop/Py', 'Prop/Pz', 'Prop/Re', 'Prop/Rh',
-                   'Prop/Rho']:
-            os.makedirs(f'dataQW/{d}', exist_ok=True)
+        os.makedirs("dataQW", exist_ok=True)
+        for d in [
+            "Wire/C",
+            "Wire/D",
+            "Wire/P",
+            "Wire/ne",
+            "Wire/nh",
+            "Wire/Ee",
+            "Wire/Eh",
+            "Wire/PL",
+            "Wire/Ex",
+            "Wire/Ey",
+            "Wire/Ez",
+            "Wire/Vr",
+            "Wire/Px",
+            "Wire/Py",
+            "Wire/Pz",
+            "Wire/Re",
+            "Wire/Rh",
+            "Wire/Rho",
+            "Prop",
+            "Prop/Ex",
+            "Prop/Ey",
+            "Prop/Ez",
+            "Prop/Vr",
+            "Prop/Px",
+            "Prop/Py",
+            "Prop/Pz",
+            "Prop/Re",
+            "Prop/Rh",
+            "Prop/Rho",
+        ]:
+            os.makedirs(f"dataQW/{d}", exist_ok=True)
 
         self.Nk = 32
         self.Nr = 64
@@ -888,9 +1217,15 @@ class TestWriteFunctions:
         """Test that WriteSBESolns creates output files."""
         ne = np.random.random(self.Nk) + 1j * np.random.random(self.Nk)
         nh = np.random.random(self.Nk) + 1j * np.random.random(self.Nk)
-        C = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
-        D = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
-        P = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
+        C = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
+        D = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
+        P = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
         Ee = np.random.random(self.Nk) + 1j * np.random.random(self.Nk)
         Eh = np.random.random(self.Nk) + 1j * np.random.random(self.Nk)
 
@@ -916,7 +1251,7 @@ class TestWriteFunctions:
         Re = np.random.random(self.Nr) + 1j * np.random.random(self.Nr)
         Rh = np.random.random(self.Nr) + 1j * np.random.random(self.Nr)
 
-        qw.WriteQWFields(QY, Ex, Ey, Ez, Vr, Px, Py, Pz, Re, Rh, 'r', 1, 0)
+        qw.WriteQWFields(QY, Ex, Ey, Ez, Vr, Px, Py, Pz, Re, Rh, "r", 1, 0)
         assert True
 
     def test_WritePropFields_creates_files(self):
@@ -932,7 +1267,7 @@ class TestWriteFunctions:
         Re = np.random.random(self.Nr) + 1j * np.random.random(self.Nr)
         Rh = np.random.random(self.Nr) + 1j * np.random.random(self.Nr)
 
-        qw.WritePropFields(y, Ex, Ey, Ez, Vr, Px, Py, Pz, Re, Rh, 'y', 1, 0)
+        qw.WritePropFields(y, Ex, Ey, Ez, Vr, Px, Py, Pz, Re, Rh, "y", 1, 0)
         assert True
 
 
@@ -963,8 +1298,18 @@ class TestIntegratedWorkflows:
 
     def test_initialization_workflow(self):
         """Test complete initialization workflow."""
-        inst = QWOptics(self.RR, self.L, self.dcv, self.kr, self.Qr,
-                        self.Ee, self.Eh, self.ehint, self.area, self.gap)
+        inst = QWOptics(
+            self.RR,
+            self.L,
+            self.dcv,
+            self.kr,
+            self.Qr,
+            self.Ee,
+            self.Eh,
+            self.ehint,
+            self.area,
+            self.gap,
+        )
 
         # Check all attributes are set
         assert inst._QWWindow is not None
@@ -978,8 +1323,18 @@ class TestIntegratedWorkflows:
     def test_prop_to_qw_to_prop_roundtrip(self):
         """Test roundtrip conversion: Prop -> QW -> Prop."""
         # Initialize with R (not RR) for window calculation
-        inst = QWOptics(self.R, self.L, self.dcv, self.kr, self.Qr,
-                        self.Ee, self.Eh, self.ehint, self.area, self.gap)
+        inst = QWOptics(
+            self.R,
+            self.L,
+            self.dcv,
+            self.kr,
+            self.Qr,
+            self.Ee,
+            self.Eh,
+            self.ehint,
+            self.area,
+            self.gap,
+        )
 
         # Create propagation fields
         Exx = np.random.random(self.NRR) + 1j * np.random.random(self.NRR)
@@ -1009,8 +1364,29 @@ class TestIntegratedWorkflows:
         RhoE = np.zeros(self.NRR, dtype=complex)
         RhoH = np.zeros(self.NRR, dtype=complex)
 
-        inst.QW2Prop(self.r, self.Qr, Ex, Ey, Ez, Vr, Px, Py, Pz, re, rh,
-                  self.RR, Pxx, Pyy, Pzz, RhoE, RhoH, 1, 0, False, False)
+        inst.QW2Prop(
+            self.r,
+            self.Qr,
+            Ex,
+            Ey,
+            Ez,
+            Vr,
+            Px,
+            Py,
+            Pz,
+            re,
+            rh,
+            self.RR,
+            Pxx,
+            Pyy,
+            Pzz,
+            RhoE,
+            RhoH,
+            1,
+            0,
+            False,
+            False,
+        )
 
         # Check that outputs are finite
         assert np.all(np.isfinite(Pxx))
@@ -1019,19 +1395,32 @@ class TestIntegratedWorkflows:
 
     def test_polarization_calculation_workflow(self):
         """Test complete polarization calculation workflow."""
-        inst = QWOptics(self.RR, self.L, self.dcv, self.kr, self.Qr,
-                        self.Ee, self.Eh, self.ehint, self.area, self.gap)
+        inst = QWOptics(
+            self.RR,
+            self.L,
+            self.dcv,
+            self.kr,
+            self.Qr,
+            self.Ee,
+            self.Eh,
+            self.ehint,
+            self.area,
+            self.gap,
+        )
 
         # Create density matrix
-        p = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
+        p = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
 
         # Calculate polarization
         Px = np.zeros(self.Nr, dtype=complex)
         Py = np.zeros(self.Nr, dtype=complex)
         Pz = np.zeros(self.Nr, dtype=complex)
 
-        inst.QWPolarization3(self.y, self.ky, p, self.ehint, self.area,
-                          self.L, Px, Py, Pz, 0, 1)
+        inst.QWPolarization3(
+            self.y, self.ky, p, self.ehint, self.area, self.L, Px, Py, Pz, 0, 1
+        )
 
         # Check results
         assert np.all(np.isfinite(Px))
@@ -1040,12 +1429,26 @@ class TestIntegratedWorkflows:
 
     def test_charge_density_workflow(self):
         """Test complete charge density calculation workflow."""
-        inst = QWOptics(self.RR, self.L, self.dcv, self.kr, self.Qr,
-                        self.Ee, self.Eh, self.ehint, self.area, self.gap)
+        inst = QWOptics(
+            self.RR,
+            self.L,
+            self.dcv,
+            self.kr,
+            self.Qr,
+            self.Ee,
+            self.Eh,
+            self.ehint,
+            self.area,
+            self.gap,
+        )
 
         # Create coherence matrices
-        CC = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
-        DD = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
+        CC = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
+        DD = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
         ne = np.random.random(self.Nk) + 1j * np.random.random(self.Nk)
         nh = np.random.random(self.Nk) + 1j * np.random.random(self.Nk)
         p = np.zeros((self.Nk, self.Nk), dtype=complex)
@@ -1055,8 +1458,9 @@ class TestIntegratedWorkflows:
         re = np.zeros(self.Nr, dtype=complex)
         rh = np.zeros(self.Nr, dtype=complex)
 
-        inst.QWRho5(self.Qr, self.kr, self.R, self.L, kkp, p, CC, DD,
-                 ne, nh, re, rh, 0, 0)
+        inst.QWRho5(
+            self.Qr, self.kr, self.R, self.L, kkp, p, CC, DD, ne, nh, re, rh, 0, 0
+        )
 
         # Check results
         assert np.all(np.isfinite(re))
@@ -1066,9 +1470,15 @@ class TestIntegratedWorkflows:
         """Test interaction matrix calculation workflow."""
         # Create Hamiltonian matrices
         rcv = np.random.random(self.Nk) + 1j * np.random.random(self.Nk)
-        Hcc = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
-        Hhh = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
-        Hcv = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random((self.Nk, self.Nk))
+        Hcc = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
+        Hhh = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
+        Hcv = np.random.random((self.Nk, self.Nk)) + 1j * np.random.random(
+            (self.Nk, self.Nk)
+        )
 
         # Calculate interaction matrices
         Vcc = np.zeros((self.Nk, self.Nk), dtype=complex)
@@ -1097,7 +1507,7 @@ class TestEdgeCases:
     def test_yw_zero_wire(self):
         """Test yw with wire index 0 (edge case)."""
         result = qw.yw(0)
-        expected = (-1)**int(np.floor((0 - 1) / 2.0))
+        expected = (-1) ** int(np.floor((0 - 1) / 2.0))
         assert result == expected
 
     def test_QWChi1_extreme_wavelengths(self):
@@ -1124,9 +1534,18 @@ class TestEdgeCases:
         L = 10e-6
         Nk = 2
         kr = np.array([-1e6, 1e6])
-        inst = QWOptics(YY, L, 1e-29, kr, kr,
-                        np.array([0, 1e-19]), np.array([0, 1e-19]),
-                        1.0, 1e-12, 1e-19)
+        inst = QWOptics(
+            YY,
+            L,
+            1e-29,
+            kr,
+            kr,
+            np.array([0, 1e-19]),
+            np.array([0, 1e-19]),
+            1.0,
+            1e-12,
+            1e-19,
+        )
         assert inst._QWWindow is not None
         assert len(inst._QWWindow) == 1
 
@@ -1134,9 +1553,9 @@ class TestEdgeCases:
         """Test CalcExpikr with single point."""
         y = np.array([0.0])
         ky = np.array([0.0])
-        inst = QWOptics(y, 10e-6, 1e-29, ky, ky,
-                        np.array([0.0]), np.array([0.0]),
-                        1.0, 1e-12, 1e-19)
+        inst = QWOptics(
+            y, 10e-6, 1e-29, ky, ky, np.array([0.0]), np.array([0.0]), 1.0, 1e-12, 1e-19
+        )
         assert inst._Expikr is not None
         assert inst._Expikr.shape == (1, 1)
         assert np.allclose(inst._Expikr[0, 0], 1.0, rtol=1e-12, atol=1e-12)
@@ -1213,10 +1632,18 @@ class TestNumericalPrecision:
         y = np.linspace(-10e-6, 10e-6, Ny)
         ky = np.linspace(-1e6, 1e6, Nk)
 
-        inst = QWOptics(y, 10e-6, 1e-29, ky, ky,
-                        np.linspace(0, 1e-19, Nk),
-                        np.linspace(0, 1e-19, Nk),
-                        1.0, 1e-12, 1e-19)
+        inst = QWOptics(
+            y,
+            10e-6,
+            1e-29,
+            ky,
+            ky,
+            np.linspace(0, 1e-19, Nk),
+            np.linspace(0, 1e-19, Nk),
+            1.0,
+            1e-12,
+            1e-19,
+        )
 
         # Check unit magnitude with high precision
         magnitudes = np.abs(inst._Expikr)

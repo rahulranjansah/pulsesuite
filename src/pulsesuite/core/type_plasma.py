@@ -21,6 +21,7 @@ Assumptions
 *   No Fortran‑style unit numbers – we just pass an already‑opened `TextIO` or
     a *path* (the helper takes care of opening).
 """
+
 from __future__ import annotations
 
 import pathlib
@@ -48,6 +49,7 @@ plasma_filetag: tuple[str, ...] = ("[params.plasma_v1.0]",)
 # -----------------------------------------------------------------------------
 _num_re = re.compile(r"^[^#]*?([-+]?\d*(?:\.\d+)?(?:[eE][-+]?\d+)?).*")
 
+
 def _parse_number(line: str, want_float: bool = True):
     """Extract the first numeric token from *line* – raise on failure."""
     m = _num_re.match(line.strip())
@@ -60,7 +62,7 @@ def _fp(lines: Iterable[str]):
     """Yield successive *non‑blank* and non-comment lines (skip comments and blanks)."""
     for ln in lines:
         s = ln.strip()
-        if s and not s.startswith('#'):
+        if s and not s.startswith("#"):
             yield s
 
 
@@ -128,7 +130,9 @@ class plasma_coefficients:
     def __eq__(self, other):
         if not isinstance(other, plasma_coefficients):
             return NotImplemented
-        return all(getattr(self, slot) == getattr(other, slot) for slot in self.__slots__)
+        return all(
+            getattr(self, slot) == getattr(other, slot) for slot in self.__slots__
+        )
 
 
 # -----------------------------------------------------------------------------
@@ -179,10 +183,14 @@ def writeplasmaparams_sub(
         handle.write(f"{plasma.mass :.15e} : Effective electron mass (kg)\n")
         handle.write(f"{plasma.band_gap :.15e} : Material band gap (J)\n")
         handle.write(f"{plasma.trap_time :.15e} : Free electron trapping time (s)\n")
-        handle.write(f"{plasma.collision_time :.15e} : Free electron collision time (s)\n")
+        handle.write(
+            f"{plasma.collision_time :.15e} : Free electron collision time (s)\n"
+        )
         handle.write(f"{plasma.max_density :.15e} : Maximum plasma density (1/m^3)\n")
         handle.write(f"{plasma.order :d} : Multi-photon ionization order\n")
-        handle.write(f"{plasma.sigma_multi :.15e} : Multi-photon ionization cross-section (1/m^2)\n")
+        handle.write(
+            f"{plasma.sigma_multi :.15e} : Multi-photon ionization cross-section (1/m^2)\n"
+        )
 
     if isinstance(U, (str, pathlib.Path)):
         with open(U, "wt", encoding="utf-8") as fh:
@@ -205,9 +213,7 @@ def GetMass(plasma: plasma_coefficients) -> Annotated[float, np.float64]:
 
 
 @with_guardrails
-def SetMass(
-    plasma: plasma_coefficients, mass: Annotated[float, np.float64]
-) -> None:
+def SetMass(plasma: plasma_coefficients, mass: Annotated[float, np.float64]) -> None:
     plasma.mass = dp(mass)
 
 
@@ -217,9 +223,7 @@ def GetBandGap(plasma: plasma_coefficients) -> Annotated[float, np.float64]:
 
 
 @with_guardrails
-def SetBandGap(
-    plasma: plasma_coefficients, gap: Annotated[float, np.float64]
-) -> None:
+def SetBandGap(plasma: plasma_coefficients, gap: Annotated[float, np.float64]) -> None:
     plasma.band_gap = dp(gap)
 
 

@@ -236,8 +236,8 @@ class TestArrayGeneration:
         L = 1e-6
         result = ts.GetSpaceArray(N, L)
         assert len(result) == N
-        assert np.isclose(result[0], -L/2.0, rtol=1e-12, atol=1e-12)
-        assert np.isclose(result[-1], L/2.0, rtol=1e-12, atol=1e-12)
+        assert np.isclose(result[0], -L / 2.0, rtol=1e-12, atol=1e-12)
+        assert np.isclose(result[-1], L / 2.0, rtol=1e-12, atol=1e-12)
 
     def test_getspacearray_odd_length(self):
         """Test GetSpaceArray with odd length."""
@@ -245,7 +245,7 @@ class TestArrayGeneration:
         L = 1e-6
         result = ts.GetSpaceArray(N, L)
         assert len(result) == N
-        assert np.isclose(result[N//2], 0.0, rtol=1e-12, atol=1e-12)
+        assert np.isclose(result[N // 2], 0.0, rtol=1e-12, atol=1e-12)
 
     def test_getkarray_simple(self):
         """Test GetKArray with simple case."""
@@ -254,7 +254,7 @@ class TestArrayGeneration:
         result = ts.GetKArray(Nk, L)
         assert len(result) == Nk
         # Check that it's centered at zero
-        assert np.isclose(result[Nk//2], 0.0, rtol=1e-12, atol=1e-12)
+        assert np.isclose(result[Nk // 2], 0.0, rtol=1e-12, atol=1e-12)
 
     def test_getkarray_single_point(self):
         """Test GetKArray with single point."""
@@ -278,8 +278,8 @@ class TestArrayGeneration:
         result = ts.GetXArray(space)
         assert len(result) == 100
         width = ts.GetXWidth(space)
-        assert np.isclose(result[0], -width/2.0, rtol=1e-10, atol=1e-12)
-        assert np.isclose(result[-1], width/2.0, rtol=1e-10, atol=1e-12)
+        assert np.isclose(result[0], -width / 2.0, rtol=1e-10, atol=1e-12)
+        assert np.isclose(result[-1], width / 2.0, rtol=1e-10, atol=1e-12)
 
     def test_getxarray_single_point(self):
         """Test GetXArray with single point."""
@@ -403,7 +403,7 @@ class TestFileIOParams:
 
     def test_readspaceparams_file(self):
         """Test ReadSpaceParams from file."""
-        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.params') as f:
+        with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".params") as f:
             f.write("3\n100\n50\n25\n1e-9\n2e-9\n3e-9\n3.0\n")
             fname = f.name
 
@@ -418,7 +418,7 @@ class TestFileIOParams:
     def test_writespaceparams_file(self):
         """Test writespaceparams to file."""
         space = ts.ss(Dims=3, Nx=100, Ny=50, Nz=25, dx=1e-9, dy=2e-9, dz=3e-9, epsr=3.0)
-        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.params') as f:
+        with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".params") as f:
             fname = f.name
 
         try:
@@ -529,7 +529,7 @@ class TestTextIO:
         f = StringIO()
         ts.writefield_to_unit(f, e, binmode=False)
         output = f.getvalue()
-        lines = output.strip().split('\n')
+        lines = output.strip().split("\n")
         # Array has 3*2*1 = 6 elements
         assert len(lines) == 6
         # Check first line (element [0,0,0])
@@ -547,7 +547,7 @@ class TestIntegratedIO:
         space = ts.ss(Dims=3, Nx=10, Ny=5, Nz=3, dx=1e-9, dy=1e-9, dz=1e-9, epsr=3.0)
         e = np.random.rand(10, 5, 3) + 1j * np.random.rand(10, 5, 3)
         e = e.astype(complex)
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.bin') as f:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".bin") as f:
             fname = f.name
 
         try:
@@ -567,7 +567,7 @@ class TestIntegratedIO:
         space = ts.ss(Dims=3, Nx=5, Ny=3, Nz=2, dx=1e-9, dy=1e-9, dz=1e-9, epsr=3.0)
         e = np.random.rand(5, 3, 2) + 1j * np.random.rand(5, 3, 2)
         e = e.astype(complex)
-        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f:
+        with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".txt") as f:
             fname = f.name
 
         try:
@@ -585,12 +585,12 @@ class TestIntegratedIO:
     def test_readspace_only_binary(self):
         """Test readspace_only in binary mode."""
         space = ts.ss(Dims=3, Nx=10, Ny=5, Nz=3, dx=1e-9, dy=2e-9, dz=3e-9, epsr=3.0)
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.bin') as f:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".bin") as f:
             fname = f.name
 
         try:
             # Write space
-            f_bin = open(fname, 'wb')
+            f_bin = open(fname, "wb")
             ts.unformatted_write_space(f_bin, space)
             f_bin.close()
             # Read it back
@@ -607,7 +607,7 @@ class TestIntegratedIO:
         space = ts.ss(Dims=3, Nx=5, Ny=3, Nz=2, dx=1e-9, dy=1e-9, dz=1e-9, epsr=3.0)
         e = np.random.rand(5, 3, 2) + 1j * np.random.rand(5, 3, 2)
         e = e.astype(complex)
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.bin') as f:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".bin") as f:
             fname = f.name
 
         try:
@@ -626,7 +626,7 @@ class TestIntegratedIO:
         space = ts.ss(Dims=3, Nx=5, Ny=3, Nz=2, dx=1e-9, dy=1e-9, dz=1e-9, epsr=3.0)
         e = np.random.rand(5, 3, 2) + 1j * np.random.rand(5, 3, 2)
         e = e.astype(complex)
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.bin') as f:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".bin") as f:
             fname = f.name
 
         try:
@@ -697,28 +697,36 @@ class TestEdgeCases:
 class TestParameterized:
     """Parameterized tests for various dimensions."""
 
-    @pytest.mark.parametrize("dims,nx,ny,nz", [
-        (1, 100, 1, 1),
-        (2, 100, 50, 1),
-        (3, 100, 50, 25),
-        (1, 1, 1, 1),
-        (2, 10, 10, 1),
-        (3, 10, 10, 10),
-    ])
+    @pytest.mark.parametrize(
+        "dims,nx,ny,nz",
+        [
+            (1, 100, 1, 1),
+            (2, 100, 50, 1),
+            (3, 100, 50, 25),
+            (1, 1, 1, 1),
+            (2, 10, 10, 1),
+            (3, 10, 10, 10),
+        ],
+    )
     def test_getters_all_dimensions(self, dims, nx, ny, nz):
         """Test getters for all dimension types."""
-        space = ts.ss(Dims=dims, Nx=nx, Ny=ny, Nz=nz, dx=1e-9, dy=1e-9, dz=1e-9, epsr=3.0)
+        space = ts.ss(
+            Dims=dims, Nx=nx, Ny=ny, Nz=nz, dx=1e-9, dy=1e-9, dz=1e-9, epsr=3.0
+        )
         assert ts.GetNx(space) == nx
         assert ts.GetNy(space) == ny
         assert ts.GetNz(space) == nz
 
-    @pytest.mark.parametrize("nx,dx", [
-        (1, 1e-9),
-        (2, 1e-9),
-        (100, 1e-9),
-        (101, 1e-9),
-        (1000, 1e-9),
-    ])
+    @pytest.mark.parametrize(
+        "nx,dx",
+        [
+            (1, 1e-9),
+            (2, 1e-9),
+            (100, 1e-9),
+            (101, 1e-9),
+            (1000, 1e-9),
+        ],
+    )
     def test_getxwidth_various_sizes(self, nx, dx):
         """Test GetXWidth with various sizes."""
         space = ts.ss(Dims=3, Nx=nx, Ny=50, Nz=25, dx=dx, dy=1e-9, dz=1e-9, epsr=3.0)
@@ -726,22 +734,24 @@ class TestParameterized:
         result = ts.GetXWidth(space)
         assert np.isclose(result, expected, rtol=1e-12, atol=1e-12)
 
-    @pytest.mark.parametrize("n,l", [
-        (1, 1.0),
-        (2, 1.0),
-        (10, 1.0),
-        (100, 1e-6),
-        (101, 1e-6),
-    ])
+    @pytest.mark.parametrize(
+        "n,l",
+        [
+            (1, 1.0),
+            (2, 1.0),
+            (10, 1.0),
+            (100, 1e-6),
+            (101, 1e-6),
+        ],
+    )
     def test_getspacearray_various_sizes(self, n, l):
         """Test GetSpaceArray with various sizes."""
         result = ts.GetSpaceArray(n, l)
         assert len(result) == n
         if n > 1:
-            assert np.isclose(result[0], -l/2.0, rtol=1e-12, atol=1e-12)
-            assert np.isclose(result[-1], l/2.0, rtol=1e-12, atol=1e-12)
+            assert np.isclose(result[0], -l / 2.0, rtol=1e-12, atol=1e-12)
+            assert np.isclose(result[-1], l / 2.0, rtol=1e-12, atol=1e-12)
 
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
-
