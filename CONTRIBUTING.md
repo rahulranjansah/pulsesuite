@@ -100,21 +100,38 @@ Start by setting up Git:
    and fetch its information with `git fetch upstream`
 6. Set your `main` branch to track `upstream` using `git branch --set-upstream-to=upstream/main`
 
-Next, configure your Python environment:
+Next, set up your development environment. PulseSuite uses
+[uv](https://docs.astral.sh/uv/) for dependency management:
 
-6. Install Python for development.
-7. Create a Python virtual environment using `python -m venv .venv`
-8. Activate it using `source .venv/bin/activate`
-9. Upgrade the development dependencies using `python -m pip install -U pip setuptools wheel flit tox`
-10. Install the code in development mode using `python -m pip install -e .`
-    (this means that the installed code will change as soon as you change it in the
-    download location).
+6. [Install uv](https://docs.astral.sh/uv/getting-started/installation/)
+7. Sync all dependencies (core + test + doc) in one step:
+   `uv sync --all-extras`
+
+Alternatively, with pip:
+
+6. Create a Python virtual environment using `python -m venv .venv`
+7. Activate it using `source .venv/bin/activate`
+8. Install the code in development mode using `pip install -e ".[test,doc]"`
 
 And with this, you will be ready to start contributing!
 
+Common development commands:
+
+```console
+$ uv run pytest                       # run the test suite
+$ uv run pytest -k coulomb            # run a subset of tests
+$ uv run ruff check src/ tests/       # lint
+$ uv run ruff check --fix src/ tests/ # auto-fix lint issues
+$ uv run ruff format src/ tests/      # format code
+```
+
+A `justfile` is also provided as an optional convenience wrapper.
+If you have [just](https://github.com/casey/just) installed, run
+`just --list` to see available commands.
+
 ### Pull request workflow
 
-Every time you want to contribute some code or documentation to boinor,
+Every time you want to contribute some code or documentation to PulseSuite,
 you will need to follow these steps:
 
 1. Make sure that your `main` branch is up to date: `git switch main`
@@ -140,40 +157,65 @@ you need to start from step 1.
 
 ### Build the documentation
 
-To build the docs, you will need some system dependencies.
-On Debian-like systems (Ubuntu, Linux Mint, etc),
-they can be installed running:
+Using uv (recommended):
 
 ```console
+$ cd docs && uv run make html
+```
 
-(.venv) $ pip install -e .[doc]  # Installs doc dependencies
+Or with pip:
+
+```console
+(.venv) $ pip install -e ".[doc]"
 (.venv) $ cd docs
 (.venv) $ make html
 ```
 
-or, alternatively (not tested):
+After the build, the HTML output will be in `docs/_build/html`.
+You can preview it locally:
 
 ```console
-$ sudo apt-get update && sudo apt-get install \
-pandoc texlive texlive-latex-extra texlive-fonts-recommended dvipng graphviz cm-super-minimal
-```
-
-Then, either run:
-
-```console
-$ tox -e docs
-```
-
-After this, the new docs will be inside `docs/_build/html`. You can open them
-by running an HTTP server:
-
-```console
-$ cd docs/_build/html
-$ python -m http.server
+$ python -m http.server -d docs/_build/html
 Serving HTTP on 0.0.0.0 port 8000 ...
 ```
 
 And point your browser to <http://0.0.0.0:8000>.
+
+### Code style and naming conventions
+
+PulseSuite is a Python port of a production Fortran codebase. We
+**intentionally preserve the original Fortran naming conventions**
+rather than converting everything to PEP 8 snake_case. This is a
+deliberate design choice, not an oversight.
+
+**Why we do this:**
+
+- **Traceability.** Researchers familiar with the original Fortran code
+  can locate the same subroutines and variables by name. A function
+  called `InitializeSBE` in Fortran is still `InitializeSBE` in Python.
+- **Literature consistency.** Variable names like `Ex`, `Ey`, `Nk`,
+  `VC`, `Rho`, and `Ee` match the notation used in the published papers
+  (Gulley & Huang 2019, 2022) and textbooks (Haug & Koch). Renaming
+  them to `electric_field_x` would obscure the connection to the
+  physics.
+- **Backward compatibility.** Existing simulation scripts and parameter
+  files reference these names. Renaming would break downstream usage.
+
+**What this means in practice:**
+
+- Function names use **PascalCase** to match Fortran subroutine names
+  (e.g., `CalcPHost`, `SetParamsGaAs`, `InitializeCoulomb`).
+- Physics variables use **short names** from the literature
+  (e.g., `Ee`, `Eh`, `ky`, `VC`, `Nk`).
+- Module names like `SBEs.py`, `rhoPJ.py`, `PSTD3D/` preserve the
+  original Fortran module structure.
+- Several `ruff` lint rules are suppressed in `pyproject.toml` for this
+  reason (e.g., `E741` for "ambiguous" variable names like `I`, `l`,
+  `O` which are standard physics notation).
+
+When contributing new code that extends existing modules, **follow the
+conventions of the surrounding code**. For entirely new utilities with
+no Fortran counterpart, PEP 8 snake_case is acceptable.
 
 ### Make code changes
 
@@ -188,13 +230,15 @@ Apart from all the steps described above, you need to have these extra things in
 1. Add tests to your code. You have lots of examples in the `tests/` directory
    to get inspiration from. All new features and fixes should be tested,
    and in the ideal case the coverage rate should increase or stay the same.
-2. To check if your code is correct, run `tox`. This command runs the code
-   style, the tests and build the documentation of the project.
+2. To check if your code is correct, run `uv run pytest`. To also lint
+   and format-check, run `uv run ruff check src/ tests/` and
+   `uv run ruff format --check src/ tests/`.
 3. Notice that you can run a subset of the tests by
-   passing extra arguments to pytest, for example running
-   `tox -e tests-fast -- -k "anomaly"`
+   passing extra arguments to pytest, for example
+   `uv run pytest -k "coulomb"`
 
-Part of this contributing guide have been adapted from the Boinor contributing guides.
+Parts of this contributing guide have been adapted from the
+[poliastro](https://github.com/poliastro/poliastro) contributing guide.
 
 Automatic services will ensure your code works
 on all the supported operating systems and Python versions.

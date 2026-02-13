@@ -125,6 +125,7 @@ suppress_warnings = [
 html_theme = "sphinx_rtd_theme"
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 html_static_path = ["_static"]
+html_logo = "_static/PulseSuitenobg.png"
 
 # -- MyST-NB execution configuration ----------------------------------------
 
@@ -149,10 +150,7 @@ nb_execution_show_tb = True
 # Note: If a file causes kernel crashes even with try-except blocks,
 # it likely means the crash happens at a lower level (C extensions, memory issues)
 # and the file should be excluded from execution
-nb_execution_excludepatterns = [
-    # "examples/sbes_example.myst.md",
-    "examples/coulomb_example.myst.md"  # Excluded due to DeadKernelError during heavy computations
-]
+nb_execution_excludepatterns = []
 
 # Your .myst.md files declare format_name: myst in the YAML header,
 # so if you keep jupytext, the fmt must be "myst" (not "mystnb")

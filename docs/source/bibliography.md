@@ -1,30 +1,31 @@
 (bibliography)=
 # Bibliography
 
-> *Nanos gigantum humeris insidentes.*
+> *Standing on the shoulders of giants.*
 
-## Books and papers
+## Books and Papers
 
-Several books and articles are mentioned across the documentation and
-the source code itself. Here is the complete list in no particular
-order:
+The following references provide the theoretical foundation for the
+physics implemented in PulseSuite:
 
-- Vallado, David A., and Wayne D. McClain. *Fundamentals of
-  astrodynamics and applications*. Vol. 12. Springer Science &
-  Business Media, 2001.
-  {cite:p}`Vallado2001`
-- Curtis, Howard. *Orbital mechanics for engineering students*.
-  Butterworth-Heinemann, 2013 {cite:p}`Curtis2013`.
-- Bate, Roger R., Donald D. Mueller, William W. Saylor, and Jerry E.
-  White. *Fundamentals of astrodynamics: (dover books on physics)*.
-  Dover publications, 2013. {cite:p}`Bate_et_al2020`
-- Battin, Richard H. *An introduction to the mathematics and methods
-  of astrodynamics*. Aiaa, 1999. {cite:p}`Battin1999`
-- Edelbaum, Theodore N. \"Propulsion requirements for controllable
-  satellites.\" *ARS Journal* 31, no. 8 (1961): 1079-1089. {cite:p}`Edelbaum1961`
-- Walker, M. J. H., B. Ireland, and Joyce Owens. \"A set modified
-  equinoctial orbit elements.\" *Celestial Mechanics* 36.4 (1985):
-  409-419. {cite:p}`Walker1985`
+- Haug, Hartmut, and Stephan W. Koch. *Quantum Theory of the Optical
+  and Electronic Properties of Semiconductors*. 5th ed. World
+  Scientific, 2009. {cite:p}`Haug2009`
+- Meier, Torsten, Peter Thomas, and Stephan W. Koch. *Coherent
+  Semiconductor Optics: From Basic Concepts to Nanostructure
+  Applications*. Springer, 2007. {cite:p}`Meier2007`
+- Chow, Weng W., and Stephan W. Koch. *Semiconductor-Laser
+  Fundamentals: Physics of the Gain Materials*. Springer, 1999.
+  {cite:p}`Chow1999`
+- Lindberg, M., and Stephan W. Koch. "Effective Bloch equations for
+  semiconductors." *Physical Review B* 38, no. 5 (1988): 3342.
+  {cite:p}`Lindberg1988`
+- Taflove, Allen, and Susan C. Hagness. *Computational
+  Electrodynamics: The Finite-Difference Time-Domain Method*. 3rd ed.
+  Artech House, 2005. {cite:p}`Taflove2005`
+- Liu, Q. H. "The PSTD algorithm: A time-domain method requiring
+  only two cells per wavelength." *Microwave and Optical Technology
+  Letters* 15, no. 3 (1997): 158-165. {cite:p}`Liu1997`
 
 ```{bibliography} pulsesuite.bib
 :all:
@@ -32,25 +33,22 @@ order:
 
 ## Software
 
-boinor wouldn\'t be possible without the tremendous, often unpaid and
-unrecognised effort of thousands of volunteers who devote a significant
-part of their lives to provide the best software money can buy, for
-free. This is a list of direct boinor dependencies with a citeable
-resource, which doesn\'t account for the fact that I have used and
-enjoyed free (as in freedom) operative systems, compilers, text editors,
-IDEs and browsers for my whole academic life.
+PulseSuite would not be possible without the tremendous effort of
+open-source contributors who develop and maintain the scientific Python
+ecosystem. Below are the direct dependencies with citeable resources:
 
-- Van Der Walt, Stefan, S. Chris Colbert, and Gael Varoquaux. \"The
-  NumPy array: a structure for efficient numerical computation.\"
+- Van Der Walt, Stefan, S. Chris Colbert, and Gael Varoquaux. "The
+  NumPy array: a structure for efficient numerical computation."
   *Computing in Science & Engineering* 13, no. 2 (2011): 22-30.
   [DOI:10.1109/MCSE.2011.37](http://dx.doi.org/10.1109/MCSE.2011.37)
-- Virtanen, P., Gommers, R., Oliphant, T.E. et al. SciPy 1.0: fundamental algorithms for scientific computing in Python. Nat Methods 17, 261–272 (2020).[DOI:10.1038/s41592-019-0686-2](https://www.nature.com/articles/s41592-019-0686-2)
-- Hunter✝, John D. \"Matplotlib: A 2D graphics environment.\"
-  *Computing in science and engineering* 9, no. 3 (2007): 90-95.
+- Virtanen, P., Gommers, R., Oliphant, T.E. et al. "SciPy 1.0:
+  fundamental algorithms for scientific computing in Python."
+  *Nature Methods* 17, 261-272 (2020).
+  [DOI:10.1038/s41592-019-0686-2](https://doi.org/10.1038/s41592-019-0686-2)
+- Hunter, John D. "Matplotlib: A 2D graphics environment."
+  *Computing in Science and Engineering* 9, no. 3 (2007): 90-95.
   [DOI:10.1109/MCSE.2007.55](http://dx.doi.org/10.1109/MCSE.2007.55)
-- Pérez, Fernando, and Brian E. Granger. \"IPython: a system for
-  interactive scientific computing.\" *Computing in Science &
-  Engineering* 9, no. 3 (2007): 21-29.
-  [DOI:10.1109/MCSE.2007.53](http://dx.doi.org/10.1109/MCSE.2007.53)
-- The Astropy Collaboration, A. M. Price-Whelan, B. M. Sipőcz, H. M. Günther, P. L. Lim, S. M.Crawford, S.
-Conseil, D. L. Shupe, M. W. Craig, N. Dencheva "The Astropy Project: Building an Open-science Project and Status of the v2.0 Core Package" The Astropy Collaboration et al AJ 156 123 (2018) [DOI:10.3847/1538-3881/aabc4f](https://iopscience.iop.org/article/10.3847/1538-3881/aabc4f)
+- Lam, Siu Kwan, Antoine Pitrou, and Stanley Seibert. "Numba: A
+  LLVM-based Python JIT compiler." *Proceedings of the Second Workshop
+  on the LLVM Compiler Infrastructure in HPC* (2015): 1-6.
+  [DOI:10.1145/2833157.2833162](https://doi.org/10.1145/2833157.2833162)

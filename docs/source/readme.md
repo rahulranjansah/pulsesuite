@@ -1,13 +1,13 @@
-# PulseSuite
-
 ```{image} _static/PulseSuitenobg.png
 :alt: PulseSuite logo
 :align: center
 :width: 100%
 ```
 
+# PulseSuite
+
 [![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://pulsesuite.readthedocs.io)
-[![License](https://img.shields.io/badge/license-MIT-green)](COPYING)
+[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/rahulranjansah/pulsesuite/blob/main/COPYING)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 
 PulseSuite is a high-performance computational physics toolkit for simulating ultrafast laser-matter interactions in semiconductor quantum structures. It implements the **Semiconductor Bloch Equations (SBEs)** coupled with **Pseudo-Spectral Time Domain (PSTD)** electromagnetic field propagation methods to model quantum wire and quantum well systems under intense optical excitation.
@@ -23,27 +23,30 @@ This codebase is a Python port of production Fortran simulation tools using NumP
 
 ## Installation
 
+PulseSuite uses [uv](https://docs.astral.sh/uv/) for dependency management and [just](https://github.com/casey/just) as a command runner.
+
 ```bash
 # Clone the repository
 git clone https://github.com/rahulranjansah/pulsesuite.git
 cd pulsesuite
 
-# Install with pip
-pip install -e .
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Or install with dependencies
-pip install -e ".[doc]"
+# Sync all dependencies (core + test + doc) in one step
+uv sync --all-extras
+
+# Or install with pip (still works)
+pip install -e .
 ```
 
-## Documentation
+### Development
 
-📖 **Full documentation is available at:** [pulsesuite.readthedocs.io](https://pulsesuite.readthedocs.io)
-
-The documentation includes:
-- **Theory and Background**: Physical models and equations
-- **Examples Gallery**: Interactive tutorials with executable code
-- **API Reference**: Complete function and class documentation
-- **Integration Guides**: How to use PulseSuite with other tools
+```bash
+just              # run tests + lint + format check
+just test         # run test suite (just test -k coulomb to filter)
+just --list       # see all available commands
+```
 
 ## Package Structure
 
@@ -70,22 +73,22 @@ pulsesuite/
 - Numba ≥0.61.2 (optional, for JIT acceleration)
 - Numba-CUDA==0.23.0 (optional, for CUDA acceleration)
 
-## Quick Example
+## Running a Simulation
 
-```python
-import numpy as np
-from pulsesuite.PSTD3D.coulomb import InitializeCoulomb
-from scipy.constants import e as e0, hbar
+The SBE test propagation script drives a full quantum wire simulation:
 
-# Initialize Coulomb module for quantum wire simulations
-# See documentation for complete examples
+```bash
+# Requires params/qw.params and params/mb.params in the working directory
+uv run python -m pulsesuite.PSTD3D.sbetestprop
 ```
 
-For detailed examples and tutorials, see the [Examples Gallery](https://pulsesuite.readthedocs.io/en/latest/examples/gallery.html) in the documentation.
+Output is written to `fields/` and `dataQW/`.
+
+For detailed examples and tutorials, see the {doc}`gallery` in the documentation.
 
 ## Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+We welcome contributions! Please see the {doc}`contributing` guide for guidelines.
 
 1. Fork the repository
 2. Create a feature branch
@@ -100,21 +103,21 @@ If you use PulseSuite in your research, please cite:
 ```bibtex
 @software{pulsesuite2025,
   title = {PulseSuite: Simulation suite for ultrafast laser-matter interactions},
-  author = {Sah, Rahul R. and Gulley, Jeremy R.},
+  author = {Sah, Rahul R., Emily S. Hatten, and Gulley, Jeremy R.},
   year = {2025},
   url = {https://github.com/rahulranjansah/pulsesuite}
 }
 ```
 
-See [CITATION.md](CITATION.md) for more details.
+See {doc}`citation` for more details.
 
 ## Authors
 
-See [AUTHORS.md](AUTHORS.md) for the complete list of contributors.
+See {doc}`authors` for the complete list of contributors.
 
 ## License
 
-This project is licensed under the MIT License - see [LICENSE](COPYING) file for details.
+This project is licensed under the MIT License - see [LICENSE](https://github.com/rahulranjansah/pulsesuite/blob/main/COPYING) for details.
 
 ## Links
 

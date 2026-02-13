@@ -1,14 +1,38 @@
+# Python
 __pycache__/
-.vscode
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+
+# Simulation output (byproducts)
+*.dat
+fields/
+dataQW/
+output/
+
+# Tool caches
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.tox/
+
+# Build artifacts
+docs/_build/
+coverage.xml
+.coverage
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Simulation working directories
 src/pulsesuite/PSTD3D/fields/
 src/pulsesuite/PSTD3D/output/
 src/pulsesuite/PSTD3D/dataQW/
 src/pulsesuite/PSTD3D/sim/
-src/pulsesuite/PSTD3D/__pycache__/
 tests/PSTD3D/dataQW/*
-integrations.md
-*.egg-info/
-.DS_Store
-*.pyc
-.venv/
-*.dat
