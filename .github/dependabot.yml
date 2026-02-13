@@ -1,0 +1,27 @@
+version: 2
+updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      # Group minor/patch bumps into one PR
+      python-deps:
+        patterns:
+          - "*"
+    ignore:
+      # Numba/CUDA coupling is fragile — bump manually
+      - dependency-name: "numba"
+      - dependency-name: "numba-cuda"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "ci"
