@@ -1,0 +1,477 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building Simulations &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/js/hoverxref.js"></script>
+      <script src="_static/js/tooltipster.bundle.min.js"></script>
+      <script src="_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Parameter Files Reference" href="params_reference.html" />
+    <link rel="prev" title="Deep Dive: DC Transport and Emission" href="examples/06_transport.myst.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pulsesuite
+              <img src="_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building Simulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-simulation-driver">The Simulation Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#physics-regimes">Physics Regimes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#level-0-optical-bloch-equations-obe">Level 0: Optical Bloch Equations (OBE)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#level-1-excitonic-response">Level 1: Excitonic Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#level-2-full-coulomb-with-scattering">Level 2: Full Coulomb with Scattering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#level-3-add-temperature-phonons">Level 3: Add Temperature (Phonons)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#level-4-transport-and-plasmonics">Level 4: Transport and Plasmonics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#level-5-full-simulation-all-interactions">Level 5: Full Simulation (All Interactions)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#optional-output-flags">Optional Output Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#combining-with-different-materials">Combining with Different Materials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-your-first-custom-simulation">Running Your First Custom Simulation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Building Simulations</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/building_simulations.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="building-simulations">
+<h1>Building Simulations<a class="headerlink" href="#building-simulations" title="Link to this heading">¶</a></h1>
+<p>PulseSuite simulations are driven by <code class="docutils literal notranslate"><span class="pre">sbetestprop</span></code> — a script that
+time-evolves the Semiconductor Bloch Equations under a pulsed laser
+field. The physics that runs at each time step is entirely controlled
+by the flags in <code class="docutils literal notranslate"><span class="pre">params/mb.params</span></code>. By toggling these flags between
+<code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code>, you can build up from a bare two-level system to a
+full many-body simulation <strong>without changing any code</strong>.</p>
+<p>This page walks through the physics regimes from simplest to most
+complete.</p>
+<section id="the-simulation-driver">
+<h2>The Simulation Driver<a class="headerlink" href="#the-simulation-driver" title="Link to this heading">¶</a></h2>
+<p>The simulation loop in <code class="docutils literal notranslate"><span class="pre">sbetestprop</span></code> is straightforward:</p>
+<ol class="arabic simple">
+<li><p>Read parameter files (<code class="docutils literal notranslate"><span class="pre">qw.params</span></code>, <code class="docutils literal notranslate"><span class="pre">mb.params</span></code>)</p></li>
+<li><p>Initialize all enabled physics modules</p></li>
+<li><p>Time-evolve:</p>
+<ul class="simple">
+<li><p>Compute the driving electric field at each time step</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">QWCalculator</span></code> to evolve the SBEs (all enabled interactions
+run self-consistently)</p></li>
+<li><p>Write output fields and polarizations</p></li>
+</ul>
+</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run a simulation (reads params/ from the working directory)</span>
+uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pulsesuite.PSTD3D.sbetestprop
+</pre></div>
+</div>
+<p>Output goes to <code class="docutils literal notranslate"><span class="pre">fields/</span></code> (E-fields, polarizations) and <code class="docutils literal notranslate"><span class="pre">dataQW/</span></code>
+(density matrices, carrier distributions).</p>
+<p>See <a class="reference internal" href="params_reference.html"><span class="doc">Parameter Files Reference</span></a> for the full specification of every
+parameter file.</p>
+</section>
+<hr class="docutils" />
+<section id="physics-regimes">
+<h2>Physics Regimes<a class="headerlink" href="#physics-regimes" title="Link to this heading">¶</a></h2>
+<section id="level-0-optical-bloch-equations-obe">
+<h3>Level 0: Optical Bloch Equations (OBE)<a class="headerlink" href="#level-0-optical-bloch-equations-obe" title="Link to this heading">¶</a></h3>
+<p>The simplest case — non-interacting two-level systems driven by light.
+No Coulomb, no phonons, no screening.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>          <span class="c1"># Optics        ← light-matter coupling</span>
+<span class="mi">0</span>          <span class="c1"># Excitons</span>
+<span class="mi">0</span>          <span class="c1"># EHs</span>
+<span class="mi">0</span>          <span class="c1"># Screened</span>
+<span class="mi">0</span>          <span class="c1"># Phonon</span>
+<span class="mi">0</span>          <span class="c1"># DCTrans</span>
+<span class="mi">0</span>          <span class="c1"># LF</span>
+<span class="mi">0</span>          <span class="c1"># FreePot</span>
+<span class="mi">0</span>          <span class="c1"># DiagDph</span>
+<span class="mi">0</span>          <span class="c1"># OffDiagDph</span>
+<span class="mi">0</span>          <span class="c1"># Recomb</span>
+<span class="mi">0</span>          <span class="c1"># PLSpec</span>
+<span class="mi">0</span>          <span class="c1"># Ignorewire</span>
+<span class="mi">0</span>          <span class="c1"># Xqwparams</span>
+<span class="mi">0</span>          <span class="c1"># LorentzDelta</span>
+</pre></div>
+</div>
+<p><strong>What you get:</strong> Free-carrier optical response. The polarization
+follows the Rabi oscillation of independent electron-hole pairs. No
+bound states, no scattering, no decay.</p>
+<p><strong>Use when:</strong> Testing the basic setup, verifying pulse shapes, or
+comparing against analytic two-level solutions.</p>
+</section>
+<hr class="docutils" />
+<section id="level-1-excitonic-response">
+<h3>Level 1: Excitonic Response<a class="headerlink" href="#level-1-excitonic-response" title="Link to this heading">¶</a></h3>
+<p>Add Coulomb interactions to get bound exciton states and band-gap
+renormalization.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>          <span class="c1"># Optics        ← light-matter coupling</span>
+<span class="mi">1</span>          <span class="c1"># Excitons      ← Hartree-Fock Coulomb (excitonic correlations)</span>
+<span class="mi">0</span>          <span class="c1"># EHs</span>
+<span class="mi">1</span>          <span class="c1"># Screened      ← RPA screening of Coulomb potential</span>
+<span class="mi">0</span>          <span class="c1"># Phonon</span>
+<span class="mi">0</span>          <span class="c1"># DCTrans</span>
+<span class="mi">0</span>          <span class="c1"># LF</span>
+<span class="mi">0</span>          <span class="c1"># FreePot</span>
+<span class="mi">1</span>          <span class="c1"># DiagDph       ← population decay</span>
+<span class="mi">0</span>          <span class="c1"># OffDiagDph</span>
+<span class="mi">0</span>          <span class="c1"># Recomb</span>
+<span class="mi">0</span>          <span class="c1"># PLSpec</span>
+<span class="mi">0</span>          <span class="c1"># Ignorewire</span>
+<span class="mi">0</span>          <span class="c1"># Xqwparams</span>
+<span class="mi">0</span>          <span class="c1"># LorentzDelta</span>
+</pre></div>
+</div>
+<p><strong>What you get:</strong> Exciton peaks appear below the band edge in the
+absorption spectrum. The band gap shifts with carrier density
+(renormalization). Dephasing gives finite linewidths.</p>
+<p><strong>Use when:</strong> Studying excitonic absorption, band-gap shifts, or linear
+optical properties.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">Screened</span></code> should generally be enabled together with <code class="docutils literal notranslate"><span class="pre">Excitons</span></code>.
+Unscreened Coulomb diverges at high carrier densities.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="level-2-full-coulomb-with-scattering">
+<h3>Level 2: Full Coulomb with Scattering<a class="headerlink" href="#level-2-full-coulomb-with-scattering" title="Link to this heading">¶</a></h3>
+<p>Enable electron-hole scattering and off-diagonal dephasing for
+many-body carrier dynamics.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>          <span class="c1"># Optics</span>
+<span class="mi">1</span>          <span class="c1"># Excitons</span>
+<span class="mi">1</span>          <span class="c1"># EHs           ← e-h pair scattering</span>
+<span class="mi">1</span>          <span class="c1"># Screened</span>
+<span class="mi">0</span>          <span class="c1"># Phonon</span>
+<span class="mi">0</span>          <span class="c1"># DCTrans</span>
+<span class="mi">0</span>          <span class="c1"># LF</span>
+<span class="mi">0</span>          <span class="c1"># FreePot</span>
+<span class="mi">1</span>          <span class="c1"># DiagDph</span>
+<span class="mi">1</span>          <span class="c1"># OffDiagDph    ← coherence decay from scattering</span>
+<span class="mi">0</span>          <span class="c1"># Recomb</span>
+<span class="mi">0</span>          <span class="c1"># PLSpec</span>
+<span class="mi">0</span>          <span class="c1"># Ignorewire</span>
+<span class="mi">0</span>          <span class="c1"># Xqwparams</span>
+<span class="mi">0</span>          <span class="c1"># LorentzDelta</span>
+</pre></div>
+</div>
+<p><strong>What you get:</strong> Carrier thermalization, excitation-induced dephasing,
+phase-space filling. The polarization decays faster at higher
+excitation because carrier-carrier scattering destroys coherence.</p>
+<p><strong>Use when:</strong> Studying nonlinear optical response, carrier dynamics, or
+density-dependent absorption.</p>
+</section>
+<hr class="docutils" />
+<section id="level-3-add-temperature-phonons">
+<h3>Level 3: Add Temperature (Phonons)<a class="headerlink" href="#level-3-add-temperature-phonons" title="Link to this heading">¶</a></h3>
+<p>Phonon scattering introduces energy relaxation and
+temperature-dependent effects.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>          <span class="c1"># Optics</span>
+<span class="mi">1</span>          <span class="c1"># Excitons</span>
+<span class="mi">1</span>          <span class="c1"># EHs</span>
+<span class="mi">1</span>          <span class="c1"># Screened</span>
+<span class="mi">1</span>          <span class="c1"># Phonon        ← LO phonon scattering</span>
+<span class="mi">0</span>          <span class="c1"># DCTrans</span>
+<span class="mi">0</span>          <span class="c1"># LF</span>
+<span class="mi">0</span>          <span class="c1"># FreePot</span>
+<span class="mi">1</span>          <span class="c1"># DiagDph</span>
+<span class="mi">1</span>          <span class="c1"># OffDiagDph</span>
+<span class="mi">0</span>          <span class="c1"># Recomb</span>
+<span class="mi">0</span>          <span class="c1"># PLSpec</span>
+<span class="mi">0</span>          <span class="c1"># Ignorewire</span>
+<span class="mi">0</span>          <span class="c1"># Xqwparams</span>
+<span class="mi">0</span>          <span class="c1"># LorentzDelta</span>
+</pre></div>
+</div>
+<p><strong>What you get:</strong> Carriers lose energy to the lattice via LO phonon
+emission. The phonon energy (36 meV for GaAs) and lattice temperature
+(set in <code class="docutils literal notranslate"><span class="pre">qw.params</span></code>) determine the relaxation dynamics.</p>
+<p><strong>Use when:</strong> Studying hot-carrier relaxation, temperature-dependent
+spectra, or energy transfer to the lattice.</p>
+</section>
+<hr class="docutils" />
+<section id="level-4-transport-and-plasmonics">
+<h3>Level 4: Transport and Plasmonics<a class="headerlink" href="#level-4-transport-and-plasmonics" title="Link to this heading">¶</a></h3>
+<p>Add drift under DC fields and longitudinal plasmon modes.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>          <span class="c1"># Optics</span>
+<span class="mi">1</span>          <span class="c1"># Excitons</span>
+<span class="mi">1</span>          <span class="c1"># EHs</span>
+<span class="mi">1</span>          <span class="c1"># Screened</span>
+<span class="mi">1</span>          <span class="c1"># Phonon</span>
+<span class="mi">1</span>          <span class="c1"># DCTrans       ← carrier drift in DC field</span>
+<span class="mi">1</span>          <span class="c1"># LF            ← plasmon/longitudinal modes</span>
+<span class="mi">0</span>          <span class="c1"># FreePot</span>
+<span class="mi">1</span>          <span class="c1"># DiagDph</span>
+<span class="mi">1</span>          <span class="c1"># OffDiagDph</span>
+<span class="mi">0</span>          <span class="c1"># Recomb</span>
+<span class="mi">0</span>          <span class="c1"># PLSpec</span>
+<span class="mi">0</span>          <span class="c1"># Ignorewire</span>
+<span class="mi">0</span>          <span class="c1"># Xqwparams</span>
+<span class="mi">0</span>          <span class="c1"># LorentzDelta</span>
+</pre></div>
+</div>
+<p><strong>What you get:</strong> Carriers accelerate under the DC field set by <code class="docutils literal notranslate"><span class="pre">Edc</span></code>
+in <code class="docutils literal notranslate"><span class="pre">qw.params</span></code>. The longitudinal field captures collective plasmon
+oscillations. Combined with phonons, you get mobility and conductivity.</p>
+<p><strong>Use when:</strong> Studying photocurrent generation, carrier transport, or
+THz emission from ultrafast excitation.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">Edc</span></code> in <code class="docutils literal notranslate"><span class="pre">qw.params</span></code> to a nonzero value (e.g., <code class="docutils literal notranslate"><span class="pre">1e5</span></code> V/m) for
+transport to have an effect.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="level-5-full-simulation-all-interactions">
+<h3>Level 5: Full Simulation (All Interactions)<a class="headerlink" href="#level-5-full-simulation-all-interactions" title="Link to this heading">¶</a></h3>
+<p>Everything enabled — the configuration used in the published results
+(Gulley &amp; Huang, <em>Opt. Express</em> 2019, 2022).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>          <span class="c1"># Optics</span>
+<span class="mi">1</span>          <span class="c1"># Excitons</span>
+<span class="mi">1</span>          <span class="c1"># EHs</span>
+<span class="mi">1</span>          <span class="c1"># Screened</span>
+<span class="mi">1</span>          <span class="c1"># Phonon</span>
+<span class="mi">1</span>          <span class="c1"># DCTrans</span>
+<span class="mi">1</span>          <span class="c1"># LF</span>
+<span class="mi">0</span>          <span class="c1"># FreePot</span>
+<span class="mi">1</span>          <span class="c1"># DiagDph</span>
+<span class="mi">1</span>          <span class="c1"># OffDiagDph</span>
+<span class="mi">1</span>          <span class="c1"># Recomb         ← spontaneous emission</span>
+<span class="mi">0</span>          <span class="c1"># PLSpec</span>
+<span class="mi">0</span>          <span class="c1"># Ignorewire</span>
+<span class="mi">1</span>          <span class="c1"># Xqwparams      ← write diagnostic output</span>
+<span class="mi">0</span>          <span class="c1"># LorentzDelta</span>
+</pre></div>
+</div>
+<p><strong>What you get:</strong> Self-consistent coupling of all interactions at
+every time step:</p>
+<ul class="simple">
+<li><p>Coulomb screening feeds into phonon scattering rates</p></li>
+<li><p>Phonon relaxation modifies carrier distributions</p></li>
+<li><p>Modified distributions change the screening</p></li>
+<li><p>Transport redistributes carriers spatially</p></li>
+<li><p>Spontaneous emission depletes the excited state</p></li>
+</ul>
+<p>This is the full physics that produces the published results.</p>
+<p><strong>Use when:</strong> Production simulations for publication, or when you need
+all interactions to be coupled self-consistently.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="optional-output-flags">
+<h2>Optional Output Flags<a class="headerlink" href="#optional-output-flags" title="Link to this heading">¶</a></h2>
+<p>The last few flags in <code class="docutils literal notranslate"><span class="pre">mb.params</span></code> control diagnostics rather than
+physics:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Flag</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PLSpec</span></code></p></td>
+<td><p>Enable to write frequency-resolved photoluminescence data (requires <code class="docutils literal notranslate"><span class="pre">Recomb</span> <span class="pre">=</span> <span class="pre">1</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ignorewire</span></code></p></td>
+<td><p>Set to <code class="docutils literal notranslate"><span class="pre">1</span></code> for single-wire isolation (disables inter-wire coupling in arrays)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Xqwparams</span></code></p></td>
+<td><p>Write susceptibility and dipole diagnostic files</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LorentzDelta</span></code></p></td>
+<td><p>Switch from Gaussian to Lorentzian broadening for energy-conserving delta functions</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="docutils" />
+<section id="combining-with-different-materials">
+<h2>Combining with Different Materials<a class="headerlink" href="#combining-with-different-materials" title="Link to this heading">¶</a></h2>
+<p>The physics flags in <code class="docutils literal notranslate"><span class="pre">mb.params</span></code> are material-independent. To simulate
+a different semiconductor system, change <code class="docutils literal notranslate"><span class="pre">qw.params</span></code>:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Material</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">gap</span></code> (eV)</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">me</span></code> (m_e0)</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">mh</span></code> (m_e0)</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">epsr</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Oph</span></code> (eV)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>GaAs</p></td>
+<td><p>1.42</p></td>
+<td><p>0.067</p></td>
+<td><p>0.45</p></td>
+<td><p>12.9</p></td>
+<td><p>0.036</p></td>
+</tr>
+<tr class="row-odd"><td><p>GaAs QW in AlAs host</p></td>
+<td><p>1.5</p></td>
+<td><p>0.07</p></td>
+<td><p>0.45</p></td>
+<td><p>9.1</p></td>
+<td><p>0.036</p></td>
+</tr>
+<tr class="row-even"><td><p>InGaAs</p></td>
+<td><p>0.75</p></td>
+<td><p>0.041</p></td>
+<td><p>0.45</p></td>
+<td><p>13.9</p></td>
+<td><p>0.033</p></td>
+</tr>
+<tr class="row-odd"><td><p>GaN</p></td>
+<td><p>3.4</p></td>
+<td><p>0.20</p></td>
+<td><p>1.4</p></td>
+<td><p>8.9</p></td>
+<td><p>0.091</p></td>
+</tr>
+</tbody>
+</table>
+<p>The same <code class="docutils literal notranslate"><span class="pre">mb.params</span></code> flags work regardless of material — the physics
+modules adapt to whatever material parameters are loaded.</p>
+</section>
+<hr class="docutils" />
+<section id="running-your-first-custom-simulation">
+<h2>Running Your First Custom Simulation<a class="headerlink" href="#running-your-first-custom-simulation" title="Link to this heading">¶</a></h2>
+<ol class="arabic">
+<li><p>Copy the template parameter files:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>params
+cp<span class="w"> </span>src/pulsesuite/PSTD3D/params/templates/*.params<span class="w"> </span>params/
+</pre></div>
+</div>
+</li>
+<li><p>Edit <code class="docutils literal notranslate"><span class="pre">params/mb.params</span></code> to choose your physics level (see above)</p></li>
+<li><p>Edit <code class="docutils literal notranslate"><span class="pre">params/qw.params</span></code> for your material and dephasing rates</p></li>
+<li><p>Run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pulsesuite.PSTD3D.sbetestprop
+</pre></div>
+</div>
+</li>
+<li><p>Output appears in <code class="docutils literal notranslate"><span class="pre">fields/</span></code> (time-domain) and <code class="docutils literal notranslate"><span class="pre">dataQW/</span></code> (k-space)</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="examples/06_transport.myst.html" class="btn btn-neutral float-left" title="Deep Dive: DC Transport and Emission" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="params_reference.html" class="btn btn-neutral float-right" title="Parameter Files Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

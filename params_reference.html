@@ -1,0 +1,720 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parameter Files Reference &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/js/hoverxref.js"></script>
+      <script src="_static/js/tooltipster.bundle.min.js"></script>
+      <script src="_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Bibliography" href="bibliography.html" />
+    <link rel="prev" title="Building Simulations" href="building_simulations.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pulsesuite
+              <img src="_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Parameter Files Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#file-overview">File Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#qw-params-quantum-wire-properties"><code class="docutils literal notranslate"><span class="pre">qw.params</span></code> — Quantum Wire Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mb-params-many-body-physics-flags"><code class="docutils literal notranslate"><span class="pre">mb.params</span></code> — Many-Body Physics Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pulse-params-optical-pulse-configuration"><code class="docutils literal notranslate"><span class="pre">pulse.params</span></code> — Optical Pulse Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#space-params-spatial-grid"><code class="docutils literal notranslate"><span class="pre">space.params</span></code> — Spatial Grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#qwarray-params-quantum-wire-array"><code class="docutils literal notranslate"><span class="pre">qwarray.params</span></code> — Quantum Wire Array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pstd-abc-params-absorbing-boundary-conditions"><code class="docutils literal notranslate"><span class="pre">pstd_abc.params</span></code> — Absorbing Boundary Conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-parameters-flow-into-the-simulation">How Parameters Flow into the Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#template-files">Template Files</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Parameter Files Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/params_reference.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="parameter-files-reference">
+<h1>Parameter Files Reference<a class="headerlink" href="#parameter-files-reference" title="Link to this heading">¶</a></h1>
+<p>PulseSuite simulations are configured entirely through plain-text
+parameter files. Each file controls a different aspect of the physics,
+and all are read at initialization time by <code class="docutils literal notranslate"><span class="pre">InitializeSBE</span></code>. No code
+changes are needed to switch between simulation regimes — just edit the
+parameter files.</p>
+<section id="file-overview">
+<h2>File Overview<a class="headerlink" href="#file-overview" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>Controls</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">qw.params</span></code></p></td>
+<td><p>Quantum wire material properties and dephasing rates</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mb.params</span></code></p></td>
+<td><p>Many-body physics flags (which interactions are active)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pulse.params</span></code></p></td>
+<td><p>Optical pulse shape, wavelength, and timing</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">space.params</span></code></p></td>
+<td><p>Spatial grid dimensions and resolution</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">qwarray.params</span></code></p></td>
+<td><p>Quantum wire array geometry</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pstd_abc.params</span></code></p></td>
+<td><p>Absorbing boundary conditions for the PSTD grid</p></td>
+</tr>
+</tbody>
+</table>
+<p>All parameter files use the same format: <strong>one value per line</strong>, with
+inline comments after <code class="docutils literal notranslate"><span class="pre">#</span></code>. The order of lines is fixed and must be
+preserved.</p>
+</section>
+<hr class="docutils" />
+<section id="qw-params-quantum-wire-properties">
+<h2><code class="docutils literal notranslate"><span class="pre">qw.params</span></code> — Quantum Wire Properties<a class="headerlink" href="#qw-params-quantum-wire-properties" title="Link to this heading">¶</a></h2>
+<p>Defines the material and dephasing parameters for the quantum wire
+system. These map directly to the physical constants used in the
+Semiconductor Bloch Equations.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Line</p></th>
+<th class="head"><p>Parameter</p></th>
+<th class="head"><p>Units</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L</span></code></p></td>
+<td><p>m</p></td>
+<td><p>Length of quantum wire</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Delta0</span></code></p></td>
+<td><p>m</p></td>
+<td><p>Z-thickness of quantum wire</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gap</span></code></p></td>
+<td><p>eV</p></td>
+<td><p>Band gap energy</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">me</span></code></p></td>
+<td><p>m_e0</p></td>
+<td><p>Electron effective mass</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mh</span></code></p></td>
+<td><p>m_e0</p></td>
+<td><p>Hole effective mass</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">HO</span></code></p></td>
+<td><p>eV</p></td>
+<td><p>Energy level separation</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gam_e</span></code></p></td>
+<td><p>Hz</p></td>
+<td><p>Electron dephasing rate (1/lifetime)</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gam_h</span></code></p></td>
+<td><p>Hz</p></td>
+<td><p>Hole dephasing rate</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gam_eh</span></code></p></td>
+<td><p>Hz</p></td>
+<td><p>Interband dephasing rate</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">epsr</span></code></p></td>
+<td><p>—</p></td>
+<td><p>Background dielectric constant</p></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Oph</span></code></p></td>
+<td><p>eV</p></td>
+<td><p>LO phonon energy</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Gph</span></code></p></td>
+<td><p>eV</p></td>
+<td><p>Phonon damping (inverse lifetime)</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Edc</span></code></p></td>
+<td><p>V/m</p></td>
+<td><p>Background DC electric field</p></td>
+</tr>
+<tr class="row-odd"><td><p>14</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jmax</span></code></p></td>
+<td><p>steps</p></td>
+<td><p>Write output every N time steps</p></td>
+</tr>
+<tr class="row-even"><td><p>15</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ntmax</span></code></p></td>
+<td><p>steps</p></td>
+<td><p>Backup/checkpoint interval</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong> (GaAs quantum wire):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">100e-9</span>     <span class="c1"># L      — 100 nm wire</span>
+<span class="mf">5e-9</span>       <span class="c1"># Delta0 — 5 nm thickness</span>
+<span class="mf">1.5</span>        <span class="c1"># gap    — 1.5 eV band gap</span>
+<span class="mf">0.07</span>       <span class="c1"># me     — GaAs electron mass</span>
+<span class="mf">0.45</span>       <span class="c1"># mh     — GaAs hole mass</span>
+<span class="mf">100e-3</span>     <span class="c1"># HO     — 100 meV level separation</span>
+<span class="mf">1e12</span>       <span class="c1"># gam_e  — 1 ps electron lifetime</span>
+<span class="mf">1e12</span>       <span class="c1"># gam_h  — 1 ps hole lifetime</span>
+<span class="mf">1e12</span>       <span class="c1"># gam_eh — 1 ps interband dephasing</span>
+<span class="mf">9.1</span>        <span class="c1"># epsr   — AlAs host dielectric</span>
+<span class="mf">36e-3</span>      <span class="c1"># Oph    — 36 meV LO phonon (GaAs)</span>
+<span class="mf">3e-3</span>       <span class="c1"># Gph    — 3 meV phonon damping</span>
+<span class="mf">0.0</span>        <span class="c1"># Edc    — no DC field</span>
+<span class="mi">500</span>        <span class="c1"># jmax   — output every 500 steps</span>
+<span class="mi">20000</span>      <span class="c1"># ntmax  — checkpoint every 20000 steps</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="mb-params-many-body-physics-flags">
+<h2><code class="docutils literal notranslate"><span class="pre">mb.params</span></code> — Many-Body Physics Flags<a class="headerlink" href="#mb-params-many-body-physics-flags" title="Link to this heading">¶</a></h2>
+<p>This is the most important configuration file. Each line is a boolean
+flag (<code class="docutils literal notranslate"><span class="pre">1</span></code> = enabled, <code class="docutils literal notranslate"><span class="pre">0</span></code> = disabled) that toggles a specific physics
+interaction. By flipping these flags, you can run anything from a bare
+optical Bloch equation to a full many-body simulation — <strong>without
+changing a single line of code</strong>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Line</p></th>
+<th class="head"><p>Flag</p></th>
+<th class="head"><p>Physics</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Optics</span></code></p></td>
+<td><p>Light-matter coupling via dipole operator</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Excitons</span></code></p></td>
+<td><p>Excitonic correlations and band-gap renormalization (Hartree-Fock)</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">EHs</span></code></p></td>
+<td><p>Electron-hole pair scattering</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Screened</span></code></p></td>
+<td><p>Screened Coulomb interactions (RPA)</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Phonon</span></code></p></td>
+<td><p>LO phonon scattering (Frohlich interaction)</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DCTrans</span></code></p></td>
+<td><p>DC transport (carrier drift under applied field)</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">LF</span></code></p></td>
+<td><p>Longitudinal field / plasmon modes</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">FreePot</span></code></p></td>
+<td><p>Free charge potential</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DiagDph</span></code></p></td>
+<td><p>Diagonal dephasing (population decay)</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OffDiagDph</span></code></p></td>
+<td><p>Off-diagonal dephasing (coherence decay)</p></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Recomb</span></code></p></td>
+<td><p>Spontaneous emission (radiative recombination)</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PLSpec</span></code></p></td>
+<td><p>Photoluminescence spectrum output</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Ignorewire</span></code></p></td>
+<td><p>Single-wire mode (skip inter-wire coupling)</p></td>
+</tr>
+<tr class="row-odd"><td><p>14</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Xqwparams</span></code></p></td>
+<td><p>Write susceptibility diagnostic files</p></td>
+</tr>
+<tr class="row-even"><td><p>15</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">LorentzDelta</span></code></p></td>
+<td><p>Use Lorentzian broadening for delta functions</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong> (full many-body simulation):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>          <span class="c1"># Optics</span>
+<span class="mi">1</span>          <span class="c1"># Excitons</span>
+<span class="mi">1</span>          <span class="c1"># EHs</span>
+<span class="mi">1</span>          <span class="c1"># Screened</span>
+<span class="mi">1</span>          <span class="c1"># Phonon</span>
+<span class="mi">1</span>          <span class="c1"># DCTrans</span>
+<span class="mi">1</span>          <span class="c1"># LF (Plasmonics)</span>
+<span class="mi">0</span>          <span class="c1"># Free Potential</span>
+<span class="mi">1</span>          <span class="c1"># DiagDph</span>
+<span class="mi">1</span>          <span class="c1"># OffDiagDph</span>
+<span class="mi">1</span>          <span class="c1"># Recomb</span>
+<span class="mi">0</span>          <span class="c1"># PLSpec</span>
+<span class="mi">0</span>          <span class="c1"># Ignorewire</span>
+<span class="mi">1</span>          <span class="c1"># Xqwparams</span>
+<span class="mi">0</span>          <span class="c1"># LorentzDelta</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="building_simulations.html"><span class="doc">Building Simulations</span></a> for how to combine these flags for
+different physics regimes.</p>
+</section>
+<hr class="docutils" />
+<section id="pulse-params-optical-pulse-configuration">
+<h2><code class="docutils literal notranslate"><span class="pre">pulse.params</span></code> — Optical Pulse Configuration<a class="headerlink" href="#pulse-params-optical-pulse-configuration" title="Link to this heading">¶</a></h2>
+<p>Defines the laser pulse that drives the simulation.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Line</p></th>
+<th class="head"><p>Parameter</p></th>
+<th class="head"><p>Units</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dimensions</span></code></p></td>
+<td><p>—</p></td>
+<td><p>Spatial dimensionality (1, 2, or 3)</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n0</span></code></p></td>
+<td><p>—</p></td>
+<td><p>Background refractive index</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">lam</span></code></p></td>
+<td><p>m</p></td>
+<td><p>Laser wavelength</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">E00</span></code></p></td>
+<td><p>V/m</p></td>
+<td><p>Peak electric field amplitude</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tw0</span></code></p></td>
+<td><p>s</p></td>
+<td><p>Pulse width</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">chirp</span></code></p></td>
+<td><p>rad/s^2</p></td>
+<td><p>Pulse chirp</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">xw</span></code></p></td>
+<td><p>m</p></td>
+<td><p>Beam width in X (2D/3D)</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">zw</span></code></p></td>
+<td><p>m</p></td>
+<td><p>Beam width in Z (3D)</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Tpeak1</span></code></p></td>
+<td><p>s</p></td>
+<td><p>Pulse peak time (1D/2D)</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Tpeak3</span></code></p></td>
+<td><p>s</p></td>
+<td><p>Pulse peak time (3D)</p></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Ystart</span></code></p></td>
+<td><p>m</p></td>
+<td><p>Starting Y position</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Xstart</span></code></p></td>
+<td><p>m</p></td>
+<td><p>Starting X position (2D/3D)</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Zstart</span></code></p></td>
+<td><p>m</p></td>
+<td><p>Starting Z position (3D)</p></td>
+</tr>
+<tr class="row-odd"><td><p>14</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Nt/Toc</span></code></p></td>
+<td><p>—</p></td>
+<td><p>Time points per optical cycle</p></td>
+</tr>
+<tr class="row-even"><td><p>15</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Ny/lambda</span></code></p></td>
+<td><p>—</p></td>
+<td><p>Y grid points per wavelength</p></td>
+</tr>
+<tr class="row-odd"><td><p>16</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Nx/lambda</span></code></p></td>
+<td><p>—</p></td>
+<td><p>X grid points per wavelength</p></td>
+</tr>
+<tr class="row-even"><td><p>17</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Nz/lambda</span></code></p></td>
+<td><p>—</p></td>
+<td><p>Z grid points per wavelength</p></td>
+</tr>
+<tr class="row-odd"><td><p>18</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Nt</span></code></p></td>
+<td><p>—</p></td>
+<td><p>Total optical cycles to simulate</p></td>
+</tr>
+<tr class="row-even"><td><p>19</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Ywin</span></code></p></td>
+<td><p>m</p></td>
+<td><p>Y window width</p></td>
+</tr>
+<tr class="row-odd"><td><p>20</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Xwin</span></code></p></td>
+<td><p>m</p></td>
+<td><p>X window width (2D/3D)</p></td>
+</tr>
+<tr class="row-even"><td><p>21</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Zwin</span></code></p></td>
+<td><p>m</p></td>
+<td><p>Z window width (3D)</p></td>
+</tr>
+<tr class="row-odd"><td><p>22</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jmax</span></code></p></td>
+<td><p>—</p></td>
+<td><p>Output interval</p></td>
+</tr>
+<tr class="row-even"><td><p>23</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nmax</span></code></p></td>
+<td><p>—</p></td>
+<td><p>Maximum time steps</p></td>
+</tr>
+<tr class="row-odd"><td><p>24</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Restart</span></code></p></td>
+<td><p>bool</p></td>
+<td><p>Resume from checkpoint (0/1)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="docutils" />
+<section id="space-params-spatial-grid">
+<h2><code class="docutils literal notranslate"><span class="pre">space.params</span></code> — Spatial Grid<a class="headerlink" href="#space-params-spatial-grid" title="Link to this heading">¶</a></h2>
+<p>Defines the computational grid for field propagation.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Line</p></th>
+<th class="head"><p>Parameter</p></th>
+<th class="head"><p>Units</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Dimensions</span></code></p></td>
+<td><p>—</p></td>
+<td><p>1, 2, or 3</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Nx</span></code></p></td>
+<td><p>—</p></td>
+<td><p>Grid points in X</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Ny</span></code></p></td>
+<td><p>—</p></td>
+<td><p>Grid points in Y</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Nz</span></code></p></td>
+<td><p>—</p></td>
+<td><p>Grid points in Z</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dx</span></code></p></td>
+<td><p>m</p></td>
+<td><p>Pixel spacing in X</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dy</span></code></p></td>
+<td><p>m</p></td>
+<td><p>Pixel spacing in Y</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dz</span></code></p></td>
+<td><p>m</p></td>
+<td><p>Pixel spacing in Z</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">epsilon_r</span></code></p></td>
+<td><p>—</p></td>
+<td><p>Background dielectric constant</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="docutils" />
+<section id="qwarray-params-quantum-wire-array">
+<h2><code class="docutils literal notranslate"><span class="pre">qwarray.params</span></code> — Quantum Wire Array<a class="headerlink" href="#qwarray-params-quantum-wire-array" title="Link to this heading">¶</a></h2>
+<p>Configures the geometry of quantum wire arrays.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Line</p></th>
+<th class="head"><p>Parameter</p></th>
+<th class="head"><p>Units</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">QW</span></code></p></td>
+<td><p>bool</p></td>
+<td><p>Include quantum wire calculations (0/1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Nw</span></code></p></td>
+<td><p>—</p></td>
+<td><p>Number of quantum wires</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">y0</span></code></p></td>
+<td><p>m</p></td>
+<td><p>Wire placement along X axis</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dxqw</span></code></p></td>
+<td><p>m</p></td>
+<td><p>Wire-to-wire spacing</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a0_y</span></code></p></td>
+<td><p>m</p></td>
+<td><p>SHO oscillator length in Y</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a0_z</span></code></p></td>
+<td><p>m</p></td>
+<td><p>SHO oscillator length in Z</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="docutils" />
+<section id="pstd-abc-params-absorbing-boundary-conditions">
+<h2><code class="docutils literal notranslate"><span class="pre">pstd_abc.params</span></code> — Absorbing Boundary Conditions<a class="headerlink" href="#pstd-abc-params-absorbing-boundary-conditions" title="Link to this heading">¶</a></h2>
+<p>Controls the absorbing boundary layer for the PSTD grid to prevent
+reflections at domain edges.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Line</p></th>
+<th class="head"><p>Parameter</p></th>
+<th class="head"><p>Units</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Flag</p></td>
+<td><p>bool</p></td>
+<td><p>Enable ABC (0/1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Value 1</p></td>
+<td><p>m</p></td>
+<td><p>Boundary layer parameter</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Value 2</p></td>
+<td><p>m</p></td>
+<td><p>Boundary layer parameter</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>Flag</p></td>
+<td><p>bool</p></td>
+<td><p>Secondary ABC flag (0/1)</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>Value 3</p></td>
+<td><p>m</p></td>
+<td><p>Boundary layer parameter</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>Value 4</p></td>
+<td><p>m</p></td>
+<td><p>Boundary layer parameter</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="docutils" />
+<section id="how-parameters-flow-into-the-simulation">
+<h2>How Parameters Flow into the Simulation<a class="headerlink" href="#how-parameters-flow-into-the-simulation" title="Link to this heading">¶</a></h2>
+<p>All parameter files are read once during <code class="docutils literal notranslate"><span class="pre">InitializeSBE</span></code>. The
+initialization sequence is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>InitializeSBE(q, rr, r0, Emax, lam, Nw, QW)
+  ├── read qw.params   → material constants (gap, masses, dephasing)
+  ├── read mb.params    → physics flags (which interactions are ON)
+  ├── InitializeQWOptics()     (always)
+  ├── InitializeCoulomb()      (always)
+  ├── InitializeDephasing()    (always)
+  ├── InitializePhonons()      (if Phonon = 1)
+  ├── InitializeDC()           (if DCTrans = 1)
+  └── InitializeEmission()     (if Recomb = 1)
+</pre></div>
+</div>
+<p>Once initialized, <code class="docutils literal notranslate"><span class="pre">QWCalculator</span></code> runs all enabled physics
+self-consistently at every time step. There is no runtime flag
+switching — to change the physics, re-initialize.</p>
+</section>
+<section id="template-files">
+<h2>Template Files<a class="headerlink" href="#template-files" title="Link to this heading">¶</a></h2>
+<p>Default parameter templates are provided in
+<code class="docutils literal notranslate"><span class="pre">src/pulsesuite/PSTD3D/params/templates/</span></code>. Copy them as a starting
+point for new simulations:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>src/pulsesuite/PSTD3D/params/templates/*.params<span class="w"> </span>params/
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="building_simulations.html" class="btn btn-neutral float-left" title="Building Simulations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bibliography.html" class="btn btn-neutral float-right" title="Bibliography" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

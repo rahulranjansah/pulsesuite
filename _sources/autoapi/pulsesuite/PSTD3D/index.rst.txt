@@ -1,0 +1,33 @@
+pulsesuite.PSTD3D
+=================
+
+.. py:module:: pulsesuite.PSTD3D
+
+.. autoapi-nested-parse::
+
+   PSTD3D sub-package for quantum wire simulations.
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/pulsesuite/PSTD3D/SBEs/index
+   /autoapi/pulsesuite/PSTD3D/coulomb/index
+   /autoapi/pulsesuite/PSTD3D/dcfield/index
+   /autoapi/pulsesuite/PSTD3D/dephasing/index
+   /autoapi/pulsesuite/PSTD3D/emission/index
+   /autoapi/pulsesuite/PSTD3D/epsrtl/index
+   /autoapi/pulsesuite/PSTD3D/phonons/index
+   /autoapi/pulsesuite/PSTD3D/phost/index
+   /autoapi/pulsesuite/PSTD3D/qwoptics/index
+   /autoapi/pulsesuite/PSTD3D/rhoPJ/index
+   /autoapi/pulsesuite/PSTD3D/sbetestprop/index
+   /autoapi/pulsesuite/PSTD3D/sbetestpropnov30/index
+   /autoapi/pulsesuite/PSTD3D/typespace/index
+   /autoapi/pulsesuite/PSTD3D/usefulsubs/index
+
+

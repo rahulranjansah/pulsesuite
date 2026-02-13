@@ -1,0 +1,1028 @@
+pulsesuite.PSTD3D.typespace
+===========================
+
+.. py:module:: pulsesuite.PSTD3D.typespace
+
+.. autoapi-nested-parse::
+
+   Spatial grid structure for quantum wire simulations.
+
+   This module provides the spatial grid structure (ss type) and associated
+   functions for reading, writing, and accessing spatial grid parameters.
+   Supports 1D, 2D, and 3D grids with configurable pixel sizes and dielectric constants.
+
+   Author: Rahul R. Sah
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.typespace.JIT_AVAILABLE
+   pulsesuite.PSTD3D.typespace.pi
+   pulsesuite.PSTD3D.typespace.twopi
+   pulsesuite.PSTD3D.typespace.LOGVERBOSE
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.typespace.ss
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.typespace.GetFileParam
+   pulsesuite.PSTD3D.typespace.GetLogLevel
+   pulsesuite.PSTD3D.typespace.readspaceparams_sub
+   pulsesuite.PSTD3D.typespace.ReadSpaceParams
+   pulsesuite.PSTD3D.typespace.WriteSpaceParams_sub
+   pulsesuite.PSTD3D.typespace.writespaceparams
+   pulsesuite.PSTD3D.typespace.dumpspace
+   pulsesuite.PSTD3D.typespace.GetNx
+   pulsesuite.PSTD3D.typespace.GetNy
+   pulsesuite.PSTD3D.typespace.GetNz
+   pulsesuite.PSTD3D.typespace.GetDx
+   pulsesuite.PSTD3D.typespace.GetDy
+   pulsesuite.PSTD3D.typespace.GetDz
+   pulsesuite.PSTD3D.typespace.GetEpsr
+   pulsesuite.PSTD3D.typespace.SetNx
+   pulsesuite.PSTD3D.typespace.SetNy
+   pulsesuite.PSTD3D.typespace.SetNz
+   pulsesuite.PSTD3D.typespace.SetDx
+   pulsesuite.PSTD3D.typespace.SetDy
+   pulsesuite.PSTD3D.typespace.SetDz
+   pulsesuite.PSTD3D.typespace.GetXWidth
+   pulsesuite.PSTD3D.typespace.GetYWidth
+   pulsesuite.PSTD3D.typespace.GetZWidth
+   pulsesuite.PSTD3D.typespace.GetSpaceArray
+   pulsesuite.PSTD3D.typespace.GetKArray
+   pulsesuite.PSTD3D.typespace.GetXArray
+   pulsesuite.PSTD3D.typespace.GetYArray
+   pulsesuite.PSTD3D.typespace.GetZArray
+   pulsesuite.PSTD3D.typespace.GetKxArray
+   pulsesuite.PSTD3D.typespace.GetKyArray
+   pulsesuite.PSTD3D.typespace.GetKzArray
+   pulsesuite.PSTD3D.typespace.GetDQx
+   pulsesuite.PSTD3D.typespace.GetDQy
+   pulsesuite.PSTD3D.typespace.GetDQz
+   pulsesuite.PSTD3D.typespace.GetDVol
+   pulsesuite.PSTD3D.typespace.GetDQVol
+   pulsesuite.PSTD3D.typespace.writefield
+   pulsesuite.PSTD3D.typespace.readspace_only
+   pulsesuite.PSTD3D.typespace.writefield_to_unit
+   pulsesuite.PSTD3D.typespace.unformatted_write_space
+   pulsesuite.PSTD3D.typespace.unformatted_read_space
+   pulsesuite.PSTD3D.typespace.initialize_field
+   pulsesuite.PSTD3D.typespace.unformatted_write_e
+   pulsesuite.PSTD3D.typespace.unformatted_read_e
+   pulsesuite.PSTD3D.typespace.readfield_from_unit
+   pulsesuite.PSTD3D.typespace.readfield
+
+
+Module Contents
+---------------
+
+.. py:data:: JIT_AVAILABLE
+   :value: True
+
+
+.. py:data:: pi
+
+.. py:data:: twopi
+
+.. py:data:: LOGVERBOSE
+   :value: 2
+
+
+.. py:function:: GetFileParam(file_handle)
+
+   Read a parameter from a file handle.
+
+   Reads a single numeric parameter from the file. Assumes the file format
+   has one parameter per line, possibly with comments after the value.
+
+   :param file_handle: Open file handle to read from
+   :type file_handle: file
+
+   :returns: Parameter value read from file
+   :rtype: float
+
+   .. rubric:: Notes
+
+   This is a helper function for reading parameter files. It reads a line,
+   extracts the first numeric value, and returns it.
+
+   This function is not defined in typespace.f90 but is used by
+   readspaceparams_sub. It is likely defined in the fileio module in Fortran.
+   This Python implementation provides equivalent functionality.
+
+
+.. py:function:: GetLogLevel()
+
+   Get the current logging level.
+
+   Returns the current logging verbosity level. Higher values mean more verbose.
+
+   :returns: Current logging level (default: 0)
+   :rtype: int
+
+   .. rubric:: Notes
+
+   This is a stub implementation. In a full system, this would interface
+   with a logging module to get the actual log level.
+
+   This function is not defined in typespace.f90 but is used by dumpspace.
+   It is likely defined in the logger module in Fortran. This Python
+   implementation provides a default minimal logging level.
+
+
+.. py:class:: ss
+
+   Spatial grid structure.
+
+   The spatial grid structure contains all parameters needed to define
+   a 1D, 2D, or 3D spatial grid for simulations.
+
+   .. attribute:: Dims
+
+      Dimensionality of grid (1=1D, 2=2D, 3=3D)
+
+      :type: int
+
+   .. attribute:: Nx
+
+      X-window number of pixels
+
+      :type: int
+
+   .. attribute:: Ny
+
+      Y-window number of pixels [Ny=1 for 1D]
+
+      :type: int
+
+   .. attribute:: Nz
+
+      Z-window number of pixels [Nz=1 for 1D and 2D]
+
+      :type: int
+
+   .. attribute:: dx
+
+      Size of x-pixel (m)
+
+      :type: float
+
+   .. attribute:: dy
+
+      Size of y-pixel (m), [dy=1.0 for 1D]
+
+      :type: float
+
+   .. attribute:: dz
+
+      Size of z-pixel (m), [dz=1.0 for 1D and 2D]
+
+      :type: float
+
+   .. attribute:: epsr
+
+      Background dielectric constant
+
+      :type: float
+
+
+   .. py:attribute:: Dims
+      :type:  int
+
+
+   .. py:attribute:: Nx
+      :type:  int
+
+
+   .. py:attribute:: Ny
+      :type:  int
+
+
+   .. py:attribute:: Nz
+      :type:  int
+
+
+   .. py:attribute:: dx
+      :type:  float
+
+
+   .. py:attribute:: dy
+      :type:  float
+
+
+   .. py:attribute:: dz
+      :type:  float
+
+
+   .. py:attribute:: epsr
+      :type:  float
+
+
+.. py:function:: readspaceparams_sub(file_handle, space)
+
+   Read the space parameters (ss) from a file handle.
+
+   Reads all space parameters from an open file handle and populates
+   the space structure.
+
+   :param file_handle: Open file handle to read from
+   :type file_handle: file
+   :param space: Space structure to populate (modified in-place)
+   :type space: ss
+
+   :returns: space structure is modified in-place
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The file format expects 8 parameters in order:
+   1. Dims (integer)
+   2. Nx (integer)
+   3. Ny (integer)
+   4. Nz (integer)
+   5. dx (float)
+   6. dy (float)
+   7. dz (float)
+   8. epsr (float)
+
+
+.. py:function:: ReadSpaceParams(filename, space)
+
+   Read the space parameters (ss) from a file.
+
+   Opens the specified file, reads the space parameters, and populates
+   the space structure. Also dumps the parameters to stdout if logging
+   level is sufficient.
+
+   :param filename: The filename to read from
+   :type filename: str
+   :param space: Space structure to populate (modified in-place)
+   :type space: ss
+
+   :returns: space structure is modified in-place
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The file is opened, read, and closed automatically.
+   After reading, dumpspace is called to log the parameters.
+
+
+.. py:function:: WriteSpaceParams_sub(file_handle, space)
+
+   Write space parameters (ss) to a file handle.
+
+   Writes all space parameters to an open file handle with descriptive
+   comments for each parameter.
+
+   :param file_handle: Open file handle to write to
+   :type file_handle: file
+   :param space: Space structure to write
+   :type space: ss
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The format matches the Fortran output format:
+   - Integers are written with format I25 (right-aligned, 25 characters)
+   - Floats are written with format E25.15E3 (scientific notation, 25 chars)
+   - Each line has a comment describing the parameter
+
+   Note: The Fortran source has typos in lines 94-96 (says "With" instead of "Width"
+   and all three say "X pixel" instead of X/Y/Z). This Python implementation
+   corrects those typos.
+
+
+.. py:function:: writespaceparams(filename, space)
+
+   Write space parameters (ss) to a file.
+
+   Opens the specified file, writes all space parameters with descriptive
+   comments, and closes the file.
+
+   :param filename: The filename to write to
+   :type filename: str
+   :param space: Space structure to write
+   :type space: ss
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The file is opened in write mode, written to, and closed automatically.
+
+
+.. py:function:: dumpspace(params, level=None)
+
+   Dump space parameters to stdout.
+
+   Writes space parameters to stdout (file handle 0) if the logging level
+   is sufficient. Used for debugging and verbose output.
+
+   :param params: Space structure to dump
+   :type params: ss
+   :param level: Minimum logging level required to dump. If not provided, uses
+                 LOGVERBOSE as the default threshold.
+   :type level: int, optional
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   If level is provided, dumps only if GetLogLevel() >= level.
+   Otherwise, dumps only if GetLogLevel() >= LOGVERBOSE.
+
+
+.. py:function:: GetNx(space)
+
+   Get the number of points in the x direction.
+
+   Returns the number of spatial grid points in the x-direction.
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Number of points in the x direction
+   :rtype: int
+
+
+.. py:function:: GetNy(space)
+
+   Get the number of points in the y direction.
+
+   Returns the number of spatial grid points in the y-direction.
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Number of points in the y direction
+   :rtype: int
+
+
+.. py:function:: GetNz(space)
+
+   Get the number of points in the z direction.
+
+   Returns the number of spatial grid points in the z-direction.
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Number of points in the z direction
+   :rtype: int
+
+
+.. py:function:: GetDx(space)
+
+   Get the step size for the x dimension.
+
+   Returns the x-pixel size. If Nx == 1 (collapsed dimension),
+   returns 1.0 instead of the actual dx value.
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Step size for x dimension (m), or 1.0 if Nx == 1
+   :rtype: float
+
+
+.. py:function:: GetDy(space)
+
+   Get the step size for the y dimension.
+
+   Returns the y-pixel size. If Ny == 1 (collapsed dimension),
+   returns 1.0 instead of the actual dy value.
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Step size for y dimension (m), or 1.0 if Ny == 1
+   :rtype: float
+
+
+.. py:function:: GetDz(space)
+
+   Get the step size for the z dimension.
+
+   Returns the z-pixel size. If Nz == 1 (collapsed dimension),
+   returns 1.0 instead of the actual dz value.
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Step size for z dimension (m), or 1.0 if Nz == 1
+   :rtype: float
+
+
+.. py:function:: GetEpsr(space)
+
+   Get the relative background dielectric constant.
+
+   Returns the dielectric constant. If Nz == 1 (1D or 2D case),
+   returns 1.0 instead of the actual epsr value.
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Relative background dielectric constant, or 1.0 if Nz == 1
+   :rtype: float
+
+
+.. py:function:: SetNx(space, N)
+
+   Set the number of points in the x dimension.
+
+   Sets the number of spatial grid points in the x-direction.
+
+   :param space: Space structure (modified in-place)
+   :type space: ss
+   :param N: Number of points in x direction
+   :type N: int
+
+   :returns: space structure is modified in-place
+   :rtype: None
+
+
+.. py:function:: SetNy(space, N)
+
+   Set the number of points in the y dimension.
+
+   Sets the number of spatial grid points in the y-direction.
+
+   :param space: Space structure (modified in-place)
+   :type space: ss
+   :param N: Number of points in y direction
+   :type N: int
+
+   :returns: space structure is modified in-place
+   :rtype: None
+
+
+.. py:function:: SetNz(space, N)
+
+   Set the number of points in the z dimension.
+
+   Sets the number of spatial grid points in the z-direction.
+
+   :param space: Space structure (modified in-place)
+   :type space: ss
+   :param N: Number of points in z direction
+   :type N: int
+
+   :returns: space structure is modified in-place
+   :rtype: None
+
+
+.. py:function:: SetDx(space, dl)
+
+   Set the step size for the x dimension.
+
+   Sets the x-pixel size.
+
+   :param space: Space structure (modified in-place)
+   :type space: ss
+   :param dl: Step size for x dimension (m)
+   :type dl: float
+
+   :returns: space structure is modified in-place
+   :rtype: None
+
+
+.. py:function:: SetDy(space, dl)
+
+   Set the step size for the y dimension.
+
+   Sets the y-pixel size.
+
+   :param space: Space structure (modified in-place)
+   :type space: ss
+   :param dl: Step size for y dimension (m)
+   :type dl: float
+
+   :returns: space structure is modified in-place
+   :rtype: None
+
+
+.. py:function:: SetDz(space, dl)
+
+   Set the step size for the z dimension.
+
+   Sets the z-pixel size.
+
+   :param space: Space structure (modified in-place)
+   :type space: ss
+   :param dl: Step size for z dimension (m)
+   :type dl: float
+
+   :returns: space structure is modified in-place
+   :rtype: None
+
+
+.. py:function:: GetXWidth(space)
+
+   Get the width of the x window.
+
+   Returns the total width of the spatial window in the x-direction:
+   width = dx * (Nx - 1)
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Width of x window (m)
+   :rtype: float
+
+
+.. py:function:: GetYWidth(space)
+
+   Get the width of the y window.
+
+   Returns the total width of the spatial window in the y-direction:
+   width = dy * (Ny - 1)
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Width of y window (m)
+   :rtype: float
+
+
+.. py:function:: GetZWidth(space)
+
+   Get the width of the z window.
+
+   Returns the total width of the spatial window in the z-direction:
+   width = dz * (Nz - 1)
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Width of z window (m)
+   :rtype: float
+
+
+.. py:function:: GetSpaceArray(N, L)
+
+   Generate a real-space position array.
+
+   Creates an array of N positions evenly spaced across a window of width L,
+   centered at zero. The positions range from -L/2 to L/2.
+
+   :param N: Number of points
+   :type N: int
+   :param L: Total width of the window (m)
+   :type L: float
+
+   :returns: Array of position values (m), 1D array of length N
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   The array is centered at zero, so positions range from -L/2 to L/2.
+   For N=1, returns array with single value 0.0.
+
+   This function is not defined in typespace.f90 but is used by GetXArray,
+   GetYArray, and GetZArray. It is likely defined in the helpers module
+   in Fortran. The implementation matches usage patterns in other Fortran files
+   (e.g., GetSpaceArray(Ny, (Ny-1) * dyy) in pstd.f90).
+
+
+.. py:function:: GetKArray(Nk, L)
+
+   Generate k-space array for Fourier transforms.
+
+   Creates an array of Nk k-values (momentum values) for use with FFT.
+   The array is centered at zero and spaced by dk = twopi/L.
+
+   :param Nk: Number of k-space points
+   :type Nk: int
+   :param L: Length of the spatial domain (m)
+   :type L: float
+
+   :returns: Array of k values (1/m), 1D array of length Nk
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   The k-values are centered at zero, suitable for FFT operations.
+   For Nk=1, returns array with single value 0.0.
+
+   This function is not defined in typespace.f90 but is used by GetKxArray,
+   GetKyArray, and GetKzArray. It is likely defined in the helpers module
+   in Fortran. The implementation matches usage patterns in other Fortran files.
+
+
+.. py:function:: GetXArray(space)
+
+   Get an array of x positions.
+
+   Returns an array of x-coordinate positions for the spatial grid.
+   If Nx == 1, returns array with single value 0.0.
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Array of x positions (m), 1D array of length space.Nx
+   :rtype: ndarray
+
+
+.. py:function:: GetYArray(space)
+
+   Get an array of y positions.
+
+   Returns an array of y-coordinate positions for the spatial grid.
+   If Ny == 1, returns array with single value 0.0.
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Array of y positions (m), 1D array of length space.Ny
+   :rtype: ndarray
+
+
+.. py:function:: GetZArray(space)
+
+   Get an array of z positions.
+
+   Returns an array of z-coordinate positions for the spatial grid.
+   If Nz == 1, returns array with single value 0.0.
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Array of z positions (m), 1D array of length space.Nz
+   :rtype: ndarray
+
+
+.. py:function:: GetKxArray(space)
+
+   Get an array of kx values (conjugate coordinate system).
+
+   Returns an array of kx (momentum) values for the conjugate coordinate
+   system, suitable for FFT operations. If Nx == 1, returns array with
+   single value 0.0.
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Array of kx values (1/m), 1D array of length space.Nx
+   :rtype: ndarray
+
+
+.. py:function:: GetKyArray(space)
+
+   Get an array of ky values (conjugate coordinate system).
+
+   Returns an array of ky (momentum) values for the conjugate coordinate
+   system, suitable for FFT operations. If Ny == 1, returns array with
+   single value 0.0.
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Array of ky values (1/m), 1D array of length space.Ny
+   :rtype: ndarray
+
+
+.. py:function:: GetKzArray(space)
+
+   Get an array of kz values (conjugate coordinate system).
+
+   Returns an array of kz (momentum) values for the conjugate coordinate
+   system, suitable for FFT operations. If Nz == 1, returns array with
+   single value 0.0.
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Array of kz values (1/m), 1D array of length space.Nz
+   :rtype: ndarray
+
+
+.. py:function:: GetDQx(space)
+
+   Get the differential for the conjugate coordinate system in x.
+
+   Returns the k-space step size in the x-direction:
+   dqx = twopi / GetXWidth(space)
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: k-space step size in x direction (1/m)
+   :rtype: float
+
+   .. rubric:: Notes
+
+   Matches Fortran implementation which uses twopi constant.
+   Returns 0.0 if width is zero (Fortran would divide by zero).
+
+
+.. py:function:: GetDQy(space)
+
+   Get the differential for the conjugate coordinate system in y.
+
+   Returns the k-space step size in the y-direction:
+   dqy = twopi / GetYWidth(space)
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: k-space step size in y direction (1/m)
+   :rtype: float
+
+   .. rubric:: Notes
+
+   Matches Fortran implementation which uses twopi constant.
+   Returns 0.0 if width is zero (Fortran would divide by zero).
+
+
+.. py:function:: GetDQz(space)
+
+   Get the differential for the conjugate coordinate system in z.
+
+   Returns the k-space step size in the z-direction:
+   dqz = twopi / GetZWidth(space)
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: k-space step size in z direction (1/m)
+   :rtype: float
+
+   .. rubric:: Notes
+
+   Matches Fortran implementation which uses twopi constant.
+   Returns 0.0 if width is zero (Fortran would divide by zero).
+
+
+.. py:function:: GetDVol(space)
+
+   Get the volume element.
+
+   Returns the volume element (dx * dy * dz) for the spatial grid.
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: Volume element (m^3)
+   :rtype: float
+
+
+.. py:function:: GetDQVol(space)
+
+   Get the volume element for the conjugate coordinate system.
+
+   Returns the k-space volume element (dqx * dqy * dqz).
+
+   :param space: Space structure
+   :type space: ss
+
+   :returns: k-space volume element ((1/m)^3)
+   :rtype: float
+
+
+.. py:function:: writefield(fnout, e, space, binmode, single, fnspace=None)
+
+   Write the space structure and field to a file.
+
+   Writes the space structure (ss) and the complex field array to a single
+   file. Can write in binary or text format, and can include space parameters
+   in the same file or a separate file.
+
+   :param fnout: Filename to write to, or "stdout" or "-" for stdout
+   :type fnout: str
+   :param e: Complex field array, 3D array of shape (Nx, Ny, Nz)
+   :type e: ndarray
+   :param space: Space structure
+   :type space: ss
+   :param binmode: If True, write in binary format; if False, write in text format
+   :type binmode: bool
+   :param single: If True, include space parameters in the same file
+   :type single: bool
+   :param fnspace: If single is False, write space parameters to this separate file
+   :type fnspace: str, optional
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   For binary mode, uses unformatted_write_space and unformatted_write_e.
+   For text mode, uses WriteSpaceParams_sub and formatted field output.
+
+
+.. py:function:: readspace_only(fnin, space, binmode, single, fnspace=None)
+
+   Read the space structure from a field file.
+
+   Reads the space structure (ss) from a field file. Can read from binary
+   or text format, and can read space parameters from the same file or
+   a separate file.
+
+   :param fnin: Filename to read from, or "stdin" or "-" for stdin
+   :type fnin: str
+   :param space: Space structure to populate (modified in-place)
+   :type space: ss
+   :param binmode: If True, read from binary format; if False, read from text format
+   :type binmode: bool
+   :param single: If True, read space parameters from the same file
+   :type single: bool
+   :param fnspace: If single is False, read space parameters from this separate file
+   :type fnspace: str, optional
+
+   :returns: space structure is modified in-place
+   :rtype: None
+
+   .. rubric:: Notes
+
+   For binary mode, uses unformatted_read_space.
+   For text mode, uses readspaceparams_sub.
+
+
+.. py:function:: writefield_to_unit(file_handle, e, binmode)
+
+   Write field array to a file handle.
+
+   Writes the complex field array to an open file handle in either
+   binary or text format.
+
+   :param file_handle: Open file handle to write to
+   :type file_handle: file
+   :param e: Complex field array, 3D array
+   :type e: ndarray
+   :param binmode: If True, write in binary format; if False, write in text format
+   :type binmode: bool
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   For binary mode, uses numpy's save or pickle.
+   For text mode, writes real and imaginary parts separately.
+
+
+.. py:function:: unformatted_write_space(file_handle, space)
+
+   Write space structure in binary format.
+
+   Writes the space structure to a file handle in binary (unformatted) format.
+
+   :param file_handle: Open binary file handle to write to
+   :type file_handle: file
+   :param space: Space structure to write
+   :type space: ss
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses numpy's save to write the dataclass fields in binary format.
+
+
+.. py:function:: unformatted_read_space(file_handle, space)
+
+   Read space structure from binary format.
+
+   Reads the space structure from a file handle in binary (unformatted) format.
+
+   :param file_handle: Open binary file handle to read from
+   :type file_handle: file
+   :param space: Space structure to populate (modified in-place)
+   :type space: ss
+
+   :returns: space structure is modified in-place
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses numpy's load to read the dataclass fields from binary format.
+
+
+.. py:function:: initialize_field(e)
+
+   Initialize field array to zero.
+
+   Sets all elements of the complex field array to zero.
+
+   :param e: Complex field array, 3D array (modified in-place)
+   :type e: ndarray
+
+   :returns: e array is modified in-place
+   :rtype: None
+
+   .. rubric:: Notes
+
+   In Fortran, this uses OpenMP parallelization when available.
+   In Python, we use NumPy's efficient zero assignment.
+
+
+.. py:function:: unformatted_write_e(file_handle, e)
+
+   Write field array in binary format.
+
+   Writes the complex field array to a file handle in binary (unformatted) format.
+
+   :param file_handle: Open binary file handle to write to
+   :type file_handle: file
+   :param e: Complex field array, 3D array
+   :type e: ndarray
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses numpy's save to write the array in binary format.
+
+
+.. py:function:: unformatted_read_e(file_handle, e)
+
+   Read field array from binary format.
+
+   Reads the complex field array from a file handle in binary (unformatted) format.
+
+   :param file_handle: Open binary file handle to read from
+   :type file_handle: file
+   :param e: Complex field array to populate (modified in-place), 3D array
+   :type e: ndarray
+
+   :returns: e array is modified in-place
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses numpy's load to read the array from binary format.
+   The array must already be allocated with the correct shape.
+
+
+.. py:function:: readfield_from_unit(file_handle, e, binmode)
+
+   Read field array from a file handle.
+
+   Reads the complex field array from an open file handle in either
+   binary or text format.
+
+   :param file_handle: Open file handle to read from
+   :type file_handle: file
+   :param e: Complex field array to populate (modified in-place), 3D array
+   :type e: ndarray
+   :param binmode: If True, read from binary format; if False, read from text format
+   :type binmode: bool
+
+   :returns: e array is modified in-place
+   :rtype: None
+
+   .. rubric:: Notes
+
+   For binary mode, uses unformatted_read_e.
+   For text mode, reads real and imaginary parts line by line.
+
+
+.. py:function:: readfield(fnin, e, space, binmode, single, fnspace=None)
+
+   Read the space structure and field from a file.
+
+   Reads the space structure (ss) and the complex field array from a file.
+   Can read from binary or text format, and can read space parameters from
+   the same file or a separate file. The field array is automatically
+   allocated or resized to match the space dimensions.
+
+   :param fnin: Filename to read from, or "stdin" or "-" for stdin
+   :type fnin: str
+   :param e: Complex field array. If None or wrong shape, will be allocated/resized.
+             Modified in-place if provided, or a new array is returned.
+   :type e: ndarray or None
+   :param space: Space structure to populate (modified in-place)
+   :type space: ss
+   :param binmode: If True, read from binary format; if False, read from text format
+   :type binmode: bool
+   :param single: If True, read space parameters from the same file
+   :type single: bool
+   :param fnspace: If single is False, read space parameters from this separate file
+   :type fnspace: str, optional
+
+   :returns: Complex field array. If e was None, returns a new array.
+             If e was provided, returns the same array (modified in-place).
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   The field array is automatically allocated or resized to match
+   GetNx(space), GetNy(space), GetNz(space).
+   After reading space parameters, the field is initialized to zero
+   before reading the actual field data.
+
+

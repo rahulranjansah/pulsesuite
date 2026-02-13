@@ -1,0 +1,481 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pulsesuite.PSTD3D.rhoPJ &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/js/hoverxref.js"></script>
+      <script src="../../../../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../../../../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../../../../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pulsesuite.PSTD3D.rhoPJ</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pulsesuite/PSTD3D/rhoPJ/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pulsesuite.PSTD3D.rhoPJ">
+<span id="pulsesuite-pstd3d-rhopj"></span><h1>pulsesuite.PSTD3D.rhoPJ<a class="headerlink" href="#module-pulsesuite.PSTD3D.rhoPJ" title="Link to this heading">¶</a></h1>
+<p>Quantum wire polarization and current density calculations for 3D Maxwell propagation.</p>
+<p>This module handles the interface between 1D quantum wire calculations and 3D
+Maxwell field propagation, including polarization placement, current density
+calculation, and longitudinal field computation from charge density.</p>
+<p>Author: Rahul R. Sah</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.rhoPJ.eps0" title="pulsesuite.PSTD3D.rhoPJ.eps0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eps0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.rhoPJ.ii" title="pulsesuite.PSTD3D.rhoPJ.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.rhoPJ.QWArray" title="pulsesuite.PSTD3D.rhoPJ.QWArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QWArray</span></code></a></p></td>
+<td><p>Quantum wire array state for 3D Maxwell propagation.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#id1" title="pulsesuite.PSTD3D.rhoPJ.read_qw_parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_qw_parameters</span></code></a>(filename)</p></td>
+<td><p>Backward-compatible shim — delegates to _default_qw.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#id0" title="pulsesuite.PSTD3D.rhoPJ.QuantumWire"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QuantumWire</span></code></a>(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho, ...)</p></td>
+<td><p>Backward-compatible shim — delegates to _default_qw.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.rhoPJ.CalcJfx" title="pulsesuite.PSTD3D.rhoPJ.CalcJfx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcJfx</span></code></a>(RhoNew, RhoPrev, dt, dx)</p></td>
+<td><p>Compute free current density from charge density time derivative.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.rhoPJ.QWPlacement" title="pulsesuite.PSTD3D.rhoPJ.QWPlacement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QWPlacement</span></code></a>(Fwire, gx, gy, gz, Fgrid)</p></td>
+<td><p>Place 1D quantum wire field into 3D Maxwell grid.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.rhoPJ.ElongfromRho" title="pulsesuite.PSTD3D.rhoPJ.ElongfromRho"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ElongfromRho</span></code></a>(space, Rho, Px, Py, Pz, ExlfromPRho, ...)</p></td>
+<td><p>Calculate longitudinal electric fields from polarization and charge density.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#id0" title="pulsesuite.PSTD3D.rhoPJ.QuantumWire"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QuantumWire</span></code></a>(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho, ...)</p></td>
+<td><p>Backward-compatible shim — delegates to _default_qw.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#id1" title="pulsesuite.PSTD3D.rhoPJ.read_qw_parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_qw_parameters</span></code></a>(filename)</p></td>
+<td><p>Backward-compatible shim — delegates to _default_qw.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.eps0">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.rhoPJ.</span></span><span class="sig-name descname"><span class="pre">eps0</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.eps0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.ii">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.rhoPJ.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1j</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.ii" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.read_qw_parameters">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.rhoPJ.</span></span><span class="sig-name descname"><span class="pre">read_qw_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.read_qw_parameters" title="Link to this definition">¶</a></dt>
+<dd><p>Read quantum wire parameters from file.</p>
+<p>Reads QW configuration parameters from a file and updates module-level
+variables. If the file cannot be opened, prints an error message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Path to the parameter file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Error status: 0 for success, non-zero for error</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QuantumWire">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.rhoPJ.</span></span><span class="sig-name descname"><span class="pre">QuantumWire</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ez</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Jx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Jy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Jz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExlfromPRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EylfromPRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EzlfromPRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExlfromP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EylfromP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EzlfromP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExlfromRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EylfromRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EzlfromRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RhoBound</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QuantumWire" title="Link to this definition">¶</a></dt>
+<dd><p>Main quantum wire calculation routine.</p>
+<p>Calculates polarization and charge density for quantum wires and deposits
+them into 3D Maxwell grid. Handles multiple wires and computes longitudinal
+fields from polarization and charge density.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>space</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><em>object</em></a>) – Space configuration object (from typespace)</p></li>
+<li><p><strong>dt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Time step (s)</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Current time step number</p></li>
+<li><p><strong>Ex</strong> (<em>ndarray</em>) – X-component electric field (complex), 3D array</p></li>
+<li><p><strong>Ey</strong> (<em>ndarray</em>) – Y-component electric field (complex), 3D array</p></li>
+<li><p><strong>Ez</strong> (<em>ndarray</em>) – Z-component electric field (complex), 3D array</p></li>
+<li><p><strong>Jx</strong> (<em>ndarray</em>) – X-component current density (complex, modified in-place), 3D array</p></li>
+<li><p><strong>Jy</strong> (<em>ndarray</em>) – Y-component current density (complex, modified in-place), 3D array</p></li>
+<li><p><strong>Jz</strong> (<em>ndarray</em>) – Z-component current density (complex, modified in-place), 3D array</p></li>
+<li><p><strong>Rho</strong> (<em>ndarray</em>) – Charge density (complex, modified in-place), 3D array</p></li>
+<li><p><strong>ExlfromPRho</strong> (<em>ndarray</em>) – X-component longitudinal field from P+Rho (output), 3D array</p></li>
+<li><p><strong>EylfromPRho</strong> (<em>ndarray</em>) – Y-component longitudinal field from P+Rho (output), 3D array</p></li>
+<li><p><strong>EzlfromPRho</strong> (<em>ndarray</em>) – Z-component longitudinal field from P+Rho (output), 3D array</p></li>
+<li><p><strong>ExlfromP</strong> (<em>ndarray</em>) – X-component longitudinal field from P (output), 3D array</p></li>
+<li><p><strong>EylfromP</strong> (<em>ndarray</em>) – Y-component longitudinal field from P (output), 3D array</p></li>
+<li><p><strong>EzlfromP</strong> (<em>ndarray</em>) – Z-component longitudinal field from P (output), 3D array</p></li>
+<li><p><strong>ExlfromRho</strong> (<em>ndarray</em>) – X-component longitudinal field from Rho (output), 3D array</p></li>
+<li><p><strong>EylfromRho</strong> (<em>ndarray</em>) – Y-component longitudinal field from Rho (output), 3D array</p></li>
+<li><p><strong>EzlfromRho</strong> (<em>ndarray</em>) – Z-component longitudinal field from Rho (output), 3D array</p></li>
+<li><p><strong>RhoBound</strong> (<em>ndarray</em>) – Bound charge density (output), 3D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All output arrays are modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.CalcJfx">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.rhoPJ.</span></span><span class="sig-name descname"><span class="pre">CalcJfx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">RhoNew</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RhoPrev</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.CalcJfx" title="Link to this definition">¶</a></dt>
+<dd><p>Compute free current density from charge density time derivative.</p>
+<p>Calculates J_free = - ∫(∂ρ/∂t) dx using local approximation (Riemann sums).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>RhoNew</strong> (<em>ndarray</em>) – Current charge density (complex), 1D array</p></li>
+<li><p><strong>RhoPrev</strong> (<em>ndarray</em>) – Previous charge density (complex), 1D array</p></li>
+<li><p><strong>dt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Time step (s)</p></li>
+<li><p><strong>dx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Spatial step (m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Free current density (complex), 1D array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWPlacement">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.rhoPJ.</span></span><span class="sig-name descname"><span class="pre">QWPlacement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Fwire</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Fgrid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWPlacement" title="Link to this definition">¶</a></dt>
+<dd><p>Place 1D quantum wire field into 3D Maxwell grid.</p>
+<p>Deposits a 1D field Fwire along the x-axis into a 3D grid Fgrid using
+gate profiles gx, gy, gz for spatial weighting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Fwire</strong> (<em>ndarray</em>) – Complex field along x-axis (length Nx), 1D array</p></li>
+<li><p><strong>gx</strong> (<em>ndarray</em>) – Gate profile in x direction, 1D array</p></li>
+<li><p><strong>gy</strong> (<em>ndarray</em>) – Gate profile in y direction, 1D array</p></li>
+<li><p><strong>gz</strong> (<em>ndarray</em>) – Gate profile in z direction, 1D array</p></li>
+<li><p><strong>Fgrid</strong> (<em>ndarray</em>) – Complex 3D Maxwell grid array to deposit into (modified in-place), 3D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Fgrid is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.ElongfromRho">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.rhoPJ.</span></span><span class="sig-name descname"><span class="pre">ElongfromRho</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Py</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExlfromPRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EylfromPRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EzlfromPRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExlfromP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EylfromP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EzlfromP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExlfromRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EylfromRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EzlfromRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RhoBound</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.ElongfromRho" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate longitudinal electric fields from polarization and charge density.</p>
+<p>Computes longitudinal (Coulomb) electric fields in k-space from polarization
+and free charge density, then transforms back to real space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>space</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><em>object</em></a>) – Space configuration object (from typespace)</p></li>
+<li><p><strong>Rho</strong> (<em>ndarray</em>) – Free charge density (complex), 3D array</p></li>
+<li><p><strong>Px</strong> (<em>ndarray</em>) – X-component polarization (complex, modified in-place), 3D array</p></li>
+<li><p><strong>Py</strong> (<em>ndarray</em>) – Y-component polarization (complex, modified in-place), 3D array</p></li>
+<li><p><strong>Pz</strong> (<em>ndarray</em>) – Z-component polarization (complex, modified in-place), 3D array</p></li>
+<li><p><strong>ExlfromPRho</strong> (<em>ndarray</em>) – X-component longitudinal field from P+Rho (output), 3D array</p></li>
+<li><p><strong>EylfromPRho</strong> (<em>ndarray</em>) – Y-component longitudinal field from P+Rho (output), 3D array</p></li>
+<li><p><strong>EzlfromPRho</strong> (<em>ndarray</em>) – Z-component longitudinal field from P+Rho (output), 3D array</p></li>
+<li><p><strong>ExlfromP</strong> (<em>ndarray</em>) – X-component longitudinal field from P (output), 3D array</p></li>
+<li><p><strong>EylfromP</strong> (<em>ndarray</em>) – Y-component longitudinal field from P (output), 3D array</p></li>
+<li><p><strong>EzlfromP</strong> (<em>ndarray</em>) – Z-component longitudinal field from P (output), 3D array</p></li>
+<li><p><strong>ExlfromRho</strong> (<em>ndarray</em>) – X-component longitudinal field from Rho (output), 3D array</p></li>
+<li><p><strong>EylfromRho</strong> (<em>ndarray</em>) – Y-component longitudinal field from Rho (output), 3D array</p></li>
+<li><p><strong>EzlfromRho</strong> (<em>ndarray</em>) – Z-component longitudinal field from Rho (output), 3D array</p></li>
+<li><p><strong>RhoBound</strong> (<em>ndarray</em>) – Bound charge density (output), 3D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All output arrays are modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.rhoPJ.</span></span><span class="sig-name descname"><span class="pre">QWArray</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray" title="Link to this definition">¶</a></dt>
+<dd><p>Quantum wire array state for 3D Maxwell propagation.</p>
+<p>Encapsulates all mutable module-level state (QW parameters, old
+polarization/charge arrays) enabling multiple independent QW array
+simulations.</p>
+<p>Usage (mirrors Fortran workflow via shim):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Implicit via shim — zero caller changes:</span>
+<span class="n">QuantumWire</span><span class="p">(</span><span class="n">space</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">Ex</span><span class="p">,</span> <span class="n">Ey</span><span class="p">,</span> <span class="n">Ez</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+
+<span class="c1"># Explicit — for multi-instance:</span>
+<span class="n">qw</span> <span class="o">=</span> <span class="n">QWArray</span><span class="p">()</span>
+<span class="n">qw</span><span class="o">.</span><span class="n">QuantumWire</span><span class="p">(</span><span class="n">space</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">Ex</span><span class="p">,</span> <span class="n">Ey</span><span class="p">,</span> <span class="n">Ez</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.Nw">
+<span class="sig-name descname"><span class="pre">Nw</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.Nw" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.y0">
+<span class="sig-name descname"><span class="pre">y0</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.y0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.x0">
+<span class="sig-name descname"><span class="pre">x0</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.x0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.z0">
+<span class="sig-name descname"><span class="pre">z0</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.z0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.dxqw">
+<span class="sig-name descname"><span class="pre">dxqw</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.dxqw" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.ay">
+<span class="sig-name descname"><span class="pre">ay</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5e-09</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.ay" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.az">
+<span class="sig-name descname"><span class="pre">az</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5e-09</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.az" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.QW">
+<span class="sig-name descname"><span class="pre">QW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.QW" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.host">
+<span class="sig-name descname"><span class="pre">host</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.host" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.propagate">
+<span class="sig-name descname"><span class="pre">propagate</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.propagate" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.PxxOld">
+<span class="sig-name descname"><span class="pre">PxxOld</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.PxxOld" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.PyyOld">
+<span class="sig-name descname"><span class="pre">PyyOld</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.PyyOld" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.PzzOld">
+<span class="sig-name descname"><span class="pre">PzzOld</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.PzzOld" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.RhoOld">
+<span class="sig-name descname"><span class="pre">RhoOld</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.RhoOld" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.read_qw_parameters">
+<span class="sig-name descname"><span class="pre">read_qw_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.read_qw_parameters" title="Link to this definition">¶</a></dt>
+<dd><p>Read quantum wire parameters from file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Path to the parameter file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Error status: 0 for success, non-zero for error</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.rhoPJ.QWArray.QuantumWire">
+<span class="sig-name descname"><span class="pre">QuantumWire</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ez</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Jx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Jy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Jz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExlfromPRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EylfromPRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EzlfromPRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExlfromP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EylfromP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EzlfromP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExlfromRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EylfromRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EzlfromRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RhoBound</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.rhoPJ.QWArray.QuantumWire" title="Link to this definition">¶</a></dt>
+<dd><p>Main quantum wire calculation routine.</p>
+<p>Calculates polarization and charge density for quantum wires and
+deposits them into 3D Maxwell grid.  Handles multiple wires and
+computes longitudinal fields from polarization and charge density.</p>
+<p>All output arrays are modified in-place.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.rhoPJ.</span></span><span class="sig-name descname"><span class="pre">QuantumWire</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ez</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Jx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Jy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Jz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExlfromPRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EylfromPRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EzlfromPRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExlfromP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EylfromP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EzlfromP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ExlfromRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EylfromRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EzlfromRho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RhoBound</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd><p>Backward-compatible shim — delegates to _default_qw.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.rhoPJ.</span></span><span class="sig-name descname"><span class="pre">read_qw_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
+<dd><p>Backward-compatible shim — delegates to _default_qw.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+pulsesuite.core.typelens
+========================
+
+.. py:module:: pulsesuite.core.typelens
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pulsesuite.core.typelens.nlls
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.core.typelens.GetVersion_nlls
+   pulsesuite.core.typelens.CalcFocalLength
+   pulsesuite.core.typelens.GetNz_nlls
+   pulsesuite.core.typelens.SetNz_nlls
+   pulsesuite.core.typelens.GetDz_nlls
+   pulsesuite.core.typelens.SetDz_nlls
+   pulsesuite.core.typelens.GetLength_nlls
+   pulsesuite.core.typelens.SetLength_nlls
+   pulsesuite.core.typelens.GetN0_nlls
+   pulsesuite.core.typelens.SetN0_nlls
+   pulsesuite.core.typelens.GetK2_nlls
+   pulsesuite.core.typelens.SetK2_nlls
+   pulsesuite.core.typelens.GetN2I_nlls
+   pulsesuite.core.typelens.SetN2I_nlls
+   pulsesuite.core.typelens.GetBeta_nlls
+   pulsesuite.core.typelens.SetBeta_nlls
+   pulsesuite.core.typelens.GetAlpha_nlls
+   pulsesuite.core.typelens.SetAlpha_nlls
+   pulsesuite.core.typelens.GetRC
+   pulsesuite.core.typelens.SetRC
+   pulsesuite.core.typelens.GetMaterial_nlls
+   pulsesuite.core.typelens.SetMaterial_nlls
+   pulsesuite.core.typelens.GetWavelength_nlls
+   pulsesuite.core.typelens.SetWavelength_nlls
+   pulsesuite.core.typelens.GetMedium_nlls
+   pulsesuite.core.typelens.SetMedium_nlls
+   pulsesuite.core.typelens.GetDesignWavelength
+   pulsesuite.core.typelens.SetDesignWavelength
+   pulsesuite.core.typelens.readlensparams
+   pulsesuite.core.typelens.writelensparams
+   pulsesuite.core.typelens.dumplens
+   pulsesuite.core.typelens.BillsMagic
+
+
+Module Contents
+---------------
+
+.. py:class:: nlls
+
+   Nonlinear Lens Structure (plano-convex lens) parameters.
+
+
+   .. py:attribute:: version
+      :type:  int
+      :value: -1
+
+
+
+   .. py:attribute:: medium
+      :type:  nlms
+
+
+   .. py:attribute:: rc0
+      :type:  Annotated[float, numpy.float64]
+
+
+   .. py:attribute:: wavelength_design
+      :type:  Annotated[float, numpy.float64]
+
+
+   .. py:method:: __post_init__()
+
+
+   .. py:property:: focal_length
+      :type: float
+
+
+      rc0 / (n0 - 1)
+
+      :type: Optical focal length
+
+
+   .. py:property:: rc
+      :type: float
+
+
+      Radius of curvature (m)
+
+
+   .. py:property:: design_wavelength
+      :type: float
+
+
+      Design wavelength (m)
+
+
+   .. py:property:: nz
+      :type: int
+
+
+      Number of steps
+
+
+   .. py:property:: dz
+      :type: float
+
+
+      Step size in propagation direction
+
+
+   .. py:property:: length
+      :type: float
+
+
+      Total lens length (m)
+
+
+   .. py:property:: n0
+      :type: float
+
+
+      Index of refraction at center
+
+
+   .. py:property:: k2
+      :type: float
+
+
+      Dispersion parameter
+
+
+   .. py:property:: n2i
+      :type: float
+
+
+      Intensity-dependent nonlinear index
+
+
+   .. py:property:: beta
+      :type: float
+
+
+      Two-photon absorption coefficient
+
+
+   .. py:property:: alpha
+      :type: float
+
+
+      Linear absorption coefficient
+
+
+   .. py:property:: material
+      :type: str
+
+
+      Material name
+
+
+   .. py:property:: wavelength
+      :type: float
+
+
+      Operating wavelength (m)
+
+
+   .. py:property:: medium_data
+      :type: nlms
+
+
+      Underlying medium data
+
+
+.. py:function:: GetVersion_nlls(lens: nlls) -> int
+
+.. py:function:: CalcFocalLength(lens: nlls) -> Annotated[float, numpy.float64]
+
+.. py:function:: GetNz_nlls(lens: nlls) -> int
+
+.. py:function:: SetNz_nlls(lens: nlls, N: int) -> None
+
+.. py:function:: GetDz_nlls(lens: nlls) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetDz_nlls(lens: nlls, Dz: Annotated[float, numpy.float64]) -> None
+
+.. py:function:: GetLength_nlls(lens: nlls) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetLength_nlls(lens: nlls, L: Annotated[float, numpy.float64]) -> None
+
+.. py:function:: GetN0_nlls(lens: nlls) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetN0_nlls(lens: nlls, n0: Annotated[float, numpy.float64]) -> None
+
+.. py:function:: GetK2_nlls(lens: nlls) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetK2_nlls(lens: nlls, k2: Annotated[float, numpy.float64]) -> None
+
+.. py:function:: GetN2I_nlls(lens: nlls) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetN2I_nlls(lens: nlls, n2: Annotated[float, numpy.float64]) -> None
+
+.. py:function:: GetBeta_nlls(lens: nlls) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetBeta_nlls(lens: nlls, beta: Annotated[float, numpy.float64]) -> None
+
+.. py:function:: GetAlpha_nlls(lens: nlls) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetAlpha_nlls(lens: nlls, alpha: Annotated[float, numpy.float64]) -> None
+
+.. py:function:: GetRC(lens: nlls) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetRC(lens: nlls, rc: Annotated[float, numpy.float64]) -> None
+
+.. py:function:: GetMaterial_nlls(lens: nlls) -> str
+
+.. py:function:: SetMaterial_nlls(lens: nlls, mat: str) -> None
+
+.. py:function:: GetWavelength_nlls(lens: nlls) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetWavelength_nlls(lens: nlls, lam: Annotated[float, numpy.float64]) -> None
+
+.. py:function:: GetMedium_nlls(lens: nlls) -> nlms
+
+.. py:function:: SetMedium_nlls(lens: nlls, medium: nlms) -> None
+
+.. py:function:: GetDesignWavelength(lens: nlls) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetDesignWavelength(lens: nlls, lam: Annotated[float, numpy.float64]) -> None
+
+.. py:function:: readlensparams(cmd: Union[str, pathlib.Path, TextIO], lens: nlls) -> None
+
+.. py:function:: writelensparams(cmd: Union[str, pathlib.Path, TextIO], lens: nlls) -> None
+
+.. py:function:: dumplens(lens: nlls, level: int | None = None) -> None
+
+.. py:function:: BillsMagic(x: float) -> float
+

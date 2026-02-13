@@ -1,0 +1,556 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pulsesuite.PSTD3D.sbetestpropnov30 &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/js/hoverxref.js"></script>
+      <script src="../../../../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../../../../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../../../../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pulsesuite.PSTD3D.sbetestpropnov30</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pulsesuite/PSTD3D/sbetestpropnov30/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pulsesuite.PSTD3D.sbetestpropnov30">
+<span id="pulsesuite-pstd3d-sbetestpropnov30"></span><h1>pulsesuite.PSTD3D.sbetestpropnov30<a class="headerlink" href="#module-pulsesuite.PSTD3D.sbetestpropnov30" title="Link to this heading">¶</a></h1>
+<p>SBE Test Program - Full Version with Longitudinal Field Decomposition.</p>
+<p>This program tests the Semiconductor Bloch Equations (SBE) solver by simulating
+quantum wire response to plane wave electromagnetic fields with complete
+longitudinal field analysis. It tracks E-fields from polarization (P), charge
+density (Rho), and their combination (P+Rho).</p>
+<p>Author: Rahul R. Sah</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.JIT_AVAILABLE" title="pulsesuite.PSTD3D.sbetestpropnov30.JIT_AVAILABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JIT_AVAILABLE</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.c0" title="pulsesuite.PSTD3D.sbetestpropnov30.c0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">c0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.pi" title="pulsesuite.PSTD3D.sbetestpropnov30.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.twopi" title="pulsesuite.PSTD3D.sbetestpropnov30.twopi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">twopi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_DT" title="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_DT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DEFAULT_DT</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_NT" title="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_NT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DEFAULT_NT</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_TP" title="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_TP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DEFAULT_TP</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_LAM" title="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_LAM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DEFAULT_LAM</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_TW" title="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_TW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DEFAULT_TW</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_N0" title="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_N0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DEFAULT_N0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_E0X" title="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_E0X"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DEFAULT_E0X</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_E0Y" title="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_E0Y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DEFAULT_E0Y</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_E0Z" title="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_E0Z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DEFAULT_E0Z</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.initializefields" title="pulsesuite.PSTD3D.sbetestpropnov30.initializefields"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initializefields</span></code></a>(F1, F2, F3, F4, F5, F6, F7, F8, F9, ...)</p></td>
+<td><p>Initialize all field arrays to zero.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveX" title="pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveX"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakePlaneWaveX</span></code></a>(Ey, space, t, Emax0, lam, tw, tp)</p></td>
+<td><p>Create a plane wave propagating in the x-direction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveY" title="pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakePlaneWaveY</span></code></a>(Ex, space, t, Emax0, lam, tw, tp)</p></td>
+<td><p>Create a plane wave propagating in the y-direction.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveZ" title="pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveZ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakePlaneWaveZ</span></code></a>(Ez, space, t, Emax0, lam, tw, tp)</p></td>
+<td><p>Create a plane wave propagating in the x-direction (z-polarized).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveTemporal" title="pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveTemporal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakePlaneWaveTemporal</span></code></a>(Ex, t, Emax0, lam, tw, tp)</p></td>
+<td><p>Create a temporally-varying uniform field.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.ElongSeparate" title="pulsesuite.PSTD3D.sbetestpropnov30.ElongSeparate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ElongSeparate</span></code></a>(space, Ex, Ey, Ez, Exl, Eyl, Ezl)</p></td>
+<td><p>Separate longitudinal and transverse electric field components.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.int2str" title="pulsesuite.PSTD3D.sbetestpropnov30.int2str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int2str</span></code></a>(n)</p></td>
+<td><p>Convert integer to string for filename generation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.SBETest" title="pulsesuite.PSTD3D.sbetestpropnov30.SBETest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SBETest</span></code></a>([space_params_file, dt, Nt, tp, lam, tw, n0, ...])</p></td>
+<td><p>Main SBE test program with full longitudinal field analysis.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.sbetestpropnov30.main" title="pulsesuite.PSTD3D.sbetestpropnov30.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>()</p></td>
+<td><p>Main entry point for command-line execution.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.JIT_AVAILABLE">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">JIT_AVAILABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.JIT_AVAILABLE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.c0">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">c0</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">299792458.0</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.c0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.pi">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.pi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.twopi">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">twopi</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.twopi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_DT">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_DT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1e-17</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_DT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_NT">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_NT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10000</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_NT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_TP">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_TP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5e-14</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_TP" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_LAM">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_LAM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8e-07</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_LAM" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_TW">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_TW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1e-14</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_TW" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_N0">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_N0</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3.1</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_N0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_E0X">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_E0X</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">200000000.0</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_E0X" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_E0Y">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_E0Y</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_E0Y" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_E0Z">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_E0Z</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_E0Z" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.initializefields">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">initializefields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">F1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F13</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F14</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F17</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F18</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F19</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.initializefields" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize all field arrays to zero.</p>
+<p>Sets all 20 complex field arrays to zero for the start of simulation.
+This extended version includes longitudinal field decompositions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>F1</strong> (<em>ndarray</em>) – Electric field components (Ex, Ey, Ez), 3D complex arrays</p></li>
+<li><p><strong>F2</strong> (<em>ndarray</em>) – Electric field components (Ex, Ey, Ez), 3D complex arrays</p></li>
+<li><p><strong>F3</strong> (<em>ndarray</em>) – Electric field components (Ex, Ey, Ez), 3D complex arrays</p></li>
+<li><p><strong>F4</strong> (<em>ndarray</em>) – Current density components (Jx, Jy, Jz), 3D complex arrays</p></li>
+<li><p><strong>F5</strong> (<em>ndarray</em>) – Current density components (Jx, Jy, Jz), 3D complex arrays</p></li>
+<li><p><strong>F6</strong> (<em>ndarray</em>) – Current density components (Jx, Jy, Jz), 3D complex arrays</p></li>
+<li><p><strong>F7</strong> (<em>ndarray</em>) – Charge density (Rho), 3D complex array</p></li>
+<li><p><strong>F8</strong> (<em>ndarray</em>) – Longitudinal field components from Helmholtz decomposition (Exl, Eyl, Ezl), 3D complex arrays</p></li>
+<li><p><strong>F9</strong> (<em>ndarray</em>) – Longitudinal field components from Helmholtz decomposition (Exl, Eyl, Ezl), 3D complex arrays</p></li>
+<li><p><strong>F10</strong> (<em>ndarray</em>) – Longitudinal field components from Helmholtz decomposition (Exl, Eyl, Ezl), 3D complex arrays</p></li>
+<li><p><strong>F11</strong> (<em>ndarray</em>) – Longitudinal fields from P+Rho (ExlfromPRho, EylfromPRho, EzlfromPRho), 3D complex arrays</p></li>
+<li><p><strong>F12</strong> (<em>ndarray</em>) – Longitudinal fields from P+Rho (ExlfromPRho, EylfromPRho, EzlfromPRho), 3D complex arrays</p></li>
+<li><p><strong>F13</strong> (<em>ndarray</em>) – Longitudinal fields from P+Rho (ExlfromPRho, EylfromPRho, EzlfromPRho), 3D complex arrays</p></li>
+<li><p><strong>F14</strong> (<em>ndarray</em>) – Longitudinal fields from P only (ExlfromP, EylfromP, EzlfromP), 3D complex arrays</p></li>
+<li><p><strong>F15</strong> (<em>ndarray</em>) – Longitudinal fields from P only (ExlfromP, EylfromP, EzlfromP), 3D complex arrays</p></li>
+<li><p><strong>F16</strong> (<em>ndarray</em>) – Longitudinal fields from P only (ExlfromP, EylfromP, EzlfromP), 3D complex arrays</p></li>
+<li><p><strong>F17</strong> (<em>ndarray</em>) – Longitudinal fields from Rho only (ExlfromRho, EylfromRho, EzlfromRho), 3D complex arrays</p></li>
+<li><p><strong>F18</strong> (<em>ndarray</em>) – Longitudinal fields from Rho only (ExlfromRho, EylfromRho, EzlfromRho), 3D complex arrays</p></li>
+<li><p><strong>F19</strong> (<em>ndarray</em>) – Longitudinal fields from Rho only (ExlfromRho, EylfromRho, EzlfromRho), 3D complex arrays</p></li>
+<li><p><strong>F20</strong> (<em>ndarray</em>) – Bound charge density (RhoBound), 3D complex array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All arrays are modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveX">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">MakePlaneWaveX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emax0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveX" title="Link to this definition">¶</a></dt>
+<dd><p>Create a plane wave propagating in the x-direction.</p>
+<p>Generates E = (0, Ey(x,t), 0) with Gaussian envelope and super-Gaussian
+cutoff, propagating along the x-axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ey</strong> (<em>ndarray</em>) – Y-component electric field to populate (modified in-place), 3D complex array</p></li>
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="../typespace/index.html#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure containing grid parameters</p></li>
+<li><p><strong>t</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Current time (s)</p></li>
+<li><p><strong>Emax0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Peak field amplitude (V/m)</p></li>
+<li><p><strong>lam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Wavelength (m)</p></li>
+<li><p><strong>tw</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Pulse width (s)</p></li>
+<li><p><strong>tp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Time of pulse peak (s)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Ey array is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses a background refractive index n0 = 3.1 (hardcoded).
+Super-Gaussian cutoff (power 20) prevents spurious oscillations.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveY">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">MakePlaneWaveY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emax0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveY" title="Link to this definition">¶</a></dt>
+<dd><p>Create a plane wave propagating in the y-direction.</p>
+<p>Generates E = (Ex(y,t), 0, 0) with Gaussian envelope and super-Gaussian
+cutoff, propagating along the y-axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ex</strong> (<em>ndarray</em>) – X-component electric field to populate (modified in-place), 3D complex array</p></li>
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="../typespace/index.html#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure containing grid parameters</p></li>
+<li><p><strong>t</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Current time (s)</p></li>
+<li><p><strong>Emax0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Peak field amplitude (V/m)</p></li>
+<li><p><strong>lam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Wavelength (m)</p></li>
+<li><p><strong>tw</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Pulse width (s)</p></li>
+<li><p><strong>tp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Time of pulse peak (s)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Ex array is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses a background refractive index n0 = 3.1 (hardcoded).
+Super-Gaussian cutoff (power 20) prevents spurious oscillations.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveZ">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">MakePlaneWaveZ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ez</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emax0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveZ" title="Link to this definition">¶</a></dt>
+<dd><p>Create a plane wave propagating in the x-direction (z-polarized).</p>
+<p>Generates E = (0, 0, Ez(x,t)) with Gaussian envelope and super-Gaussian
+cutoff, propagating along the x-axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ez</strong> (<em>ndarray</em>) – Z-component electric field to populate (modified in-place), 3D complex array</p></li>
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="../typespace/index.html#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure containing grid parameters</p></li>
+<li><p><strong>t</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Current time (s)</p></li>
+<li><p><strong>Emax0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Peak field amplitude (V/m)</p></li>
+<li><p><strong>lam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Wavelength (m)</p></li>
+<li><p><strong>tw</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Pulse width (s)</p></li>
+<li><p><strong>tp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Time of pulse peak (s)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Ez array is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses a background refractive index n0 = 3.1 (hardcoded).
+Super-Gaussian cutoff (power 20) prevents spurious oscillations.
+Note: The wave propagates along x-axis, not z-axis.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveTemporal">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">MakePlaneWaveTemporal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emax0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveTemporal" title="Link to this definition">¶</a></dt>
+<dd><p>Create a temporally-varying uniform field.</p>
+<p>Generates E = (Ex(t), 0, 0) that is uniform in space but varies in time
+with a Gaussian envelope.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ex</strong> (<em>ndarray</em>) – X-component electric field to populate (modified in-place), 3D complex array</p></li>
+<li><p><strong>t</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Current time (s)</p></li>
+<li><p><strong>Emax0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Peak field amplitude (V/m)</p></li>
+<li><p><strong>lam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Wavelength (m)</p></li>
+<li><p><strong>tw</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Pulse width (s)</p></li>
+<li><p><strong>tp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Time of pulse peak (s)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Ex array is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This creates a spatially uniform field that oscillates in time.
+Useful for testing temporal response without spatial propagation effects.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.ElongSeparate">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">ElongSeparate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ez</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Exl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ezl</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.ElongSeparate" title="Link to this definition">¶</a></dt>
+<dd><p>Separate longitudinal and transverse electric field components.</p>
+<p>Placeholder function for field decomposition using Helmholtz decomposition.
+In the full implementation, this would separate E into transverse
+and longitudinal components.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="../typespace/index.html#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure containing grid parameters</p></li>
+<li><p><strong>Ex</strong> (<em>ndarray</em>) – Total electric field components, 3D complex arrays</p></li>
+<li><p><strong>Ey</strong> (<em>ndarray</em>) – Total electric field components, 3D complex arrays</p></li>
+<li><p><strong>Ez</strong> (<em>ndarray</em>) – Total electric field components, 3D complex arrays</p></li>
+<li><p><strong>Exl</strong> (<em>ndarray</em>) – Longitudinal electric field components (output), 3D complex arrays</p></li>
+<li><p><strong>Eyl</strong> (<em>ndarray</em>) – Longitudinal electric field components (output), 3D complex arrays</p></li>
+<li><p><strong>Ezl</strong> (<em>ndarray</em>) – Longitudinal electric field components (output), 3D complex arrays</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Exl, Eyl, Ezl are modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Currently a stub. Full implementation would compute:
+E_long = -∇φ where ∇²φ = ∇·E
+E_trans = E - E_long</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.int2str">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">int2str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.int2str" title="Link to this definition">¶</a></dt>
+<dd><p>Convert integer to string for filename generation.</p>
+<p>Simple helper function to convert integers to strings for output filenames.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Integer to convert</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String representation of the integer</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.SBETest">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">SBETest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space_params_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'params/space.params'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DEFAULT_DT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DEFAULT_NT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DEFAULT_TP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DEFAULT_LAM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DEFAULT_TW</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DEFAULT_N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E0x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DEFAULT_E0X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E0y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DEFAULT_E0Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E0z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DEFAULT_E0Z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fields'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_2d_slices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slice_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.SBETest" title="Link to this definition">¶</a></dt>
+<dd><p>Main SBE test program with full longitudinal field analysis.</p>
+<p>Simulates quantum wire response to plane wave electromagnetic fields with
+complete tracking of longitudinal field components from polarization (P),
+charge density (Rho), and their combination.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>space_params_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Path to space parameters file (default: ‘params/space.params’)</p></li>
+<li><p><strong>dt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Time step in seconds (default: 10e-18 s)</p></li>
+<li><p><strong>Nt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Number of time steps (default: 10000)</p></li>
+<li><p><strong>tp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Time of pulse peak in seconds (default: 50e-15 s)</p></li>
+<li><p><strong>lam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Field wavelength in meters (default: 800e-9 m)</p></li>
+<li><p><strong>tw</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Pulse width in seconds (default: 10e-15 s)</p></li>
+<li><p><strong>n0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Background refractive index (default: 3.1)</p></li>
+<li><p><strong>E0x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Peak Ex-field value in V/m (default: 2e8 V/m)</p></li>
+<li><p><strong>E0y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Peak Ey-field value in V/m (default: 0.0 V/m)</p></li>
+<li><p><strong>E0z</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Peak Ez-field value in V/m (default: 0.0 V/m)</p></li>
+<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Directory for output files (default: ‘fields’)</p></li>
+<li><p><strong>write_2d_slices</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to write 2D slice files (default: True)</p></li>
+<li><p><strong>slice_interval</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Interval for writing 2D slices (default: 10)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary containing final field arrays and statistics</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function:
+1. Reads spatial grid parameters
+2. Allocates all field arrays including longitudinal decompositions
+3. Initializes SBE solver
+4. Time-loops with plane wave excitation
+5. Calls QuantumWire with full longitudinal field outputs
+6. Tracks max/min values for all fields
+7. Writes time series and 2D slices to files</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.sbetestpropnov30.main">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.sbetestpropnov30.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.sbetestpropnov30.main" title="Link to this definition">¶</a></dt>
+<dd><p>Main entry point for command-line execution.</p>
+<p>Runs the SBE test program with default parameters.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

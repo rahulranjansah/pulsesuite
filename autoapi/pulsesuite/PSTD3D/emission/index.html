@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pulsesuite.PSTD3D.emission &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/js/hoverxref.js"></script>
+      <script src="../../../../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../../../../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../../../../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pulsesuite.PSTD3D.emission</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pulsesuite/PSTD3D/emission/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pulsesuite.PSTD3D.emission">
+<span id="pulsesuite-pstd3d-emission"></span><h1>pulsesuite.PSTD3D.emission<a class="headerlink" href="#module-pulsesuite.PSTD3D.emission" title="Link to this heading">¶</a></h1>
+<p>Emission calculations for quantum wire simulations.</p>
+<p>This module calculates spontaneous emission and photoluminescence spectrum
+for quantum wire systems in support of propagation simulations.
+Author: Rahul R. Sah</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.emission.pi" title="pulsesuite.PSTD3D.emission.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.emission.hbar" title="pulsesuite.PSTD3D.emission.hbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hbar</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.emission.kB" title="pulsesuite.PSTD3D.emission.kB"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kB</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.emission.eps0" title="pulsesuite.PSTD3D.emission.eps0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eps0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.emission.c0" title="pulsesuite.PSTD3D.emission.c0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">c0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.emission.InitializeEmission" title="pulsesuite.PSTD3D.emission.InitializeEmission"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeEmission</span></code></a>(ky, Ee, Eh, dcv, epsr, geh, ehint)</p></td>
+<td><p>Initialize the emission module.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.emission.SpontEmission" title="pulsesuite.PSTD3D.emission.SpontEmission"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SpontEmission</span></code></a>(ne, nh, Ee, Eh, gap, geh, VC, Rsp)</p></td>
+<td><p>Calculate spontaneous emission rates.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.emission.Ec" title="pulsesuite.PSTD3D.emission.Ec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ec</span></code></a>(ne, nh, VC)</p></td>
+<td><p>Calculate Coulomb energy correction.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.emission.SpontIntegral" title="pulsesuite.PSTD3D.emission.SpontIntegral"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SpontIntegral</span></code></a>(Ek)</p></td>
+<td><p>Calculate spontaneous emission integral numerically.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.emission.rho0" title="pulsesuite.PSTD3D.emission.rho0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rho0</span></code></a>(hw)</p></td>
+<td><p>Photon density of states as a function of photon energy.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.emission.CalcHOmega" title="pulsesuite.PSTD3D.emission.CalcHOmega"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcHOmega</span></code></a>(kBT, hg)</p></td>
+<td><p>Calculate HOmega array for integration.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.emission.Calchw" title="pulsesuite.PSTD3D.emission.Calchw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Calchw</span></code></a>(hw, PLS, Estart, Emax)</p></td>
+<td><p>Calculate photon energy array for PL spectrum.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.emission.PLSpectrum" title="pulsesuite.PSTD3D.emission.PLSpectrum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PLSpectrum</span></code></a>(ne, nh, Ee, Eh, gap, geh, VC, hw, t, PLS)</p></td>
+<td><p>Calculate photoluminescence spectrum.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.emission.pi">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.emission.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.emission.pi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.emission.hbar">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.emission.</span></span><span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.emission.hbar" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.emission.kB">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.emission.</span></span><span class="sig-name descname"><span class="pre">kB</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.emission.kB" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.emission.eps0">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.emission.</span></span><span class="sig-name descname"><span class="pre">eps0</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.emission.eps0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.emission.c0">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.emission.</span></span><span class="sig-name descname"><span class="pre">c0</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.emission.c0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.emission.InitializeEmission">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.emission.</span></span><span class="sig-name descname"><span class="pre">InitializeEmission</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dcv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ehint</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.emission.InitializeEmission" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the emission module.</p>
+<p>Sets up all module-level arrays required for emission calculations.
+Allocates and initializes the idel matrix, calculates RScale,
+and pre-calculates HOmega and square arrays.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array (not used, kept for signature consistency)</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array (not used, kept for signature consistency)</p></li>
+<li><p><strong>dcv</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Dipole matrix element (C·m)</p></li>
+<li><p><strong>epsr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Relative dielectric constant</p></li>
+<li><p><strong>geh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron-hole dephasing rate (Hz)</p></li>
+<li><p><strong>ehint</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron-hole interaction strength</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All arrays are stored as module-level variables.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.emission.SpontEmission">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.emission.</span></span><span class="sig-name descname"><span class="pre">SpontEmission</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rsp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.emission.SpontEmission" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate spontaneous emission rates.</p>
+<p>Computes the spontaneous emission rate Rsp for each momentum state
+based on electron and hole occupation numbers and energies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), 1D array</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole occupation numbers (complex), 1D array</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>gap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Band gap energy (J)</p></li>
+<li><p><strong>geh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron-hole dephasing rate (Hz) (not used, kept for signature consistency)</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Coulomb interaction array, shape (Nk, Nk, 3)</p></li>
+<li><p><strong>Rsp</strong> (<em>ndarray</em>) – Spontaneous emission rates (modified in-place), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rsp is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.emission.Ec">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.emission.</span></span><span class="sig-name descname"><span class="pre">Ec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.emission.Ec" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate Coulomb energy correction.</p>
+<p>Computes the many-body Coulomb energy correction for each momentum state
+due to electron-electron, hole-hole, and electron-hole interactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron carrier populations, 1D array</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole carrier populations, 1D array</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Coulomb interaction array, shape (Nk, Nk, 3)
+VC[:, :, 0] = Veh (electron-hole)
+VC[:, :, 1] = Vee (electron-electron)
+VC[:, :, 2] = Vhh (hole-hole)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Coulomb energy correction for each momentum state, 1D array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.emission.SpontIntegral">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.emission.</span></span><span class="sig-name descname"><span class="pre">SpontIntegral</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ek</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.emission.SpontIntegral" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate spontaneous emission integral numerically.</p>
+<p>Computes the integral over photon energy for spontaneous emission
+using pre-calculated HOmega and square arrays.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Ek</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Transition energy (J)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Spontaneous emission integral value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.emission.rho0">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.emission.</span></span><span class="sig-name descname"><span class="pre">rho0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.emission.rho0" title="Link to this definition">¶</a></dt>
+<dd><p>Photon density of states as a function of photon energy.</p>
+<p>Calculates the photon density of states rho0(hw) = hw^2 / (c0^3 * pi^2 * hbar^3).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hw</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>ndarray</em>) – Photon energy hbar*omega (J)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Photon density of states (1/(J·m^3))</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.emission.CalcHOmega">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.emission.</span></span><span class="sig-name descname"><span class="pre">CalcHOmega</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kBT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.emission.CalcHOmega" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate HOmega array for integration.</p>
+<p>Sets up the energy array HOmega used for numerical integration
+in spontaneous emission calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kBT</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Thermal energy k_B * T (J)</p></li>
+<li><p><strong>hg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron-hole dephasing energy hbar * geh (J)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>HOmega is stored as module-level variable.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If calculated Nw &lt; 10 (temperature too low).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.emission.Calchw">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.emission.</span></span><span class="sig-name descname"><span class="pre">Calchw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PLS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Estart</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.emission.Calchw" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate photon energy array for PL spectrum.</p>
+<p>Sets up the photon energy array hw for photoluminescence spectrum
+calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hw</strong> (<em>ndarray</em>) – Photon energy array (modified in-place), 1D array</p></li>
+<li><p><strong>PLS</strong> (<em>ndarray</em>) – PL spectrum array (initialized to zero), 1D array</p></li>
+<li><p><strong>Estart</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Starting energy (J)</p></li>
+<li><p><strong>Emax</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Maximum energy (J)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>hw and PLS are modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.emission.PLSpectrum">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.emission.</span></span><span class="sig-name descname"><span class="pre">PLSpectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PLS</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.emission.PLSpectrum" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate photoluminescence spectrum.</p>
+<p>Computes the photoluminescence spectrum PLS as a function of photon energy hw
+based on electron and hole occupation numbers and energies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), 1D array</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole occupation numbers (complex), 1D array</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>gap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Band gap energy (J)</p></li>
+<li><p><strong>geh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron-hole dephasing rate (Hz)</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Coulomb interaction array, shape (Nk, Nk, 3)</p></li>
+<li><p><strong>hw</strong> (<em>ndarray</em>) – Photon energy array (J), 1D array</p></li>
+<li><p><strong>t</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Time (s)</p></li>
+<li><p><strong>PLS</strong> (<em>ndarray</em>) – PL spectrum (modified in-place), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>PLS is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

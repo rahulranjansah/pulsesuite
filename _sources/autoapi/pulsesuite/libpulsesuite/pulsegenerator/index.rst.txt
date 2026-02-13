@@ -1,0 +1,128 @@
+pulsesuite.libpulsesuite.pulsegenerator
+=======================================
+
+.. py:module:: pulsesuite.libpulsesuite.pulsegenerator
+
+.. autoapi-nested-parse::
+
+   Pulse envelope generator — Python port of ``pulsegenerator.F90``.
+
+   Generates temporal pulse envelopes (Gaussian, Sech², Square, file-based)
+   on arbitrary grids.  All public names preserve the Fortran API so that
+   existing users can grep for ``pulsegen``, ``GaussPulse``, etc.
+
+   Dependencies
+   ------------
+   - ``helpers.gauss_dp``, ``helpers.sech``, ``helpers.sech_dp``
+   - ``spliner.rescale_1D``
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.libpulsesuite.pulsegenerator.GaussPulse
+   pulsesuite.libpulsesuite.pulsegenerator.Sech2Pulse
+   pulsesuite.libpulsesuite.pulsegenerator.SquarePulse
+   pulsesuite.libpulsesuite.pulsegenerator.FilePulse
+   pulsesuite.libpulsesuite.pulsegenerator.pulsegen
+   pulsesuite.libpulsesuite.pulsegenerator.multipulsegen
+
+
+Module Contents
+---------------
+
+.. py:function:: GaussPulse(x: numpy.ndarray, FWHM: float) -> numpy.ndarray
+
+   Gaussian envelope normalised to unit peak with given FWHM.
+
+   :param x: Coordinate array.
+   :type x: ndarray
+   :param FWHM: Full width at half maximum.
+   :type FWHM: float
+
+
+.. py:function:: Sech2Pulse(x: numpy.ndarray, FWHM: float) -> numpy.ndarray
+
+   Sech² envelope normalised to unit peak with given FWHM.
+
+   :param x: Coordinate array.
+   :type x: ndarray
+   :param FWHM: Full width at half maximum.
+   :type FWHM: float
+
+
+.. py:function:: SquarePulse(x: numpy.ndarray, FWHM: float) -> numpy.ndarray
+
+   Rectangular (top-hat) pulse of width *FWHM*.
+
+   :param x: Coordinate array.
+   :type x: ndarray
+   :param FWHM: Full width.
+   :type FWHM: float
+
+
+.. py:function:: FilePulse(fn: str, X: numpy.ndarray) -> numpy.ndarray
+
+   Load a pulse profile from a text file and interpolate onto *X*.
+
+   The file must be a whitespace-delimited matrix where:
+   - column 0 = coordinate
+   - column 1 = real part (or amplitude)
+   - column 2 = imaginary part (optional)
+
+   Uses ``np.loadtxt`` (replaces Fortran ``readmatrix`` from ``fileio``).
+
+   :param fn: Path to the data file.
+   :type fn: str
+   :param X: Target coordinate grid.
+   :type X: ndarray
+
+
+.. py:function:: pulsegen(shp: str, FWHM: float, X: Optional[numpy.ndarray] = None, N: Optional[int] = None, dx: Optional[float] = None) -> numpy.ndarray
+
+   Generate a pulse envelope.
+
+   Mirrors the Fortran ``pulsegen`` interface (``pulsegen1`` / ``pulsegen2``).
+
+   * If *X* is given, evaluates the envelope at those coordinates.
+   * If *N* and *dx* are given, builds a centred grid first.
+
+   :param shp: Shape identifier: ``"gauss"``, ``"sech2"``, ``"square"``,
+               or ``"file:<path>"`` to read from a data file.
+   :type shp: str
+   :param FWHM: Full width at half maximum.
+   :type FWHM: float
+   :param X: Coordinate array (pulsegen2 path).
+   :type X: ndarray, optional
+   :param N: Number of grid points (pulsegen1 path).
+   :type N: int, optional
+   :param dx: Grid spacing (pulsegen1 path).
+   :type dx: float, optional
+
+   :returns: **Y** -- Pulse envelope on the grid.
+   :rtype: ndarray of complex128
+
+
+.. py:function:: multipulsegen(shp: str, t0: float, t: numpy.ndarray, sep: float, num: int) -> numpy.ndarray
+
+   Generate a train of 2 or 3 identical pulses.
+
+   :param shp: ``"gauss"`` for Gaussian envelopes, ``"sech"`` for sech envelopes,
+               ``"uneven2a"`` / ``"uneven2b"`` for asymmetric two-pulse trains.
+   :type shp: str
+   :param t0: Pulse duration parameter (1/e half-width for Gaussian, t0 for sech).
+   :type t0: float
+   :param t: Time grid.
+   :type t: ndarray
+   :param sep: Centre-to-centre separation between adjacent pulses.
+   :type sep: float
+   :param num: Number of pulses (2 or 3).
+   :type num: int
+
+   :returns: **Y** -- Envelope on the time grid.
+   :rtype: ndarray of complex128
+
+

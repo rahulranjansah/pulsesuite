@@ -1,0 +1,680 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pulsesuite.PSTD3D.phost &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/js/hoverxref.js"></script>
+      <script src="../../../../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../../../../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../../../../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pulsesuite.PSTD3D.phost</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pulsesuite/PSTD3D/phost/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pulsesuite.PSTD3D.phost">
+<span id="pulsesuite-pstd3d-phost"></span><h1>pulsesuite.PSTD3D.phost<a class="headerlink" href="#module-pulsesuite.PSTD3D.phost" title="Link to this heading">¶</a></h1>
+<p>Host material polarization calculations for quantum wire simulations.</p>
+<p>This module calculates the host material polarization response
+for propagation simulations.</p>
+<p>Author: Rahul R. Sah</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.eps0_val" title="pulsesuite.PSTD3D.phost.eps0_val"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eps0_val</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.c0" title="pulsesuite.PSTD3D.phost.c0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">c0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.me0_val" title="pulsesuite.PSTD3D.phost.me0_val"><code class="xref py py-obj docutils literal notranslate"><span class="pre">me0_val</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.pi" title="pulsesuite.PSTD3D.phost.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.twopi" title="pulsesuite.PSTD3D.phost.twopi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">twopi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.ii" title="pulsesuite.PSTD3D.phost.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.HostMaterial" title="pulsesuite.PSTD3D.phost.HostMaterial"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HostMaterial</span></code></a></p></td>
+<td><p>Host material polarization state and calculations.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.MakeTransverse" title="pulsesuite.PSTD3D.phost.MakeTransverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakeTransverse</span></code></a>(Ex, Ey, qx, qy, qsq)</p></td>
+<td><p>Make electric field transverse.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.IFFT" title="pulsesuite.PSTD3D.phost.IFFT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IFFT</span></code></a>(f)</p></td>
+<td><p>Inverse Fast Fourier Transform wrapper.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.SetHostMaterial" title="pulsesuite.PSTD3D.phost.SetHostMaterial"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetHostMaterial</span></code></a>(host, mat, lam[, epsr, n0])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.InitializeHost" title="pulsesuite.PSTD3D.phost.InitializeHost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeHost</span></code></a>(Nx, Ny, n0, qsq, host)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.SetParamsAlAs" title="pulsesuite.PSTD3D.phost.SetParamsAlAs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetParamsAlAs</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.SetParamsGaAs" title="pulsesuite.PSTD3D.phost.SetParamsGaAs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetParamsGaAs</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.SetParamsSilica" title="pulsesuite.PSTD3D.phost.SetParamsSilica"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetParamsSilica</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.SetParamsNone" title="pulsesuite.PSTD3D.phost.SetParamsNone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetParamsNone</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.CalcPHost" title="pulsesuite.PSTD3D.phost.CalcPHost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcPHost</span></code></a>(Ex, Ey, dt, m, epsb, Px, Py)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.CalcPHostOld" title="pulsesuite.PSTD3D.phost.CalcPHostOld"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcPHostOld</span></code></a>(Ex, Ey, dt, m, epsb, Px, Py)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.CalcNextP" title="pulsesuite.PSTD3D.phost.CalcNextP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcNextP</span></code></a>(P1, P2, E, dt)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.CalcMonoP" title="pulsesuite.PSTD3D.phost.CalcMonoP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcMonoP</span></code></a>(E)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.SetInitialP" title="pulsesuite.PSTD3D.phost.SetInitialP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetInitialP</span></code></a>(Ex, Ey, qx, qy, qsq, dt, Px, Py, epsb)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.CalcWq" title="pulsesuite.PSTD3D.phost.CalcWq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcWq</span></code></a>(q)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.CalcEpsrWq" title="pulsesuite.PSTD3D.phost.CalcEpsrWq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcEpsrWq</span></code></a>(q)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.CalcEpsrWq_ij" title="pulsesuite.PSTD3D.phost.CalcEpsrWq_ij"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcEpsrWq_ij</span></code></a>(w_ij, aw, bw)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.DetermineCoeffs" title="pulsesuite.PSTD3D.phost.DetermineCoeffs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DetermineCoeffs</span></code></a>(aw, bw)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.Epsr_q" title="pulsesuite.PSTD3D.phost.Epsr_q"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Epsr_q</span></code></a>(q)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.Epsr_qij" title="pulsesuite.PSTD3D.phost.Epsr_qij"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Epsr_qij</span></code></a>(i, j)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.FDTD_Dispersion" title="pulsesuite.PSTD3D.phost.FDTD_Dispersion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FDTD_Dispersion</span></code></a>(qx, qy, dx, dy, dt, n0)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.wq" title="pulsesuite.PSTD3D.phost.wq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wq</span></code></a>(i, j)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.nw2_no_gam" title="pulsesuite.PSTD3D.phost.nw2_no_gam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nw2_no_gam</span></code></a>(wL)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.nw2" title="pulsesuite.PSTD3D.phost.nw2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nw2</span></code></a>(wL)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.nwp_no_gam" title="pulsesuite.PSTD3D.phost.nwp_no_gam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nwp_no_gam</span></code></a>(wL)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.nwp" title="pulsesuite.PSTD3D.phost.nwp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nwp</span></code></a>(wL)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.nl2_no_gam" title="pulsesuite.PSTD3D.phost.nl2_no_gam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nl2_no_gam</span></code></a>(lam)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.nl2" title="pulsesuite.PSTD3D.phost.nl2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nl2</span></code></a>(lam)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.epsrwp_no_gam" title="pulsesuite.PSTD3D.phost.epsrwp_no_gam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">epsrwp_no_gam</span></code></a>(wL)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.phost.WriteHostDispersion" title="pulsesuite.PSTD3D.phost.WriteHostDispersion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WriteHostDispersion</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.eps0_val">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">eps0_val</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.eps0_val" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.c0">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">c0</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.c0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.me0_val">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">me0_val</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.me0_val" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.pi">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.pi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.twopi">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">twopi</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.twopi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.ii">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1j</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.phost.ii" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.MakeTransverse">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">MakeTransverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qsq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.MakeTransverse" title="Link to this definition">¶</a></dt>
+<dd><p>Make electric field transverse.</p>
+<p>Projects the electric field onto the transverse direction
+perpendicular to the momentum vector.  Modifies Ex, Ey in-place.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.IFFT">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">IFFT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.IFFT" title="Link to this definition">¶</a></dt>
+<dd><p>Inverse Fast Fourier Transform wrapper.</p>
+<p>Performs 2D IFFT on the input array.  Modifies f in-place.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">HostMaterial</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial" title="Link to this definition">¶</a></dt>
+<dd><p>Host material polarization state and calculations.</p>
+<p>Encapsulates all mutable state that was previously at module level:
+material parameters (oscillator model), time-stepped polarization
+history arrays, and pre-computed dispersion arrays.</p>
+<p>Usage (mirrors Fortran workflow):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hm</span> <span class="o">=</span> <span class="n">HostMaterial</span><span class="p">()</span>
+<span class="n">hm</span><span class="o">.</span><span class="n">SetHostMaterial</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;AlAs&#39;</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">)</span>
+<span class="n">hm</span><span class="o">.</span><span class="n">InitializeHost</span><span class="p">(</span><span class="n">Nx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">n0</span><span class="p">,</span> <span class="n">qsq</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">hm</span><span class="o">.</span><span class="n">CalcPHost</span><span class="p">(</span><span class="n">Ex</span><span class="p">,</span> <span class="n">Ey</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">epsb</span><span class="p">,</span> <span class="n">Px</span><span class="p">,</span> <span class="n">Py</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.SetHostMaterial">
+<span class="sig-name descname"><span class="pre">SetHostMaterial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.SetHostMaterial" title="Link to this definition">¶</a></dt>
+<dd><p>Set host material parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to use host material dispersion</p></li>
+<li><p><strong>mat</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Material name (‘AlAs’, ‘fsil’, ‘GaAs’, ‘none’)</p></li>
+<li><p><strong>lam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Wavelength (m)</p></li>
+<li><p><strong>epsr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Dielectric constant (Fortran intent(inout) artifact)</p></li>
+<li><p><strong>n0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Refractive index (Fortran intent(inout) artifact)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>epsr</strong> (<em>float</em>) – Updated dielectric constant</p></li>
+<li><p><strong>n0</strong> (<em>float</em>) – Updated refractive index</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.InitializeHost">
+<span class="sig-name descname"><span class="pre">InitializeHost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qsq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.InitializeHost" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize host material arrays.</p>
+<p>Allocates and initializes arrays for host material calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Nx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Grid dimensions</p></li>
+<li><p><strong>Ny</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Grid dimensions</p></li>
+<li><p><strong>n0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Refractive index</p></li>
+<li><p><strong>qsq</strong> (<em>ndarray</em>) – Squared momentum array, shape (Nx, Ny)</p></li>
+<li><p><strong>host</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to use host material dispersion</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.SetParamsSilica">
+<span class="sig-name descname"><span class="pre">SetParamsSilica</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.SetParamsSilica" title="Link to this definition">¶</a></dt>
+<dd><p>Set material parameters for silica (Sellmeier coefficients).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.SetParamsGaAs">
+<span class="sig-name descname"><span class="pre">SetParamsGaAs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.SetParamsGaAs" title="Link to this definition">¶</a></dt>
+<dd><p>Set material parameters for GaAs (Sellmeier coefficients).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.SetParamsAlAs">
+<span class="sig-name descname"><span class="pre">SetParamsAlAs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.SetParamsAlAs" title="Link to this definition">¶</a></dt>
+<dd><p>Set material parameters for AlAs (Sellmeier coefficients).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.SetParamsNone">
+<span class="sig-name descname"><span class="pre">SetParamsNone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.SetParamsNone" title="Link to this definition">¶</a></dt>
+<dd><p>Set material parameters for vacuum (no dispersion).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.CalcPHost">
+<span class="sig-name descname"><span class="pre">CalcPHost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Py</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.CalcPHost" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate host material polarization.</p>
+<p>Computes the host material polarization response using a
+time-stepping scheme.  Modifies Px, Py in-place.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.CalcPHostOld">
+<span class="sig-name descname"><span class="pre">CalcPHostOld</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Py</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.CalcPHostOld" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate host material polarization (old version).</p>
+<p>Behavior depends on time step index m:
+- m &gt; 2:  use previous values
+- m &gt;= 2: initialize with monochromatic polarization
+- m &lt; 2:  initialize with monochromatic, set next to zero</p>
+<p>Modifies Px, Py in-place.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.CalcNextP">
+<span class="sig-name descname"><span class="pre">CalcNextP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.CalcNextP" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate next polarization value.</p>
+<p>Uses finite difference scheme for the oscillator model:
+P_next = f1 * P1 + f2 * P2 + f3 * E</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.CalcMonoP">
+<span class="sig-name descname"><span class="pre">CalcMonoP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">E</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.CalcMonoP" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate monochromatic polarization.</p>
+<p>P = eps0 * E * real(chi1)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.SetInitialP">
+<span class="sig-name descname"><span class="pre">SetInitialP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qsq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Py</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsb</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.SetInitialP" title="Link to this definition">¶</a></dt>
+<dd><p>Set initial polarization values.</p>
+<p>Initializes the polarization arrays for the first time step.
+Modifies Ex, Ey, Px, Py in-place.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.CalcWq">
+<span class="sig-name descname"><span class="pre">CalcWq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.CalcWq" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate frequency from momentum using the dispersion relation.</p>
+<p>Writes output to ‘fields/host/w.q.dat’.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.CalcEpsrWq">
+<span class="sig-name descname"><span class="pre">CalcEpsrWq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.CalcEpsrWq" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate dielectric constant as function of frequency.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.CalcEpsrWq_ij">
+<span class="sig-name descname"><span class="pre">CalcEpsrWq_ij</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w_ij</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.CalcEpsrWq_ij" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate dielectric constant for a single frequency.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.DetermineCoeffs">
+<span class="sig-name descname"><span class="pre">DetermineCoeffs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.DetermineCoeffs" title="Link to this definition">¶</a></dt>
+<dd><p>Determine expansion coefficients for low/high frequency
+approximations.  Modifies aw, bw in-place.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.Epsr_q">
+<span class="sig-name descname"><span class="pre">Epsr_q</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.Epsr_q" title="Link to this definition">¶</a></dt>
+<dd><p>Return copy of the dielectric constant array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.Epsr_qij">
+<span class="sig-name descname"><span class="pre">Epsr_qij</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.Epsr_qij" title="Link to this definition">¶</a></dt>
+<dd><p>Return dielectric constant at indices (i, j).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.FDTD_Dispersion">
+<span class="sig-name descname"><span class="pre">FDTD_Dispersion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.FDTD_Dispersion" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate FDTD dispersion relation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.wq">
+<span class="sig-name descname"><span class="pre">wq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.wq" title="Link to this definition">¶</a></dt>
+<dd><p>Return frequency at indices (i, j).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.nw2_no_gam">
+<span class="sig-name descname"><span class="pre">nw2_no_gam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.nw2_no_gam" title="Link to this definition">¶</a></dt>
+<dd><p>Dielectric constant without damping: n^2(w).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.nw2">
+<span class="sig-name descname"><span class="pre">nw2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.nw2" title="Link to this definition">¶</a></dt>
+<dd><p>Dielectric constant with damping: n^2(w).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.nwp_no_gam">
+<span class="sig-name descname"><span class="pre">nwp_no_gam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.nwp_no_gam" title="Link to this definition">¶</a></dt>
+<dd><p>Derivative of refractive index without damping: dn/dw.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.nwp">
+<span class="sig-name descname"><span class="pre">nwp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.nwp" title="Link to this definition">¶</a></dt>
+<dd><p>Derivative of refractive index with damping: dn/dw.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.nl2_no_gam">
+<span class="sig-name descname"><span class="pre">nl2_no_gam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lam</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.nl2_no_gam" title="Link to this definition">¶</a></dt>
+<dd><p>Dielectric constant from wavelength without damping: n^2(lam).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.nl2">
+<span class="sig-name descname"><span class="pre">nl2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lam</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.nl2" title="Link to this definition">¶</a></dt>
+<dd><p>Dielectric constant from wavelength with damping: n^2(lam).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.epsrwp_no_gam">
+<span class="sig-name descname"><span class="pre">epsrwp_no_gam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.epsrwp_no_gam" title="Link to this definition">¶</a></dt>
+<dd><p>Derivative of dielectric constant without damping: depsr/dw.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.HostMaterial.WriteHostDispersion">
+<span class="sig-name descname"><span class="pre">WriteHostDispersion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.HostMaterial.WriteHostDispersion" title="Link to this definition">¶</a></dt>
+<dd><p>Write host material dispersion data to files.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.SetHostMaterial">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">SetHostMaterial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.SetHostMaterial" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.InitializeHost">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">InitializeHost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qsq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.InitializeHost" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.SetParamsAlAs">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">SetParamsAlAs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.SetParamsAlAs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.SetParamsGaAs">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">SetParamsGaAs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.SetParamsGaAs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.SetParamsSilica">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">SetParamsSilica</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.SetParamsSilica" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.SetParamsNone">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">SetParamsNone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.SetParamsNone" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.CalcPHost">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">CalcPHost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Py</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.CalcPHost" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.CalcPHostOld">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">CalcPHostOld</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Py</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.CalcPHostOld" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.CalcNextP">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">CalcNextP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.CalcNextP" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.CalcMonoP">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">CalcMonoP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">E</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.CalcMonoP" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.SetInitialP">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">SetInitialP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qsq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Py</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsb</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.SetInitialP" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.CalcWq">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">CalcWq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.CalcWq" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.CalcEpsrWq">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">CalcEpsrWq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.CalcEpsrWq" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.CalcEpsrWq_ij">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">CalcEpsrWq_ij</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w_ij</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.CalcEpsrWq_ij" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.DetermineCoeffs">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">DetermineCoeffs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.DetermineCoeffs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.Epsr_q">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">Epsr_q</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.Epsr_q" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.Epsr_qij">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">Epsr_qij</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.Epsr_qij" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.FDTD_Dispersion">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">FDTD_Dispersion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.FDTD_Dispersion" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.wq">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">wq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.wq" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.nw2_no_gam">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">nw2_no_gam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.nw2_no_gam" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.nw2">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">nw2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.nw2" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.nwp_no_gam">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">nwp_no_gam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.nwp_no_gam" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.nwp">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">nwp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.nwp" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.nl2_no_gam">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">nl2_no_gam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lam</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.nl2_no_gam" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.nl2">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">nl2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lam</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.nl2" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.epsrwp_no_gam">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">epsrwp_no_gam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.epsrwp_no_gam" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.phost.WriteHostDispersion">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.phost.</span></span><span class="sig-name descname"><span class="pre">WriteHostDispersion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.phost.WriteHostDispersion" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

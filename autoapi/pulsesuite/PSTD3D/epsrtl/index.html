@@ -1,0 +1,638 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pulsesuite.PSTD3D.epsrtl &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/js/hoverxref.js"></script>
+      <script src="../../../../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../../../../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../../../../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pulsesuite.PSTD3D.epsrtl</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pulsesuite/PSTD3D/epsrtl/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pulsesuite.PSTD3D.epsrtl">
+<span id="pulsesuite-pstd3d-epsrtl"></span><h1>pulsesuite.PSTD3D.epsrtl<a class="headerlink" href="#module-pulsesuite.PSTD3D.epsrtl" title="Link to this heading">¶</a></h1>
+<p>Dielectric permittivity calculations for quantum wire simulations.</p>
+<p>This module calculates longitudinal and transverse permittivity
+for quantum wire systems.</p>
+<p>Author: Rahul R. Sah</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.pi" title="pulsesuite.PSTD3D.epsrtl.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.twopi" title="pulsesuite.PSTD3D.epsrtl.twopi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">twopi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.hbar" title="pulsesuite.PSTD3D.epsrtl.hbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hbar</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.kB" title="pulsesuite.PSTD3D.epsrtl.kB"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kB</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.ii" title="pulsesuite.PSTD3D.epsrtl.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.c0" title="pulsesuite.PSTD3D.epsrtl.c0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">c0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.Eng" title="pulsesuite.PSTD3D.epsrtl.Eng"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Eng</span></code></a>(m, k)</p></td>
+<td><p>Calculate energy from momentum. (Placed below in epsrtl.f90)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.ff0" title="pulsesuite.PSTD3D.epsrtl.ff0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ff0</span></code></a>(E, T, m)</p></td>
+<td><p>Fermi function at finite temperature.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.fT0" title="pulsesuite.PSTD3D.epsrtl.fT0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fT0</span></code></a>(k, kf)</p></td>
+<td><p>Fermi function at zero temperature.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.atanJG" title="pulsesuite.PSTD3D.epsrtl.atanJG"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atanJG</span></code></a>(z)</p></td>
+<td><p>Arctangent function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.atanhc" title="pulsesuite.PSTD3D.epsrtl.atanhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atanhc</span></code></a>(x)</p></td>
+<td><p>Hyperbolic arctangent function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.PiT" title="pulsesuite.PSTD3D.epsrtl.PiT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PiT</span></code></a>(q, w, me, mh, Te, Th, dk, Ek, Ekq)</p></td>
+<td><p>Calculate transverse polarization function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.GetEpsrLEpsrT" title="pulsesuite.PSTD3D.epsrtl.GetEpsrLEpsrT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetEpsrLEpsrT</span></code></a>(n1D, dcv0, Te, Th, me, mh, Eg, ky)</p></td>
+<td><p>Get longitudinal and transverse permittivity.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.RecordEpsrT" title="pulsesuite.PSTD3D.epsrtl.RecordEpsrT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RecordEpsrT</span></code></a>(Te, Th, me, mh, Eg, ky)</p></td>
+<td><p>Record transverse permittivity.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.PiL" title="pulsesuite.PSTD3D.epsrtl.PiL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PiL</span></code></a>(q, w, m, T, dk, Ek, Ekq)</p></td>
+<td><p>Calculate longitudinal polarization function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.PiL_T0" title="pulsesuite.PSTD3D.epsrtl.PiL_T0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PiL_T0</span></code></a>(q, w, m, T, dk, Ek, Ekq)</p></td>
+<td><p>Calculate longitudinal polarization function at zero temperature.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.RecordEpsrL_T0" title="pulsesuite.PSTD3D.epsrtl.RecordEpsrL_T0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RecordEpsrL_T0</span></code></a>(me, ky)</p></td>
+<td><p>Record longitudinal permittivity at zero temperature.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.QqGq" title="pulsesuite.PSTD3D.epsrtl.QqGq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QqGq</span></code></a>(ky, Nk, dk, dw, EpsR, EpsI, eh)</p></td>
+<td><p>Calculate Omega and Gam from permittivity.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.ZeroT_L" title="pulsesuite.PSTD3D.epsrtl.ZeroT_L"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ZeroT_L</span></code></a>(B, m, qy, kf)</p></td>
+<td><p>Calculate zero temperature longitudinal permittivity.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.ZeroT_T" title="pulsesuite.PSTD3D.epsrtl.ZeroT_T"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ZeroT_T</span></code></a>(me, mh, Egap, dcv, qy, kf)</p></td>
+<td><p>Calculate zero temperature transverse permittivity.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.epsrtl.RecordEpsrL" title="pulsesuite.PSTD3D.epsrtl.RecordEpsrL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RecordEpsrL</span></code></a>(Te, Th, me, mh, ky)</p></td>
+<td><p>Record longitudinal permittivity.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.pi">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.pi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.twopi">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">twopi</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.twopi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.hbar">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.hbar" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.kB">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">kB</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.kB" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.ii">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1j</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.ii" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.c0">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">c0</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">299792458.0</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.c0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.Eng">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">Eng</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.Eng" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate energy from momentum. (Placed below in epsrtl.f90)</p>
+<p>Computes kinetic energy: E = hbar^2 * k^2 / (2 * m)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>ndarray</em>) – Mass (kg)</p></li>
+<li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>ndarray</em>) – Momentum (1/m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Energy (J)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.ff0">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">ff0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">E</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.ff0" title="Link to this definition">¶</a></dt>
+<dd><p>Fermi function at finite temperature.</p>
+<p>Computes: n00 * sqrt(hbar^2 / (2*pi * m * kB * T)) * exp(-E/(kB*T))</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>E</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>ndarray</em>) – Energy (J)</p></li>
+<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>ndarray</em>) – Temperature (K)</p></li>
+<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>ndarray</em>) – Mass (kg)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Fermi function value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variable _n00 for carrier density.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.fT0">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">fT0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.fT0" title="Link to this definition">¶</a></dt>
+<dd><p>Fermi function at zero temperature.</p>
+<p>Computes: 1 - theta(<a href="#id1"><span class="problematic" id="id2">|k|</span></a> - kf)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>ndarray</em>) – Momentum (1/m)</p></li>
+<li><p><strong>kf</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Fermi momentum (1/m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Fermi function value at zero temperature</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.atanJG">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">atanJG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.atanJG" title="Link to this definition">¶</a></dt>
+<dd><p>Arctangent function.</p>
+<p>Computes: log((ii - z) / (ii + z)) / (2 * ii)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>z</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)"><em>complex</em></a><em> or </em><em>ndarray</em>) – Complex argument</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Arctangent value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)">complex</a> or ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.atanhc">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">atanhc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.atanhc" title="Link to this definition">¶</a></dt>
+<dd><p>Hyperbolic arctangent function.</p>
+<p>Computes: 0.5 * log((1 + x) / (1 - x))</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)"><em>complex</em></a><em> or </em><em>ndarray</em>) – Complex argument</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Hyperbolic arctangent value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)">complex</a> or ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.PiT">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">PiT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ek</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ekq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.PiT" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate transverse polarization function.</p>
+<p>Computes the transverse polarization function PiT for permittivity calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Momentum transfer (1/m) (unused, kept for interface compatibility)</p></li>
+<li><p><strong>w</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Frequency (Hz)</p></li>
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron mass (kg)</p></li>
+<li><p><strong>mh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Hole mass (kg)</p></li>
+<li><p><strong>Te</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron temperature (K)</p></li>
+<li><p><strong>Th</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Hole temperature (K)</p></li>
+<li><p><strong>dk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Momentum step size (1/m)</p></li>
+<li><p><strong>Ek</strong> (<em>ndarray</em>) – Energy array for holes (J)</p></li>
+<li><p><strong>Ekq</strong> (<em>ndarray</em>) – Energy array for electrons (J)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Transverse polarization function value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)">complex</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function computes:
+PiT = (2/pi) * dk * sum((1 - ff0(Ek,Th,mh) - ff0(Ekq,Te,me)) *</p>
+<blockquote>
+<div><p>(1 / (hbar*w - Ekq - Ek + i*hbar*g)))</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.GetEpsrLEpsrT">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">GetEpsrLEpsrT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n1D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dcv0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.GetEpsrLEpsrT" title="Link to this definition">¶</a></dt>
+<dd><p>Get longitudinal and transverse permittivity.</p>
+<p>Sets up momentum arrays and calls functions to calculate permittivity
+at zero temperature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n1D</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 1D carrier density (1/m)</p></li>
+<li><p><strong>dcv0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Dipole matrix element (C*m)</p></li>
+<li><p><strong>Te</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron temperature (K) (unused, kept for interface compatibility)</p></li>
+<li><p><strong>Th</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Hole temperature (K) (unused, kept for interface compatibility)</p></li>
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective electron mass (kg)</p></li>
+<li><p><strong>mh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective hole mass (kg)</p></li>
+<li><p><strong>Eg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Band gap (J) (unused, kept for interface compatibility)</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function sets up module-level variables and calls ZeroT_L and ZeroT_T.
+Writes output to ‘dataQW/Wire/qw.dat’.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.RecordEpsrT">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">RecordEpsrT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.RecordEpsrT" title="Link to this definition">¶</a></dt>
+<dd><p>Record transverse permittivity.</p>
+<p>Calculates and writes the transverse permittivity components
+for all momentum and frequency values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Te</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron temperature (K)</p></li>
+<li><p><strong>Th</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Hole temperature (K)</p></li>
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron mass (kg)</p></li>
+<li><p><strong>mh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Hole mass (kg)</p></li>
+<li><p><strong>Eg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Band gap (J)</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Writes output to ‘dataQW/Wire/EpsT.dat’ and ‘chi.0.w.dat’.
+The permittivity arrays use negative indexing mapping: w from -Nw to Nw
+maps to array indices 0 to 2*Nw.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.PiL">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">PiL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ek</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ekq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.PiL" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate longitudinal polarization function.</p>
+<p>Computes the longitudinal polarization function PiL for permittivity calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Momentum transfer (1/m) (unused, kept for interface compatibility)</p></li>
+<li><p><strong>w</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Frequency (Hz)</p></li>
+<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Mass (kg)</p></li>
+<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Temperature (K)</p></li>
+<li><p><strong>dk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Momentum step size (1/m)</p></li>
+<li><p><strong>Ek</strong> (<em>ndarray</em>) – Energy array (J)</p></li>
+<li><p><strong>Ekq</strong> (<em>ndarray</em>) – Energy array shifted by q (J)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Longitudinal polarization function value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)">complex</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function computes:
+PiL = (2/pi) * dk * sum((ff0(Ek,T,m) - ff0(Ekq,T,m)) *</p>
+<blockquote>
+<div><p>(1 / (hbar*w - (Ekq - Ek) + i*hbar*g)))</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.PiL_T0">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">PiL_T0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ek</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ekq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.PiL_T0" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate longitudinal polarization function at zero temperature.</p>
+<p>Computes the longitudinal polarization function PiL_T0 for permittivity calculations
+at zero temperature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Momentum transfer (1/m)</p></li>
+<li><p><strong>w</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Frequency (Hz)</p></li>
+<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Mass (kg)</p></li>
+<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Temperature (K) (unused, kept for interface compatibility)</p></li>
+<li><p><strong>dk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Momentum step size (1/m)</p></li>
+<li><p><strong>Ek</strong> (<em>ndarray</em>) – Energy array (J) (unused, kept for interface compatibility)</p></li>
+<li><p><strong>Ekq</strong> (<em>ndarray</em>) – Energy array shifted by q (J) (unused, kept for interface compatibility)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Longitudinal polarization function value at zero temperature</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)">complex</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses module-level variable _kf for Fermi momentum.
+The function computes:
+PiL_T0 = -m / (pi * hbar^2) * q_inv * (atanhc(…) + atanhc(…))</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.RecordEpsrL_T0">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">RecordEpsrL_T0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.RecordEpsrL_T0" title="Link to this definition">¶</a></dt>
+<dd><p>Record longitudinal permittivity at zero temperature.</p>
+<p>Calculates and writes the longitudinal permittivity components
+at zero temperature for all momentum and frequency values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron mass (kg) (unused, kept for interface compatibility)</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Writes output to ‘dataQW/Wire/EpsL.dat’.
+The permittivity arrays use negative indexing mapping: w from -Nw to Nw
+maps to array indices 0 to 2*Nw.
+Note: The function has empty loops in the original Fortran code.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.QqGq">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">QqGq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EpsR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EpsI</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.QqGq" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate Omega and Gam from permittivity.</p>
+<p>Computes the quasiparticle frequency Omega and damping Gam
+from the permittivity components.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>Nk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of momentum points</p></li>
+<li><p><strong>dk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Momentum step size (1/m)</p></li>
+<li><p><strong>dw</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Frequency step size (Hz)</p></li>
+<li><p><strong>EpsR</strong> (<em>ndarray</em>) – Real part of permittivity, shape (Nk, 2*Nw+1)</p></li>
+<li><p><strong>EpsI</strong> (<em>ndarray</em>) – Imaginary part of permittivity, shape (Nk, 2*Nw+1)</p></li>
+<li><p><strong>eh</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Character identifier for output file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Writes output to ‘dataQW/Wire/Omega_qp.{eh}.dat’.
+The permittivity arrays use negative indexing mapping: w from -Nw to Nw
+maps to array indices 0 to 2*Nw.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.ZeroT_L">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">ZeroT_L</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.ZeroT_L" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate zero temperature longitudinal permittivity.</p>
+<p>Computes the longitudinal permittivity at zero temperature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>B</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Character identifier (‘E’ for electrons, ‘H’ for holes)</p></li>
+<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Mass (kg)</p></li>
+<li><p><strong>qy</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>kf</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Fermi momentum (1/m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Writes output to ‘dataQW/Wire/ChiL.{B}.dat’.
+The permittivity arrays use negative indexing mapping: w from -Nw to Nw
+maps to array indices 0 to 2*Nw.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.ZeroT_T">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">ZeroT_T</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Egap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dcv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.ZeroT_T" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate zero temperature transverse permittivity.</p>
+<p>Computes the transverse permittivity at zero temperature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron mass (kg)</p></li>
+<li><p><strong>mh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Hole mass (kg)</p></li>
+<li><p><strong>Egap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Band gap (J)</p></li>
+<li><p><strong>dcv</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Dipole matrix element (C*m)</p></li>
+<li><p><strong>qy</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>kf</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Fermi momentum (1/m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Writes output to ‘dataQW/Wire/ChiT.dat’.
+The permittivity arrays use negative indexing mapping: w from -Nw to Nw
+maps to array indices 0 to 2*Nw.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.epsrtl.RecordEpsrL">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.epsrtl.</span></span><span class="sig-name descname"><span class="pre">RecordEpsrL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.epsrtl.RecordEpsrL" title="Link to this definition">¶</a></dt>
+<dd><p>Record longitudinal permittivity.</p>
+<p>Calculates and writes the longitudinal permittivity components
+for all momentum and frequency values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Te</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron temperature (K)</p></li>
+<li><p><strong>Th</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Hole temperature (K)</p></li>
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron mass (kg)</p></li>
+<li><p><strong>mh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Hole mass (kg)</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Writes output to ‘dataQW/Wire/EpsL.dat’.
+The permittivity arrays use negative indexing mapping: w from -Nw to Nw
+maps to array indices 0 to 2*Nw.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,538 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pulsesuite.core.typelens &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/js/hoverxref.js"></script>
+      <script src="../../../../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../../../../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../../../../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pulsesuite.core.typelens</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pulsesuite/core/typelens/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pulsesuite.core.typelens">
+<span id="pulsesuite-core-typelens"></span><h1>pulsesuite.core.typelens<a class="headerlink" href="#module-pulsesuite.core.typelens" title="Link to this heading">¶</a></h1>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nlls</span></code></a></p></td>
+<td><p>Nonlinear Lens Structure (plano-convex lens) parameters.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.GetVersion_nlls" title="pulsesuite.core.typelens.GetVersion_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetVersion_nlls</span></code></a>(→ int)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.CalcFocalLength" title="pulsesuite.core.typelens.CalcFocalLength"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcFocalLength</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.GetNz_nlls" title="pulsesuite.core.typelens.GetNz_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetNz_nlls</span></code></a>(→ int)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.SetNz_nlls" title="pulsesuite.core.typelens.SetNz_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetNz_nlls</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.GetDz_nlls" title="pulsesuite.core.typelens.GetDz_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetDz_nlls</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.SetDz_nlls" title="pulsesuite.core.typelens.SetDz_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetDz_nlls</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.GetLength_nlls" title="pulsesuite.core.typelens.GetLength_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetLength_nlls</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.SetLength_nlls" title="pulsesuite.core.typelens.SetLength_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetLength_nlls</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.GetN0_nlls" title="pulsesuite.core.typelens.GetN0_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetN0_nlls</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.SetN0_nlls" title="pulsesuite.core.typelens.SetN0_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetN0_nlls</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.GetK2_nlls" title="pulsesuite.core.typelens.GetK2_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetK2_nlls</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.SetK2_nlls" title="pulsesuite.core.typelens.SetK2_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetK2_nlls</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.GetN2I_nlls" title="pulsesuite.core.typelens.GetN2I_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetN2I_nlls</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.SetN2I_nlls" title="pulsesuite.core.typelens.SetN2I_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetN2I_nlls</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.GetBeta_nlls" title="pulsesuite.core.typelens.GetBeta_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetBeta_nlls</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.SetBeta_nlls" title="pulsesuite.core.typelens.SetBeta_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetBeta_nlls</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.GetAlpha_nlls" title="pulsesuite.core.typelens.GetAlpha_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetAlpha_nlls</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.SetAlpha_nlls" title="pulsesuite.core.typelens.SetAlpha_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetAlpha_nlls</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.GetRC" title="pulsesuite.core.typelens.GetRC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetRC</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.SetRC" title="pulsesuite.core.typelens.SetRC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetRC</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.GetMaterial_nlls" title="pulsesuite.core.typelens.GetMaterial_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetMaterial_nlls</span></code></a>(→ str)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.SetMaterial_nlls" title="pulsesuite.core.typelens.SetMaterial_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetMaterial_nlls</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.GetWavelength_nlls" title="pulsesuite.core.typelens.GetWavelength_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetWavelength_nlls</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.SetWavelength_nlls" title="pulsesuite.core.typelens.SetWavelength_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetWavelength_nlls</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.GetMedium_nlls" title="pulsesuite.core.typelens.GetMedium_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetMedium_nlls</span></code></a>(→ nlms)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.SetMedium_nlls" title="pulsesuite.core.typelens.SetMedium_nlls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetMedium_nlls</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.GetDesignWavelength" title="pulsesuite.core.typelens.GetDesignWavelength"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetDesignWavelength</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.SetDesignWavelength" title="pulsesuite.core.typelens.SetDesignWavelength"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetDesignWavelength</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.readlensparams" title="pulsesuite.core.typelens.readlensparams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readlensparams</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.writelensparams" title="pulsesuite.core.typelens.writelensparams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">writelensparams</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.dumplens" title="pulsesuite.core.typelens.dumplens"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dumplens</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.BillsMagic" title="pulsesuite.core.typelens.BillsMagic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BillsMagic</span></code></a>(→ float)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">nlls</span></span><a class="headerlink" href="#pulsesuite.core.typelens.nlls" title="Link to this definition">¶</a></dt>
+<dd><p>Nonlinear Lens Structure (plano-convex lens) parameters.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.version">
+<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.version" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.medium">
+<span class="sig-name descname"><span class="pre">medium</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">nlms</span></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.medium" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.rc0">
+<span class="sig-name descname"><span class="pre">rc0</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.rc0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.wavelength_design">
+<span class="sig-name descname"><span class="pre">wavelength_design</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.wavelength_design" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.__post_init__">
+<span class="sig-name descname"><span class="pre">__post_init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.core.typelens.nlls.__post_init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.focal_length">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">focal_length</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.focal_length" title="Link to this definition">¶</a></dt>
+<dd><p>rc0 / (n0 - 1)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optical focal length</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.rc">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.rc" title="Link to this definition">¶</a></dt>
+<dd><p>Radius of curvature (m)</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.design_wavelength">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">design_wavelength</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.design_wavelength" title="Link to this definition">¶</a></dt>
+<dd><p>Design wavelength (m)</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.nz">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nz</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.nz" title="Link to this definition">¶</a></dt>
+<dd><p>Number of steps</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.dz">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dz</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.dz" title="Link to this definition">¶</a></dt>
+<dd><p>Step size in propagation direction</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.length">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">length</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.length" title="Link to this definition">¶</a></dt>
+<dd><p>Total lens length (m)</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.n0">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n0</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.n0" title="Link to this definition">¶</a></dt>
+<dd><p>Index of refraction at center</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.k2">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">k2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.k2" title="Link to this definition">¶</a></dt>
+<dd><p>Dispersion parameter</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.n2i">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n2i</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.n2i" title="Link to this definition">¶</a></dt>
+<dd><p>Intensity-dependent nonlinear index</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.beta">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">beta</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.beta" title="Link to this definition">¶</a></dt>
+<dd><p>Two-photon absorption coefficient</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.alpha">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.alpha" title="Link to this definition">¶</a></dt>
+<dd><p>Linear absorption coefficient</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.material">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">material</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.material" title="Link to this definition">¶</a></dt>
+<dd><p>Material name</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.wavelength">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">wavelength</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.wavelength" title="Link to this definition">¶</a></dt>
+<dd><p>Operating wavelength (m)</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.nlls.medium_data">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">medium_data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">nlms</span></em><a class="headerlink" href="#pulsesuite.core.typelens.nlls.medium_data" title="Link to this definition">¶</a></dt>
+<dd><p>Underlying medium data</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.GetVersion_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">GetVersion_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.GetVersion_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.CalcFocalLength">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">CalcFocalLength</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typelens.CalcFocalLength" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.GetNz_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">GetNz_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.GetNz_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.SetNz_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">SetNz_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.SetNz_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.GetDz_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">GetDz_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typelens.GetDz_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.SetDz_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">SetDz_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">Dz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.SetDz_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.GetLength_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">GetLength_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typelens.GetLength_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.SetLength_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">SetLength_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.SetLength_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.GetN0_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">GetN0_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typelens.GetN0_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.SetN0_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">SetN0_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.SetN0_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.GetK2_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">GetK2_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typelens.GetK2_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.SetK2_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">SetK2_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.SetK2_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.GetN2I_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">GetN2I_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typelens.GetN2I_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.SetN2I_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">SetN2I_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.SetN2I_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.GetBeta_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">GetBeta_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typelens.GetBeta_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.SetBeta_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">SetBeta_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.SetBeta_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.GetAlpha_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">GetAlpha_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typelens.GetAlpha_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.SetAlpha_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">SetAlpha_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.SetAlpha_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.GetRC">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">GetRC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typelens.GetRC" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.SetRC">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">SetRC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.SetRC" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.GetMaterial_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">GetMaterial_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.GetMaterial_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.SetMaterial_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">SetMaterial_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.SetMaterial_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.GetWavelength_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">GetWavelength_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typelens.GetWavelength_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.SetWavelength_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">SetWavelength_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.SetWavelength_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.GetMedium_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">GetMedium_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">nlms</span></span></span><a class="headerlink" href="#pulsesuite.core.typelens.GetMedium_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.SetMedium_nlls">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">SetMedium_nlls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">nlms</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.SetMedium_nlls" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.GetDesignWavelength">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">GetDesignWavelength</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typelens.GetDesignWavelength" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.SetDesignWavelength">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">SetDesignWavelength</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.SetDesignWavelength" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.readlensparams">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">readlensparams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">TextIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.readlensparams" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.writelensparams">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">writelensparams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">TextIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.writelensparams" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.dumplens">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">dumplens</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typelens.nlls" title="pulsesuite.core.typelens.nlls"><span class="pre">nlls</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.dumplens" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typelens.BillsMagic">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typelens.</span></span><span class="sig-name descname"><span class="pre">BillsMagic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typelens.BillsMagic" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

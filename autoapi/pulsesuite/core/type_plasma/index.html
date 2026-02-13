@@ -1,0 +1,404 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pulsesuite.core.type_plasma &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/js/hoverxref.js"></script>
+      <script src="../../../../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../../../../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../../../../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pulsesuite.core.type_plasma</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pulsesuite/core/type_plasma/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pulsesuite.core.type_plasma">
+<span id="pulsesuite-core-type-plasma"></span><h1>pulsesuite.core.type_plasma<a class="headerlink" href="#module-pulsesuite.core.type_plasma" title="Link to this heading">¶</a></h1>
+<p>High‑performance, HPC‑ready rewrite that preserves the original Fortran naming
+conventions one‑for‑one while exploiting Python/NumPy ergonomics.</p>
+<ul class="simple">
+<li><p>Structure <cite>plasma_coefficients</cite> → class <code class="docutils literal notranslate"><span class="pre">plasma_coefficients</span></code> (slots for
+cache‑friendliness; dtype preserved as float64/int64).</p></li>
+<li><p>Getter / setter routines exported with the <strong>exact</strong> original names
+(<code class="docutils literal notranslate"><span class="pre">GetMass</span></code>, <code class="docutils literal notranslate"><span class="pre">SetMass</span></code> …) so downstream code can transition painlessly.</p></li>
+<li><p>Human‑readable parameter files (same layout as the Fortran writer) handled
+by <code class="docutils literal notranslate"><span class="pre">readplasmaparams_sub</span></code> / <code class="docutils literal notranslate"><span class="pre">writeplasmaparams_sub</span></code>.</p></li>
+<li><p>Rigorous runtime dtype checking via <code class="docutils literal notranslate"><span class="pre">&#64;with_guardrails</span></code> decorator.</p></li>
+<li><p>Ready for further acceleration (e.g. Numba) if bulk processing of plasma
+parameter arrays becomes a bottleneck.</p></li>
+</ul>
+<section id="assumptions">
+<h2>Assumptions<a class="headerlink" href="#assumptions" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>All project‑wide constants live in <code class="docutils literal notranslate"><span class="pre">constants.py</span></code> (<code class="docutils literal notranslate"><span class="pre">dp</span> <span class="pre">=</span> <span class="pre">np.float64</span></code>).</p></li>
+<li><p>A lightweight <code class="docutils literal notranslate"><span class="pre">logger</span></code> module provides <code class="docutils literal notranslate"><span class="pre">Logger.getInstance().error</span></code>.</p></li>
+<li><p>No Fortran‑style unit numbers – we just pass an already‑opened <cite>TextIO</cite> or
+a <em>path</em> (the helper takes care of opening).</p></li>
+</ul>
+</section>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_filetag" title="pulsesuite.core.type_plasma.plasma_filetag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plasma_filetag</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plasma_coefficients</span></code></a></p></td>
+<td><p>Direct Python counterpart of Fortran's <cite>type plasma_coefficients</cite>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.readplasmaparams_sub" title="pulsesuite.core.type_plasma.readplasmaparams_sub"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readplasmaparams_sub</span></code></a>(→ None)</p></td>
+<td><p>Populate <em>plasma</em> by parsing an existing parameter file/stream.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.writeplasmaparams_sub" title="pulsesuite.core.type_plasma.writeplasmaparams_sub"><code class="xref py py-obj docutils literal notranslate"><span class="pre">writeplasmaparams_sub</span></code></a>(→ None)</p></td>
+<td><p>Write <em>plasma</em> in the canonical Fortran text format.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.GetVersion_plasma" title="pulsesuite.core.type_plasma.GetVersion_plasma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetVersion_plasma</span></code></a>(→ int)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.GetMass" title="pulsesuite.core.type_plasma.GetMass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetMass</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.SetMass" title="pulsesuite.core.type_plasma.SetMass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetMass</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.GetBandGap" title="pulsesuite.core.type_plasma.GetBandGap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetBandGap</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.SetBandGap" title="pulsesuite.core.type_plasma.SetBandGap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetBandGap</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.GetTrapTime" title="pulsesuite.core.type_plasma.GetTrapTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetTrapTime</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.SetTrapTime" title="pulsesuite.core.type_plasma.SetTrapTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetTrapTime</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.GetCollisionTime" title="pulsesuite.core.type_plasma.GetCollisionTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetCollisionTime</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.SetCollisionTime" title="pulsesuite.core.type_plasma.SetCollisionTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetCollisionTime</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.GetMaxDensity" title="pulsesuite.core.type_plasma.GetMaxDensity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetMaxDensity</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.SetMaxDensity" title="pulsesuite.core.type_plasma.SetMaxDensity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetMaxDensity</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.GetOrder" title="pulsesuite.core.type_plasma.GetOrder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetOrder</span></code></a>(→ int)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.SetOrder" title="pulsesuite.core.type_plasma.SetOrder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetOrder</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.GetCrossSection" title="pulsesuite.core.type_plasma.GetCrossSection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetCrossSection</span></code></a>(→ Annotated[float, numpy.float64])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.SetCrossSection" title="pulsesuite.core.type_plasma.SetCrossSection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetCrossSection</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.plasma_filetag">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">plasma_filetag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Ellipsis</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('[params.plasma_v1.0]',)</span></em><a class="headerlink" href="#pulsesuite.core.type_plasma.plasma_filetag" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.plasma_coefficients">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">plasma_coefficients</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band_gap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trap_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collision_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_density</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma_multi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="Link to this definition">¶</a></dt>
+<dd><p>Direct Python counterpart of Fortran’s <cite>type plasma_coefficients</cite>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.plasma_coefficients.__slots__">
+<span class="sig-name descname"><span class="pre">__slots__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('version',</span> <span class="pre">'mass',</span> <span class="pre">'band_gap',</span> <span class="pre">'trap_time',</span> <span class="pre">'collision_time',</span> <span class="pre">'max_density',</span> <span class="pre">'order',</span> <span class="pre">'sigma_multi')</span></em><a class="headerlink" href="#pulsesuite.core.type_plasma.plasma_coefficients.__slots__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.plasma_coefficients.version">
+<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#pulsesuite.core.type_plasma.plasma_coefficients.version" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.plasma_coefficients.mass">
+<span class="sig-name descname"><span class="pre">mass</span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.plasma_coefficients.mass" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.plasma_coefficients.band_gap">
+<span class="sig-name descname"><span class="pre">band_gap</span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.plasma_coefficients.band_gap" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.plasma_coefficients.trap_time">
+<span class="sig-name descname"><span class="pre">trap_time</span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.plasma_coefficients.trap_time" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.plasma_coefficients.collision_time">
+<span class="sig-name descname"><span class="pre">collision_time</span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.plasma_coefficients.collision_time" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.plasma_coefficients.max_density">
+<span class="sig-name descname"><span class="pre">max_density</span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.plasma_coefficients.max_density" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.plasma_coefficients.order">
+<span class="sig-name descname"><span class="pre">order</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pulsesuite.core.type_plasma.plasma_coefficients.order" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.plasma_coefficients.sigma_multi">
+<span class="sig-name descname"><span class="pre">sigma_multi</span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.plasma_coefficients.sigma_multi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.plasma_coefficients.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.plasma_coefficients.copy" title="Link to this definition">¶</a></dt>
+<dd><p>Return a <em>shallow</em> copy (all fields are immutable scalars).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.plasma_coefficients.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.plasma_coefficients.__repr__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.plasma_coefficients.__eq__">
+<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.core.type_plasma.plasma_coefficients.__eq__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.readplasmaparams_sub">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">readplasmaparams_sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">U</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">TextIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.readplasmaparams_sub" title="Link to this definition">¶</a></dt>
+<dd><p>Populate <em>plasma</em> by parsing an existing parameter file/stream.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.writeplasmaparams_sub">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">writeplasmaparams_sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">U</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">TextIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.writeplasmaparams_sub" title="Link to this definition">¶</a></dt>
+<dd><p>Write <em>plasma</em> in the canonical Fortran text format.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.GetVersion_plasma">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetVersion_plasma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.GetVersion_plasma" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.GetMass">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetMass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.GetMass" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.SetMass">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">SetMass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.SetMass" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.GetBandGap">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetBandGap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.GetBandGap" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.SetBandGap">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">SetBandGap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.SetBandGap" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.GetTrapTime">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetTrapTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.GetTrapTime" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.SetTrapTime">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">SetTrapTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.SetTrapTime" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.GetCollisionTime">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetCollisionTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.GetCollisionTime" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.SetCollisionTime">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">SetCollisionTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.SetCollisionTime" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.GetMaxDensity">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetMaxDensity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.GetMaxDensity" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.SetMaxDensity">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">SetMaxDensity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.SetMaxDensity" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.GetOrder">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetOrder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.GetOrder" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.SetOrder">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">SetOrder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.SetOrder" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.GetCrossSection">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">GetCrossSection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.GetCrossSection" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.type_plasma.SetCrossSection">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.type_plasma.</span></span><span class="sig-name descname"><span class="pre">SetCrossSection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plasma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.type_plasma.plasma_coefficients" title="pulsesuite.core.type_plasma.plasma_coefficients"><span class="pre">plasma_coefficients</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma_multi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.type_plasma.SetCrossSection" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

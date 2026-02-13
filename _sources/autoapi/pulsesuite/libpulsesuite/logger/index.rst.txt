@@ -1,0 +1,77 @@
+pulsesuite.libpulsesuite.logger
+===============================
+
+.. py:module:: pulsesuite.libpulsesuite.logger
+
+.. autoapi-nested-parse::
+
+   Thin wrapper around Python's ``logging`` module with pulsesuite-specific
+   log levels that mirror the Fortran ``logger.F90`` hierarchy.
+
+   Usage
+   -----
+   >>> from pulsesuite.core.logger import get_logger
+   >>> log = get_logger(__name__)
+   >>> log.info("standard message")        # LOGSTD equivalent
+   >>> log.debug2("inner-loop detail")     # custom level
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.libpulsesuite.logger.DEBUG2
+   pulsesuite.libpulsesuite.logger.DEBUG3
+   pulsesuite.libpulsesuite.logger.FORTRAN_LEVEL_MAP
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.libpulsesuite.logger.get_logger
+   pulsesuite.libpulsesuite.logger.set_level
+   pulsesuite.libpulsesuite.logger.setup
+
+
+Module Contents
+---------------
+
+.. py:data:: DEBUG2
+   :value: 9
+
+
+.. py:data:: DEBUG3
+   :value: 8
+
+
+.. py:data:: FORTRAN_LEVEL_MAP
+
+.. py:function:: get_logger(name: str | None = None) -> _PulseLogger
+
+   Return a logger under the ``pulsesuite`` hierarchy.
+
+   If *name* is a fully qualified module name (e.g.
+   ``pulsesuite.core.integrator``), the logger inherits from the
+   ``pulsesuite`` root logger so a single ``set_level()`` call
+   controls everything.
+
+
+.. py:function:: set_level(level: int | str = logging.INFO) -> None
+
+   Set the log level for *all* pulsesuite loggers at once.
+
+   Accepts Python level ints/names **or** legacy Fortran integer levels
+   (0-6).
+
+
+.. py:function:: setup(level: int | str = logging.INFO, stream=None) -> None
+
+   One-time setup: attach a stderr handler with the pulsesuite format.
+
+   Safe to call multiple times — extra calls are no-ops.
+
+

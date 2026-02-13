@@ -1,0 +1,27 @@
+pulsesuite.libpulsesuite
+========================
+
+.. py:module:: pulsesuite.libpulsesuite
+
+.. autoapi-nested-parse::
+
+   libpulsesuite sub-package for core utilities and integrators.
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/pulsesuite/libpulsesuite/helpers/index
+   /autoapi/pulsesuite/libpulsesuite/integrator/index
+   /autoapi/pulsesuite/libpulsesuite/logger/index
+   /autoapi/pulsesuite/libpulsesuite/materialproperties/index
+   /autoapi/pulsesuite/libpulsesuite/nrutils/index
+   /autoapi/pulsesuite/libpulsesuite/pulsegenerator/index
+   /autoapi/pulsesuite/libpulsesuite/spliner/index
+   /autoapi/pulsesuite/libpulsesuite/units/index
+
+

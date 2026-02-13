@@ -1,0 +1,1538 @@
+pulsesuite.PSTD3D.usefulsubs
+============================
+
+.. py:module:: pulsesuite.PSTD3D.usefulsubs
+
+.. autoapi-nested-parse::
+
+   Useful subroutines for quantum wire simulations.
+
+   This module provides utility functions for array manipulation and
+   derivative calculations using FFT methods.
+
+   Author: Rahul R. Sah
+
+   Bug fixes:
+       Fortran cshift(array, -1): shifts right (wraps left to right)
+       NumPy np.roll(array, 1): shifts left (wraps right to left)
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.usefulsubs.ii
+   pulsesuite.PSTD3D.usefulsubs.pi
+   pulsesuite.PSTD3D.usefulsubs.twopi
+   pulsesuite.PSTD3D.usefulsubs.small
+   pulsesuite.PSTD3D.usefulsubs.kB
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.usefulsubs.fflip_dp
+   pulsesuite.PSTD3D.usefulsubs.fflip_dpc
+   pulsesuite.PSTD3D.usefulsubs.dfdy1D
+   pulsesuite.PSTD3D.usefulsubs.dfdy2D
+   pulsesuite.PSTD3D.usefulsubs.dfdx1D
+   pulsesuite.PSTD3D.usefulsubs.dfdx2D
+   pulsesuite.PSTD3D.usefulsubs.dfdy1D_q
+   pulsesuite.PSTD3D.usefulsubs.dfdy2D_q
+   pulsesuite.PSTD3D.usefulsubs.dfdx1D_q
+   pulsesuite.PSTD3D.usefulsubs.dfdx2D_q
+   pulsesuite.PSTD3D.usefulsubs.GFFT_1D
+   pulsesuite.PSTD3D.usefulsubs.GIFFT_1D
+   pulsesuite.PSTD3D.usefulsubs.GFFT_2D
+   pulsesuite.PSTD3D.usefulsubs.GIFFT_2D
+   pulsesuite.PSTD3D.usefulsubs.test2Dfrom1D
+   pulsesuite.PSTD3D.usefulsubs.testconv
+   pulsesuite.PSTD3D.usefulsubs.ApplyABC
+   pulsesuite.PSTD3D.usefulsubs.dEdx
+   pulsesuite.PSTD3D.usefulsubs.dEdy
+   pulsesuite.PSTD3D.usefulsubs.dHdx
+   pulsesuite.PSTD3D.usefulsubs.dHdy
+   pulsesuite.PSTD3D.usefulsubs.testing_conv
+   pulsesuite.PSTD3D.usefulsubs.testing_fftc
+   pulsesuite.PSTD3D.usefulsubs.print2file
+   pulsesuite.PSTD3D.usefulsubs.FT
+   pulsesuite.PSTD3D.usefulsubs.IFT
+   pulsesuite.PSTD3D.usefulsubs.Flip
+   pulsesuite.PSTD3D.usefulsubs.GetArray0Index
+   pulsesuite.PSTD3D.usefulsubs.GaussDelta
+   pulsesuite.PSTD3D.usefulsubs.delta
+   pulsesuite.PSTD3D.usefulsubs.kdel
+   pulsesuite.PSTD3D.usefulsubs.delt
+   pulsesuite.PSTD3D.usefulsubs.sgn
+   pulsesuite.PSTD3D.usefulsubs.sgn2
+   pulsesuite.PSTD3D.usefulsubs.TotalEnergy
+   pulsesuite.PSTD3D.usefulsubs.AvgEnergy
+   pulsesuite.PSTD3D.usefulsubs.Temperature
+   pulsesuite.PSTD3D.usefulsubs.Lrtz
+   pulsesuite.PSTD3D.usefulsubs.theta
+   pulsesuite.PSTD3D.usefulsubs.softtheta
+   pulsesuite.PSTD3D.usefulsubs.rad
+   pulsesuite.PSTD3D.usefulsubs.RotateField3D
+   pulsesuite.PSTD3D.usefulsubs.RotateField
+   pulsesuite.PSTD3D.usefulsubs.ShiftField
+   pulsesuite.PSTD3D.usefulsubs.RotateShiftEField
+   pulsesuite.PSTD3D.usefulsubs.cik01
+   pulsesuite.PSTD3D.usefulsubs.K03
+   pulsesuite.PSTD3D.usefulsubs.locator
+   pulsesuite.PSTD3D.usefulsubs.WriteIT2D
+   pulsesuite.PSTD3D.usefulsubs.ReadIT2D
+   pulsesuite.PSTD3D.usefulsubs.WriteIT1D
+   pulsesuite.PSTD3D.usefulsubs.ReadIT1D
+   pulsesuite.PSTD3D.usefulsubs.EAtX
+   pulsesuite.PSTD3D.usefulsubs.EAtXYZ
+   pulsesuite.PSTD3D.usefulsubs.printIT
+   pulsesuite.PSTD3D.usefulsubs.printITR
+   pulsesuite.PSTD3D.usefulsubs.printIT2D
+   pulsesuite.PSTD3D.usefulsubs.gaussian
+   pulsesuite.PSTD3D.usefulsubs.convolve
+   pulsesuite.PSTD3D.usefulsubs.FFTG
+   pulsesuite.PSTD3D.usefulsubs.iFFTG
+   pulsesuite.PSTD3D.usefulsubs.ReadIt
+   pulsesuite.PSTD3D.usefulsubs.WriteIt
+   pulsesuite.PSTD3D.usefulsubs.dfdy
+   pulsesuite.PSTD3D.usefulsubs.dfdx
+   pulsesuite.PSTD3D.usefulsubs.dfdy_q
+   pulsesuite.PSTD3D.usefulsubs.dfdx_q
+   pulsesuite.PSTD3D.usefulsubs.GFFT
+   pulsesuite.PSTD3D.usefulsubs.GIFFT
+   pulsesuite.PSTD3D.usefulsubs.fflip
+
+
+Module Contents
+---------------
+
+.. py:data:: ii
+   :value: 1j
+
+
+.. py:data:: pi
+
+.. py:data:: twopi
+
+.. py:data:: small
+   :value: 1e-100
+
+
+.. py:data:: kB
+   :value: 1.380649e-23
+
+
+.. py:function:: fflip_dp(f)
+
+   Flip a real array.
+
+   Reverses the order of elements in a real array.
+
+   :param f: Input real array, 1D array
+   :type f: ndarray
+
+   :returns: Flipped array, 1D array
+   :rtype: ndarray
+
+
+.. py:function:: fflip_dpc(f)
+
+   Flip a complex array.
+
+   Reverses the order of elements in a complex array.
+
+   :param f: Input complex array, 1D array
+   :type f: ndarray
+
+   :returns: Flipped array, 1D array
+   :rtype: ndarray
+
+
+.. py:function:: dfdy1D(f, qy)
+
+   Calculate derivative in y direction for 1D array using FFT.
+
+   Computes the derivative df/dy using FFT method:
+   df/dy = IFFT(ii * qy * FFT(f))
+
+   :param f: Input function (complex), 1D array
+   :type f: ndarray
+   :param qy: Momentum coordinates in y direction (1/m), 1D array
+   :type qy: ndarray
+
+   :returns: Derivative df/dy (complex), 1D array
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   Uses pyfftw FFT functions for computation.
+   Returns zero array if qy has only one element.
+
+
+.. py:function:: dfdy2D(f, qy)
+
+   Calculate derivative in y direction for 2D array using FFT.
+
+   Computes the derivative df/dy for each row of a 2D array using
+   the 1D derivative function.
+
+   :param f: Input function (complex), 2D array
+   :type f: ndarray
+   :param qy: Momentum coordinates in y direction (1/m), 1D array
+   :type qy: ndarray
+
+   :returns: Derivative df/dy (complex), 2D array with same shape as f
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   This function calls dfdy1D for each row of the 2D array.
+   Returns zero array if qy has only one element.
+
+
+.. py:function:: dfdx1D(f, qx)
+
+   Calculate derivative in x direction for 1D array using FFT.
+
+   Computes the derivative df/dx using FFT method:
+   df/dx = IFFT(ii * qx * FFT(f))
+
+   :param f: Input function (complex), 1D array
+   :type f: ndarray
+   :param qx: Momentum coordinates in x direction (1/m), 1D array
+   :type qx: ndarray
+
+   :returns: Derivative df/dx (complex), 1D array
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   Uses pyfftw FFT functions for computation.
+   Returns zero array if qx has only one element.
+
+
+.. py:function:: dfdx2D(f, qx)
+
+   Calculate derivative in x direction for 2D array using FFT.
+
+   Computes the derivative df/dx for each column of a 2D array using
+   the 1D derivative function.
+
+   :param f: Input function (complex), 2D array
+   :type f: ndarray
+   :param qx: Momentum coordinates in x direction (1/m), 1D array
+   :type qx: ndarray
+
+   :returns: Derivative df/dx (complex), 2D array with same shape as f
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   This function calls dfdy1D for each column of the 2D array.
+   Returns zero array if qx has only one element.
+
+
+.. py:function:: dfdy1D_q(f, qy)
+
+   Calculate derivative in y direction for 1D array in q-space.
+
+   Computes the derivative df/dy in q-space (Fourier space):
+   df/dy = f * (ii * qy)
+
+   :param f: Input function in q-space (complex), 1D array
+   :type f: ndarray
+   :param qy: Momentum coordinates in y direction (1/m), 1D array
+   :type qy: ndarray
+
+   :returns: Derivative df/dy in q-space (complex), 1D array
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   This is the q-space version that operates directly on Fourier-transformed
+   arrays without requiring FFT/IFFT calls.
+   Returns zero array if qy has only one element.
+
+
+.. py:function:: dfdy2D_q(f, qy)
+
+   Calculate derivative in y direction for 2D array in q-space.
+
+   Computes the derivative df/dy in q-space (Fourier space) for each element:
+   df/dy(i,j) = f(i,j) * (ii * qy(j))
+
+   :param f: Input function in q-space (complex), 2D array
+   :type f: ndarray
+   :param qy: Momentum coordinates in y direction (1/m), 1D array
+   :type qy: ndarray
+
+   :returns: Derivative df/dy in q-space (complex), 2D array with same shape as f
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   This is the q-space version that operates directly on Fourier-transformed
+   arrays without requiring FFT/IFFT calls.
+   Returns zero array if qy has only one element.
+
+
+.. py:function:: dfdx1D_q(f, qx)
+
+   Calculate derivative in x direction for 1D array in q-space.
+
+   Computes the derivative df/dx in q-space (Fourier space):
+   df/dx = f * (ii * qx)
+
+   :param f: Input function in q-space (complex), 1D array
+   :type f: ndarray
+   :param qx: Momentum coordinates in x direction (1/m), 1D array
+   :type qx: ndarray
+
+   :returns: Derivative df/dx in q-space (complex), 1D array
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   This is the q-space version that operates directly on Fourier-transformed
+   arrays without requiring FFT/IFFT calls.
+   Returns zero array if qx has only one element.
+
+
+.. py:function:: dfdx2D_q(f, qx)
+
+   Calculate derivative in x direction for 2D array in q-space.
+
+   Computes the derivative df/dx in q-space (Fourier space) for each element:
+   df/dx(i,j) = f(i,j) * (ii * qx(i))
+
+   :param f: Input function in q-space (complex), 2D array
+   :type f: ndarray
+   :param qx: Momentum coordinates in x direction (1/m), 1D array
+   :type qx: ndarray
+
+   :returns: Derivative df/dx in q-space (complex), 2D array with same shape as f
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   This is the q-space version that operates directly on Fourier-transformed
+   arrays without requiring FFT/IFFT calls.
+   Returns zero array if qx has only one element.
+
+
+.. py:function:: GFFT_1D(f, dx)
+
+   Gaussian FFT for 1D array.
+
+   Performs FFT and scales by dx/sqrt(2*pi) for Gaussian normalization.
+
+   :param f: Input function (complex), modified in-place, 1D array
+   :type f: ndarray
+   :param dx: Spatial step size (m)
+   :type dx: float
+
+   :returns: f array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses pyfftw FFT function for computation.
+   The function performs: FFT(f) then f = f * dx / sqrt(2*pi)
+
+
+.. py:function:: GIFFT_1D(f, dq)
+
+   Gaussian IFFT for 1D array.
+
+   Performs IFFT and scales by dq/sqrt(2*pi) * N for Gaussian normalization.
+
+   :param f: Input function (complex), modified in-place, 1D array
+   :type f: ndarray
+   :param dq: Momentum step size (1/m)
+   :type dq: float
+
+   :returns: f array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses pyfftw IFFT function for computation.
+   The function performs: IFFT(f) then f = f * dq / sqrt(2*pi) * N
+
+
+.. py:function:: GFFT_2D(f, dx, dy)
+
+   Gaussian FFT for 2D array.
+
+   Performs FFT and scales by dx*dy/(2*pi) for Gaussian normalization.
+
+   :param f: Input function (complex), modified in-place, 2D array
+   :type f: ndarray
+   :param dx: Spatial step size in x direction (m)
+   :type dx: float
+   :param dy: Spatial step size in y direction (m)
+   :type dy: float
+
+   :returns: f array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses pyfftw FFT function for computation.
+   The function performs: FFT(f) then f = f * dx * dy / (2*pi)
+
+
+.. py:function:: GIFFT_2D(f, dqx, dqy)
+
+   Gaussian IFFT for 2D array.
+
+   Performs IFFT and scales by dqx*dqy/(2*pi) * Nx * Ny for Gaussian normalization.
+
+   :param f: Input function (complex), modified in-place, 2D array
+   :type f: ndarray
+   :param dqx: Momentum step size in x direction (1/m)
+   :type dqx: float
+   :param dqy: Momentum step size in y direction (1/m)
+   :type dqy: float
+
+   :returns: f array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses pyfftw IFFT function for computation.
+   The function performs: IFFT(f) then f = f * dqx * dqy / (2*pi) * Nx * Ny
+
+
+.. py:function:: test2Dfrom1D(x, y)
+
+   Test function for 2D array construction from 1D arrays.
+
+   Creates 2D Gaussian functions from 1D arrays and tests FFT operations.
+
+   :param x: X coordinates (m), 1D array
+   :type x: ndarray
+   :param y: Y coordinates (m), 1D array
+   :type y: ndarray
+
+   .. rubric:: Notes
+
+   This is a test function. The function prints the sum of squared
+   absolute values and stops execution.
+
+
+.. py:function:: testconv(y)
+
+   Test function for convolution operations.
+
+   Tests convolution of two Gaussian functions using FFT methods.
+
+   :param y: Y coordinates (m), 1D array
+   :type y: ndarray
+
+   .. rubric:: Notes
+
+   This is a test function that uses nyquist_1D and convolve functions
+   which need to be defined elsewhere. The function prints results and stops.
+
+
+.. py:function:: ApplyABC(Field, abc)
+
+   Apply absorbing boundary conditions (ABC) to a field.
+
+   Transforms field to real space, multiplies by ABC coefficients,
+   and transforms back to Fourier space.
+
+   :param Field: Field array (complex), modified in-place, 2D array
+   :type Field: ndarray
+   :param abc: Absorbing boundary condition coefficients (real), 2D array
+   :type abc: ndarray
+
+   :returns: Field array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The function performs: IFFT(Field), Field = Field * abc, FFT(Field)
+
+
+.. py:function:: dEdx(E, dx)
+
+   Calculate derivative of E field in x direction.
+
+   Computes forward difference derivative: dE/dx = (E(i+1,j) - E(i,j)) / dx
+
+   :param E: Electric field (complex), 2D array
+   :type E: ndarray
+   :param dx: Spatial step size in x direction (m)
+   :type dx: float
+
+   :returns: Derivative dE/dx (complex), 2D array with same shape as E
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   Returns zero array if E has only one row.
+   Uses forward difference scheme with shifted indices.
+
+
+.. py:function:: dEdy(E, dy)
+
+   Calculate derivative of E field in y direction.
+
+   Computes forward difference derivative: dE/dy = (E(i,j+1) - E(i,j)) / dy
+
+   :param E: Electric field (complex), 2D array
+   :type E: ndarray
+   :param dy: Spatial step size in y direction (m)
+   :type dy: float
+
+   :returns: Derivative dE/dy (complex), 2D array with same shape as E
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   Returns zero array if E has only one column.
+   Uses forward difference scheme with shifted indices.
+
+
+.. py:function:: dHdx(H, dx)
+
+   Calculate derivative of H field in x direction.
+
+   Computes backward difference derivative: dH/dx = (H(i,j) - H(i-1,j)) / dx
+
+   :param H: Magnetic field (complex), 2D array
+   :type H: ndarray
+   :param dx: Spatial step size in x direction (m)
+   :type dx: float
+
+   :returns: Derivative dH/dx (complex), 2D array with same shape as H
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   Returns zero array if H has only one row.
+   Uses backward difference scheme with shifted indices.
+
+
+.. py:function:: dHdy(H, dy)
+
+   Calculate derivative of H field in y direction.
+
+   Computes backward difference derivative: dH/dy = (H(i,j) - H(i,j-1)) / dy
+
+   :param H: Magnetic field (complex), 2D array
+   :type H: ndarray
+   :param dy: Spatial step size in y direction (m)
+   :type dy: float
+
+   :returns: Derivative dH/dy (complex), 2D array with same shape as H
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   Returns zero array if H has only one column.
+   Uses backward difference scheme with shifted indices.
+
+
+.. py:function:: testing_conv(Ex, y, q)
+
+   Test function for convolution operations.
+
+   Tests FFT/IFFT operations and normalization for convolution.
+
+   :param Ex: Field array (complex), modified in-place, 1D array
+   :type Ex: ndarray
+   :param y: Spatial coordinates (m), 1D array
+   :type y: ndarray
+   :param q: Momentum coordinates (1/m), 1D array
+   :type q: ndarray
+
+   .. rubric:: Notes
+
+   This is a test function that uses module variables yw, dy, dq, Ny
+   and functions FFTc, IFFTc which need to be defined elsewhere.
+   The function prints results for testing purposes.
+
+
+.. py:function:: testing_fftc(Ex, y, q)
+
+   Test function for FFTc operations.
+
+   Tests FFTc function with normalization.
+
+   :param Ex: Field array (complex), modified in-place, 1D array
+   :type Ex: ndarray
+   :param y: Spatial coordinates (m), 1D array
+   :type y: ndarray
+   :param q: Momentum coordinates (1/m), 1D array
+   :type q: ndarray
+
+   .. rubric:: Notes
+
+   This is a test function that uses module variables dy and function FFTc
+   which need to be defined elsewhere. The function prints results.
+
+
+.. py:function:: print2file(x, y, filename)
+
+   Print arrays to file.
+
+   Writes x, y arrays and index to a file.
+
+   :param x: First array (real), 1D array
+   :type x: ndarray
+   :param y: Second array (real), 1D array
+   :type y: ndarray
+   :param filename: Output filename
+   :type filename: str
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The function writes: x(i), y(i), i for each element.
+
+
+.. py:function:: FT(y, x, q)
+
+   Fourier Transform using direct summation.
+
+   Computes FT: Y(q) = (1/N) * sum(y(x) * exp(ii*x*q))
+
+   :param y: Input function (complex), modified in-place, 1D array
+   :type y: ndarray
+   :param x: Spatial coordinates (m), 1D array
+   :type x: ndarray
+   :param q: Momentum coordinates (1/m), 1D array
+   :type q: ndarray
+
+   :returns: y array is modified in-place with transformed values.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses direct summation method for Fourier transform.
+   The result is normalized by N (length of arrays).
+
+
+.. py:function:: IFT(y, x, q)
+
+   Inverse Fourier Transform using direct summation.
+
+   Computes IFT: Y(x) = sum(y(q) * exp(-ii*x*q))
+
+   :param y: Input function in q-space (complex), modified in-place, 1D array
+   :type y: ndarray
+   :param x: Spatial coordinates (m), 1D array
+   :type x: ndarray
+   :param q: Momentum coordinates (1/m), 1D array
+   :type q: ndarray
+
+   :returns: y array is modified in-place with transformed values.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses direct summation method for inverse Fourier transform.
+   No normalization factor is applied.
+
+
+.. py:function:: Flip(x)
+
+   Flip a complex array.
+
+   Reverses the order of elements in a complex array.
+
+   :param x: Input complex array, 1D array
+   :type x: ndarray
+
+   :returns: Flipped array, 1D array
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   The function performs: Flip[i] = x[N-i] for i=0 to N-1
+
+
+.. py:function:: GetArray0Index(x)
+
+   Get index of array element closest to zero.
+
+   Finds the index where the array value is closest to zero
+   by rounding and checking for zero.
+
+   :param x: Input array (real), 1D array
+   :type x: ndarray
+
+   :returns: Index (1-based in Fortran, 0-based in Python) where value is closest to zero
+   :rtype: int
+
+   .. rubric:: Notes
+
+   The function rounds array values and finds the first index
+   where the rounded value is zero. Returns error message if not found.
+
+
+.. py:function:: GaussDelta(a, b)
+
+   Gaussian delta function.
+
+   Computes normalized Gaussian function: (1/sqrt(pi)/b) * exp(-(a/b)^2)
+
+   :param a: Input value(s)
+   :type a: float or ndarray
+   :param b: Width parameter
+   :type b: float or ndarray
+
+   :returns: Gaussian delta function value(s)
+   :rtype: float or ndarray
+
+   .. rubric:: Notes
+
+   This is an elemental function that works with both scalars and arrays.
+
+
+.. py:function:: delta(x, dky=None)
+
+   Dirac delta function.
+
+   Returns 1 if x/dky rounds to zero, otherwise 0.
+
+   :param x: Input value
+   :type x: float
+   :param dky: Step size for delta function. If None, uses a default small value.
+   :type dky: float, optional
+
+   :returns: 1 if nint(x/dky) == 0, else 0
+   :rtype: int
+
+   .. rubric:: Notes
+
+   Note: dky is a module variable in Fortran. Pass it as parameter if needed.
+
+
+.. py:function:: kdel(x)
+
+   Kronecker delta function.
+
+   Returns 1 if x == 0, otherwise 0.
+
+   :param x: Input integer value
+   :type x: int
+
+   :returns: 1 if x == 0, else 0
+   :rtype: int
+
+
+.. py:function:: delt(x)
+
+   Delta function variant.
+
+   Computes: 1 - abs(x) / (abs(x) + 1e-100)
+
+   :param x: Input integer value
+   :type x: int
+
+   :returns: Delta function value
+   :rtype: float
+
+
+.. py:function:: sgn(x)
+
+   Sign function.
+
+   Returns the sign of a number: -1 if x < 0, +1 if x >= 0.
+
+   :param x: Input value
+   :type x: float
+
+   :returns: -1 if x < 0, +1 if x >= 0
+   :rtype: int
+
+
+.. py:function:: sgn2(x)
+
+   Sign function for arrays.
+
+   Applies sign function element-wise to an array.
+
+   :param x: Input array (real), 1D array
+   :type x: ndarray
+
+   :returns: Array of signs (-1 or +1), 1D array of integers
+   :rtype: ndarray
+
+
+.. py:function:: TotalEnergy(n, E)
+
+   Calculate total energy.
+
+   Computes total energy as real part of sum(n * E).
+
+   :param n: Occupation numbers (complex), 1D array
+   :type n: ndarray
+   :param E: Energy values (real), 1D array
+   :type E: ndarray
+
+   :returns: Total energy
+   :rtype: float
+
+
+.. py:function:: AvgEnergy(n, E)
+
+   Calculate average energy.
+
+   Computes average energy as real(sum(n*E) / (sum(n) + small)).
+
+   :param n: Occupation numbers (complex), 1D array
+   :type n: ndarray
+   :param E: Energy values (real), 1D array
+   :type E: ndarray
+
+   :returns: Average energy
+   :rtype: float
+
+   .. rubric:: Notes
+
+   Uses small constant to avoid division by zero.
+
+
+.. py:function:: Temperature(n, E)
+
+   Calculate temperature from energy distribution.
+
+   Computes temperature as 2 * AvgEnergy(n, E) / kB.
+
+   :param n: Occupation numbers (complex), 1D array
+   :type n: ndarray
+   :param E: Energy values (real), 1D array
+   :type E: ndarray
+
+   :returns: Temperature (K)
+   :rtype: float
+
+   .. rubric:: Notes
+
+   Uses Boltzmann constant kB for temperature calculation.
+
+
+.. py:function:: Lrtz(a, b)
+
+   Lorentzian function.
+
+   Computes normalized Lorentzian: (b/pi) / (a^2 + b^2)
+
+   :param a: Input value(s)
+   :type a: float or ndarray
+   :param b: Width parameter
+   :type b: float or ndarray
+
+   :returns: Lorentzian function value(s)
+   :rtype: float or ndarray
+
+   .. rubric:: Notes
+
+   This is an elemental function that works with both scalars and arrays.
+
+
+.. py:function:: theta(x)
+
+   Heaviside step function.
+
+   Computes step function: (abs(x) + x) / 2 / (abs(x) + small)
+
+   :param x: Input value(s)
+   :type x: float or ndarray
+
+   :returns: Step function value(s): 0 if x < 0, 1 if x > 0
+   :rtype: float or ndarray
+
+   .. rubric:: Notes
+
+   This is an elemental function that works with both scalars and arrays.
+   Uses small constant to avoid division by zero at x = 0.
+
+
+.. py:function:: softtheta(x, g)
+
+   Soft Heaviside step function.
+
+   Computes smooth step function: 0.5 * (1.0 + 2.0/pi * atan(x/g))
+
+   :param x: Input value(s)
+   :type x: float or ndarray
+   :param g: Smoothness parameter
+   :type g: float or ndarray
+
+   :returns: Soft step function value(s)
+   :rtype: float or ndarray
+
+   .. rubric:: Notes
+
+   This is an elemental function that works with both scalars and arrays.
+   Provides a smooth transition instead of a sharp step.
+
+
+.. py:function:: rad(degrees)
+
+   Convert degrees to radians.
+
+   :param degrees: Angle in degrees
+   :type degrees: float or ndarray
+
+   :returns: Angle in radians
+   :rtype: float or ndarray
+
+   .. rubric:: Notes
+
+   This is an elemental function that works with both scalars and arrays.
+
+
+.. py:function:: RotateField3D(theta, Ex, Ey, Ez)
+
+   Rotate 3D field by angle theta about y-axis.
+
+   Performs right-handed rotation about y-axis using rotation matrix.
+
+   :param theta: Rotation angle (radians)
+   :type theta: float
+   :param Ex: X component of field (complex), modified in-place, 3D array
+   :type Ex: ndarray
+   :param Ey: Y component of field (complex), modified in-place, 3D array
+   :type Ey: ndarray
+   :param Ez: Z component of field (complex), modified in-place, 3D array
+   :type Ez: ndarray
+
+   :returns: Ex, Ey, Ez arrays are modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Rotation matrix for rotation about y-axis:
+   R = [[cos(theta), 0, sin(theta)],
+        [0,           1, 0          ],
+        [-sin(theta), 0, cos(theta)]]
+
+
+.. py:function:: RotateField(theta, Ex, Ey)
+
+   Rotate 2D field by angle theta.
+
+   Performs rotation in 2D plane using rotation matrix.
+
+   :param theta: Rotation angle (radians)
+   :type theta: float
+   :param Ex: X component of field (complex), modified in-place, 2D array
+   :type Ex: ndarray
+   :param Ey: Y component of field (complex), modified in-place, 2D array
+   :type Ey: ndarray
+
+   :returns: Ex, Ey arrays are modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Rotation matrix:
+   R = [[cos(theta), -sin(theta)],
+        [sin(theta),  cos(theta)]]
+
+
+.. py:function:: ShiftField(Lx, Ly, dx, dy, Ex, Ey)
+
+   Shift field by specified distances.
+
+   Shifts field arrays by integer number of grid points in x and y directions.
+
+   :param Lx: Shift distance in x direction (m)
+   :type Lx: float
+   :param Ly: Shift distance in y direction (m)
+   :type Ly: float
+   :param dx: Grid spacing in x direction (m)
+   :type dx: float
+   :param dy: Grid spacing in y direction (m)
+   :type dy: float
+   :param Ex: X component of field (complex), modified in-place, 2D array
+   :type Ex: ndarray
+   :param Ey: Y component of field (complex), modified in-place, 2D array
+   :type Ey: ndarray
+
+   :returns: Ex, Ey arrays are modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses circular shift (cshift) to shift arrays by nx and ny grid points.
+
+
+.. py:function:: RotateShiftEField(theta, qx, qy, Ex, Ey, FFTC=None, IFFTC=None)
+
+   Rotate and shift E field in momentum space.
+
+   Transforms field to momentum space, calculates center of mass,
+   shifts by rotation angle, and transforms back.
+
+   :param theta: Rotation angle (radians)
+   :type theta: float
+   :param qx: Momentum coordinates in x direction (1/m), 1D array
+   :type qx: ndarray
+   :param qy: Momentum coordinates in y direction (1/m), 1D array
+   :type qy: ndarray
+   :param Ex: X component of field (complex), modified in-place, 2D array
+   :type Ex: ndarray
+   :param Ey: Y component of field (complex), modified in-place, 2D array
+   :type Ey: ndarray
+   :param FFTC: Forward FFT function. If None, uses pyfftw.
+   :type FFTC: callable, optional
+   :param IFFTC: Inverse FFT function. If None, uses pyfftw.
+   :type IFFTC: callable, optional
+
+   :returns: Ex, Ey arrays are modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   This function uses FFTC and IFFTC which need to be defined.
+   Also uses module variables: dumb, qx0, qy0, q0x, q0y.
+   These should be passed as parameters or defined as module variables.
+
+
+.. py:function:: cik01(z)
+
+   Compute modified Bessel functions I0(z), I1(z), K0(z) and K1(z) for complex argument.
+
+   This procedure computes the modified Bessel functions I0(z), I1(z),
+   K0(z), K1(z), and their derivatives for a complex argument.
+
+   :param z: The complex argument
+   :type z: complex
+
+   :returns: (cbi0, cdi0, cbi1, cdi1, cbk0, cdk0, cbk1, cdk1)
+             Values of I0(z), I0'(z), I1(z), I1'(z), K0(z), K0'(z), K1(z), K1'(z)
+   :rtype: tuple
+
+   .. rubric:: Notes
+
+   This routine is copyrighted by Shanjie Zhang and Jianming Jin.
+   Reference: Shanjie Zhang, Jianming Jin, Computation of Special Functions,
+   Wiley, 1996, ISBN: 0-471-11963-6, LC: QA351.C45.
+
+
+.. py:function:: K03(x)
+
+   Modified Bessel function K0 for real argument.
+
+   Computes K0(x) using the complex Bessel function routine.
+
+   :param x: Real argument
+   :type x: float
+
+   :returns: Value of K0(x), or 0.0 if x > 100
+   :rtype: float
+
+   .. rubric:: Notes
+
+   Returns 0.0 for large arguments (x > 100) to avoid overflow.
+
+
+.. py:function:: locator(x, x0)
+
+   Find index in sorted array where value should be inserted.
+
+   Finds the index i such that x[i] <= x0 < x[i+1] (0-based indexing).
+
+   :param x: Sorted array (real), 1D array
+   :type x: ndarray
+   :param x0: Value to locate
+   :type x0: float
+
+   :returns: Index i such that x[i] <= x0 < x[i+1] (0-based)
+   :rtype: int
+
+   .. rubric:: Notes
+
+   Uses binary search to find the insertion point.
+   Returns 0 if x0 < x[0], and len(x)-2 if x0 >= x[-1].
+
+
+.. py:function:: WriteIT2D(V, file)
+
+   Write 2D array to file.
+
+   Writes a 2D real array to a file in the 'dataQW' directory.
+
+   :param V: Array to write (real), 2D array
+   :type V: ndarray
+   :param file: Base filename (without extension)
+   :type file: str
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The file is written to 'dataQW/{file}.dat'.
+   Each element is written on a separate line.
+
+
+.. py:function:: ReadIT2D(V, file)
+
+   Read 2D array from file.
+
+   Reads a 2D real array from a file in the 'dataQW' directory.
+
+   :param V: Array to read into (real), modified in-place, 2D array
+   :type V: ndarray
+   :param file: Base filename (without extension)
+   :type file: str
+
+   :returns: V array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The file is read from 'dataQW/{file}.dat'.
+   The array shape must match the file contents.
+
+
+.. py:function:: WriteIT1D(V, file)
+
+   Write 1D array to file.
+
+   Writes a 1D real array to a file in the 'dataQW' directory.
+
+   :param V: Array to write (real), 1D array
+   :type V: ndarray
+   :param file: Base filename (without extension)
+   :type file: str
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The file is written to 'dataQW/{file}.dat'.
+   Each element is written on a separate line.
+
+
+.. py:function:: ReadIT1D(V, file)
+
+   Read 1D array from file.
+
+   Reads a 1D real array from a file in the 'dataQW' directory.
+
+   :param V: Array to read into (real), modified in-place, 1D array
+   :type V: ndarray
+   :param file: Base filename (without extension)
+   :type file: str
+
+   :returns: V array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The file is read from 'dataQW/{file}.dat'.
+   The array length must match the file contents.
+
+
+.. py:function:: EAtX(f, x, x0)
+
+   Linear interpolation of 2D complex array at specified x position.
+
+   Computes a linear interpolation of a complex 2D array at a specified
+   x position. The interpolation is performed along the first dimension.
+
+   :param f: 2D array to be interpolated (complex), 2D array
+   :type f: ndarray
+   :param x: 1D position array corresponding to first dimension of f (real), 1D array
+   :type x: ndarray
+   :param x0: Position at which f is to be interpolated
+   :type x0: float
+
+   :returns: Interpolated values (complex), 1D array of length f.shape[1]
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   Returns f[0, :] if x has only one element.
+   Returns zero array if x0 is outside the valid range.
+
+
+.. py:function:: EAtXYZ(f, x, y, z, x0, y0, z0)
+
+   Trilinear interpolation of 3D complex field at point (x0, y0, z0).
+
+   Computes trilinear interpolation of a complex 3D field at a specified point.
+
+   :param f: 3D field array (complex), 3D array
+   :type f: ndarray
+   :param x: 1D array of grid coordinates along x axis (real), 1D array
+   :type x: ndarray
+   :param y: 1D array of grid coordinates along y axis (real), 1D array
+   :type y: ndarray
+   :param z: 1D array of grid coordinates along z axis (real), 1D array
+   :type z: ndarray
+   :param x0: Query coordinate in x direction
+   :type x0: float
+   :param y0: Query coordinate in y direction
+   :type y0: float
+   :param z0: Query coordinate in z direction
+   :type z0: float
+
+   :returns: Interpolated field value at (x0, y0, z0)
+   :rtype: complex
+
+   .. rubric:: Notes
+
+   Uses trilinear interpolation with weights computed for each axis.
+   Handles degenerate cases where arrays have only one element.
+
+
+.. py:function:: printIT(Dx, z, n, file)
+
+   Print field to file with index number.
+
+   Writes a complex 1D field array to a file with index number in filename.
+
+   :param Dx: Field array (complex), 1D array
+   :type Dx: ndarray
+   :param z: Spatial coordinates (real), 1D array
+   :type z: ndarray
+   :param n: Index number for filename
+   :type n: int
+   :param file: Base filename (without extension and index)
+   :type file: str
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The file is written to 'dataQW/{file}{n:06d}.dat'.
+   Each line contains: z(i), real(Dx(i)), imag(Dx(i))
+
+
+.. py:function:: printITR(Dx, z, n, file)
+
+   Print real field to file with index number.
+
+   Writes a real 1D field array to a file with index number in filename.
+
+   :param Dx: Field array (real), 1D array
+   :type Dx: ndarray
+   :param z: Spatial coordinates (real), 1D array
+   :type z: ndarray
+   :param n: Index number for filename
+   :type n: int
+   :param file: Base filename (without extension and index)
+   :type file: str
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The file is written to 'dataQW/{file}{n:06d}.dat'.
+   Each line contains: z(i), Dx(i)
+
+
+.. py:function:: printIT2D(Dx, z, n, file)
+
+   Print 2D complex field to file with index number.
+
+   Writes a 2D complex field array to a file with index number in filename.
+
+   :param Dx: Field array (complex), 2D array
+   :type Dx: ndarray
+   :param z: Spatial coordinates (real), 1D array (not used in output)
+   :type z: ndarray
+   :param n: Index number for filename
+   :type n: int
+   :param file: Base filename (without extension and index)
+   :type file: str
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   The file is written to 'dataQW/{file}{n:07d}.dat'.
+   Each line contains: abs(Dx(i,j))
+   The z parameter is kept for interface compatibility but not used.
+
+
+.. py:function:: gaussian(x, x0)
+
+   Gaussian function.
+
+   Computes normalized Gaussian: exp(-x^2 / x0^2)
+
+   :param x: Input value(s)
+   :type x: float or ndarray
+   :param x0: Width parameter
+   :type x0: float or ndarray
+
+   :returns: Gaussian function value(s)
+   :rtype: float or ndarray
+
+   .. rubric:: Notes
+
+   This is an elemental function that works with both scalars and arrays.
+
+
+.. py:function:: convolve(x, h)
+
+   Convolution of two complex arrays.
+
+   Computes convolution of signal array x with kernel/impulse array h.
+
+   :param x: Signal array (complex), 1D array
+   :type x: ndarray
+   :param h: Kernel/impulse array (complex), 1D array
+   :type h: ndarray
+
+   :returns: Convolved array (complex), 1D array of same length as x
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   The convolution is computed using direct summation:
+   - For i >= kernelsize: y(i) = sum(x(j)*h(k)) where j goes from i down to i-kernelsize+1
+   - For i < kernelsize: y(i) = sum(x(j)*h(k)) where j goes from i down to 1
+
+
+.. py:function:: FFTG(F)
+
+   FFT with Gaussian normalization.
+
+   Performs FFT and applies Gaussian normalization: F = -FFT(F) / Nf
+
+   :param F: Input function (complex), modified in-place, 1D array
+   :type F: ndarray
+
+   :returns: F array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses pyfftw for FFT computation.
+   The function performs: FFTC(F) then F = -F / Nf
+
+
+.. py:function:: iFFTG(F)
+
+   IFFT with Gaussian normalization.
+
+   Performs IFFT and applies Gaussian normalization: F = -IFFT(F) * Nf
+
+   :param F: Input function (complex), modified in-place, 1D array
+   :type F: ndarray
+
+   :returns: F array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses pyfftw for IFFT computation.
+   The function performs: iFFTC(F) then F = -F * Nf
+
+
+.. py:function:: ReadIt(V, file)
+
+   Read array from file (interface-style wrapper).
+
+   Automatically dispatches to ReadIT1D or ReadIT2D based on array dimensions.
+   This provides a unified interface similar to Fortran's interface construct.
+
+   :param V: Array to read into (real), modified in-place, 1D or 2D array
+   :type V: ndarray
+   :param file: Base filename (without extension)
+   :type file: str
+
+   :returns: V array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   - 1D arrays: calls ReadIT1D
+   - 2D arrays: calls ReadIT2D
+   - Raises ValueError for unsupported array dimensions
+
+
+.. py:function:: WriteIt(V, file)
+
+   Write array to file (interface-style wrapper).
+
+   Automatically dispatches to WriteIT1D or WriteIT2D based on array dimensions.
+   This provides a unified interface similar to Fortran's interface construct.
+
+   :param V: Array to write (real), 1D or 2D array
+   :type V: ndarray
+   :param file: Base filename (without extension)
+   :type file: str
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   - 1D arrays: calls WriteIT1D
+   - 2D arrays: calls WriteIT2D
+   - Raises ValueError for unsupported array dimensions
+
+
+.. py:function:: dfdy(f, qy)
+
+   Calculate derivative in y direction (interface-style wrapper).
+
+   Automatically dispatches to dfdy1D or dfdy2D based on array dimensions.
+   This provides a unified interface similar to Fortran's interface construct.
+
+   :param f: Input function (complex), 1D or 2D array
+   :type f: ndarray
+   :param qy: Momentum coordinates in y direction (1/m), 1D array
+   :type qy: ndarray
+
+   :returns: Derivative df/dy (complex), same shape as input array
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   - 1D arrays: calls dfdy1D
+   - 2D arrays: calls dfdy2D
+   - Raises ValueError for unsupported array dimensions
+
+
+.. py:function:: dfdx(f, qx)
+
+   Calculate derivative in x direction (interface-style wrapper).
+
+   Automatically dispatches to dfdx1D or dfdx2D based on array dimensions.
+   This provides a unified interface similar to Fortran's interface construct.
+
+   :param f: Input function (complex), 1D or 2D array
+   :type f: ndarray
+   :param qx: Momentum coordinates in x direction (1/m), 1D array
+   :type qx: ndarray
+
+   :returns: Derivative df/dx (complex), same shape as input array
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   - 1D arrays: calls dfdx1D
+   - 2D arrays: calls dfdx2D
+   - Raises ValueError for unsupported array dimensions
+
+
+.. py:function:: dfdy_q(f, qy)
+
+   Calculate derivative in y direction in q-space (interface-style wrapper).
+
+   Automatically dispatches to dfdy1D_q or dfdy2D_q based on array dimensions.
+   This provides a unified interface similar to Fortran's interface construct.
+
+   :param f: Input function in q-space (complex), 1D or 2D array
+   :type f: ndarray
+   :param qy: Momentum coordinates in y direction (1/m), 1D array
+   :type qy: ndarray
+
+   :returns: Derivative df/dy in q-space (complex), same shape as input array
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   - 1D arrays: calls dfdy1D_q
+   - 2D arrays: calls dfdy2D_q
+   - Raises ValueError for unsupported array dimensions
+
+
+.. py:function:: dfdx_q(f, qx)
+
+   Calculate derivative in x direction in q-space (interface-style wrapper).
+
+   Automatically dispatches to dfdx1D_q or dfdx2D_q based on array dimensions.
+   This provides a unified interface similar to Fortran's interface construct.
+
+   :param f: Input function in q-space (complex), 1D or 2D array
+   :type f: ndarray
+   :param qx: Momentum coordinates in x direction (1/m), 1D array
+   :type qx: ndarray
+
+   :returns: Derivative df/dx in q-space (complex), same shape as input array
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   - 1D arrays: calls dfdx1D_q
+   - 2D arrays: calls dfdx2D_q
+   - Raises ValueError for unsupported array dimensions
+
+
+.. py:function:: GFFT(f, dx, dy=None)
+
+   Gaussian FFT (interface-style wrapper).
+
+   Automatically dispatches to GFFT_1D or GFFT_2D based on array dimensions.
+   This provides a unified interface similar to Fortran's interface construct.
+
+   :param f: Input function (complex), modified in-place, 1D or 2D array
+   :type f: ndarray
+   :param dx: Spatial step size in x direction (m)
+   :type dx: float
+   :param dy: Spatial step size in y direction (m). Required for 2D arrays.
+   :type dy: float, optional
+
+   :returns: f array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   - 1D arrays: calls GFFT_1D(f, dx)
+   - 2D arrays: calls GFFT_2D(f, dx, dy)
+   - Raises ValueError for unsupported array dimensions or missing dy for 2D
+
+
+.. py:function:: GIFFT(f, dq, dqy=None)
+
+   Gaussian IFFT (interface-style wrapper).
+
+   Automatically dispatches to GIFFT_1D or GIFFT_2D based on array dimensions.
+   This provides a unified interface similar to Fortran's interface construct.
+
+   :param f: Input function (complex), modified in-place, 1D or 2D array
+   :type f: ndarray
+   :param dq: Momentum step size in x direction (1/m)
+   :type dq: float
+   :param dqy: Momentum step size in y direction (1/m). Required for 2D arrays.
+   :type dqy: float, optional
+
+   :returns: f array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   - 1D arrays: calls GIFFT_1D(f, dq)
+   - 2D arrays: calls GIFFT_2D(f, dq, dqy)
+   - Raises ValueError for unsupported array dimensions or missing dqy for 2D
+
+
+.. py:function:: fflip(f)
+
+   Flip array (interface-style wrapper).
+
+   Automatically dispatches to fflip_dp or fflip_dpc based on array dtype.
+   This provides a unified interface similar to Fortran's interface construct.
+
+   :param f: Input array (real or complex), 1D array
+   :type f: ndarray
+
+   :returns: Flipped array, same dtype as input
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   - Real arrays: calls fflip_dp
+   - Complex arrays: calls fflip_dpc
+   - Raises ValueError for unsupported array dimensions
+
+

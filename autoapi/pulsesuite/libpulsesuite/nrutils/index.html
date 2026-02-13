@@ -1,0 +1,833 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pulsesuite.libpulsesuite.nrutils &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/js/hoverxref.js"></script>
+      <script src="../../../../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../../../../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../../../../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pulsesuite.libpulsesuite.nrutils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pulsesuite/libpulsesuite/nrutils/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pulsesuite.libpulsesuite.nrutils">
+<span id="pulsesuite-libpulsesuite-nrutils"></span><h1>pulsesuite.libpulsesuite.nrutils<a class="headerlink" href="#module-pulsesuite.libpulsesuite.nrutils" title="Link to this heading">¶</a></h1>
+<p>High-performance numerical utilities for scientific computing, ported from Fortran’s nrutils.F90.</p>
+<p>1:1 port of the Numerical Recipes <code class="docutils literal notranslate"><span class="pre">nrutils</span></code> module. Every public Fortran
+routine has a Python callable with the same camelCase name.  Vectorised with
+NumPy; no Numba or guardrails required.</p>
+<p>Fortran interfaces that dispatch on type/rank are replaced by a single Python
+function that inspects shape and dtype at runtime.</p>
+<p>Author: Rahul R. Sah</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.sp" title="pulsesuite.libpulsesuite.nrutils.sp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sp</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.dp" title="pulsesuite.libpulsesuite.nrutils.dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dp</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.arrayCopy" title="pulsesuite.libpulsesuite.nrutils.arrayCopy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arrayCopy</span></code></a>(→ Tuple[int, int])</p></td>
+<td><p>Copy elements from <em>src</em> into <em>dest</em> up to the smaller size.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.swap" title="pulsesuite.libpulsesuite.nrutils.swap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">swap</span></code></a>(→ Tuple[Any, Any])</p></td>
+<td><p>Swap two scalars, arrays, or any objects.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.maskedSwap" title="pulsesuite.libpulsesuite.nrutils.maskedSwap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">maskedSwap</span></code></a>(→ None)</p></td>
+<td><p>Swap elements of <em>a</em> and <em>b</em> where <em>mask</em> is True (in-place).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.reallocate" title="pulsesuite.libpulsesuite.nrutils.reallocate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reallocate</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p>Reallocate <em>arr</em> to <em>newShape</em>, copying the overlapping region.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.imaxloc" title="pulsesuite.libpulsesuite.nrutils.imaxloc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imaxloc</span></code></a>(→ int)</p></td>
+<td><p>Index of the maximum value (0-based).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.iminloc" title="pulsesuite.libpulsesuite.nrutils.iminloc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iminloc</span></code></a>(→ int)</p></td>
+<td><p>Index of the minimum value (0-based).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.ifirstloc" title="pulsesuite.libpulsesuite.nrutils.ifirstloc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ifirstloc</span></code></a>(→ int)</p></td>
+<td><p>Index of the first True in a boolean array (0-based).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.nrerror" title="pulsesuite.libpulsesuite.nrutils.nrerror"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nrerror</span></code></a>(→ None)</p></td>
+<td><p>Report a fatal error and stop (Fortran's <code class="docutils literal notranslate"><span class="pre">nrerror</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.assertTrue" title="pulsesuite.libpulsesuite.nrutils.assertTrue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assertTrue</span></code></a>(→ None)</p></td>
+<td><p>Assert <em>test</em> is <code class="docutils literal notranslate"><span class="pre">True</span></code>; call <code class="docutils literal notranslate"><span class="pre">nrerror</span></code> on failure.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.assertEq" title="pulsesuite.libpulsesuite.nrutils.assertEq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assertEq</span></code></a>(→ Any)</p></td>
+<td><p>Assert all positional arguments are equal; return the common value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.arth" title="pulsesuite.libpulsesuite.nrutils.arth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arth</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p>Arithmetic progression of length <em>n</em>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.geop" title="pulsesuite.libpulsesuite.nrutils.geop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geop</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p>Geometric progression of length <em>n</em>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.cumsum" title="pulsesuite.libpulsesuite.nrutils.cumsum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cumsum</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p>Cumulative sum, optionally offset by <em>seed</em>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.cumprod" title="pulsesuite.libpulsesuite.nrutils.cumprod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cumprod</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p>Cumulative product, optionally scaled by <em>seed</em>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.poly" title="pulsesuite.libpulsesuite.nrutils.poly"><code class="xref py py-obj docutils literal notranslate"><span class="pre">poly</span></code></a>(→ Union[float, numpy.ndarray])</p></td>
+<td><p>Evaluate polynomial at <em>x</em> via Horner's method.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.polyTerm" title="pulsesuite.libpulsesuite.nrutils.polyTerm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">polyTerm</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p>Recursive polynomial term (Fortran's <code class="docutils literal notranslate"><span class="pre">poly_term</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.outerprod" title="pulsesuite.libpulsesuite.nrutils.outerprod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">outerprod</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p>Outer product: $M_{ij} = a_i cdot b_j$.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.outerdiff" title="pulsesuite.libpulsesuite.nrutils.outerdiff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">outerdiff</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p>Outer difference: $M_{ij} = a_i - b_j$.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.outersum" title="pulsesuite.libpulsesuite.nrutils.outersum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">outersum</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p>Outer sum: $M_{ij} = a_i + b_j$.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.outerand" title="pulsesuite.libpulsesuite.nrutils.outerand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">outerand</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p>Outer logical AND: $M_{ij} = a_i wedge b_j$.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.scatterAdd" title="pulsesuite.libpulsesuite.nrutils.scatterAdd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scatterAdd</span></code></a>(→ None)</p></td>
+<td><p>Scatter-add: <code class="docutils literal notranslate"><span class="pre">dest[i]</span> <span class="pre">+=</span> <span class="pre">source[j]</span></code> at 0-based indices.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.scatterMax" title="pulsesuite.libpulsesuite.nrutils.scatterMax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scatterMax</span></code></a>(→ None)</p></td>
+<td><p>Scatter-max: <code class="docutils literal notranslate"><span class="pre">dest[i]</span> <span class="pre">=</span> <span class="pre">max(dest[i],</span> <span class="pre">source[j])</span></code> at 0-based indices.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.diagAdd" title="pulsesuite.libpulsesuite.nrutils.diagAdd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diagAdd</span></code></a>(→ None)</p></td>
+<td><p>Add scalar or vector <em>diag</em> to the diagonal of <em>mat</em> in-place.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.diagMult" title="pulsesuite.libpulsesuite.nrutils.diagMult"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diagMult</span></code></a>(→ None)</p></td>
+<td><p>Multiply the diagonal of <em>mat</em> by scalar or vector <em>diag</em> in-place.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.getDiag" title="pulsesuite.libpulsesuite.nrutils.getDiag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getDiag</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p>Extract diagonal of <em>mat</em> into a new 1-D array.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.putDiag" title="pulsesuite.libpulsesuite.nrutils.putDiag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">putDiag</span></code></a>(→ None)</p></td>
+<td><p>Set the diagonal of <em>mat</em> to <em>diagv</em> in-place.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.unitMatrix" title="pulsesuite.libpulsesuite.nrutils.unitMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unitMatrix</span></code></a>(→ None)</p></td>
+<td><p>Set <em>mat</em> to the identity matrix in-place ($I_{ij} = delta_{ij}$).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.upperTriangle" title="pulsesuite.libpulsesuite.nrutils.upperTriangle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">upperTriangle</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p>Float mask for the upper triangle of a <code class="docutils literal notranslate"><span class="pre">(j,</span> <span class="pre">k)</span></code> matrix.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.lowerTriangle" title="pulsesuite.libpulsesuite.nrutils.lowerTriangle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lowerTriangle</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p>Float mask for the lower triangle of a <code class="docutils literal notranslate"><span class="pre">(j,</span> <span class="pre">k)</span></code> matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.vabs" title="pulsesuite.libpulsesuite.nrutils.vabs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vabs</span></code></a>(→ float)</p></td>
+<td><p>Euclidean norm $|v|_2 = sqrt{sum_i v_i^2}$.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.dummy_jacobian_dp" title="pulsesuite.libpulsesuite.nrutils.dummy_jacobian_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dummy_jacobian_dp</span></code></a>(...)</p></td>
+<td><p>Zero-Jacobian placeholder for real (float64) ODE systems.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.nrutils.dummy_jacobian_dpc" title="pulsesuite.libpulsesuite.nrutils.dummy_jacobian_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dummy_jacobian_dpc</span></code></a>(...)</p></td>
+<td><p>Zero-Jacobian placeholder for complex (complex128) ODE systems.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.sp">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">sp</span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.sp" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.dp">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">dp</span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.dp" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.arrayCopy">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">arrayCopy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.arrayCopy" title="Link to this definition">¶</a></dt>
+<dd><p>Copy elements from <em>src</em> into <em>dest</em> up to the smaller size.</p>
+<p>Mirrors Fortran’s <code class="docutils literal notranslate"><span class="pre">array_copy</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src</strong> (<em>ndarray</em>) – Source array.</p></li>
+<li><p><strong>dest</strong> (<em>ndarray</em>) – Destination array (modified in-place).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>nCopied</strong> (<em>int</em>) – Number of elements actually copied.</p></li>
+<li><p><strong>nNotCopied</strong> (<em>int</em>) – <code class="docutils literal notranslate"><span class="pre">src.size</span> <span class="pre">-</span> <span class="pre">nCopied</span></code>.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.swap">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">swap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.swap" title="Link to this definition">¶</a></dt>
+<dd><p>Swap two scalars, arrays, or any objects.</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">swap_*</span></code> interfaces (scalar, vector, matrix) are handled
+by Python’s generic assignment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>Any</em>) – Values to swap.</p></li>
+<li><p><strong>b</strong> (<em>Any</em>) – Values to swap.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>(b, a)</strong> – Swapped pair.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.maskedSwap">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">maskedSwap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.maskedSwap" title="Link to this definition">¶</a></dt>
+<dd><p>Swap elements of <em>a</em> and <em>b</em> where <em>mask</em> is True (in-place).</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">masked_swap_*</span></code> interfaces.  Uses vectorised boolean
+indexing — no Python loop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>ndarray</em><em>  (</em><em>same shape</em><em>, </em><em>modified in-place</em><em>)</em>)</p></li>
+<li><p><strong>b</strong> (<em>ndarray</em><em>  (</em><em>same shape</em><em>, </em><em>modified in-place</em><em>)</em>)</p></li>
+<li><p><strong>mask</strong> (<em>ndarray</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Boolean mask; swap only where True.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.reallocate">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">reallocate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">newShape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Ellipsis</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.reallocate" title="Link to this definition">¶</a></dt>
+<dd><p>Reallocate <em>arr</em> to <em>newShape</em>, copying the overlapping region.</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">reallocate_*</span></code> family (1-D, 2-D, etc.).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arr</strong> (<em>ndarray</em>) – Original array.</p></li>
+<li><p><strong>newShape</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Desired shape.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>New array (same dtype) with data copied from the overlap.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.imaxloc">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">imaxloc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.imaxloc" title="Link to this definition">¶</a></dt>
+<dd><p>Index of the maximum value (0-based).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.iminloc">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">iminloc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.iminloc" title="Link to this definition">¶</a></dt>
+<dd><p>Index of the minimum value (0-based).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.ifirstloc">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">ifirstloc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.ifirstloc" title="Link to this definition">¶</a></dt>
+<dd><p>Index of the first True in a boolean array (0-based).</p>
+<p>Returns -1 when no True is found.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.nrerror">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">nrerror</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.nrerror" title="Link to this definition">¶</a></dt>
+<dd><p>Report a fatal error and stop (Fortran’s <code class="docutils literal notranslate"><span class="pre">nrerror</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Error message printed to stderr.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#SystemExit" title="(in Python v3.14)"><strong>SystemExit</strong></a> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.assertTrue">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">assertTrue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Assertion</span> <span class="pre">failed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.assertTrue" title="Link to this definition">¶</a></dt>
+<dd><p>Assert <em>test</em> is <code class="docutils literal notranslate"><span class="pre">True</span></code>; call <code class="docutils literal notranslate"><span class="pre">nrerror</span></code> on failure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>test</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+<li><p><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>file</strong> (<em>optional</em>) – Source location for diagnostics.</p></li>
+<li><p><strong>line</strong> (<em>optional</em>) – Source location for diagnostics.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.assertEq">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">assertEq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Equality</span> <span class="pre">assertion</span> <span class="pre">failed'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.assertEq" title="Link to this definition">¶</a></dt>
+<dd><p>Assert all positional arguments are equal; return the common value.</p>
+<p>Replaces Fortran’s <code class="docutils literal notranslate"><span class="pre">assert_eq2</span></code>, <code class="docutils literal notranslate"><span class="pre">assert_eq3</span></code>, <code class="docutils literal notranslate"><span class="pre">assert_eq4</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">assert_eqn</span></code> interfaces with a single variadic dispatcher.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> – Values that must be equal.</p></li>
+<li><p><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Message on failure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The common value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.arth">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">arth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">increment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.arth" title="Link to this definition">¶</a></dt>
+<dd><p>Arithmetic progression of length <em>n</em>.</p>
+<p>$a_k = text{first} + k cdot text{increment},quad k = 0, dots, n-1$</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">arth</span></code> (SP/DP/I4B interfaces).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>first</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Starting value.</p></li>
+<li><p><strong>increment</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Common difference.</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Length.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ndarray of float64</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.geop">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">geop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.geop" title="Link to this definition">¶</a></dt>
+<dd><p>Geometric progression of length <em>n</em>.</p>
+<p>$a_k = text{first} cdot text{factor}^k,quad k = 0, dots, n-1$</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">geop</span></code> (SP/DP interfaces).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>first</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Starting value.</p></li>
+<li><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Common ratio.</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Length.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ndarray of float64</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.cumsum">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">cumsum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.cumsum" title="Link to this definition">¶</a></dt>
+<dd><p>Cumulative sum, optionally offset by <em>seed</em>.</p>
+<p>$S_j = text{seed} + sum_{i=0}^{j} a_i$</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">cumsum</span></code> (SP/DP interfaces).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arr</strong> (<em>ndarray</em>)</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Additive offset applied to the running total.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.cumprod">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">cumprod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.cumprod" title="Link to this definition">¶</a></dt>
+<dd><p>Cumulative product, optionally scaled by <em>seed</em>.</p>
+<p>$P_j = text{seed} cdot prod_{i=0}^{j} a_i$</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">cumprod</span></code> (SP/DP interfaces).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arr</strong> (<em>ndarray</em>)</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Multiplicative scale applied to all products.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.poly">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeffs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.poly" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluate polynomial at <em>x</em> via Horner’s method.</p>
+<p>$P(x) = c_0 + c_1 x + c_2 x^2 + cdots$</p>
+<p>Coefficients are ordered lowest-degree first (Fortran convention).
+Handles both real and complex coefficients/arguments.</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">poly</span></code> (SP/DP/SPC/DPC interfaces).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>ndarray</em>) – Evaluation point(s).</p></li>
+<li><p><strong>coeffs</strong> (<em>ndarray</em>) – Polynomial coefficients, lowest degree first.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.polyTerm">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">polyTerm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.polyTerm" title="Link to this definition">¶</a></dt>
+<dd><p>Recursive polynomial term (Fortran’s <code class="docutils literal notranslate"><span class="pre">poly_term</span></code>).</p>
+<p>$u_0 = a_0,quad u_j = a_j + b cdot u_{j-1}$</p>
+<p>Handles both real and complex arrays.</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">poly_term</span></code> (SP/DP interfaces).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>ndarray</em>) – Coefficient array.</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Multiplier.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.outerprod">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">outerprod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.outerprod" title="Link to this definition">¶</a></dt>
+<dd><p>Outer product: $M_{ij} = a_i cdot b_j$.</p>
+<p>Uses <code class="docutils literal notranslate"><span class="pre">np.outer</span></code> (BLAS-backed for large arrays).
+Handles real and complex vectors.</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">outerprod</span></code> (SP/DP interfaces).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>ndarray</em><em> (</em><em>1-D</em><em>)</em>)</p></li>
+<li><p><strong>b</strong> (<em>ndarray</em><em> (</em><em>1-D</em><em>)</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ndarray, shape <code class="docutils literal notranslate"><span class="pre">(a.size,</span> <span class="pre">b.size)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.outerdiff">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">outerdiff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.outerdiff" title="Link to this definition">¶</a></dt>
+<dd><p>Outer difference: $M_{ij} = a_i - b_j$.</p>
+<p>Vectorised via broadcasting.</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">outerdiff</span></code> (SP/DP interfaces).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>ndarray</em><em> (</em><em>1-D</em><em>)</em>)</p></li>
+<li><p><strong>b</strong> (<em>ndarray</em><em> (</em><em>1-D</em><em>)</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ndarray, shape <code class="docutils literal notranslate"><span class="pre">(a.size,</span> <span class="pre">b.size)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.outersum">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">outersum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.outersum" title="Link to this definition">¶</a></dt>
+<dd><p>Outer sum: $M_{ij} = a_i + b_j$.</p>
+<p>Vectorised via broadcasting.</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">outersum</span></code> (SP/DP interfaces).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>ndarray</em><em> (</em><em>1-D</em><em>)</em>)</p></li>
+<li><p><strong>b</strong> (<em>ndarray</em><em> (</em><em>1-D</em><em>)</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ndarray, shape <code class="docutils literal notranslate"><span class="pre">(a.size,</span> <span class="pre">b.size)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.outerand">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">outerand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.outerand" title="Link to this definition">¶</a></dt>
+<dd><p>Outer logical AND: $M_{ij} = a_i wedge b_j$.</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">outerand</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>ndarray</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> (</em><em>1-D</em><em>)</em>)</p></li>
+<li><p><strong>b</strong> (<em>ndarray</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> (</em><em>1-D</em><em>)</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ndarray of bool, shape <code class="docutils literal notranslate"><span class="pre">(a.size,</span> <span class="pre">b.size)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.scatterAdd">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">scatterAdd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">destIndex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.scatterAdd" title="Link to this definition">¶</a></dt>
+<dd><p>Scatter-add: <code class="docutils literal notranslate"><span class="pre">dest[i]</span> <span class="pre">+=</span> <span class="pre">source[j]</span></code> at 0-based indices.</p>
+<p>Uses <code class="docutils literal notranslate"><span class="pre">np.add.at</span></code> for unbuffered accumulation (correct with
+duplicate indices).</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">scatter_add</span></code> (SP/DP interfaces).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dest</strong> (<em>ndarray</em><em>  (</em><em>modified in-place</em><em>)</em>)</p></li>
+<li><p><strong>source</strong> (<em>ndarray</em>)</p></li>
+<li><p><strong>destIndex</strong> (<em>ndarray</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 0-based target indices.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.scatterMax">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">scatterMax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">destIndex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.scatterMax" title="Link to this definition">¶</a></dt>
+<dd><p>Scatter-max: <code class="docutils literal notranslate"><span class="pre">dest[i]</span> <span class="pre">=</span> <span class="pre">max(dest[i],</span> <span class="pre">source[j])</span></code> at 0-based indices.</p>
+<p>Uses <code class="docutils literal notranslate"><span class="pre">np.maximum.at</span></code> for unbuffered reduction.</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">scatter_max</span></code> (SP/DP interfaces).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dest</strong> (<em>ndarray</em><em>  (</em><em>modified in-place</em><em>)</em>)</p></li>
+<li><p><strong>source</strong> (<em>ndarray</em>)</p></li>
+<li><p><strong>destIndex</strong> (<em>ndarray</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 0-based target indices.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.diagAdd">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">diagAdd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">diag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.diagAdd" title="Link to this definition">¶</a></dt>
+<dd><p>Add scalar or vector <em>diag</em> to the diagonal of <em>mat</em> in-place.</p>
+<p>Dispatcher replacing Fortran’s <code class="docutils literal notranslate"><span class="pre">diagadd</span></code> interface (scalar / vector).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mat</strong> (<em>ndarray</em><em>, </em><em>shape</em><em> (</em><em>M</em><em>, </em><em>N</em><em>)  </em><em>— modified in-place</em>)</p></li>
+<li><p><strong>diag</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>ndarray</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.diagMult">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">diagMult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">diag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.diagMult" title="Link to this definition">¶</a></dt>
+<dd><p>Multiply the diagonal of <em>mat</em> by scalar or vector <em>diag</em> in-place.</p>
+<p>Dispatcher replacing Fortran’s <code class="docutils literal notranslate"><span class="pre">diagmult</span></code> interface (scalar / vector).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mat</strong> (<em>ndarray</em><em>, </em><em>shape</em><em> (</em><em>M</em><em>, </em><em>N</em><em>)  </em><em>— modified in-place</em>)</p></li>
+<li><p><strong>diag</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>ndarray</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.getDiag">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">getDiag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.getDiag" title="Link to this definition">¶</a></dt>
+<dd><p>Extract diagonal of <em>mat</em> into a new 1-D array.</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">get_diag</span></code> (SP/DP interfaces).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mat</strong> (<em>ndarray</em><em>, </em><em>shape</em><em> (</em><em>M</em><em>, </em><em>N</em><em>)</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ndarray, shape <code class="docutils literal notranslate"><span class="pre">(min(M,</span> <span class="pre">N),)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.putDiag">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">putDiag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diagv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.putDiag" title="Link to this definition">¶</a></dt>
+<dd><p>Set the diagonal of <em>mat</em> to <em>diagv</em> in-place.</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">put_diag</span></code> (SP/DP interfaces).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diagv</strong> (<em>ndarray</em>)</p></li>
+<li><p><strong>mat</strong> (<em>ndarray</em><em>, </em><em>shape</em><em> (</em><em>M</em><em>, </em><em>N</em><em>)  </em><em>— modified in-place</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.unitMatrix">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">unitMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.unitMatrix" title="Link to this definition">¶</a></dt>
+<dd><p>Set <em>mat</em> to the identity matrix in-place ($I_{ij} = delta_{ij}$).</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">unit_matrix</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mat</strong> (<em>ndarray</em><em>, </em><em>shape</em><em> (</em><em>M</em><em>, </em><em>N</em><em>)  </em><em>— modified in-place</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.upperTriangle">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">upperTriangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.upperTriangle" title="Link to this definition">¶</a></dt>
+<dd><p>Float mask for the upper triangle of a <code class="docutils literal notranslate"><span class="pre">(j,</span> <span class="pre">k)</span></code> matrix.</p>
+<p>Entry $(r, c)$ is 1.0 where $r &lt; c + text{extra}$, else 0.0.</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">upper_triangle</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> (<em>int — rows</em>)</p></li>
+<li><p><strong>k</strong> (<em>int — columns</em>)</p></li>
+<li><p><strong>extra</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Diagonal offset (default 0).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ndarray of float64, shape <code class="docutils literal notranslate"><span class="pre">(j,</span> <span class="pre">k)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.lowerTriangle">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">lowerTriangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.lowerTriangle" title="Link to this definition">¶</a></dt>
+<dd><p>Float mask for the lower triangle of a <code class="docutils literal notranslate"><span class="pre">(j,</span> <span class="pre">k)</span></code> matrix.</p>
+<p>Entry $(r, c)$ is 1.0 where $r &gt; c - text{extra}$, else 0.0.</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">lower_triangle</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> (<em>int — rows</em>)</p></li>
+<li><p><strong>k</strong> (<em>int — columns</em>)</p></li>
+<li><p><strong>extra</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Diagonal offset (default 0).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ndarray of float64, shape <code class="docutils literal notranslate"><span class="pre">(j,</span> <span class="pre">k)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.vabs">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">vabs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.vabs" title="Link to this definition">¶</a></dt>
+<dd><p>Euclidean norm $|v|_2 = sqrt{sum_i v_i^2}$.</p>
+<p>Uses <code class="docutils literal notranslate"><span class="pre">np.linalg.norm</span></code> (BLAS-backed).</p>
+<p>Fortran’s <code class="docutils literal notranslate"><span class="pre">vabs</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>v</strong> (<em>ndarray</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.dummy_jacobian_dp">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">dummy_jacobian_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.dummy_jacobian_dp" title="Link to this definition">¶</a></dt>
+<dd><p>Zero-Jacobian placeholder for real (float64) ODE systems.</p>
+<p>Returns $(mathbf{0},; mathbf{0})$ with dimensions matching <em>y</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Independent variable (unused).</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em><em> of </em><em>float64</em><em>, </em><em>shape</em><em> (</em><em>n</em><em>,</em><em>)</em>) – State vector.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>dfdx</strong> (<em>ndarray of float64, shape (n,)</em>)</p></li>
+<li><p><strong>dfdy</strong> (<em>ndarray of float64, shape (n, n)</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.nrutils.dummy_jacobian_dpc">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.nrutils.</span></span><span class="sig-name descname"><span class="pre">dummy_jacobian_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.complex128</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.complex128</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.complex128</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.nrutils.dummy_jacobian_dpc" title="Link to this definition">¶</a></dt>
+<dd><p>Zero-Jacobian placeholder for complex (complex128) ODE systems.</p>
+<p>Returns $(mathbf{0},; mathbf{0})$ with dimensions matching <em>y</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Independent variable (unused).</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em><em> of </em><em>complex128</em><em>, </em><em>shape</em><em> (</em><em>n</em><em>,</em><em>)</em>) – State vector.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>dfdx</strong> (<em>ndarray of complex128, shape (n,)</em>)</p></li>
+<li><p><strong>dfdy</strong> (<em>ndarray of complex128, shape (n, n)</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

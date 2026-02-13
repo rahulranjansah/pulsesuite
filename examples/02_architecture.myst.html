@@ -1,0 +1,743 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architecture: How the SBE Solver Works &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/js/hoverxref.js"></script>
+      <script src="../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Deep Dive: Coulomb Interactions" href="03_coulomb.myst.html" />
+    <link rel="prev" title="Quickstart: Your First SBE Simulation" href="01_quickstart.myst.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">PulseSuite</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../gallery.html">Examples Gallery</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_quickstart.myst.html">Quickstart: Your First SBE Simulation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Architecture: How the SBE Solver Works</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#theory">Theory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-three-coupled-equations">The Three Coupled Equations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hamiltonian-construction">Hamiltonian Construction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#time-evolution">Time Evolution</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-integration">Module Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameter-reference">Parameter Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#quantum-wire-parameters-params-qw-params">Quantum Wire Parameters (<code class="docutils literal notranslate"><span class="pre">params/qw.params</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#many-body-physics-flags-params-mb-params">Many-Body Physics Flags (<code class="docutils literal notranslate"><span class="pre">params/mb.params</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#d-to-3d-coupling-sho-gate-functions">1D-to-3D Coupling: SHO Gate Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#transverse-confinement">Transverse Confinement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#derived-quantities">Derived Quantities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#d-field-placement">3D Field Placement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#thz-emission-from-current-surge">THz Emission from Current Surge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect-an-initialized-solver">Inspect an Initialized Solver</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#energy-bands">Energy Bands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#initial-carrier-distributions">Initial Carrier Distributions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="03_coulomb.myst.html">Deep Dive: Coulomb Interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_phonons.myst.html">Deep Dive: Phonon Interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_optics.myst.html">Deep Dive: Quantum Wire Optics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06_transport.myst.html">Deep Dive: DC Transport and Emission</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../gallery.html">Examples Gallery</a></li>
+      <li class="breadcrumb-item active">Architecture: How the SBE Solver Works</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/02_architecture.myst.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="architecture-how-the-sbe-solver-works">
+<h1>Architecture: How the SBE Solver Works<a class="headerlink" href="#architecture-how-the-sbe-solver-works" title="Link to this heading">¶</a></h1>
+<section id="theory">
+<h2>Theory<a class="headerlink" href="#theory" title="Link to this heading">¶</a></h2>
+<p>The Semiconductor Bloch Equations (SBEs) are coupled differential equations for the
+quantum coherence of electrons and holes in a semiconductor under optical excitation.
+They extend the optical Bloch equations to include many-body Coulomb interactions,
+carrier-carrier scattering, and phonon effects.</p>
+<section id="the-three-coupled-equations">
+<h3>The Three Coupled Equations<a class="headerlink" href="#the-three-coupled-equations" title="Link to this heading">¶</a></h3>
+<p><strong>1. Electron-Hole Coherence (Interband Polarization):</strong></p>
+<div class="math notranslate nohighlight">
+\[
+i\hbar \frac{dp_{k_e,k_h}}{dt} = \sum_{k'} H_{k_h,k'}^{hh} p_{k',k_e} + \sum_{k'} H_{k_e,k'}^{ee} p_{k_h,k'} - \sum_{k'} H_{k',k_h}^{eh\dagger} C_{k',k_e} - \sum_{k'} H_{k_e,k'}^{eh} D_{k',k_h} + H_{k_e,k_h}^{eh} - i\hbar(\gamma_e + \gamma_h) p_{k_e,k_h}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(p_{k_e,k_h}\)</span> is the electron-hole coherence matrix (interband polarization).</p>
+<p><strong>2. Electron-Electron Coherence:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+i\hbar \frac{dC_{k_1,k_2}}{dt} = \sum_{k'} H_{k_2,k'}^{ee} C_{k_1,k'} - \sum_{k'} H_{k',k_1}^{ee} C_{k',k_2} + \sum_{k'} H_{k_2,k'}^{eh} p_{k_1,k'}^\dagger - \sum_{k'} H_{k',k_1}^{eh\dagger} p_{k',k_2}
+\]</div>
+<p>Diagonal elements <span class="math notranslate nohighlight">\(C_{k,k} = n_e(k)\)</span> are electron occupation numbers.</p>
+<p><strong>3. Hole-Hole Coherence:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+i\hbar \frac{dD_{k_1,k_2}}{dt} = \sum_{k'} H_{k_2,k'}^{hh} D_{k_1,k'} - \sum_{k'} H_{k',k_1}^{hh} D_{k',k_2} + \sum_{k'} H_{k',k_2}^{eh\dagger} p_{k',k_1}^\dagger - \sum_{k'} H_{k_1,k'}^{eh\dagger} p_{k_2,k'}
+\]</div>
+<p>Diagonal elements <span class="math notranslate nohighlight">\(D_{k,k} = n_h(k)\)</span> are hole occupation numbers.</p>
+</section>
+<section id="hamiltonian-construction">
+<h3>Hamiltonian Construction<a class="headerlink" href="#hamiltonian-construction" title="Link to this heading">¶</a></h3>
+<p>The effective Hamiltonians include single-particle energies, dipole-field coupling,
+and screened Coulomb interactions:</p>
+<div class="math notranslate nohighlight">
+\[
+H_{k_e,k_h}^{eh} = M_{k_e,k_h}^{eh} + \sum_q V_{eh}(q) \, p_{k_e+q,k_h+q}^\dagger
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H_{k_1,k_2}^{ee} = E_e(k_1)\delta_{k_1,k_2} - \sum_q V_{ee}(q) \, C_{k_1+q,k_2+q}^\dagger
+\]</div>
+</section>
+<section id="time-evolution">
+<h3>Time Evolution<a class="headerlink" href="#time-evolution" title="Link to this heading">¶</a></h3>
+<p>The SBEs use a leapfrog integration scheme with reshuffling for stability:</p>
+<ol class="arabic simple">
+<li><p><strong>Leapfrog step:</strong> <span class="math notranslate nohighlight">\(X_3 = X_1 + \frac{dX}{dt} \cdot 2\Delta t\)</span> (2nd order accurate)</p></li>
+<li><p><strong>Reshuffling:</strong> <span class="math notranslate nohighlight">\(X_2 = \frac{X_1 + X_3}{2}\)</span> (converts to stable 1st order)</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="module-integration">
+<h2>Module Integration<a class="headerlink" href="#module-integration" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">SBEs</span></code> module is the central orchestrator. <code class="docutils literal notranslate"><span class="pre">InitializeSBE</span></code> sets up all
+subsystems, and <code class="docutils literal notranslate"><span class="pre">QWCalculator</span></code> coordinates them at each time step.</p>
+<p><strong>Initialization flow:</strong></p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">InitializeSBE</span></code> reads parameter files (<code class="docutils literal notranslate"><span class="pre">qw.params</span></code>, <code class="docutils literal notranslate"><span class="pre">mb.params</span></code>)</p></li>
+<li><p>Calculates material constants and momentum/spatial grids</p></li>
+<li><p>Initializes subsystems based on flags:</p>
+<ul class="simple">
+<li><p>Always: <code class="docutils literal notranslate"><span class="pre">InitializeQWOptics</span></code>, <code class="docutils literal notranslate"><span class="pre">InitializeCoulomb</span></code>, <code class="docutils literal notranslate"><span class="pre">InitializeDephasing</span></code></p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">Phonon=1</span></code>: <code class="docutils literal notranslate"><span class="pre">InitializePhonons</span></code></p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">DCTrans=1</span></code>: <code class="docutils literal notranslate"><span class="pre">InitializeDC</span></code></p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">Recomb=1</span></code>: <code class="docutils literal notranslate"><span class="pre">InitializeEmission</span></code></p></li>
+</ul>
+</li>
+</ol>
+<p><strong>Time evolution flow (each call to <code class="docutils literal notranslate"><span class="pre">QWCalculator</span></code>):</strong></p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Prop2QW</span></code>: Convert propagation fields to QW momentum space</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SBECalculator</span></code>: Solve SBEs using all initialized modules</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QWPolarization3</span></code> / <code class="docutils literal notranslate"><span class="pre">QWRho5</span></code>: Calculate polarization and charge density</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QW2Prop</span></code>: Convert QW fields back to propagation space</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="parameter-reference">
+<h2>Parameter Reference<a class="headerlink" href="#parameter-reference" title="Link to this heading">¶</a></h2>
+<section id="quantum-wire-parameters-params-qw-params">
+<h3>Quantum Wire Parameters (<code class="docutils literal notranslate"><span class="pre">params/qw.params</span></code>)<a class="headerlink" href="#quantum-wire-parameters-params-qw-params" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Line</p></th>
+<th class="head"><p>Parameter</p></th>
+<th class="head"><p>Units</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Typical Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>L</p></td>
+<td><p>m</p></td>
+<td><p>Wire length</p></td>
+<td><p>50-500 nm</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Delta0</p></td>
+<td><p>m</p></td>
+<td><p>Wire thickness (z)</p></td>
+<td><p>3-10 nm</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>gap</p></td>
+<td><p>eV</p></td>
+<td><p>Band gap energy</p></td>
+<td><p>GaAs: 1.42-1.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>me</p></td>
+<td><p>m<span class="math notranslate nohighlight">\(_0\)</span></p></td>
+<td><p>Electron effective mass</p></td>
+<td><p>GaAs: 0.067</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>mh</p></td>
+<td><p>m<span class="math notranslate nohighlight">\(_0\)</span></p></td>
+<td><p>Hole effective mass</p></td>
+<td><p>GaAs: 0.45 (heavy)</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>HO</p></td>
+<td><p>eV</p></td>
+<td><p>Energy level separation</p></td>
+<td><p>0.05-0.2</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>gam_e</p></td>
+<td><p>Hz</p></td>
+<td><p>Electron dephasing rate</p></td>
+<td><p>0.1-10 THz</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>gam_h</p></td>
+<td><p>Hz</p></td>
+<td><p>Hole dephasing rate</p></td>
+<td><p>0.1-10 THz</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p>gam_eh</p></td>
+<td><p>Hz</p></td>
+<td><p>Interband dephasing</p></td>
+<td><p>(gam_e + gam_h)/2</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p>epsr</p></td>
+<td><p>-</p></td>
+<td><p>Relative permittivity</p></td>
+<td><p>GaAs: 12-13, AlAs: 9.1</p></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td><p>Oph</p></td>
+<td><p>eV</p></td>
+<td><p>LO phonon energy</p></td>
+<td><p>GaAs: 0.036</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p>Gph</p></td>
+<td><p>eV</p></td>
+<td><p>Phonon damping</p></td>
+<td><p>0.001-0.005</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p>Edc</p></td>
+<td><p>V/m</p></td>
+<td><p>DC electric field</p></td>
+<td><p>0 (transport studies)</p></td>
+</tr>
+<tr class="row-odd"><td><p>14</p></td>
+<td><p>jmax</p></td>
+<td><p>-</p></td>
+<td><p>Output interval (steps)</p></td>
+<td><p>10-1000</p></td>
+</tr>
+<tr class="row-even"><td><p>15</p></td>
+<td><p>ntmax</p></td>
+<td><p>-</p></td>
+<td><p>Backup interval (steps)</p></td>
+<td><p>1000-50000</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="many-body-physics-flags-params-mb-params">
+<h3>Many-Body Physics Flags (<code class="docutils literal notranslate"><span class="pre">params/mb.params</span></code>)<a class="headerlink" href="#many-body-physics-flags-params-mb-params" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Line</p></th>
+<th class="head"><p>Flag</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>When to Enable</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Optics</p></td>
+<td><p>Light-matter coupling</p></td>
+<td><p>Always (required for optical response)</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Excitons</p></td>
+<td><p>Excitonic correlations</p></td>
+<td><p>Exciton physics, bound states</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>EHs</p></td>
+<td><p>Carrier-carrier scattering</p></td>
+<td><p>Many-body collisions, thermalization</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>Screened</p></td>
+<td><p>Screened Coulomb</p></td>
+<td><p>Realistic screening (with Excitons)</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>Phonon</p></td>
+<td><p>Phonon scattering</p></td>
+<td><p>Temperature effects, energy relaxation</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>DCTrans</p></td>
+<td><p>DC transport</p></td>
+<td><p>Drift/diffusion studies</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>LF</p></td>
+<td><p>Longitudinal field</p></td>
+<td><p>Plasmon effects, screening dynamics</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>FreePot</p></td>
+<td><p>Free potential</p></td>
+<td><p>Carrier-induced potential</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p>DiagDph</p></td>
+<td><p>Diagonal dephasing</p></td>
+<td><p>Momentum-dependent dephasing rates</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p>OffDiagDph</p></td>
+<td><p>Off-diagonal dephasing</p></td>
+<td><p>Correlation effects in scattering</p></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td><p>Recomb</p></td>
+<td><p>Spontaneous recombination</p></td>
+<td><p>Radiative decay, PL studies</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p>PLSpec</p></td>
+<td><p>PL spectrum calculation</p></td>
+<td><p>Photoluminescence output</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p>ignorewire</p></td>
+<td><p>Single-wire mode</p></td>
+<td><p>Skip inter-wire coupling</p></td>
+</tr>
+<tr class="row-odd"><td><p>14</p></td>
+<td><p>Xqwparams</p></td>
+<td><p>Write chi params</p></td>
+<td><p>Output susceptibility files</p></td>
+</tr>
+<tr class="row-even"><td><p>15</p></td>
+<td><p>LorentzDelta</p></td>
+<td><p>Lorentzian delta</p></td>
+<td><p>Numerical broadening method</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Common physics combinations:</strong></p>
+<ul class="simple">
+<li><p><strong>Optical Bloch (OBE)</strong>: <code class="docutils literal notranslate"><span class="pre">Optics=1</span></code>, all others <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><strong>Excitons only</strong>: <code class="docutils literal notranslate"><span class="pre">Optics=1,</span> <span class="pre">Excitons=1,</span> <span class="pre">Screened=1,</span> <span class="pre">DiagDph=1</span></code></p></li>
+<li><p><strong>Full many-body</strong>: <code class="docutils literal notranslate"><span class="pre">Optics=1,</span> <span class="pre">Excitons=1,</span> <span class="pre">EHs=1,</span> <span class="pre">Screened=1,</span> <span class="pre">DiagDph=1</span></code></p></li>
+<li><p><strong>Temperature effects</strong>: Add <code class="docutils literal notranslate"><span class="pre">Phonon=1</span></code> to above</p></li>
+<li><p><strong>Transport</strong>: Add <code class="docutils literal notranslate"><span class="pre">DCTrans=1,</span> <span class="pre">LF=1</span></code> for drift and plasmon effects</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="d-to-3d-coupling-sho-gate-functions">
+<h2>1D-to-3D Coupling: SHO Gate Functions<a class="headerlink" href="#d-to-3d-coupling-sho-gate-functions" title="Link to this heading">¶</a></h2>
+<p>The SBE solver operates in 1D momentum space along the wire axis. But the full
+simulation couples to a 3D Maxwell PSTD propagator. The bridge between these
+two worlds uses <strong>Simple Harmonic Oscillator (SHO) wavefunctions</strong> as spatial
+gate functions.</p>
+<section id="transverse-confinement">
+<h3>Transverse Confinement<a class="headerlink" href="#transverse-confinement" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">HO</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">qw.params</span></code> (100 meV for GaAs) sets the transverse
+confinement energy. From this, the code computes inverse confinement lengths:</p>
+<div class="math notranslate nohighlight">
+\[
+\alpha_e = \sqrt{\frac{m_e \cdot \text{HO}}{\hbar}}, \quad
+\alpha_h = \sqrt{\frac{m_h \cdot \text{HO}}{\hbar}}
+\]</div>
+<p>These define <strong>Gaussian envelope functions</strong> – the ground-state SHO wavefunctions
+that describe how the electron and hole probability densities decay in the
+transverse (y, z) directions away from the wire axis.</p>
+</section>
+<section id="derived-quantities">
+<h3>Derived Quantities<a class="headerlink" href="#derived-quantities" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Electron-hole overlap integral</strong>: <span class="math notranslate nohighlight">\(\text{ehint} = \sqrt{2\alpha_e\alpha_h / (\alpha_e^2 + \alpha_h^2)}\)</span>
+– measures spatial overlap between electron and hole wavefunctions. Closer to 1
+means stronger excitonic effects.</p></li>
+<li><p><strong>Wire cross-section area</strong>: <span class="math notranslate nohighlight">\(A = \sqrt{2\pi} \cdot \Delta_0 / \sqrt{\alpha_e^2 + \alpha_h^2}\)</span>
+– effective transverse area for current and field calculations.</p></li>
+<li><p><strong>Critical momentum</strong>: <span class="math notranslate nohighlight">\(q_c = 2\alpha_e\alpha_h / (\alpha_e + \alpha_h)\)</span>
+– characteristic momentum scale for Coulomb interactions.</p></li>
+</ul>
+</section>
+<section id="d-field-placement">
+<h3>3D Field Placement<a class="headerlink" href="#d-field-placement" title="Link to this heading">¶</a></h3>
+<p>When coupling to the Maxwell propagator, the 1D polarization <span class="math notranslate nohighlight">\(\mathbf{P}(x)\)</span>
+from the SBE solver is embedded into 3D space using separable Gaussian gates
+(from <code class="docutils literal notranslate"><span class="pre">params/qwarray.params</span></code>):</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{P}_{3D}(x, y, z) = g_x(x) \cdot g_y(y) \cdot g_z(z) \cdot \mathbf{P}_{wire}(x)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(g_y(y) = \exp\!\left[-(y - y_0)^2 / (2 a_y^2)\right]\)</span> and similarly for <span class="math notranslate nohighlight">\(g_z\)</span>.
+The gate widths <span class="math notranslate nohighlight">\(a_y\)</span>, <span class="math notranslate nohighlight">\(a_z\)</span> are set in <code class="docutils literal notranslate"><span class="pre">qwarray.params</span></code> (typically 5 nm for GaAs).</p>
+<p>This means quantum wires are <strong>not mathematical lines</strong> – they have real 3D
+cross-sections with quantum mechanical confinement profiles. The same SHO
+wavefunctions enter the Coulomb interaction integrals in <code class="docutils literal notranslate"><span class="pre">coulomb.py</span></code>, where
+the transverse overlap determines the effective 1D Coulomb potential.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="thz-emission-from-current-surge">
+<h2>THz Emission from Current Surge<a class="headerlink" href="#thz-emission-from-current-surge" title="Link to this heading">¶</a></h2>
+<p>When an ultrashort laser pulse excites carriers in the quantum wire, the
+rapidly changing polarization acts as a current source:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{J}(t) = \frac{\partial \mathbf{P}}{\partial t}
+\]</div>
+<p>This <strong>polarization current surge</strong> emits electromagnetic radiation at
+terahertz (THz) frequencies – the characteristic timescale of carrier dynamics
+(femtoseconds to picoseconds corresponds to 0.1-10 THz).</p>
+<p>The code computes this current in <code class="docutils literal notranslate"><span class="pre">rhoPJ.py</span></code> via finite differences:
+<span class="math notranslate nohighlight">\(J_x = (P_x^{new} - P_x^{old}) / \Delta t\)</span>. An additional free current
+component from charge density continuity (<span class="math notranslate nohighlight">\(\mathbf{J}_{free} = -\int \partial\rho/\partial t \, dx\)</span>)
+contributes to the total THz emission.</p>
+<p>THz emission spectroscopy is a major experimental technique for probing
+ultrafast carrier dynamics in semiconductors. The infrastructure for tracking
+THz fields exists in the codebase (<code class="docutils literal notranslate"><span class="pre">ETHz.t.dat</span></code> output), with full THz
+field analysis planned for future propagator examples.</p>
+</section>
+<hr class="docutils" />
+<section id="inspect-an-initialized-solver">
+<h2>Inspect an Initialized Solver<a class="headerlink" href="#inspect-an-initialized-solver" title="Link to this heading">¶</a></h2>
+<p>Let’s initialize the solver and inspect what was set up.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D.SBEs</span><span class="w"> </span><span class="kn">import</span> <span class="n">InitializeSBE</span><span class="p">,</span> <span class="n">QWCalculator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D</span><span class="w"> </span><span class="kn">import</span> <span class="n">SBEs</span> <span class="k">as</span> <span class="n">SBEs_module</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D.typespace</span><span class="w"> </span><span class="kn">import</span> <span class="n">GetKArray</span><span class="p">,</span> <span class="n">GetSpaceArray</span>
+
+<span class="c1"># Ensure output directories exist</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;dataQW/Wire/C&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/D&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/Ee&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;dataQW/Wire/Eh&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/P&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/Win&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;dataQW/Wire/Wout&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/Xqw&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/info&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;dataQW/Wire/ne&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/nh&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">]:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">Nr</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">drr</span> <span class="o">=</span> <span class="mf">10e-9</span>
+<span class="n">rr</span> <span class="o">=</span> <span class="n">GetSpaceArray</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="p">(</span><span class="n">Nr</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">drr</span><span class="p">)</span>
+<span class="n">qrr</span> <span class="o">=</span> <span class="n">GetKArray</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">Nr</span> <span class="o">*</span> <span class="n">drr</span><span class="p">)</span>
+
+<span class="n">InitializeSBE</span><span class="p">(</span><span class="n">qrr</span><span class="p">,</span> <span class="n">rr</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1e7</span><span class="p">,</span> <span class="mf">800e-9</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">SBEs_module</span><span class="o">.</span><span class="n">_default_solver</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Grid ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Nk (momentum points): </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">Nk</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Nr (QW spatial points): </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">Nr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Material (from qw.params) ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Band gap: </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">gap</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1.6e-19</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> eV&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Electron mass: </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">me</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">9.109e-31</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> m0&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Hole mass: </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">mh</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">9.109e-31</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> m0&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Derived Constants ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Dipole moment: </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">dcv</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2"> C*m&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Wire cross-section: </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">area</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2"> m^2&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Physics Flags (from mb.params) ===&quot;</span><span class="p">)</span>
+<span class="n">flags</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Optics&#39;</span><span class="p">,</span> <span class="s1">&#39;Excitons&#39;</span><span class="p">,</span> <span class="s1">&#39;EHs&#39;</span><span class="p">,</span> <span class="s1">&#39;Screened&#39;</span><span class="p">,</span> <span class="s1">&#39;Phonon&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;DCTrans&#39;</span><span class="p">,</span> <span class="s1">&#39;LF&#39;</span><span class="p">,</span> <span class="s1">&#39;DiagDph&#39;</span><span class="p">,</span> <span class="s1">&#39;OffDiagDph&#39;</span><span class="p">,</span> <span class="s1">&#39;Recomb&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">flags</span><span class="p">:</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">flag</span><span class="p">)</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;ON&quot;</span> <span class="k">if</span> <span class="n">val</span> <span class="k">else</span> <span class="s2">&quot;OFF&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">flag</span><span class="si">:</span><span class="s2">15s</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dcv / e0 = 3.3538811268940077e-10
+alphae = 303090660.34386384, alphah = 768475083.4742767
+1/qc = 2.3003106022655407e-09, sqrt(2) / sqrt(alphae² + alphah²) = 1.7119449377756965e-09
+ehint = 0.8262109841666643
+Wire Radius = 2.3003106022655407e-09
+Wire sqrt(area) = 3.8950888292173374e-09
+Wire Thickness = 5e-09
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Calculating Coulomb Arrays
+  Progress: 0/230 (0.0%)
+Vint: Using JIT-compiled version
+  Progress: 10/230 (4.3%)
+  Progress: 20/230 (8.7%)
+  Progress: 30/230 (13.0%)
+  Progress: 40/230 (17.4%)
+  Progress: 50/230 (21.7%)
+  Progress: 60/230 (26.1%)
+  Progress: 70/230 (30.4%)
+  Progress: 80/230 (34.8%)
+  Progress: 90/230 (39.1%)
+  Progress: 100/230 (43.5%)
+  Progress: 110/230 (47.8%)
+  Progress: 120/230 (52.2%)
+  Progress: 130/230 (56.5%)
+  Progress: 140/230 (60.9%)
+  Progress: 150/230 (65.2%)
+  Progress: 160/230 (69.6%)
+  Progress: 170/230 (73.9%)
+  Progress: 180/230 (78.3%)
+  Progress: 190/230 (82.6%)
+  Progress: 200/230 (87.0%)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Progress: 210/230 (91.3%)
+  Progress: 220/230 (95.7%)
+Finished Calculating Unscreened Coulomb Arrays
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Quantum Wire Linear Chi = (-0.13219666733079763+0.14243061062572296j)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>InitializeSBE?
+=== Grid ===
+  Nk (momentum points): 114
+  Nr (QW spatial points): 230
+
+=== Material (from qw.params) ===
+  Band gap: 1.502 eV
+  Electron mass: 0.0700 m0
+  Hole mass: 0.4500 m0
+
+=== Derived Constants ===
+  Dipole moment: 5.374e-29 C*m
+  Wire cross-section: 1.517e-17 m^2
+
+=== Physics Flags (from mb.params) ===
+  Optics         : ON
+  Excitons       : ON
+  EHs            : ON
+  Screened       : ON
+  Phonon         : ON
+  DCTrans        : ON
+  LF             : ON
+  DiagDph        : ON
+  OffDiagDph     : ON
+  Recomb         : ON
+</pre></div>
+</div>
+</div>
+</div>
+<section id="energy-bands">
+<h3>Energy Bands<a class="headerlink" href="#energy-bands" title="Link to this heading">¶</a></h3>
+<p>After initialization, the solver has computed the electron and hole energy bands
+<span class="math notranslate nohighlight">\(E_e(k)\)</span> and <span class="math notranslate nohighlight">\(E_h(k)\)</span> on the momentum grid.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">k_nm</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">kr</span> <span class="o">*</span> <span class="mf">1e-9</span>  <span class="c1"># Convert to 1/nm</span>
+<span class="n">Ee_eV</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">Ee</span> <span class="o">*</span> <span class="mf">6.242e18</span>  <span class="c1"># Convert J to eV</span>
+<span class="n">Eh_eV</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">Eh</span> <span class="o">*</span> <span class="mf">6.242e18</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k_nm</span><span class="p">,</span> <span class="n">Ee_eV</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Electrons $E_e(k)$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k_nm</span><span class="p">,</span> <span class="o">-</span><span class="n">Eh_eV</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Holes $-E_h(k)$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Momentum $k$ (nm$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Energy (eV)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Quantum Wire Energy Bands&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Momentum grid: </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">Nk</span><span class="si">}</span><span class="s2"> points from &quot;</span>
+      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">kr</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">*</span><span class="mf">1e-9</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">kr</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">*</span><span class="mf">1e-9</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> nm^-1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6d13bf0628a6a513d1a1c2014f8376a22e5cf6f00d6d052a205ef5c62091b274.png" src="../_images/6d13bf0628a6a513d1a1c2014f8376a22e5cf6f00d6d052a205ef5c62091b274.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Momentum grid: 114 points from -1.77 to 1.77 nm^-1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="initial-carrier-distributions">
+<h3>Initial Carrier Distributions<a class="headerlink" href="#initial-carrier-distributions" title="Link to this heading">¶</a></h3>
+<p>The carriers start in thermal equilibrium (Fermi-Dirac at 77 K). The diagonal
+of the electron coherence matrix <span class="math notranslate nohighlight">\(C_{k,k} = n_e(k)\)</span> gives the electron occupation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract initial carrier distributions (diagonal of CC2 for wire 1)</span>
+<span class="n">ne</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">CC2</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]))</span>  <span class="c1"># Electron occupation</span>
+<span class="n">nh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">DD2</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]))</span>  <span class="c1"># Hole occupation</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k_nm</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$n_e(k)$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k_nm</span><span class="p">,</span> <span class="n">nh</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$n_h(k)$&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Momentum $k$ (nm$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Occupation&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Initial Carrier Distributions (T = 77 K)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total electron density: </span><span class="si">{</span><span class="n">ne</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.4e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total hole density: </span><span class="si">{</span><span class="n">nh</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.4e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c944e913afb86b01103928392e9c927805f3cb890d0f64355d0446440f7c655c.png" src="../_images/c944e913afb86b01103928392e9c927805f3cb890d0f64355d0446440f7c655c.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total electron density: 5.0780e-49
+Total hole density: 5.0780e-49
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>J. R. Gulley and D. Huang, “Self-consistent quantum-kinetic theory for interplay
+between pulsed-laser excitation and nonlinear carrier transport in a quantum-wire
+array,” <em>Opt. Express</em> <strong>27</strong>, 17154-17185 (2019).</p></li>
+<li><p>J. R. Gulley and D. Huang, “Ultrafast transverse and longitudinal response of
+laser-excited quantum wires,” <em>Opt. Express</em> <strong>30</strong>(6), 9348-9359 (2022).</p></li>
+<li><p>M. Lindberg and S. W. Koch, “Effective Bloch equations for semiconductors,”
+<em>Phys. Rev. B</em> <strong>38</strong>, 3342 (1988).</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="01_quickstart.myst.html" class="btn btn-neutral float-left" title="Quickstart: Your First SBE Simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="03_coulomb.myst.html" class="btn btn-neutral float-right" title="Deep Dive: Coulomb Interactions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

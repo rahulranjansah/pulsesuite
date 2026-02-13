@@ -1,0 +1,568 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pulsesuite.libpulsesuite.integrator &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/js/hoverxref.js"></script>
+      <script src="../../../../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../../../../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../../../../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pulsesuite.libpulsesuite.integrator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pulsesuite/libpulsesuite/integrator/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pulsesuite.libpulsesuite.integrator">
+<span id="pulsesuite-libpulsesuite-integrator"></span><h1>pulsesuite.libpulsesuite.integrator<a class="headerlink" href="#module-pulsesuite.libpulsesuite.integrator" title="Link to this heading">¶</a></h1>
+<p>ODE integrators ported from integrator.F90.</p>
+<p>1:1 port of the Fortran <code class="docutils literal notranslate"><span class="pre">integrator</span></code> module.  Every public Fortran
+subroutine has a Python callable with the same name.  Fortran interfaces
+that dispatch on type/rank are kept as separate named functions.</p>
+<p>Vectorised with NumPy; no Numba or guardrails required.</p>
+<dl class="simple">
+<dt>Implements:</dt><dd><ul class="simple">
+<li><p>Cash-Karp Runge-Kutta step (rkck)</p></li>
+<li><p>Quality-controlled adaptive RK step (rkqs)</p></li>
+<li><p>Classic 4th-order Runge-Kutta (rk4)</p></li>
+<li><p>Forward Euler (idiot)</p></li>
+<li><p>Adaptive ODE driver (odeint)</p></li>
+<li><p>Simple fixed-step driver (simpleint)</p></li>
+<li><p>Modified midpoint (mmid)</p></li>
+<li><p>Polynomial extrapolation (pzextr)</p></li>
+<li><p>Bulirsch-Stoer adaptive step (bsstep)</p></li>
+<li><p>Semi-implicit midpoint for stiff systems (simpr)</p></li>
+<li><p>Stiff Bulirsch-Stoer (stifbs)</p></li>
+<li><p>LU decomposition with partial pivoting (ludcmp)</p></li>
+<li><p>LU back-substitution (lubksb)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Author: Rahul R. Sah</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.sp" title="pulsesuite.libpulsesuite.integrator.sp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sp</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.dp" title="pulsesuite.libpulsesuite.integrator.dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dp</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.SAFETY" title="pulsesuite.libpulsesuite.integrator.SAFETY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SAFETY</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.PGROW" title="pulsesuite.libpulsesuite.integrator.PGROW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PGROW</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.PSHRNK" title="pulsesuite.libpulsesuite.integrator.PSHRNK"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PSHRNK</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.ERRCON" title="pulsesuite.libpulsesuite.integrator.ERRCON"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ERRCON</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.TINY" title="pulsesuite.libpulsesuite.integrator.TINY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TINY</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.MAXSTP" title="pulsesuite.libpulsesuite.integrator.MAXSTP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MAXSTP</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.KMAXX" title="pulsesuite.libpulsesuite.integrator.KMAXX"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KMAXX</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.rkck_dp" title="pulsesuite.libpulsesuite.integrator.rkck_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rkck_dp</span></code></a>(y, dydt, t, h, D)</p></td>
+<td><p>Cash-Karp RK step for real (float64) ODEs.  Returns (yout, yerr).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.rkck_dpc" title="pulsesuite.libpulsesuite.integrator.rkck_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rkck_dpc</span></code></a>(y, dydt, t, h, D)</p></td>
+<td><p>Cash-Karp RK step for complex (complex128) ODEs.  Returns (yout, yerr).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.rkck_3D_dpc" title="pulsesuite.libpulsesuite.integrator.rkck_3D_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rkck_3D_dpc</span></code></a>(y, dydt, t, h, D)</p></td>
+<td><p>Cash-Karp RK step for 3D complex arrays.  Returns (yout, yerr).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.rk4_dp" title="pulsesuite.libpulsesuite.integrator.rk4_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rk4_dp</span></code></a>(y, dydt, t, h, D)</p></td>
+<td><p>Classic RK4 for real ODEs.  Modifies y in-place.  Returns t_new.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.rk4_dpc" title="pulsesuite.libpulsesuite.integrator.rk4_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rk4_dpc</span></code></a>(y, dydt, t, h, D)</p></td>
+<td><p>Classic RK4 for complex ODEs.  Modifies y in-place.  Returns t_new.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.rk4_3D_dpc" title="pulsesuite.libpulsesuite.integrator.rk4_3D_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rk4_3D_dpc</span></code></a>(y, dydt, t, h, D)</p></td>
+<td><p>Classic RK4 for 3D complex arrays.  Modifies y in-place.  Returns t_new.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.idiot_dp" title="pulsesuite.libpulsesuite.integrator.idiot_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">idiot_dp</span></code></a>(y, dydt, t, h, D)</p></td>
+<td><p>Forward Euler for real ODEs.  Modifies y in-place.  Returns t_new.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.idiot_dpc" title="pulsesuite.libpulsesuite.integrator.idiot_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">idiot_dpc</span></code></a>(y, dydt, t, h, D)</p></td>
+<td><p>Forward Euler for complex ODEs.  Modifies y in-place.  Returns t_new.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.rkqs_dp" title="pulsesuite.libpulsesuite.integrator.rkqs_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rkqs_dp</span></code></a>(y, dydt, t, htry, eps, yscale, D, jacobn)</p></td>
+<td><p>Quality-controlled RK step for real ODEs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.rkqs_dpc" title="pulsesuite.libpulsesuite.integrator.rkqs_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rkqs_dpc</span></code></a>(y, dydt, t, htry, eps, yscale, D, jacobn)</p></td>
+<td><p>Quality-controlled RK step for complex ODEs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.rkqs_3D_dpc" title="pulsesuite.libpulsesuite.integrator.rkqs_3D_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rkqs_3D_dpc</span></code></a>(y, dydt, t, htry, eps, yscale, D)</p></td>
+<td><p>Quality-controlled RK step for 3D complex arrays (UPPE, no Jacobian).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.rkqs_3D_dpc_TOM" title="pulsesuite.libpulsesuite.integrator.rkqs_3D_dpc_TOM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rkqs_3D_dpc_TOM</span></code></a>(y, dydt, t, htry, eps, yscaleREAL, ...)</p></td>
+<td><p>Quality-controlled RK step for 3D complex arrays with separate</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.odeint_dp" title="pulsesuite.libpulsesuite.integrator.odeint_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">odeint_dp</span></code></a>(y, x1, x2, eps, h1, hmin, D, integ, jacobn)</p></td>
+<td><p>Adaptive ODE driver for real ODEs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.odeint_dpc" title="pulsesuite.libpulsesuite.integrator.odeint_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">odeint_dpc</span></code></a>(y, x1, x2, eps, h1, hmin, D, integ, jacobn)</p></td>
+<td><p>Adaptive ODE driver for complex ODEs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.odeint_3D_dpc" title="pulsesuite.libpulsesuite.integrator.odeint_3D_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">odeint_3D_dpc</span></code></a>(y, x1, x2, eps, h1, hmin, D, integ)</p></td>
+<td><p>Adaptive ODE driver for 3D complex arrays (UPPE, no Jacobian).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.odeint_3D_dpc_TOM" title="pulsesuite.libpulsesuite.integrator.odeint_3D_dpc_TOM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">odeint_3D_dpc_TOM</span></code></a>(y, x1, x2, eps, h1, hmin, D, integ)</p></td>
+<td><p>Adaptive ODE driver for 3D complex arrays with separate real/imaginary</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.simpleint_dp" title="pulsesuite.libpulsesuite.integrator.simpleint_dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">simpleint_dp</span></code></a>(y, t1, t2, h1, D, simple)</p></td>
+<td><p>Simple fixed-step driver for real ODEs.  Y1 = DY * DX + Y0.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.simpleint_dpc" title="pulsesuite.libpulsesuite.integrator.simpleint_dpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">simpleint_dpc</span></code></a>(y, t1, t2, h1, D, simple)</p></td>
+<td><p>Simple fixed-step driver for complex ODEs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.mmid" title="pulsesuite.libpulsesuite.integrator.mmid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mmid</span></code></a>(y, dydx, xs, htot, nstep, D)</p></td>
+<td><p>Modified midpoint method.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.pzextr" title="pulsesuite.libpulsesuite.integrator.pzextr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pzextr</span></code></a>(iest, xest, yest, yz, dy, x_save, d_save)</p></td>
+<td><p>Polynomial extrapolation step (Neville's algorithm).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.bsstep" title="pulsesuite.libpulsesuite.integrator.bsstep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bsstep</span></code></a>(y, dydx, x, htry, eps, yscale, D, jacobn)</p></td>
+<td><p>Bulirsch-Stoer adaptive step using modified midpoint (mmid) and</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.ludcmp" title="pulsesuite.libpulsesuite.integrator.ludcmp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ludcmp</span></code></a>(a, indx)</p></td>
+<td><p>LU decomposition with partial pivoting (Crout's algorithm).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.lubksb" title="pulsesuite.libpulsesuite.integrator.lubksb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lubksb</span></code></a>(a, indx, b)</p></td>
+<td><p>LU back-substitution.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.simpr" title="pulsesuite.libpulsesuite.integrator.simpr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">simpr</span></code></a>(y, dydx, dfdx, dfdy, xs, htot, nstep, derivs)</p></td>
+<td><p>Semi-implicit midpoint rule for stiff ODEs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.libpulsesuite.integrator.stifbs" title="pulsesuite.libpulsesuite.integrator.stifbs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stifbs</span></code></a>(y, dydx, x, htry, eps, yscal, derivs, jacobn)</p></td>
+<td><p>Single step of the stiff Bulirsch-Stoer algorithm.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.sp">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">sp</span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.sp" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.dp">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">dp</span></span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.dp" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.SAFETY">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">SAFETY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.9</span></em><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.SAFETY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.PGROW">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">PGROW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-0.2</span></em><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.PGROW" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.PSHRNK">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">PSHRNK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-0.25</span></em><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.PSHRNK" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.ERRCON">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">ERRCON</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.00018895680000000003</span></em><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.ERRCON" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.TINY">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">TINY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1e-30</span></em><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.TINY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.MAXSTP">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">MAXSTP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100000000</span></em><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.MAXSTP" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.KMAXX">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">KMAXX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.KMAXX" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.rkck_dp">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">rkck_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.rkck_dp" title="Link to this definition">¶</a></dt>
+<dd><p>Cash-Karp RK step for real (float64) ODEs.  Returns (yout, yerr).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.rkck_dpc">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">rkck_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.rkck_dpc" title="Link to this definition">¶</a></dt>
+<dd><p>Cash-Karp RK step for complex (complex128) ODEs.  Returns (yout, yerr).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.rkck_3D_dpc">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">rkck_3D_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.rkck_3D_dpc" title="Link to this definition">¶</a></dt>
+<dd><p>Cash-Karp RK step for 3D complex arrays.  Returns (yout, yerr).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.rk4_dp">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">rk4_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.rk4_dp" title="Link to this definition">¶</a></dt>
+<dd><p>Classic RK4 for real ODEs.  Modifies y in-place.  Returns t_new.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.rk4_dpc">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">rk4_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.rk4_dpc" title="Link to this definition">¶</a></dt>
+<dd><p>Classic RK4 for complex ODEs.  Modifies y in-place.  Returns t_new.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.rk4_3D_dpc">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">rk4_3D_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.rk4_3D_dpc" title="Link to this definition">¶</a></dt>
+<dd><p>Classic RK4 for 3D complex arrays.  Modifies y in-place.  Returns t_new.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.idiot_dp">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">idiot_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.idiot_dp" title="Link to this definition">¶</a></dt>
+<dd><p>Forward Euler for real ODEs.  Modifies y in-place.  Returns t_new.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.idiot_dpc">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">idiot_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.idiot_dpc" title="Link to this definition">¶</a></dt>
+<dd><p>Forward Euler for complex ODEs.  Modifies y in-place.  Returns t_new.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.rkqs_dp">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">rkqs_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">htry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yscale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jacobn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.rkqs_dp" title="Link to this definition">¶</a></dt>
+<dd><p>Quality-controlled RK step for real ODEs.</p>
+<p>Modifies y in-place.
+Returns (t_new, hdid, hnext).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.rkqs_dpc">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">rkqs_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">htry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yscale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jacobn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.rkqs_dpc" title="Link to this definition">¶</a></dt>
+<dd><p>Quality-controlled RK step for complex ODEs.</p>
+<p>Modifies y in-place.
+Returns (t_new, hdid, hnext).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.rkqs_3D_dpc">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">rkqs_3D_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">htry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yscale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.rkqs_3D_dpc" title="Link to this definition">¶</a></dt>
+<dd><p>Quality-controlled RK step for 3D complex arrays (UPPE, no Jacobian).</p>
+<p>Modifies y in-place.
+Returns (t_new, hdid, hnext).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.rkqs_3D_dpc_TOM">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">rkqs_3D_dpc_TOM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">htry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yscaleREAL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yscaleIMAG</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.rkqs_3D_dpc_TOM" title="Link to this definition">¶</a></dt>
+<dd><p>Quality-controlled RK step for 3D complex arrays with separate
+real/imaginary error tolerances.  eps is complex: real(eps) for
+real part tolerance, imag(eps) for imaginary part tolerance.</p>
+<p>Modifies y in-place.
+Returns (t_new, hdid, hnext).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.odeint_dp">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">odeint_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jacobn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.odeint_dp" title="Link to this definition">¶</a></dt>
+<dd><p>Adaptive ODE driver for real ODEs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>ndarray</em><em>, </em><em>float64 — state vector</em><em> (</em><em>modified in-place</em><em>)</em>)</p></li>
+<li><p><strong>x1</strong> (<em>float — integration bounds</em>)</p></li>
+<li><p><strong>x2</strong> (<em>float — integration bounds</em>)</p></li>
+<li><p><strong>eps</strong> (<em>float — error tolerance</em>)</p></li>
+<li><p><strong>h1</strong> (<em>float — initial step size</em>)</p></li>
+<li><p><strong>hmin</strong> (<em>float — minimum step size</em>)</p></li>
+<li><p><strong>D</strong> (<em>callable</em><em>(</em><em>t</em><em>, </em><em>y</em><em>) </em><em>-&gt; dy — derivative function</em>)</p></li>
+<li><p><strong>integ</strong> (<em>callable — stepper</em><em> (</em><em>rkqs_dp</em><em>, </em><em>bsstep</em><em>, </em><em>stifbs</em><em>)</em>)</p></li>
+<li><p><strong>jacobn</strong> (<em>callable — Jacobian function</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>nok</strong> (<em>int — number of good steps</em>)</p></li>
+<li><p><strong>nbad</strong> (<em>int — number of bad (retried) steps</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.odeint_dpc">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">odeint_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jacobn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.odeint_dpc" title="Link to this definition">¶</a></dt>
+<dd><p>Adaptive ODE driver for complex ODEs.</p>
+<p>Same interface as odeint_dp but y is complex128.
+Returns (nok, nbad).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.odeint_3D_dpc">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">odeint_3D_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integ</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.odeint_3D_dpc" title="Link to this definition">¶</a></dt>
+<dd><p>Adaptive ODE driver for 3D complex arrays (UPPE, no Jacobian).</p>
+<p>h1 is returned modified (remembers last used step size for the
+bridge between pulsesuite “Steps”).</p>
+<p>Returns (nok, nbad, h1_out).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.odeint_3D_dpc_TOM">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">odeint_3D_dpc_TOM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integ</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.odeint_3D_dpc_TOM" title="Link to this definition">¶</a></dt>
+<dd><p>Adaptive ODE driver for 3D complex arrays with separate real/imaginary
+error tolerances.  eps is complex.</p>
+<p>Returns (nok, nbad, h1_out).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.simpleint_dp">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">simpleint_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simple</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.simpleint_dp" title="Link to this definition">¶</a></dt>
+<dd><p>Simple fixed-step driver for real ODEs.  Y1 = DY * DX + Y0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>ndarray</em><em>, </em><em>float64</em><em> (</em><em>modified in-place</em><em>)</em>)</p></li>
+<li><p><strong>t1</strong> (<em>float — integration bounds</em>)</p></li>
+<li><p><strong>t2</strong> (<em>float — integration bounds</em>)</p></li>
+<li><p><strong>h1</strong> (<em>float — step size</em>)</p></li>
+<li><p><strong>D</strong> (<em>callable</em><em>(</em><em>t</em><em>, </em><em>y</em><em>) </em><em>-&gt; dy</em>)</p></li>
+<li><p><strong>simple</strong> (<em>callable — single-step method</em><em> (</em><em>rk4_dp</em><em>, </em><em>idiot_dp</em><em>)</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>nok</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int — number of steps taken</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.simpleint_dpc">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">simpleint_dpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simple</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.simpleint_dpc" title="Link to this definition">¶</a></dt>
+<dd><p>Simple fixed-step driver for complex ODEs.</p>
+<p>Returns nok.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.mmid">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">mmid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">htot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.mmid" title="Link to this definition">¶</a></dt>
+<dd><p>Modified midpoint method.</p>
+<p>Takes nstep sub-steps of size h = htot/nstep using the modified
+midpoint (Stoermer) rule.  Does NOT modify y.</p>
+<p>Returns yout.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.pzextr">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">pzextr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_save</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d_save</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.pzextr" title="Link to this definition">¶</a></dt>
+<dd><p>Polynomial extrapolation step (Neville’s algorithm).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iest</strong> (<em>int — 1-based step index</em>)</p></li>
+<li><p><strong>xest</strong> (<em>float — x-estimate</em><em> (</em><em>typically</em><em> (</em><em>h/nseq</em><em>)</em><em>**2</em><em>)</em>)</p></li>
+<li><p><strong>yest</strong> (<em>ndarray — y-estimate from midpoint/simpr</em>)</p></li>
+<li><p><strong>yz</strong> (<em>ndarray — output y</em><em> (</em><em>modified in-place</em><em>)</em>)</p></li>
+<li><p><strong>dy</strong> (<em>ndarray — output error</em><em> (</em><em>modified in-place</em><em>)</em>)</p></li>
+<li><p><strong>x_save</strong> (<em>ndarray</em><em>, </em><em>shape</em><em> (</em><em>KMAXX</em><em>,</em><em>) </em><em>— persistent x storage</em>)</p></li>
+<li><p><strong>d_save</strong> (<em>ndarray</em><em>, </em><em>shape</em><em> (</em><em>nv</em><em>, </em><em>KMAXX</em><em>) </em><em>— persistent d storage</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.bsstep">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">bsstep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">htry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yscale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jacobn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.bsstep" title="Link to this definition">¶</a></dt>
+<dd><p>Bulirsch-Stoer adaptive step using modified midpoint (mmid) and
+polynomial extrapolation (pzextr).</p>
+<p>Modifies y in-place.
+Returns (t_new, hdid, hnext).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.ludcmp">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">ludcmp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.ludcmp" title="Link to this definition">¶</a></dt>
+<dd><p>LU decomposition with partial pivoting (Crout’s algorithm).</p>
+<p>Modifies a in-place (overwritten with L and U factors).
+Fills indx with pivot indices (0-based).
+Returns d (+1.0 or -1.0 for even/odd row exchanges).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.lubksb">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">lubksb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.lubksb" title="Link to this definition">¶</a></dt>
+<dd><p>LU back-substitution.</p>
+<p>Solves A*x = b given the LU factors in a and pivot indices in indx.
+Modifies b in-place with the solution.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.simpr">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">simpr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfdx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfdy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">htot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">derivs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.simpr" title="Link to this definition">¶</a></dt>
+<dd><p>Semi-implicit midpoint rule for stiff ODEs.</p>
+<p>Uses LU decomposition of (I - h*dfdy) and performs nstep sub-steps.
+Does NOT modify y.</p>
+<p>Returns yout.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.libpulsesuite.integrator.stifbs">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.libpulsesuite.integrator.</span></span><span class="sig-name descname"><span class="pre">stifbs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dydx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">htry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yscal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">derivs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jacobn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.libpulsesuite.integrator.stifbs" title="Link to this definition">¶</a></dt>
+<dd><p>Single step of the stiff Bulirsch-Stoer algorithm.</p>
+<p>Uses semi-implicit midpoint (simpr) with polynomial extrapolation (pzextr).</p>
+<p>Modifies y in-place.
+Returns (t_new, hdid, hnext).</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

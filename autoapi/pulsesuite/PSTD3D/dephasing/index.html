@@ -1,0 +1,382 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pulsesuite.PSTD3D.dephasing &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/js/hoverxref.js"></script>
+      <script src="../../../../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../../../../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../../../../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pulsesuite.PSTD3D.dephasing</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pulsesuite/PSTD3D/dephasing/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pulsesuite.PSTD3D.dephasing">
+<span id="pulsesuite-pstd3d-dephasing"></span><h1>pulsesuite.PSTD3D.dephasing<a class="headerlink" href="#module-pulsesuite.PSTD3D.dephasing" title="Link to this heading">¶</a></h1>
+<p>Dephasing calculations for quantum wire simulations.</p>
+<p>This module calculates dephasing rates for electrons and holes due to
+carrier-carrier interactions in the Semiconductor Bloch equations.</p>
+<p>Author: Rahul R. Sah</p>
+<p>Bugs:
+Why Lrtz jit here? -&gt; tackle nopython=True in the future</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.pi" title="pulsesuite.PSTD3D.dephasing.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.hbar" title="pulsesuite.PSTD3D.dephasing.hbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hbar</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.ii" title="pulsesuite.PSTD3D.dephasing.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.DephasingModule" title="pulsesuite.PSTD3D.dephasing.DephasingModule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DephasingModule</span></code></a></p></td>
+<td><p>Dephasing state and calculations.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.Vxx2" title="pulsesuite.PSTD3D.dephasing.Vxx2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Vxx2</span></code></a>(q, V)</p></td>
+<td><p>Calculate squared interaction matrix elements.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_E2" title="pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_E2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_E2</span></code></a>(ne, nh, ky, Ee, Eh, gee, geh, VC, Nk)</p></td>
+<td><p>Calculate off-diagonal dephasing matrix for electrons (version 2).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_H2" title="pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_H2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_H2</span></code></a>(ne, nh, ky, Ee, Eh, ghh, geh, VC, Nk)</p></td>
+<td><p>Calculate off-diagonal dephasing matrix for holes (version 2).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.printGam" title="pulsesuite.PSTD3D.dephasing.printGam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">printGam</span></code></a>(Dx, z, n, file)</p></td>
+<td><p>Print dephasing rate to file with index number.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.WriteDephasing" title="pulsesuite.PSTD3D.dephasing.WriteDephasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WriteDephasing</span></code></a>(ky, gamE, gamH, w, xxx)</p></td>
+<td><p>Write dephasing rates to files.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.InitializeDephasing" title="pulsesuite.PSTD3D.dephasing.InitializeDephasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeDephasing</span></code></a>(ky, me, mh)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.CalcGammaE" title="pulsesuite.PSTD3D.dephasing.CalcGammaE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcGammaE</span></code></a>(ky, ne0, nh0, VC, GammaE)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.CalcGammaH" title="pulsesuite.PSTD3D.dephasing.CalcGammaH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcGammaH</span></code></a>(ky, ne0, nh0, VC, GammaH)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_E" title="pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_E"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_E</span></code></a>(ne0, nh0, ky, Ee0, Eh0, gee, geh, VC)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_H" title="pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_H"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcOffDiagDeph_H</span></code></a>(ne0, nh0, ky, Ee0, Eh0, ghh, geh, VC)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.OffDiagDephasing" title="pulsesuite.PSTD3D.dephasing.OffDiagDephasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OffDiagDephasing</span></code></a>(ne, nh, p, ky, Ee, Eh, g, VC, x)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dephasing.OffDiagDephasing2" title="pulsesuite.PSTD3D.dephasing.OffDiagDephasing2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OffDiagDephasing2</span></code></a>(ne, nh, p, ky, Ee, Eh, g, VC, t, x)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.pi">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.pi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.hbar">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.hbar" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.ii">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1j</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.ii" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.Vxx2">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">Vxx2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.Vxx2" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate squared interaction matrix elements.</p>
+<p>Computes V(1+iq, 1)^2 for each momentum q, where iq is the rounded
+index corresponding to abs(q/dq).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_E2">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_E2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_E2" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate off-diagonal dephasing matrix for electrons (version 2).</p>
+<p>Stateless — takes all inputs as arguments.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_H2">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_H2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ghh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_H2" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate off-diagonal dephasing matrix for holes (version 2).</p>
+<p>Stateless — takes all inputs as arguments.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.printGam">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">printGam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.printGam" title="Link to this definition">¶</a></dt>
+<dd><p>Print dephasing rate to file with index number.</p>
+<p>Writes to ‘dataQW/{file}{n:05d}.dat’.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.WriteDephasing">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">WriteDephasing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xxx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.WriteDephasing" title="Link to this definition">¶</a></dt>
+<dd><p>Write dephasing rates to files.</p>
+<p>Writes electron and hole dephasing rates with wire index.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.DephasingModule">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">DephasingModule</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.DephasingModule" title="Link to this definition">¶</a></dt>
+<dd><p>Dephasing state and calculations.</p>
+<p>Encapsulates all mutable state that was previously at module level:
+momentum index arrays, energy weighting arrays, and file handles.</p>
+<p>Usage (mirrors Fortran workflow):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deph</span> <span class="o">=</span> <span class="n">DephasingModule</span><span class="p">()</span>
+<span class="n">deph</span><span class="o">.</span><span class="n">InitializeDephasing</span><span class="p">(</span><span class="n">ky</span><span class="p">,</span> <span class="n">me</span><span class="p">,</span> <span class="n">mh</span><span class="p">)</span>
+<span class="n">deph</span><span class="o">.</span><span class="n">CalcGammaE</span><span class="p">(</span><span class="n">ky</span><span class="p">,</span> <span class="n">ne0</span><span class="p">,</span> <span class="n">nh0</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">GammaE</span><span class="p">)</span>
+<span class="n">deph</span><span class="o">.</span><span class="n">CalcGammaH</span><span class="p">(</span><span class="n">ky</span><span class="p">,</span> <span class="n">ne0</span><span class="p">,</span> <span class="n">nh0</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">GammaH</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.DephasingModule.InitializeDephasing">
+<span class="sig-name descname"><span class="pre">InitializeDephasing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.DephasingModule.InitializeDephasing" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the dephasing module.</p>
+<p>Sets up all arrays required for dephasing calculations.
+Allocates momentum index arrays and opens output files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p></li>
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective electron mass (kg)</p></li>
+<li><p><strong>mh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective hole mass (kg)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.DephasingModule.CalcGammaE">
+<span class="sig-name descname"><span class="pre">CalcGammaE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GammaE</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.DephasingModule.CalcGammaE" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate electron dephasing rate.</p>
+<p>Computes dephasing for electrons due to e-e and e-h interactions.
+Modifies GammaE in-place.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.DephasingModule.CalcGammaH">
+<span class="sig-name descname"><span class="pre">CalcGammaH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GammaH</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.DephasingModule.CalcGammaH" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate hole dephasing rate.</p>
+<p>Computes dephasing for holes due to h-h and e-h interactions.
+Modifies GammaH in-place.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.DephasingModule.CalcOffDiagDeph_E">
+<span class="sig-name descname"><span class="pre">CalcOffDiagDeph_E</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.DephasingModule.CalcOffDiagDeph_E" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate off-diagonal dephasing matrix for electrons.</p>
+<p>Returns 2D array of shape (Nk, Nk).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.DephasingModule.CalcOffDiagDeph_H">
+<span class="sig-name descname"><span class="pre">CalcOffDiagDeph_H</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ghh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.DephasingModule.CalcOffDiagDeph_H" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate off-diagonal dephasing matrix for holes.</p>
+<p>Returns 2D array of shape (Nk, Nk).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.DephasingModule.OffDiagDephasing">
+<span class="sig-name descname"><span class="pre">OffDiagDephasing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.DephasingModule.OffDiagDephasing" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate off-diagonal dephasing contribution.</p>
+<p>Modifies x in-place.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.DephasingModule.OffDiagDephasing2">
+<span class="sig-name descname"><span class="pre">OffDiagDephasing2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.DephasingModule.OffDiagDephasing2" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate off-diagonal dephasing contribution (version 2).</p>
+<p>Modifies x in-place.  Writes max/min values to output files.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.InitializeDephasing">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">InitializeDephasing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.InitializeDephasing" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.CalcGammaE">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcGammaE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GammaE</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.CalcGammaE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.CalcGammaH">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcGammaH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GammaH</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.CalcGammaH" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_E">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_E</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_E" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_H">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">CalcOffDiagDeph_H</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ghh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_H" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.OffDiagDephasing">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">OffDiagDephasing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.OffDiagDephasing" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dephasing.OffDiagDephasing2">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dephasing.</span></span><span class="sig-name descname"><span class="pre">OffDiagDephasing2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dephasing.OffDiagDephasing2" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,273 @@
+pulsesuite.libpulsesuite.materialproperties
+===========================================
+
+.. py:module:: pulsesuite.libpulsesuite.materialproperties
+
+.. autoapi-nested-parse::
+
+   Material properties module.
+
+   Accesses the materials database and retrieves various material parameters
+   such as refractive index, dispersion coefficients, nonlinear index,
+   absorption, and plasma parameters.
+
+   Converted from materialproperties.F90.
+
+   Author: Rahul R. Sah
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.libpulsesuite.materialproperties.log
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pulsesuite.libpulsesuite.materialproperties.MatError
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.libpulsesuite.materialproperties.set_database_file
+   pulsesuite.libpulsesuite.materialproperties.sellmeiercoeff
+   pulsesuite.libpulsesuite.materialproperties.n0_sellmeier
+   pulsesuite.libpulsesuite.materialproperties.n0
+   pulsesuite.libpulsesuite.materialproperties.n2I
+   pulsesuite.libpulsesuite.materialproperties.n2F
+   pulsesuite.libpulsesuite.materialproperties.alpha
+   pulsesuite.libpulsesuite.materialproperties.beta
+   pulsesuite.libpulsesuite.materialproperties.Vp
+   pulsesuite.libpulsesuite.materialproperties.k0_val
+   pulsesuite.libpulsesuite.materialproperties.Vg
+   pulsesuite.libpulsesuite.materialproperties.k1
+   pulsesuite.libpulsesuite.materialproperties.k2
+   pulsesuite.libpulsesuite.materialproperties.k3
+   pulsesuite.libpulsesuite.materialproperties.k4
+   pulsesuite.libpulsesuite.materialproperties.k5
+   pulsesuite.libpulsesuite.materialproperties.GetKW
+   pulsesuite.libpulsesuite.materialproperties.Tr
+   pulsesuite.libpulsesuite.materialproperties.GetPlasmaElectronMass
+   pulsesuite.libpulsesuite.materialproperties.GetPlasmaBandGap
+   pulsesuite.libpulsesuite.materialproperties.GetPlasmaTrappingTime
+   pulsesuite.libpulsesuite.materialproperties.GetPlasmaCollisionTime
+   pulsesuite.libpulsesuite.materialproperties.GetPlasmaMaximumDensity
+   pulsesuite.libpulsesuite.materialproperties.GetPlasmaOrder
+   pulsesuite.libpulsesuite.materialproperties.GetPlasmaCrossSection
+
+
+Module Contents
+---------------
+
+.. py:data:: log
+
+.. py:class:: MatError
+
+   Bases: :py:obj:`enum.IntEnum`
+
+
+   Enum where members are also (and must be) ints
+
+
+   .. py:attribute:: NOERROR
+      :value: 0
+
+
+
+   .. py:attribute:: NOFILE
+      :value: 1
+
+
+
+   .. py:attribute:: NOTFOUND
+      :value: 2
+
+
+
+   .. py:attribute:: FILE_FORMAT
+      :value: 3
+
+
+
+   .. py:attribute:: OUTOFRANGE
+      :value: 4
+
+
+
+   .. py:attribute:: BADVALUE
+      :value: 5
+
+
+
+   .. py:attribute:: DEFAULTUSED
+      :value: 6
+
+
+
+.. py:function:: set_database_file(path: str) -> None
+
+   Set the local materials database file path.
+
+
+.. py:function:: sellmeiercoeff(mat: str, lam: float) -> Tuple[float, numpy.ndarray, numpy.ndarray, int]
+
+   Retrieve the Sellmeier coefficients from the materials database.
+
+   Returns (A, B, C, err).
+
+
+.. py:function:: n0_sellmeier(A: float, B: numpy.ndarray, C: numpy.ndarray, lam: float) -> float
+
+   Calculate the index of refraction from Sellmeier coefficients.
+
+   n0 = sqrt(A + sum(B * lam^2 / (lam^2 - C)))
+
+
+.. py:function:: n0(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Calculate or retrieve the index of refraction.
+
+   Uses Sellmeier coefficients when available, otherwise looks for
+   discrete values in the database.
+
+   :param mat: Material name (case-insensitive).
+   :type mat: str
+   :param lam: Wavelength in metres.
+   :type lam: float
+   :param err: Single-element list ``[0]``; on return holds the error code.
+   :type err: list, optional
+
+   :returns: Linear refractive index.
+   :rtype: float
+
+
+.. py:function:: n2I(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Retrieve the intensity-based nonlinear refractive index n2I [m^2/W].
+
+
+.. py:function:: n2F(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Retrieve the field-based nonlinear refractive index n2F [m^2/V^2].
+
+
+.. py:function:: alpha(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Return the linear absorption coefficient [1/m].
+
+   Uses spline interpolation of the Absorption array when available,
+   falls back to discrete lookup.
+
+
+.. py:function:: beta(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Retrieve the two-photon absorption coefficient.
+
+
+.. py:function:: Vp(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Calculate the phase velocity [m/s].
+
+
+.. py:function:: k0_val(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Calculate the magnitude of the wavevector k0 = 2*pi*n0/lam.
+
+
+.. py:function:: Vg(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Calculate the group velocity as 1/k1 [m/s].
+
+
+.. py:function:: k1(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Calculate dk/dw (first-order dispersion, inverse group velocity) [s/m].
+
+   Uses frequency-domain Sellmeier when available, then falls back to
+   discrete k1 or Vg values.
+
+
+.. py:function:: k2(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Calculate d^2k/dw^2 (group velocity dispersion) [s^2/m].
+
+
+.. py:function:: k3(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Calculate d^3k/dw^3 (third-order dispersion) [s^3/m].
+
+
+.. py:function:: k4(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Calculate d^4k/dw^4 (fourth-order dispersion) [s^4/m].
+
+
+.. py:function:: k5(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Calculate d^5k/dw^5 (fifth-order dispersion) [s^5/m].
+
+
+.. py:function:: GetKW(mat: str, W: numpy.ndarray, err: Optional[list] = None) -> numpy.ndarray
+
+   Create an array of k values for the given angular frequencies.
+
+   :param mat: Material name.
+   :type mat: str
+   :param W: Angular frequency array [rad/s].
+   :type W: ndarray
+   :param err: Single-element list for error code.
+   :type err: list, optional
+
+   :returns: k(w) array.
+   :rtype: ndarray
+
+
+.. py:function:: Tr(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Retrieve the Raman response parameter [s].
+
+
+.. py:function:: GetPlasmaElectronMass(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Retrieve the plasma electron mass.
+
+
+.. py:function:: GetPlasmaBandGap(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Retrieve the plasma band gap.
+
+
+.. py:function:: GetPlasmaTrappingTime(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Retrieve the plasma trapping time.
+
+
+.. py:function:: GetPlasmaCollisionTime(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Retrieve the plasma collision time.
+
+
+.. py:function:: GetPlasmaMaximumDensity(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Retrieve the plasma maximum density.
+
+
+.. py:function:: GetPlasmaOrder(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Retrieve the plasma multi-photon ionisation order.
+
+
+.. py:function:: GetPlasmaCrossSection(mat: str, lam: float, err: Optional[list] = None) -> float
+
+   Retrieve the plasma multi-photon cross section.
+
+

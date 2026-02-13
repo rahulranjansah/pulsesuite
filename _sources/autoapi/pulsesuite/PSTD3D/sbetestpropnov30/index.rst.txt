@@ -1,0 +1,383 @@
+pulsesuite.PSTD3D.sbetestpropnov30
+==================================
+
+.. py:module:: pulsesuite.PSTD3D.sbetestpropnov30
+
+.. autoapi-nested-parse::
+
+   SBE Test Program - Full Version with Longitudinal Field Decomposition.
+
+   This program tests the Semiconductor Bloch Equations (SBE) solver by simulating
+   quantum wire response to plane wave electromagnetic fields with complete
+   longitudinal field analysis. It tracks E-fields from polarization (P), charge
+   density (Rho), and their combination (P+Rho).
+
+   Author: Rahul R. Sah
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.sbetestpropnov30.JIT_AVAILABLE
+   pulsesuite.PSTD3D.sbetestpropnov30.c0
+   pulsesuite.PSTD3D.sbetestpropnov30.pi
+   pulsesuite.PSTD3D.sbetestpropnov30.twopi
+   pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_DT
+   pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_NT
+   pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_TP
+   pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_LAM
+   pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_TW
+   pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_N0
+   pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_E0X
+   pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_E0Y
+   pulsesuite.PSTD3D.sbetestpropnov30.DEFAULT_E0Z
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.sbetestpropnov30.initializefields
+   pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveX
+   pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveY
+   pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveZ
+   pulsesuite.PSTD3D.sbetestpropnov30.MakePlaneWaveTemporal
+   pulsesuite.PSTD3D.sbetestpropnov30.ElongSeparate
+   pulsesuite.PSTD3D.sbetestpropnov30.int2str
+   pulsesuite.PSTD3D.sbetestpropnov30.SBETest
+   pulsesuite.PSTD3D.sbetestpropnov30.main
+
+
+Module Contents
+---------------
+
+.. py:data:: JIT_AVAILABLE
+   :value: True
+
+
+.. py:data:: c0
+   :value: 299792458.0
+
+
+.. py:data:: pi
+
+.. py:data:: twopi
+
+.. py:data:: DEFAULT_DT
+   :value: 1e-17
+
+
+.. py:data:: DEFAULT_NT
+   :value: 10000
+
+
+.. py:data:: DEFAULT_TP
+   :value: 5e-14
+
+
+.. py:data:: DEFAULT_LAM
+   :value: 8e-07
+
+
+.. py:data:: DEFAULT_TW
+   :value: 1e-14
+
+
+.. py:data:: DEFAULT_N0
+   :value: 3.1
+
+
+.. py:data:: DEFAULT_E0X
+   :value: 200000000.0
+
+
+.. py:data:: DEFAULT_E0Y
+   :value: 0.0
+
+
+.. py:data:: DEFAULT_E0Z
+   :value: 0.0
+
+
+.. py:function:: initializefields(F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, F13, F14, F15, F16, F17, F18, F19, F20)
+
+   Initialize all field arrays to zero.
+
+   Sets all 20 complex field arrays to zero for the start of simulation.
+   This extended version includes longitudinal field decompositions.
+
+   :param F1: Electric field components (Ex, Ey, Ez), 3D complex arrays
+   :type F1: ndarray
+   :param F2: Electric field components (Ex, Ey, Ez), 3D complex arrays
+   :type F2: ndarray
+   :param F3: Electric field components (Ex, Ey, Ez), 3D complex arrays
+   :type F3: ndarray
+   :param F4: Current density components (Jx, Jy, Jz), 3D complex arrays
+   :type F4: ndarray
+   :param F5: Current density components (Jx, Jy, Jz), 3D complex arrays
+   :type F5: ndarray
+   :param F6: Current density components (Jx, Jy, Jz), 3D complex arrays
+   :type F6: ndarray
+   :param F7: Charge density (Rho), 3D complex array
+   :type F7: ndarray
+   :param F8: Longitudinal field components from Helmholtz decomposition (Exl, Eyl, Ezl), 3D complex arrays
+   :type F8: ndarray
+   :param F9: Longitudinal field components from Helmholtz decomposition (Exl, Eyl, Ezl), 3D complex arrays
+   :type F9: ndarray
+   :param F10: Longitudinal field components from Helmholtz decomposition (Exl, Eyl, Ezl), 3D complex arrays
+   :type F10: ndarray
+   :param F11: Longitudinal fields from P+Rho (ExlfromPRho, EylfromPRho, EzlfromPRho), 3D complex arrays
+   :type F11: ndarray
+   :param F12: Longitudinal fields from P+Rho (ExlfromPRho, EylfromPRho, EzlfromPRho), 3D complex arrays
+   :type F12: ndarray
+   :param F13: Longitudinal fields from P+Rho (ExlfromPRho, EylfromPRho, EzlfromPRho), 3D complex arrays
+   :type F13: ndarray
+   :param F14: Longitudinal fields from P only (ExlfromP, EylfromP, EzlfromP), 3D complex arrays
+   :type F14: ndarray
+   :param F15: Longitudinal fields from P only (ExlfromP, EylfromP, EzlfromP), 3D complex arrays
+   :type F15: ndarray
+   :param F16: Longitudinal fields from P only (ExlfromP, EylfromP, EzlfromP), 3D complex arrays
+   :type F16: ndarray
+   :param F17: Longitudinal fields from Rho only (ExlfromRho, EylfromRho, EzlfromRho), 3D complex arrays
+   :type F17: ndarray
+   :param F18: Longitudinal fields from Rho only (ExlfromRho, EylfromRho, EzlfromRho), 3D complex arrays
+   :type F18: ndarray
+   :param F19: Longitudinal fields from Rho only (ExlfromRho, EylfromRho, EzlfromRho), 3D complex arrays
+   :type F19: ndarray
+   :param F20: Bound charge density (RhoBound), 3D complex array
+   :type F20: ndarray
+
+   :returns: All arrays are modified in-place.
+   :rtype: None
+
+
+.. py:function:: MakePlaneWaveX(Ey, space, t, Emax0, lam, tw, tp)
+
+   Create a plane wave propagating in the x-direction.
+
+   Generates E = (0, Ey(x,t), 0) with Gaussian envelope and super-Gaussian
+   cutoff, propagating along the x-axis.
+
+   :param Ey: Y-component electric field to populate (modified in-place), 3D complex array
+   :type Ey: ndarray
+   :param space: Space structure containing grid parameters
+   :type space: ss
+   :param t: Current time (s)
+   :type t: float
+   :param Emax0: Peak field amplitude (V/m)
+   :type Emax0: float
+   :param lam: Wavelength (m)
+   :type lam: float
+   :param tw: Pulse width (s)
+   :type tw: float
+   :param tp: Time of pulse peak (s)
+   :type tp: float
+
+   :returns: Ey array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses a background refractive index n0 = 3.1 (hardcoded).
+   Super-Gaussian cutoff (power 20) prevents spurious oscillations.
+
+
+.. py:function:: MakePlaneWaveY(Ex, space, t, Emax0, lam, tw, tp)
+
+   Create a plane wave propagating in the y-direction.
+
+   Generates E = (Ex(y,t), 0, 0) with Gaussian envelope and super-Gaussian
+   cutoff, propagating along the y-axis.
+
+   :param Ex: X-component electric field to populate (modified in-place), 3D complex array
+   :type Ex: ndarray
+   :param space: Space structure containing grid parameters
+   :type space: ss
+   :param t: Current time (s)
+   :type t: float
+   :param Emax0: Peak field amplitude (V/m)
+   :type Emax0: float
+   :param lam: Wavelength (m)
+   :type lam: float
+   :param tw: Pulse width (s)
+   :type tw: float
+   :param tp: Time of pulse peak (s)
+   :type tp: float
+
+   :returns: Ex array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses a background refractive index n0 = 3.1 (hardcoded).
+   Super-Gaussian cutoff (power 20) prevents spurious oscillations.
+
+
+.. py:function:: MakePlaneWaveZ(Ez, space, t, Emax0, lam, tw, tp)
+
+   Create a plane wave propagating in the x-direction (z-polarized).
+
+   Generates E = (0, 0, Ez(x,t)) with Gaussian envelope and super-Gaussian
+   cutoff, propagating along the x-axis.
+
+   :param Ez: Z-component electric field to populate (modified in-place), 3D complex array
+   :type Ez: ndarray
+   :param space: Space structure containing grid parameters
+   :type space: ss
+   :param t: Current time (s)
+   :type t: float
+   :param Emax0: Peak field amplitude (V/m)
+   :type Emax0: float
+   :param lam: Wavelength (m)
+   :type lam: float
+   :param tw: Pulse width (s)
+   :type tw: float
+   :param tp: Time of pulse peak (s)
+   :type tp: float
+
+   :returns: Ez array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Uses a background refractive index n0 = 3.1 (hardcoded).
+   Super-Gaussian cutoff (power 20) prevents spurious oscillations.
+   Note: The wave propagates along x-axis, not z-axis.
+
+
+.. py:function:: MakePlaneWaveTemporal(Ex, t, Emax0, lam, tw, tp)
+
+   Create a temporally-varying uniform field.
+
+   Generates E = (Ex(t), 0, 0) that is uniform in space but varies in time
+   with a Gaussian envelope.
+
+   :param Ex: X-component electric field to populate (modified in-place), 3D complex array
+   :type Ex: ndarray
+   :param t: Current time (s)
+   :type t: float
+   :param Emax0: Peak field amplitude (V/m)
+   :type Emax0: float
+   :param lam: Wavelength (m)
+   :type lam: float
+   :param tw: Pulse width (s)
+   :type tw: float
+   :param tp: Time of pulse peak (s)
+   :type tp: float
+
+   :returns: Ex array is modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   This creates a spatially uniform field that oscillates in time.
+   Useful for testing temporal response without spatial propagation effects.
+
+
+.. py:function:: ElongSeparate(space, Ex, Ey, Ez, Exl, Eyl, Ezl)
+
+   Separate longitudinal and transverse electric field components.
+
+   Placeholder function for field decomposition using Helmholtz decomposition.
+   In the full implementation, this would separate E into transverse
+   and longitudinal components.
+
+   :param space: Space structure containing grid parameters
+   :type space: ss
+   :param Ex: Total electric field components, 3D complex arrays
+   :type Ex: ndarray
+   :param Ey: Total electric field components, 3D complex arrays
+   :type Ey: ndarray
+   :param Ez: Total electric field components, 3D complex arrays
+   :type Ez: ndarray
+   :param Exl: Longitudinal electric field components (output), 3D complex arrays
+   :type Exl: ndarray
+   :param Eyl: Longitudinal electric field components (output), 3D complex arrays
+   :type Eyl: ndarray
+   :param Ezl: Longitudinal electric field components (output), 3D complex arrays
+   :type Ezl: ndarray
+
+   :returns: Exl, Eyl, Ezl are modified in-place.
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Currently a stub. Full implementation would compute:
+   E_long = -∇φ where ∇²φ = ∇·E
+   E_trans = E - E_long
+
+
+.. py:function:: int2str(n)
+
+   Convert integer to string for filename generation.
+
+   Simple helper function to convert integers to strings for output filenames.
+
+   :param n: Integer to convert
+   :type n: int
+
+   :returns: String representation of the integer
+   :rtype: str
+
+
+.. py:function:: SBETest(space_params_file='params/space.params', dt=DEFAULT_DT, Nt=DEFAULT_NT, tp=DEFAULT_TP, lam=DEFAULT_LAM, tw=DEFAULT_TW, n0=DEFAULT_N0, E0x=DEFAULT_E0X, E0y=DEFAULT_E0Y, E0z=DEFAULT_E0Z, output_dir='fields', write_2d_slices=True, slice_interval=10)
+
+   Main SBE test program with full longitudinal field analysis.
+
+   Simulates quantum wire response to plane wave electromagnetic fields with
+   complete tracking of longitudinal field components from polarization (P),
+   charge density (Rho), and their combination.
+
+   :param space_params_file: Path to space parameters file (default: 'params/space.params')
+   :type space_params_file: str, optional
+   :param dt: Time step in seconds (default: 10e-18 s)
+   :type dt: float, optional
+   :param Nt: Number of time steps (default: 10000)
+   :type Nt: int, optional
+   :param tp: Time of pulse peak in seconds (default: 50e-15 s)
+   :type tp: float, optional
+   :param lam: Field wavelength in meters (default: 800e-9 m)
+   :type lam: float, optional
+   :param tw: Pulse width in seconds (default: 10e-15 s)
+   :type tw: float, optional
+   :param n0: Background refractive index (default: 3.1)
+   :type n0: float, optional
+   :param E0x: Peak Ex-field value in V/m (default: 2e8 V/m)
+   :type E0x: float, optional
+   :param E0y: Peak Ey-field value in V/m (default: 0.0 V/m)
+   :type E0y: float, optional
+   :param E0z: Peak Ez-field value in V/m (default: 0.0 V/m)
+   :type E0z: float, optional
+   :param output_dir: Directory for output files (default: 'fields')
+   :type output_dir: str, optional
+   :param write_2d_slices: Whether to write 2D slice files (default: True)
+   :type write_2d_slices: bool, optional
+   :param slice_interval: Interval for writing 2D slices (default: 10)
+   :type slice_interval: int, optional
+
+   :returns: Dictionary containing final field arrays and statistics
+   :rtype: dict
+
+   .. rubric:: Notes
+
+   This function:
+   1. Reads spatial grid parameters
+   2. Allocates all field arrays including longitudinal decompositions
+   3. Initializes SBE solver
+   4. Time-loops with plane wave excitation
+   5. Calls QuantumWire with full longitudinal field outputs
+   6. Tracks max/min values for all fields
+   7. Writes time series and 2D slices to files
+
+
+.. py:function:: main()
+
+   Main entry point for command-line execution.
+
+   Runs the SBE test program with default parameters.
+
+

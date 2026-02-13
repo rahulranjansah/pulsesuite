@@ -1,0 +1,446 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pulsesuite.core.fftw &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/js/hoverxref.js"></script>
+      <script src="../../../../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../../../../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../../../../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pulsesuite.core.fftw</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pulsesuite/core/fftw/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pulsesuite.core.fftw">
+<span id="pulsesuite-core-fftw"></span><h1>pulsesuite.core.fftw<a class="headerlink" href="#module-pulsesuite.core.fftw" title="Link to this heading">¶</a></h1>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.fft_1d" title="pulsesuite.core.fftw.fft_1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fft_1d</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.ifft_1d" title="pulsesuite.core.fftw.ifft_1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ifft_1d</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.fftc_1d" title="pulsesuite.core.fftw.fftc_1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fftc_1d</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.ifftc_1d" title="pulsesuite.core.fftw.ifftc_1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ifftc_1d</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.fft_2d" title="pulsesuite.core.fftw.fft_2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fft_2d</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.ifft_2d" title="pulsesuite.core.fftw.ifft_2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ifft_2d</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.fftc_2d" title="pulsesuite.core.fftw.fftc_2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fftc_2d</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.ifftc_2d" title="pulsesuite.core.fftw.ifftc_2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ifftc_2d</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.fft_3d" title="pulsesuite.core.fftw.fft_3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fft_3d</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.ifft_3d" title="pulsesuite.core.fftw.ifft_3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ifft_3d</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.fftc_3d" title="pulsesuite.core.fftw.fftc_3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fftc_3d</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.ifftc_3d" title="pulsesuite.core.fftw.ifftc_3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ifftc_3d</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.nyquist_1D" title="pulsesuite.core.fftw.nyquist_1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nyquist_1D</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.nyquist_2D" title="pulsesuite.core.fftw.nyquist_2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nyquist_2D</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.nyquist_3D" title="pulsesuite.core.fftw.nyquist_3D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nyquist_3D</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.fft_1D" title="pulsesuite.core.fftw.fft_1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fft_1D</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.ifft_1D" title="pulsesuite.core.fftw.ifft_1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ifft_1D</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.fftc_1D" title="pulsesuite.core.fftw.fftc_1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fftc_1D</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.ifftc_1D" title="pulsesuite.core.fftw.ifftc_1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ifftc_1D</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.fft_2D" title="pulsesuite.core.fftw.fft_2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fft_2D</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.ifft_2D" title="pulsesuite.core.fftw.ifft_2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ifft_2D</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.fftc_2D" title="pulsesuite.core.fftw.fftc_2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fftc_2D</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.ifftc_2D" title="pulsesuite.core.fftw.ifftc_2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ifftc_2D</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.fftw_initialize_2D" title="pulsesuite.core.fftw.fftw_initialize_2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fftw_initialize_2D</span></code></a>(→ None)</p></td>
+<td><p>API-compat stub: planning handled by SciPy/pyFFTW internally.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.fftw_initialize_3D" title="pulsesuite.core.fftw.fftw_initialize_3D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fftw_initialize_3D</span></code></a>(→ None)</p></td>
+<td><p>API-compat stub: planning handled by SciPy/pyFFTW internally.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.fft_3D" title="pulsesuite.core.fftw.fft_3D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fft_3D</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.ifft_3D" title="pulsesuite.core.fftw.ifft_3D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ifft_3D</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.fftc_3D" title="pulsesuite.core.fftw.fftc_3D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fftc_3D</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.ifftc_3D" title="pulsesuite.core.fftw.ifftc_3D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ifftc_3D</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.CreateHT" title="pulsesuite.core.fftw.CreateHT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CreateHT</span></code></a>(→ None)</p></td>
+<td><p>Precompute Hankel transform matrix HT(Nr, Nr) from J0 zeros.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.HankelTransform" title="pulsesuite.core.fftw.HankelTransform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HankelTransform</span></code></a>(→ None)</p></td>
+<td><p>Apply HT &#64; f in-place (f length must match HT dimension).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.Transform" title="pulsesuite.core.fftw.Transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Transform</span></code></a>(→ None)</p></td>
+<td><p>If Z has shape (1, Nr, Nt), apply Hankel along r and FFT along t; else FFT3D.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.fftw.iTransform" title="pulsesuite.core.fftw.iTransform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iTransform</span></code></a>(→ None)</p></td>
+<td><p>Inverse of Transform using ifft along t; Hankel is its own inverse for this discretization.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.nyquist_1D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">nyquist_1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.nyquist_1D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.nyquist_2D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">nyquist_2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.nyquist_2D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.nyquist_3D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">nyquist_3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.nyquist_3D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.fft_1D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">fft_1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.fft_1D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.ifft_1D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">ifft_1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.ifft_1D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.fftc_1D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">fftc_1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.fftc_1D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.ifftc_1D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">ifftc_1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.ifftc_1D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.fft_2D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">fft_2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.fft_2D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.ifft_2D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">ifft_2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.ifft_2D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.fftc_2D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">fftc_2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.fftc_2D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.ifftc_2D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">ifftc_2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.ifftc_2D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.fftw_initialize_2D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">fftw_initialize_2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.fftw_initialize_2D" title="Link to this definition">¶</a></dt>
+<dd><p>API-compat stub: planning handled by SciPy/pyFFTW internally.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.fftw_initialize_3D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">fftw_initialize_3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.fftw_initialize_3D" title="Link to this definition">¶</a></dt>
+<dd><p>API-compat stub: planning handled by SciPy/pyFFTW internally.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.fft_3D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">fft_3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.fft_3D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.ifft_3D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">ifft_3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.ifft_3D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.fftc_3D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">fftc_3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.fftc_3D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.ifftc_3D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">ifftc_3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.ifftc_3D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.CreateHT">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">CreateHT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Nr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.CreateHT" title="Link to this definition">¶</a></dt>
+<dd><p>Precompute Hankel transform matrix HT(Nr, Nr) from J0 zeros.</p>
+<dl class="simple">
+<dt>Fortran reference:</dt><dd><p>HT(m,n) = (2/a(Nr+1)) * J0( a(m)*a(n) / a(Nr+1) ) / J1(a(n))**2,   m,n=1..Nr</p>
+</dd>
+</dl>
+<p>where a(:) are the first Nr+1 zeros of J0.</p>
+<p>We store a length-(Nr+1) array and a (Nr,Nr) HT in double precision.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.HankelTransform">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">HankelTransform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.HankelTransform" title="Link to this definition">¶</a></dt>
+<dd><p>Apply HT &#64; f in-place (f length must match HT dimension).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.Transform">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">Transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.Transform" title="Link to this definition">¶</a></dt>
+<dd><p>If Z has shape (1, Nr, Nt), apply Hankel along r and FFT along t; else FFT3D.</p>
+<dl class="simple">
+<dt>Fortran logic:</dt><dd><dl class="simple">
+<dt>if size(Z,1) == 1:</dt><dd><p>for k: HankelTransform(Z(1,:,k))
+for j: FFT(Z(1,j,:))</p>
+</dd>
+<dt>else:</dt><dd><p>FFT(Z)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.iTransform">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">iTransform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">_dc</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.fftw.iTransform" title="Link to this definition">¶</a></dt>
+<dd><p>Inverse of Transform using ifft along t; Hankel is its own inverse for this discretization.</p>
+<p>Fortran logic called HankelTransform both ways; we mirror that.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.fft_1d">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">fft_1d</span></span><a class="headerlink" href="#pulsesuite.core.fftw.fft_1d" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.ifft_1d">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">ifft_1d</span></span><a class="headerlink" href="#pulsesuite.core.fftw.ifft_1d" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.fftc_1d">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">fftc_1d</span></span><a class="headerlink" href="#pulsesuite.core.fftw.fftc_1d" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.ifftc_1d">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">ifftc_1d</span></span><a class="headerlink" href="#pulsesuite.core.fftw.ifftc_1d" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.fft_2d">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">fft_2d</span></span><a class="headerlink" href="#pulsesuite.core.fftw.fft_2d" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.ifft_2d">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">ifft_2d</span></span><a class="headerlink" href="#pulsesuite.core.fftw.ifft_2d" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.fftc_2d">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">fftc_2d</span></span><a class="headerlink" href="#pulsesuite.core.fftw.fftc_2d" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.ifftc_2d">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">ifftc_2d</span></span><a class="headerlink" href="#pulsesuite.core.fftw.ifftc_2d" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.fft_3d">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">fft_3d</span></span><a class="headerlink" href="#pulsesuite.core.fftw.fft_3d" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.ifft_3d">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">ifft_3d</span></span><a class="headerlink" href="#pulsesuite.core.fftw.ifft_3d" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.fftc_3d">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">fftc_3d</span></span><a class="headerlink" href="#pulsesuite.core.fftw.fftc_3d" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.fftw.ifftc_3d">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.fftw.</span></span><span class="sig-name descname"><span class="pre">ifftc_3d</span></span><a class="headerlink" href="#pulsesuite.core.fftw.ifftc_3d" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,329 @@
+pulsesuite.PSTD3D.rhoPJ
+=======================
+
+.. py:module:: pulsesuite.PSTD3D.rhoPJ
+
+.. autoapi-nested-parse::
+
+   Quantum wire polarization and current density calculations for 3D Maxwell propagation.
+
+   This module handles the interface between 1D quantum wire calculations and 3D
+   Maxwell field propagation, including polarization placement, current density
+   calculation, and longitudinal field computation from charge density.
+
+   Author: Rahul R. Sah
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.rhoPJ.eps0
+   pulsesuite.PSTD3D.rhoPJ.ii
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.rhoPJ.QWArray
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.rhoPJ.read_qw_parameters
+   pulsesuite.PSTD3D.rhoPJ.QuantumWire
+   pulsesuite.PSTD3D.rhoPJ.CalcJfx
+   pulsesuite.PSTD3D.rhoPJ.QWPlacement
+   pulsesuite.PSTD3D.rhoPJ.ElongfromRho
+   pulsesuite.PSTD3D.rhoPJ.QuantumWire
+   pulsesuite.PSTD3D.rhoPJ.read_qw_parameters
+
+
+Module Contents
+---------------
+
+.. py:data:: eps0
+
+.. py:data:: ii
+   :value: 1j
+
+
+.. py:function:: read_qw_parameters(filename)
+
+   Read quantum wire parameters from file.
+
+   Reads QW configuration parameters from a file and updates module-level
+   variables. If the file cannot be opened, prints an error message.
+
+   :param filename: Path to the parameter file
+   :type filename: str
+
+   :returns: Error status: 0 for success, non-zero for error
+   :rtype: int
+
+
+.. py:function:: QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho, ExlfromPRho, EylfromPRho, EzlfromPRho, ExlfromP, EylfromP, EzlfromP, ExlfromRho, EylfromRho, EzlfromRho, RhoBound)
+
+   Main quantum wire calculation routine.
+
+   Calculates polarization and charge density for quantum wires and deposits
+   them into 3D Maxwell grid. Handles multiple wires and computes longitudinal
+   fields from polarization and charge density.
+
+   :param space: Space configuration object (from typespace)
+   :type space: object
+   :param dt: Time step (s)
+   :type dt: float
+   :param n: Current time step number
+   :type n: int
+   :param Ex: X-component electric field (complex), 3D array
+   :type Ex: ndarray
+   :param Ey: Y-component electric field (complex), 3D array
+   :type Ey: ndarray
+   :param Ez: Z-component electric field (complex), 3D array
+   :type Ez: ndarray
+   :param Jx: X-component current density (complex, modified in-place), 3D array
+   :type Jx: ndarray
+   :param Jy: Y-component current density (complex, modified in-place), 3D array
+   :type Jy: ndarray
+   :param Jz: Z-component current density (complex, modified in-place), 3D array
+   :type Jz: ndarray
+   :param Rho: Charge density (complex, modified in-place), 3D array
+   :type Rho: ndarray
+   :param ExlfromPRho: X-component longitudinal field from P+Rho (output), 3D array
+   :type ExlfromPRho: ndarray
+   :param EylfromPRho: Y-component longitudinal field from P+Rho (output), 3D array
+   :type EylfromPRho: ndarray
+   :param EzlfromPRho: Z-component longitudinal field from P+Rho (output), 3D array
+   :type EzlfromPRho: ndarray
+   :param ExlfromP: X-component longitudinal field from P (output), 3D array
+   :type ExlfromP: ndarray
+   :param EylfromP: Y-component longitudinal field from P (output), 3D array
+   :type EylfromP: ndarray
+   :param EzlfromP: Z-component longitudinal field from P (output), 3D array
+   :type EzlfromP: ndarray
+   :param ExlfromRho: X-component longitudinal field from Rho (output), 3D array
+   :type ExlfromRho: ndarray
+   :param EylfromRho: Y-component longitudinal field from Rho (output), 3D array
+   :type EylfromRho: ndarray
+   :param EzlfromRho: Z-component longitudinal field from Rho (output), 3D array
+   :type EzlfromRho: ndarray
+   :param RhoBound: Bound charge density (output), 3D array
+   :type RhoBound: ndarray
+
+   :returns: All output arrays are modified in-place.
+   :rtype: None
+
+
+.. py:function:: CalcJfx(RhoNew, RhoPrev, dt, dx)
+
+   Compute free current density from charge density time derivative.
+
+   Calculates J_free = - ∫(∂ρ/∂t) dx using local approximation (Riemann sums).
+
+   :param RhoNew: Current charge density (complex), 1D array
+   :type RhoNew: ndarray
+   :param RhoPrev: Previous charge density (complex), 1D array
+   :type RhoPrev: ndarray
+   :param dt: Time step (s)
+   :type dt: float
+   :param dx: Spatial step (m)
+   :type dx: float
+
+   :returns: Free current density (complex), 1D array
+   :rtype: ndarray
+
+
+.. py:function:: QWPlacement(Fwire, gx, gy, gz, Fgrid)
+
+   Place 1D quantum wire field into 3D Maxwell grid.
+
+   Deposits a 1D field Fwire along the x-axis into a 3D grid Fgrid using
+   gate profiles gx, gy, gz for spatial weighting.
+
+   :param Fwire: Complex field along x-axis (length Nx), 1D array
+   :type Fwire: ndarray
+   :param gx: Gate profile in x direction, 1D array
+   :type gx: ndarray
+   :param gy: Gate profile in y direction, 1D array
+   :type gy: ndarray
+   :param gz: Gate profile in z direction, 1D array
+   :type gz: ndarray
+   :param Fgrid: Complex 3D Maxwell grid array to deposit into (modified in-place), 3D array
+   :type Fgrid: ndarray
+
+   :returns: Fgrid is modified in-place.
+   :rtype: None
+
+
+.. py:function:: ElongfromRho(space, Rho, Px, Py, Pz, ExlfromPRho, EylfromPRho, EzlfromPRho, ExlfromP, EylfromP, EzlfromP, ExlfromRho, EylfromRho, EzlfromRho, RhoBound)
+
+   Calculate longitudinal electric fields from polarization and charge density.
+
+   Computes longitudinal (Coulomb) electric fields in k-space from polarization
+   and free charge density, then transforms back to real space.
+
+   :param space: Space configuration object (from typespace)
+   :type space: object
+   :param Rho: Free charge density (complex), 3D array
+   :type Rho: ndarray
+   :param Px: X-component polarization (complex, modified in-place), 3D array
+   :type Px: ndarray
+   :param Py: Y-component polarization (complex, modified in-place), 3D array
+   :type Py: ndarray
+   :param Pz: Z-component polarization (complex, modified in-place), 3D array
+   :type Pz: ndarray
+   :param ExlfromPRho: X-component longitudinal field from P+Rho (output), 3D array
+   :type ExlfromPRho: ndarray
+   :param EylfromPRho: Y-component longitudinal field from P+Rho (output), 3D array
+   :type EylfromPRho: ndarray
+   :param EzlfromPRho: Z-component longitudinal field from P+Rho (output), 3D array
+   :type EzlfromPRho: ndarray
+   :param ExlfromP: X-component longitudinal field from P (output), 3D array
+   :type ExlfromP: ndarray
+   :param EylfromP: Y-component longitudinal field from P (output), 3D array
+   :type EylfromP: ndarray
+   :param EzlfromP: Z-component longitudinal field from P (output), 3D array
+   :type EzlfromP: ndarray
+   :param ExlfromRho: X-component longitudinal field from Rho (output), 3D array
+   :type ExlfromRho: ndarray
+   :param EylfromRho: Y-component longitudinal field from Rho (output), 3D array
+   :type EylfromRho: ndarray
+   :param EzlfromRho: Z-component longitudinal field from Rho (output), 3D array
+   :type EzlfromRho: ndarray
+   :param RhoBound: Bound charge density (output), 3D array
+   :type RhoBound: ndarray
+
+   :returns: All output arrays are modified in-place.
+   :rtype: None
+
+
+.. py:class:: QWArray
+
+   Quantum wire array state for 3D Maxwell propagation.
+
+   Encapsulates all mutable module-level state (QW parameters, old
+   polarization/charge arrays) enabling multiple independent QW array
+   simulations.
+
+   Usage (mirrors Fortran workflow via shim)::
+
+       # Implicit via shim — zero caller changes:
+       QuantumWire(space, dt, n, Ex, Ey, Ez, ...)
+
+       # Explicit — for multi-instance:
+       qw = QWArray()
+       qw.QuantumWire(space, dt, n, Ex, Ey, Ez, ...)
+
+
+   .. py:attribute:: Nw
+      :value: 4
+
+
+
+   .. py:attribute:: y0
+      :value: 0.0
+
+
+
+   .. py:attribute:: x0
+      :value: 0.0
+
+
+
+   .. py:attribute:: z0
+      :value: 0.0
+
+
+
+   .. py:attribute:: dxqw
+      :value: 0.0
+
+
+
+   .. py:attribute:: ay
+      :value: 5e-09
+
+
+
+   .. py:attribute:: az
+      :value: 5e-09
+
+
+
+   .. py:attribute:: QW
+      :value: True
+
+
+
+   .. py:attribute:: host
+      :value: False
+
+
+
+   .. py:attribute:: propagate
+      :value: True
+
+
+
+   .. py:attribute:: PxxOld
+      :value: None
+
+
+
+   .. py:attribute:: PyyOld
+      :value: None
+
+
+
+   .. py:attribute:: PzzOld
+      :value: None
+
+
+
+   .. py:attribute:: RhoOld
+      :value: None
+
+
+
+   .. py:method:: read_qw_parameters(filename)
+
+      Read quantum wire parameters from file.
+
+      :param filename: Path to the parameter file
+      :type filename: str
+
+      :returns: Error status: 0 for success, non-zero for error
+      :rtype: int
+
+
+
+   .. py:method:: QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho, ExlfromPRho, EylfromPRho, EzlfromPRho, ExlfromP, EylfromP, EzlfromP, ExlfromRho, EylfromRho, EzlfromRho, RhoBound)
+
+      Main quantum wire calculation routine.
+
+      Calculates polarization and charge density for quantum wires and
+      deposits them into 3D Maxwell grid.  Handles multiple wires and
+      computes longitudinal fields from polarization and charge density.
+
+      All output arrays are modified in-place.
+
+
+
+.. py:function:: QuantumWire(space, dt, n, Ex, Ey, Ez, Jx, Jy, Jz, Rho, ExlfromPRho, EylfromPRho, EzlfromPRho, ExlfromP, EylfromP, EzlfromP, ExlfromRho, EylfromRho, EzlfromRho, RhoBound)
+
+   Backward-compatible shim — delegates to _default_qw.
+
+
+.. py:function:: read_qw_parameters(filename)
+
+   Backward-compatible shim — delegates to _default_qw.
+
+

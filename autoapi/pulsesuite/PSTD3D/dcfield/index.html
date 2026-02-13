@@ -1,0 +1,1153 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pulsesuite.PSTD3D.dcfield &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/js/hoverxref.js"></script>
+      <script src="../../../../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../../../../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../../../../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pulsesuite.PSTD3D.dcfield</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pulsesuite/PSTD3D/dcfield/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pulsesuite.PSTD3D.dcfield">
+<span id="pulsesuite-pstd3d-dcfield"></span><h1>pulsesuite.PSTD3D.dcfield<a class="headerlink" href="#module-pulsesuite.PSTD3D.dcfield" title="Link to this heading">¶</a></h1>
+<p>DC field carrier transport calculations for quantum wire simulations.</p>
+<p>This module calculates the dc field carrier transport contributions to the
+Semiconductor Bloch equations in support of propagation simulations for a
+quantum wire.</p>
+<p>Converted from dcfield.f90 (lines 30-253).</p>
+<section id="structure">
+<h2>Structure<a class="headerlink" href="#structure" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Pure functions (no module state) – module-level</p></li>
+<li><p>JIT-compiled helpers            – module-level (Numba requirement)</p></li>
+<li><p>DCFieldModule class             – mutable state + methods</p></li>
+<li><p>Backward-compatibility layer    – singleton + wrapper functions</p></li>
+</ol>
+</section>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.pi" title="pulsesuite.PSTD3D.dcfield.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.hbar" title="pulsesuite.PSTD3D.dcfield.hbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hbar</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.ii" title="pulsesuite.PSTD3D.dcfield.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule" title="pulsesuite.PSTD3D.dcfield.DCFieldModule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DCFieldModule</span></code></a></p></td>
+<td><p>DC field carrier transport module for quantum wire simulations.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.GetKArray" title="pulsesuite.PSTD3D.dcfield.GetKArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetKArray</span></code></a>(Nk, L)</p></td>
+<td><p>Generate k-space array for Fourier transforms.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.Lrtz" title="pulsesuite.PSTD3D.dcfield.Lrtz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Lrtz</span></code></a>(a, b)</p></td>
+<td><p>Lorentzian function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.theta" title="pulsesuite.PSTD3D.dcfield.theta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">theta</span></code></a>(x)</p></td>
+<td><p>Heaviside step function (theta function).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.CalcI0n" title="pulsesuite.PSTD3D.dcfield.CalcI0n"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcI0n</span></code></a>(ne, me, ky)</p></td>
+<td><p>Calculate electron current.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.CalcVD" title="pulsesuite.PSTD3D.dcfield.CalcVD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcVD</span></code></a>(ky, m, n)</p></td>
+<td><p>Calculate drift velocity from distribution.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.CalcPD" title="pulsesuite.PSTD3D.dcfield.CalcPD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcPD</span></code></a>(ky, m, n)</p></td>
+<td><p>Calculate momentum from distribution.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.CalcAvgCoeff" title="pulsesuite.PSTD3D.dcfield.CalcAvgCoeff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcAvgCoeff</span></code></a>(ky, dk, k1, k2, i1, i2, x1, x2, x3, x4)</p></td>
+<td><p>Calculate average coefficients for interpolation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DC_Step_Scale" title="pulsesuite.PSTD3D.dcfield.DC_Step_Scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DC_Step_Scale</span></code></a>(ne, nh, ky, Edc, dt)</p></td>
+<td><p>DC step using scaling method (legacy code).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DC_Step_FD" title="pulsesuite.PSTD3D.dcfield.DC_Step_FD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DC_Step_FD</span></code></a>(ne, nh, nemid, nhmid, ky, Edc, dt, me, mh)</p></td>
+<td><p>DC step using finite difference method (legacy code).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.EkReNorm" title="pulsesuite.PSTD3D.dcfield.EkReNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EkReNorm</span></code></a>(n, En, V)</p></td>
+<td><p>Renormalize energy with many-body corrections.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DriftVt" title="pulsesuite.PSTD3D.dcfield.DriftVt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DriftVt</span></code></a>(n, Ec, dkk)</p></td>
+<td><p>Calculate drift velocity.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.ThetaEM" title="pulsesuite.PSTD3D.dcfield.ThetaEM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ThetaEM</span></code></a>(Ephn, m, g, ky, n, Cq2, v, N0, q, k)</p></td>
+<td><p>Calculate emission matrix element.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.ThetaABS" title="pulsesuite.PSTD3D.dcfield.ThetaABS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ThetaABS</span></code></a>(Ephn, m, g, ky, n, Cq2, v, N0, q, k)</p></td>
+<td><p>Calculate absorption matrix element.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.FDrift2" title="pulsesuite.PSTD3D.dcfield.FDrift2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FDrift2</span></code></a>(Ephn, m, g, ky, n, Cq2, v, N0, x)</p></td>
+<td><p>Calculate drift force from phonon interactions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.FDrift" title="pulsesuite.PSTD3D.dcfield.FDrift"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FDrift</span></code></a>(Ephn, m, q, dndk, Cq2, v, N0, x)</p></td>
+<td><p>Calculate drift force (alternative implementation).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.dndEk" title="pulsesuite.PSTD3D.dcfield.dndEk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dndEk</span></code></a>(Ephn, m, q, dndq)</p></td>
+<td><p>Calculate derivative of occupation with respect to energy.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.ThetaEMABS" title="pulsesuite.PSTD3D.dcfield.ThetaEMABS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ThetaEMABS</span></code></a>(Ephn, m, q, dndk, Cq2, v)</p></td>
+<td><p>Calculate emission-absorption matrix element.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.InitializeDC" title="pulsesuite.PSTD3D.dcfield.InitializeDC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeDC</span></code></a>(ky, me, mh)</p></td>
+<td><p>Initialize the DC field module (backward-compatible wrapper).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.CalcDCE2" title="pulsesuite.PSTD3D.dcfield.CalcDCE2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcDCE2</span></code></a>(DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0, ne, ...)</p></td>
+<td><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCE2" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCE2"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.CalcDCE2()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.CalcDCH2" title="pulsesuite.PSTD3D.dcfield.CalcDCH2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcDCH2</span></code></a>(DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0, nh, ...)</p></td>
+<td><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCH2" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCH2"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.CalcDCH2()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.CalcDCE" title="pulsesuite.PSTD3D.dcfield.CalcDCE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcDCE</span></code></a>(DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0, ne, ...)</p></td>
+<td><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCE" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCE"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.CalcDCE()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.CalcDCH" title="pulsesuite.PSTD3D.dcfield.CalcDCH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcDCH</span></code></a>(DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0, nh, ...)</p></td>
+<td><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCH" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCH"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.CalcDCH()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.CalcI0" title="pulsesuite.PSTD3D.dcfield.CalcI0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcI0</span></code></a>(ne, nh, Ee, Eh, VC, dk, ky, I0)</p></td>
+<td><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcI0" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcI0"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.CalcI0()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.GetEDrift" title="pulsesuite.PSTD3D.dcfield.GetEDrift"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetEDrift</span></code></a>()</p></td>
+<td><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.GetEDrift" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.GetEDrift"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.GetEDrift()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.GetHDrift" title="pulsesuite.PSTD3D.dcfield.GetHDrift"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetHDrift</span></code></a>()</p></td>
+<td><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.GetHDrift" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.GetHDrift"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.GetHDrift()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.GetVEDrift" title="pulsesuite.PSTD3D.dcfield.GetVEDrift"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetVEDrift</span></code></a>()</p></td>
+<td><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.GetVEDrift" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.GetVEDrift"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.GetVEDrift()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.GetVHDrift" title="pulsesuite.PSTD3D.dcfield.GetVHDrift"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetVHDrift</span></code></a>()</p></td>
+<td><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.GetVHDrift" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.GetVHDrift"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.GetVHDrift()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.ShiftN1D" title="pulsesuite.PSTD3D.dcfield.ShiftN1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ShiftN1D</span></code></a>(ne, dk)</p></td>
+<td><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.ShiftN1D" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.ShiftN1D"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.ShiftN1D()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.ShiftN2D" title="pulsesuite.PSTD3D.dcfield.ShiftN2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ShiftN2D</span></code></a>(C, dk)</p></td>
+<td><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.ShiftN2D" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.ShiftN2D"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.ShiftN2D()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.Transport" title="pulsesuite.PSTD3D.dcfield.Transport"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Transport</span></code></a>(C, Edc, Eac, dt, DCTrans, k1nek2)</p></td>
+<td><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.Transport" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.Transport"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.Transport()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.__getattr__" title="pulsesuite.PSTD3D.dcfield.__getattr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getattr__</span></code></a>(name)</p></td>
+<td><p>Module-level <code class="docutils literal notranslate"><span class="pre">__getattr__</span></code> for backward-compat attribute reads.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.pi">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.pi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.hbar">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.hbar" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.ii">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1j</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.ii" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.GetKArray">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">GetKArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Nk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.GetKArray" title="Link to this definition">¶</a></dt>
+<dd><p>Generate k-space array for Fourier transforms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Nk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of k-space points</p></li>
+<li><p><strong>L</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Length of the spatial domain (m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of k values (1/m), 1D array of length Nk</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.Lrtz">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">Lrtz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.Lrtz" title="Link to this definition">¶</a></dt>
+<dd><p>Lorentzian function.</p>
+<p>Computes the Lorentzian line shape function: (b/pi) / (a^2 + b^2)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>ndarray</em>) – Frequency offset or energy difference</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>ndarray</em>) – Half-width at half-maximum (HWHM)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lorentzian function value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.theta">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">theta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.theta" title="Link to this definition">¶</a></dt>
+<dd><p>Heaviside step function (theta function).</p>
+<p>Computes the step function: (abs(x) + x) / 2 / (abs(x) + small)
+Returns 1 for x &gt; 0, 0 for x &lt;= 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>ndarray</em>) – Input value</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Step function value (0 or 1, 0 at x=0)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.CalcI0n">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">CalcI0n</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.CalcI0n" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate electron current.</p>
+<p>Computes the electron current from the electron distribution and momentum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), 1D array</p></li>
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective electron mass (kg)</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Electron current (A)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.CalcVD">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">CalcVD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.CalcVD" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate drift velocity from distribution.</p>
+<p>Computes the average drift velocity from the carrier distribution
+and momentum: v = sum(real(n) * hbar * ky / m) / sum(real(n) + small)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Carrier mass (kg)</p></li>
+<li><p><strong>n</strong> (<em>ndarray</em>) – Carrier occupation numbers (complex), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Drift velocity (m/s)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.CalcPD">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">CalcPD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.CalcPD" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate momentum from distribution.</p>
+<p>Computes the average momentum from the carrier distribution:
+p = sum(abs(n) * hbar * ky) / sum(abs(n) + small)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Carrier mass (kg) (unused, kept for interface compatibility)</p></li>
+<li><p><strong>n</strong> (<em>ndarray</em>) – Carrier occupation numbers (complex), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Average momentum (kg*m/s)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.CalcAvgCoeff">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">CalcAvgCoeff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.CalcAvgCoeff" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate average coefficients for interpolation.</p>
+<p>Computes interpolation coefficients for bilinear interpolation in k-space.
+The function extends the ky array with boundary points and calculates
+coefficients based on the positions k1, k2 and indices i1, i2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>dk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Momentum step size (1/m)</p></li>
+<li><p><strong>k1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – First momentum value for interpolation</p></li>
+<li><p><strong>k2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Second momentum value for interpolation</p></li>
+<li><p><strong>i1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – First index (1-based, will be converted to 0-based)</p></li>
+<li><p><strong>i2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Second index (1-based, will be converted to 0-based)</p></li>
+<li><p><strong>x1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Output coefficient 1</p></li>
+<li><p><strong>x2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Output coefficient 2</p></li>
+<li><p><strong>x3</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Output coefficient 3</p></li>
+<li><p><strong>x4</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Output coefficient 4</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple containing (x1, x2, x3, x4) coefficients</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DC_Step_Scale">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">DC_Step_Scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Edc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DC_Step_Scale" title="Link to this definition">¶</a></dt>
+<dd><p>DC step using scaling method (legacy code).</p>
+<p>Performs a DC field step by scaling the distribution functions.
+Uses rescale_1D to interpolate the distributions to shifted momentum grids.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), modified in-place, 1D array</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole occupation numbers (complex), modified in-place, 1D array</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>Edc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – DC electric field (V/m)</p></li>
+<li><p><strong>dt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Time step (s)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ne and nh arrays are modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DC_Step_FD">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">DC_Step_FD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nemid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nhmid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Edc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DC_Step_FD" title="Link to this definition">¶</a></dt>
+<dd><p>DC step using finite difference method (legacy code).</p>
+<p>Performs a DC field step using finite difference derivatives.
+Updates the electron and hole distributions based on the DC field
+and momentum-dependent terms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), modified in-place, 1D array</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole occupation numbers (complex), modified in-place, 1D array</p></li>
+<li><p><strong>nemid</strong> (<em>ndarray</em>) – Midpoint electron occupation numbers (complex), 1D array</p></li>
+<li><p><strong>nhmid</strong> (<em>ndarray</em>) – Midpoint hole occupation numbers (complex), 1D array</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>Edc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – DC electric field (V/m)</p></li>
+<li><p><strong>dt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Time step (s)</p></li>
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective electron mass (kg)</p></li>
+<li><p><strong>mh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective hole mass (kg)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ne and nh arrays are modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.EkReNorm">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">EkReNorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">En</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.EkReNorm" title="Link to this definition">¶</a></dt>
+<dd><p>Renormalize energy with many-body corrections.</p>
+<p>Computes the renormalized energy including Hartree-Fock corrections:
+Ec(k) = En(k) + sum(n(:) * (V(k,k) - V(k,:))) / 2</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>ndarray</em>) – Carrier occupation numbers, 1D array</p></li>
+<li><p><strong>En</strong> (<em>ndarray</em>) – Single-particle energies (J), 1D array</p></li>
+<li><p><strong>V</strong> (<em>ndarray</em>) – Interaction matrix (J), 2D array V[k1, k2]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Renormalized energies (J), 1D array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DriftVt">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">DriftVt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dkk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DriftVt" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate drift velocity.</p>
+<p>Computes the average drift velocity from the energy gradient and
+carrier distribution: v = sum(dEcdk * n) / sum(n) / hbar</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>ndarray</em>) – Carrier occupation numbers, 1D array</p></li>
+<li><p><strong>Ec</strong> (<em>ndarray</em>) – Renormalized energies (J), 1D array</p></li>
+<li><p><strong>dkk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Momentum step size (1/m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Drift velocity (m/s)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.ThetaEM">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">ThetaEM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ephn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cq2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.ThetaEM" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate emission matrix element.</p>
+<p>Computes the emission rate matrix element for phonon-assisted transitions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ephn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Average phonon energy (J)</p></li>
+<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Carrier mass (kg)</p></li>
+<li><p><strong>g</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Inverse lifetime (Hz)</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>n</strong> (<em>ndarray</em>) – Carrier occupation numbers, 1D array</p></li>
+<li><p><strong>Cq2</strong> (<em>ndarray</em>) – Coupling constant squared, 1D array</p></li>
+<li><p><strong>v</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Drift velocity (m/s)</p></li>
+<li><p><strong>N0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Phonon occupation number</p></li>
+<li><p><strong>q</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Phonon momentum index (1-based)</p></li>
+<li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Carrier momentum index (1-based)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Emission matrix element</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.ThetaABS">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">ThetaABS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ephn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cq2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.ThetaABS" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate absorption matrix element.</p>
+<p>Computes the absorption rate matrix element for phonon-assisted transitions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ephn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Average phonon energy (J)</p></li>
+<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Carrier mass (kg)</p></li>
+<li><p><strong>g</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Inverse lifetime (Hz)</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>n</strong> (<em>ndarray</em>) – Carrier occupation numbers, 1D array</p></li>
+<li><p><strong>Cq2</strong> (<em>ndarray</em>) – Coupling constant squared, 1D array</p></li>
+<li><p><strong>v</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Drift velocity (m/s)</p></li>
+<li><p><strong>N0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Phonon occupation number</p></li>
+<li><p><strong>q</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Phonon momentum index (1-based)</p></li>
+<li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Carrier momentum index (1-based)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Absorption matrix element</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.FDrift2">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">FDrift2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ephn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cq2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.FDrift2" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate drift force from phonon interactions.</p>
+<p>Computes the drift force due to phonon emission and absorption processes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ephn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Average phonon energy (J)</p></li>
+<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Carrier mass (kg)</p></li>
+<li><p><strong>g</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Inverse lifetime (Hz)</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>n</strong> (<em>ndarray</em>) – Carrier occupation numbers, 1D array</p></li>
+<li><p><strong>Cq2</strong> (<em>ndarray</em>) – Coupling constant squared, 1D array</p></li>
+<li><p><strong>v</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Drift velocity (m/s)</p></li>
+<li><p><strong>N0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Phonon occupation number</p></li>
+<li><p><strong>x</strong> (<em>ndarray</em>) – k-dependent delta-function coefficients, 1D array (unused)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Drift force (N), 1D array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.FDrift">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">FDrift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ephn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dndk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cq2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.FDrift" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate drift force (alternative implementation).</p>
+<p>Computes the drift force using a different approach with dndk derivative.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ephn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Average phonon energy (J)</p></li>
+<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Carrier mass (kg)</p></li>
+<li><p><strong>q</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>dndk</strong> (<em>ndarray</em>) – Derivative of carrier occupation with respect to momentum, 1D array</p></li>
+<li><p><strong>Cq2</strong> (<em>ndarray</em>) – Coupling constant squared, 1D array</p></li>
+<li><p><strong>v</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Drift velocity (m/s)</p></li>
+<li><p><strong>N0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Phonon occupation number</p></li>
+<li><p><strong>x</strong> (<em>ndarray</em>) – k-dependent delta-function coefficients, 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Drift force (N)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.dndEk">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">dndEk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ephn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dndq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.dndEk" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate derivative of occupation with respect to energy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ephn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Average phonon energy (J)</p></li>
+<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Carrier mass (kg)</p></li>
+<li><p><strong>q</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>dndq</strong> (<em>ndarray</em>) – Derivative of occupation with respect to momentum, 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Derivative of occupation with respect to energy, 1D array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.ThetaEMABS">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">ThetaEMABS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ephn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dndk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cq2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.ThetaEMABS" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate emission-absorption matrix element.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ephn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Average phonon energy (J)</p></li>
+<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Carrier mass (kg)</p></li>
+<li><p><strong>q</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>dndk</strong> (<em>ndarray</em>) – Derivative of occupation with respect to momentum, 1D array</p></li>
+<li><p><strong>Cq2</strong> (<em>ndarray</em>) – Coupling constant squared, 1D array</p></li>
+<li><p><strong>v</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Drift velocity (m/s)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Emission-absorption matrix element, 1D array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">DCFieldModule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WithPhns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datadir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dataQW'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule" title="Link to this definition">¶</a></dt>
+<dd><p>DC field carrier transport module for quantum wire simulations.</p>
+<p>Encapsulates the mutable state and stateful methods that were previously
+held as module-level globals. Mirrors the Fortran <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">dcfield</span></code>
+structure: private allocatable arrays + public subroutines.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p></li>
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective electron mass (kg)</p></li>
+<li><p><strong>mh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective hole mass (kg)</p></li>
+<li><p><strong>WithPhns</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to couple damping rate with phonons (default True)</p></li>
+<li><p><strong>datadir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – Directory for output files.  Pass <code class="docutils literal notranslate"><span class="pre">None</span></code> to skip file creation
+(useful for testing).  Default <code class="docutils literal notranslate"><span class="pre">'dataQW'</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.dkk">
+<span class="sig-name descname"><span class="pre">dkk</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.dkk" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.ERate">
+<span class="sig-name descname"><span class="pre">ERate</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.ERate" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.HRate">
+<span class="sig-name descname"><span class="pre">HRate</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.HRate" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.VEDrift">
+<span class="sig-name descname"><span class="pre">VEDrift</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.VEDrift" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.VHDrift">
+<span class="sig-name descname"><span class="pre">VHDrift</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.VHDrift" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.WithPhns">
+<span class="sig-name descname"><span class="pre">WithPhns</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.WithPhns" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.Y">
+<span class="sig-name descname"><span class="pre">Y</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.Y" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.xe">
+<span class="sig-name descname"><span class="pre">xe</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.xe" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.xh">
+<span class="sig-name descname"><span class="pre">xh</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.xh" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.qinv">
+<span class="sig-name descname"><span class="pre">qinv</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.qinv" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.kmin">
+<span class="sig-name descname"><span class="pre">kmin</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.kmin" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.kmax">
+<span class="sig-name descname"><span class="pre">kmax</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.kmax" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.close" title="Link to this definition">¶</a></dt>
+<dd><p>Close output file handles.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.__del__">
+<span class="sig-name descname"><span class="pre">__del__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.__del__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCE2">
+<span class="sig-name descname"><span class="pre">CalcDCE2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DCTrans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cq2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Edc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ephn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCE2" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate DC field contribution for electrons (version 2).</p>
+<p>Computes the DC field transport contribution to the electron
+distribution evolution using a finite difference derivative.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>DCTrans</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to include DC transport terms</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>Cq2</strong> (<em>ndarray</em>) – Coupling constant squared, 1D array</p></li>
+<li><p><strong>Edc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – DC electric field (V/m)</p></li>
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective electron mass (kg)</p></li>
+<li><p><strong>ge</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Inverse electron lifetime (Hz)</p></li>
+<li><p><strong>Ephn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Average phonon energy (J)</p></li>
+<li><p><strong>N0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Phonon occupation number</p></li>
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), 1D array</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Vee</strong> (<em>ndarray</em>) – Electron-electron interaction matrix (J), 2D array</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Time step index</p></li>
+<li><p><strong>j</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Iteration index</p></li>
+<li><p><strong>DC</strong> (<em>ndarray</em>) – Output DC field contribution (modified in-place), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DC array is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCH2">
+<span class="sig-name descname"><span class="pre">CalcDCH2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DCTrans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cq2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Edc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ephn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vhh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCH2" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate DC field contribution for holes (version 2).</p>
+<p>Computes the DC field transport contribution to the hole
+distribution evolution using a finite difference derivative.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>DCTrans</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to include DC transport terms</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>Cq2</strong> (<em>ndarray</em>) – Coupling constant squared, 1D array</p></li>
+<li><p><strong>Edc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – DC electric field (V/m)</p></li>
+<li><p><strong>mh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective hole mass (kg)</p></li>
+<li><p><strong>gh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Inverse hole lifetime (Hz)</p></li>
+<li><p><strong>Ephn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Average phonon energy (J)</p></li>
+<li><p><strong>N0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Phonon occupation number</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole occupation numbers (complex), 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>Vhh</strong> (<em>ndarray</em>) – Hole-hole interaction matrix (J), 2D array</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Time step index</p></li>
+<li><p><strong>j</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Iteration index</p></li>
+<li><p><strong>DC</strong> (<em>ndarray</em>) – Output DC field contribution (modified in-place), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DC array is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCE">
+<span class="sig-name descname"><span class="pre">CalcDCE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DCTrans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cq2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Edc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ephn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCE" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate DC field contribution for electrons (original version).</p>
+<p>Uses FFT-based derivative.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>DCTrans</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to include DC transport terms</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>Cq2</strong> (<em>ndarray</em>) – Coupling constant squared, 1D array</p></li>
+<li><p><strong>Edc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – DC electric field (V/m)</p></li>
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective electron mass (kg)</p></li>
+<li><p><strong>ge</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Inverse electron lifetime (Hz)</p></li>
+<li><p><strong>Ephn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Average phonon energy (J)</p></li>
+<li><p><strong>N0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Phonon occupation number</p></li>
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), 1D array</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Vee</strong> (<em>ndarray</em>) – Electron-electron interaction matrix (J), 2D array</p></li>
+<li><p><strong>DC</strong> (<em>ndarray</em>) – Output DC field contribution (modified in-place), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DC array is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCH">
+<span class="sig-name descname"><span class="pre">CalcDCH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DCTrans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cq2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Edc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ephn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vhh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCH" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate DC field contribution for holes (original version).</p>
+<p>Uses FFT-based derivative.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>DCTrans</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to include DC transport terms</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>Cq2</strong> (<em>ndarray</em>) – Coupling constant squared, 1D array</p></li>
+<li><p><strong>Edc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – DC electric field (V/m)</p></li>
+<li><p><strong>mh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective hole mass (kg)</p></li>
+<li><p><strong>gh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Inverse hole lifetime (Hz)</p></li>
+<li><p><strong>Ephn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Average phonon energy (J)</p></li>
+<li><p><strong>N0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Phonon occupation number</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole occupation numbers (complex), 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>Vhh</strong> (<em>ndarray</em>) – Hole-hole interaction matrix (J), 2D array</p></li>
+<li><p><strong>DC</strong> (<em>ndarray</em>) – Output DC field contribution (modified in-place), 1D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DC array is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcI0">
+<span class="sig-name descname"><span class="pre">CalcI0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">I0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcI0" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate total current from electron and hole distributions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron occupation numbers (complex), 1D array</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Hole occupation numbers (complex), 1D array</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em>) – Interaction matrix (J), 3D array</p></li>
+<li><p><strong>dk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Momentum step size (1/m)</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array (unused)</p></li>
+<li><p><strong>I0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Input value (unused)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Total current (A)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.ShiftN1D">
+<span class="sig-name descname"><span class="pre">ShiftN1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.ShiftN1D" title="Link to this definition">¶</a></dt>
+<dd><p>Shift 1D distribution in momentum space.</p>
+<p>Shifts the distribution function in momentum space by dk using FFT.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Carrier occupation numbers (complex), modified in-place, 1D array</p></li>
+<li><p><strong>dk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Momentum shift (1/m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ne array is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.ShiftN2D">
+<span class="sig-name descname"><span class="pre">ShiftN2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">C</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.ShiftN2D" title="Link to this definition">¶</a></dt>
+<dd><p>Shift 2D distribution in momentum space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>C</strong> (<em>ndarray</em>) – Distribution matrix (complex), modified in-place, 2D array</p></li>
+<li><p><strong>dk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Momentum shift (1/m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>C array is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.Transport">
+<span class="sig-name descname"><span class="pre">Transport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">C</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Edc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eac</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DCTrans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1nek2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.Transport" title="Link to this definition">¶</a></dt>
+<dd><p>Transport step for distribution matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>C</strong> (<em>ndarray</em>) – Distribution matrix (complex), modified in-place, 2D array</p></li>
+<li><p><strong>Edc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – DC electric field (V/m)</p></li>
+<li><p><strong>Eac</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – AC electric field (V/m)</p></li>
+<li><p><strong>dt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Time step (s)</p></li>
+<li><p><strong>DCTrans</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to include DC transport terms</p></li>
+<li><p><strong>k1nek2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, shift the full 2D matrix; if False, shift only diagonal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>C array is modified in-place.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.GetEDrift">
+<span class="sig-name descname"><span class="pre">GetEDrift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.GetEDrift" title="Link to this definition">¶</a></dt>
+<dd><p>Return electron drift rate (Hz).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.GetHDrift">
+<span class="sig-name descname"><span class="pre">GetHDrift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.GetHDrift" title="Link to this definition">¶</a></dt>
+<dd><p>Return hole drift rate (Hz).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.GetVEDrift">
+<span class="sig-name descname"><span class="pre">GetVEDrift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.GetVEDrift" title="Link to this definition">¶</a></dt>
+<dd><p>Return electron drift velocity (m/s).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.DCFieldModule.GetVHDrift">
+<span class="sig-name descname"><span class="pre">GetVHDrift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.GetVHDrift" title="Link to this definition">¶</a></dt>
+<dd><p>Return hole drift velocity (m/s).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.InitializeDC">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">InitializeDC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.InitializeDC" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the DC field module (backward-compatible wrapper).</p>
+<p>Creates a new <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule" title="pulsesuite.PSTD3D.dcfield.DCFieldModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">DCFieldModule</span></code></a> singleton from <em>ky</em>, <em>me</em>, <em>mh</em>.
+Uses the module-level <code class="docutils literal notranslate"><span class="pre">_WithPhns</span></code> flag.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p></li>
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective electron mass (kg)</p></li>
+<li><p><strong>mh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective hole mass (kg)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.CalcDCE2">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">CalcDCE2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DCTrans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cq2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Edc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ephn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.CalcDCE2" title="Link to this definition">¶</a></dt>
+<dd><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCE2" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCE2"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.CalcDCE2()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.CalcDCH2">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">CalcDCH2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DCTrans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cq2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Edc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ephn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vhh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.CalcDCH2" title="Link to this definition">¶</a></dt>
+<dd><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCH2" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCH2"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.CalcDCH2()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.CalcDCE">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">CalcDCE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DCTrans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cq2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Edc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ephn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.CalcDCE" title="Link to this definition">¶</a></dt>
+<dd><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCE" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCE"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.CalcDCE()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.CalcDCH">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">CalcDCH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DCTrans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cq2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Edc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ephn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vhh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.CalcDCH" title="Link to this definition">¶</a></dt>
+<dd><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCH" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcDCH"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.CalcDCH()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.CalcI0">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">CalcI0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">I0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.CalcI0" title="Link to this definition">¶</a></dt>
+<dd><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcI0" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.CalcI0"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.CalcI0()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.GetEDrift">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">GetEDrift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.GetEDrift" title="Link to this definition">¶</a></dt>
+<dd><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.GetEDrift" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.GetEDrift"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.GetEDrift()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.GetHDrift">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">GetHDrift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.GetHDrift" title="Link to this definition">¶</a></dt>
+<dd><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.GetHDrift" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.GetHDrift"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.GetHDrift()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.GetVEDrift">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">GetVEDrift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.GetVEDrift" title="Link to this definition">¶</a></dt>
+<dd><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.GetVEDrift" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.GetVEDrift"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.GetVEDrift()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.GetVHDrift">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">GetVHDrift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.GetVHDrift" title="Link to this definition">¶</a></dt>
+<dd><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.GetVHDrift" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.GetVHDrift"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.GetVHDrift()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.ShiftN1D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">ShiftN1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.ShiftN1D" title="Link to this definition">¶</a></dt>
+<dd><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.ShiftN1D" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.ShiftN1D"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.ShiftN1D()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.ShiftN2D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">ShiftN2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">C</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.ShiftN2D" title="Link to this definition">¶</a></dt>
+<dd><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.ShiftN2D" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.ShiftN2D"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.ShiftN2D()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.Transport">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">Transport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">C</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Edc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eac</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DCTrans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1nek2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.Transport" title="Link to this definition">¶</a></dt>
+<dd><p>Backward-compatible wrapper for <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.dcfield.DCFieldModule.Transport" title="pulsesuite.PSTD3D.dcfield.DCFieldModule.Transport"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DCFieldModule.Transport()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.dcfield.__getattr__">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.dcfield.</span></span><span class="sig-name descname"><span class="pre">__getattr__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.dcfield.__getattr__" title="Link to this definition">¶</a></dt>
+<dd><p>Module-level <code class="docutils literal notranslate"><span class="pre">__getattr__</span></code> for backward-compat attribute reads.</p>
+<p>Maps old <code class="docutils literal notranslate"><span class="pre">dcfield._Y</span></code>, <code class="docutils literal notranslate"><span class="pre">dcfield._xe</span></code>, etc. to the singleton’s
+attributes.  Returns <code class="docutils literal notranslate"><span class="pre">None</span></code> when the singleton has not been created yet.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

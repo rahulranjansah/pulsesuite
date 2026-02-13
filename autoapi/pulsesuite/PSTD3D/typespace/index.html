@@ -1,0 +1,1492 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pulsesuite.PSTD3D.typespace &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/js/hoverxref.js"></script>
+      <script src="../../../../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../../../../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../../../../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pulsesuite.PSTD3D.typespace</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pulsesuite/PSTD3D/typespace/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pulsesuite.PSTD3D.typespace">
+<span id="pulsesuite-pstd3d-typespace"></span><h1>pulsesuite.PSTD3D.typespace<a class="headerlink" href="#module-pulsesuite.PSTD3D.typespace" title="Link to this heading">¶</a></h1>
+<p>Spatial grid structure for quantum wire simulations.</p>
+<p>This module provides the spatial grid structure (ss type) and associated
+functions for reading, writing, and accessing spatial grid parameters.
+Supports 1D, 2D, and 3D grids with configurable pixel sizes and dielectric constants.</p>
+<p>Author: Rahul R. Sah</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.JIT_AVAILABLE" title="pulsesuite.PSTD3D.typespace.JIT_AVAILABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JIT_AVAILABLE</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.pi" title="pulsesuite.PSTD3D.typespace.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.twopi" title="pulsesuite.PSTD3D.typespace.twopi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">twopi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.LOGVERBOSE" title="pulsesuite.PSTD3D.typespace.LOGVERBOSE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LOGVERBOSE</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ss</span></code></a></p></td>
+<td><p>Spatial grid structure.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetFileParam" title="pulsesuite.PSTD3D.typespace.GetFileParam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetFileParam</span></code></a>(file_handle)</p></td>
+<td><p>Read a parameter from a file handle.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetLogLevel" title="pulsesuite.PSTD3D.typespace.GetLogLevel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetLogLevel</span></code></a>()</p></td>
+<td><p>Get the current logging level.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.readspaceparams_sub" title="pulsesuite.PSTD3D.typespace.readspaceparams_sub"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readspaceparams_sub</span></code></a>(file_handle, space)</p></td>
+<td><p>Read the space parameters (ss) from a file handle.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ReadSpaceParams" title="pulsesuite.PSTD3D.typespace.ReadSpaceParams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ReadSpaceParams</span></code></a>(filename, space)</p></td>
+<td><p>Read the space parameters (ss) from a file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.WriteSpaceParams_sub" title="pulsesuite.PSTD3D.typespace.WriteSpaceParams_sub"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WriteSpaceParams_sub</span></code></a>(file_handle, space)</p></td>
+<td><p>Write space parameters (ss) to a file handle.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.writespaceparams" title="pulsesuite.PSTD3D.typespace.writespaceparams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">writespaceparams</span></code></a>(filename, space)</p></td>
+<td><p>Write space parameters (ss) to a file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.dumpspace" title="pulsesuite.PSTD3D.typespace.dumpspace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dumpspace</span></code></a>(params[, level])</p></td>
+<td><p>Dump space parameters to stdout.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetNx" title="pulsesuite.PSTD3D.typespace.GetNx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetNx</span></code></a>(space)</p></td>
+<td><p>Get the number of points in the x direction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetNy" title="pulsesuite.PSTD3D.typespace.GetNy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetNy</span></code></a>(space)</p></td>
+<td><p>Get the number of points in the y direction.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetNz" title="pulsesuite.PSTD3D.typespace.GetNz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetNz</span></code></a>(space)</p></td>
+<td><p>Get the number of points in the z direction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetDx" title="pulsesuite.PSTD3D.typespace.GetDx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetDx</span></code></a>(space)</p></td>
+<td><p>Get the step size for the x dimension.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetDy" title="pulsesuite.PSTD3D.typespace.GetDy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetDy</span></code></a>(space)</p></td>
+<td><p>Get the step size for the y dimension.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetDz" title="pulsesuite.PSTD3D.typespace.GetDz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetDz</span></code></a>(space)</p></td>
+<td><p>Get the step size for the z dimension.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetEpsr" title="pulsesuite.PSTD3D.typespace.GetEpsr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetEpsr</span></code></a>(space)</p></td>
+<td><p>Get the relative background dielectric constant.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.SetNx" title="pulsesuite.PSTD3D.typespace.SetNx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetNx</span></code></a>(space, N)</p></td>
+<td><p>Set the number of points in the x dimension.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.SetNy" title="pulsesuite.PSTD3D.typespace.SetNy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetNy</span></code></a>(space, N)</p></td>
+<td><p>Set the number of points in the y dimension.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.SetNz" title="pulsesuite.PSTD3D.typespace.SetNz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetNz</span></code></a>(space, N)</p></td>
+<td><p>Set the number of points in the z dimension.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.SetDx" title="pulsesuite.PSTD3D.typespace.SetDx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetDx</span></code></a>(space, dl)</p></td>
+<td><p>Set the step size for the x dimension.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.SetDy" title="pulsesuite.PSTD3D.typespace.SetDy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetDy</span></code></a>(space, dl)</p></td>
+<td><p>Set the step size for the y dimension.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.SetDz" title="pulsesuite.PSTD3D.typespace.SetDz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetDz</span></code></a>(space, dl)</p></td>
+<td><p>Set the step size for the z dimension.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetXWidth" title="pulsesuite.PSTD3D.typespace.GetXWidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetXWidth</span></code></a>(space)</p></td>
+<td><p>Get the width of the x window.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetYWidth" title="pulsesuite.PSTD3D.typespace.GetYWidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetYWidth</span></code></a>(space)</p></td>
+<td><p>Get the width of the y window.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetZWidth" title="pulsesuite.PSTD3D.typespace.GetZWidth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetZWidth</span></code></a>(space)</p></td>
+<td><p>Get the width of the z window.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetSpaceArray" title="pulsesuite.PSTD3D.typespace.GetSpaceArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetSpaceArray</span></code></a>(N, L)</p></td>
+<td><p>Generate a real-space position array.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetKArray" title="pulsesuite.PSTD3D.typespace.GetKArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetKArray</span></code></a>(Nk, L)</p></td>
+<td><p>Generate k-space array for Fourier transforms.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetXArray" title="pulsesuite.PSTD3D.typespace.GetXArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetXArray</span></code></a>(space)</p></td>
+<td><p>Get an array of x positions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetYArray" title="pulsesuite.PSTD3D.typespace.GetYArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetYArray</span></code></a>(space)</p></td>
+<td><p>Get an array of y positions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetZArray" title="pulsesuite.PSTD3D.typespace.GetZArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetZArray</span></code></a>(space)</p></td>
+<td><p>Get an array of z positions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetKxArray" title="pulsesuite.PSTD3D.typespace.GetKxArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetKxArray</span></code></a>(space)</p></td>
+<td><p>Get an array of kx values (conjugate coordinate system).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetKyArray" title="pulsesuite.PSTD3D.typespace.GetKyArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetKyArray</span></code></a>(space)</p></td>
+<td><p>Get an array of ky values (conjugate coordinate system).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetKzArray" title="pulsesuite.PSTD3D.typespace.GetKzArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetKzArray</span></code></a>(space)</p></td>
+<td><p>Get an array of kz values (conjugate coordinate system).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetDQx" title="pulsesuite.PSTD3D.typespace.GetDQx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetDQx</span></code></a>(space)</p></td>
+<td><p>Get the differential for the conjugate coordinate system in x.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetDQy" title="pulsesuite.PSTD3D.typespace.GetDQy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetDQy</span></code></a>(space)</p></td>
+<td><p>Get the differential for the conjugate coordinate system in y.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetDQz" title="pulsesuite.PSTD3D.typespace.GetDQz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetDQz</span></code></a>(space)</p></td>
+<td><p>Get the differential for the conjugate coordinate system in z.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetDVol" title="pulsesuite.PSTD3D.typespace.GetDVol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetDVol</span></code></a>(space)</p></td>
+<td><p>Get the volume element.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.GetDQVol" title="pulsesuite.PSTD3D.typespace.GetDQVol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetDQVol</span></code></a>(space)</p></td>
+<td><p>Get the volume element for the conjugate coordinate system.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.writefield" title="pulsesuite.PSTD3D.typespace.writefield"><code class="xref py py-obj docutils literal notranslate"><span class="pre">writefield</span></code></a>(fnout, e, space, binmode, single[, fnspace])</p></td>
+<td><p>Write the space structure and field to a file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.readspace_only" title="pulsesuite.PSTD3D.typespace.readspace_only"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readspace_only</span></code></a>(fnin, space, binmode, single[, fnspace])</p></td>
+<td><p>Read the space structure from a field file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.writefield_to_unit" title="pulsesuite.PSTD3D.typespace.writefield_to_unit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">writefield_to_unit</span></code></a>(file_handle, e, binmode)</p></td>
+<td><p>Write field array to a file handle.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.unformatted_write_space" title="pulsesuite.PSTD3D.typespace.unformatted_write_space"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unformatted_write_space</span></code></a>(file_handle, space)</p></td>
+<td><p>Write space structure in binary format.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.unformatted_read_space" title="pulsesuite.PSTD3D.typespace.unformatted_read_space"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unformatted_read_space</span></code></a>(file_handle, space)</p></td>
+<td><p>Read space structure from binary format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.initialize_field" title="pulsesuite.PSTD3D.typespace.initialize_field"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize_field</span></code></a>(e)</p></td>
+<td><p>Initialize field array to zero.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.unformatted_write_e" title="pulsesuite.PSTD3D.typespace.unformatted_write_e"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unformatted_write_e</span></code></a>(file_handle, e)</p></td>
+<td><p>Write field array in binary format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.unformatted_read_e" title="pulsesuite.PSTD3D.typespace.unformatted_read_e"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unformatted_read_e</span></code></a>(file_handle, e)</p></td>
+<td><p>Read field array from binary format.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.readfield_from_unit" title="pulsesuite.PSTD3D.typespace.readfield_from_unit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readfield_from_unit</span></code></a>(file_handle, e, binmode)</p></td>
+<td><p>Read field array from a file handle.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.readfield" title="pulsesuite.PSTD3D.typespace.readfield"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readfield</span></code></a>(fnin, e, space, binmode, single[, fnspace])</p></td>
+<td><p>Read the space structure and field from a file.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.JIT_AVAILABLE">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">JIT_AVAILABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.JIT_AVAILABLE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.pi">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.pi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.twopi">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">twopi</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.twopi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.LOGVERBOSE">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">LOGVERBOSE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.LOGVERBOSE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetFileParam">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetFileParam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_handle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetFileParam" title="Link to this definition">¶</a></dt>
+<dd><p>Read a parameter from a file handle.</p>
+<p>Reads a single numeric parameter from the file. Assumes the file format
+has one parameter per line, possibly with comments after the value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_handle</strong> (<em>file</em>) – Open file handle to read from</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parameter value read from file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This is a helper function for reading parameter files. It reads a line,
+extracts the first numeric value, and returns it.</p>
+<p>This function is not defined in typespace.f90 but is used by
+readspaceparams_sub. It is likely defined in the fileio module in Fortran.
+This Python implementation provides equivalent functionality.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetLogLevel">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetLogLevel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetLogLevel" title="Link to this definition">¶</a></dt>
+<dd><p>Get the current logging level.</p>
+<p>Returns the current logging verbosity level. Higher values mean more verbose.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Current logging level (default: 0)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This is a stub implementation. In a full system, this would interface
+with a logging module to get the actual log level.</p>
+<p>This function is not defined in typespace.f90 but is used by dumpspace.
+It is likely defined in the logger module in Fortran. This Python
+implementation provides a default minimal logging level.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.ss">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">ss</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.ss" title="Link to this definition">¶</a></dt>
+<dd><p>Spatial grid structure.</p>
+<p>The spatial grid structure contains all parameters needed to define
+a 1D, 2D, or 3D spatial grid for simulations.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.ss.Dims">
+<span class="sig-name descname"><span class="pre">Dims</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.ss.Dims" title="Link to this definition">¶</a></dt>
+<dd><p>Dimensionality of grid (1=1D, 2=2D, 3=3D)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.ss.Nx">
+<span class="sig-name descname"><span class="pre">Nx</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.ss.Nx" title="Link to this definition">¶</a></dt>
+<dd><p>X-window number of pixels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.ss.Ny">
+<span class="sig-name descname"><span class="pre">Ny</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.ss.Ny" title="Link to this definition">¶</a></dt>
+<dd><p>Y-window number of pixels [Ny=1 for 1D]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.ss.Nz">
+<span class="sig-name descname"><span class="pre">Nz</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.ss.Nz" title="Link to this definition">¶</a></dt>
+<dd><p>Z-window number of pixels [Nz=1 for 1D and 2D]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.ss.dx">
+<span class="sig-name descname"><span class="pre">dx</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.ss.dx" title="Link to this definition">¶</a></dt>
+<dd><p>Size of x-pixel (m)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.ss.dy">
+<span class="sig-name descname"><span class="pre">dy</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.ss.dy" title="Link to this definition">¶</a></dt>
+<dd><p>Size of y-pixel (m), [dy=1.0 for 1D]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.ss.dz">
+<span class="sig-name descname"><span class="pre">dz</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.ss.dz" title="Link to this definition">¶</a></dt>
+<dd><p>Size of z-pixel (m), [dz=1.0 for 1D and 2D]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.ss.epsr">
+<span class="sig-name descname"><span class="pre">epsr</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.ss.epsr" title="Link to this definition">¶</a></dt>
+<dd><p>Background dielectric constant</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">Dims</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">Nx</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">Ny</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#id2" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">Nz</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">dx</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#id4" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">dy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">dz</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#id6" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">epsr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#id7" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.readspaceparams_sub">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">readspaceparams_sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.readspaceparams_sub" title="Link to this definition">¶</a></dt>
+<dd><p>Read the space parameters (ss) from a file handle.</p>
+<p>Reads all space parameters from an open file handle and populates
+the space structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_handle</strong> (<em>file</em>) – Open file handle to read from</p></li>
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure to populate (modified in-place)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>space structure is modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The file format expects 8 parameters in order:
+1. Dims (integer)
+2. Nx (integer)
+3. Ny (integer)
+4. Nz (integer)
+5. dx (float)
+6. dy (float)
+7. dz (float)
+8. epsr (float)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.ReadSpaceParams">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">ReadSpaceParams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.ReadSpaceParams" title="Link to this definition">¶</a></dt>
+<dd><p>Read the space parameters (ss) from a file.</p>
+<p>Opens the specified file, reads the space parameters, and populates
+the space structure. Also dumps the parameters to stdout if logging
+level is sufficient.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The filename to read from</p></li>
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure to populate (modified in-place)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>space structure is modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The file is opened, read, and closed automatically.
+After reading, dumpspace is called to log the parameters.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.WriteSpaceParams_sub">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">WriteSpaceParams_sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.WriteSpaceParams_sub" title="Link to this definition">¶</a></dt>
+<dd><p>Write space parameters (ss) to a file handle.</p>
+<p>Writes all space parameters to an open file handle with descriptive
+comments for each parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_handle</strong> (<em>file</em>) – Open file handle to write to</p></li>
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure to write</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The format matches the Fortran output format:
+- Integers are written with format I25 (right-aligned, 25 characters)
+- Floats are written with format E25.15E3 (scientific notation, 25 chars)
+- Each line has a comment describing the parameter</p>
+<p>Note: The Fortran source has typos in lines 94-96 (says “With” instead of “Width”
+and all three say “X pixel” instead of X/Y/Z). This Python implementation
+corrects those typos.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.writespaceparams">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">writespaceparams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.writespaceparams" title="Link to this definition">¶</a></dt>
+<dd><p>Write space parameters (ss) to a file.</p>
+<p>Opens the specified file, writes all space parameters with descriptive
+comments, and closes the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The filename to write to</p></li>
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure to write</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The file is opened in write mode, written to, and closed automatically.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.dumpspace">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">dumpspace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.dumpspace" title="Link to this definition">¶</a></dt>
+<dd><p>Dump space parameters to stdout.</p>
+<p>Writes space parameters to stdout (file handle 0) if the logging level
+is sufficient. Used for debugging and verbose output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure to dump</p></li>
+<li><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Minimum logging level required to dump. If not provided, uses
+LOGVERBOSE as the default threshold.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>If level is provided, dumps only if GetLogLevel() &gt;= level.
+Otherwise, dumps only if GetLogLevel() &gt;= LOGVERBOSE.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetNx">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetNx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetNx" title="Link to this definition">¶</a></dt>
+<dd><p>Get the number of points in the x direction.</p>
+<p>Returns the number of spatial grid points in the x-direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of points in the x direction</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetNy">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetNy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetNy" title="Link to this definition">¶</a></dt>
+<dd><p>Get the number of points in the y direction.</p>
+<p>Returns the number of spatial grid points in the y-direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of points in the y direction</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetNz">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetNz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetNz" title="Link to this definition">¶</a></dt>
+<dd><p>Get the number of points in the z direction.</p>
+<p>Returns the number of spatial grid points in the z-direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of points in the z direction</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetDx">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetDx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetDx" title="Link to this definition">¶</a></dt>
+<dd><p>Get the step size for the x dimension.</p>
+<p>Returns the x-pixel size. If Nx == 1 (collapsed dimension),
+returns 1.0 instead of the actual dx value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Step size for x dimension (m), or 1.0 if Nx == 1</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetDy">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetDy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetDy" title="Link to this definition">¶</a></dt>
+<dd><p>Get the step size for the y dimension.</p>
+<p>Returns the y-pixel size. If Ny == 1 (collapsed dimension),
+returns 1.0 instead of the actual dy value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Step size for y dimension (m), or 1.0 if Ny == 1</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetDz">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetDz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetDz" title="Link to this definition">¶</a></dt>
+<dd><p>Get the step size for the z dimension.</p>
+<p>Returns the z-pixel size. If Nz == 1 (collapsed dimension),
+returns 1.0 instead of the actual dz value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Step size for z dimension (m), or 1.0 if Nz == 1</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetEpsr">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetEpsr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetEpsr" title="Link to this definition">¶</a></dt>
+<dd><p>Get the relative background dielectric constant.</p>
+<p>Returns the dielectric constant. If Nz == 1 (1D or 2D case),
+returns 1.0 instead of the actual epsr value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Relative background dielectric constant, or 1.0 if Nz == 1</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.SetNx">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">SetNx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.SetNx" title="Link to this definition">¶</a></dt>
+<dd><p>Set the number of points in the x dimension.</p>
+<p>Sets the number of spatial grid points in the x-direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure (modified in-place)</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of points in x direction</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>space structure is modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.SetNy">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">SetNy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.SetNy" title="Link to this definition">¶</a></dt>
+<dd><p>Set the number of points in the y dimension.</p>
+<p>Sets the number of spatial grid points in the y-direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure (modified in-place)</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of points in y direction</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>space structure is modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.SetNz">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">SetNz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.SetNz" title="Link to this definition">¶</a></dt>
+<dd><p>Set the number of points in the z dimension.</p>
+<p>Sets the number of spatial grid points in the z-direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure (modified in-place)</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of points in z direction</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>space structure is modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.SetDx">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">SetDx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dl</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.SetDx" title="Link to this definition">¶</a></dt>
+<dd><p>Set the step size for the x dimension.</p>
+<p>Sets the x-pixel size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure (modified in-place)</p></li>
+<li><p><strong>dl</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Step size for x dimension (m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>space structure is modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.SetDy">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">SetDy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dl</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.SetDy" title="Link to this definition">¶</a></dt>
+<dd><p>Set the step size for the y dimension.</p>
+<p>Sets the y-pixel size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure (modified in-place)</p></li>
+<li><p><strong>dl</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Step size for y dimension (m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>space structure is modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.SetDz">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">SetDz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dl</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.SetDz" title="Link to this definition">¶</a></dt>
+<dd><p>Set the step size for the z dimension.</p>
+<p>Sets the z-pixel size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure (modified in-place)</p></li>
+<li><p><strong>dl</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Step size for z dimension (m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>space structure is modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetXWidth">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetXWidth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetXWidth" title="Link to this definition">¶</a></dt>
+<dd><p>Get the width of the x window.</p>
+<p>Returns the total width of the spatial window in the x-direction:
+width = dx * (Nx - 1)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Width of x window (m)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetYWidth">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetYWidth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetYWidth" title="Link to this definition">¶</a></dt>
+<dd><p>Get the width of the y window.</p>
+<p>Returns the total width of the spatial window in the y-direction:
+width = dy * (Ny - 1)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Width of y window (m)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetZWidth">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetZWidth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetZWidth" title="Link to this definition">¶</a></dt>
+<dd><p>Get the width of the z window.</p>
+<p>Returns the total width of the spatial window in the z-direction:
+width = dz * (Nz - 1)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Width of z window (m)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetSpaceArray">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetSpaceArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetSpaceArray" title="Link to this definition">¶</a></dt>
+<dd><p>Generate a real-space position array.</p>
+<p>Creates an array of N positions evenly spaced across a window of width L,
+centered at zero. The positions range from -L/2 to L/2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of points</p></li>
+<li><p><strong>L</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Total width of the window (m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of position values (m), 1D array of length N</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The array is centered at zero, so positions range from -L/2 to L/2.
+For N=1, returns array with single value 0.0.</p>
+<p>This function is not defined in typespace.f90 but is used by GetXArray,
+GetYArray, and GetZArray. It is likely defined in the helpers module
+in Fortran. The implementation matches usage patterns in other Fortran files
+(e.g., GetSpaceArray(Ny, (Ny-1) * dyy) in pstd.f90).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetKArray">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetKArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Nk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetKArray" title="Link to this definition">¶</a></dt>
+<dd><p>Generate k-space array for Fourier transforms.</p>
+<p>Creates an array of Nk k-values (momentum values) for use with FFT.
+The array is centered at zero and spaced by dk = twopi/L.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Nk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of k-space points</p></li>
+<li><p><strong>L</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Length of the spatial domain (m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of k values (1/m), 1D array of length Nk</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The k-values are centered at zero, suitable for FFT operations.
+For Nk=1, returns array with single value 0.0.</p>
+<p>This function is not defined in typespace.f90 but is used by GetKxArray,
+GetKyArray, and GetKzArray. It is likely defined in the helpers module
+in Fortran. The implementation matches usage patterns in other Fortran files.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetXArray">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetXArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetXArray" title="Link to this definition">¶</a></dt>
+<dd><p>Get an array of x positions.</p>
+<p>Returns an array of x-coordinate positions for the spatial grid.
+If Nx == 1, returns array with single value 0.0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of x positions (m), 1D array of length space.Nx</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetYArray">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetYArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetYArray" title="Link to this definition">¶</a></dt>
+<dd><p>Get an array of y positions.</p>
+<p>Returns an array of y-coordinate positions for the spatial grid.
+If Ny == 1, returns array with single value 0.0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of y positions (m), 1D array of length space.Ny</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetZArray">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetZArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetZArray" title="Link to this definition">¶</a></dt>
+<dd><p>Get an array of z positions.</p>
+<p>Returns an array of z-coordinate positions for the spatial grid.
+If Nz == 1, returns array with single value 0.0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of z positions (m), 1D array of length space.Nz</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetKxArray">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetKxArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetKxArray" title="Link to this definition">¶</a></dt>
+<dd><p>Get an array of kx values (conjugate coordinate system).</p>
+<p>Returns an array of kx (momentum) values for the conjugate coordinate
+system, suitable for FFT operations. If Nx == 1, returns array with
+single value 0.0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of kx values (1/m), 1D array of length space.Nx</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetKyArray">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetKyArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetKyArray" title="Link to this definition">¶</a></dt>
+<dd><p>Get an array of ky values (conjugate coordinate system).</p>
+<p>Returns an array of ky (momentum) values for the conjugate coordinate
+system, suitable for FFT operations. If Ny == 1, returns array with
+single value 0.0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of ky values (1/m), 1D array of length space.Ny</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetKzArray">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetKzArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetKzArray" title="Link to this definition">¶</a></dt>
+<dd><p>Get an array of kz values (conjugate coordinate system).</p>
+<p>Returns an array of kz (momentum) values for the conjugate coordinate
+system, suitable for FFT operations. If Nz == 1, returns array with
+single value 0.0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of kz values (1/m), 1D array of length space.Nz</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetDQx">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetDQx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetDQx" title="Link to this definition">¶</a></dt>
+<dd><p>Get the differential for the conjugate coordinate system in x.</p>
+<p>Returns the k-space step size in the x-direction:
+dqx = twopi / GetXWidth(space)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>k-space step size in x direction (1/m)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Matches Fortran implementation which uses twopi constant.
+Returns 0.0 if width is zero (Fortran would divide by zero).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetDQy">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetDQy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetDQy" title="Link to this definition">¶</a></dt>
+<dd><p>Get the differential for the conjugate coordinate system in y.</p>
+<p>Returns the k-space step size in the y-direction:
+dqy = twopi / GetYWidth(space)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>k-space step size in y direction (1/m)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Matches Fortran implementation which uses twopi constant.
+Returns 0.0 if width is zero (Fortran would divide by zero).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetDQz">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetDQz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetDQz" title="Link to this definition">¶</a></dt>
+<dd><p>Get the differential for the conjugate coordinate system in z.</p>
+<p>Returns the k-space step size in the z-direction:
+dqz = twopi / GetZWidth(space)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>k-space step size in z direction (1/m)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Matches Fortran implementation which uses twopi constant.
+Returns 0.0 if width is zero (Fortran would divide by zero).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetDVol">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetDVol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetDVol" title="Link to this definition">¶</a></dt>
+<dd><p>Get the volume element.</p>
+<p>Returns the volume element (dx * dy * dz) for the spatial grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Volume element (m^3)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.GetDQVol">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">GetDQVol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.GetDQVol" title="Link to this definition">¶</a></dt>
+<dd><p>Get the volume element for the conjugate coordinate system.</p>
+<p>Returns the k-space volume element (dqx * dqy * dqz).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>k-space volume element ((1/m)^3)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.writefield">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">writefield</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fnout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binmode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fnspace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.writefield" title="Link to this definition">¶</a></dt>
+<dd><p>Write the space structure and field to a file.</p>
+<p>Writes the space structure (ss) and the complex field array to a single
+file. Can write in binary or text format, and can include space parameters
+in the same file or a separate file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fnout</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Filename to write to, or “stdout” or “-” for stdout</p></li>
+<li><p><strong>e</strong> (<em>ndarray</em>) – Complex field array, 3D array of shape (Nx, Ny, Nz)</p></li>
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure</p></li>
+<li><p><strong>binmode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, write in binary format; if False, write in text format</p></li>
+<li><p><strong>single</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, include space parameters in the same file</p></li>
+<li><p><strong>fnspace</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – If single is False, write space parameters to this separate file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>For binary mode, uses unformatted_write_space and unformatted_write_e.
+For text mode, uses WriteSpaceParams_sub and formatted field output.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.readspace_only">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">readspace_only</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fnin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binmode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fnspace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.readspace_only" title="Link to this definition">¶</a></dt>
+<dd><p>Read the space structure from a field file.</p>
+<p>Reads the space structure (ss) from a field file. Can read from binary
+or text format, and can read space parameters from the same file or
+a separate file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fnin</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Filename to read from, or “stdin” or “-” for stdin</p></li>
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure to populate (modified in-place)</p></li>
+<li><p><strong>binmode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, read from binary format; if False, read from text format</p></li>
+<li><p><strong>single</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, read space parameters from the same file</p></li>
+<li><p><strong>fnspace</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – If single is False, read space parameters from this separate file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>space structure is modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>For binary mode, uses unformatted_read_space.
+For text mode, uses readspaceparams_sub.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.writefield_to_unit">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">writefield_to_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binmode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.writefield_to_unit" title="Link to this definition">¶</a></dt>
+<dd><p>Write field array to a file handle.</p>
+<p>Writes the complex field array to an open file handle in either
+binary or text format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_handle</strong> (<em>file</em>) – Open file handle to write to</p></li>
+<li><p><strong>e</strong> (<em>ndarray</em>) – Complex field array, 3D array</p></li>
+<li><p><strong>binmode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, write in binary format; if False, write in text format</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>For binary mode, uses numpy’s save or pickle.
+For text mode, writes real and imaginary parts separately.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.unformatted_write_space">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">unformatted_write_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.unformatted_write_space" title="Link to this definition">¶</a></dt>
+<dd><p>Write space structure in binary format.</p>
+<p>Writes the space structure to a file handle in binary (unformatted) format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_handle</strong> (<em>file</em>) – Open binary file handle to write to</p></li>
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure to write</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses numpy’s save to write the dataclass fields in binary format.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.unformatted_read_space">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">unformatted_read_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.unformatted_read_space" title="Link to this definition">¶</a></dt>
+<dd><p>Read space structure from binary format.</p>
+<p>Reads the space structure from a file handle in binary (unformatted) format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_handle</strong> (<em>file</em>) – Open binary file handle to read from</p></li>
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure to populate (modified in-place)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>space structure is modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses numpy’s load to read the dataclass fields from binary format.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.initialize_field">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">initialize_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.initialize_field" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize field array to zero.</p>
+<p>Sets all elements of the complex field array to zero.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>e</strong> (<em>ndarray</em>) – Complex field array, 3D array (modified in-place)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>e array is modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>In Fortran, this uses OpenMP parallelization when available.
+In Python, we use NumPy’s efficient zero assignment.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.unformatted_write_e">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">unformatted_write_e</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.unformatted_write_e" title="Link to this definition">¶</a></dt>
+<dd><p>Write field array in binary format.</p>
+<p>Writes the complex field array to a file handle in binary (unformatted) format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_handle</strong> (<em>file</em>) – Open binary file handle to write to</p></li>
+<li><p><strong>e</strong> (<em>ndarray</em>) – Complex field array, 3D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses numpy’s save to write the array in binary format.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.unformatted_read_e">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">unformatted_read_e</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.unformatted_read_e" title="Link to this definition">¶</a></dt>
+<dd><p>Read field array from binary format.</p>
+<p>Reads the complex field array from a file handle in binary (unformatted) format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_handle</strong> (<em>file</em>) – Open binary file handle to read from</p></li>
+<li><p><strong>e</strong> (<em>ndarray</em>) – Complex field array to populate (modified in-place), 3D array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>e array is modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses numpy’s load to read the array from binary format.
+The array must already be allocated with the correct shape.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.readfield_from_unit">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">readfield_from_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binmode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.readfield_from_unit" title="Link to this definition">¶</a></dt>
+<dd><p>Read field array from a file handle.</p>
+<p>Reads the complex field array from an open file handle in either
+binary or text format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_handle</strong> (<em>file</em>) – Open file handle to read from</p></li>
+<li><p><strong>e</strong> (<em>ndarray</em>) – Complex field array to populate (modified in-place), 3D array</p></li>
+<li><p><strong>binmode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, read from binary format; if False, read from text format</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>e array is modified in-place</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>For binary mode, uses unformatted_read_e.
+For text mode, reads real and imaginary parts line by line.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.typespace.readfield">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.typespace.</span></span><span class="sig-name descname"><span class="pre">readfield</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fnin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binmode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fnspace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.typespace.readfield" title="Link to this definition">¶</a></dt>
+<dd><p>Read the space structure and field from a file.</p>
+<p>Reads the space structure (ss) and the complex field array from a file.
+Can read from binary or text format, and can read space parameters from
+the same file or a separate file. The field array is automatically
+allocated or resized to match the space dimensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fnin</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Filename to read from, or “stdin” or “-” for stdin</p></li>
+<li><p><strong>e</strong> (<em>ndarray</em><em> or </em><em>None</em>) – Complex field array. If None or wrong shape, will be allocated/resized.
+Modified in-place if provided, or a new array is returned.</p></li>
+<li><p><strong>space</strong> (<a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.typespace.ss" title="pulsesuite.PSTD3D.typespace.ss"><em>ss</em></a>) – Space structure to populate (modified in-place)</p></li>
+<li><p><strong>binmode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, read from binary format; if False, read from text format</p></li>
+<li><p><strong>single</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, read space parameters from the same file</p></li>
+<li><p><strong>fnspace</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – If single is False, read space parameters from this separate file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Complex field array. If e was None, returns a new array.
+If e was provided, returns the same array (modified in-place).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The field array is automatically allocated or resized to match
+GetNx(space), GetNy(space), GetNz(space).
+After reading space parameters, the field is initialized to zero
+before reading the actual field data.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

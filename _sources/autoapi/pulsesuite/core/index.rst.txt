@@ -1,0 +1,24 @@
+pulsesuite.core
+===============
+
+.. py:module:: pulsesuite.core
+
+.. autoapi-nested-parse::
+
+   Core utilities for PulseSuite.
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/pulsesuite/core/fftw/index
+   /autoapi/pulsesuite/core/rungekutta/index
+   /autoapi/pulsesuite/core/type_plasma/index
+   /autoapi/pulsesuite/core/typelens/index
+   /autoapi/pulsesuite/core/typetpamedium/index
+
+

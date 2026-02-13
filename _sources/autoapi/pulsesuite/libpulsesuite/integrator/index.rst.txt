@@ -1,0 +1,348 @@
+pulsesuite.libpulsesuite.integrator
+===================================
+
+.. py:module:: pulsesuite.libpulsesuite.integrator
+
+.. autoapi-nested-parse::
+
+   ODE integrators ported from integrator.F90.
+
+   1:1 port of the Fortran ``integrator`` module.  Every public Fortran
+   subroutine has a Python callable with the same name.  Fortran interfaces
+   that dispatch on type/rank are kept as separate named functions.
+
+   Vectorised with NumPy; no Numba or guardrails required.
+
+   Implements:
+       - Cash-Karp Runge-Kutta step (rkck)
+       - Quality-controlled adaptive RK step (rkqs)
+       - Classic 4th-order Runge-Kutta (rk4)
+       - Forward Euler (idiot)
+       - Adaptive ODE driver (odeint)
+       - Simple fixed-step driver (simpleint)
+       - Modified midpoint (mmid)
+       - Polynomial extrapolation (pzextr)
+       - Bulirsch-Stoer adaptive step (bsstep)
+       - Semi-implicit midpoint for stiff systems (simpr)
+       - Stiff Bulirsch-Stoer (stifbs)
+       - LU decomposition with partial pivoting (ludcmp)
+       - LU back-substitution (lubksb)
+
+   Author: Rahul R. Sah
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.libpulsesuite.integrator.sp
+   pulsesuite.libpulsesuite.integrator.dp
+   pulsesuite.libpulsesuite.integrator.SAFETY
+   pulsesuite.libpulsesuite.integrator.PGROW
+   pulsesuite.libpulsesuite.integrator.PSHRNK
+   pulsesuite.libpulsesuite.integrator.ERRCON
+   pulsesuite.libpulsesuite.integrator.TINY
+   pulsesuite.libpulsesuite.integrator.MAXSTP
+   pulsesuite.libpulsesuite.integrator.KMAXX
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.libpulsesuite.integrator.rkck_dp
+   pulsesuite.libpulsesuite.integrator.rkck_dpc
+   pulsesuite.libpulsesuite.integrator.rkck_3D_dpc
+   pulsesuite.libpulsesuite.integrator.rk4_dp
+   pulsesuite.libpulsesuite.integrator.rk4_dpc
+   pulsesuite.libpulsesuite.integrator.rk4_3D_dpc
+   pulsesuite.libpulsesuite.integrator.idiot_dp
+   pulsesuite.libpulsesuite.integrator.idiot_dpc
+   pulsesuite.libpulsesuite.integrator.rkqs_dp
+   pulsesuite.libpulsesuite.integrator.rkqs_dpc
+   pulsesuite.libpulsesuite.integrator.rkqs_3D_dpc
+   pulsesuite.libpulsesuite.integrator.rkqs_3D_dpc_TOM
+   pulsesuite.libpulsesuite.integrator.odeint_dp
+   pulsesuite.libpulsesuite.integrator.odeint_dpc
+   pulsesuite.libpulsesuite.integrator.odeint_3D_dpc
+   pulsesuite.libpulsesuite.integrator.odeint_3D_dpc_TOM
+   pulsesuite.libpulsesuite.integrator.simpleint_dp
+   pulsesuite.libpulsesuite.integrator.simpleint_dpc
+   pulsesuite.libpulsesuite.integrator.mmid
+   pulsesuite.libpulsesuite.integrator.pzextr
+   pulsesuite.libpulsesuite.integrator.bsstep
+   pulsesuite.libpulsesuite.integrator.ludcmp
+   pulsesuite.libpulsesuite.integrator.lubksb
+   pulsesuite.libpulsesuite.integrator.simpr
+   pulsesuite.libpulsesuite.integrator.stifbs
+
+
+Module Contents
+---------------
+
+.. py:data:: sp
+
+.. py:data:: dp
+
+.. py:data:: SAFETY
+   :value: 0.9
+
+
+.. py:data:: PGROW
+   :value: -0.2
+
+
+.. py:data:: PSHRNK
+   :value: -0.25
+
+
+.. py:data:: ERRCON
+   :value: 0.00018895680000000003
+
+
+.. py:data:: TINY
+   :value: 1e-30
+
+
+.. py:data:: MAXSTP
+   :value: 100000000
+
+
+.. py:data:: KMAXX
+   :value: 8
+
+
+.. py:function:: rkck_dp(y, dydt, t, h, D)
+
+   Cash-Karp RK step for real (float64) ODEs.  Returns (yout, yerr).
+
+
+.. py:function:: rkck_dpc(y, dydt, t, h, D)
+
+   Cash-Karp RK step for complex (complex128) ODEs.  Returns (yout, yerr).
+
+
+.. py:function:: rkck_3D_dpc(y, dydt, t, h, D)
+
+   Cash-Karp RK step for 3D complex arrays.  Returns (yout, yerr).
+
+
+.. py:function:: rk4_dp(y, dydt, t, h, D)
+
+   Classic RK4 for real ODEs.  Modifies y in-place.  Returns t_new.
+
+
+.. py:function:: rk4_dpc(y, dydt, t, h, D)
+
+   Classic RK4 for complex ODEs.  Modifies y in-place.  Returns t_new.
+
+
+.. py:function:: rk4_3D_dpc(y, dydt, t, h, D)
+
+   Classic RK4 for 3D complex arrays.  Modifies y in-place.  Returns t_new.
+
+
+.. py:function:: idiot_dp(y, dydt, t, h, D)
+
+   Forward Euler for real ODEs.  Modifies y in-place.  Returns t_new.
+
+
+.. py:function:: idiot_dpc(y, dydt, t, h, D)
+
+   Forward Euler for complex ODEs.  Modifies y in-place.  Returns t_new.
+
+
+.. py:function:: rkqs_dp(y, dydt, t, htry, eps, yscale, D, jacobn)
+
+   Quality-controlled RK step for real ODEs.
+
+   Modifies y in-place.
+   Returns (t_new, hdid, hnext).
+
+
+.. py:function:: rkqs_dpc(y, dydt, t, htry, eps, yscale, D, jacobn)
+
+   Quality-controlled RK step for complex ODEs.
+
+   Modifies y in-place.
+   Returns (t_new, hdid, hnext).
+
+
+.. py:function:: rkqs_3D_dpc(y, dydt, t, htry, eps, yscale, D)
+
+   Quality-controlled RK step for 3D complex arrays (UPPE, no Jacobian).
+
+   Modifies y in-place.
+   Returns (t_new, hdid, hnext).
+
+
+.. py:function:: rkqs_3D_dpc_TOM(y, dydt, t, htry, eps, yscaleREAL, yscaleIMAG, D)
+
+   Quality-controlled RK step for 3D complex arrays with separate
+   real/imaginary error tolerances.  eps is complex: real(eps) for
+   real part tolerance, imag(eps) for imaginary part tolerance.
+
+   Modifies y in-place.
+   Returns (t_new, hdid, hnext).
+
+
+.. py:function:: odeint_dp(y, x1, x2, eps, h1, hmin, D, integ, jacobn)
+
+   Adaptive ODE driver for real ODEs.
+
+   :param y:
+   :type y: ndarray, float64 — state vector (modified in-place)
+   :param x1:
+   :type x1: float — integration bounds
+   :param x2:
+   :type x2: float — integration bounds
+   :param eps:
+   :type eps: float — error tolerance
+   :param h1:
+   :type h1: float — initial step size
+   :param hmin:
+   :type hmin: float — minimum step size
+   :param D:
+   :type D: callable(t, y) -> dy — derivative function
+   :param integ:
+   :type integ: callable — stepper (rkqs_dp, bsstep, stifbs)
+   :param jacobn:
+   :type jacobn: callable — Jacobian function
+
+   :returns: * **nok** (*int — number of good steps*)
+             * **nbad** (*int — number of bad (retried) steps*)
+
+
+.. py:function:: odeint_dpc(y, x1, x2, eps, h1, hmin, D, integ, jacobn)
+
+   Adaptive ODE driver for complex ODEs.
+
+   Same interface as odeint_dp but y is complex128.
+   Returns (nok, nbad).
+
+
+.. py:function:: odeint_3D_dpc(y, x1, x2, eps, h1, hmin, D, integ)
+
+   Adaptive ODE driver for 3D complex arrays (UPPE, no Jacobian).
+
+   h1 is returned modified (remembers last used step size for the
+   bridge between pulsesuite "Steps").
+
+   Returns (nok, nbad, h1_out).
+
+
+.. py:function:: odeint_3D_dpc_TOM(y, x1, x2, eps, h1, hmin, D, integ)
+
+   Adaptive ODE driver for 3D complex arrays with separate real/imaginary
+   error tolerances.  eps is complex.
+
+   Returns (nok, nbad, h1_out).
+
+
+.. py:function:: simpleint_dp(y, t1, t2, h1, D, simple)
+
+   Simple fixed-step driver for real ODEs.  Y1 = DY * DX + Y0.
+
+   :param y:
+   :type y: ndarray, float64 (modified in-place)
+   :param t1:
+   :type t1: float — integration bounds
+   :param t2:
+   :type t2: float — integration bounds
+   :param h1:
+   :type h1: float — step size
+   :param D:
+   :type D: callable(t, y) -> dy
+   :param simple:
+   :type simple: callable — single-step method (rk4_dp, idiot_dp)
+
+   :returns: **nok**
+   :rtype: int — number of steps taken
+
+
+.. py:function:: simpleint_dpc(y, t1, t2, h1, D, simple)
+
+   Simple fixed-step driver for complex ODEs.
+
+   Returns nok.
+
+
+.. py:function:: mmid(y, dydx, xs, htot, nstep, D)
+
+   Modified midpoint method.
+
+   Takes nstep sub-steps of size h = htot/nstep using the modified
+   midpoint (Stoermer) rule.  Does NOT modify y.
+
+   Returns yout.
+
+
+.. py:function:: pzextr(iest, xest, yest, yz, dy, x_save, d_save)
+
+   Polynomial extrapolation step (Neville's algorithm).
+
+   :param iest:
+   :type iest: int — 1-based step index
+   :param xest:
+   :type xest: float — x-estimate (typically (h/nseq)**2)
+   :param yest:
+   :type yest: ndarray — y-estimate from midpoint/simpr
+   :param yz:
+   :type yz: ndarray — output y (modified in-place)
+   :param dy:
+   :type dy: ndarray — output error (modified in-place)
+   :param x_save:
+   :type x_save: ndarray, shape (KMAXX,) — persistent x storage
+   :param d_save:
+   :type d_save: ndarray, shape (nv, KMAXX) — persistent d storage
+
+
+.. py:function:: bsstep(y, dydx, x, htry, eps, yscale, D, jacobn)
+
+   Bulirsch-Stoer adaptive step using modified midpoint (mmid) and
+   polynomial extrapolation (pzextr).
+
+   Modifies y in-place.
+   Returns (t_new, hdid, hnext).
+
+
+.. py:function:: ludcmp(a, indx)
+
+   LU decomposition with partial pivoting (Crout's algorithm).
+
+   Modifies a in-place (overwritten with L and U factors).
+   Fills indx with pivot indices (0-based).
+   Returns d (+1.0 or -1.0 for even/odd row exchanges).
+
+
+.. py:function:: lubksb(a, indx, b)
+
+   LU back-substitution.
+
+   Solves A*x = b given the LU factors in a and pivot indices in indx.
+   Modifies b in-place with the solution.
+
+
+.. py:function:: simpr(y, dydx, dfdx, dfdy, xs, htot, nstep, derivs)
+
+   Semi-implicit midpoint rule for stiff ODEs.
+
+   Uses LU decomposition of (I - h*dfdy) and performs nstep sub-steps.
+   Does NOT modify y.
+
+   Returns yout.
+
+
+.. py:function:: stifbs(y, dydx, x, htry, eps, yscal, derivs, jacobn)
+
+   Single step of the stiff Bulirsch-Stoer algorithm.
+
+   Uses semi-implicit midpoint (simpr) with polynomial extrapolation (pzextr).
+
+   Modifies y in-place.
+   Returns (t_new, hdid, hnext).
+
+

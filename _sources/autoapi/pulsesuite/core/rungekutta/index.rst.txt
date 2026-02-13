@@ -1,0 +1,191 @@
+pulsesuite.core.rungekutta
+==========================
+
+.. py:module:: pulsesuite.core.rungekutta
+
+.. autoapi-nested-parse::
+
+   rungekutta.py – high‑performance 4th‑order Runge‑Kutta propagator
+   for the (modified) nonlinear Schrödinger / UPPE equations.
+
+   * No Fortran; entirely Python + Numba + pyFFTW.
+   * Designed to interoperate with `fastfft.py` and the future
+     `gulley.py` plasma module.
+   * All expensive maths are JIT‑compiled; only plan creation and
+     dataclass bookkeeping run in the CPython interpreter.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pulsesuite.core.rungekutta.Field
+   pulsesuite.core.rungekutta.Medium
+   pulsesuite.core.rungekutta.RKFlags
+   pulsesuite.core.rungekutta.RK4Integrator
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.core.rungekutta.rhs
+   pulsesuite.core.rungekutta.rk4_step
+
+
+Module Contents
+---------------
+
+.. py:class:: Field
+
+   Spatial‑temporal grid and associated cached arrays.
+
+
+   .. py:attribute:: Exy
+      :type:  numpy.ndarray
+
+
+   .. py:attribute:: dx
+      :type:  float
+
+
+   .. py:attribute:: dy
+      :type:  float
+
+
+   .. py:attribute:: dt
+      :type:  float
+
+
+   .. py:attribute:: lambda0
+      :type:  float
+
+
+   .. py:attribute:: t_arr
+      :type:  numpy.ndarray
+
+
+   .. py:attribute:: w_arr
+      :type:  numpy.ndarray
+
+
+   .. py:method:: __post_init__()
+
+
+   .. py:method:: w0() -> float
+
+
+   .. py:method:: intensity() -> numpy.ndarray
+
+
+.. py:class:: Medium
+
+   .. py:attribute:: n0
+      :type:  float
+
+
+   .. py:attribute:: n2
+      :type:  float
+
+
+   .. py:attribute:: n4i
+      :type:  float
+      :value: 0.0
+
+
+
+   .. py:attribute:: tc
+      :type:  float
+      :value: 1.2e-15
+
+
+
+   .. py:attribute:: sigma
+      :type:  float
+      :value: 5e-20
+
+
+
+   .. py:attribute:: rho_max
+      :type:  float
+      :value: 6e+28
+
+
+
+.. py:class:: RKFlags
+
+   .. py:attribute:: kerr
+      :type:  bool
+      :value: True
+
+
+
+   .. py:attribute:: kerr4
+      :type:  bool
+      :value: False
+
+
+
+   .. py:attribute:: raman
+      :type:  bool
+      :value: True
+
+
+
+   .. py:attribute:: shock
+      :type:  bool
+      :value: True
+
+
+
+   .. py:attribute:: photo
+      :type:  bool
+      :value: False
+
+
+
+   .. py:attribute:: drude_0
+      :type:  bool
+      :value: False
+
+
+
+   .. py:attribute:: gulley_t
+      :type:  bool
+      :value: False
+
+
+
+.. py:function:: rhs(Exy: numpy.ndarray, field: Field, medium: Medium, flags: RKFlags)
+
+.. py:function:: rk4_step(field: Field, medium: Medium, dz: float, flags: RKFlags, sub_steps: Optional[int] = None)
+
+   Advance `field.Exy` by `dz` in‑place using RK4.
+
+
+.. py:class:: RK4Integrator(field: Field, medium: Medium, dz: float, flags: RKFlags)
+
+   Ease‑of‑use wrapper that keeps medium/flags constant.
+
+
+   .. py:attribute:: field
+
+
+   .. py:attribute:: medium
+
+
+   .. py:attribute:: dz
+
+
+   .. py:attribute:: flags
+
+
+   .. py:method:: step(n: int = 1)
+
+
+   .. py:method:: run(z_max: float)
+
+

@@ -1,0 +1,460 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deep Dive: Phonon Interactions &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/js/hoverxref.js"></script>
+      <script src="../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Deep Dive: Quantum Wire Optics" href="05_optics.myst.html" />
+    <link rel="prev" title="Deep Dive: Coulomb Interactions" href="03_coulomb.myst.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">PulseSuite</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../gallery.html">Examples Gallery</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_quickstart.myst.html">Quickstart: Your First SBE Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_architecture.myst.html">Architecture: How the SBE Solver Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_coulomb.myst.html">Deep Dive: Coulomb Interactions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Deep Dive: Phonon Interactions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#theory">Theory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#phonon-absorption-and-emission">Phonon Absorption and Emission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phonon-interaction-matrix">Phonon Interaction Matrix</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#many-body-phonon-scattering">Many-Body Phonon Scattering</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#assumptions-and-parameter-choices">Assumptions and Parameter Choices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initialize-and-inspect">Initialize and Inspect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phonon-interaction-matrices">Phonon Interaction Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#energy-difference-structure">Energy-Difference Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#temperature-dependence">Temperature Dependence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="05_optics.myst.html">Deep Dive: Quantum Wire Optics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06_transport.myst.html">Deep Dive: DC Transport and Emission</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../gallery.html">Examples Gallery</a></li>
+      <li class="breadcrumb-item active">Deep Dive: Phonon Interactions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/04_phonons.myst.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="deep-dive-phonon-interactions">
+<h1>Deep Dive: Phonon Interactions<a class="headerlink" href="#deep-dive-phonon-interactions" title="Link to this heading">¶</a></h1>
+<section id="theory">
+<h2>Theory<a class="headerlink" href="#theory" title="Link to this heading">¶</a></h2>
+<p>Carriers in the quantum wire interact with longitudinal optical (LO) phonons
+through the Frohlich interaction. This provides the dominant energy relaxation
+mechanism at finite temperature.</p>
+<section id="phonon-absorption-and-emission">
+<h3>Phonon Absorption and Emission<a class="headerlink" href="#phonon-absorption-and-emission" title="Link to this heading">¶</a></h3>
+<p>Carriers can absorb or emit LO phonons:</p>
+<p><strong>Absorption:</strong> <span class="math notranslate nohighlight">\(\Gamma_{abs}(k, k') \propto N_0 \cdot \delta(E_k - E_{k'} - \hbar\omega_{ph})\)</span></p>
+<p><strong>Emission:</strong> <span class="math notranslate nohighlight">\(\Gamma_{em}(k, k') \propto (N_0 + 1) \cdot \delta(E_k - E_{k'} + \hbar\omega_{ph})\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(N_0 = [\exp(\hbar\omega_{ph} / k_B T) - 1]^{-1}\)</span> is the Bose-Einstein
+distribution for thermal phonons.</p>
+</section>
+<section id="phonon-interaction-matrix">
+<h3>Phonon Interaction Matrix<a class="headerlink" href="#phonon-interaction-matrix" title="Link to this heading">¶</a></h3>
+<p>The matrix elements use Lorentzian broadening of the energy-conserving delta function:</p>
+<div class="math notranslate nohighlight">
+\[
+EP(k, k') = \frac{N_0}{(E_k - E_{k'} - \hbar\omega_{ph})^2 + (\hbar\gamma_{ph})^2}
+           + \frac{N_0 + 1}{(E_k - E_{k'} + \hbar\omega_{ph})^2 + (\hbar\gamma_{ph})^2}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\omega_{ph}\)</span> is the phonon frequency and <span class="math notranslate nohighlight">\(\gamma_{ph}\)</span> is the phonon damping rate.</p>
+</section>
+<section id="many-body-phonon-scattering">
+<h3>Many-Body Phonon Scattering<a class="headerlink" href="#many-body-phonon-scattering" title="Link to this heading">¶</a></h3>
+<p>The many-body scattering rates include Pauli blocking:</p>
+<div class="math notranslate nohighlight">
+\[
+W_{in}(k) = \sum_{k'} V_{ep}(k, k') \cdot n_e(k') \cdot EP^T(k', k)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+W_{out}(k) = \sum_{k'} V_{ep}(k, k') \cdot (1 - n_e(k')) \cdot EP(k', k)
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="assumptions-and-parameter-choices">
+<h2>Assumptions and Parameter Choices<a class="headerlink" href="#assumptions-and-parameter-choices" title="Link to this heading">¶</a></h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The parameters below come from <code class="docutils literal notranslate"><span class="pre">params/qw.params</span></code> and are read automatically
+by <code class="docutils literal notranslate"><span class="pre">InitializeSBE</span></code>. They correspond to a GaAs quantum wire in an AlAs host.</p>
+</div>
+<ul class="simple">
+<li><p><strong>LO Phonon energy</strong>: 36 meV – the GaAs longitudinal optical phonon</p></li>
+<li><p><strong>Phonon damping</strong>: 3 meV – typical inverse phonon lifetime</p></li>
+<li><p><strong>Host dielectric constants</strong>: <span class="math notranslate nohighlight">\(\epsilon_0 = 10.0\)</span>, <span class="math notranslate nohighlight">\(\epsilon_\infty = 8.2\)</span> (AlAs)</p></li>
+<li><p><strong>Temperature</strong>: 77 K (liquid nitrogen) – common experimental condition</p></li>
+<li><p><strong>Effective masses</strong>: <span class="math notranslate nohighlight">\(m_e = 0.07 \, m_0\)</span>, <span class="math notranslate nohighlight">\(m_h = 0.45 \, m_0\)</span> (GaAs)</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The phonon module currently uses module-level variables for temperature
+(<code class="docutils literal notranslate"><span class="pre">phonons._Temp</span> <span class="pre">=</span> <span class="pre">77.0</span></code>). Changing temperature requires re-initialization.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="initialize-and-inspect">
+<h2>Initialize and Inspect<a class="headerlink" href="#initialize-and-inspect" title="Link to this heading">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">hbar</span> <span class="k">as</span> <span class="n">hbar_SI</span><span class="p">,</span> <span class="n">k</span> <span class="k">as</span> <span class="n">kB_SI</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D.SBEs</span><span class="w"> </span><span class="kn">import</span> <span class="n">InitializeSBE</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D</span><span class="w"> </span><span class="kn">import</span> <span class="n">SBEs</span> <span class="k">as</span> <span class="n">SBEs_module</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D</span><span class="w"> </span><span class="kn">import</span> <span class="n">phonons</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D.typespace</span><span class="w"> </span><span class="kn">import</span> <span class="n">GetKArray</span><span class="p">,</span> <span class="n">GetSpaceArray</span>
+
+<span class="c1"># Ensure output directories exist</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;dataQW/Wire/C&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/D&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/Ee&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;dataQW/Wire/Eh&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/P&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/Win&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;dataQW/Wire/Wout&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/Xqw&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/info&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;dataQW/Wire/ne&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/nh&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">]:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">Nr</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">drr</span> <span class="o">=</span> <span class="mf">10e-9</span>
+<span class="n">rr</span> <span class="o">=</span> <span class="n">GetSpaceArray</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="p">(</span><span class="n">Nr</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">drr</span><span class="p">)</span>
+<span class="n">qrr</span> <span class="o">=</span> <span class="n">GetKArray</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">Nr</span> <span class="o">*</span> <span class="n">drr</span><span class="p">)</span>
+
+<span class="n">InitializeSBE</span><span class="p">(</span><span class="n">qrr</span><span class="p">,</span> <span class="n">rr</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1e7</span><span class="p">,</span> <span class="mf">800e-9</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">SBEs_module</span><span class="o">.</span><span class="n">_default_solver</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Temperature: </span><span class="si">{</span><span class="n">phonons</span><span class="o">.</span><span class="n">_Temp</span><span class="si">}</span><span class="s2"> K&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bose occupation N0: </span><span class="si">{</span><span class="n">phonons</span><span class="o">.</span><span class="n">_NO</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Phonon energy: </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">Oph</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">hbar_SI</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1.6e-19</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> meV&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Phonon damping: </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">Gph</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">hbar_SI</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1.6e-19</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> meV&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EP matrix shape: </span><span class="si">{</span><span class="n">phonons</span><span class="o">.</span><span class="n">_EP</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dcv / e0 = 3.3538811268940077e-10
+alphae = 303090660.34386384, alphah = 768475083.4742767
+1/qc = 2.3003106022655407e-09, sqrt(2) / sqrt(alphae² + alphah²) = 1.7119449377756965e-09
+ehint = 0.8262109841666643
+Wire Radius = 2.3003106022655407e-09
+Wire sqrt(area) = 3.8950888292173374e-09
+Wire Thickness = 5e-09
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Calculating Coulomb Arrays
+  Progress: 0/230 (0.0%)
+Vint: Using JIT-compiled version
+  Progress: 10/230 (4.3%)
+  Progress: 20/230 (8.7%)
+  Progress: 30/230 (13.0%)
+  Progress: 40/230 (17.4%)
+  Progress: 50/230 (21.7%)
+  Progress: 60/230 (26.1%)
+  Progress: 70/230 (30.4%)
+  Progress: 80/230 (34.8%)
+  Progress: 90/230 (39.1%)
+  Progress: 100/230 (43.5%)
+  Progress: 110/230 (47.8%)
+  Progress: 120/230 (52.2%)
+  Progress: 130/230 (56.5%)
+  Progress: 140/230 (60.9%)
+  Progress: 150/230 (65.2%)
+  Progress: 160/230 (69.6%)
+  Progress: 170/230 (73.9%)
+  Progress: 180/230 (78.3%)
+  Progress: 190/230 (82.6%)
+  Progress: 200/230 (87.0%)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Progress: 210/230 (91.3%)
+  Progress: 220/230 (95.7%)
+Finished Calculating Unscreened Coulomb Arrays
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Quantum Wire Linear Chi = (-0.13219666733079763+0.14243061062572296j)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>InitializeSBE?
+Temperature: 77.0 K
+Bose occupation N0: 0.0044
+Phonon energy: 36.0 meV
+Phonon damping: 3.0 meV
+EP matrix shape: (114, 114)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="phonon-interaction-matrices">
+<h2>Phonon Interaction Matrices<a class="headerlink" href="#phonon-interaction-matrices" title="Link to this heading">¶</a></h2>
+<p>The electron phonon matrix <span class="math notranslate nohighlight">\(EP(k, k')\)</span> and hole phonon matrix <span class="math notranslate nohighlight">\(HP(k, k')\)</span> show
+peaks where the energy difference <span class="math notranslate nohighlight">\(E_k - E_{k'}\)</span> matches the phonon energy
+<span class="math notranslate nohighlight">\(\pm\hbar\omega_{ph}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">k_nm</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">kr</span> <span class="o">*</span> <span class="mf">1e-9</span>
+
+<span class="n">im1</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">k_nm</span><span class="p">,</span> <span class="n">k_nm</span><span class="p">,</span> <span class="n">phonons</span><span class="o">.</span><span class="n">_EP</span><span class="p">,</span> <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$k$ (nm$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$k&#39;$ (nm$^{-1}$)&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Electron-Phonon $EP(k, k</span><span class="se">\&#39;</span><span class="s1">)$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+
+<span class="n">im2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">k_nm</span><span class="p">,</span> <span class="n">k_nm</span><span class="p">,</span> <span class="n">phonons</span><span class="o">.</span><span class="n">_HP</span><span class="p">,</span> <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$k$ (nm$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$k&#39;$ (nm$^{-1}$)&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hole-Phonon $HP(k, k</span><span class="se">\&#39;</span><span class="s1">)$&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Phonon Interaction Matrices (T = </span><span class="si">{</span><span class="n">phonons</span><span class="o">.</span><span class="n">_Temp</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1"> K)&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EP range: </span><span class="si">{</span><span class="n">phonons</span><span class="o">.</span><span class="n">_EP</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">phonons</span><span class="o">.</span><span class="n">_EP</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;HP range: </span><span class="si">{</span><span class="n">phonons</span><span class="o">.</span><span class="n">_HP</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">phonons</span><span class="o">.</span><span class="n">_HP</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e0248ba12872522cdeee9231a88dd3b6514f035472131ffabcca68e7f02cf185.png" src="../_images/e0248ba12872522cdeee9231a88dd3b6514f035472131ffabcca68e7f02cf185.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EP range: 0.000e+00 to 3.844e+55
+HP range: 0.000e+00 to 3.961e+55
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="energy-difference-structure">
+<h2>Energy-Difference Structure<a class="headerlink" href="#energy-difference-structure" title="Link to this heading">¶</a></h2>
+<p>A row cut of <span class="math notranslate nohighlight">\(EP\)</span> at fixed <span class="math notranslate nohighlight">\(k_0\)</span> reveals the Lorentzian peaks at
+<span class="math notranslate nohighlight">\(E_{k'} = E_{k_0} \pm \hbar\omega_{ph}\)</span> corresponding to phonon emission
+and absorption.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mid_k</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">Nk</span> <span class="o">//</span> <span class="mi">2</span>
+<span class="n">eV</span> <span class="o">=</span> <span class="mf">1.6e-19</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># EP row cut</span>
+<span class="n">dE_eV</span> <span class="o">=</span> <span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">Ee</span> <span class="o">-</span> <span class="n">solver</span><span class="o">.</span><span class="n">Ee</span><span class="p">[</span><span class="n">mid_k</span><span class="p">])</span> <span class="o">/</span> <span class="n">eV</span> <span class="o">*</span> <span class="mf">1e3</span>  <span class="c1"># meV</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dE_eV</span><span class="p">,</span> <span class="n">phonons</span><span class="o">.</span><span class="n">_EP</span><span class="p">[</span><span class="n">mid_k</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;+36 meV (emission)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="o">-</span><span class="mi">36</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;-36 meV (absorption)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$E_{k&#39;} - E_</span><span class="si">{k_0}</span><span class="s2">$ (meV)&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$EP(k_0, k</span><span class="se">\&#39;</span><span class="s1">)$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Electron-Phonon: row cut&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># HP row cut</span>
+<span class="n">dE_eV_h</span> <span class="o">=</span> <span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">Eh</span> <span class="o">-</span> <span class="n">solver</span><span class="o">.</span><span class="n">Eh</span><span class="p">[</span><span class="n">mid_k</span><span class="p">])</span> <span class="o">/</span> <span class="n">eV</span> <span class="o">*</span> <span class="mf">1e3</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dE_eV_h</span><span class="p">,</span> <span class="n">phonons</span><span class="o">.</span><span class="n">_HP</span><span class="p">[</span><span class="n">mid_k</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;+36 meV&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="o">-</span><span class="mi">36</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;-36 meV&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$E_{k&#39;} - E_</span><span class="si">{k_0}</span><span class="s2">$ (meV)&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$HP(k_0, k</span><span class="se">\&#39;</span><span class="s1">)$&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hole-Phonon: row cut&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/66b0c3008cdbf32055e7263c8d4304c2a7a480b79698319dbc1940c031b0e03d.png" src="../_images/66b0c3008cdbf32055e7263c8d4304c2a7a480b79698319dbc1940c031b0e03d.png" />
+</div>
+</div>
+</section>
+<section id="temperature-dependence">
+<h2>Temperature Dependence<a class="headerlink" href="#temperature-dependence" title="Link to this heading">¶</a></h2>
+<p>The Bose-Einstein distribution <span class="math notranslate nohighlight">\(N_0(T)\)</span> controls the balance between phonon
+absorption and emission. At low temperatures, emission dominates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">500</span><span class="p">])</span>
+<span class="n">Oph_eV</span> <span class="o">=</span> <span class="mf">36e-3</span>  <span class="c1"># phonon energy in eV</span>
+<span class="n">Oph_J</span> <span class="o">=</span> <span class="n">Oph_eV</span> <span class="o">*</span> <span class="n">eV</span>
+
+<span class="n">N0_vals</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">Oph_J</span> <span class="o">/</span> <span class="p">(</span><span class="n">kB_SI</span> <span class="o">*</span> <span class="n">T_range</span><span class="p">))</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">T_range</span><span class="p">,</span> <span class="n">N0_vals</span><span class="p">,</span> <span class="s1">&#39;bo-&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">T_range</span><span class="p">,</span> <span class="n">N0_vals</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;rs-&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$N_0 + 1$ (emission)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">T_range</span><span class="p">,</span> <span class="n">N0_vals</span><span class="p">,</span> <span class="s1">&#39;bo-&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$N_0$ (absorption)&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Temperature (K)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Phonon occupation&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;LO Phonon Occupation vs Temperature (36 meV)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Temperature | N0 (absorption) | N0+1 (emission) | Emission/Absorption ratio&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">75</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">T</span><span class="p">,</span> <span class="n">N0</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">T_range</span><span class="p">,</span> <span class="n">N0_vals</span><span class="p">):</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="p">(</span><span class="n">N0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">N0</span> <span class="k">if</span> <span class="n">N0</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">T</span><span class="si">:</span><span class="s2">4.0f</span><span class="si">}</span><span class="s2"> K    |    </span><span class="si">{</span><span class="n">N0</span><span class="si">:</span><span class="s2">.4e</span><span class="si">}</span><span class="s2">    |    </span><span class="si">{</span><span class="n">N0</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">       |    </span><span class="si">{</span><span class="n">ratio</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4df6154cbc6f7017a4802d39d2b9dced62aa37f0c12d8ce3842ab88dbe6301e9.png" src="../_images/4df6154cbc6f7017a4802d39d2b9dced62aa37f0c12d8ce3842ab88dbe6301e9.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Temperature | N0 (absorption) | N0+1 (emission) | Emission/Absorption ratio
+---------------------------------------------------------------------------
+    10 K    |    7.6111e-19    |    1.0000       |    1313871994298542080.00
+    30 K    |    9.1303e-07    |    1.0000       |    1095261.16
+    77 K    |    4.4552e-03    |    1.0045       |    225.45
+   150 K    |    6.6050e-02    |    1.0661       |    16.14
+   300 K    |    3.3140e-01    |    1.3314       |    4.02
+   500 K    |    7.6722e-01    |    1.7672       |    2.30
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>J. R. Gulley and D. Huang, <em>Opt. Express</em> <strong>27</strong>, 17154-17185 (2019).
+– Phonon scattering within the self-consistent SBE framework.</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="03_coulomb.myst.html" class="btn btn-neutral float-left" title="Deep Dive: Coulomb Interactions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="05_optics.myst.html" class="btn btn-neutral float-right" title="Deep Dive: Quantum Wire Optics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

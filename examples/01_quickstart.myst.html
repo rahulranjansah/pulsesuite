@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quickstart: Your First SBE Simulation &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/js/hoverxref.js"></script>
+      <script src="../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Architecture: How the SBE Solver Works" href="02_architecture.myst.html" />
+    <link rel="prev" title="Examples Gallery" href="../gallery.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">PulseSuite</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../gallery.html">Examples Gallery</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Quickstart: Your First SBE Simulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-you-will-do">What you will do</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup">1. Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spatial-grid">2. Spatial Grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#laser-pulse-parameters">3. Laser Pulse Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initialize-the-sbe-solver">4. Initialize the SBE Solver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#time-evolution">5. Time Evolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#results">6. Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-just-happened">What just happened</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#next-steps">Next steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="02_architecture.myst.html">Architecture: How the SBE Solver Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_coulomb.myst.html">Deep Dive: Coulomb Interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_phonons.myst.html">Deep Dive: Phonon Interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_optics.myst.html">Deep Dive: Quantum Wire Optics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06_transport.myst.html">Deep Dive: DC Transport and Emission</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../gallery.html">Examples Gallery</a></li>
+      <li class="breadcrumb-item active">Quickstart: Your First SBE Simulation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/01_quickstart.myst.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quickstart-your-first-sbe-simulation">
+<h1>Quickstart: Your First SBE Simulation<a class="headerlink" href="#quickstart-your-first-sbe-simulation" title="Link to this heading">¶</a></h1>
+<section id="what-you-will-do">
+<h2>What you will do<a class="headerlink" href="#what-you-will-do" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Set up a 1D spatial grid along a quantum wire</p></li>
+<li><p>Define an 800 nm Gaussian laser pulse (10 fs pulsewidth)</p></li>
+<li><p>Initialize the full SBE solver (Coulomb, phonons, dephasing, transport, emission)</p></li>
+<li><p>Time-evolve for 3000 steps (30 fs) and watch the polarization response</p></li>
+<li><p>Plot the electric field and induced polarization</p></li>
+</ol>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
+<p>This example requires the parameter files <code class="docutils literal notranslate"><span class="pre">params/qw.params</span></code> (material properties)
+and <code class="docutils literal notranslate"><span class="pre">params/mb.params</span></code> (many-body physics flags) to exist in the working directory.
+These ship with the examples and configure a GaAs quantum wire in an AlAs host
+with all major physics enabled.</p>
+<p>See <span class="xref std std-doc">02_architecture</span> for a detailed description of every parameter.</p>
+</section>
+<hr class="docutils" />
+<section id="setup">
+<h2>1. Setup<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">c</span> <span class="k">as</span> <span class="n">c0_SI</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D.SBEs</span><span class="w"> </span><span class="kn">import</span> <span class="n">InitializeSBE</span><span class="p">,</span> <span class="n">QWCalculator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D.typespace</span><span class="w"> </span><span class="kn">import</span> <span class="n">GetKArray</span><span class="p">,</span> <span class="n">GetSpaceArray</span>
+
+<span class="c1"># Ensure output directories exist (InitializeSBE writes diagnostic files here)</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;dataQW/Wire/C&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/D&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/Ee&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;dataQW/Wire/Eh&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/P&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/Win&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;dataQW/Wire/Wout&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/Xqw&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/info&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;dataQW/Wire/ne&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/nh&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">]:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Setup complete.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Setup complete.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="spatial-grid">
+<h2>2. Spatial Grid<a class="headerlink" href="#spatial-grid" title="Link to this heading">¶</a></h2>
+<p>The quantum wire lives on a 1D real-space grid. We use 50 pixels at 10 nm spacing
+(500 nm total length). <code class="docutils literal notranslate"><span class="pre">GetSpaceArray</span></code> and <code class="docutils literal notranslate"><span class="pre">GetKArray</span></code> create the matched
+real-space and momentum-space grids that the SBE solver needs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Nr</span> <span class="o">=</span> <span class="mi">50</span>             <span class="c1"># Number of grid points along the wire</span>
+<span class="n">drr</span> <span class="o">=</span> <span class="mf">10e-9</span>         <span class="c1"># Pixel size: 10 nm</span>
+
+<span class="n">rr</span> <span class="o">=</span> <span class="n">GetSpaceArray</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="p">(</span><span class="n">Nr</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">drr</span><span class="p">)</span>   <span class="c1"># Real-space grid (m)</span>
+<span class="n">qrr</span> <span class="o">=</span> <span class="n">GetKArray</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">Nr</span> <span class="o">*</span> <span class="n">drr</span><span class="p">)</span>            <span class="c1"># Momentum-space grid (rad/m)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Grid: </span><span class="si">{</span><span class="n">Nr</span><span class="si">}</span><span class="s2"> points, </span><span class="si">{</span><span class="n">drr</span><span class="o">*</span><span class="mf">1e9</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> nm spacing&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Wire length: </span><span class="si">{</span><span class="p">(</span><span class="n">Nr</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">drr</span><span class="o">*</span><span class="mf">1e9</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> nm&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Momentum range: [</span><span class="si">{</span><span class="n">qrr</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">qrr</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">] rad/m&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Grid: 50 points, 10 nm spacing
+Wire length: 490 nm
+Momentum range: [-3.14e+08, 3.02e+08] rad/m
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="laser-pulse-parameters">
+<h2>3. Laser Pulse Parameters<a class="headerlink" href="#laser-pulse-parameters" title="Link to this heading">¶</a></h2>
+<p>We drive the quantum wire with a linearly-polarized Gaussian pulse at 800 nm
+(near the GaAs band gap at ~1.5 eV). The pulse has a 10 fs full-width and
+peaks at 15 fs into the simulation.</p>
+<p>The pulse shape includes a super-Gaussian envelope (<span class="math notranslate nohighlight">\(e^{-x^{20}}\)</span>) that gives
+a sharp turn-on/turn-off, preventing long tails from wasting computation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Physical constants</span>
+<span class="n">c0</span> <span class="o">=</span> <span class="n">c0_SI</span>
+<span class="n">twopi</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+<span class="c1"># Pulse parameters</span>
+<span class="n">E0x</span> <span class="o">=</span> <span class="mf">1e7</span>           <span class="c1"># Peak E-field: 10 MV/m (V/m)</span>
+<span class="n">lam</span> <span class="o">=</span> <span class="mf">800e-9</span>        <span class="c1"># Wavelength: 800 nm</span>
+<span class="n">tw</span> <span class="o">=</span> <span class="mf">10e-15</span>         <span class="c1"># Pulsewidth: 10 fs (FWHM of Gaussian envelope)</span>
+<span class="n">tp</span> <span class="o">=</span> <span class="mf">15e-15</span>         <span class="c1"># Pulse peak time: 15 fs</span>
+
+<span class="c1"># Derived quantities</span>
+<span class="n">w0</span> <span class="o">=</span> <span class="n">twopi</span> <span class="o">*</span> <span class="n">c0</span> <span class="o">/</span> <span class="n">lam</span>   <span class="c1"># Angular frequency (rad/s)</span>
+<span class="n">Tc</span> <span class="o">=</span> <span class="n">lam</span> <span class="o">/</span> <span class="n">c0</span>            <span class="c1"># Optical cycle period (s)</span>
+
+<span class="c1"># Time stepping</span>
+<span class="n">Nt</span> <span class="o">=</span> <span class="mi">3000</span>           <span class="c1"># Number of time steps</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mf">10e-18</span>         <span class="c1"># Time step: 10 attoseconds (s)</span>
+<span class="n">T_total</span> <span class="o">=</span> <span class="n">Nt</span> <span class="o">*</span> <span class="n">dt</span>   <span class="c1"># Total simulation time</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Wavelength: </span><span class="si">{</span><span class="n">lam</span><span class="o">*</span><span class="mf">1e9</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> nm&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Photon energy: </span><span class="si">{</span><span class="n">twopi</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">c0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">lam</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1.055e-34</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1.6e-19</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> eV&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Optical cycle: </span><span class="si">{</span><span class="n">Tc</span><span class="o">*</span><span class="mf">1e15</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> fs&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pulse peak: </span><span class="si">{</span><span class="n">tp</span><span class="o">*</span><span class="mf">1e15</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> fs, width: </span><span class="si">{</span><span class="n">tw</span><span class="o">*</span><span class="mf">1e15</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> fs&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Simulation: </span><span class="si">{</span><span class="n">Nt</span><span class="si">}</span><span class="s2"> steps x </span><span class="si">{</span><span class="n">dt</span><span class="o">*</span><span class="mf">1e18</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> as = </span><span class="si">{</span><span class="n">T_total</span><span class="o">*</span><span class="mf">1e15</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> fs&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Wavelength: 800 nm
+Photon energy: 1.553 eV
+Optical cycle: 2.67 fs
+Pulse peak: 15 fs, width: 10 fs
+Simulation: 3000 steps x 10 as = 30 fs
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="initialize-the-sbe-solver">
+<h2>4. Initialize the SBE Solver<a class="headerlink" href="#initialize-the-sbe-solver" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">InitializeSBE</span></code> is the central entry point. It:</p>
+<ul class="simple">
+<li><p>Reads material parameters from <code class="docutils literal notranslate"><span class="pre">params/qw.params</span></code> (band gap, masses, dephasing rates)</p></li>
+<li><p>Reads physics flags from <code class="docutils literal notranslate"><span class="pre">params/mb.params</span></code> (Coulomb, phonons, transport, etc.)</p></li>
+<li><p>Computes the momentum grid and energy bands</p></li>
+<li><p>Initializes all subsystem modules (Coulomb matrices, phonon interactions, etc.)</p></li>
+<li><p>Sets up initial Fermi-Dirac carrier distributions at 77 K</p></li>
+</ul>
+<p>We configure 2 quantum wire subbands (<code class="docutils literal notranslate"><span class="pre">Nw=2</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Emax0</span> <span class="o">=</span> <span class="n">E0x</span>  <span class="c1"># Peak field magnitude for the wireoff guard</span>
+
+<span class="c1"># Initialize: this reads params files and sets up everything</span>
+<span class="n">InitializeSBE</span><span class="p">(</span><span class="n">qrr</span><span class="p">,</span> <span class="n">rr</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">Emax0</span><span class="p">,</span> <span class="n">lam</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SBE solver initialized with all many-body physics.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dcv / e0 = 3.3538811268940077e-10
+alphae = 303090660.34386384, alphah = 768475083.4742767
+1/qc = 2.3003106022655407e-09, sqrt(2) / sqrt(alphae² + alphah²) = 1.7119449377756965e-09
+ehint = 0.8262109841666643
+Wire Radius = 2.3003106022655407e-09
+Wire sqrt(area) = 3.8950888292173374e-09
+Wire Thickness = 5e-09
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Calculating Coulomb Arrays
+  Progress: 0/230 (0.0%)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Vint: Using JIT-compiled version
+  Progress: 10/230 (4.3%)
+  Progress: 20/230 (8.7%)
+  Progress: 30/230 (13.0%)
+  Progress: 40/230 (17.4%)
+  Progress: 50/230 (21.7%)
+  Progress: 60/230 (26.1%)
+  Progress: 70/230 (30.4%)
+  Progress: 80/230 (34.8%)
+  Progress: 90/230 (39.1%)
+  Progress: 100/230 (43.5%)
+  Progress: 110/230 (47.8%)
+  Progress: 120/230 (52.2%)
+  Progress: 130/230 (56.5%)
+  Progress: 140/230 (60.9%)
+  Progress: 150/230 (65.2%)
+  Progress: 160/230 (69.6%)
+  Progress: 170/230 (73.9%)
+  Progress: 180/230 (78.3%)
+  Progress: 190/230 (82.6%)
+  Progress: 200/230 (87.0%)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Progress: 210/230 (91.3%)
+  Progress: 220/230 (95.7%)
+Finished Calculating Unscreened Coulomb Arrays
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Quantum Wire Linear Chi = (-0.13219666733079763+0.14243061062572296j)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>InitializeSBE?
+SBE solver initialized with all many-body physics.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="time-evolution">
+<h2>5. Time Evolution<a class="headerlink" href="#time-evolution" title="Link to this heading">¶</a></h2>
+<p>Now we run the simulation. At each time step:</p>
+<ol class="arabic simple">
+<li><p>Compute the laser E-field at the current time</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">QWCalculator</span></code> for each subband – this solves the SBEs for one time step</p></li>
+<li><p>Average the polarization from both subbands</p></li>
+<li><p>Record the field and polarization at the wire midpoint</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Allocate field and polarization arrays</span>
+<span class="n">Exx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>   <span class="c1"># E-field along wire (V/m)</span>
+<span class="n">Eyy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+<span class="n">Ezz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+<span class="n">Vrr_pot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>  <span class="c1"># Potential (V)</span>
+
+<span class="c1"># Subband 1 polarizations</span>
+<span class="n">Pxx1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+<span class="n">Pyy1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+<span class="n">Pzz1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+
+<span class="c1"># Subband 2 polarizations</span>
+<span class="n">Pxx2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+<span class="n">Pyy2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+<span class="n">Pzz2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+
+<span class="n">Rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>   <span class="c1"># Charge density</span>
+
+<span class="c1"># Boolean flags for QWCalculator (lists for in-place modification)</span>
+<span class="n">boolT</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+<span class="n">boolF</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span>
+
+<span class="c1"># Storage for time-series at wire midpoint</span>
+<span class="n">mid</span> <span class="o">=</span> <span class="n">Nr</span> <span class="o">//</span> <span class="mi">2</span>
+<span class="n">t_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nt</span><span class="p">)</span>
+<span class="n">Ex_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nt</span><span class="p">)</span>
+<span class="n">Px_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nt</span><span class="p">)</span>
+
+<span class="c1"># Time evolution loop</span>
+<span class="n">t</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nt</span><span class="p">):</span>
+    <span class="c1"># Gaussian pulse with super-Gaussian cutoff</span>
+    <span class="n">phase</span> <span class="o">=</span> <span class="n">w0</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">tp</span><span class="p">)</span>
+    <span class="n">Exx</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">E0x</span>
+              <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">phase</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">w0</span> <span class="o">*</span> <span class="n">tw</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+              <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phase</span><span class="p">)</span>
+              <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">phase</span><span class="o">**</span><span class="mi">20</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">tw</span> <span class="o">*</span> <span class="n">w0</span><span class="p">)</span><span class="o">**</span><span class="mi">20</span><span class="p">))</span>
+
+    <span class="c1"># Evolve SBEs for subband 1</span>
+    <span class="n">QWCalculator</span><span class="p">(</span><span class="n">Exx</span><span class="p">,</span> <span class="n">Eyy</span><span class="p">,</span> <span class="n">Ezz</span><span class="p">,</span> <span class="n">Vrr_pot</span><span class="p">,</span> <span class="n">rr</span><span class="p">,</span> <span class="n">qrr</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+                 <span class="n">Pxx1</span><span class="p">,</span> <span class="n">Pyy1</span><span class="p">,</span> <span class="n">Pzz1</span><span class="p">,</span> <span class="n">Rho</span><span class="p">,</span> <span class="n">boolT</span><span class="p">,</span> <span class="n">boolF</span><span class="p">)</span>
+    <span class="c1"># Evolve SBEs for subband 2</span>
+    <span class="n">QWCalculator</span><span class="p">(</span><span class="n">Exx</span><span class="p">,</span> <span class="n">Eyy</span><span class="p">,</span> <span class="n">Ezz</span><span class="p">,</span> <span class="n">Vrr_pot</span><span class="p">,</span> <span class="n">rr</span><span class="p">,</span> <span class="n">qrr</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+                 <span class="n">Pxx2</span><span class="p">,</span> <span class="n">Pyy2</span><span class="p">,</span> <span class="n">Pzz2</span><span class="p">,</span> <span class="n">Rho</span><span class="p">,</span> <span class="n">boolT</span><span class="p">,</span> <span class="n">boolF</span><span class="p">)</span>
+
+    <span class="c1"># Record midpoint values</span>
+    <span class="n">t_arr</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
+    <span class="n">Ex_arr</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">Exx</span><span class="p">[</span><span class="n">mid</span><span class="p">])</span>
+    <span class="n">Px_arr</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">((</span><span class="n">Pxx1</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">+</span> <span class="n">Pxx2</span><span class="p">[</span><span class="n">mid</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">t</span> <span class="o">+=</span> <span class="n">dt</span>
+
+    <span class="c1"># Progress indicator</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Step </span><span class="si">{</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">Nt</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span><span class="o">*</span><span class="mf">1e15</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> fs)&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Done. Simulated </span><span class="si">{</span><span class="n">T_total</span><span class="o">*</span><span class="mf">1e15</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> fs of quantum wire dynamics.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/numba/core/typed_passes.py:338: NumbaPerformanceWarning: 
+The keyword argument &#39;parallel=True&#39; was specified but no transformation for parallel execution was possible.
+
+To find out why, try turning on parallel diagnostics, see https://numba.readthedocs.io/en/stable/user/parallel.html#diagnostics for help.
+
+File &quot;../../../src/pulsesuite/PSTD3D/coulomb.py&quot;, line 957:
+@jit(nopython=True, parallel=True)
+def _MBCE_core(ne, nh, Veh2, Vee2, Win, Wout, k3, Ceh, Cee):
+^
+
+  warnings.warn(errors.NumbaPerformanceWarning(msg,
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/numba/core/typed_passes.py:338: NumbaPerformanceWarning: 
+The keyword argument &#39;parallel=True&#39; was specified but no transformation for parallel execution was possible.
+
+To find out why, try turning on parallel diagnostics, see https://numba.readthedocs.io/en/stable/user/parallel.html#diagnostics for help.
+
+File &quot;../../../src/pulsesuite/PSTD3D/coulomb.py&quot;, line 1016:
+@jit(nopython=True, parallel=True)
+def _MBCH_core(ne, nh, Veh2, Vhh2, Win, Wout, k3, Ceh, Chh):
+^
+
+  warnings.warn(errors.NumbaPerformanceWarning(msg,
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/pulsesuite/pulsesuite/src/pulsesuite/PSTD3D/SBEs.py:5735: ComplexWarning: Casting complex values to real discards the imaginary part
+  self.I0[w - 1] = CalcI0(
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">40</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span> <span class="n">Exx</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">E0x</span>
+<span class="g g-Whitespace">     </span><span class="mi">35</span>           <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">phase</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">w0</span> <span class="o">*</span> <span class="n">tw</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span>           <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phase</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span>           <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">phase</span><span class="o">**</span><span class="mi">20</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">tw</span> <span class="o">*</span> <span class="n">w0</span><span class="p">)</span><span class="o">**</span><span class="mi">20</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">39</span> <span class="c1"># Evolve SBEs for subband 1</span>
+<span class="ne">---&gt; </span><span class="mi">40</span> <span class="n">QWCalculator</span><span class="p">(</span><span class="n">Exx</span><span class="p">,</span> <span class="n">Eyy</span><span class="p">,</span> <span class="n">Ezz</span><span class="p">,</span> <span class="n">Vrr_pot</span><span class="p">,</span> <span class="n">rr</span><span class="p">,</span> <span class="n">qrr</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">41</span>              <span class="n">Pxx1</span><span class="p">,</span> <span class="n">Pyy1</span><span class="p">,</span> <span class="n">Pzz1</span><span class="p">,</span> <span class="n">Rho</span><span class="p">,</span> <span class="n">boolT</span><span class="p">,</span> <span class="n">boolF</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">42</span> <span class="c1"># Evolve SBEs for subband 2</span>
+<span class="g g-Whitespace">     </span><span class="mi">43</span> <span class="n">QWCalculator</span><span class="p">(</span><span class="n">Exx</span><span class="p">,</span> <span class="n">Eyy</span><span class="p">,</span> <span class="n">Ezz</span><span class="p">,</span> <span class="n">Vrr_pot</span><span class="p">,</span> <span class="n">rr</span><span class="p">,</span> <span class="n">qrr</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">44</span>              <span class="n">Pxx2</span><span class="p">,</span> <span class="n">Pyy2</span><span class="p">,</span> <span class="n">Pzz2</span><span class="p">,</span> <span class="n">Rho</span><span class="p">,</span> <span class="n">boolT</span><span class="p">,</span> <span class="n">boolF</span><span class="p">)</span>
+
+<span class="nn">File ~/work/pulsesuite/pulsesuite/src/pulsesuite/PSTD3D/SBEs.py:5987,</span> in <span class="ni">QWCalculator</span><span class="nt">(Exx, Eyy, Ezz, Vrr, rr, q, dt, w, Pxx, Pyy, Pzz, Rho, DoQWP, DoQWDl)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5983</span> <span class="k">def</span><span class="w"> </span><span class="nf">QWCalculator</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">5984</span>     <span class="n">Exx</span><span class="p">,</span> <span class="n">Eyy</span><span class="p">,</span> <span class="n">Ezz</span><span class="p">,</span> <span class="n">Vrr</span><span class="p">,</span> <span class="n">rr</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">Pxx</span><span class="p">,</span> <span class="n">Pyy</span><span class="p">,</span> <span class="n">Pzz</span><span class="p">,</span> <span class="n">Rho</span><span class="p">,</span> <span class="n">DoQWP</span><span class="p">,</span> <span class="n">DoQWDl</span>  <span class="c1"># noqa: F811</span>
+<span class="g g-Whitespace">   </span><span class="mi">5985</span> <span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">5986</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Backward-compatible shim — delegates to _default_solver.&quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">5987</span>     <span class="n">_default_solver</span><span class="o">.</span><span class="n">QWCalculator</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">5988</span>         <span class="n">Exx</span><span class="p">,</span> <span class="n">Eyy</span><span class="p">,</span> <span class="n">Ezz</span><span class="p">,</span> <span class="n">Vrr</span><span class="p">,</span> <span class="n">rr</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">Pxx</span><span class="p">,</span> <span class="n">Pyy</span><span class="p">,</span> <span class="n">Pzz</span><span class="p">,</span> <span class="n">Rho</span><span class="p">,</span> <span class="n">DoQWP</span><span class="p">,</span> <span class="n">DoQWDl</span>
+<span class="g g-Whitespace">   </span><span class="mi">5989</span>     <span class="p">)</span>
+
+<span class="nn">File ~/work/pulsesuite/pulsesuite/src/pulsesuite/PSTD3D/SBEs.py:5854,</span> in <span class="ni">SBESolver.QWCalculator</span><span class="nt">(self, Exx, Eyy, Ezz, Vrr, rr, q, dt, w, Pxx, Pyy, Pzz, Rho, DoQWP, DoQWDl)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5852</span>     <span class="n">rh</span><span class="p">[:]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="g g-Whitespace">   </span><span class="mi">5853</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">5854</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_sbe_calculator</span><span class="p">(</span><span class="n">Ex</span><span class="p">,</span> <span class="n">Ey</span><span class="p">,</span> <span class="n">Ez</span><span class="p">,</span> <span class="n">Vr</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">Px</span><span class="p">,</span> <span class="n">Py</span><span class="p">,</span> <span class="n">Pz</span><span class="p">,</span> <span class="n">re</span><span class="p">,</span> <span class="n">rh</span><span class="p">,</span> <span class="n">WriteFields</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5856</span> <span class="n">RhoE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rr</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5857</span> <span class="n">RhoH</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rr</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+
+<span class="nn">File ~/work/pulsesuite/pulsesuite/src/pulsesuite/PSTD3D/SBEs.py:5681,</span> in <span class="ni">SBESolver._sbe_calculator</span><span class="nt">(self, Ex, Ey, Ez, Vr, dt, Px, Py, Pz, Re, Rh, WriteFields, w)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5679</span>     <span class="n">WriteSBESolns</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kr</span><span class="p">,</span> <span class="n">ne3</span><span class="p">,</span> <span class="n">nh3</span><span class="p">,</span> <span class="n">C3</span><span class="p">,</span> <span class="n">D3</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">Ene</span><span class="p">,</span> <span class="n">Enh</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xxx</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5680</span> <span class="k">if</span> <span class="n">WriteFields</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">DiagDph</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">5681</span>     <span class="n">WriteDephasing</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kr</span><span class="p">,</span> <span class="n">GamE</span><span class="p">,</span> <span class="n">GamH</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xxx</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5683</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Optics</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">5684</span>     <span class="bp">self</span><span class="o">.</span><span class="n">qw</span><span class="o">.</span><span class="n">QWPolarization3</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">5685</span>         <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5686</span>         <span class="bp">self</span><span class="o">.</span><span class="n">kr</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>   <span class="mi">5695</span>         <span class="n">w</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5696</span>     <span class="p">)</span>
+
+<span class="nn">File ~/work/pulsesuite/pulsesuite/src/pulsesuite/PSTD3D/dephasing.py:437,</span> in <span class="ni">WriteDephasing</span><span class="nt">(ky, gamE, gamH, w, xxx)</span>
+<span class="g g-Whitespace">    </span><span class="mi">430</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">431</span><span class="sd"> Write dephasing rates to files.</span>
+<span class="g g-Whitespace">    </span><span class="mi">432</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">433</span><span class="sd"> Writes electron and hole dephasing rates with wire index.</span>
+<span class="g g-Whitespace">    </span><span class="mi">434</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">435</span> <span class="n">wire</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">w</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">437</span> <span class="n">printGam</span><span class="p">(</span><span class="n">gamE</span><span class="p">,</span> <span class="n">ky</span><span class="p">,</span> <span class="n">xxx</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Wire/Ge/Ge.</span><span class="si">{</span><span class="n">wire</span><span class="si">}</span><span class="s2">.k.&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">438</span> <span class="n">printGam</span><span class="p">(</span><span class="n">gamH</span><span class="p">,</span> <span class="n">ky</span><span class="p">,</span> <span class="n">xxx</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Wire/Gh/Gh.</span><span class="si">{</span><span class="n">wire</span><span class="si">}</span><span class="s2">.k.&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/work/pulsesuite/pulsesuite/src/pulsesuite/PSTD3D/dephasing.py:424,</span> in <span class="ni">printGam</span><span class="nt">(Dx, z, n, file)</span>
+<span class="g g-Whitespace">    </span><span class="mi">418</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">419</span><span class="sd"> Print dephasing rate to file with index number.</span>
+<span class="g g-Whitespace">    </span><span class="mi">420</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">421</span><span class="sd"> Writes to &#39;dataQW/{file}{n:05d}.dat&#39;.</span>
+<span class="g g-Whitespace">    </span><span class="mi">422</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">423</span> <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;dataQW/</span><span class="si">{</span><span class="n">file</span><span class="si">}{</span><span class="n">n</span><span class="si">:</span><span class="s2">05d</span><span class="si">}</span><span class="s2">.dat&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">424</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">425</span>     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)):</span>
+<span class="g g-Whitespace">    </span><span class="mi">426</span>         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">Dx</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;dataQW/Wire/Ge/Ge.01.k.00500.dat&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="results">
+<h2>6. Results<a class="headerlink" href="#results" title="Link to this heading">¶</a></h2>
+<p>The top panel shows the driving laser E-field – a few-cycle pulse at 800 nm.
+The bottom panel shows the polarization induced in the quantum wire. The
+polarization responds to the field but with a phase lag and amplitude set by
+the quantum mechanical response of the electron-hole system.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_fs</span> <span class="o">=</span> <span class="n">t_arr</span> <span class="o">*</span> <span class="mf">1e15</span>  <span class="c1"># Convert to femtoseconds</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># E-field</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_fs</span><span class="p">,</span> <span class="n">Ex_arr</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;E-field (MV/m)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Laser Pulse Driving a GaAs Quantum Wire&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Polarization</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_fs</span><span class="p">,</span> <span class="n">Px_arr</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Polarization (C/m$^2$)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (fs)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Peak E-field: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Ex_arr</span><span class="p">))</span><span class="o">*</span><span class="mf">1e-6</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MV/m&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Peak polarization: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Px_arr</span><span class="p">))</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> C/m^2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d15ab5cbc4a13a7ed860521f36bacb04647143956d095c27e4243762728ba94d.png" src="../_images/d15ab5cbc4a13a7ed860521f36bacb04647143956d095c27e4243762728ba94d.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Peak E-field: 3.2 MV/m
+Peak polarization: 5.47e-09 C/m^2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-just-happened">
+<h2>What just happened<a class="headerlink" href="#what-just-happened" title="Link to this heading">¶</a></h2>
+<p>Behind the scenes, <code class="docutils literal notranslate"><span class="pre">InitializeSBE</span></code> set up and <code class="docutils literal notranslate"><span class="pre">QWCalculator</span></code> solved:</p>
+<ul class="simple">
+<li><p><strong>Coulomb interactions</strong>: Screened electron-hole, electron-electron, and hole-hole
+scattering matrices (excitonic correlations, band-gap renormalization)</p></li>
+<li><p><strong>Phonon scattering</strong>: LO phonon emission and absorption at 36 meV (GaAs)</p></li>
+<li><p><strong>Dephasing</strong>: Diagonal and off-diagonal dephasing of the density matrix</p></li>
+<li><p><strong>DC transport</strong>: Drift of carriers under any applied DC field</p></li>
+<li><p><strong>Spontaneous emission</strong>: Radiative recombination of electron-hole pairs</p></li>
+<li><p><strong>Optical coupling</strong>: Dipole matrix elements connecting valence and conduction bands</p></li>
+</ul>
+<p>All of these ran self-consistently at every time step, controlled by the flags in
+<code class="docutils literal notranslate"><span class="pre">params/mb.params</span></code>. This is the same physics that produces the published results
+in Gulley &amp; Huang, <em>Opt. Express</em> <strong>27</strong>, 17154 (2019).</p>
+</section>
+<section id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><span class="xref std std-doc">02_architecture</span> – understand the module structure and parameter files</p></li>
+<li><p><span class="xref std std-doc">03_coulomb</span> – inspect the Coulomb matrices computed during initialization</p></li>
+<li><p><span class="xref std std-doc">04_phonons</span> – explore phonon scattering rates and temperature dependence</p></li>
+<li><p><span class="xref std std-doc">05_optics</span> – see how fields are projected between propagation and QW spaces</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>J. R. Gulley and D. Huang, “Self-consistent quantum-kinetic theory for interplay
+between pulsed-laser excitation and nonlinear carrier transport in a quantum-wire
+array,” <em>Opt. Express</em> <strong>27</strong>, 17154-17185 (2019).</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../gallery.html" class="btn btn-neutral float-left" title="Examples Gallery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="02_architecture.myst.html" class="btn btn-neutral float-right" title="Architecture: How the SBE Solver Works" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

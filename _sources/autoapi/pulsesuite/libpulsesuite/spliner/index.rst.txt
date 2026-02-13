@@ -1,0 +1,748 @@
+pulsesuite.libpulsesuite.spliner
+================================
+
+.. py:module:: pulsesuite.libpulsesuite.spliner
+
+.. autoapi-nested-parse::
+
+   Spline interpolation routines for arrays.
+
+   This module provides routines for interpolation of arrays using cubic splines
+   and polynomial interpolation methods. Supports both real and complex arrays,
+   1D and 2D rescaling, and multi-dimensional interpolation.
+
+   Author: Rahul R. Sah
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.libpulsesuite.spliner.JIT_AVAILABLE
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.libpulsesuite.spliner.iminloc
+   pulsesuite.libpulsesuite.spliner.rescale_2D_dp
+   pulsesuite.libpulsesuite.spliner.rescale_2D_dpc
+   pulsesuite.libpulsesuite.spliner.rescale_1D_dpc
+   pulsesuite.libpulsesuite.spliner.rescale_1D_cyl_dpc
+   pulsesuite.libpulsesuite.spliner.rescale_1D_dp
+   pulsesuite.libpulsesuite.spliner.GetValAt_3D
+   pulsesuite.libpulsesuite.spliner.GetValAt_2D
+   pulsesuite.libpulsesuite.spliner.GetValAt_1D
+   pulsesuite.libpulsesuite.spliner.GetValAt_1D_dpc
+   pulsesuite.libpulsesuite.spliner.polint1
+   pulsesuite.libpulsesuite.spliner.polint2
+   pulsesuite.libpulsesuite.spliner.polint3
+   pulsesuite.libpulsesuite.spliner.bcucof
+   pulsesuite.libpulsesuite.spliner.bcuint
+   pulsesuite.libpulsesuite.spliner.spline2_dpc
+   pulsesuite.libpulsesuite.spliner.seval2_dpc
+   pulsesuite.libpulsesuite.spliner.spline2_dp
+   pulsesuite.libpulsesuite.spliner.locate
+   pulsesuite.libpulsesuite.spliner.spline_dp
+   pulsesuite.libpulsesuite.spliner.seval_dp
+   pulsesuite.libpulsesuite.spliner.spline_dpc
+   pulsesuite.libpulsesuite.spliner.seval_dpc
+   pulsesuite.libpulsesuite.spliner.seval2_dp
+   pulsesuite.libpulsesuite.spliner.spline
+   pulsesuite.libpulsesuite.spliner.seval
+   pulsesuite.libpulsesuite.spliner.rescale_1D
+   pulsesuite.libpulsesuite.spliner.rescale_2D
+
+
+Module Contents
+---------------
+
+.. py:data:: JIT_AVAILABLE
+   :value: True
+
+
+.. py:function:: iminloc(arr)
+
+   Find the index of the minimum value in an array.
+
+   :param arr: 1D array of real values
+   :type arr: ndarray
+
+   :returns: Index (1-based in Fortran, 0-based in Python) of minimum value.
+             Note: Returns 0-based index to match Python convention.
+   :rtype: int
+
+
+.. py:function:: rescale_2D_dp(x0, y0, z0, x1, y1, z1)
+
+   Rescale a 2D real array from one grid to another.
+
+   Rescales the 2D array z0 defined on grid (x0, y0) to a new grid (x1, y1),
+   storing the result in z1. Uses cubic spline interpolation.
+
+   :param x0: Original X-coordinates, 1D array
+   :type x0: ndarray
+   :param y0: Original Y-coordinates, 1D array
+   :type y0: ndarray
+   :param z0: Original 2D array, shape (len(x0), len(y0))
+   :type z0: ndarray
+   :param x1: New X-coordinates, 1D array
+   :type x1: ndarray
+   :param y1: New Y-coordinates, 1D array
+   :type y1: ndarray
+   :param z1: Output 2D array, shape (len(x1), len(y1)), will be modified in-place
+   :type z1: ndarray
+
+   .. rubric:: Notes
+
+   The function first interpolates along the x-direction for each y0 value,
+   then interpolates along the y-direction for each x1 value.
+
+
+.. py:function:: rescale_2D_dpc(x0, y0, z0, x1, y1, z1)
+
+   Rescale a 2D complex array from one grid to another.
+
+   Rescales the 2D complex array z0 defined on grid (x0, y0) to a new grid (x1, y1),
+   storing the result in z1. Uses cubic spline interpolation.
+
+   :param x0: Original X-coordinates, 1D array
+   :type x0: ndarray
+   :param y0: Original Y-coordinates, 1D array
+   :type y0: ndarray
+   :param z0: Original 2D complex array, shape (len(x0), len(y0))
+   :type z0: ndarray
+   :param x1: New X-coordinates, 1D array
+   :type x1: ndarray
+   :param y1: New Y-coordinates, 1D array
+   :type y1: ndarray
+   :param z1: Output 2D complex array, shape (len(x1), len(y1)), will be modified in-place
+   :type z1: ndarray
+
+   .. rubric:: Notes
+
+   The function first interpolates along the x-direction for each y0 value,
+   then interpolates along the y-direction for each x1 value.
+
+
+.. py:function:: rescale_1D_dpc(x0, z0, x1, z1)
+
+   Rescale a 1D complex array from one grid to another.
+
+   Rescales the 1D complex array z0 defined on grid x0 to a new grid x1,
+   storing the result in z1. Uses cubic spline interpolation.
+
+   :param x0: Original X-coordinates, 1D array
+   :type x0: ndarray
+   :param z0: Original 1D complex array
+   :type z0: ndarray
+   :param x1: New X-coordinates, 1D array
+   :type x1: ndarray
+   :param z1: Output 1D complex array, will be modified in-place
+   :type z1: ndarray
+
+   .. rubric:: Notes
+
+   Values outside the range [min(x0), max(x0)] are set to 0.
+
+
+.. py:function:: rescale_1D_cyl_dpc(x0, z0, x1, z1)
+
+   Rescale a 1D complex array from one grid to another with cylindrical boundary condition.
+
+   Rescales the 1D complex array z0 defined on grid x0 to a new grid x1,
+   storing the result in z1. Uses cubic spline interpolation.
+   The first point z1[0] is set to z0[0] (cylindrical boundary condition).
+
+   :param x0: Original X-coordinates, 1D array
+   :type x0: ndarray
+   :param z0: Original 1D complex array
+   :type z0: ndarray
+   :param x1: New X-coordinates, 1D array
+   :type x1: ndarray
+   :param z1: Output 1D complex array, will be modified in-place
+   :type z1: ndarray
+
+   .. rubric:: Notes
+
+   Values outside the range [min(x0), max(x0)] are set to 0.
+   The first point z1[0] is always set to z0[0].
+
+
+.. py:function:: rescale_1D_dp(x0, y0, x1, y1)
+
+   Rescale a 1D real array from one grid to another.
+
+   Rescales the 1D real array y0 defined on grid x0 to a new grid x1,
+   storing the result in y1. Uses cubic spline interpolation.
+
+   :param x0: Original X-coordinates, 1D array
+   :type x0: ndarray
+   :param y0: Original 1D real array
+   :type y0: ndarray
+   :param x1: New X-coordinates, 1D array
+   :type x1: ndarray
+   :param y1: Output 1D real array, will be modified in-place
+   :type y1: ndarray
+
+   .. rubric:: Notes
+
+   Values outside the range [min(x0), max(x0)] are set to 0.
+
+
+.. py:function:: GetValAt_3D(e, x0a, x1a, x2a, x0, x1, x2, N=None)
+
+   Interpolate a 3D array at an arbitrary point.
+
+   Uses polynomial interpolation to interpolate the 3D array e at the
+   point (x0, x1, x2). Returns 0 if the point is outside the array bounds.
+
+   :param e: 3D array to interpolate
+   :type e: ndarray
+   :param x0a: X-coordinates for first dimension, 1D array
+   :type x0a: ndarray
+   :param x1a: X-coordinates for second dimension, 1D array
+   :type x1a: ndarray
+   :param x2a: X-coordinates for third dimension, 1D array
+   :type x2a: ndarray
+   :param x0: Position in first dimension
+   :type x0: float
+   :param x1: Position in second dimension
+   :type x1: float
+   :param x2: Position in third dimension
+   :type x2: float
+   :param N: Order of interpolation (default: 2)
+   :type N: int, optional
+
+   :returns: Interpolated value at (x0, x1, x2), or 0 if outside bounds
+   :rtype: float
+
+
+.. py:function:: GetValAt_2D(e, x0a, x1a, x0, x1, N=None)
+
+   Interpolate a 2D array at an arbitrary point.
+
+   Uses polynomial interpolation to interpolate the 2D array e at the
+   point (x0, x1). Returns 0 if the point is outside the array bounds.
+
+   :param e: 2D array to interpolate
+   :type e: ndarray
+   :param x0a: X-coordinates for first dimension, 1D array
+   :type x0a: ndarray
+   :param x1a: X-coordinates for second dimension, 1D array
+   :type x1a: ndarray
+   :param x0: Position in first dimension
+   :type x0: float
+   :param x1: Position in second dimension
+   :type x1: float
+   :param N: Order of interpolation (default: 2)
+   :type N: int, optional
+
+   :returns: Interpolated value at (x0, x1), or 0 if outside bounds
+   :rtype: float
+
+
+.. py:function:: GetValAt_1D(e, x0, x1)
+
+   Interpolate a 1D real array at an arbitrary point.
+
+   Uses cubic spline interpolation to interpolate the 1D array e at the
+   point x1. Returns 0 if the point is outside the array bounds.
+
+   :param e: 1D array to interpolate
+   :type e: ndarray
+   :param x0: X-coordinates for the array, 1D array
+   :type x0: ndarray
+   :param x1: Position to interpolate
+   :type x1: float
+
+   :returns: Interpolated value at x1, or 0 if outside bounds
+   :rtype: float
+
+
+.. py:function:: GetValAt_1D_dpc(e, x0, x1)
+
+   Interpolate a 1D complex array at an arbitrary point.
+
+   Uses cubic spline interpolation to interpolate the 1D complex array e
+   at the point x1. Returns 0 if the point is outside the array bounds.
+
+   :param e: 1D complex array to interpolate
+   :type e: ndarray
+   :param x0: X-coordinates for the array, 1D array
+   :type x0: ndarray
+   :param x1: Position to interpolate
+   :type x1: float
+
+   :returns: Interpolated complex value at x1, or 0 if outside bounds
+   :rtype: complex
+
+
+.. py:function:: polint1(xa, ya, x, dy=None)
+
+   Interpolate a 1D array at an arbitrary point using polynomial interpolation.
+
+   Uses Neville's algorithm for polynomial interpolation. The polynomial
+   order is determined by the array size (N-1).
+
+   :param xa: X-coordinates, 1D array
+   :type xa: ndarray
+   :param ya: Y-values at x coordinates, 1D array
+   :type ya: ndarray
+   :param x: Position to interpolate
+   :type x: float
+   :param dy: If provided as a list, will store error estimate in dy[0]
+   :type dy: list or None, optional
+
+   :returns: Interpolated value at x
+   :rtype: float
+
+
+.. py:function:: polint2(x1a, x2a, ya, x1, x2, dy=None)
+
+   Interpolate a 2D array at an arbitrary point using polynomial interpolation.
+
+   Uses polynomial interpolation by first interpolating along the second
+   dimension, then along the first dimension.
+
+   :param x1a: X-coordinates for first dimension, 1D array
+   :type x1a: ndarray
+   :param x2a: X-coordinates for second dimension, 1D array
+   :type x2a: ndarray
+   :param ya: 2D array of values
+   :type ya: ndarray
+   :param x1: Position in first dimension
+   :type x1: float
+   :param x2: Position in second dimension
+   :type x2: float
+   :param dy: Output parameter for error estimate (if provided)
+   :type dy: float, optional
+
+   :returns: Interpolated value at (x1, x2)
+   :rtype: float
+
+
+.. py:function:: polint3(x1a, x2a, x3a, ya, x1, x2, x3, dy=None)
+
+   Interpolate a 3D array at an arbitrary point using polynomial interpolation.
+
+   Uses polynomial interpolation by first interpolating along the third
+   and second dimensions, then along the first dimension.
+
+   :param x1a: X-coordinates for first dimension, 1D array
+   :type x1a: ndarray
+   :param x2a: X-coordinates for second dimension, 1D array
+   :type x2a: ndarray
+   :param x3a: X-coordinates for third dimension, 1D array
+   :type x3a: ndarray
+   :param ya: 3D array of values
+   :type ya: ndarray
+   :param x1: Position in first dimension
+   :type x1: float
+   :param x2: Position in second dimension
+   :type x2: float
+   :param x3: Position in third dimension
+   :type x3: float
+   :param dy: Output parameter for error estimate (if provided)
+   :type dy: float, optional
+
+   :returns: Interpolated value at (x1, x2, x3)
+   :rtype: float
+
+
+.. py:function:: bcucof(y, y1, y2, y12, d1, d2, c)
+
+   Compute bicubic interpolation coefficients.
+
+   Computes the coefficients for bicubic interpolation given function values,
+   first derivatives, and cross derivatives at the four corners of a rectangle.
+
+   :param y: Function values at four corners, shape (4,)
+   :type y: ndarray
+   :param y1: First derivatives in x-direction at four corners, shape (4,)
+   :type y1: ndarray
+   :param y2: First derivatives in y-direction at four corners, shape (4,)
+   :type y2: ndarray
+   :param y12: Cross derivatives (d^2/dxdy) at four corners, shape (4,)
+   :type y12: ndarray
+   :param d1: Width of rectangle in x-direction
+   :type d1: float
+   :param d2: Width of rectangle in y-direction
+   :type d2: float
+   :param c: Output array for bicubic coefficients, shape (4, 4), modified in-place
+   :type c: ndarray
+
+   .. rubric:: Notes
+
+   The coefficients are stored in c such that the interpolated value is:
+   sum over i,j of c[i,j] * t^i * u^j
+   where t and u are normalized coordinates in [0,1].
+
+
+.. py:function:: bcuint(y, y1, y2, y12, x1l, x1u, x2l, x2u, x1, x2)
+
+   Bicubic interpolation.
+
+   Performs bicubic interpolation at the point (x1, x2) within a rectangle
+   defined by [x1l, x1u] x [x2l, x2u]. Returns the interpolated value.
+
+   :param y: Function values at four corners, shape (4,)
+   :type y: ndarray
+   :param y1: First derivatives in x-direction at four corners, shape (4,)
+   :type y1: ndarray
+   :param y2: First derivatives in y-direction at four corners, shape (4,)
+   :type y2: ndarray
+   :param y12: Cross derivatives (d^2/dxdy) at four corners, shape (4,)
+   :type y12: ndarray
+   :param x1l: Lower bound of x1 coordinate
+   :type x1l: float
+   :param x1u: Upper bound of x1 coordinate
+   :type x1u: float
+   :param x2l: Lower bound of x2 coordinate
+   :type x2l: float
+   :param x2u: Upper bound of x2 coordinate
+   :type x2u: float
+   :param x1: X1 coordinate to interpolate
+   :type x1: float
+   :param x2: X2 coordinate to interpolate
+   :type x2: float
+
+   :returns: (ansy, ansy1, ansy2) where:
+             - ansy: Interpolated value at (x1, x2)
+             - ansy1: Partial derivative d/dx1
+             - ansy2: Partial derivative d/dx2
+   :rtype: tuple
+
+
+.. py:function:: spline2_dpc(x, z, z2)
+
+   Compute the cubic spline interpolant for complex arrays (second derivative version).
+
+   Computes the second derivatives z2 for cubic spline interpolation of the
+   complex function z(x). This version uses natural boundary conditions
+   (zero second derivatives at endpoints).
+
+   :param x: X-coordinates, 1D array, must be in ascending order
+   :type x: ndarray
+   :param z: Complex function values at x coordinates, 1D array
+   :type z: ndarray
+   :param z2: Output array for second derivatives, shape (len(x)), complex,
+              modified in-place
+   :type z2: ndarray
+
+   .. rubric:: Notes
+
+   Uses natural spline boundary conditions: z2[0] = z2[N-1] = 0.
+   The spline can be evaluated using seval2_dpc.
+
+
+.. py:function:: seval2_dpc(x0, x, z, z2)
+
+   Evaluate the cubic spline for complex arrays (second derivative version).
+
+   Evaluates the cubic spline at point x0 using the pre-computed second
+   derivatives z2 from spline2_dpc.
+
+   :param x0: Position to interpolate
+   :type x0: float
+   :param x: X-coordinates used to compute spline, 1D array
+   :type x: ndarray
+   :param z: Complex function values at x coordinates, 1D array
+   :type z: ndarray
+   :param z2: Second derivatives from spline2_dpc, 1D complex array
+   :type z2: ndarray
+
+   :returns: Interpolated complex value at x0
+   :rtype: complex
+
+
+.. py:function:: spline2_dp(x, y, y2)
+
+   Compute the cubic spline interpolant for real arrays (second derivative version).
+
+   Computes the second derivatives y2 for cubic spline interpolation of the
+   function y(x). This version uses natural boundary conditions
+   (zero second derivatives at endpoints).
+
+   :param x: X-coordinates, 1D array, must be in ascending order
+   :type x: ndarray
+   :param y: Function values at x coordinates, 1D array
+   :type y: ndarray
+   :param y2: Output array for second derivatives, shape (len(x)),
+              modified in-place
+   :type y2: ndarray
+
+   .. rubric:: Notes
+
+   Uses natural spline boundary conditions: y2[0] = y2[N-1] = 0.
+   The spline can be evaluated using seval2_dp.
+
+
+.. py:function:: locate(xx, x)
+
+   Find the index i such that xx[i] <= x < xx[i+1].
+
+   Uses binary search for efficiency. Returns the index of the lower bound.
+
+   :param xx: Sorted 1D array (ascending order)
+   :type xx: ndarray
+   :param x: Value to locate
+   :type x: float
+
+   :returns: Index i such that xx[i] <= x < xx[i+1], or len(xx)-1 if x >= xx[-1]
+   :rtype: int
+
+
+.. py:function:: spline_dp(x, y, b, c, d)
+
+   Compute the cubic spline interpolant for real arrays.
+
+   Computes the coefficients b, c, d for cubic spline interpolation
+   of the function y(x). The spline can then be evaluated using seval_dp.
+
+   :param x: X-coordinates, 1D array, must be in ascending order
+   :type x: ndarray
+   :param y: Y-values at x coordinates, 1D array
+   :type y: ndarray
+   :param b: Output array for spline coefficients (linear term)
+   :type b: ndarray
+   :param c: Output array for spline coefficients (quadratic term)
+   :type c: ndarray
+   :param d: Output array for spline coefficients (cubic term)
+   :type d: ndarray
+
+   .. rubric:: Notes
+
+   The arrays b, c, d are modified in-place. The spline evaluation
+   uses: y(x) = y[i] + dx*(b[i] + dx*(c[i] + dx*d[i]))
+   where dx = x - x[i] and i is the index such that x[i] <= x < x[i+1].
+
+
+.. py:function:: seval_dp(u, x, y, b, c, d)
+
+   Evaluate the cubic spline for real arrays.
+
+   Evaluates the cubic spline at point u using the pre-computed
+   spline coefficients b, c, d from spline_dp.
+
+   :param u: Position to interpolate
+   :type u: float
+   :param x: X-coordinates used to compute spline, 1D array
+   :type x: ndarray
+   :param y: Y-values at x coordinates, 1D array
+   :type y: ndarray
+   :param b: Spline coefficients (linear term) from spline_dp
+   :type b: ndarray
+   :param c: Spline coefficients (quadratic term) from spline_dp
+   :type c: ndarray
+   :param d: Spline coefficients (cubic term) from spline_dp
+   :type d: ndarray
+
+   :returns: Interpolated value at u
+   :rtype: float
+
+
+.. py:function:: spline_dpc(x, y, b, c, d)
+
+   Compute the cubic spline interpolant for complex arrays.
+
+   Computes the coefficients b, c, d for cubic spline interpolation
+   of the complex function y(x). The spline can then be evaluated using seval_dpc.
+
+   :param x: X-coordinates, 1D array, must be in ascending order
+   :type x: ndarray
+   :param y: Complex Y-values at x coordinates, 1D array
+   :type y: ndarray
+   :param b: Output array for complex spline coefficients (linear term)
+   :type b: ndarray
+   :param c: Output array for complex spline coefficients (quadratic term)
+   :type c: ndarray
+   :param d: Output array for complex spline coefficients (cubic term)
+   :type d: ndarray
+
+   .. rubric:: Notes
+
+   The arrays b, c, d are modified in-place. The spline evaluation
+   uses: y(x) = y[i] + dx*(b[i] + dx*(c[i] + dx*d[i]))
+   where dx = x - x[i] and i is the index such that x[i] <= x < x[i+1].
+
+
+.. py:function:: seval_dpc(u, x, y, b, c, d)
+
+   Evaluate the cubic spline for complex arrays.
+
+   Evaluates the cubic spline at point u using the pre-computed
+   spline coefficients b, c, d from spline_dpc.
+
+   :param u: Position to interpolate
+   :type u: float
+   :param x: X-coordinates used to compute spline, 1D array
+   :type x: ndarray
+   :param y: Complex Y-values at x coordinates, 1D array
+   :type y: ndarray
+   :param b: Complex spline coefficients (linear term) from spline_dpc
+   :type b: ndarray
+   :param c: Complex spline coefficients (quadratic term) from spline_dpc
+   :type c: ndarray
+   :param d: Complex spline coefficients (cubic term) from spline_dpc
+   :type d: ndarray
+
+   :returns: Interpolated complex value at u
+   :rtype: complex
+
+
+.. py:function:: seval2_dp(x0, x, y, y2)
+
+   Evaluate the cubic spline for real arrays (second derivative version).
+
+   Evaluates the cubic spline at point x0 using the pre-computed second
+   derivatives y2 from spline2_dp.
+
+   :param x0: Position to interpolate
+   :type x0: float
+   :param x: X-coordinates used to compute spline, 1D array
+   :type x: ndarray
+   :param y: Function values at x coordinates, 1D array
+   :type y: ndarray
+   :param y2: Second derivatives from spline2_dp, 1D array
+   :type y2: ndarray
+
+   :returns: Interpolated value at x0
+   :rtype: float
+
+
+.. py:function:: spline(x, *args)
+
+   Unified interface for spline functions.
+
+   Automatically dispatches to the appropriate spline function based on
+   argument count and types:
+   - 3 args: (x, y, y2) or (x, z, z2) -> uses spline2_* (second derivative)
+   - 5 args: (x, y, b, c, d) or (x, z, b, c, d) -> uses spline_* (coefficients)
+   - Complex arrays -> uses *_dpc version
+   - Real arrays -> uses *_dp version
+
+   :param x: X-coordinates, 1D array
+   :type x: ndarray
+   :param \*args: Positional arguments:
+                  - For spline2: (y, y2) or (z, z2)
+                  - For spline: (y, b, c, d) or (z, b, c, d)
+   :type \*args: variable
+   :param \*\*kwargs: Keyword arguments (alternative to positional args)
+   :type \*\*kwargs: dict
+
+   .. rubric:: Notes
+
+   This interface matches the Fortran interface behavior, allowing
+   the same function name to be used for different spline variants.
+
+   .. rubric:: Examples
+
+   >>> # Using spline2 (second derivative version)
+   >>> spline(x, y, y2)  # calls spline2_dp
+   >>> spline(x, z, z2)  # calls spline2_dpc (if z is complex)
+
+   >>> # Using regular spline (coefficient version)
+   >>> spline(x, y, b, c, d)  # calls spline_dp
+   >>> spline(x, z, b, c, d)  # calls spline_dpc (if z is complex)
+
+
+.. py:function:: seval(pos, x, *args)
+
+   Unified interface for spline evaluation functions.
+
+   Automatically dispatches to the appropriate seval function based on
+   argument count and types:
+   - 4 args: (pos, x, y, y2) or (pos, x, z, z2) -> uses seval2_*
+   - 6 args: (pos, x, y, b, c, d) or (pos, x, z, b, c, d) -> uses seval_*
+   - Complex arrays -> uses *_dpc version
+   - Real arrays -> uses *_dp version
+
+   :param pos: Position to interpolate
+   :type pos: float
+   :param x: X-coordinates used to compute spline, 1D array
+   :type x: ndarray
+   :param \*args: Positional arguments:
+                  - For seval2: (y, y2) or (z, z2)
+                  - For seval: (y, b, c, d) or (z, b, c, d)
+   :type \*args: variable
+
+   :returns: Interpolated value
+   :rtype: float or complex
+
+   .. rubric:: Notes
+
+   This interface matches the Fortran interface behavior, allowing
+   the same function name to be used for different seval variants.
+
+   .. rubric:: Examples
+
+   >>> # Using seval2 (second derivative version)
+   >>> seval(x0, x, y, y2)  # calls seval2_dp
+   >>> seval(x0, x, z, z2)  # calls seval2_dpc (if z is complex)
+
+   >>> # Using regular seval (coefficient version)
+   >>> seval(u, x, y, b, c, d)  # calls seval_dp
+   >>> seval(u, x, z, b, c, d)  # calls seval_dpc (if z is complex)
+
+
+.. py:function:: rescale_1D(x0, y0=None, z0=None, x1=None, y1=None, z1=None)
+
+   Unified interface for 1D rescaling functions.
+
+   Automatically dispatches to the appropriate rescale_1D function based on
+   argument types:
+   - If z0 is provided: uses rescale_1D_dpc (complex version)
+   - Otherwise: uses rescale_1D_dp (real version)
+
+   :param x0: Original X-coordinates, 1D array
+   :type x0: ndarray
+   :param y0: Original 1D real array (for rescale_1D_dp)
+   :type y0: ndarray, optional
+   :param z0: Original 1D complex array (for rescale_1D_dpc)
+   :type z0: ndarray, optional
+   :param x1: New X-coordinates, 1D array
+   :type x1: ndarray
+   :param y1: Output 1D real array (for rescale_1D_dp), modified in-place
+   :type y1: ndarray, optional
+   :param z1: Output 1D complex array (for rescale_1D_dpc), modified in-place
+   :type z1: ndarray, optional
+
+   .. rubric:: Notes
+
+   This interface matches the Fortran interface behavior, allowing
+   the same function name to be used for different rescale_1D variants.
+
+
+.. py:function:: rescale_2D(x0, y0, z0, x1, y1, z1)
+
+   Unified interface for 2D rescaling functions.
+
+   Automatically dispatches to the appropriate rescale_2D function based on
+   argument types:
+   - If z0 is complex: uses rescale_2D_dpc (complex version)
+   - Otherwise: uses rescale_2D_dp (real version)
+
+   :param x0: Original X-coordinates, 1D array
+   :type x0: ndarray
+   :param y0: Original Y-coordinates, 1D array
+   :type y0: ndarray
+   :param z0: Original 2D array (real or complex)
+   :type z0: ndarray
+   :param x1: New X-coordinates, 1D array
+   :type x1: ndarray
+   :param y1: New Y-coordinates, 1D array
+   :type y1: ndarray
+   :param z1: Output 2D array (real or complex), modified in-place
+   :type z1: ndarray
+
+   .. rubric:: Notes
+
+   This interface matches the Fortran interface behavior, allowing
+   the same function name to be used for different rescale_2D variants.
+
+

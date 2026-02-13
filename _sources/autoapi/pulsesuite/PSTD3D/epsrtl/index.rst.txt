@@ -1,0 +1,438 @@
+pulsesuite.PSTD3D.epsrtl
+========================
+
+.. py:module:: pulsesuite.PSTD3D.epsrtl
+
+.. autoapi-nested-parse::
+
+   Dielectric permittivity calculations for quantum wire simulations.
+
+   This module calculates longitudinal and transverse permittivity
+   for quantum wire systems.
+
+   Author: Rahul R. Sah
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.epsrtl.pi
+   pulsesuite.PSTD3D.epsrtl.twopi
+   pulsesuite.PSTD3D.epsrtl.hbar
+   pulsesuite.PSTD3D.epsrtl.kB
+   pulsesuite.PSTD3D.epsrtl.ii
+   pulsesuite.PSTD3D.epsrtl.c0
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.epsrtl.Eng
+   pulsesuite.PSTD3D.epsrtl.ff0
+   pulsesuite.PSTD3D.epsrtl.fT0
+   pulsesuite.PSTD3D.epsrtl.atanJG
+   pulsesuite.PSTD3D.epsrtl.atanhc
+   pulsesuite.PSTD3D.epsrtl.PiT
+   pulsesuite.PSTD3D.epsrtl.GetEpsrLEpsrT
+   pulsesuite.PSTD3D.epsrtl.RecordEpsrT
+   pulsesuite.PSTD3D.epsrtl.PiL
+   pulsesuite.PSTD3D.epsrtl.PiL_T0
+   pulsesuite.PSTD3D.epsrtl.RecordEpsrL_T0
+   pulsesuite.PSTD3D.epsrtl.QqGq
+   pulsesuite.PSTD3D.epsrtl.ZeroT_L
+   pulsesuite.PSTD3D.epsrtl.ZeroT_T
+   pulsesuite.PSTD3D.epsrtl.RecordEpsrL
+
+
+Module Contents
+---------------
+
+.. py:data:: pi
+
+.. py:data:: twopi
+
+.. py:data:: hbar
+
+.. py:data:: kB
+
+.. py:data:: ii
+   :value: 1j
+
+
+.. py:data:: c0
+   :value: 299792458.0
+
+
+.. py:function:: Eng(m, k)
+
+   Calculate energy from momentum. (Placed below in epsrtl.f90)
+
+   Computes kinetic energy: E = hbar^2 * k^2 / (2 * m)
+
+   :param m: Mass (kg)
+   :type m: float or ndarray
+   :param k: Momentum (1/m)
+   :type k: float or ndarray
+
+   :returns: Energy (J)
+   :rtype: float or ndarray
+
+
+.. py:function:: ff0(E, T, m)
+
+   Fermi function at finite temperature.
+
+   Computes: n00 * sqrt(hbar^2 / (2*pi * m * kB * T)) * exp(-E/(kB*T))
+
+   :param E: Energy (J)
+   :type E: float or ndarray
+   :param T: Temperature (K)
+   :type T: float or ndarray
+   :param m: Mass (kg)
+   :type m: float or ndarray
+
+   :returns: Fermi function value
+   :rtype: float or ndarray
+
+   .. rubric:: Notes
+
+   Uses module-level variable _n00 for carrier density.
+
+
+.. py:function:: fT0(k, kf)
+
+   Fermi function at zero temperature.
+
+   Computes: 1 - theta(|k| - kf)
+
+   :param k: Momentum (1/m)
+   :type k: float or ndarray
+   :param kf: Fermi momentum (1/m)
+   :type kf: float
+
+   :returns: Fermi function value at zero temperature
+   :rtype: float or ndarray
+
+
+.. py:function:: atanJG(z)
+
+   Arctangent function.
+
+   Computes: log((ii - z) / (ii + z)) / (2 * ii)
+
+   :param z: Complex argument
+   :type z: complex or ndarray
+
+   :returns: Arctangent value
+   :rtype: complex or ndarray
+
+
+.. py:function:: atanhc(x)
+
+   Hyperbolic arctangent function.
+
+   Computes: 0.5 * log((1 + x) / (1 - x))
+
+   :param x: Complex argument
+   :type x: complex or ndarray
+
+   :returns: Hyperbolic arctangent value
+   :rtype: complex or ndarray
+
+
+.. py:function:: PiT(q, w, me, mh, Te, Th, dk, Ek, Ekq)
+
+   Calculate transverse polarization function.
+
+   Computes the transverse polarization function PiT for permittivity calculations.
+
+   :param q: Momentum transfer (1/m) (unused, kept for interface compatibility)
+   :type q: float
+   :param w: Frequency (Hz)
+   :type w: float
+   :param me: Electron mass (kg)
+   :type me: float
+   :param mh: Hole mass (kg)
+   :type mh: float
+   :param Te: Electron temperature (K)
+   :type Te: float
+   :param Th: Hole temperature (K)
+   :type Th: float
+   :param dk: Momentum step size (1/m)
+   :type dk: float
+   :param Ek: Energy array for holes (J)
+   :type Ek: ndarray
+   :param Ekq: Energy array for electrons (J)
+   :type Ekq: ndarray
+
+   :returns: Transverse polarization function value
+   :rtype: complex
+
+   .. rubric:: Notes
+
+   The function computes:
+   PiT = (2/pi) * dk * sum((1 - ff0(Ek,Th,mh) - ff0(Ekq,Te,me)) *
+         (1 / (hbar*w - Ekq - Ek + i*hbar*g)))
+
+
+.. py:function:: GetEpsrLEpsrT(n1D, dcv0, Te, Th, me, mh, Eg, ky)
+
+   Get longitudinal and transverse permittivity.
+
+   Sets up momentum arrays and calls functions to calculate permittivity
+   at zero temperature.
+
+   :param n1D: 1D carrier density (1/m)
+   :type n1D: float
+   :param dcv0: Dipole matrix element (C*m)
+   :type dcv0: float
+   :param Te: Electron temperature (K) (unused, kept for interface compatibility)
+   :type Te: float
+   :param Th: Hole temperature (K) (unused, kept for interface compatibility)
+   :type Th: float
+   :param me: Effective electron mass (kg)
+   :type me: float
+   :param mh: Effective hole mass (kg)
+   :type mh: float
+   :param Eg: Band gap (J) (unused, kept for interface compatibility)
+   :type Eg: float
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   This function sets up module-level variables and calls ZeroT_L and ZeroT_T.
+   Writes output to 'dataQW/Wire/qw.dat'.
+
+
+.. py:function:: RecordEpsrT(Te, Th, me, mh, Eg, ky)
+
+   Record transverse permittivity.
+
+   Calculates and writes the transverse permittivity components
+   for all momentum and frequency values.
+
+   :param Te: Electron temperature (K)
+   :type Te: float
+   :param Th: Hole temperature (K)
+   :type Th: float
+   :param me: Electron mass (kg)
+   :type me: float
+   :param mh: Hole mass (kg)
+   :type mh: float
+   :param Eg: Band gap (J)
+   :type Eg: float
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Writes output to 'dataQW/Wire/EpsT.dat' and 'chi.0.w.dat'.
+   The permittivity arrays use negative indexing mapping: w from -Nw to Nw
+   maps to array indices 0 to 2*Nw.
+
+
+.. py:function:: PiL(q, w, m, T, dk, Ek, Ekq)
+
+   Calculate longitudinal polarization function.
+
+   Computes the longitudinal polarization function PiL for permittivity calculations.
+
+   :param q: Momentum transfer (1/m) (unused, kept for interface compatibility)
+   :type q: float
+   :param w: Frequency (Hz)
+   :type w: float
+   :param m: Mass (kg)
+   :type m: float
+   :param T: Temperature (K)
+   :type T: float
+   :param dk: Momentum step size (1/m)
+   :type dk: float
+   :param Ek: Energy array (J)
+   :type Ek: ndarray
+   :param Ekq: Energy array shifted by q (J)
+   :type Ekq: ndarray
+
+   :returns: Longitudinal polarization function value
+   :rtype: complex
+
+   .. rubric:: Notes
+
+   The function computes:
+   PiL = (2/pi) * dk * sum((ff0(Ek,T,m) - ff0(Ekq,T,m)) *
+         (1 / (hbar*w - (Ekq - Ek) + i*hbar*g)))
+
+
+.. py:function:: PiL_T0(q, w, m, T, dk, Ek, Ekq)
+
+   Calculate longitudinal polarization function at zero temperature.
+
+   Computes the longitudinal polarization function PiL_T0 for permittivity calculations
+   at zero temperature.
+
+   :param q: Momentum transfer (1/m)
+   :type q: float
+   :param w: Frequency (Hz)
+   :type w: float
+   :param m: Mass (kg)
+   :type m: float
+   :param T: Temperature (K) (unused, kept for interface compatibility)
+   :type T: float
+   :param dk: Momentum step size (1/m)
+   :type dk: float
+   :param Ek: Energy array (J) (unused, kept for interface compatibility)
+   :type Ek: ndarray
+   :param Ekq: Energy array shifted by q (J) (unused, kept for interface compatibility)
+   :type Ekq: ndarray
+
+   :returns: Longitudinal polarization function value at zero temperature
+   :rtype: complex
+
+   .. rubric:: Notes
+
+   Uses module-level variable _kf for Fermi momentum.
+   The function computes:
+   PiL_T0 = -m / (pi * hbar^2) * q_inv * (atanhc(...) + atanhc(...))
+
+
+.. py:function:: RecordEpsrL_T0(me, ky)
+
+   Record longitudinal permittivity at zero temperature.
+
+   Calculates and writes the longitudinal permittivity components
+   at zero temperature for all momentum and frequency values.
+
+   :param me: Electron mass (kg) (unused, kept for interface compatibility)
+   :type me: float
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Writes output to 'dataQW/Wire/EpsL.dat'.
+   The permittivity arrays use negative indexing mapping: w from -Nw to Nw
+   maps to array indices 0 to 2*Nw.
+   Note: The function has empty loops in the original Fortran code.
+
+
+.. py:function:: QqGq(ky, Nk, dk, dw, EpsR, EpsI, eh)
+
+   Calculate Omega and Gam from permittivity.
+
+   Computes the quasiparticle frequency Omega and damping Gam
+   from the permittivity components.
+
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param Nk: Number of momentum points
+   :type Nk: int
+   :param dk: Momentum step size (1/m)
+   :type dk: float
+   :param dw: Frequency step size (Hz)
+   :type dw: float
+   :param EpsR: Real part of permittivity, shape (Nk, 2*Nw+1)
+   :type EpsR: ndarray
+   :param EpsI: Imaginary part of permittivity, shape (Nk, 2*Nw+1)
+   :type EpsI: ndarray
+   :param eh: Character identifier for output file
+   :type eh: str
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Writes output to 'dataQW/Wire/Omega_qp.{eh}.dat'.
+   The permittivity arrays use negative indexing mapping: w from -Nw to Nw
+   maps to array indices 0 to 2*Nw.
+
+
+.. py:function:: ZeroT_L(B, m, qy, kf)
+
+   Calculate zero temperature longitudinal permittivity.
+
+   Computes the longitudinal permittivity at zero temperature.
+
+   :param B: Character identifier ('E' for electrons, 'H' for holes)
+   :type B: str
+   :param m: Mass (kg)
+   :type m: float
+   :param qy: Momentum coordinates (1/m), 1D array
+   :type qy: ndarray
+   :param kf: Fermi momentum (1/m)
+   :type kf: float
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Writes output to 'dataQW/Wire/ChiL.{B}.dat'.
+   The permittivity arrays use negative indexing mapping: w from -Nw to Nw
+   maps to array indices 0 to 2*Nw.
+
+
+.. py:function:: ZeroT_T(me, mh, Egap, dcv, qy, kf)
+
+   Calculate zero temperature transverse permittivity.
+
+   Computes the transverse permittivity at zero temperature.
+
+   :param me: Electron mass (kg)
+   :type me: float
+   :param mh: Hole mass (kg)
+   :type mh: float
+   :param Egap: Band gap (J)
+   :type Egap: float
+   :param dcv: Dipole matrix element (C*m)
+   :type dcv: float
+   :param qy: Momentum coordinates (1/m), 1D array
+   :type qy: ndarray
+   :param kf: Fermi momentum (1/m)
+   :type kf: float
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Writes output to 'dataQW/Wire/ChiT.dat'.
+   The permittivity arrays use negative indexing mapping: w from -Nw to Nw
+   maps to array indices 0 to 2*Nw.
+
+
+.. py:function:: RecordEpsrL(Te, Th, me, mh, ky)
+
+   Record longitudinal permittivity.
+
+   Calculates and writes the longitudinal permittivity components
+   for all momentum and frequency values.
+
+   :param Te: Electron temperature (K)
+   :type Te: float
+   :param Th: Hole temperature (K)
+   :type Th: float
+   :param me: Electron mass (kg)
+   :type me: float
+   :param mh: Hole mass (kg)
+   :type mh: float
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Writes output to 'dataQW/Wire/EpsL.dat'.
+   The permittivity arrays use negative indexing mapping: w from -Nw to Nw
+   maps to array indices 0 to 2*Nw.
+
+

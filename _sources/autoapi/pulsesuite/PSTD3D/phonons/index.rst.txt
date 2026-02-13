@@ -1,0 +1,209 @@
+pulsesuite.PSTD3D.phonons
+=========================
+
+.. py:module:: pulsesuite.PSTD3D.phonons
+
+.. autoapi-nested-parse::
+
+   Phonon interaction calculations for quantum wire simulations.
+
+   This module calculates the many-body electron-hole phonon contribution
+   to the Semiconductor Bloch equations in support of propagation simulations
+   for a quantum wire.
+
+   Author: Rahul R. Sah
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.phonons.hbar
+   pulsesuite.PSTD3D.phonons.kB
+   pulsesuite.PSTD3D.phonons.ii
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.phonons.InitializePhonons
+   pulsesuite.PSTD3D.phonons.MBPE
+   pulsesuite.PSTD3D.phonons.MBPH
+   pulsesuite.PSTD3D.phonons.Cq2
+   pulsesuite.PSTD3D.phonons.FermiDistr
+   pulsesuite.PSTD3D.phonons.BoseDistr
+   pulsesuite.PSTD3D.phonons.N00
+
+
+Module Contents
+---------------
+
+.. py:data:: hbar
+
+.. py:data:: kB
+
+.. py:data:: ii
+   :value: 1j
+
+
+.. py:function:: InitializePhonons(ky, Ee, Eh, L, epsr, Gph, Oph)
+
+   Initialize phonon interaction matrices (Unecessary the jit version?).
+
+   Sets up the electron and hole phonon interaction matrices EP, HP
+   and their transposes EPT, HPT. Also calculates the scaling factor Vscale.
+
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param Ee: Electron energies (J), 1D array
+   :type Ee: ndarray
+   :param Eh: Hole energies (J), 1D array
+   :type Eh: ndarray
+   :param L: Length parameter (unused, kept for interface compatibility)
+   :type L: float
+   :param epsr: Dielectric constant
+   :type epsr: float
+   :param Gph: Phonon damping rate (Hz)
+   :type Gph: float
+   :param Oph: Phonon frequency (Hz)
+   :type Oph: float
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Sets module-level variables:
+   - _NO: Bose distribution for phonons
+   - _idel: Identity exclusion matrix (1 where k != k1, 0 where k == k1)
+   - _EP, _EPT: Electron phonon interaction matrix and its transpose
+   - _HP, _HPT: Hole phonon interaction matrix and its transpose
+   - _Vscale: Scaling constant for Coulomb interactions
+
+
+.. py:function:: MBPE(ne, VC, E1D, Win, Wout)
+
+   Many-body phonon-electron interaction.
+
+   Calculates the in-scattering and out-scattering rates for electrons
+   due to phonon interactions.
+
+   :param ne: Electron carrier populations, 1D array
+   :type ne: ndarray
+   :param VC: Coulomb interaction array, shape (Nk, Nk, 3)
+              Uses VC[:, :, 1] for electron-electron interaction (Fortran uses VC(:,:,2) which is 1-based)
+   :type VC: ndarray
+   :param E1D: 1D energy array, shape (Nk, Nk)
+   :type E1D: ndarray
+   :param Win: In-scattering rates (modified in-place), 1D array
+   :type Win: ndarray
+   :param Wout: Out-scattering rates (modified in-place), 1D array
+   :type Wout: ndarray
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Modifies Win and Wout in-place.
+   Uses module-level variables _EPT, _EP, _Vscale.
+
+
+.. py:function:: MBPH(nh, VC, E1D, Win, Wout)
+
+   Many-body phonon-hole interaction.
+
+   Calculates the in-scattering and out-scattering rates for holes
+   due to phonon interactions.
+
+   :param nh: Hole carrier populations, 1D array
+   :type nh: ndarray
+   :param VC: Coulomb interaction array, shape (Nk, Nk, 3)
+              Uses VC[:, :, 2] for hole-hole interaction (Fortran uses VC(:,:,3) which is 1-based)
+   :type VC: ndarray
+   :param E1D: 1D energy array, shape (Nk, Nk)
+   :type E1D: ndarray
+   :param Win: In-scattering rates (modified in-place), 1D array
+   :type Win: ndarray
+   :param Wout: Out-scattering rates (modified in-place), 1D array
+   :type Wout: ndarray
+
+   :rtype: None
+
+   .. rubric:: Notes
+
+   Modifies Win and Wout in-place.
+   Uses module-level variables _HPT, _HP, _Vscale.
+
+
+.. py:function:: Cq2(q, V, E1D)
+
+   Calculate Cq for use in the DC Field module.
+
+   Computes the phonon coupling constant Cq for a given momentum array.
+
+   :param q: Momentum coordinates (1/m), 1D array
+   :type q: ndarray
+   :param V: Interaction potential array, shape (Nk, Nk)
+   :type V: ndarray
+   :param E1D: 1D energy array, shape (Nk, Nk)
+   :type E1D: ndarray
+
+   :returns: Cq values, 1D array of same length as q
+   :rtype: ndarray
+
+   .. rubric:: Notes
+
+   Uses module-level variable _Vscale for scaling.
+   The function maps q values to indices in V and E1D arrays.
+
+
+.. py:function:: FermiDistr(En)
+
+   Calculate Fermi-Dirac distribution.
+
+   Computes the Fermi-Dirac distribution assuming host temperature
+   and Fermi Energy = 0.
+
+   :param En: Energy (J)
+   :type En: float or ndarray
+
+   :returns: Fermi-Dirac distribution value: 1 / (exp(En / (kB * T)) + 1)
+   :rtype: float or ndarray
+
+   .. rubric:: Notes
+
+   Uses module-level variable _Temp for temperature.
+   Note: Fortran returns complex type, but the value is always real, so Python returns float.
+
+
+.. py:function:: BoseDistr(En)
+
+   Calculate Bose-Einstein distribution.
+
+   Computes the Bose-Einstein distribution for phonons.
+
+   :param En: Energy (J)
+   :type En: float or ndarray
+
+   :returns: Bose-Einstein distribution value: 1 / (exp(En / (kB * T)) - 1)
+   :rtype: float or ndarray
+
+   .. rubric:: Notes
+
+   Uses module-level variable _Temp for temperature.
+
+
+.. py:function:: N00()
+
+   Get the Bose distribution value for phonons.
+
+   Returns the module-level variable _NO which is the Bose function
+   for thermal equilibrium longitudinal-optical phonons in host.
+
+   :returns: Bose distribution value NO
+   :rtype: float
+
+

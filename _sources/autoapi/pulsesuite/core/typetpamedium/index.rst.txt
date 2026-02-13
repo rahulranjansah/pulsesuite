@@ -1,0 +1,363 @@
+pulsesuite.core.typetpamedium
+=============================
+
+.. py:module:: pulsesuite.core.typetpamedium
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.core.typetpamedium.TPA_MAX_LEVELS
+   pulsesuite.core.typetpamedium.dp
+   pulsesuite.core.typetpamedium.filetag
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pulsesuite.core.typetpamedium.tpas
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.core.typetpamedium.GetLength_tpas
+   pulsesuite.core.typetpamedium.SetLength_tpas
+   pulsesuite.core.typetpamedium.GetNz_tpas
+   pulsesuite.core.typetpamedium.SetNz_tpas
+   pulsesuite.core.typetpamedium.GetDz_tpas
+   pulsesuite.core.typetpamedium.SetDz_tpas
+   pulsesuite.core.typetpamedium.GetN0_tpas
+   pulsesuite.core.typetpamedium.SetN0_tpas
+   pulsesuite.core.typetpamedium.GetK2_tpas
+   pulsesuite.core.typetpamedium.SetK2_tpas
+   pulsesuite.core.typetpamedium.GetK1_tpas
+   pulsesuite.core.typetpamedium.SetK1_tpas
+   pulsesuite.core.typetpamedium.GetN2I_tpas
+   pulsesuite.core.typetpamedium.SetN2I_tpas
+   pulsesuite.core.typetpamedium.GetBeta_tpas
+   pulsesuite.core.typetpamedium.SetBeta_tpas
+   pulsesuite.core.typetpamedium.GetAlpha_tpas
+   pulsesuite.core.typetpamedium.SetAlpha_tpas
+   pulsesuite.core.typetpamedium.GetConcentration_tpas
+   pulsesuite.core.typetpamedium.SetConcentration_tpas
+   pulsesuite.core.typetpamedium.GetLevels_tpas
+   pulsesuite.core.typetpamedium.SetLevels_tpas
+   pulsesuite.core.typetpamedium.GetRelax_tpas
+   pulsesuite.core.typetpamedium.SetRelax_tpas
+   pulsesuite.core.typetpamedium.GetSigSpa_tpas
+   pulsesuite.core.typetpamedium.SetSigSpa_tpas
+   pulsesuite.core.typetpamedium.GetSigSpaI_tpas
+   pulsesuite.core.typetpamedium.SetSigSpaI_tpas
+   pulsesuite.core.typetpamedium.GetSigTpa_tpas
+   pulsesuite.core.typetpamedium.SetSigTpa_tpas
+   pulsesuite.core.typetpamedium.GetSigTpaI_tpas
+   pulsesuite.core.typetpamedium.SetSigTpaI_tpas
+   pulsesuite.core.typetpamedium.GetMaterial_tpas
+   pulsesuite.core.typetpamedium.SetMaterial_tpas
+   pulsesuite.core.typetpamedium.GetWavelength_tpas
+   pulsesuite.core.typetpamedium.SetWavelength_tpas
+   pulsesuite.core.typetpamedium.GetMedium_tpas
+   pulsesuite.core.typetpamedium.SetMedium_tpas
+   pulsesuite.core.typetpamedium.writetpaparams
+   pulsesuite.core.typetpamedium.readtpaparams
+   pulsesuite.core.typetpamedium.memmap_matrix
+
+
+Module Contents
+---------------
+
+.. py:data:: TPA_MAX_LEVELS
+   :type:  int
+   :value: 30
+
+
+.. py:data:: dp
+
+.. py:data:: filetag
+   :type:  tuple[str, str]
+   :value: ('[params.tpa_v1.0]', '[params.tpa_v1.1]')
+
+
+.. py:class:: tpas(medium: typemedium.nlms | None = None, conc: Annotated[float, dp] = 0.0, levels: int = 0, r: numpy.ndarray | None = None, sigspa: numpy.ndarray | None = None, sigIspa: numpy.ndarray | None = None, sigtpa: numpy.ndarray | None = None, sigItpa: numpy.ndarray | None = None, tpa_material: str = '')
+
+   Two-photon absorber parameters (tpas).
+
+   .. attribute:: medium
+
+      nlms                   # base medium parameters
+
+   .. attribute:: conc
+
+      float (dp)            # molecule concentration (molecules/m^3)
+
+   .. attribute:: levels
+
+      int                    # number of energy levels
+
+   .. attribute:: r
+
+      np.ndarray[dp]         # relaxation constants (1/s)
+
+   .. attribute:: sigspa
+
+      np.ndarray[dp]         # single-photon absorption cross-section (m^2)
+
+   .. attribute:: sigIspa
+
+      np.ndarray[dp]         # intensity-dependent SPA cross-section (m^2)
+
+   .. attribute:: sigtpa
+
+      np.ndarray[dp]         # two-photon absorption cross-section (m^4/W)
+
+   .. attribute:: sigItpa
+
+      np.ndarray[dp]         # intensity-dependent TPA cross-section (m^4/W)
+
+   .. attribute:: tpa_material
+
+      str                    # name of the TPA material
+
+
+   .. py:attribute:: __slots__
+      :value: ('medium', 'conc', 'levels', 'r', 'sigspa', 'sigIspa', 'sigtpa', 'sigItpa', 'tpa_material')
+
+
+
+   .. py:attribute:: medium
+
+
+   .. py:attribute:: conc
+
+
+   .. py:attribute:: levels
+      :value: 0
+
+
+
+   .. py:attribute:: r
+
+
+   .. py:attribute:: sigspa
+
+
+   .. py:attribute:: sigIspa
+
+
+   .. py:attribute:: sigtpa
+
+
+   .. py:attribute:: sigItpa
+
+
+   .. py:attribute:: tpa_material
+      :value: ''
+
+
+
+   .. py:method:: copy() -> tpas
+
+      Return a shallow copy of all fields.
+
+
+
+   .. py:method:: __repr__() -> str
+
+
+   .. py:property:: length
+      :type: float
+
+
+
+   .. py:property:: nz
+      :type: int
+
+
+
+   .. py:property:: dz
+      :type: float
+
+
+
+   .. py:property:: n0
+      :type: float
+
+
+
+   .. py:property:: k2
+      :type: float
+
+
+
+   .. py:property:: k1
+      :type: float
+
+
+
+   .. py:property:: n2i
+      :type: float
+
+
+
+   .. py:property:: beta
+      :type: float
+
+
+
+   .. py:property:: alpha
+      :type: float
+
+
+
+   .. py:property:: concentration
+      :type: float
+
+
+
+   .. py:property:: num_levels
+      :type: int
+
+
+
+   .. py:property:: relax
+      :type: numpy.ndarray
+
+
+
+   .. py:property:: spa
+      :type: numpy.ndarray
+
+
+
+   .. py:property:: spai
+      :type: numpy.ndarray
+
+
+
+   .. py:property:: tpa
+      :type: numpy.ndarray
+
+
+
+   .. py:property:: tpai
+      :type: numpy.ndarray
+
+
+
+   .. py:property:: material
+      :type: str
+
+
+
+   .. py:property:: wavelength
+      :type: float
+
+
+
+   .. py:property:: medium_obj
+      :type: typemedium.nlms
+
+
+
+.. py:function:: GetLength_tpas(tpa: tpas) -> Annotated[float, dp]
+
+.. py:function:: SetLength_tpas(tpa: tpas, L: Annotated[float, dp]) -> None
+
+.. py:function:: GetNz_tpas(tpa: tpas) -> int
+
+.. py:function:: SetNz_tpas(tpa: tpas, N: int) -> None
+
+.. py:function:: GetDz_tpas(tpa: tpas) -> Annotated[float, dp]
+
+.. py:function:: SetDz_tpas(tpa: tpas, Dz: Annotated[float, dp]) -> None
+
+.. py:function:: GetN0_tpas(tpa: tpas) -> Annotated[float, dp]
+
+.. py:function:: SetN0_tpas(tpa: tpas, n0: Annotated[float, dp]) -> None
+
+.. py:function:: GetK2_tpas(tpa: tpas) -> Annotated[float, dp]
+
+.. py:function:: SetK2_tpas(tpa: tpas, k2: Annotated[float, dp]) -> None
+
+.. py:function:: GetK1_tpas(tpa: tpas) -> Annotated[float, dp]
+
+.. py:function:: SetK1_tpas(tpa: tpas, k1: Annotated[float, dp]) -> None
+
+.. py:function:: GetN2I_tpas(tpa: tpas) -> Annotated[float, dp]
+
+.. py:function:: SetN2I_tpas(tpa: tpas, n2: Annotated[float, dp]) -> None
+
+.. py:function:: GetBeta_tpas(tpa: tpas) -> Annotated[float, dp]
+
+.. py:function:: SetBeta_tpas(tpa: tpas, beta: Annotated[float, dp]) -> None
+
+.. py:function:: GetAlpha_tpas(tpa: tpas) -> Annotated[float, dp]
+
+.. py:function:: SetAlpha_tpas(tpa: tpas, alpha: Annotated[float, dp]) -> None
+
+.. py:function:: GetConcentration_tpas(tpa: tpas) -> Annotated[float, dp]
+
+.. py:function:: SetConcentration_tpas(tpa: tpas, conc: Annotated[float, dp]) -> None
+
+.. py:function:: GetLevels_tpas(tpa: tpas) -> int
+
+.. py:function:: SetLevels_tpas(tpa: tpas, levels: int) -> None
+
+.. py:function:: GetRelax_tpas(tpa: tpas) -> numpy.ndarray
+
+.. py:function:: SetRelax_tpas(tpa: tpas, r: numpy.ndarray) -> None
+
+.. py:function:: GetSigSpa_tpas(tpa: tpas) -> numpy.ndarray
+
+.. py:function:: SetSigSpa_tpas(tpa: tpas, sig: numpy.ndarray) -> None
+
+.. py:function:: GetSigSpaI_tpas(tpa: tpas) -> numpy.ndarray
+
+.. py:function:: SetSigSpaI_tpas(tpa: tpas, sig: numpy.ndarray) -> None
+
+.. py:function:: GetSigTpa_tpas(tpa: tpas) -> numpy.ndarray
+
+.. py:function:: SetSigTpa_tpas(tpa: tpas, sigtpa: numpy.ndarray) -> None
+
+.. py:function:: GetSigTpaI_tpas(tpa: tpas) -> numpy.ndarray
+
+.. py:function:: SetSigTpaI_tpas(tpa: tpas, sig: numpy.ndarray) -> None
+
+.. py:function:: GetMaterial_tpas(tpa: tpas) -> str
+
+.. py:function:: SetMaterial_tpas(tpa: tpas, mat: str, tpa_mat: str) -> None
+
+.. py:function:: GetWavelength_tpas(tpa: tpas) -> Annotated[float, dp]
+
+.. py:function:: SetWavelength_tpas(tpa: tpas, lam: Annotated[float, dp]) -> None
+
+.. py:function:: GetMedium_tpas(tpa: tpas) -> typemedium.nlms
+
+.. py:function:: SetMedium_tpas(tpa: tpas, medium: typemedium.nlms) -> None
+
+.. py:function:: writetpaparams(cmd: Union[str, pathlib.Path], tpa: tpas) -> None
+
+   Write all TPA parameters in a compact binary form:
+     [conc, levels, r, sigspa, sigIspa, sigtpa, sigItpa]
+   Arrays are dumped in C-order; only the first `levels`×`levels` (or `levels`) entries are stored.
+
+
+.. py:function:: readtpaparams(cmd: Union[str, pathlib.Path], tpa: tpas) -> None
+
+   Read back the binary format written by writetpaparams.
+   Overwrites the fields in the given tpas in-place.
+
+
+.. py:function:: memmap_matrix(cmd: Union[str, pathlib.Path], offset_bytes: int, shape: tuple[int, int]) -> numpy.memmap
+
+   Generic helper: memory-map a 2D float64 block out of a binary file.
+   Example: after conc+levels header, r starts at byte offset = 8+4.
+
+

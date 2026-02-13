@@ -1,0 +1,792 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pulsesuite.PSTD3D.coulomb &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/js/hoverxref.js"></script>
+      <script src="../../../../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../../../../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../../../../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pulsesuite.PSTD3D.coulomb</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pulsesuite/PSTD3D/coulomb/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pulsesuite.PSTD3D.coulomb">
+<span id="pulsesuite-pstd3d-coulomb"></span><h1>pulsesuite.PSTD3D.coulomb<a class="headerlink" href="#module-pulsesuite.PSTD3D.coulomb" title="Link to this heading">¶</a></h1>
+<p>Coulomb interaction calculations for quantum wire simulations.</p>
+<p>This module calculates the electron-hole, electron-electron, and hole-hole
+collision integrals and other carrier-optical related calculations required
+for the Semiconductor Bloch Equations in support of simulations of pulse
+propagation through a quantum wire.</p>
+<p>The primary API is the CoulombModule class, which encapsulates all pre-computed
+arrays and methods (mirroring the Fortran <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">coulomb</span></code> with private state).
+Module-level wrapper functions are provided for backward compatibility.</p>
+<p>Author: Rahul R. Sah</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.pi" title="pulsesuite.PSTD3D.coulomb.pi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.twopi" title="pulsesuite.PSTD3D.coulomb.twopi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">twopi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.hbar" title="pulsesuite.PSTD3D.coulomb.hbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hbar</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.eV" title="pulsesuite.PSTD3D.coulomb.eV"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eV</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.ii" title="pulsesuite.PSTD3D.coulomb.ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ii</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.CoulombModule" title="pulsesuite.PSTD3D.coulomb.CoulombModule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CoulombModule</span></code></a></p></td>
+<td><p>Coulomb interaction module for quantum wire simulations.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.Vint" title="pulsesuite.PSTD3D.coulomb.Vint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Vint</span></code></a>(Qyk, y, alphae, alphah, Delta0)</p></td>
+<td><p>Calculate the interaction integral for Coulomb potential.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.Vehint" title="pulsesuite.PSTD3D.coulomb.Vehint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Vehint</span></code></a>(k, q, y, ky, alphae, alphah, Delta0)</p></td>
+<td><p>Calculate electron-hole interaction integral.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.GaussDelta" title="pulsesuite.PSTD3D.coulomb.GaussDelta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GaussDelta</span></code></a>(a, b)</p></td>
+<td><p>Gaussian delta function approximation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.MakeK3" title="pulsesuite.PSTD3D.coulomb.MakeK3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakeK3</span></code></a>(ky)</p></td>
+<td><p>Construct the k3 indexing array for momentum conservation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.MakeQs" title="pulsesuite.PSTD3D.coulomb.MakeQs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakeQs</span></code></a>(ky, ae, ah)</p></td>
+<td><p>Construct the qe and qh momentum difference arrays.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.MakeUnDel" title="pulsesuite.PSTD3D.coulomb.MakeUnDel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakeUnDel</span></code></a>(ky)</p></td>
+<td><p>Construct the UnDel (1 - delta) array.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.CalcMBArrays" title="pulsesuite.PSTD3D.coulomb.CalcMBArrays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcMBArrays</span></code></a>(ky, Ee, Eh, ge, gh, k3, UnDel[, LorentzDelta])</p></td>
+<td><p>Calculate the many-body interaction arrays Ceh, Cee, Chh.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.CalcCoulombArrays" title="pulsesuite.PSTD3D.coulomb.CalcCoulombArrays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcCoulombArrays</span></code></a>(y, ky, er, alphae, alphah, L, ...[, ...])</p></td>
+<td><p>Construct the unscreened Coulomb collision arrays Veh0, Vee0, Vhh0.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.CalcChi1D" title="pulsesuite.PSTD3D.coulomb.CalcChi1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcChi1D</span></code></a>(ky, alphae, alphah, Delta0, epsr, me, mh, qe, qh)</p></td>
+<td><p>Calculate the 1D susceptibility arrays Chi1De and Chi1Dh.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.GetChi1Dqw" title="pulsesuite.PSTD3D.coulomb.GetChi1Dqw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetChi1Dqw</span></code></a>(alphae, alphah, Delta0, epsr, game, gamh, ...)</p></td>
+<td><p>Calculate the 1D quantum wire susceptibility chi(q, w).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.GetEps1Dqw" title="pulsesuite.PSTD3D.coulomb.GetEps1Dqw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetEps1Dqw</span></code></a>(alphae, alphah, Delta0, epsr, me, mh, n1D, q, w)</p></td>
+<td><p>Calculate the 1D quantum wire dielectric function epsilon(q, w).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.SetLorentzDelta" title="pulsesuite.PSTD3D.coulomb.SetLorentzDelta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetLorentzDelta</span></code></a>(boolean)</p></td>
+<td><p>Set the LorentzDelta flag (module-level wrapper).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.InitializeCoulomb" title="pulsesuite.PSTD3D.coulomb.InitializeCoulomb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeCoulomb</span></code></a>(y, ky, L, Delta0, me, mh, Ee, Eh, ...)</p></td>
+<td><p>Create / replace the module-level CoulombModule singleton.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.CalcScreenedArrays" title="pulsesuite.PSTD3D.coulomb.CalcScreenedArrays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcScreenedArrays</span></code></a>(screened, L, ne, nh, VC, E1D)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.Eps1D" title="pulsesuite.PSTD3D.coulomb.Eps1D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Eps1D</span></code></a>(n1D, Nk)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.CalcMVeh" title="pulsesuite.PSTD3D.coulomb.CalcMVeh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalcMVeh</span></code></a>(p, VC, MVeh[, k3, UnDel])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.undell" title="pulsesuite.PSTD3D.coulomb.undell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">undell</span></code></a>(k, q)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.BGRenorm" title="pulsesuite.PSTD3D.coulomb.BGRenorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BGRenorm</span></code></a>(C, D, VC, BGR[, UnDel])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.EeRenorm" title="pulsesuite.PSTD3D.coulomb.EeRenorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EeRenorm</span></code></a>(ne, VC, BGR[, UnDel])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.EhRenorm" title="pulsesuite.PSTD3D.coulomb.EhRenorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EhRenorm</span></code></a>(nh, VC, BGR[, UnDel])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.MBCE2" title="pulsesuite.PSTD3D.coulomb.MBCE2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MBCE2</span></code></a>(ne0, nh0, ky, Ee, Eh, VC, geh, ge, Win, Wout[, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.MBCE" title="pulsesuite.PSTD3D.coulomb.MBCE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MBCE</span></code></a>(ne0, nh0, ky, Ee, Eh, VC, geh, ge, Win, Wout[, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.MBCH" title="pulsesuite.PSTD3D.coulomb.MBCH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MBCH</span></code></a>(ne0, nh0, ky, Ee, Eh, VC, geh, gh, Win, Wout[, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.coulomb.__getattr__" title="pulsesuite.PSTD3D.coulomb.__getattr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getattr__</span></code></a>(name)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.pi">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">pi</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.pi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.twopi">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">twopi</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.twopi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.hbar">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">hbar</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.hbar" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.eV">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">eV</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.602176634e-19</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.eV" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.ii">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">ii</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1j</span></em><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.ii" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.Vint">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">Vint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Qyk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphah</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.Vint" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the interaction integral for Coulomb potential.</p>
+<p>Computes the integral over spatial coordinates for the Coulomb interaction
+between particles with level separations alphae and alphah.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Qyk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Momentum difference (1/m)</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em>) – Length coordinates of quantum wire (m), 1D array</p></li>
+<li><p><strong>alphae</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation for electrons (1/m)</p></li>
+<li><p><strong>alphah</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation for holes (1/m)</p></li>
+<li><p><strong>Delta0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Thickness of the quantum wire (m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Interaction integral value (dimensionless)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.Vehint">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">Vehint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphah</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.Vehint" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate electron-hole interaction integral.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Electron momentum index (1-based, matching Fortran)</p></li>
+<li><p><strong>q</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Hole momentum index (1-based, matching Fortran)</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em>) – Length coordinates of quantum wire (m), 1D array</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates of quantum wire (1/m), 1D array</p></li>
+<li><p><strong>alphae</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation for electrons (1/m)</p></li>
+<li><p><strong>alphah</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation for holes (1/m)</p></li>
+<li><p><strong>Delta0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Thickness of the quantum wire (m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Electron-hole interaction integral value (dimensionless)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.GaussDelta">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">GaussDelta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.GaussDelta" title="Link to this definition">¶</a></dt>
+<dd><p>Gaussian delta function approximation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Energy difference argument (J)</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Broadening parameter (J)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Gaussian delta function value (1/J)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.MakeK3">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">MakeK3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.MakeK3" title="Link to this definition">¶</a></dt>
+<dd><p>Construct the k3 indexing array for momentum conservation.</p>
+<p>Creates a 3D array where k3(k1, k2, k4) = k1 + k2 - k4 (1-based).
+Invalid combinations (out of [1, N]) are stored as 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>3D integer array of shape (N, N, N), values 1-based or 0 (invalid).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.MakeQs">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">MakeQs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ah</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.MakeQs" title="Link to this definition">¶</a></dt>
+<dd><p>Construct the qe and qh momentum difference arrays.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>ae</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation parameter for electrons (1/m)</p></li>
+<li><p><strong>ah</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation parameter for holes (1/m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(qe, qh), each of shape (N, N)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a> of ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.MakeUnDel">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">MakeUnDel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.MakeUnDel" title="Link to this definition">¶</a></dt>
+<dd><p>Construct the UnDel (1 - delta) array.</p>
+<p>Creates an array of shape (N+1, N+1) with:
+- Row/column 0 all zeros
+- Diagonal elements (i, i) for i=1..N are zero
+- All other elements are 1.0</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>2D array of shape (N+1, N+1)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CalcMBArrays">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">CalcMBArrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UnDel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LorentzDelta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CalcMBArrays" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the many-body interaction arrays Ceh, Cee, Chh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron energies (J), 1D array</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Hole energies (J), 1D array</p></li>
+<li><p><strong>ge</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron inverse lifetime (Hz)</p></li>
+<li><p><strong>gh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Hole inverse lifetime (Hz)</p></li>
+<li><p><strong>k3</strong> (<em>ndarray</em>) – 3D indexing array from MakeK3</p></li>
+<li><p><strong>UnDel</strong> (<em>ndarray</em>) – 2D array from MakeUnDel</p></li>
+<li><p><strong>LorentzDelta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, use Lorentzian broadening; if False, use Gaussian delta.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(Ceh, Cee, Chh), each of shape (N+1, N+1, N+1)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a> of ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CalcCoulombArrays">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">CalcCoulombArrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">er</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphah</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Qy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kkp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ReadArrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ScrewThis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CalcCoulombArrays" title="Link to this definition">¶</a></dt>
+<dd><p>Construct the unscreened Coulomb collision arrays Veh0, Vee0, Vhh0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>ndarray</em>) – Length coordinates (m), 1D array</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>er</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Background dielectric constant</p></li>
+<li><p><strong>alphae</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation for electrons (1/m)</p></li>
+<li><p><strong>alphah</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation for holes (1/m)</p></li>
+<li><p><strong>L</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Length of quantum wire (m)</p></li>
+<li><p><strong>Delta0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Thickness of quantum wire (m)</p></li>
+<li><p><strong>Qy</strong> (<em>ndarray</em>) – Momentum difference array (1/m)</p></li>
+<li><p><strong>kkp</strong> (<em>ndarray</em>) – Index mapping array, 2D integer</p></li>
+<li><p><strong>ReadArrays</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, read from files (not implemented). Default False.</p></li>
+<li><p><strong>ScrewThis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return zero arrays. Default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(Veh0, Vee0, Vhh0), each of shape (N, N)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a> of ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CalcChi1D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">CalcChi1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphah</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CalcChi1D" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the 1D susceptibility arrays Chi1De and Chi1Dh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m), 1D array</p></li>
+<li><p><strong>alphae</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation for electrons (1/m)</p></li>
+<li><p><strong>alphah</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation for holes (1/m)</p></li>
+<li><p><strong>Delta0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Thickness of quantum wire (m)</p></li>
+<li><p><strong>epsr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Background dielectric constant</p></li>
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Electron effective mass (kg)</p></li>
+<li><p><strong>mh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Hole effective mass (kg)</p></li>
+<li><p><strong>qe</strong> (<em>ndarray</em>) – Electron momentum difference array from MakeQs</p></li>
+<li><p><strong>qh</strong> (<em>ndarray</em>) – Hole momentum difference array from MakeQs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(Chi1De, Chi1Dh), each of shape (N, N)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a> of ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.GetChi1Dqw">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">GetChi1Dqw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alphae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphah</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">game</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.GetChi1Dqw" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the 1D quantum wire susceptibility chi(q, w).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alphae</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation parameters (1/m)</p></li>
+<li><p><strong>alphah</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation parameters (1/m)</p></li>
+<li><p><strong>Delta0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Thickness of quantum wire (m)</p></li>
+<li><p><strong>epsr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Background dielectric constant</p></li>
+<li><p><strong>game</strong> (<em>ndarray</em>) – Inverse lifetime arrays (Hz)</p></li>
+<li><p><strong>gamh</strong> (<em>ndarray</em>) – Inverse lifetime arrays (Hz)</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m)</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron/hole energies (J)</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Electron/hole energies (J)</p></li>
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Electron/hole populations</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Electron/hole populations</p></li>
+<li><p><strong>qq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Momentum value (1/m)</p></li>
+<li><p><strong>w</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Frequency (rad/s)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(chir, chii) — real and imaginary parts of susceptibility</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.GetEps1Dqw">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">GetEps1Dqw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alphae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphah</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n1D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.GetEps1Dqw" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the 1D quantum wire dielectric function epsilon(q, w).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alphae</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation parameters (1/m)</p></li>
+<li><p><strong>alphah</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation parameters (1/m)</p></li>
+<li><p><strong>Delta0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Thickness of quantum wire (m)</p></li>
+<li><p><strong>epsr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Background dielectric constant</p></li>
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective masses (kg)</p></li>
+<li><p><strong>mh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective masses (kg)</p></li>
+<li><p><strong>n1D</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 1D carrier density (1/m)</p></li>
+<li><p><strong>q</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Momentum (1/m)</p></li>
+<li><p><strong>w</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Frequency (rad/s)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(epr, epi) — real and imaginary parts of dielectric function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CoulombModule">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">CoulombModule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphah</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">er</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Qy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kkp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screened</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LorentzDelta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CoulombModule" title="Link to this definition">¶</a></dt>
+<dd><p>Coulomb interaction module for quantum wire simulations.</p>
+<p>Encapsulates all pre-computed arrays required for Coulomb interaction
+calculations in the Semiconductor Bloch Equations.  Mirrors the Fortran
+<code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">coulomb</span></code> where private allocatable arrays hold persistent state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>ndarray</em>) – Length coordinates of quantum wire (m)</p></li>
+<li><p><strong>ky</strong> (<em>ndarray</em>) – Momentum coordinates (1/m)</p></li>
+<li><p><strong>L</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Length of quantum wire (m)</p></li>
+<li><p><strong>Delta0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Thickness of quantum wire (m)</p></li>
+<li><p><strong>me</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective electron/hole masses (kg)</p></li>
+<li><p><strong>mh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Effective electron/hole masses (kg)</p></li>
+<li><p><strong>Ee</strong> (<em>ndarray</em>) – Electron/hole energies (J)</p></li>
+<li><p><strong>Eh</strong> (<em>ndarray</em>) – Electron/hole energies (J)</p></li>
+<li><p><strong>ge</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Inverse electron/hole lifetimes (Hz)</p></li>
+<li><p><strong>gh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Inverse electron/hole lifetimes (Hz)</p></li>
+<li><p><strong>alphae</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation parameters (1/m)</p></li>
+<li><p><strong>alphah</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Level separation parameters (1/m)</p></li>
+<li><p><strong>er</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Background dielectric constant</p></li>
+<li><p><strong>Qy</strong> (<em>ndarray</em>) – Momentum difference array (1/m)</p></li>
+<li><p><strong>kkp</strong> (<em>ndarray</em>) – Index mapping array (int)</p></li>
+<li><p><strong>screened</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to use screened interactions</p></li>
+<li><p><strong>LorentzDelta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True use Lorentzian broadening, else Gaussian delta.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">UnDel,</span> <span class="pre">k3,</span> <span class="pre">qe,</span> <span class="pre">qh,</span> <span class="pre">Ceh,</span> <span class="pre">Cee,</span> <span class="pre">Chh,</span> <span class="pre">Veh0,</span> <span class="pre">Vee0,</span> <span class="pre">Vhh0,</span> <span class="pre">Chi1De,</span> <span class="pre">Chi1Dh</span></span></dt>
+<dd><p>Pre-computed arrays (see builder functions for details).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CoulombModule.LorentzDelta">
+<span class="sig-name descname"><span class="pre">LorentzDelta</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CoulombModule.LorentzDelta" title="Link to this definition">¶</a></dt>
+<dd><p>Current broadening mode flag.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">LorentzDelta</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CoulombModule.UnDel">
+<span class="sig-name descname"><span class="pre">UnDel</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CoulombModule.UnDel" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CoulombModule.k3">
+<span class="sig-name descname"><span class="pre">k3</span></span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CoulombModule.k3" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CoulombModule.SetLorentzDelta">
+<span class="sig-name descname"><span class="pre">SetLorentzDelta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boolean</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CoulombModule.SetLorentzDelta" title="Link to this definition">¶</a></dt>
+<dd><p>Set the LorentzDelta flag.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CoulombModule.Eps1D">
+<span class="sig-name descname"><span class="pre">Eps1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n1D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CoulombModule.Eps1D" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the 1D dielectric function matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n1D</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 1D carrier density (1/m)</p></li>
+<li><p><strong>Nk</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Momentum grid size (ignored — derived from stored arrays).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>2D dielectric function matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CoulombModule.CalcScreenedArrays">
+<span class="sig-name descname"><span class="pre">CalcScreenedArrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screened</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E1D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CoulombModule.CalcScreenedArrays" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate (optionally screened) Coulomb interaction arrays.</p>
+<p>Fills <em>VC</em> and <em>E1D</em> in-place.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>screened</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Apply screening?</p></li>
+<li><p><strong>L</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Quantum wire length (m)</p></li>
+<li><p><strong>ne</strong> (<em>ndarray</em>) – Carrier populations</p></li>
+<li><p><strong>nh</strong> (<em>ndarray</em>) – Carrier populations</p></li>
+<li><p><strong>VC</strong> (<em>ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>N</em><em>, </em><em>3</em><em>)</em>) – Output interaction matrices (modified in-place)</p></li>
+<li><p><strong>E1D</strong> (<em>ndarray</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>N</em><em>)</em>) – Output dielectric function (modified in-place)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CoulombModule.CalcMVeh">
+<span class="sig-name descname"><span class="pre">CalcMVeh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MVeh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CoulombModule.CalcMVeh" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the many-body electron-hole interaction term MVeh.</p>
+<p>Modifies <em>MVeh</em> in-place.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CoulombModule.undell">
+<span class="sig-name descname"><span class="pre">undell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CoulombModule.undell" title="Link to this definition">¶</a></dt>
+<dd><p>Access UnDel(k, q) (1-based indices).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CoulombModule.BGRenorm">
+<span class="sig-name descname"><span class="pre">BGRenorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">C</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BGR</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CoulombModule.BGRenorm" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate band gap renormalization.</p>
+<p>Modifies <em>BGR</em> in-place.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CoulombModule.EeRenorm">
+<span class="sig-name descname"><span class="pre">EeRenorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BGR</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CoulombModule.EeRenorm" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate electron energy renormalization.</p>
+<p>Modifies <em>BGR</em> in-place.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CoulombModule.EhRenorm">
+<span class="sig-name descname"><span class="pre">EhRenorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BGR</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CoulombModule.EhRenorm" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate hole energy renormalization.</p>
+<p>Modifies <em>BGR</em> in-place.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CoulombModule.MBCE2">
+<span class="sig-name descname"><span class="pre">MBCE2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Wout</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CoulombModule.MBCE2" title="Link to this definition">¶</a></dt>
+<dd><p>Many-body Coulomb in/out rates for electrons (version 2).</p>
+<p>Modifies <em>Win</em> and <em>Wout</em> in-place.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CoulombModule.MBCE">
+<span class="sig-name descname"><span class="pre">MBCE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Wout</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CoulombModule.MBCE" title="Link to this definition">¶</a></dt>
+<dd><p>Many-body Coulomb in/out rates for electrons.</p>
+<p>Modifies <em>Win</em> and <em>Wout</em> in-place.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CoulombModule.MBCH">
+<span class="sig-name descname"><span class="pre">MBCH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Wout</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CoulombModule.MBCH" title="Link to this definition">¶</a></dt>
+<dd><p>Many-body Coulomb in/out rates for holes.</p>
+<p>Modifies <em>Win</em> and <em>Wout</em> in-place.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.SetLorentzDelta">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">SetLorentzDelta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boolean</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.SetLorentzDelta" title="Link to this definition">¶</a></dt>
+<dd><p>Set the LorentzDelta flag (module-level wrapper).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.InitializeCoulomb">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">InitializeCoulomb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Delta0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">me</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphae</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphah</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">er</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Qy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kkp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screened</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.InitializeCoulomb" title="Link to this definition">¶</a></dt>
+<dd><p>Create / replace the module-level CoulombModule singleton.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CalcScreenedArrays">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">CalcScreenedArrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screened</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E1D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CalcScreenedArrays" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.Eps1D">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">Eps1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n1D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.Eps1D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.CalcMVeh">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">CalcMVeh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MVeh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UnDel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.CalcMVeh" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.undell">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">undell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.undell" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.BGRenorm">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">BGRenorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">C</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BGR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UnDel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.BGRenorm" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.EeRenorm">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">EeRenorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BGR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UnDel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.EeRenorm" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.EhRenorm">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">EhRenorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BGR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UnDel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.EhRenorm" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.MBCE2">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">MBCE2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Wout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ceh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cee</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.MBCE2" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.MBCE">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">MBCE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Wout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ceh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cee</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.MBCE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.MBCH">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">MBCH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ne0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nh0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ky</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Wout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ceh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Chh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.MBCH" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.coulomb.__getattr__">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.coulomb.</span></span><span class="sig-name descname"><span class="pre">__getattr__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.coulomb.__getattr__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

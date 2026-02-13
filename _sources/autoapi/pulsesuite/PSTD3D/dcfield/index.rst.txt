@@ -1,0 +1,879 @@
+pulsesuite.PSTD3D.dcfield
+=========================
+
+.. py:module:: pulsesuite.PSTD3D.dcfield
+
+.. autoapi-nested-parse::
+
+   DC field carrier transport calculations for quantum wire simulations.
+
+   This module calculates the dc field carrier transport contributions to the
+   Semiconductor Bloch equations in support of propagation simulations for a
+   quantum wire.
+
+   Converted from dcfield.f90 (lines 30-253).
+
+   Structure
+   ---------
+   1. Pure functions (no module state) -- module-level
+   2. JIT-compiled helpers            -- module-level (Numba requirement)
+   3. DCFieldModule class             -- mutable state + methods
+   4. Backward-compatibility layer    -- singleton + wrapper functions
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.dcfield.pi
+   pulsesuite.PSTD3D.dcfield.hbar
+   pulsesuite.PSTD3D.dcfield.ii
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.dcfield.DCFieldModule
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.dcfield.GetKArray
+   pulsesuite.PSTD3D.dcfield.Lrtz
+   pulsesuite.PSTD3D.dcfield.theta
+   pulsesuite.PSTD3D.dcfield.CalcI0n
+   pulsesuite.PSTD3D.dcfield.CalcVD
+   pulsesuite.PSTD3D.dcfield.CalcPD
+   pulsesuite.PSTD3D.dcfield.CalcAvgCoeff
+   pulsesuite.PSTD3D.dcfield.DC_Step_Scale
+   pulsesuite.PSTD3D.dcfield.DC_Step_FD
+   pulsesuite.PSTD3D.dcfield.EkReNorm
+   pulsesuite.PSTD3D.dcfield.DriftVt
+   pulsesuite.PSTD3D.dcfield.ThetaEM
+   pulsesuite.PSTD3D.dcfield.ThetaABS
+   pulsesuite.PSTD3D.dcfield.FDrift2
+   pulsesuite.PSTD3D.dcfield.FDrift
+   pulsesuite.PSTD3D.dcfield.dndEk
+   pulsesuite.PSTD3D.dcfield.ThetaEMABS
+   pulsesuite.PSTD3D.dcfield.InitializeDC
+   pulsesuite.PSTD3D.dcfield.CalcDCE2
+   pulsesuite.PSTD3D.dcfield.CalcDCH2
+   pulsesuite.PSTD3D.dcfield.CalcDCE
+   pulsesuite.PSTD3D.dcfield.CalcDCH
+   pulsesuite.PSTD3D.dcfield.CalcI0
+   pulsesuite.PSTD3D.dcfield.GetEDrift
+   pulsesuite.PSTD3D.dcfield.GetHDrift
+   pulsesuite.PSTD3D.dcfield.GetVEDrift
+   pulsesuite.PSTD3D.dcfield.GetVHDrift
+   pulsesuite.PSTD3D.dcfield.ShiftN1D
+   pulsesuite.PSTD3D.dcfield.ShiftN2D
+   pulsesuite.PSTD3D.dcfield.Transport
+   pulsesuite.PSTD3D.dcfield.__getattr__
+
+
+Module Contents
+---------------
+
+.. py:data:: pi
+
+.. py:data:: hbar
+
+.. py:data:: ii
+   :value: 1j
+
+
+.. py:function:: GetKArray(Nk, L)
+
+   Generate k-space array for Fourier transforms.
+
+   :param Nk: Number of k-space points
+   :type Nk: int
+   :param L: Length of the spatial domain (m)
+   :type L: float
+
+   :returns: Array of k values (1/m), 1D array of length Nk
+   :rtype: ndarray
+
+
+.. py:function:: Lrtz(a, b)
+
+   Lorentzian function.
+
+   Computes the Lorentzian line shape function: (b/pi) / (a^2 + b^2)
+
+   :param a: Frequency offset or energy difference
+   :type a: float or ndarray
+   :param b: Half-width at half-maximum (HWHM)
+   :type b: float or ndarray
+
+   :returns: Lorentzian function value
+   :rtype: float or ndarray
+
+
+.. py:function:: theta(x)
+
+   Heaviside step function (theta function).
+
+   Computes the step function: (abs(x) + x) / 2 / (abs(x) + small)
+   Returns 1 for x > 0, 0 for x <= 0.
+
+   :param x: Input value
+   :type x: float or ndarray
+
+   :returns: Step function value (0 or 1, 0 at x=0)
+   :rtype: float or ndarray
+
+
+.. py:function:: CalcI0n(ne, me, ky)
+
+   Calculate electron current.
+
+   Computes the electron current from the electron distribution and momentum.
+
+   :param ne: Electron occupation numbers (complex), 1D array
+   :type ne: ndarray
+   :param me: Effective electron mass (kg)
+   :type me: float
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+
+   :returns: Electron current (A)
+   :rtype: float
+
+
+.. py:function:: CalcVD(ky, m, n)
+
+   Calculate drift velocity from distribution.
+
+   Computes the average drift velocity from the carrier distribution
+   and momentum: v = sum(real(n) * hbar * ky / m) / sum(real(n) + small)
+
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param m: Carrier mass (kg)
+   :type m: float
+   :param n: Carrier occupation numbers (complex), 1D array
+   :type n: ndarray
+
+   :returns: Drift velocity (m/s)
+   :rtype: float
+
+
+.. py:function:: CalcPD(ky, m, n)
+
+   Calculate momentum from distribution.
+
+   Computes the average momentum from the carrier distribution:
+   p = sum(abs(n) * hbar * ky) / sum(abs(n) + small)
+
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param m: Carrier mass (kg) (unused, kept for interface compatibility)
+   :type m: float
+   :param n: Carrier occupation numbers (complex), 1D array
+   :type n: ndarray
+
+   :returns: Average momentum (kg*m/s)
+   :rtype: float
+
+
+.. py:function:: CalcAvgCoeff(ky, dk, k1, k2, i1, i2, x1, x2, x3, x4)
+
+   Calculate average coefficients for interpolation.
+
+   Computes interpolation coefficients for bilinear interpolation in k-space.
+   The function extends the ky array with boundary points and calculates
+   coefficients based on the positions k1, k2 and indices i1, i2.
+
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param dk: Momentum step size (1/m)
+   :type dk: float
+   :param k1: First momentum value for interpolation
+   :type k1: float
+   :param k2: Second momentum value for interpolation
+   :type k2: float
+   :param i1: First index (1-based, will be converted to 0-based)
+   :type i1: int
+   :param i2: Second index (1-based, will be converted to 0-based)
+   :type i2: int
+   :param x1: Output coefficient 1
+   :type x1: float
+   :param x2: Output coefficient 2
+   :type x2: float
+   :param x3: Output coefficient 3
+   :type x3: float
+   :param x4: Output coefficient 4
+   :type x4: float
+
+   :returns: Tuple containing (x1, x2, x3, x4) coefficients
+   :rtype: tuple
+
+
+.. py:function:: DC_Step_Scale(ne, nh, ky, Edc, dt)
+
+   DC step using scaling method (legacy code).
+
+   Performs a DC field step by scaling the distribution functions.
+   Uses rescale_1D to interpolate the distributions to shifted momentum grids.
+
+   :param ne: Electron occupation numbers (complex), modified in-place, 1D array
+   :type ne: ndarray
+   :param nh: Hole occupation numbers (complex), modified in-place, 1D array
+   :type nh: ndarray
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param Edc: DC electric field (V/m)
+   :type Edc: float
+   :param dt: Time step (s)
+   :type dt: float
+
+   :returns: ne and nh arrays are modified in-place.
+   :rtype: None
+
+
+.. py:function:: DC_Step_FD(ne, nh, nemid, nhmid, ky, Edc, dt, me, mh)
+
+   DC step using finite difference method (legacy code).
+
+   Performs a DC field step using finite difference derivatives.
+   Updates the electron and hole distributions based on the DC field
+   and momentum-dependent terms.
+
+   :param ne: Electron occupation numbers (complex), modified in-place, 1D array
+   :type ne: ndarray
+   :param nh: Hole occupation numbers (complex), modified in-place, 1D array
+   :type nh: ndarray
+   :param nemid: Midpoint electron occupation numbers (complex), 1D array
+   :type nemid: ndarray
+   :param nhmid: Midpoint hole occupation numbers (complex), 1D array
+   :type nhmid: ndarray
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param Edc: DC electric field (V/m)
+   :type Edc: float
+   :param dt: Time step (s)
+   :type dt: float
+   :param me: Effective electron mass (kg)
+   :type me: float
+   :param mh: Effective hole mass (kg)
+   :type mh: float
+
+   :returns: ne and nh arrays are modified in-place.
+   :rtype: None
+
+
+.. py:function:: EkReNorm(n, En, V)
+
+   Renormalize energy with many-body corrections.
+
+   Computes the renormalized energy including Hartree-Fock corrections:
+   Ec(k) = En(k) + sum(n(:) * (V(k,k) - V(k,:))) / 2
+
+   :param n: Carrier occupation numbers, 1D array
+   :type n: ndarray
+   :param En: Single-particle energies (J), 1D array
+   :type En: ndarray
+   :param V: Interaction matrix (J), 2D array V[k1, k2]
+   :type V: ndarray
+
+   :returns: Renormalized energies (J), 1D array
+   :rtype: ndarray
+
+
+.. py:function:: DriftVt(n, Ec, dkk)
+
+   Calculate drift velocity.
+
+   Computes the average drift velocity from the energy gradient and
+   carrier distribution: v = sum(dEcdk * n) / sum(n) / hbar
+
+   :param n: Carrier occupation numbers, 1D array
+   :type n: ndarray
+   :param Ec: Renormalized energies (J), 1D array
+   :type Ec: ndarray
+   :param dkk: Momentum step size (1/m)
+   :type dkk: float
+
+   :returns: Drift velocity (m/s)
+   :rtype: float
+
+
+.. py:function:: ThetaEM(Ephn, m, g, ky, n, Cq2, v, N0, q, k)
+
+   Calculate emission matrix element.
+
+   Computes the emission rate matrix element for phonon-assisted transitions.
+
+   :param Ephn: Average phonon energy (J)
+   :type Ephn: float
+   :param m: Carrier mass (kg)
+   :type m: float
+   :param g: Inverse lifetime (Hz)
+   :type g: float
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param n: Carrier occupation numbers, 1D array
+   :type n: ndarray
+   :param Cq2: Coupling constant squared, 1D array
+   :type Cq2: ndarray
+   :param v: Drift velocity (m/s)
+   :type v: float
+   :param N0: Phonon occupation number
+   :type N0: float
+   :param q: Phonon momentum index (1-based)
+   :type q: int
+   :param k: Carrier momentum index (1-based)
+   :type k: int
+
+   :returns: Emission matrix element
+   :rtype: float
+
+
+.. py:function:: ThetaABS(Ephn, m, g, ky, n, Cq2, v, N0, q, k)
+
+   Calculate absorption matrix element.
+
+   Computes the absorption rate matrix element for phonon-assisted transitions.
+
+   :param Ephn: Average phonon energy (J)
+   :type Ephn: float
+   :param m: Carrier mass (kg)
+   :type m: float
+   :param g: Inverse lifetime (Hz)
+   :type g: float
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param n: Carrier occupation numbers, 1D array
+   :type n: ndarray
+   :param Cq2: Coupling constant squared, 1D array
+   :type Cq2: ndarray
+   :param v: Drift velocity (m/s)
+   :type v: float
+   :param N0: Phonon occupation number
+   :type N0: float
+   :param q: Phonon momentum index (1-based)
+   :type q: int
+   :param k: Carrier momentum index (1-based)
+   :type k: int
+
+   :returns: Absorption matrix element
+   :rtype: float
+
+
+.. py:function:: FDrift2(Ephn, m, g, ky, n, Cq2, v, N0, x)
+
+   Calculate drift force from phonon interactions.
+
+   Computes the drift force due to phonon emission and absorption processes.
+
+   :param Ephn: Average phonon energy (J)
+   :type Ephn: float
+   :param m: Carrier mass (kg)
+   :type m: float
+   :param g: Inverse lifetime (Hz)
+   :type g: float
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param n: Carrier occupation numbers, 1D array
+   :type n: ndarray
+   :param Cq2: Coupling constant squared, 1D array
+   :type Cq2: ndarray
+   :param v: Drift velocity (m/s)
+   :type v: float
+   :param N0: Phonon occupation number
+   :type N0: float
+   :param x: k-dependent delta-function coefficients, 1D array (unused)
+   :type x: ndarray
+
+   :returns: Drift force (N), 1D array
+   :rtype: ndarray
+
+
+.. py:function:: FDrift(Ephn, m, q, dndk, Cq2, v, N0, x)
+
+   Calculate drift force (alternative implementation).
+
+   Computes the drift force using a different approach with dndk derivative.
+
+   :param Ephn: Average phonon energy (J)
+   :type Ephn: float
+   :param m: Carrier mass (kg)
+   :type m: float
+   :param q: Momentum coordinates (1/m), 1D array
+   :type q: ndarray
+   :param dndk: Derivative of carrier occupation with respect to momentum, 1D array
+   :type dndk: ndarray
+   :param Cq2: Coupling constant squared, 1D array
+   :type Cq2: ndarray
+   :param v: Drift velocity (m/s)
+   :type v: float
+   :param N0: Phonon occupation number
+   :type N0: float
+   :param x: k-dependent delta-function coefficients, 1D array
+   :type x: ndarray
+
+   :returns: Drift force (N)
+   :rtype: float
+
+
+.. py:function:: dndEk(Ephn, m, q, dndq)
+
+   Calculate derivative of occupation with respect to energy.
+
+   :param Ephn: Average phonon energy (J)
+   :type Ephn: float
+   :param m: Carrier mass (kg)
+   :type m: float
+   :param q: Momentum coordinates (1/m), 1D array
+   :type q: ndarray
+   :param dndq: Derivative of occupation with respect to momentum, 1D array
+   :type dndq: ndarray
+
+   :returns: Derivative of occupation with respect to energy, 1D array
+   :rtype: ndarray
+
+
+.. py:function:: ThetaEMABS(Ephn, m, q, dndk, Cq2, v)
+
+   Calculate emission-absorption matrix element.
+
+   :param Ephn: Average phonon energy (J)
+   :type Ephn: float
+   :param m: Carrier mass (kg)
+   :type m: float
+   :param q: Momentum coordinates (1/m), 1D array
+   :type q: ndarray
+   :param dndk: Derivative of occupation with respect to momentum, 1D array
+   :type dndk: ndarray
+   :param Cq2: Coupling constant squared, 1D array
+   :type Cq2: ndarray
+   :param v: Drift velocity (m/s)
+   :type v: float
+
+   :returns: Emission-absorption matrix element, 1D array
+   :rtype: ndarray
+
+
+.. py:class:: DCFieldModule(ky, me, mh, WithPhns=True, datadir='dataQW')
+
+   DC field carrier transport module for quantum wire simulations.
+
+   Encapsulates the mutable state and stateful methods that were previously
+   held as module-level globals. Mirrors the Fortran ``module dcfield``
+   structure: private allocatable arrays + public subroutines.
+
+   :param ky: Momentum coordinates of quantum wire (1/m), 1D array
+   :type ky: ndarray
+   :param me: Effective electron mass (kg)
+   :type me: float
+   :param mh: Effective hole mass (kg)
+   :type mh: float
+   :param WithPhns: Whether to couple damping rate with phonons (default True)
+   :type WithPhns: bool, optional
+   :param datadir: Directory for output files.  Pass ``None`` to skip file creation
+                   (useful for testing).  Default ``'dataQW'``.
+   :type datadir: str or None, optional
+
+
+   .. py:attribute:: dkk
+
+
+   .. py:attribute:: ERate
+      :value: 0.0
+
+
+
+   .. py:attribute:: HRate
+      :value: 0.0
+
+
+
+   .. py:attribute:: VEDrift
+      :value: 0.0
+
+
+
+   .. py:attribute:: VHDrift
+      :value: 0.0
+
+
+
+   .. py:attribute:: WithPhns
+      :value: True
+
+
+
+   .. py:attribute:: Y
+
+
+   .. py:attribute:: xe
+
+
+   .. py:attribute:: xh
+
+
+   .. py:attribute:: qinv
+
+
+   .. py:attribute:: kmin
+
+
+   .. py:attribute:: kmax
+
+
+   .. py:method:: close()
+
+      Close output file handles.
+
+
+
+   .. py:method:: __del__()
+
+
+   .. py:method:: CalcDCE2(DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0, ne, Ee, Vee, n, j, DC)
+
+      Calculate DC field contribution for electrons (version 2).
+
+      Computes the DC field transport contribution to the electron
+      distribution evolution using a finite difference derivative.
+
+      :param DCTrans: Whether to include DC transport terms
+      :type DCTrans: bool
+      :param ky: Momentum coordinates (1/m), 1D array
+      :type ky: ndarray
+      :param Cq2: Coupling constant squared, 1D array
+      :type Cq2: ndarray
+      :param Edc: DC electric field (V/m)
+      :type Edc: float
+      :param me: Effective electron mass (kg)
+      :type me: float
+      :param ge: Inverse electron lifetime (Hz)
+      :type ge: float
+      :param Ephn: Average phonon energy (J)
+      :type Ephn: float
+      :param N0: Phonon occupation number
+      :type N0: float
+      :param ne: Electron occupation numbers (complex), 1D array
+      :type ne: ndarray
+      :param Ee: Electron energies (J), 1D array
+      :type Ee: ndarray
+      :param Vee: Electron-electron interaction matrix (J), 2D array
+      :type Vee: ndarray
+      :param n: Time step index
+      :type n: int
+      :param j: Iteration index
+      :type j: int
+      :param DC: Output DC field contribution (modified in-place), 1D array
+      :type DC: ndarray
+
+      :returns: DC array is modified in-place.
+      :rtype: None
+
+
+
+   .. py:method:: CalcDCH2(DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0, nh, Eh, Vhh, n, j, DC)
+
+      Calculate DC field contribution for holes (version 2).
+
+      Computes the DC field transport contribution to the hole
+      distribution evolution using a finite difference derivative.
+
+      :param DCTrans: Whether to include DC transport terms
+      :type DCTrans: bool
+      :param ky: Momentum coordinates (1/m), 1D array
+      :type ky: ndarray
+      :param Cq2: Coupling constant squared, 1D array
+      :type Cq2: ndarray
+      :param Edc: DC electric field (V/m)
+      :type Edc: float
+      :param mh: Effective hole mass (kg)
+      :type mh: float
+      :param gh: Inverse hole lifetime (Hz)
+      :type gh: float
+      :param Ephn: Average phonon energy (J)
+      :type Ephn: float
+      :param N0: Phonon occupation number
+      :type N0: float
+      :param nh: Hole occupation numbers (complex), 1D array
+      :type nh: ndarray
+      :param Eh: Hole energies (J), 1D array
+      :type Eh: ndarray
+      :param Vhh: Hole-hole interaction matrix (J), 2D array
+      :type Vhh: ndarray
+      :param n: Time step index
+      :type n: int
+      :param j: Iteration index
+      :type j: int
+      :param DC: Output DC field contribution (modified in-place), 1D array
+      :type DC: ndarray
+
+      :returns: DC array is modified in-place.
+      :rtype: None
+
+
+
+   .. py:method:: CalcDCE(DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0, ne, Ee, Vee, DC)
+
+      Calculate DC field contribution for electrons (original version).
+
+      Uses FFT-based derivative.
+
+      :param DCTrans: Whether to include DC transport terms
+      :type DCTrans: bool
+      :param ky: Momentum coordinates (1/m), 1D array
+      :type ky: ndarray
+      :param Cq2: Coupling constant squared, 1D array
+      :type Cq2: ndarray
+      :param Edc: DC electric field (V/m)
+      :type Edc: float
+      :param me: Effective electron mass (kg)
+      :type me: float
+      :param ge: Inverse electron lifetime (Hz)
+      :type ge: float
+      :param Ephn: Average phonon energy (J)
+      :type Ephn: float
+      :param N0: Phonon occupation number
+      :type N0: float
+      :param ne: Electron occupation numbers (complex), 1D array
+      :type ne: ndarray
+      :param Ee: Electron energies (J), 1D array
+      :type Ee: ndarray
+      :param Vee: Electron-electron interaction matrix (J), 2D array
+      :type Vee: ndarray
+      :param DC: Output DC field contribution (modified in-place), 1D array
+      :type DC: ndarray
+
+      :returns: DC array is modified in-place.
+      :rtype: None
+
+
+
+   .. py:method:: CalcDCH(DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0, nh, Eh, Vhh, DC)
+
+      Calculate DC field contribution for holes (original version).
+
+      Uses FFT-based derivative.
+
+      :param DCTrans: Whether to include DC transport terms
+      :type DCTrans: bool
+      :param ky: Momentum coordinates (1/m), 1D array
+      :type ky: ndarray
+      :param Cq2: Coupling constant squared, 1D array
+      :type Cq2: ndarray
+      :param Edc: DC electric field (V/m)
+      :type Edc: float
+      :param mh: Effective hole mass (kg)
+      :type mh: float
+      :param gh: Inverse hole lifetime (Hz)
+      :type gh: float
+      :param Ephn: Average phonon energy (J)
+      :type Ephn: float
+      :param N0: Phonon occupation number
+      :type N0: float
+      :param nh: Hole occupation numbers (complex), 1D array
+      :type nh: ndarray
+      :param Eh: Hole energies (J), 1D array
+      :type Eh: ndarray
+      :param Vhh: Hole-hole interaction matrix (J), 2D array
+      :type Vhh: ndarray
+      :param DC: Output DC field contribution (modified in-place), 1D array
+      :type DC: ndarray
+
+      :returns: DC array is modified in-place.
+      :rtype: None
+
+
+
+   .. py:method:: CalcI0(ne, nh, Ee, Eh, VC, dk, ky, I0)
+
+      Calculate total current from electron and hole distributions.
+
+      :param ne: Electron occupation numbers (complex), 1D array
+      :type ne: ndarray
+      :param nh: Hole occupation numbers (complex), 1D array
+      :type nh: ndarray
+      :param Ee: Electron energies (J), 1D array
+      :type Ee: ndarray
+      :param Eh: Hole energies (J), 1D array
+      :type Eh: ndarray
+      :param VC: Interaction matrix (J), 3D array
+      :type VC: ndarray
+      :param dk: Momentum step size (1/m)
+      :type dk: float
+      :param ky: Momentum coordinates (1/m), 1D array (unused)
+      :type ky: ndarray
+      :param I0: Input value (unused)
+      :type I0: float
+
+      :returns: Total current (A)
+      :rtype: float
+
+
+
+   .. py:method:: ShiftN1D(ne, dk)
+
+      Shift 1D distribution in momentum space.
+
+      Shifts the distribution function in momentum space by dk using FFT.
+
+      :param ne: Carrier occupation numbers (complex), modified in-place, 1D array
+      :type ne: ndarray
+      :param dk: Momentum shift (1/m)
+      :type dk: float
+
+      :returns: ne array is modified in-place.
+      :rtype: None
+
+
+
+   .. py:method:: ShiftN2D(C, dk)
+
+      Shift 2D distribution in momentum space.
+
+      :param C: Distribution matrix (complex), modified in-place, 2D array
+      :type C: ndarray
+      :param dk: Momentum shift (1/m)
+      :type dk: float
+
+      :returns: C array is modified in-place.
+      :rtype: None
+
+
+
+   .. py:method:: Transport(C, Edc, Eac, dt, DCTrans, k1nek2)
+
+      Transport step for distribution matrix.
+
+      :param C: Distribution matrix (complex), modified in-place, 2D array
+      :type C: ndarray
+      :param Edc: DC electric field (V/m)
+      :type Edc: float
+      :param Eac: AC electric field (V/m)
+      :type Eac: float
+      :param dt: Time step (s)
+      :type dt: float
+      :param DCTrans: Whether to include DC transport terms
+      :type DCTrans: bool
+      :param k1nek2: If True, shift the full 2D matrix; if False, shift only diagonal
+      :type k1nek2: bool
+
+      :returns: C array is modified in-place.
+      :rtype: None
+
+
+
+   .. py:method:: GetEDrift()
+
+      Return electron drift rate (Hz).
+
+
+
+   .. py:method:: GetHDrift()
+
+      Return hole drift rate (Hz).
+
+
+
+   .. py:method:: GetVEDrift()
+
+      Return electron drift velocity (m/s).
+
+
+
+   .. py:method:: GetVHDrift()
+
+      Return hole drift velocity (m/s).
+
+
+
+.. py:function:: InitializeDC(ky, me, mh)
+
+   Initialize the DC field module (backward-compatible wrapper).
+
+   Creates a new :class:`DCFieldModule` singleton from *ky*, *me*, *mh*.
+   Uses the module-level ``_WithPhns`` flag.
+
+   :param ky: Momentum coordinates of quantum wire (1/m), 1D array
+   :type ky: ndarray
+   :param me: Effective electron mass (kg)
+   :type me: float
+   :param mh: Effective hole mass (kg)
+   :type mh: float
+
+
+.. py:function:: CalcDCE2(DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0, ne, Ee, Vee, n, j, DC)
+
+   Backward-compatible wrapper for :meth:`DCFieldModule.CalcDCE2`.
+
+
+.. py:function:: CalcDCH2(DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0, nh, Eh, Vhh, n, j, DC)
+
+   Backward-compatible wrapper for :meth:`DCFieldModule.CalcDCH2`.
+
+
+.. py:function:: CalcDCE(DCTrans, ky, Cq2, Edc, me, ge, Ephn, N0, ne, Ee, Vee, DC)
+
+   Backward-compatible wrapper for :meth:`DCFieldModule.CalcDCE`.
+
+
+.. py:function:: CalcDCH(DCTrans, ky, Cq2, Edc, mh, gh, Ephn, N0, nh, Eh, Vhh, DC)
+
+   Backward-compatible wrapper for :meth:`DCFieldModule.CalcDCH`.
+
+
+.. py:function:: CalcI0(ne, nh, Ee, Eh, VC, dk, ky, I0)
+
+   Backward-compatible wrapper for :meth:`DCFieldModule.CalcI0`.
+
+
+.. py:function:: GetEDrift()
+
+   Backward-compatible wrapper for :meth:`DCFieldModule.GetEDrift`.
+
+
+.. py:function:: GetHDrift()
+
+   Backward-compatible wrapper for :meth:`DCFieldModule.GetHDrift`.
+
+
+.. py:function:: GetVEDrift()
+
+   Backward-compatible wrapper for :meth:`DCFieldModule.GetVEDrift`.
+
+
+.. py:function:: GetVHDrift()
+
+   Backward-compatible wrapper for :meth:`DCFieldModule.GetVHDrift`.
+
+
+.. py:function:: ShiftN1D(ne, dk)
+
+   Backward-compatible wrapper for :meth:`DCFieldModule.ShiftN1D`.
+
+
+.. py:function:: ShiftN2D(C, dk)
+
+   Backward-compatible wrapper for :meth:`DCFieldModule.ShiftN2D`.
+
+
+.. py:function:: Transport(C, Edc, Eac, dt, DCTrans, k1nek2)
+
+   Backward-compatible wrapper for :meth:`DCFieldModule.Transport`.
+
+
+.. py:function:: __getattr__(name)
+
+   Module-level ``__getattr__`` for backward-compat attribute reads.
+
+   Maps old ``dcfield._Y``, ``dcfield._xe``, etc. to the singleton's
+   attributes.  Returns ``None`` when the singleton has not been created yet.
+
+

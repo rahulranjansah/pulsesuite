@@ -1,0 +1,531 @@
+pulsesuite.libpulsesuite.nrutils
+================================
+
+.. py:module:: pulsesuite.libpulsesuite.nrutils
+
+.. autoapi-nested-parse::
+
+   High-performance numerical utilities for scientific computing, ported from Fortran's nrutils.F90.
+
+   1:1 port of the Numerical Recipes ``nrutils`` module. Every public Fortran
+   routine has a Python callable with the same camelCase name.  Vectorised with
+   NumPy; no Numba or guardrails required.
+
+   Fortran interfaces that dispatch on type/rank are replaced by a single Python
+   function that inspects shape and dtype at runtime.
+
+   Author: Rahul R. Sah
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.libpulsesuite.nrutils.sp
+   pulsesuite.libpulsesuite.nrutils.dp
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.libpulsesuite.nrutils.arrayCopy
+   pulsesuite.libpulsesuite.nrutils.swap
+   pulsesuite.libpulsesuite.nrutils.maskedSwap
+   pulsesuite.libpulsesuite.nrutils.reallocate
+   pulsesuite.libpulsesuite.nrutils.imaxloc
+   pulsesuite.libpulsesuite.nrutils.iminloc
+   pulsesuite.libpulsesuite.nrutils.ifirstloc
+   pulsesuite.libpulsesuite.nrutils.nrerror
+   pulsesuite.libpulsesuite.nrutils.assertTrue
+   pulsesuite.libpulsesuite.nrutils.assertEq
+   pulsesuite.libpulsesuite.nrutils.arth
+   pulsesuite.libpulsesuite.nrutils.geop
+   pulsesuite.libpulsesuite.nrutils.cumsum
+   pulsesuite.libpulsesuite.nrutils.cumprod
+   pulsesuite.libpulsesuite.nrutils.poly
+   pulsesuite.libpulsesuite.nrutils.polyTerm
+   pulsesuite.libpulsesuite.nrutils.outerprod
+   pulsesuite.libpulsesuite.nrutils.outerdiff
+   pulsesuite.libpulsesuite.nrutils.outersum
+   pulsesuite.libpulsesuite.nrutils.outerand
+   pulsesuite.libpulsesuite.nrutils.scatterAdd
+   pulsesuite.libpulsesuite.nrutils.scatterMax
+   pulsesuite.libpulsesuite.nrutils.diagAdd
+   pulsesuite.libpulsesuite.nrutils.diagMult
+   pulsesuite.libpulsesuite.nrutils.getDiag
+   pulsesuite.libpulsesuite.nrutils.putDiag
+   pulsesuite.libpulsesuite.nrutils.unitMatrix
+   pulsesuite.libpulsesuite.nrutils.upperTriangle
+   pulsesuite.libpulsesuite.nrutils.lowerTriangle
+   pulsesuite.libpulsesuite.nrutils.vabs
+   pulsesuite.libpulsesuite.nrutils.dummy_jacobian_dp
+   pulsesuite.libpulsesuite.nrutils.dummy_jacobian_dpc
+
+
+Module Contents
+---------------
+
+.. py:data:: sp
+
+.. py:data:: dp
+
+.. py:function:: arrayCopy(src: numpy.ndarray, dest: numpy.ndarray) -> Tuple[int, int]
+
+   Copy elements from *src* into *dest* up to the smaller size.
+
+   Mirrors Fortran's ``array_copy``.
+
+   :param src: Source array.
+   :type src: ndarray
+   :param dest: Destination array (modified in-place).
+   :type dest: ndarray
+
+   :returns: * **nCopied** (*int*) -- Number of elements actually copied.
+             * **nNotCopied** (*int*) -- ``src.size - nCopied``.
+
+
+.. py:function:: swap(a: Any, b: Any) -> Tuple[Any, Any]
+
+   Swap two scalars, arrays, or any objects.
+
+   Fortran's ``swap_*`` interfaces (scalar, vector, matrix) are handled
+   by Python's generic assignment.
+
+   :param a: Values to swap.
+   :type a: Any
+   :param b: Values to swap.
+   :type b: Any
+
+   :returns: **(b, a)** -- Swapped pair.
+   :rtype: tuple
+
+
+.. py:function:: maskedSwap(a: numpy.ndarray, b: numpy.ndarray, mask: numpy.ndarray) -> None
+
+   Swap elements of *a* and *b* where *mask* is True (in-place).
+
+   Fortran's ``masked_swap_*`` interfaces.  Uses vectorised boolean
+   indexing — no Python loop.
+
+   :param a:
+   :type a: ndarray  (same shape, modified in-place)
+   :param b:
+   :type b: ndarray  (same shape, modified in-place)
+   :param mask: Boolean mask; swap only where True.
+   :type mask: ndarray of bool
+
+
+.. py:function:: reallocate(arr: numpy.ndarray, newShape: Union[int, Tuple[int, Ellipsis]]) -> numpy.ndarray
+
+   Reallocate *arr* to *newShape*, copying the overlapping region.
+
+   Fortran's ``reallocate_*`` family (1-D, 2-D, etc.).
+
+   :param arr: Original array.
+   :type arr: ndarray
+   :param newShape: Desired shape.
+   :type newShape: int or tuple of int
+
+   :returns: New array (same dtype) with data copied from the overlap.
+   :rtype: ndarray
+
+
+.. py:function:: imaxloc(arr: numpy.ndarray) -> int
+
+   Index of the maximum value (0-based).
+
+
+.. py:function:: iminloc(arr: numpy.ndarray) -> int
+
+   Index of the minimum value (0-based).
+
+
+.. py:function:: ifirstloc(mask: numpy.ndarray) -> int
+
+   Index of the first True in a boolean array (0-based).
+
+   Returns -1 when no True is found.
+
+
+.. py:function:: nrerror(msg: str) -> None
+
+   Report a fatal error and stop (Fortran's ``nrerror``).
+
+   :param msg: Error message printed to stderr.
+   :type msg: str
+
+   :raises SystemExit:
+
+
+.. py:function:: assertTrue(test: bool, msg: str = 'Assertion failed', file: Optional[str] = None, line: Optional[int] = None) -> None
+
+   Assert *test* is ``True``; call ``nrerror`` on failure.
+
+   :param test:
+   :type test: bool
+   :param msg:
+   :type msg: str
+   :param file: Source location for diagnostics.
+   :type file: optional
+   :param line: Source location for diagnostics.
+   :type line: optional
+
+
+.. py:function:: assertEq(*args: Any, msg: str = 'Equality assertion failed') -> Any
+
+   Assert all positional arguments are equal; return the common value.
+
+   Replaces Fortran's ``assert_eq2``, ``assert_eq3``, ``assert_eq4``,
+   and ``assert_eqn`` interfaces with a single variadic dispatcher.
+
+   :param \*args: Values that must be equal.
+   :param msg: Message on failure.
+   :type msg: str
+
+   :returns: The common value.
+   :rtype: value
+
+
+.. py:function:: arth(first: float, increment: float, n: int) -> numpy.ndarray
+
+   Arithmetic progression of length *n*.
+
+   $a_k = \text{first} + k \cdot \text{increment},\quad k = 0, \dots, n-1$
+
+   Fortran's ``arth`` (SP/DP/I4B interfaces).
+
+   :param first: Starting value.
+   :type first: float
+   :param increment: Common difference.
+   :type increment: float
+   :param n: Length.
+   :type n: int
+
+   :rtype: ndarray of float64
+
+
+.. py:function:: geop(first: float, factor: float, n: int) -> numpy.ndarray
+
+   Geometric progression of length *n*.
+
+   $a_k = \text{first} \cdot \text{factor}^k,\quad k = 0, \dots, n-1$
+
+   Fortran's ``geop`` (SP/DP interfaces).
+
+   :param first: Starting value.
+   :type first: float
+   :param factor: Common ratio.
+   :type factor: float
+   :param n: Length.
+   :type n: int
+
+   :rtype: ndarray of float64
+
+
+.. py:function:: cumsum(arr: numpy.ndarray, seed: Optional[Union[float, int]] = None) -> numpy.ndarray
+
+   Cumulative sum, optionally offset by *seed*.
+
+   $S_j = \text{seed} + \sum_{i=0}^{j} a_i$
+
+   Fortran's ``cumsum`` (SP/DP interfaces).
+
+   :param arr:
+   :type arr: ndarray
+   :param seed: Additive offset applied to the running total.
+   :type seed: float or int, optional
+
+   :rtype: ndarray
+
+
+.. py:function:: cumprod(arr: numpy.ndarray, seed: Optional[Union[float, int]] = None) -> numpy.ndarray
+
+   Cumulative product, optionally scaled by *seed*.
+
+   $P_j = \text{seed} \cdot \prod_{i=0}^{j} a_i$
+
+   Fortran's ``cumprod`` (SP/DP interfaces).
+
+   :param arr:
+   :type arr: ndarray
+   :param seed: Multiplicative scale applied to all products.
+   :type seed: float or int, optional
+
+   :rtype: ndarray
+
+
+.. py:function:: poly(x: Union[float, numpy.ndarray], coeffs: numpy.ndarray) -> Union[float, numpy.ndarray]
+
+   Evaluate polynomial at *x* via Horner's method.
+
+   $P(x) = c_0 + c_1 x + c_2 x^2 + \cdots$
+
+   Coefficients are ordered lowest-degree first (Fortran convention).
+   Handles both real and complex coefficients/arguments.
+
+   Fortran's ``poly`` (SP/DP/SPC/DPC interfaces).
+
+   :param x: Evaluation point(s).
+   :type x: float or ndarray
+   :param coeffs: Polynomial coefficients, lowest degree first.
+   :type coeffs: ndarray
+
+   :rtype: float or ndarray
+
+
+.. py:function:: polyTerm(a: numpy.ndarray, b: Union[float, int]) -> numpy.ndarray
+
+   Recursive polynomial term (Fortran's ``poly_term``).
+
+   $u_0 = a_0,\quad u_j = a_j + b \cdot u_{j-1}$
+
+   Handles both real and complex arrays.
+
+   Fortran's ``poly_term`` (SP/DP interfaces).
+
+   :param a: Coefficient array.
+   :type a: ndarray
+   :param b: Multiplier.
+   :type b: float or int
+
+   :rtype: ndarray
+
+
+.. py:function:: outerprod(a: numpy.ndarray, b: numpy.ndarray) -> numpy.ndarray
+
+   Outer product: $M_{ij} = a_i \cdot b_j$.
+
+   Uses ``np.outer`` (BLAS-backed for large arrays).
+   Handles real and complex vectors.
+
+   Fortran's ``outerprod`` (SP/DP interfaces).
+
+   :param a:
+   :type a: ndarray (1-D)
+   :param b:
+   :type b: ndarray (1-D)
+
+   :rtype: ndarray, shape ``(a.size, b.size)``
+
+
+.. py:function:: outerdiff(a: numpy.ndarray, b: numpy.ndarray) -> numpy.ndarray
+
+   Outer difference: $M_{ij} = a_i - b_j$.
+
+   Vectorised via broadcasting.
+
+   Fortran's ``outerdiff`` (SP/DP interfaces).
+
+   :param a:
+   :type a: ndarray (1-D)
+   :param b:
+   :type b: ndarray (1-D)
+
+   :rtype: ndarray, shape ``(a.size, b.size)``
+
+
+.. py:function:: outersum(a: numpy.ndarray, b: numpy.ndarray) -> numpy.ndarray
+
+   Outer sum: $M_{ij} = a_i + b_j$.
+
+   Vectorised via broadcasting.
+
+   Fortran's ``outersum`` (SP/DP interfaces).
+
+   :param a:
+   :type a: ndarray (1-D)
+   :param b:
+   :type b: ndarray (1-D)
+
+   :rtype: ndarray, shape ``(a.size, b.size)``
+
+
+.. py:function:: outerand(a: numpy.ndarray, b: numpy.ndarray) -> numpy.ndarray
+
+   Outer logical AND: $M_{ij} = a_i \wedge b_j$.
+
+   Fortran's ``outerand``.
+
+   :param a:
+   :type a: ndarray of bool (1-D)
+   :param b:
+   :type b: ndarray of bool (1-D)
+
+   :rtype: ndarray of bool, shape ``(a.size, b.size)``
+
+
+.. py:function:: scatterAdd(dest: numpy.ndarray, source: numpy.ndarray, destIndex: numpy.ndarray) -> None
+
+   Scatter-add: ``dest[i] += source[j]`` at 0-based indices.
+
+   Uses ``np.add.at`` for unbuffered accumulation (correct with
+   duplicate indices).
+
+   Fortran's ``scatter_add`` (SP/DP interfaces).
+
+   :param dest:
+   :type dest: ndarray  (modified in-place)
+   :param source:
+   :type source: ndarray
+   :param destIndex: 0-based target indices.
+   :type destIndex: ndarray of int
+
+
+.. py:function:: scatterMax(dest: numpy.ndarray, source: numpy.ndarray, destIndex: numpy.ndarray) -> None
+
+   Scatter-max: ``dest[i] = max(dest[i], source[j])`` at 0-based indices.
+
+   Uses ``np.maximum.at`` for unbuffered reduction.
+
+   Fortran's ``scatter_max`` (SP/DP interfaces).
+
+   :param dest:
+   :type dest: ndarray  (modified in-place)
+   :param source:
+   :type source: ndarray
+   :param destIndex: 0-based target indices.
+   :type destIndex: ndarray of int
+
+
+.. py:function:: diagAdd(mat: numpy.ndarray, diag: Union[float, numpy.ndarray]) -> None
+
+   Add scalar or vector *diag* to the diagonal of *mat* in-place.
+
+   Dispatcher replacing Fortran's ``diagadd`` interface (scalar / vector).
+
+   :param mat:
+   :type mat: ndarray, shape (M, N)  — modified in-place
+   :param diag:
+   :type diag: float or ndarray
+
+
+.. py:function:: diagMult(mat: numpy.ndarray, diag: Union[float, numpy.ndarray]) -> None
+
+   Multiply the diagonal of *mat* by scalar or vector *diag* in-place.
+
+   Dispatcher replacing Fortran's ``diagmult`` interface (scalar / vector).
+
+   :param mat:
+   :type mat: ndarray, shape (M, N)  — modified in-place
+   :param diag:
+   :type diag: float or ndarray
+
+
+.. py:function:: getDiag(mat: numpy.ndarray) -> numpy.ndarray
+
+   Extract diagonal of *mat* into a new 1-D array.
+
+   Fortran's ``get_diag`` (SP/DP interfaces).
+
+   :param mat:
+   :type mat: ndarray, shape (M, N)
+
+   :rtype: ndarray, shape ``(min(M, N),)``
+
+
+.. py:function:: putDiag(diagv: numpy.ndarray, mat: numpy.ndarray) -> None
+
+   Set the diagonal of *mat* to *diagv* in-place.
+
+   Fortran's ``put_diag`` (SP/DP interfaces).
+
+   :param diagv:
+   :type diagv: ndarray
+   :param mat:
+   :type mat: ndarray, shape (M, N)  — modified in-place
+
+
+.. py:function:: unitMatrix(mat: numpy.ndarray) -> None
+
+   Set *mat* to the identity matrix in-place ($I_{ij} = \delta_{ij}$).
+
+   Fortran's ``unit_matrix``.
+
+   :param mat:
+   :type mat: ndarray, shape (M, N)  — modified in-place
+
+
+.. py:function:: upperTriangle(j: int, k: int, extra: int = 0) -> numpy.ndarray
+
+   Float mask for the upper triangle of a ``(j, k)`` matrix.
+
+   Entry $(r, c)$ is 1.0 where $r < c + \text{extra}$, else 0.0.
+
+   Fortran's ``upper_triangle``.
+
+   :param j:
+   :type j: int — rows
+   :param k:
+   :type k: int — columns
+   :param extra: Diagonal offset (default 0).
+   :type extra: int, optional
+
+   :rtype: ndarray of float64, shape ``(j, k)``
+
+
+.. py:function:: lowerTriangle(j: int, k: int, extra: int = 0) -> numpy.ndarray
+
+   Float mask for the lower triangle of a ``(j, k)`` matrix.
+
+   Entry $(r, c)$ is 1.0 where $r > c - \text{extra}$, else 0.0.
+
+   Fortran's ``lower_triangle``.
+
+   :param j:
+   :type j: int — rows
+   :param k:
+   :type k: int — columns
+   :param extra: Diagonal offset (default 0).
+   :type extra: int, optional
+
+   :rtype: ndarray of float64, shape ``(j, k)``
+
+
+.. py:function:: vabs(v: numpy.ndarray) -> float
+
+   Euclidean norm $\|v\|_2 = \sqrt{\sum_i v_i^2}$.
+
+   Uses ``np.linalg.norm`` (BLAS-backed).
+
+   Fortran's ``vabs``.
+
+   :param v:
+   :type v: ndarray
+
+   :rtype: float
+
+
+.. py:function:: dummy_jacobian_dp(x: float, y: numpy.typing.NDArray[numpy.float64]) -> Tuple[numpy.typing.NDArray[numpy.float64], numpy.typing.NDArray[numpy.float64]]
+
+   Zero-Jacobian placeholder for real (float64) ODE systems.
+
+   Returns $(\mathbf{0},\; \mathbf{0})$ with dimensions matching *y*.
+
+   :param x: Independent variable (unused).
+   :type x: float
+   :param y: State vector.
+   :type y: ndarray of float64, shape (n,)
+
+   :returns: * **dfdx** (*ndarray of float64, shape (n,)*)
+             * **dfdy** (*ndarray of float64, shape (n, n)*)
+
+
+.. py:function:: dummy_jacobian_dpc(x: float, y: numpy.typing.NDArray[numpy.complex128]) -> Tuple[numpy.typing.NDArray[numpy.complex128], numpy.typing.NDArray[numpy.complex128]]
+
+   Zero-Jacobian placeholder for complex (complex128) ODE systems.
+
+   Returns $(\mathbf{0},\; \mathbf{0})$ with dimensions matching *y*.
+
+   :param x: Independent variable (unused).
+   :type x: float
+   :param y: State vector.
+   :type y: ndarray of complex128, shape (n,)
+
+   :returns: * **dfdx** (*ndarray of complex128, shape (n,)*)
+             * **dfdy** (*ndarray of complex128, shape (n, n)*)
+
+

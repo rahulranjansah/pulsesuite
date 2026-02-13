@@ -1,0 +1,538 @@
+pulsesuite.PSTD3D.coulomb
+=========================
+
+.. py:module:: pulsesuite.PSTD3D.coulomb
+
+.. autoapi-nested-parse::
+
+   Coulomb interaction calculations for quantum wire simulations.
+
+   This module calculates the electron-hole, electron-electron, and hole-hole
+   collision integrals and other carrier-optical related calculations required
+   for the Semiconductor Bloch Equations in support of simulations of pulse
+   propagation through a quantum wire.
+
+   The primary API is the CoulombModule class, which encapsulates all pre-computed
+   arrays and methods (mirroring the Fortran ``module coulomb`` with private state).
+   Module-level wrapper functions are provided for backward compatibility.
+
+   Author: Rahul R. Sah
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.coulomb.pi
+   pulsesuite.PSTD3D.coulomb.twopi
+   pulsesuite.PSTD3D.coulomb.hbar
+   pulsesuite.PSTD3D.coulomb.eV
+   pulsesuite.PSTD3D.coulomb.ii
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.coulomb.CoulombModule
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.coulomb.Vint
+   pulsesuite.PSTD3D.coulomb.Vehint
+   pulsesuite.PSTD3D.coulomb.GaussDelta
+   pulsesuite.PSTD3D.coulomb.MakeK3
+   pulsesuite.PSTD3D.coulomb.MakeQs
+   pulsesuite.PSTD3D.coulomb.MakeUnDel
+   pulsesuite.PSTD3D.coulomb.CalcMBArrays
+   pulsesuite.PSTD3D.coulomb.CalcCoulombArrays
+   pulsesuite.PSTD3D.coulomb.CalcChi1D
+   pulsesuite.PSTD3D.coulomb.GetChi1Dqw
+   pulsesuite.PSTD3D.coulomb.GetEps1Dqw
+   pulsesuite.PSTD3D.coulomb.SetLorentzDelta
+   pulsesuite.PSTD3D.coulomb.InitializeCoulomb
+   pulsesuite.PSTD3D.coulomb.CalcScreenedArrays
+   pulsesuite.PSTD3D.coulomb.Eps1D
+   pulsesuite.PSTD3D.coulomb.CalcMVeh
+   pulsesuite.PSTD3D.coulomb.undell
+   pulsesuite.PSTD3D.coulomb.BGRenorm
+   pulsesuite.PSTD3D.coulomb.EeRenorm
+   pulsesuite.PSTD3D.coulomb.EhRenorm
+   pulsesuite.PSTD3D.coulomb.MBCE2
+   pulsesuite.PSTD3D.coulomb.MBCE
+   pulsesuite.PSTD3D.coulomb.MBCH
+   pulsesuite.PSTD3D.coulomb.__getattr__
+
+
+Module Contents
+---------------
+
+.. py:data:: pi
+
+.. py:data:: twopi
+
+.. py:data:: hbar
+
+.. py:data:: eV
+   :value: 1.602176634e-19
+
+
+.. py:data:: ii
+   :value: 1j
+
+
+.. py:function:: Vint(Qyk, y, alphae, alphah, Delta0)
+
+   Calculate the interaction integral for Coulomb potential.
+
+   Computes the integral over spatial coordinates for the Coulomb interaction
+   between particles with level separations alphae and alphah.
+
+   :param Qyk: Momentum difference (1/m)
+   :type Qyk: float
+   :param y: Length coordinates of quantum wire (m), 1D array
+   :type y: ndarray
+   :param alphae: Level separation for electrons (1/m)
+   :type alphae: float
+   :param alphah: Level separation for holes (1/m)
+   :type alphah: float
+   :param Delta0: Thickness of the quantum wire (m)
+   :type Delta0: float
+
+   :returns: Interaction integral value (dimensionless)
+   :rtype: float
+
+
+.. py:function:: Vehint(k, q, y, ky, alphae, alphah, Delta0)
+
+   Calculate electron-hole interaction integral.
+
+   :param k: Electron momentum index (1-based, matching Fortran)
+   :type k: int
+   :param q: Hole momentum index (1-based, matching Fortran)
+   :type q: int
+   :param y: Length coordinates of quantum wire (m), 1D array
+   :type y: ndarray
+   :param ky: Momentum coordinates of quantum wire (1/m), 1D array
+   :type ky: ndarray
+   :param alphae: Level separation for electrons (1/m)
+   :type alphae: float
+   :param alphah: Level separation for holes (1/m)
+   :type alphah: float
+   :param Delta0: Thickness of the quantum wire (m)
+   :type Delta0: float
+
+   :returns: Electron-hole interaction integral value (dimensionless)
+   :rtype: float
+
+
+.. py:function:: GaussDelta(a, b)
+
+   Gaussian delta function approximation.
+
+   :param a: Energy difference argument (J)
+   :type a: float
+   :param b: Broadening parameter (J)
+   :type b: float
+
+   :returns: Gaussian delta function value (1/J)
+   :rtype: float
+
+
+.. py:function:: MakeK3(ky)
+
+   Construct the k3 indexing array for momentum conservation.
+
+   Creates a 3D array where k3(k1, k2, k4) = k1 + k2 - k4 (1-based).
+   Invalid combinations (out of [1, N]) are stored as 0.
+
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+
+   :returns: 3D integer array of shape (N, N, N), values 1-based or 0 (invalid).
+   :rtype: ndarray
+
+
+.. py:function:: MakeQs(ky, ae, ah)
+
+   Construct the qe and qh momentum difference arrays.
+
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param ae: Level separation parameter for electrons (1/m)
+   :type ae: float
+   :param ah: Level separation parameter for holes (1/m)
+   :type ah: float
+
+   :returns: (qe, qh), each of shape (N, N)
+   :rtype: tuple of ndarray
+
+
+.. py:function:: MakeUnDel(ky)
+
+   Construct the UnDel (1 - delta) array.
+
+   Creates an array of shape (N+1, N+1) with:
+   - Row/column 0 all zeros
+   - Diagonal elements (i, i) for i=1..N are zero
+   - All other elements are 1.0
+
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+
+   :returns: 2D array of shape (N+1, N+1)
+   :rtype: ndarray
+
+
+.. py:function:: CalcMBArrays(ky, Ee, Eh, ge, gh, k3, UnDel, LorentzDelta=False)
+
+   Calculate the many-body interaction arrays Ceh, Cee, Chh.
+
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param Ee: Electron energies (J), 1D array
+   :type Ee: ndarray
+   :param Eh: Hole energies (J), 1D array
+   :type Eh: ndarray
+   :param ge: Electron inverse lifetime (Hz)
+   :type ge: float
+   :param gh: Hole inverse lifetime (Hz)
+   :type gh: float
+   :param k3: 3D indexing array from MakeK3
+   :type k3: ndarray
+   :param UnDel: 2D array from MakeUnDel
+   :type UnDel: ndarray
+   :param LorentzDelta: If True, use Lorentzian broadening; if False, use Gaussian delta.
+   :type LorentzDelta: bool
+
+   :returns: (Ceh, Cee, Chh), each of shape (N+1, N+1, N+1)
+   :rtype: tuple of ndarray
+
+
+.. py:function:: CalcCoulombArrays(y, ky, er, alphae, alphah, L, Delta0, Qy, kkp, ReadArrays=False, ScrewThis=False)
+
+   Construct the unscreened Coulomb collision arrays Veh0, Vee0, Vhh0.
+
+   :param y: Length coordinates (m), 1D array
+   :type y: ndarray
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param er: Background dielectric constant
+   :type er: float
+   :param alphae: Level separation for electrons (1/m)
+   :type alphae: float
+   :param alphah: Level separation for holes (1/m)
+   :type alphah: float
+   :param L: Length of quantum wire (m)
+   :type L: float
+   :param Delta0: Thickness of quantum wire (m)
+   :type Delta0: float
+   :param Qy: Momentum difference array (1/m)
+   :type Qy: ndarray
+   :param kkp: Index mapping array, 2D integer
+   :type kkp: ndarray
+   :param ReadArrays: If True, read from files (not implemented). Default False.
+   :type ReadArrays: bool, optional
+   :param ScrewThis: If True, return zero arrays. Default False.
+   :type ScrewThis: bool, optional
+
+   :returns: (Veh0, Vee0, Vhh0), each of shape (N, N)
+   :rtype: tuple of ndarray
+
+
+.. py:function:: CalcChi1D(ky, alphae, alphah, Delta0, epsr, me, mh, qe, qh)
+
+   Calculate the 1D susceptibility arrays Chi1De and Chi1Dh.
+
+   :param ky: Momentum coordinates (1/m), 1D array
+   :type ky: ndarray
+   :param alphae: Level separation for electrons (1/m)
+   :type alphae: float
+   :param alphah: Level separation for holes (1/m)
+   :type alphah: float
+   :param Delta0: Thickness of quantum wire (m)
+   :type Delta0: float
+   :param epsr: Background dielectric constant
+   :type epsr: float
+   :param me: Electron effective mass (kg)
+   :type me: float
+   :param mh: Hole effective mass (kg)
+   :type mh: float
+   :param qe: Electron momentum difference array from MakeQs
+   :type qe: ndarray
+   :param qh: Hole momentum difference array from MakeQs
+   :type qh: ndarray
+
+   :returns: (Chi1De, Chi1Dh), each of shape (N, N)
+   :rtype: tuple of ndarray
+
+
+.. py:function:: GetChi1Dqw(alphae, alphah, Delta0, epsr, game, gamh, ky, Ee, Eh, ne, nh, qq, w)
+
+   Calculate the 1D quantum wire susceptibility chi(q, w).
+
+   :param alphae: Level separation parameters (1/m)
+   :type alphae: float
+   :param alphah: Level separation parameters (1/m)
+   :type alphah: float
+   :param Delta0: Thickness of quantum wire (m)
+   :type Delta0: float
+   :param epsr: Background dielectric constant
+   :type epsr: float
+   :param game: Inverse lifetime arrays (Hz)
+   :type game: ndarray
+   :param gamh: Inverse lifetime arrays (Hz)
+   :type gamh: ndarray
+   :param ky: Momentum coordinates (1/m)
+   :type ky: ndarray
+   :param Ee: Electron/hole energies (J)
+   :type Ee: ndarray
+   :param Eh: Electron/hole energies (J)
+   :type Eh: ndarray
+   :param ne: Electron/hole populations
+   :type ne: ndarray
+   :param nh: Electron/hole populations
+   :type nh: ndarray
+   :param qq: Momentum value (1/m)
+   :type qq: float
+   :param w: Frequency (rad/s)
+   :type w: float
+
+   :returns: (chir, chii) — real and imaginary parts of susceptibility
+   :rtype: tuple of float
+
+
+.. py:function:: GetEps1Dqw(alphae, alphah, Delta0, epsr, me, mh, n1D, q, w)
+
+   Calculate the 1D quantum wire dielectric function epsilon(q, w).
+
+   :param alphae: Level separation parameters (1/m)
+   :type alphae: float
+   :param alphah: Level separation parameters (1/m)
+   :type alphah: float
+   :param Delta0: Thickness of quantum wire (m)
+   :type Delta0: float
+   :param epsr: Background dielectric constant
+   :type epsr: float
+   :param me: Effective masses (kg)
+   :type me: float
+   :param mh: Effective masses (kg)
+   :type mh: float
+   :param n1D: 1D carrier density (1/m)
+   :type n1D: float
+   :param q: Momentum (1/m)
+   :type q: float
+   :param w: Frequency (rad/s)
+   :type w: float
+
+   :returns: (epr, epi) — real and imaginary parts of dielectric function
+   :rtype: tuple of float
+
+
+.. py:class:: CoulombModule(y, ky, L, Delta0, me, mh, Ee, Eh, ge, gh, alphae, alphah, er, Qy, kkp, screened, LorentzDelta=False)
+
+   Coulomb interaction module for quantum wire simulations.
+
+   Encapsulates all pre-computed arrays required for Coulomb interaction
+   calculations in the Semiconductor Bloch Equations.  Mirrors the Fortran
+   ``module coulomb`` where private allocatable arrays hold persistent state.
+
+   :param y: Length coordinates of quantum wire (m)
+   :type y: ndarray
+   :param ky: Momentum coordinates (1/m)
+   :type ky: ndarray
+   :param L: Length of quantum wire (m)
+   :type L: float
+   :param Delta0: Thickness of quantum wire (m)
+   :type Delta0: float
+   :param me: Effective electron/hole masses (kg)
+   :type me: float
+   :param mh: Effective electron/hole masses (kg)
+   :type mh: float
+   :param Ee: Electron/hole energies (J)
+   :type Ee: ndarray
+   :param Eh: Electron/hole energies (J)
+   :type Eh: ndarray
+   :param ge: Inverse electron/hole lifetimes (Hz)
+   :type ge: float
+   :param gh: Inverse electron/hole lifetimes (Hz)
+   :type gh: float
+   :param alphae: Level separation parameters (1/m)
+   :type alphae: float
+   :param alphah: Level separation parameters (1/m)
+   :type alphah: float
+   :param er: Background dielectric constant
+   :type er: float
+   :param Qy: Momentum difference array (1/m)
+   :type Qy: ndarray
+   :param kkp: Index mapping array (int)
+   :type kkp: ndarray
+   :param screened: Whether to use screened interactions
+   :type screened: bool
+   :param LorentzDelta: If True use Lorentzian broadening, else Gaussian delta.
+   :type LorentzDelta: bool
+
+   .. attribute:: UnDel, k3, qe, qh, Ceh, Cee, Chh, Veh0, Vee0, Vhh0, Chi1De, Chi1Dh
+
+      Pre-computed arrays (see builder functions for details).
+
+   .. attribute:: LorentzDelta
+
+      Current broadening mode flag.
+
+      :type: bool
+
+
+   .. py:attribute:: LorentzDelta
+      :value: False
+
+
+
+   .. py:attribute:: UnDel
+
+
+   .. py:attribute:: k3
+
+
+   .. py:method:: SetLorentzDelta(boolean)
+
+      Set the LorentzDelta flag.
+
+
+
+   .. py:method:: Eps1D(n1D, Nk=None)
+
+      Calculate the 1D dielectric function matrix.
+
+      :param n1D: 1D carrier density (1/m)
+      :type n1D: float
+      :param Nk: Momentum grid size (ignored — derived from stored arrays).
+      :type Nk: int, optional
+
+      :returns: 2D dielectric function matrix.
+      :rtype: ndarray
+
+
+
+   .. py:method:: CalcScreenedArrays(screened, L, ne, nh, VC, E1D)
+
+      Calculate (optionally screened) Coulomb interaction arrays.
+
+      Fills *VC* and *E1D* in-place.
+
+      :param screened: Apply screening?
+      :type screened: bool
+      :param L: Quantum wire length (m)
+      :type L: float
+      :param ne: Carrier populations
+      :type ne: ndarray
+      :param nh: Carrier populations
+      :type nh: ndarray
+      :param VC: Output interaction matrices (modified in-place)
+      :type VC: ndarray, shape (N, N, 3)
+      :param E1D: Output dielectric function (modified in-place)
+      :type E1D: ndarray, shape (N, N)
+
+
+
+   .. py:method:: CalcMVeh(p, VC, MVeh)
+
+      Calculate the many-body electron-hole interaction term MVeh.
+
+      Modifies *MVeh* in-place.
+
+
+
+   .. py:method:: undell(k, q)
+
+      Access UnDel(k, q) (1-based indices).
+
+
+
+   .. py:method:: BGRenorm(C, D, VC, BGR)
+
+      Calculate band gap renormalization.
+
+      Modifies *BGR* in-place.
+
+
+
+   .. py:method:: EeRenorm(ne, VC, BGR)
+
+      Calculate electron energy renormalization.
+
+      Modifies *BGR* in-place.
+
+
+
+   .. py:method:: EhRenorm(nh, VC, BGR)
+
+      Calculate hole energy renormalization.
+
+      Modifies *BGR* in-place.
+
+
+
+   .. py:method:: MBCE2(ne0, nh0, ky, Ee, Eh, VC, geh, ge, Win, Wout)
+
+      Many-body Coulomb in/out rates for electrons (version 2).
+
+      Modifies *Win* and *Wout* in-place.
+
+
+
+   .. py:method:: MBCE(ne0, nh0, ky, Ee, Eh, VC, geh, ge, Win, Wout)
+
+      Many-body Coulomb in/out rates for electrons.
+
+      Modifies *Win* and *Wout* in-place.
+
+
+
+   .. py:method:: MBCH(ne0, nh0, ky, Ee, Eh, VC, geh, gh, Win, Wout)
+
+      Many-body Coulomb in/out rates for holes.
+
+      Modifies *Win* and *Wout* in-place.
+
+
+
+.. py:function:: SetLorentzDelta(boolean)
+
+   Set the LorentzDelta flag (module-level wrapper).
+
+
+.. py:function:: InitializeCoulomb(y, ky, L, Delta0, me, mh, Ee, Eh, ge, gh, alphae, alphah, er, Qy, kkp, screened)
+
+   Create / replace the module-level CoulombModule singleton.
+
+
+.. py:function:: CalcScreenedArrays(screened, L, ne, nh, VC, E1D)
+
+.. py:function:: Eps1D(n1D, Nk)
+
+.. py:function:: CalcMVeh(p, VC, MVeh, k3=None, UnDel=None)
+
+.. py:function:: undell(k, q)
+
+.. py:function:: BGRenorm(C, D, VC, BGR, UnDel=None)
+
+.. py:function:: EeRenorm(ne, VC, BGR, UnDel=None)
+
+.. py:function:: EhRenorm(nh, VC, BGR, UnDel=None)
+
+.. py:function:: MBCE2(ne0, nh0, ky, Ee, Eh, VC, geh, ge, Win, Wout, k3=None, Ceh=None, Cee=None)
+
+.. py:function:: MBCE(ne0, nh0, ky, Ee, Eh, VC, geh, ge, Win, Wout, k3=None, Ceh=None, Cee=None)
+
+.. py:function:: MBCH(ne0, nh0, ky, Ee, Eh, VC, geh, gh, Win, Wout, k3=None, Ceh=None, Chh=None)
+
+.. py:function:: __getattr__(name)
+

@@ -1,0 +1,155 @@
+pulsesuite.core.fftw
+====================
+
+.. py:module:: pulsesuite.core.fftw
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.core.fftw.fft_1d
+   pulsesuite.core.fftw.ifft_1d
+   pulsesuite.core.fftw.fftc_1d
+   pulsesuite.core.fftw.ifftc_1d
+   pulsesuite.core.fftw.fft_2d
+   pulsesuite.core.fftw.ifft_2d
+   pulsesuite.core.fftw.fftc_2d
+   pulsesuite.core.fftw.ifftc_2d
+   pulsesuite.core.fftw.fft_3d
+   pulsesuite.core.fftw.ifft_3d
+   pulsesuite.core.fftw.fftc_3d
+   pulsesuite.core.fftw.ifftc_3d
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.core.fftw.nyquist_1D
+   pulsesuite.core.fftw.nyquist_2D
+   pulsesuite.core.fftw.nyquist_3D
+   pulsesuite.core.fftw.fft_1D
+   pulsesuite.core.fftw.ifft_1D
+   pulsesuite.core.fftw.fftc_1D
+   pulsesuite.core.fftw.ifftc_1D
+   pulsesuite.core.fftw.fft_2D
+   pulsesuite.core.fftw.ifft_2D
+   pulsesuite.core.fftw.fftc_2D
+   pulsesuite.core.fftw.ifftc_2D
+   pulsesuite.core.fftw.fftw_initialize_2D
+   pulsesuite.core.fftw.fftw_initialize_3D
+   pulsesuite.core.fftw.fft_3D
+   pulsesuite.core.fftw.ifft_3D
+   pulsesuite.core.fftw.fftc_3D
+   pulsesuite.core.fftw.ifftc_3D
+   pulsesuite.core.fftw.CreateHT
+   pulsesuite.core.fftw.HankelTransform
+   pulsesuite.core.fftw.Transform
+   pulsesuite.core.fftw.iTransform
+
+
+Module Contents
+---------------
+
+.. py:function:: nyquist_1D(Z: numpy.typing.NDArray[_dc]) -> None
+
+.. py:function:: nyquist_2D(Z: numpy.typing.NDArray[_dc]) -> None
+
+.. py:function:: nyquist_3D(Z: numpy.typing.NDArray[_dc]) -> None
+
+.. py:function:: fft_1D(Z: numpy.typing.NDArray[_dc]) -> None
+
+.. py:function:: ifft_1D(Z: numpy.typing.NDArray[_dc]) -> None
+
+.. py:function:: fftc_1D(Z: numpy.typing.NDArray[_dc]) -> None
+
+.. py:function:: ifftc_1D(Z: numpy.typing.NDArray[_dc]) -> None
+
+.. py:function:: fft_2D(Z: numpy.typing.NDArray[_dc]) -> None
+
+.. py:function:: ifft_2D(Z: numpy.typing.NDArray[_dc]) -> None
+
+.. py:function:: fftc_2D(Z: numpy.typing.NDArray[_dc]) -> None
+
+.. py:function:: ifftc_2D(Z: numpy.typing.NDArray[_dc]) -> None
+
+.. py:function:: fftw_initialize_2D(Z: numpy.typing.NDArray[_dc]) -> None
+
+   API-compat stub: planning handled by SciPy/pyFFTW internally.
+
+
+.. py:function:: fftw_initialize_3D(Z: numpy.typing.NDArray[_dc]) -> None
+
+   API-compat stub: planning handled by SciPy/pyFFTW internally.
+
+
+.. py:function:: fft_3D(Z: numpy.typing.NDArray[_dc]) -> None
+
+.. py:function:: ifft_3D(Z: numpy.typing.NDArray[_dc]) -> None
+
+.. py:function:: fftc_3D(Z: numpy.typing.NDArray[_dc]) -> None
+
+.. py:function:: ifftc_3D(Z: numpy.typing.NDArray[_dc]) -> None
+
+.. py:function:: CreateHT(Nr: int) -> None
+
+   Precompute Hankel transform matrix HT(Nr, Nr) from J0 zeros.
+
+   Fortran reference:
+     HT(m,n) = (2/a(Nr+1)) * J0( a(m)*a(n) / a(Nr+1) ) / J1(a(n))**2,   m,n=1..Nr
+   where a(:) are the first Nr+1 zeros of J0.
+
+   We store a length-(Nr+1) array and a (Nr,Nr) HT in double precision.
+
+
+.. py:function:: HankelTransform(f: numpy.typing.NDArray[_dc]) -> None
+
+   Apply HT @ f in-place (f length must match HT dimension).
+
+
+.. py:function:: Transform(Z: numpy.typing.NDArray[_dc]) -> None
+
+   If Z has shape (1, Nr, Nt), apply Hankel along r and FFT along t; else FFT3D.
+
+   Fortran logic:
+       if size(Z,1) == 1:
+           for k: HankelTransform(Z(1,:,k))
+           for j: FFT(Z(1,j,:))
+       else:
+           FFT(Z)
+
+
+.. py:function:: iTransform(Z: numpy.typing.NDArray[_dc]) -> None
+
+   Inverse of Transform using ifft along t; Hankel is its own inverse for this discretization.
+
+   Fortran logic called HankelTransform both ways; we mirror that.
+
+
+.. py:data:: fft_1d
+
+.. py:data:: ifft_1d
+
+.. py:data:: fftc_1d
+
+.. py:data:: ifftc_1d
+
+.. py:data:: fft_2d
+
+.. py:data:: ifft_2d
+
+.. py:data:: fftc_2d
+
+.. py:data:: ifftc_2d
+
+.. py:data:: fft_3d
+
+.. py:data:: ifft_3d
+
+.. py:data:: fftc_3d
+
+.. py:data:: ifftc_3d
+

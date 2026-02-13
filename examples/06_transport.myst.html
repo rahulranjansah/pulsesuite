@@ -1,0 +1,439 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deep Dive: DC Transport and Emission &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/js/hoverxref.js"></script>
+      <script src="../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Building Simulations" href="../building_simulations.html" />
+    <link rel="prev" title="Deep Dive: Quantum Wire Optics" href="05_optics.myst.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">PulseSuite</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../gallery.html">Examples Gallery</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_quickstart.myst.html">Quickstart: Your First SBE Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_architecture.myst.html">Architecture: How the SBE Solver Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_coulomb.myst.html">Deep Dive: Coulomb Interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_phonons.myst.html">Deep Dive: Phonon Interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_optics.myst.html">Deep Dive: Quantum Wire Optics</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Deep Dive: DC Transport and Emission</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dc-transport-theory">DC Transport Theory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#phonon-assisted-drift">Phonon-Assisted Drift</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#current-density">Current Density</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#spontaneous-emission-theory">Spontaneous Emission Theory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#photoluminescence-spectrum">Photoluminescence Spectrum</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#initialize-and-inspect">Initialize and Inspect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#drift-velocity-calculation">Drift Velocity Calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spontaneous-emission">Spontaneous Emission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#photon-density-of-states">Photon Density of States</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../gallery.html">Examples Gallery</a></li>
+      <li class="breadcrumb-item active">Deep Dive: DC Transport and Emission</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/06_transport.myst.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="deep-dive-dc-transport-and-emission">
+<h1>Deep Dive: DC Transport and Emission<a class="headerlink" href="#deep-dive-dc-transport-and-emission" title="Link to this heading">¶</a></h1>
+<section id="dc-transport-theory">
+<h2>DC Transport Theory<a class="headerlink" href="#dc-transport-theory" title="Link to this heading">¶</a></h2>
+<p>When a DC electric field is applied along the quantum wire, carriers drift
+in momentum space. The drift velocity is:</p>
+<div class="math notranslate nohighlight">
+\[
+v_{drift} = \frac{\sum_k \frac{\hbar k}{m} \cdot f(k)}{\sum_k f(k)}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(f(k)\)</span> is the carrier distribution and <span class="math notranslate nohighlight">\(m\)</span> is the effective mass.
+The DC transport module shifts the distribution in momentum space
+by <span class="math notranslate nohighlight">\(\Delta k = eE_{dc} \Delta t / \hbar\)</span> at each time step.</p>
+<section id="phonon-assisted-drift">
+<h3>Phonon-Assisted Drift<a class="headerlink" href="#phonon-assisted-drift" title="Link to this heading">¶</a></h3>
+<p>Phonon scattering opposes the drift by scattering carriers back toward
+equilibrium. The steady-state drift velocity results from the balance between
+the DC field acceleration and phonon friction.</p>
+</section>
+<section id="current-density">
+<h3>Current Density<a class="headerlink" href="#current-density" title="Link to this heading">¶</a></h3>
+<p>The current density along the wire is:</p>
+<div class="math notranslate nohighlight">
+\[
+J = \frac{e}{L} \sum_k \left[ \frac{\hbar k}{m_e} n_e(k) - \frac{\hbar k}{m_h} n_h(k) \right]
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="spontaneous-emission-theory">
+<h2>Spontaneous Emission Theory<a class="headerlink" href="#spontaneous-emission-theory" title="Link to this heading">¶</a></h2>
+<p>Electron-hole pairs recombine radiatively, emitting photons. The spontaneous
+emission rate depends on the carrier overlap and the photon density of states:</p>
+<div class="math notranslate nohighlight">
+\[
+R_{sp}(k) = \frac{3 |d_{cv}|^2}{\epsilon_0 \sqrt{\epsilon_r}} \cdot
+n_e(k) \cdot n_h(k) \cdot \rho_{photon}(E_k)
+\]</div>
+<section id="photoluminescence-spectrum">
+<h3>Photoluminescence Spectrum<a class="headerlink" href="#photoluminescence-spectrum" title="Link to this heading">¶</a></h3>
+<p>The PL spectrum is the frequency-resolved emission:</p>
+<div class="math notranslate nohighlight">
+\[
+PL(\hbar\omega) = R_{scale} \sum_k n_e(k) \, n_h(k) \,
+\hbar\omega \, \rho_0(\hbar\omega) \,
+L(\hbar\omega - E_k, \gamma_{eh}) \,
+e^{-|\hbar\omega - E_k| / k_B T}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(L\)</span> is a Lorentzian lineshape and <span class="math notranslate nohighlight">\(\rho_0\)</span> is the photon density of states.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="initialize-and-inspect">
+<h2>Initialize and Inspect<a class="headerlink" href="#initialize-and-inspect" title="Link to this heading">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">hbar</span> <span class="k">as</span> <span class="n">hbar_SI</span><span class="p">,</span> <span class="n">k</span> <span class="k">as</span> <span class="n">kB_SI</span><span class="p">,</span> <span class="n">e</span> <span class="k">as</span> <span class="n">e0_SI</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D.SBEs</span><span class="w"> </span><span class="kn">import</span> <span class="n">InitializeSBE</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D</span><span class="w"> </span><span class="kn">import</span> <span class="n">SBEs</span> <span class="k">as</span> <span class="n">SBEs_module</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D</span><span class="w"> </span><span class="kn">import</span> <span class="n">dcfield</span><span class="p">,</span> <span class="n">emission</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pulsesuite.PSTD3D.typespace</span><span class="w"> </span><span class="kn">import</span> <span class="n">GetKArray</span><span class="p">,</span> <span class="n">GetSpaceArray</span>
+
+<span class="c1"># Ensure output directories exist</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;dataQW/Wire/C&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/D&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/Ee&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;dataQW/Wire/Eh&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/P&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/Win&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;dataQW/Wire/Wout&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/Xqw&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/info&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;dataQW/Wire/ne&#39;</span><span class="p">,</span> <span class="s1">&#39;dataQW/Wire/nh&#39;</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">]:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">Nr</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">drr</span> <span class="o">=</span> <span class="mf">10e-9</span>
+<span class="n">rr</span> <span class="o">=</span> <span class="n">GetSpaceArray</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="p">(</span><span class="n">Nr</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">drr</span><span class="p">)</span>
+<span class="n">qrr</span> <span class="o">=</span> <span class="n">GetKArray</span><span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">Nr</span> <span class="o">*</span> <span class="n">drr</span><span class="p">)</span>
+
+<span class="n">InitializeSBE</span><span class="p">(</span><span class="n">qrr</span><span class="p">,</span> <span class="n">rr</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1e7</span><span class="p">,</span> <span class="mf">800e-9</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">SBEs_module</span><span class="o">.</span><span class="n">_default_solver</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DCTrans enabled: </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">DCTrans</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recomb enabled: </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">Recomb</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DC field: </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">Edc</span><span class="si">}</span><span class="s2"> V/m&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Electron mass: </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">me</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">9.109e-31</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> m0&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hole mass: </span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">mh</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">9.109e-31</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> m0&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dcv / e0 = 3.3538811268940077e-10
+alphae = 303090660.34386384, alphah = 768475083.4742767
+1/qc = 2.3003106022655407e-09, sqrt(2) / sqrt(alphae² + alphah²) = 1.7119449377756965e-09
+ehint = 0.8262109841666643
+Wire Radius = 2.3003106022655407e-09
+Wire sqrt(area) = 3.8950888292173374e-09
+Wire Thickness = 5e-09
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Calculating Coulomb Arrays
+  Progress: 0/230 (0.0%)
+Vint: Using JIT-compiled version
+  Progress: 10/230 (4.3%)
+  Progress: 20/230 (8.7%)
+  Progress: 30/230 (13.0%)
+  Progress: 40/230 (17.4%)
+  Progress: 50/230 (21.7%)
+  Progress: 60/230 (26.1%)
+  Progress: 70/230 (30.4%)
+  Progress: 80/230 (34.8%)
+  Progress: 90/230 (39.1%)
+  Progress: 100/230 (43.5%)
+  Progress: 110/230 (47.8%)
+  Progress: 120/230 (52.2%)
+  Progress: 130/230 (56.5%)
+  Progress: 140/230 (60.9%)
+  Progress: 150/230 (65.2%)
+  Progress: 160/230 (69.6%)
+  Progress: 170/230 (73.9%)
+  Progress: 180/230 (78.3%)
+  Progress: 190/230 (82.6%)
+  Progress: 200/230 (87.0%)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Progress: 210/230 (91.3%)
+  Progress: 220/230 (95.7%)
+Finished Calculating Unscreened Coulomb Arrays
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Quantum Wire Linear Chi = (-0.13219666733079763+0.14243061062572296j)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>InitializeSBE?
+DCTrans enabled: True
+Recomb enabled: True
+DC field: 0.0 V/m
+Electron mass: 0.0700 m0
+Hole mass: 0.4500 m0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="drift-velocity-calculation">
+<h2>Drift Velocity Calculation<a class="headerlink" href="#drift-velocity-calculation" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">CalcVD</span></code> function computes the drift velocity from a carrier distribution.
+With the initial thermal distribution and zero DC field, the drift velocity
+is zero (symmetric distribution). We can artificially shift the distribution
+to demonstrate the calculation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eV</span> <span class="o">=</span> <span class="mf">1.6e-19</span>
+<span class="n">k_nm</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">kr</span> <span class="o">*</span> <span class="mf">1e-9</span>
+
+<span class="c1"># Initial thermal distribution (symmetric -&gt; zero drift)</span>
+<span class="n">ne</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">CC2</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]))</span>
+<span class="n">nh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">DD2</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]))</span>
+
+<span class="n">v_e</span> <span class="o">=</span> <span class="n">dcfield</span><span class="o">.</span><span class="n">CalcVD</span><span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">kr</span><span class="p">,</span> <span class="n">solver</span><span class="o">.</span><span class="n">me</span><span class="p">,</span> <span class="n">ne</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">complex</span><span class="p">))</span>
+<span class="n">v_h</span> <span class="o">=</span> <span class="n">dcfield</span><span class="o">.</span><span class="n">CalcVD</span><span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">kr</span><span class="p">,</span> <span class="n">solver</span><span class="o">.</span><span class="n">mh</span><span class="p">,</span> <span class="n">nh</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">complex</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initial drift velocity (electrons): </span><span class="si">{</span><span class="n">v_e</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> m/s (should be ~0)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initial drift velocity (holes):     </span><span class="si">{</span><span class="n">v_h</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> m/s (should be ~0)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Demonstrate: shift distribution to simulate drift</span>
+<span class="n">dk_shift</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># shift by 3 grid points</span>
+<span class="n">ne_shifted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">ne</span><span class="p">,</span> <span class="n">dk_shift</span><span class="p">)</span>
+
+<span class="n">v_e_shifted</span> <span class="o">=</span> <span class="n">dcfield</span><span class="o">.</span><span class="n">CalcVD</span><span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">kr</span><span class="p">,</span> <span class="n">solver</span><span class="o">.</span><span class="n">me</span><span class="p">,</span> <span class="n">ne_shifted</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">complex</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">After shifting </span><span class="si">{</span><span class="n">dk_shift</span><span class="si">}</span><span class="s2"> grid points:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Drift velocity: </span><span class="si">{</span><span class="n">v_e_shifted</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> m/s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Corresponding to drift energy: </span><span class="si">{</span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">solver</span><span class="o">.</span><span class="n">me</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">v_e_shifted</span><span class="o">**</span><span class="mi">2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">eV</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> meV&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Initial drift velocity (electrons): 2.32e-103 m/s (should be ~0)
+Initial drift velocity (holes):     3.60e-104 m/s (should be ~0)
+
+After shifting 3 grid points:
+Drift velocity: 1.56e+05 m/s
+Corresponding to drift energy: 4.84 meV
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k_nm</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Equilibrium $n_e(k)$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k_nm</span><span class="p">,</span> <span class="n">ne_shifted</span><span class="p">,</span> <span class="s1">&#39;b--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Shifted (drift)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">k_nm</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Momentum $k$ (nm$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Occupation $n_e(k)$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Carrier Distribution: Equilibrium vs Drift&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/dbb1733ce6460fb2fd3ebfa262714849776d5672465490611a14431a7240e8ed.png" src="../_images/dbb1733ce6460fb2fd3ebfa262714849776d5672465490611a14431a7240e8ed.png" />
+</div>
+</div>
+</section>
+<section id="spontaneous-emission">
+<h2>Spontaneous Emission<a class="headerlink" href="#spontaneous-emission" title="Link to this heading">¶</a></h2>
+<p>The emission module computes radiative recombination rates using the real
+carrier distributions and Coulomb-renormalized energies from initialization.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Emission scale factor: </span><span class="si">{</span><span class="n">emission</span><span class="o">.</span><span class="n">_RScale</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Temperature: </span><span class="si">{</span><span class="n">emission</span><span class="o">.</span><span class="n">_Temp</span><span class="si">}</span><span class="s2"> K&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Energy grid for emission: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">emission</span><span class="o">.</span><span class="n">_HOmega</span><span class="p">)</span><span class="si">}</span><span class="s2"> points&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Energy range: </span><span class="si">{</span><span class="n">emission</span><span class="o">.</span><span class="n">_HOmega</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">eV</span><span class="o">*</span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">emission</span><span class="o">.</span><span class="n">_HOmega</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">eV</span><span class="o">*</span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> meV&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Emission scale factor: 2.214e-46
+Temperature: 77.0 K
+Energy grid for emission: 887 points
+Energy range: 0.0 to 29.2 meV
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="photon-density-of-states">
+<h2>Photon Density of States<a class="headerlink" href="#photon-density-of-states" title="Link to this heading">¶</a></h2>
+<p>The photon density of states <span class="math notranslate nohighlight">\(\rho_0(\hbar\omega) = (\hbar\omega)^2 / (\pi^2 \hbar^3 c^3)\)</span>
+determines which photon energies have the most available modes for emission.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hw_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">eV</span><span class="p">,</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="n">eV</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">rho0_vals</span> <span class="o">=</span> <span class="n">emission</span><span class="o">.</span><span class="n">rho0</span><span class="p">(</span><span class="n">hw_range</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hw_range</span> <span class="o">/</span> <span class="n">eV</span><span class="p">,</span> <span class="n">rho0_vals</span><span class="p">,</span> <span class="s1">&#39;g-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">gap</span> <span class="o">/</span> <span class="n">eV</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+           <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Band gap (</span><span class="si">{</span><span class="n">solver</span><span class="o">.</span><span class="n">gap</span><span class="o">/</span><span class="n">eV</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> eV)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Photon energy (eV)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">rho_0$ (m$^{-3}$ J$^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Photon Density of States&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b9c0a3722d6a0282759ec7a0253e5e4122a2bbc92b670c78946efa18a73b6750.png" src="../_images/b9c0a3722d6a0282759ec7a0253e5e4122a2bbc92b670c78946efa18a73b6750.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>J. R. Gulley and D. Huang, <em>Opt. Express</em> <strong>27</strong>, 17154-17185 (2019).
+– DC transport and emission within the self-consistent SBE framework.</p></li>
+<li><p>J. R. Gulley, R. Cooper, and E. Winchester, “Mobility and conductivity of
+laser-generated e-h plasmas in direct-gap nanowires,”
+<em>Photonics Nanostructures: Fundam. Appl.</em> <strong>59</strong>, 101259 (2024).</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="05_optics.myst.html" class="btn btn-neutral float-left" title="Deep Dive: Quantum Wire Optics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../building_simulations.html" class="btn btn-neutral float-right" title="Building Simulations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

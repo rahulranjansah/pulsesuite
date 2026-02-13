@@ -1,0 +1,129 @@
+pulsesuite.libpulsesuite.units
+==============================
+
+.. py:module:: pulsesuite.libpulsesuite.units
+
+.. autoapi-nested-parse::
+
+   Author: Rahul R. Sah
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pulsesuite.libpulsesuite.units.Units
+
+
+Module Contents
+---------------
+
+.. py:class:: Units
+
+   Scientific units and prefix handling for high-performance computing.
+
+   Provides prefix scaling, unit parsing, and formatting for SI and binary units.
+   All methods use camelCase. Thread-safe and context-enabled.
+
+   .. rubric:: Examples
+
+   >>> Units.prefixVal('k')
+   1000.0
+   >>> Units.splitUnit('km')
+   ('k', 'm')
+   >>> Units.unitVal('1.5 km', 'm')
+   1500.0
+
+
+   .. py:method:: prefixVal(pre: str) -> float
+      :classmethod:
+
+
+      Returns the scaling factor for a prefix.
+
+      :param pre: The prefix string (e.g., 'k', 'M', 'u', 'Ki').
+      :type pre: str
+
+      :returns: The scaling factor for the prefix.
+      :rtype: float
+
+
+
+   .. py:method:: splitUnit(unit: str) -> Tuple[str, str]
+      :classmethod:
+
+
+      Splits the prefix from the base unit.
+
+      :param unit: The complete unit string (e.g., 'km').
+      :type unit: str
+
+      :returns: (prefix, base) where prefix may be '' and base is the unit base.
+      :rtype: tuple
+
+
+
+   .. py:method:: unitPrefix(unit: str) -> str
+      :classmethod:
+
+
+      Returns the prefix part of a unit string.
+
+
+
+   .. py:method:: unitForVal(base: str, val: float, binary: bool = False) -> Tuple[float, str]
+      :classmethod:
+
+
+      Returns the closest prefix for a value and scales the value.
+
+      :param base: The base unit (e.g., 'm').
+      :type base: str
+      :param val: The value to convert.
+      :type val: float
+      :param binary: Use binary prefixes (default: False).
+      :type binary: bool, optional
+
+      :returns: (scaled value, unit with prefix)
+      :rtype: tuple
+
+
+
+   .. py:method:: unitVal(n: str, unit: Optional[str] = None) -> float
+      :classmethod:
+
+
+      Attempts to cast a value and unit to a base.
+
+      :param n: The input value and unit (e.g., '1.5 km').
+      :type n: str
+      :param unit: The base unit to cast to (e.g., 'm').
+      :type unit: str, optional
+
+      :returns: The value in the base unit.
+      :rtype: float
+
+
+
+   .. py:method:: writeWithUnit(val: float, base: str, frmt: Optional[str] = None, binary: bool = False) -> str
+      :classmethod:
+
+
+      Formats a value for printing with the closest prefix.
+
+      :param val: The numeric value.
+      :type val: float
+      :param base: The base unit of val.
+      :type base: str
+      :param frmt: Format string for the numeric value (default: '%.2e').
+      :type frmt: str, optional
+      :param binary: Use binary prefixes (default: False).
+      :type binary: bool, optional
+
+      :returns: The formatted string.
+      :rtype: str
+
+
+

@@ -1,0 +1,169 @@
+pulsesuite.core.type_plasma
+===========================
+
+.. py:module:: pulsesuite.core.type_plasma
+
+.. autoapi-nested-parse::
+
+   Port of Fortran module `type_plasma` ➜ Python
+   ===========================================
+   High‑performance, HPC‑ready rewrite that preserves the original Fortran naming
+   conventions one‑for‑one while exploiting Python/NumPy ergonomics.
+
+   *   Structure `plasma_coefficients` → class ``plasma_coefficients`` (slots for
+       cache‑friendliness; dtype preserved as float64/int64).
+   *   Getter / setter routines exported with the **exact** original names
+       (``GetMass``, ``SetMass`` …) so downstream code can transition painlessly.
+   *   Human‑readable parameter files (same layout as the Fortran writer) handled
+       by ``readplasmaparams_sub`` / ``writeplasmaparams_sub``.
+   *   Rigorous runtime dtype checking via ``@with_guardrails`` decorator.
+   *   Ready for further acceleration (e.g. Numba) if bulk processing of plasma
+       parameter arrays becomes a bottleneck.
+
+   Assumptions
+   -----------
+   *   All project‑wide constants live in ``constants.py`` (``dp = np.float64``).
+   *   A lightweight ``logger`` module provides ``Logger.getInstance().error``.
+   *   No Fortran‑style unit numbers – we just pass an already‑opened `TextIO` or
+       a *path* (the helper takes care of opening).
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.core.type_plasma.plasma_filetag
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pulsesuite.core.type_plasma.plasma_coefficients
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.core.type_plasma.readplasmaparams_sub
+   pulsesuite.core.type_plasma.writeplasmaparams_sub
+   pulsesuite.core.type_plasma.GetVersion_plasma
+   pulsesuite.core.type_plasma.GetMass
+   pulsesuite.core.type_plasma.SetMass
+   pulsesuite.core.type_plasma.GetBandGap
+   pulsesuite.core.type_plasma.SetBandGap
+   pulsesuite.core.type_plasma.GetTrapTime
+   pulsesuite.core.type_plasma.SetTrapTime
+   pulsesuite.core.type_plasma.GetCollisionTime
+   pulsesuite.core.type_plasma.SetCollisionTime
+   pulsesuite.core.type_plasma.GetMaxDensity
+   pulsesuite.core.type_plasma.SetMaxDensity
+   pulsesuite.core.type_plasma.GetOrder
+   pulsesuite.core.type_plasma.SetOrder
+   pulsesuite.core.type_plasma.GetCrossSection
+   pulsesuite.core.type_plasma.SetCrossSection
+
+
+Module Contents
+---------------
+
+.. py:data:: plasma_filetag
+   :type:  tuple[str, Ellipsis]
+   :value: ('[params.plasma_v1.0]',)
+
+
+.. py:class:: plasma_coefficients(version: int = -1, mass: Annotated[float, numpy.float64] = 0.0, band_gap: Annotated[float, numpy.float64] = 0.0, trap_time: Annotated[float, numpy.float64] = 0.0, collision_time: Annotated[float, numpy.float64] = 0.0, max_density: Annotated[float, numpy.float64] = 0.0, order: int = 0, sigma_multi: Annotated[float, numpy.float64] = 0.0)
+
+   Direct Python counterpart of Fortran's `type plasma_coefficients`.
+
+
+   .. py:attribute:: __slots__
+      :value: ('version', 'mass', 'band_gap', 'trap_time', 'collision_time', 'max_density', 'order', 'sigma_multi')
+
+
+
+   .. py:attribute:: version
+      :value: -1
+
+
+
+   .. py:attribute:: mass
+
+
+   .. py:attribute:: band_gap
+
+
+   .. py:attribute:: trap_time
+
+
+   .. py:attribute:: collision_time
+
+
+   .. py:attribute:: max_density
+
+
+   .. py:attribute:: order
+      :value: 0
+
+
+
+   .. py:attribute:: sigma_multi
+
+
+   .. py:method:: copy() -> plasma_coefficients
+
+      Return a *shallow* copy (all fields are immutable scalars).
+
+
+
+   .. py:method:: __repr__() -> str
+
+
+   .. py:method:: __eq__(other)
+
+
+.. py:function:: readplasmaparams_sub(U: Union[str, pathlib.Path, TextIO], plasma: plasma_coefficients) -> None
+
+   Populate *plasma* by parsing an existing parameter file/stream.
+
+
+.. py:function:: writeplasmaparams_sub(U: Union[str, pathlib.Path, TextIO], plasma: plasma_coefficients) -> None
+
+   Write *plasma* in the canonical Fortran text format.
+
+
+.. py:function:: GetVersion_plasma(plasma: plasma_coefficients) -> int
+
+.. py:function:: GetMass(plasma: plasma_coefficients) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetMass(plasma: plasma_coefficients, mass: Annotated[float, numpy.float64]) -> None
+
+.. py:function:: GetBandGap(plasma: plasma_coefficients) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetBandGap(plasma: plasma_coefficients, gap: Annotated[float, numpy.float64]) -> None
+
+.. py:function:: GetTrapTime(plasma: plasma_coefficients) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetTrapTime(plasma: plasma_coefficients, time: Annotated[float, numpy.float64]) -> None
+
+.. py:function:: GetCollisionTime(plasma: plasma_coefficients) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetCollisionTime(plasma: plasma_coefficients, time: Annotated[float, numpy.float64]) -> None
+
+.. py:function:: GetMaxDensity(plasma: plasma_coefficients) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetMaxDensity(plasma: plasma_coefficients, density: Annotated[float, numpy.float64]) -> None
+
+.. py:function:: GetOrder(plasma: plasma_coefficients) -> int
+
+.. py:function:: SetOrder(plasma: plasma_coefficients, order: int) -> None
+
+.. py:function:: GetCrossSection(plasma: plasma_coefficients) -> Annotated[float, numpy.float64]
+
+.. py:function:: SetCrossSection(plasma: plasma_coefficients, sigma_multi: Annotated[float, numpy.float64]) -> None
+

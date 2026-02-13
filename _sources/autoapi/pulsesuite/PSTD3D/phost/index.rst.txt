@@ -1,0 +1,385 @@
+pulsesuite.PSTD3D.phost
+=======================
+
+.. py:module:: pulsesuite.PSTD3D.phost
+
+.. autoapi-nested-parse::
+
+   Host material polarization calculations for quantum wire simulations.
+
+   This module calculates the host material polarization response
+   for propagation simulations.
+
+   Author: Rahul R. Sah
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.phost.eps0_val
+   pulsesuite.PSTD3D.phost.c0
+   pulsesuite.PSTD3D.phost.me0_val
+   pulsesuite.PSTD3D.phost.pi
+   pulsesuite.PSTD3D.phost.twopi
+   pulsesuite.PSTD3D.phost.ii
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.phost.HostMaterial
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.phost.MakeTransverse
+   pulsesuite.PSTD3D.phost.IFFT
+   pulsesuite.PSTD3D.phost.SetHostMaterial
+   pulsesuite.PSTD3D.phost.InitializeHost
+   pulsesuite.PSTD3D.phost.SetParamsAlAs
+   pulsesuite.PSTD3D.phost.SetParamsGaAs
+   pulsesuite.PSTD3D.phost.SetParamsSilica
+   pulsesuite.PSTD3D.phost.SetParamsNone
+   pulsesuite.PSTD3D.phost.CalcPHost
+   pulsesuite.PSTD3D.phost.CalcPHostOld
+   pulsesuite.PSTD3D.phost.CalcNextP
+   pulsesuite.PSTD3D.phost.CalcMonoP
+   pulsesuite.PSTD3D.phost.SetInitialP
+   pulsesuite.PSTD3D.phost.CalcWq
+   pulsesuite.PSTD3D.phost.CalcEpsrWq
+   pulsesuite.PSTD3D.phost.CalcEpsrWq_ij
+   pulsesuite.PSTD3D.phost.DetermineCoeffs
+   pulsesuite.PSTD3D.phost.Epsr_q
+   pulsesuite.PSTD3D.phost.Epsr_qij
+   pulsesuite.PSTD3D.phost.FDTD_Dispersion
+   pulsesuite.PSTD3D.phost.wq
+   pulsesuite.PSTD3D.phost.nw2_no_gam
+   pulsesuite.PSTD3D.phost.nw2
+   pulsesuite.PSTD3D.phost.nwp_no_gam
+   pulsesuite.PSTD3D.phost.nwp
+   pulsesuite.PSTD3D.phost.nl2_no_gam
+   pulsesuite.PSTD3D.phost.nl2
+   pulsesuite.PSTD3D.phost.epsrwp_no_gam
+   pulsesuite.PSTD3D.phost.WriteHostDispersion
+
+
+Module Contents
+---------------
+
+.. py:data:: eps0_val
+
+.. py:data:: c0
+
+.. py:data:: me0_val
+
+.. py:data:: pi
+
+.. py:data:: twopi
+
+.. py:data:: ii
+   :value: 1j
+
+
+.. py:function:: MakeTransverse(Ex, Ey, qx, qy, qsq)
+
+   Make electric field transverse.
+
+   Projects the electric field onto the transverse direction
+   perpendicular to the momentum vector.  Modifies Ex, Ey in-place.
+
+
+.. py:function:: IFFT(f)
+
+   Inverse Fast Fourier Transform wrapper.
+
+   Performs 2D IFFT on the input array.  Modifies f in-place.
+
+
+.. py:class:: HostMaterial
+
+   Host material polarization state and calculations.
+
+   Encapsulates all mutable state that was previously at module level:
+   material parameters (oscillator model), time-stepped polarization
+   history arrays, and pre-computed dispersion arrays.
+
+   Usage (mirrors Fortran workflow)::
+
+       hm = HostMaterial()
+       hm.SetHostMaterial(True, 'AlAs', 1e-6)
+       hm.InitializeHost(Nx, Ny, n0, qsq, True)
+       hm.CalcPHost(Ex, Ey, dt, m, epsb, Px, Py)
+
+
+   .. py:method:: SetHostMaterial(host, mat, lam, epsr=0.0, n0=1.0)
+
+      Set host material parameters.
+
+      :param host: Whether to use host material dispersion
+      :type host: bool
+      :param mat: Material name ('AlAs', 'fsil', 'GaAs', 'none')
+      :type mat: str
+      :param lam: Wavelength (m)
+      :type lam: float
+      :param epsr: Dielectric constant (Fortran intent(inout) artifact)
+      :type epsr: float
+      :param n0: Refractive index (Fortran intent(inout) artifact)
+      :type n0: float
+
+      :returns: * **epsr** (*float*) -- Updated dielectric constant
+                * **n0** (*float*) -- Updated refractive index
+
+
+
+   .. py:method:: InitializeHost(Nx, Ny, n0, qsq, host)
+
+      Initialize host material arrays.
+
+      Allocates and initializes arrays for host material calculations.
+
+      :param Nx: Grid dimensions
+      :type Nx: int
+      :param Ny: Grid dimensions
+      :type Ny: int
+      :param n0: Refractive index
+      :type n0: float
+      :param qsq: Squared momentum array, shape (Nx, Ny)
+      :type qsq: ndarray
+      :param host: Whether to use host material dispersion
+      :type host: bool
+
+
+
+   .. py:method:: SetParamsSilica()
+
+      Set material parameters for silica (Sellmeier coefficients).
+
+
+
+   .. py:method:: SetParamsGaAs()
+
+      Set material parameters for GaAs (Sellmeier coefficients).
+
+
+
+   .. py:method:: SetParamsAlAs()
+
+      Set material parameters for AlAs (Sellmeier coefficients).
+
+
+
+   .. py:method:: SetParamsNone()
+
+      Set material parameters for vacuum (no dispersion).
+
+
+
+   .. py:method:: CalcPHost(Ex, Ey, dt, m, epsb, Px, Py)
+
+      Calculate host material polarization.
+
+      Computes the host material polarization response using a
+      time-stepping scheme.  Modifies Px, Py in-place.
+
+
+
+   .. py:method:: CalcPHostOld(Ex, Ey, dt, m, epsb, Px, Py)
+
+      Calculate host material polarization (old version).
+
+      Behavior depends on time step index m:
+      - m > 2:  use previous values
+      - m >= 2: initialize with monochromatic polarization
+      - m < 2:  initialize with monochromatic, set next to zero
+
+      Modifies Px, Py in-place.
+
+
+
+   .. py:method:: CalcNextP(P1, P2, E, dt)
+
+      Calculate next polarization value.
+
+      Uses finite difference scheme for the oscillator model:
+      P_next = f1 * P1 + f2 * P2 + f3 * E
+
+
+
+   .. py:method:: CalcMonoP(E)
+
+      Calculate monochromatic polarization.
+
+      P = eps0 * E * real(chi1)
+
+
+
+   .. py:method:: SetInitialP(Ex, Ey, qx, qy, qsq, dt, Px, Py, epsb)
+
+      Set initial polarization values.
+
+      Initializes the polarization arrays for the first time step.
+      Modifies Ex, Ey, Px, Py in-place.
+
+
+
+   .. py:method:: CalcWq(q)
+
+      Calculate frequency from momentum using the dispersion relation.
+
+      Writes output to 'fields/host/w.q.dat'.
+
+
+
+   .. py:method:: CalcEpsrWq(q)
+
+      Calculate dielectric constant as function of frequency.
+
+
+
+   .. py:method:: CalcEpsrWq_ij(w_ij, aw, bw)
+
+      Calculate dielectric constant for a single frequency.
+
+
+
+   .. py:method:: DetermineCoeffs(aw, bw)
+
+      Determine expansion coefficients for low/high frequency
+      approximations.  Modifies aw, bw in-place.
+
+
+
+   .. py:method:: Epsr_q(q)
+
+      Return copy of the dielectric constant array.
+
+
+
+   .. py:method:: Epsr_qij(i, j)
+
+      Return dielectric constant at indices (i, j).
+
+
+
+   .. py:method:: FDTD_Dispersion(qx, qy, dx, dy, dt, n0)
+
+      Calculate FDTD dispersion relation.
+
+
+
+   .. py:method:: wq(i, j)
+
+      Return frequency at indices (i, j).
+
+
+
+   .. py:method:: nw2_no_gam(wL)
+
+      Dielectric constant without damping: n^2(w).
+
+
+
+   .. py:method:: nw2(wL)
+
+      Dielectric constant with damping: n^2(w).
+
+
+
+   .. py:method:: nwp_no_gam(wL)
+
+      Derivative of refractive index without damping: dn/dw.
+
+
+
+   .. py:method:: nwp(wL)
+
+      Derivative of refractive index with damping: dn/dw.
+
+
+
+   .. py:method:: nl2_no_gam(lam)
+
+      Dielectric constant from wavelength without damping: n^2(lam).
+
+
+
+   .. py:method:: nl2(lam)
+
+      Dielectric constant from wavelength with damping: n^2(lam).
+
+
+
+   .. py:method:: epsrwp_no_gam(wL)
+
+      Derivative of dielectric constant without damping: depsr/dw.
+
+
+
+   .. py:method:: WriteHostDispersion()
+
+      Write host material dispersion data to files.
+
+
+
+.. py:function:: SetHostMaterial(host, mat, lam, epsr=0.0, n0=1.0)
+
+.. py:function:: InitializeHost(Nx, Ny, n0, qsq, host)
+
+.. py:function:: SetParamsAlAs()
+
+.. py:function:: SetParamsGaAs()
+
+.. py:function:: SetParamsSilica()
+
+.. py:function:: SetParamsNone()
+
+.. py:function:: CalcPHost(Ex, Ey, dt, m, epsb, Px, Py)
+
+.. py:function:: CalcPHostOld(Ex, Ey, dt, m, epsb, Px, Py)
+
+.. py:function:: CalcNextP(P1, P2, E, dt)
+
+.. py:function:: CalcMonoP(E)
+
+.. py:function:: SetInitialP(Ex, Ey, qx, qy, qsq, dt, Px, Py, epsb)
+
+.. py:function:: CalcWq(q)
+
+.. py:function:: CalcEpsrWq(q)
+
+.. py:function:: CalcEpsrWq_ij(w_ij, aw, bw)
+
+.. py:function:: DetermineCoeffs(aw, bw)
+
+.. py:function:: Epsr_q(q)
+
+.. py:function:: Epsr_qij(i, j)
+
+.. py:function:: FDTD_Dispersion(qx, qy, dx, dy, dt, n0)
+
+.. py:function:: wq(i, j)
+
+.. py:function:: nw2_no_gam(wL)
+
+.. py:function:: nw2(wL)
+
+.. py:function:: nwp_no_gam(wL)
+
+.. py:function:: nwp(wL)
+
+.. py:function:: nl2_no_gam(lam)
+
+.. py:function:: nl2(lam)
+
+.. py:function:: epsrwp_no_gam(wL)
+
+.. py:function:: WriteHostDispersion()
+

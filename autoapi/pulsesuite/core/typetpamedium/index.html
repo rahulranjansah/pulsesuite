@@ -1,0 +1,746 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pulsesuite.core.typetpamedium &mdash; pulsesuite 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster.bundle.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-punk.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-noir.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-light.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/micromodal.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_theme.css?v=3234e928" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/js/hoverxref.js"></script>
+      <script src="../../../../_static/js/tooltipster.bundle.min.js"></script>
+      <script src="../../../../_static/js/micromodal.min.js"></script>
+      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            pulsesuite
+              <img src="../../../../_static/PulseSuitenobg.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery.html">Examples Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Simulation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../building_simulations.html">Building Simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../params_reference.html">Parameter Files Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citing PulseSuite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct for the PulseSuite community</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pulsesuite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pulsesuite.core.typetpamedium</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pulsesuite/core/typetpamedium/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pulsesuite.core.typetpamedium">
+<span id="pulsesuite-core-typetpamedium"></span><h1>pulsesuite.core.typetpamedium<a class="headerlink" href="#module-pulsesuite.core.typetpamedium" title="Link to this heading">¶</a></h1>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.TPA_MAX_LEVELS" title="pulsesuite.core.typetpamedium.TPA_MAX_LEVELS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TPA_MAX_LEVELS</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.dp" title="pulsesuite.core.typetpamedium.dp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dp</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.filetag" title="pulsesuite.core.typetpamedium.filetag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filetag</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tpas</span></code></a></p></td>
+<td><p>Two-photon absorber parameters (tpas).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetLength_tpas" title="pulsesuite.core.typetpamedium.GetLength_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetLength_tpas</span></code></a>(→ Annotated[float, dp])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetLength_tpas" title="pulsesuite.core.typetpamedium.SetLength_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetLength_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetNz_tpas" title="pulsesuite.core.typetpamedium.GetNz_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetNz_tpas</span></code></a>(→ int)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetNz_tpas" title="pulsesuite.core.typetpamedium.SetNz_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetNz_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetDz_tpas" title="pulsesuite.core.typetpamedium.GetDz_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetDz_tpas</span></code></a>(→ Annotated[float, dp])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetDz_tpas" title="pulsesuite.core.typetpamedium.SetDz_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetDz_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetN0_tpas" title="pulsesuite.core.typetpamedium.GetN0_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetN0_tpas</span></code></a>(→ Annotated[float, dp])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetN0_tpas" title="pulsesuite.core.typetpamedium.SetN0_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetN0_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetK2_tpas" title="pulsesuite.core.typetpamedium.GetK2_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetK2_tpas</span></code></a>(→ Annotated[float, dp])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetK2_tpas" title="pulsesuite.core.typetpamedium.SetK2_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetK2_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetK1_tpas" title="pulsesuite.core.typetpamedium.GetK1_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetK1_tpas</span></code></a>(→ Annotated[float, dp])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetK1_tpas" title="pulsesuite.core.typetpamedium.SetK1_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetK1_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetN2I_tpas" title="pulsesuite.core.typetpamedium.GetN2I_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetN2I_tpas</span></code></a>(→ Annotated[float, dp])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetN2I_tpas" title="pulsesuite.core.typetpamedium.SetN2I_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetN2I_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetBeta_tpas" title="pulsesuite.core.typetpamedium.GetBeta_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetBeta_tpas</span></code></a>(→ Annotated[float, dp])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetBeta_tpas" title="pulsesuite.core.typetpamedium.SetBeta_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetBeta_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetAlpha_tpas" title="pulsesuite.core.typetpamedium.GetAlpha_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetAlpha_tpas</span></code></a>(→ Annotated[float, dp])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetAlpha_tpas" title="pulsesuite.core.typetpamedium.SetAlpha_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetAlpha_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetConcentration_tpas" title="pulsesuite.core.typetpamedium.GetConcentration_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetConcentration_tpas</span></code></a>(→ Annotated[float, dp])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetConcentration_tpas" title="pulsesuite.core.typetpamedium.SetConcentration_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetConcentration_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetLevels_tpas" title="pulsesuite.core.typetpamedium.GetLevels_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetLevels_tpas</span></code></a>(→ int)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetLevels_tpas" title="pulsesuite.core.typetpamedium.SetLevels_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetLevels_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetRelax_tpas" title="pulsesuite.core.typetpamedium.GetRelax_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetRelax_tpas</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetRelax_tpas" title="pulsesuite.core.typetpamedium.SetRelax_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetRelax_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetSigSpa_tpas" title="pulsesuite.core.typetpamedium.GetSigSpa_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetSigSpa_tpas</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetSigSpa_tpas" title="pulsesuite.core.typetpamedium.SetSigSpa_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetSigSpa_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetSigSpaI_tpas" title="pulsesuite.core.typetpamedium.GetSigSpaI_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetSigSpaI_tpas</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetSigSpaI_tpas" title="pulsesuite.core.typetpamedium.SetSigSpaI_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetSigSpaI_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetSigTpa_tpas" title="pulsesuite.core.typetpamedium.GetSigTpa_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetSigTpa_tpas</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetSigTpa_tpas" title="pulsesuite.core.typetpamedium.SetSigTpa_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetSigTpa_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetSigTpaI_tpas" title="pulsesuite.core.typetpamedium.GetSigTpaI_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetSigTpaI_tpas</span></code></a>(→ numpy.ndarray)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetSigTpaI_tpas" title="pulsesuite.core.typetpamedium.SetSigTpaI_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetSigTpaI_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetMaterial_tpas" title="pulsesuite.core.typetpamedium.GetMaterial_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetMaterial_tpas</span></code></a>(→ str)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetMaterial_tpas" title="pulsesuite.core.typetpamedium.SetMaterial_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetMaterial_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetWavelength_tpas" title="pulsesuite.core.typetpamedium.GetWavelength_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetWavelength_tpas</span></code></a>(→ Annotated[float, dp])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetWavelength_tpas" title="pulsesuite.core.typetpamedium.SetWavelength_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetWavelength_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.GetMedium_tpas" title="pulsesuite.core.typetpamedium.GetMedium_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GetMedium_tpas</span></code></a>(→ typemedium.nlms)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.SetMedium_tpas" title="pulsesuite.core.typetpamedium.SetMedium_tpas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SetMedium_tpas</span></code></a>(→ None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.writetpaparams" title="pulsesuite.core.typetpamedium.writetpaparams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">writetpaparams</span></code></a>(→ None)</p></td>
+<td><p>Write all TPA parameters in a compact binary form:</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.readtpaparams" title="pulsesuite.core.typetpamedium.readtpaparams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readtpaparams</span></code></a>(→ None)</p></td>
+<td><p>Read back the binary format written by writetpaparams.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.memmap_matrix" title="pulsesuite.core.typetpamedium.memmap_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memmap_matrix</span></code></a>(→ numpy.memmap)</p></td>
+<td><p>Generic helper: memory-map a 2D float64 block out of a binary file.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.TPA_MAX_LEVELS">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">TPA_MAX_LEVELS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.TPA_MAX_LEVELS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.dp">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">dp</span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.dp" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.filetag">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">filetag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('[params.tpa_v1.0]',</span> <span class="pre">'[params.tpa_v1.1]')</span></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.filetag" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">typemedium.nlms</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigspa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigIspa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigtpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigItpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tpa_material</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas" title="Link to this definition">¶</a></dt>
+<dd><p>Two-photon absorber parameters (tpas).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.medium">
+<span class="sig-name descname"><span class="pre">medium</span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.medium" title="Link to this definition">¶</a></dt>
+<dd><p>nlms                   # base medium parameters</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.conc">
+<span class="sig-name descname"><span class="pre">conc</span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.conc" title="Link to this definition">¶</a></dt>
+<dd><p>float (dp)            # molecule concentration (molecules/m^3)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.levels">
+<span class="sig-name descname"><span class="pre">levels</span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.levels" title="Link to this definition">¶</a></dt>
+<dd><p>int                    # number of energy levels</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.r">
+<span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.r" title="Link to this definition">¶</a></dt>
+<dd><p>np.ndarray[dp]         # relaxation constants (1/s)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.sigspa">
+<span class="sig-name descname"><span class="pre">sigspa</span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.sigspa" title="Link to this definition">¶</a></dt>
+<dd><p>np.ndarray[dp]         # single-photon absorption cross-section (m^2)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.sigIspa">
+<span class="sig-name descname"><span class="pre">sigIspa</span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.sigIspa" title="Link to this definition">¶</a></dt>
+<dd><p>np.ndarray[dp]         # intensity-dependent SPA cross-section (m^2)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.sigtpa">
+<span class="sig-name descname"><span class="pre">sigtpa</span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.sigtpa" title="Link to this definition">¶</a></dt>
+<dd><p>np.ndarray[dp]         # two-photon absorption cross-section (m^4/W)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.sigItpa">
+<span class="sig-name descname"><span class="pre">sigItpa</span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.sigItpa" title="Link to this definition">¶</a></dt>
+<dd><p>np.ndarray[dp]         # intensity-dependent TPA cross-section (m^4/W)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.tpa_material">
+<span class="sig-name descname"><span class="pre">tpa_material</span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.tpa_material" title="Link to this definition">¶</a></dt>
+<dd><p>str                    # name of the TPA material</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.__slots__">
+<span class="sig-name descname"><span class="pre">__slots__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('medium',</span> <span class="pre">'conc',</span> <span class="pre">'levels',</span> <span class="pre">'r',</span> <span class="pre">'sigspa',</span> <span class="pre">'sigIspa',</span> <span class="pre">'sigtpa',</span> <span class="pre">'sigItpa',</span> <span class="pre">'tpa_material')</span></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.__slots__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">medium</span></span><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">conc</span></span><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">levels</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id2" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">sigspa</span></span><a class="headerlink" href="#id4" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">sigIspa</span></span><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">sigtpa</span></span><a class="headerlink" href="#id6" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">sigItpa</span></span><a class="headerlink" href="#id7" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">tpa_material</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#id8" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.copy" title="Link to this definition">¶</a></dt>
+<dd><p>Return a shallow copy of all fields.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.__repr__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.length">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">length</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.length" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.nz">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nz</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.nz" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.dz">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dz</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.dz" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.n0">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n0</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.n0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.k2">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">k2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.k2" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.k1">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">k1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.k1" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.n2i">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n2i</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.n2i" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.beta">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">beta</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.beta" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.alpha">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.alpha" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.concentration">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">concentration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.concentration" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.num_levels">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_levels</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.num_levels" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.relax">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">relax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.relax" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.spa">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spa</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.spa" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.spai">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spai</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.spai" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.tpa">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tpa</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.tpa" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.tpai">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tpai</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.tpai" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.material">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">material</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.material" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.wavelength">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">wavelength</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.wavelength" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.tpas.medium_obj">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">medium_obj</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">typemedium.nlms</span></em><a class="headerlink" href="#pulsesuite.core.typetpamedium.tpas.medium_obj" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetLength_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetLength_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetLength_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetLength_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetLength_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetLength_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetNz_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetNz_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetNz_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetNz_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetNz_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetNz_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetDz_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetDz_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetDz_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetDz_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetDz_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">Dz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetDz_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetN0_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetN0_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetN0_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetN0_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetN0_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetN0_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetK2_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetK2_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetK2_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetK2_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetK2_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetK2_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetK1_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetK1_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetK1_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetK1_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetK1_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetK1_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetN2I_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetN2I_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetN2I_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetN2I_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetN2I_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetN2I_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetBeta_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetBeta_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetBeta_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetBeta_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetBeta_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetBeta_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetAlpha_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetAlpha_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetAlpha_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetAlpha_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetAlpha_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetAlpha_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetConcentration_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetConcentration_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetConcentration_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetConcentration_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetConcentration_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">conc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetConcentration_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetLevels_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetLevels_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetLevels_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetLevels_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetLevels_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetLevels_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetRelax_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetRelax_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetRelax_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetRelax_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetRelax_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetRelax_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetSigSpa_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetSigSpa_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetSigSpa_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetSigSpa_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetSigSpa_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetSigSpa_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetSigSpaI_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetSigSpaI_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetSigSpaI_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetSigSpaI_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetSigSpaI_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetSigSpaI_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetSigTpa_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetSigTpa_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetSigTpa_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetSigTpa_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetSigTpa_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigtpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetSigTpa_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetSigTpaI_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetSigTpaI_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetSigTpaI_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetSigTpaI_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetSigTpaI_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetSigTpaI_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetMaterial_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetMaterial_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetMaterial_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetMaterial_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetMaterial_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tpa_mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetMaterial_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetWavelength_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetWavelength_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetWavelength_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetWavelength_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetWavelength_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dp</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetWavelength_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.GetMedium_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">GetMedium_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">typemedium.nlms</span></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.GetMedium_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.SetMedium_tpas">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">SetMedium_tpas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">typemedium.nlms</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.SetMedium_tpas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.writetpaparams">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">writetpaparams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.writetpaparams" title="Link to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Write all TPA parameters in a compact binary form:</dt><dd><p>[conc, levels, r, sigspa, sigIspa, sigtpa, sigItpa]</p>
+</dd>
+</dl>
+<p>Arrays are dumped in C-order; only the first <cite>levels`×`levels</cite> (or <cite>levels</cite>) entries are stored.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.readtpaparams">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">readtpaparams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.core.typetpamedium.tpas" title="pulsesuite.core.typetpamedium.tpas"><span class="pre">tpas</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.readtpaparams" title="Link to this definition">¶</a></dt>
+<dd><p>Read back the binary format written by writetpaparams.
+Overwrites the fields in the given tpas in-place.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.core.typetpamedium.memmap_matrix">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.core.typetpamedium.</span></span><span class="sig-name descname"><span class="pre">memmap_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_bytes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="hxr-hoverxref hxr-tooltip reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.memmap.html#numpy.memmap" title="(in NumPy v2.4)"><span class="pre">numpy.memmap</span></a></span></span><a class="headerlink" href="#pulsesuite.core.typetpamedium.memmap_matrix" title="Link to this definition">¶</a></dt>
+<dd><p>Generic helper: memory-map a 2D float64 block out of a binary file.
+Example: after conc+levels header, r starts at byte offset = 8+4.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Rahul R. Sah and PulseSuite Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

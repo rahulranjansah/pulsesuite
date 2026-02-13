@@ -1,0 +1,747 @@
+pulsesuite.libpulsesuite.helpers
+================================
+
+.. py:module:: pulsesuite.libpulsesuite.helpers
+
+.. autoapi-nested-parse::
+
+   Helper functions module.
+
+   Mostly useful functions that did not fit anywhere else.
+
+   This module provides utility functions for mathematical operations,
+   interpolation, and field conversions.
+
+   Author: Rahul R. Sah
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.libpulsesuite.helpers.pi
+   pulsesuite.libpulsesuite.helpers.eps0
+   pulsesuite.libpulsesuite.helpers.c0
+   pulsesuite.libpulsesuite.helpers.ec2
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.libpulsesuite.helpers.sech
+   pulsesuite.libpulsesuite.helpers.arg
+   pulsesuite.libpulsesuite.helpers.gauss
+   pulsesuite.libpulsesuite.helpers.magsq
+   pulsesuite.libpulsesuite.helpers.constrain
+   pulsesuite.libpulsesuite.helpers.LinearInterp
+   pulsesuite.libpulsesuite.helpers.BilinearInterp
+   pulsesuite.libpulsesuite.helpers.TrilinearInterp
+   pulsesuite.libpulsesuite.helpers.dfdt
+   pulsesuite.libpulsesuite.helpers.AmpToInten
+   pulsesuite.libpulsesuite.helpers.FldToInten
+   pulsesuite.libpulsesuite.helpers.IntenToAmp
+   pulsesuite.libpulsesuite.helpers.arg_dp
+   pulsesuite.libpulsesuite.helpers.arg_sp
+   pulsesuite.libpulsesuite.helpers.sech_sp
+   pulsesuite.libpulsesuite.helpers.sech_dp
+   pulsesuite.libpulsesuite.helpers.gauss_dp
+   pulsesuite.libpulsesuite.helpers.gauss_sp
+   pulsesuite.libpulsesuite.helpers.magsq_dp
+   pulsesuite.libpulsesuite.helpers.magsq_sp
+   pulsesuite.libpulsesuite.helpers.LAX
+   pulsesuite.libpulsesuite.helpers.noLAX
+   pulsesuite.libpulsesuite.helpers.constrain_dp
+   pulsesuite.libpulsesuite.helpers.constrain_int
+   pulsesuite.libpulsesuite.helpers.l2f
+   pulsesuite.libpulsesuite.helpers.l2w
+   pulsesuite.libpulsesuite.helpers.w2l
+   pulsesuite.libpulsesuite.helpers.GetSpaceArray
+   pulsesuite.libpulsesuite.helpers.GetKArray
+   pulsesuite.libpulsesuite.helpers.unwrap
+   pulsesuite.libpulsesuite.helpers.factorial
+   pulsesuite.libpulsesuite.helpers.LinearInterp_dpc
+   pulsesuite.libpulsesuite.helpers.LinearInterp_dp
+   pulsesuite.libpulsesuite.helpers.BilinearInterp_dpc
+   pulsesuite.libpulsesuite.helpers.BilinearInterp_dp
+   pulsesuite.libpulsesuite.helpers.TrilinearInterp_dpc
+   pulsesuite.libpulsesuite.helpers.TrilinearInterp_dp
+   pulsesuite.libpulsesuite.helpers.dfdt_dp
+   pulsesuite.libpulsesuite.helpers.dfdt_dpc
+   pulsesuite.libpulsesuite.helpers.dfdt_1D_dp
+   pulsesuite.libpulsesuite.helpers.dfdt_1D_dpc
+   pulsesuite.libpulsesuite.helpers.isnan_dp
+   pulsesuite.libpulsesuite.helpers.isnan_sp
+
+
+Module Contents
+---------------
+
+.. py:data:: pi
+
+.. py:data:: eps0
+
+.. py:data:: c0
+
+.. py:data:: ec2
+
+.. py:function:: sech(t: Union[float, numpy.ndarray]) -> Union[float, numpy.ndarray]
+
+   Hyperbolic secant function.
+
+   Single and double precision sech function.
+
+   :param t: Input value(s)
+   :type t: float or ndarray
+
+   :returns: sech(t) = 1.0 / cosh(t)
+   :rtype: float or ndarray
+
+
+.. py:function:: arg(Z: Union[complex, numpy.ndarray]) -> Union[float, numpy.ndarray]
+
+   Returns the angle of a complex number.
+
+   Returns the angle of a complex number with respect to the real axis.
+
+   :param Z: Complex number(s)
+   :type Z: complex or ndarray
+
+   :returns: Angle in radians: atan2(imag(Z), real(Z))
+   :rtype: float or ndarray
+
+
+.. py:function:: gauss(x: Union[float, numpy.ndarray]) -> Union[float, numpy.ndarray]
+
+   Gaussian function.
+
+   Returns exp(-x^2).
+
+   :param x: Input value(s)
+   :type x: float or ndarray
+
+   :returns: exp(-x^2)
+   :rtype: float or ndarray
+
+
+.. py:function:: magsq(Z: Union[complex, numpy.ndarray]) -> Union[float, numpy.ndarray]
+
+   Magnitude squared of a complex number.
+
+   Provides a faster abs(Z)**2 by computing real(Z)^2 + imag(Z)^2.
+
+   :param Z: Complex number(s)
+   :type Z: complex or ndarray
+
+   :returns: |Z|^2 = real(Z)^2 + imag(Z)^2
+   :rtype: float or ndarray
+
+
+.. py:function:: constrain(x: Union[float, int, numpy.ndarray], H: Union[float, int], L: Union[float, int]) -> Union[float, int, numpy.ndarray]
+
+   Constrains values between limits.
+
+   Constrains a number between a high and a low value.
+
+   :param x: Value(s) to constrain
+   :type x: float, int, or ndarray
+   :param H: High limit
+   :type H: float or int
+   :param L: Low limit
+   :type L: float or int
+
+   :returns: Constrained value(s): max(min(L,H), min(max(L,H), x))
+   :rtype: float, int, or ndarray
+
+
+.. py:function:: LinearInterp(f: numpy.ndarray, x: numpy.ndarray, x0: float) -> Union[float, complex]
+
+   Linear interpolation.
+
+   Returns the linearly interpolated value of the array f(:) at the position x0.
+
+   :param f: 1D array to be interpolated
+   :type f: ndarray
+   :param x: 1D position array corresponding to 'f'
+   :type x: ndarray
+   :param x0: Position at which 'f' is to be interpolated
+   :type x0: float
+
+   :returns: Interpolated value at x0
+   :rtype: float or complex
+
+
+.. py:function:: BilinearInterp(f: numpy.ndarray, x: numpy.ndarray, y: numpy.ndarray, x0: float, y0: float) -> Union[float, complex]
+
+   Bilinear interpolation.
+
+   Returns the linearly interpolated value of the array f(:,:) at the position (x0,y0).
+
+   :param f: 2D array to be interpolated
+   :type f: ndarray
+   :param x: 1D X position array corresponding to 'f'
+   :type x: ndarray
+   :param y: 1D Y position array corresponding to 'f'
+   :type y: ndarray
+   :param x0: X position at which 'f' is to be interpolated
+   :type x0: float
+   :param y0: Y position at which 'f' is to be interpolated
+   :type y0: float
+
+   :returns: Interpolated value at (x0, y0)
+   :rtype: float or complex
+
+
+.. py:function:: TrilinearInterp(f: numpy.ndarray, x: numpy.ndarray, y: numpy.ndarray, z: numpy.ndarray, x0: float, y0: float, z0: float) -> Union[float, complex]
+
+   Trilinear interpolation.
+
+   Returns the linearly interpolated value of the array f(:,:,:) at the position (x0,y0,z0).
+
+   :param f: 3D array to be interpolated
+   :type f: ndarray
+   :param x: 1D X position array corresponding to 'f'
+   :type x: ndarray
+   :param y: 1D Y position array corresponding to 'f'
+   :type y: ndarray
+   :param z: 1D Z position array corresponding to 'f'
+   :type z: ndarray
+   :param x0: X position at which 'f' is to be interpolated
+   :type x0: float
+   :param y0: Y position at which 'f' is to be interpolated
+   :type y0: float
+   :param z0: Z position at which 'f' is to be interpolated
+   :type z0: float
+
+   :returns: Interpolated value at (x0, y0, z0)
+   :rtype: float or complex
+
+
+.. py:function:: dfdt(f: numpy.ndarray, dt: float, k: Optional[int] = None) -> Union[float, complex, numpy.ndarray]
+
+   First derivative with respect to t.
+
+   Returns the first derivative value of the array f(:) with respect to t
+   at the index k with a five-point stencil method.
+
+   :param f: Function of t, 1D array
+   :type f: ndarray
+   :param dt: t differential
+   :type dt: float
+   :param k: t-index for dfdt. If None, returns derivative for all points.
+   :type k: int, optional
+
+   :returns: Derivative value(s)
+   :rtype: float, complex, or ndarray
+
+
+.. py:function:: AmpToInten(e: float, n0: Optional[float] = None) -> float
+
+   Converts a real amplitude into the intensity.
+
+   Converts a real amplitude into the intensity in a medium with refractive index n0.
+   Default n0 = 1.0.
+
+   Uses the formula: I = n0 * 2 * eps0 * c0 * E^2
+
+   :param e: The amplitude
+   :type e: float
+   :param n0: The linear refractive index (default: 1.0)
+   :type n0: float, optional
+
+   :returns: The corresponding intensity
+   :rtype: float
+
+
+.. py:function:: FldToInten(e: complex, n0: Optional[float] = None) -> float
+
+   Converts a complex amplitude into the intensity.
+
+   Converts a complex amplitude into the intensity in a medium with refractive index n0.
+   Default n0 = 1.0.
+
+   Uses the formula: I = n0 * 2 * eps0 * c0 * |E|^2
+
+   :param e: The complex amplitude
+   :type e: complex
+   :param n0: The linear refractive index (default: 1.0)
+   :type n0: float, optional
+
+   :returns: The corresponding intensity
+   :rtype: float
+
+
+.. py:function:: IntenToAmp(inten: float, n0: Optional[float] = None) -> float
+
+   Converts the medium intensity to a real amplitude.
+
+   Converts the medium intensity to a real amplitude.
+   Default n0 = 1.0.
+
+   Uses the formula: E = sqrt(I / (n0 * 2 * eps0 * c0))
+
+   :param inten: The intensity
+   :type inten: float
+   :param n0: The linear refractive index (default: 1.0)
+   :type n0: float, optional
+
+   :returns: The corresponding amplitude
+   :rtype: float
+
+
+.. py:function:: arg_dp(Z: Union[complex, numpy.ndarray]) -> Union[float, numpy.ndarray]
+
+   Returns the angle of a complex number wrt the real axis.
+
+   :param Z: Complex number(s)
+   :type Z: complex or ndarray
+
+   :returns: Angle in radians: atan2(imag(Z), real(Z))
+   :rtype: float or ndarray
+
+
+.. py:function:: arg_sp(Z: Union[complex, numpy.ndarray]) -> Union[float, numpy.ndarray]
+
+   Returns the angle of a complex number wrt the real axis.
+
+   :param Z: Complex number(s), single precision
+   :type Z: complex or ndarray
+
+   :returns: Angle in radians: atan2(imag(Z), real(Z))
+   :rtype: float or ndarray
+
+
+.. py:function:: sech_sp(t: Union[float, numpy.ndarray]) -> Union[float, numpy.ndarray]
+
+   Single precision sech.
+
+   :param t: Input value(s), single precision
+   :type t: float or ndarray
+
+   :returns: sech(t) = 1.0 / cosh(t)
+   :rtype: float or ndarray
+
+
+.. py:function:: sech_dp(t: Union[float, numpy.ndarray]) -> Union[float, numpy.ndarray]
+
+   Double precision sech.
+
+   :param t: Input value(s), double precision
+   :type t: float or ndarray
+
+   :returns: sech(t) = 1.0 / cosh(t)
+   :rtype: float or ndarray
+
+
+.. py:function:: gauss_dp(x: Union[float, numpy.ndarray]) -> Union[float, numpy.ndarray]
+
+   The Gaussian function.
+
+   Returns exp(-x^2).
+
+   :param x: Input value(s), double precision
+   :type x: float or ndarray
+
+   :returns: exp(-x^2)
+   :rtype: float or ndarray
+
+
+.. py:function:: gauss_sp(x: Union[float, numpy.ndarray]) -> Union[float, numpy.ndarray]
+
+   The Gaussian function.
+
+   Returns exp(-x^2).
+
+   :param x: Input value(s), single precision
+   :type x: float or ndarray
+
+   :returns: exp(-x^2)
+   :rtype: float or ndarray
+
+
+.. py:function:: magsq_dp(Z: Union[complex, numpy.ndarray]) -> Union[float, numpy.ndarray]
+
+   Computes the magnitude squared of a complex number.
+
+   Computes real(Z)^2 + imag(Z)^2.
+
+   :param Z: Complex number(s), double precision
+   :type Z: complex or ndarray
+
+   :returns: |Z|^2 = real(Z)^2 + imag(Z)^2
+   :rtype: float or ndarray
+
+
+.. py:function:: magsq_sp(Z: Union[complex, numpy.ndarray]) -> Union[float, numpy.ndarray]
+
+   Computes the magnitude squared of a complex number.
+
+   Computes real(Z)^2 + imag(Z)^2.
+
+   :param Z: Complex number(s), single precision
+   :type Z: complex or ndarray
+
+   :returns: |Z|^2 = real(Z)^2 + imag(Z)^2
+   :rtype: float or ndarray
+
+
+.. py:function:: LAX(u: numpy.ndarray, i: int, j: int, k: int) -> complex
+
+   Implements the Lax method in finite differencing.
+
+   Improves the stability of explicit methods.
+
+   :param u: 3D complex array
+   :type u: ndarray
+   :param i: Index in first dimension
+   :type i: int
+   :param j: Index in second dimension
+   :type j: int
+   :param k: Index in third dimension
+   :type k: int
+
+   :returns: Lax average: (u(i-1,j,k) + u(i+1,j,k) + u(i,j-1,k) + u(i,j+1,k) + u(i,j,k-1) + u(i,j,k+1)) / 6.0
+   :rtype: complex
+
+
+.. py:function:: noLAX(u: numpy.ndarray, i: int, j: int, k: int) -> complex
+
+   Function with the same signature as LAX for a direct replacement.
+
+   Does not implement the Lax method.
+
+   :param u: 3D complex array
+   :type u: ndarray
+   :param i: Index in first dimension
+   :type i: int
+   :param j: Index in second dimension
+   :type j: int
+   :param k: Index in third dimension
+   :type k: int
+
+   :returns: Direct value: u(i,j,k)
+   :rtype: complex
+
+
+.. py:function:: constrain_dp(x: Union[float, numpy.ndarray], H: float, L: float) -> Union[float, numpy.ndarray]
+
+   Constrains a number between a high and a low value.
+
+   :param x: Value(s) to constrain, double precision
+   :type x: float or ndarray
+   :param H: High limit
+   :type H: float
+   :param L: Low limit
+   :type L: float
+
+   :returns: Constrained value(s): max(min(L,H), min(max(L,H), x))
+   :rtype: float or ndarray
+
+
+.. py:function:: constrain_int(x: Union[int, numpy.ndarray], H: int, L: int) -> Union[int, numpy.ndarray]
+
+   Constrains a number between a high and a low value.
+
+   :param x: Value(s) to constrain, integer
+   :type x: int or ndarray
+   :param H: High limit
+   :type H: int
+   :param L: Low limit
+   :type L: int
+
+   :returns: Constrained value(s): max(min(L,H), min(max(L,H), x))
+   :rtype: int or ndarray
+
+
+.. py:function:: l2f(lam: float) -> float
+
+   Converts a wavelength into its corresponding frequency.
+
+   Uses the formula: f = c0 / λ
+
+   :param lam: Wavelength
+   :type lam: float
+
+   :returns: Corresponding frequency: c0 / lam
+   :rtype: float
+
+
+.. py:function:: l2w(lam: float) -> float
+
+   Converts a wavelength into its corresponding angular frequency.
+
+   Uses the formula: ω = 2π * c0 / λ
+
+   :param lam: Wavelength
+   :type lam: float
+
+   :returns: Corresponding angular frequency: 2π * c0 / lam
+   :rtype: float
+
+
+.. py:function:: w2l(w: float) -> float
+
+   Converts an angular frequency into its corresponding wavelength.
+
+   Uses the formula: λ = 2π * c0 / ω
+
+   :param w: Angular frequency
+   :type w: float
+
+   :returns: Corresponding wavelength: 2π * c0 / w
+   :rtype: float
+
+
+.. py:function:: GetSpaceArray(N: int, length: float) -> numpy.ndarray
+
+   Helper function to calculate the spatial array.
+
+   Change this function to change the centering of the field.
+
+   :param N: Number of points
+   :type N: int
+   :param length: Total length
+   :type length: float
+
+   :returns: Spatial array X of size N, centered around 0
+   :rtype: ndarray
+
+
+.. py:function:: GetKArray(N: int, length: float) -> numpy.ndarray
+
+   Calculates the wavevector array for the FFT.
+
+   :param N: Number of points
+   :type N: int
+   :param length: Total length
+   :type length: float
+
+   :returns: Wavevector array of size N
+   :rtype: ndarray
+
+
+.. py:function:: unwrap(phase: numpy.ndarray) -> numpy.ndarray
+
+   Reconstructs a smooth phase from one that has been wrapped by modulo 2π.
+
+   :param phase: Wrapped phase array
+   :type phase: ndarray
+
+   :returns: Unwrapped phase array
+   :rtype: ndarray
+
+
+.. py:function:: factorial(p: int) -> int
+
+   Computes the factorial of an integer.
+
+   :param p: Input integer
+   :type p: int
+
+   :returns: Factorial of p (p!)
+   :rtype: int
+
+
+.. py:function:: LinearInterp_dpc(f: numpy.ndarray, x: numpy.ndarray, x0: float) -> complex
+
+   Computes a linear interpolation of a complex 1D array at a specified position.
+
+   :param f: 1D complex array to be interpolated
+   :type f: ndarray
+   :param x: 1D position array corresponding to 'f'
+   :type x: ndarray
+   :param x0: Position at which 'f' is to be interpolated
+   :type x0: float
+
+   :returns: Interpolated value at x0
+   :rtype: complex
+
+
+.. py:function:: LinearInterp_dp(f: numpy.ndarray, x: numpy.ndarray, x0: float) -> float
+
+   Computes a linear interpolation of a real 1D array at a specified position.
+
+   :param f: 1D real array to be interpolated
+   :type f: ndarray
+   :param x: 1D position array corresponding to 'f'
+   :type x: ndarray
+   :param x0: Position at which 'f' is to be interpolated
+   :type x0: float
+
+   :returns: Interpolated value at x0
+   :rtype: float
+
+
+.. py:function:: BilinearInterp_dpc(f: numpy.ndarray, x: numpy.ndarray, y: numpy.ndarray, x0: float, y0: float) -> complex
+
+   Computes a linear interpolation of a complex 2D array at a specified position.
+
+   :param f: 2D complex array to be interpolated
+   :type f: ndarray
+   :param x: 1D X position array corresponding to 'f'
+   :type x: ndarray
+   :param y: 1D Y position array corresponding to 'f'
+   :type y: ndarray
+   :param x0: X position at which 'f' is to be interpolated
+   :type x0: float
+   :param y0: Y position at which 'f' is to be interpolated
+   :type y0: float
+
+   :returns: Interpolated value at (x0, y0)
+   :rtype: complex
+
+
+.. py:function:: BilinearInterp_dp(f: numpy.ndarray, x: numpy.ndarray, y: numpy.ndarray, x0: float, y0: float) -> float
+
+   Computes a linear interpolation of a real 2D array at a specified position.
+
+   :param f: 2D real array to be interpolated
+   :type f: ndarray
+   :param x: 1D X position array corresponding to 'f'
+   :type x: ndarray
+   :param y: 1D Y position array corresponding to 'f'
+   :type y: ndarray
+   :param x0: X position at which 'f' is to be interpolated
+   :type x0: float
+   :param y0: Y position at which 'f' is to be interpolated
+   :type y0: float
+
+   :returns: Interpolated value at (x0, y0)
+   :rtype: float
+
+
+.. py:function:: TrilinearInterp_dpc(f: numpy.ndarray, x: numpy.ndarray, y: numpy.ndarray, z: numpy.ndarray, x0: float, y0: float, z0: float) -> complex
+
+   Computes a linear interpolation of a complex 3D array at a specified position.
+
+   :param f: 3D complex array to be interpolated
+   :type f: ndarray
+   :param x: 1D X position array corresponding to 'f'
+   :type x: ndarray
+   :param y: 1D Y position array corresponding to 'f'
+   :type y: ndarray
+   :param z: 1D Z position array corresponding to 'f'
+   :type z: ndarray
+   :param x0: X position at which 'f' is to be interpolated
+   :type x0: float
+   :param y0: Y position at which 'f' is to be interpolated
+   :type y0: float
+   :param z0: Z position at which 'f' is to be interpolated
+   :type z0: float
+
+   :returns: Interpolated value at (x0, y0, z0)
+   :rtype: complex
+
+
+.. py:function:: TrilinearInterp_dp(f: numpy.ndarray, x: numpy.ndarray, y: numpy.ndarray, z: numpy.ndarray, x0: float, y0: float, z0: float) -> float
+
+   Computes a linear interpolation of a real 3D array at a specified position.
+
+   :param f: 3D real array to be interpolated
+   :type f: ndarray
+   :param x: 1D X position array corresponding to 'f'
+   :type x: ndarray
+   :param y: 1D Y position array corresponding to 'f'
+   :type y: ndarray
+   :param z: 1D Z position array corresponding to 'f'
+   :type z: ndarray
+   :param x0: X position at which 'f' is to be interpolated
+   :type x0: float
+   :param y0: Y position at which 'f' is to be interpolated
+   :type y0: float
+   :param z0: Z position at which 'f' is to be interpolated
+   :type z0: float
+
+   :returns: Interpolated value at (x0, y0, z0)
+   :rtype: float
+
+
+.. py:function:: dfdt_dp(f: numpy.ndarray, dt: float, k: int) -> float
+
+   Returns the first derivative value of the array f(:) with respect to t
+   at the index k with a five-point stencil method.
+
+   :param f: Function of t, 1D real array
+   :type f: ndarray
+   :param dt: t differential
+   :type dt: float
+   :param k: t-index for dfdt (0-based, but FORTRAN logic uses 1-based)
+   :type k: int
+
+   :returns: Derivative value at index k
+   :rtype: float
+
+
+.. py:function:: dfdt_dpc(f: numpy.ndarray, dt: float, k: int) -> complex
+
+   Returns the first derivative value of the array f(:) with respect to t
+   at the index k with a five-point stencil method.
+
+   :param f: Function of t, 1D complex array
+   :type f: ndarray
+   :param dt: t differential
+   :type dt: float
+   :param k: t-index for dfdt (0-based, but FORTRAN logic uses 1-based)
+   :type k: int
+
+   :returns: Derivative value at index k
+   :rtype: complex
+
+
+.. py:function:: dfdt_1D_dp(f: numpy.ndarray, dt: float) -> numpy.ndarray
+
+   Returns the first derivative of the array f(:) with respect to t
+   for all points using a five-point stencil method.
+
+   :param f: Function of t, 1D real array
+   :type f: ndarray
+   :param dt: t differential
+   :type dt: float
+
+   :returns: Derivative array
+   :rtype: ndarray
+
+
+.. py:function:: dfdt_1D_dpc(f: numpy.ndarray, dt: float) -> numpy.ndarray
+
+   Returns the first derivative of the array f(:) with respect to t
+   for all points using a five-point stencil method.
+
+   :param f: Function of t, 1D complex array
+   :type f: ndarray
+   :param dt: t differential
+   :type dt: float
+
+   :returns: Derivative array
+   :rtype: ndarray
+
+
+.. py:function:: isnan_dp(X: Union[float, numpy.ndarray]) -> Union[bool, numpy.ndarray]
+
+   A double precision isnan.
+
+   Wraps numpy's isnan for double precision.
+
+   :param X: Value(s) to check, double precision
+   :type X: float or ndarray
+
+   :returns: True if X is NaN, False otherwise
+   :rtype: bool or ndarray
+
+
+.. py:function:: isnan_sp(X: Union[float, numpy.ndarray]) -> Union[bool, numpy.ndarray]
+
+   A single precision isnan.
+
+   Wraps numpy's isnan for single precision.
+
+   :param X: Value(s) to check, single precision
+   :type X: float or ndarray
+
+   :returns: True if X is NaN, False otherwise
+   :rtype: bool or ndarray
+
+

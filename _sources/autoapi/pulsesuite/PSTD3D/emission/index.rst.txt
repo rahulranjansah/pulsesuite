@@ -1,0 +1,228 @@
+pulsesuite.PSTD3D.emission
+==========================
+
+.. py:module:: pulsesuite.PSTD3D.emission
+
+.. autoapi-nested-parse::
+
+   Emission calculations for quantum wire simulations.
+
+   This module calculates spontaneous emission and photoluminescence spectrum
+   for quantum wire systems in support of propagation simulations.
+   Author: Rahul R. Sah
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.emission.pi
+   pulsesuite.PSTD3D.emission.hbar
+   pulsesuite.PSTD3D.emission.kB
+   pulsesuite.PSTD3D.emission.eps0
+   pulsesuite.PSTD3D.emission.c0
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.emission.InitializeEmission
+   pulsesuite.PSTD3D.emission.SpontEmission
+   pulsesuite.PSTD3D.emission.Ec
+   pulsesuite.PSTD3D.emission.SpontIntegral
+   pulsesuite.PSTD3D.emission.rho0
+   pulsesuite.PSTD3D.emission.CalcHOmega
+   pulsesuite.PSTD3D.emission.Calchw
+   pulsesuite.PSTD3D.emission.PLSpectrum
+
+
+Module Contents
+---------------
+
+.. py:data:: pi
+
+.. py:data:: hbar
+
+.. py:data:: kB
+
+.. py:data:: eps0
+
+.. py:data:: c0
+
+.. py:function:: InitializeEmission(ky, Ee, Eh, dcv, epsr, geh, ehint)
+
+   Initialize the emission module.
+
+   Sets up all module-level arrays required for emission calculations.
+   Allocates and initializes the idel matrix, calculates RScale,
+   and pre-calculates HOmega and square arrays.
+
+   :param ky: Momentum coordinates of quantum wire (1/m), 1D array
+   :type ky: ndarray
+   :param Ee: Electron energies (J), 1D array (not used, kept for signature consistency)
+   :type Ee: ndarray
+   :param Eh: Hole energies (J), 1D array (not used, kept for signature consistency)
+   :type Eh: ndarray
+   :param dcv: Dipole matrix element (C·m)
+   :type dcv: float
+   :param epsr: Relative dielectric constant
+   :type epsr: float
+   :param geh: Electron-hole dephasing rate (Hz)
+   :type geh: float
+   :param ehint: Electron-hole interaction strength
+   :type ehint: float
+
+   :returns: All arrays are stored as module-level variables.
+   :rtype: None
+
+
+.. py:function:: SpontEmission(ne, nh, Ee, Eh, gap, geh, VC, Rsp)
+
+   Calculate spontaneous emission rates.
+
+   Computes the spontaneous emission rate Rsp for each momentum state
+   based on electron and hole occupation numbers and energies.
+
+   :param ne: Electron occupation numbers (complex), 1D array
+   :type ne: ndarray
+   :param nh: Hole occupation numbers (complex), 1D array
+   :type nh: ndarray
+   :param Ee: Electron energies (J), 1D array
+   :type Ee: ndarray
+   :param Eh: Hole energies (J), 1D array
+   :type Eh: ndarray
+   :param gap: Band gap energy (J)
+   :type gap: float
+   :param geh: Electron-hole dephasing rate (Hz) (not used, kept for signature consistency)
+   :type geh: float
+   :param VC: Coulomb interaction array, shape (Nk, Nk, 3)
+   :type VC: ndarray
+   :param Rsp: Spontaneous emission rates (modified in-place), 1D array
+   :type Rsp: ndarray
+
+   :returns: Rsp is modified in-place.
+   :rtype: None
+
+
+.. py:function:: Ec(ne, nh, VC)
+
+   Calculate Coulomb energy correction.
+
+   Computes the many-body Coulomb energy correction for each momentum state
+   due to electron-electron, hole-hole, and electron-hole interactions.
+
+   :param ne: Electron carrier populations, 1D array
+   :type ne: ndarray
+   :param nh: Hole carrier populations, 1D array
+   :type nh: ndarray
+   :param VC: Coulomb interaction array, shape (Nk, Nk, 3)
+              VC[:, :, 0] = Veh (electron-hole)
+              VC[:, :, 1] = Vee (electron-electron)
+              VC[:, :, 2] = Vhh (hole-hole)
+   :type VC: ndarray
+
+   :returns: Coulomb energy correction for each momentum state, 1D array
+   :rtype: ndarray
+
+
+.. py:function:: SpontIntegral(Ek)
+
+   Calculate spontaneous emission integral numerically.
+
+   Computes the integral over photon energy for spontaneous emission
+   using pre-calculated HOmega and square arrays.
+
+   :param Ek: Transition energy (J)
+   :type Ek: float
+
+   :returns: Spontaneous emission integral value
+   :rtype: float
+
+
+.. py:function:: rho0(hw)
+
+   Photon density of states as a function of photon energy.
+
+   Calculates the photon density of states rho0(hw) = hw^2 / (c0^3 * pi^2 * hbar^3).
+
+   :param hw: Photon energy hbar*omega (J)
+   :type hw: float or ndarray
+
+   :returns: Photon density of states (1/(J·m^3))
+   :rtype: float or ndarray
+
+
+.. py:function:: CalcHOmega(kBT, hg)
+
+   Calculate HOmega array for integration.
+
+   Sets up the energy array HOmega used for numerical integration
+   in spontaneous emission calculations.
+
+   :param kBT: Thermal energy k_B * T (J)
+   :type kBT: float
+   :param hg: Electron-hole dephasing energy hbar * geh (J)
+   :type hg: float
+
+   :returns: HOmega is stored as module-level variable.
+   :rtype: None
+
+   :raises ValueError: If calculated Nw < 10 (temperature too low).
+
+
+.. py:function:: Calchw(hw, PLS, Estart, Emax)
+
+   Calculate photon energy array for PL spectrum.
+
+   Sets up the photon energy array hw for photoluminescence spectrum
+   calculations.
+
+   :param hw: Photon energy array (modified in-place), 1D array
+   :type hw: ndarray
+   :param PLS: PL spectrum array (initialized to zero), 1D array
+   :type PLS: ndarray
+   :param Estart: Starting energy (J)
+   :type Estart: float
+   :param Emax: Maximum energy (J)
+   :type Emax: float
+
+   :returns: hw and PLS are modified in-place.
+   :rtype: None
+
+
+.. py:function:: PLSpectrum(ne, nh, Ee, Eh, gap, geh, VC, hw, t, PLS)
+
+   Calculate photoluminescence spectrum.
+
+   Computes the photoluminescence spectrum PLS as a function of photon energy hw
+   based on electron and hole occupation numbers and energies.
+
+   :param ne: Electron occupation numbers (complex), 1D array
+   :type ne: ndarray
+   :param nh: Hole occupation numbers (complex), 1D array
+   :type nh: ndarray
+   :param Ee: Electron energies (J), 1D array
+   :type Ee: ndarray
+   :param Eh: Hole energies (J), 1D array
+   :type Eh: ndarray
+   :param gap: Band gap energy (J)
+   :type gap: float
+   :param geh: Electron-hole dephasing rate (Hz)
+   :type geh: float
+   :param VC: Coulomb interaction array, shape (Nk, Nk, 3)
+   :type VC: ndarray
+   :param hw: Photon energy array (J), 1D array
+   :type hw: ndarray
+   :param t: Time (s)
+   :type t: float
+   :param PLS: PL spectrum (modified in-place), 1D array
+   :type PLS: ndarray
+
+   :returns: PLS is modified in-place.
+   :rtype: None
+
+

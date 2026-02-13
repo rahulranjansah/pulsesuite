@@ -1,0 +1,198 @@
+pulsesuite.PSTD3D.dephasing
+===========================
+
+.. py:module:: pulsesuite.PSTD3D.dephasing
+
+.. autoapi-nested-parse::
+
+   Dephasing calculations for quantum wire simulations.
+
+   This module calculates dephasing rates for electrons and holes due to
+   carrier-carrier interactions in the Semiconductor Bloch equations.
+
+   Author: Rahul R. Sah
+
+   Bugs:
+   Why Lrtz jit here? -> tackle nopython=True in the future
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.dephasing.pi
+   pulsesuite.PSTD3D.dephasing.hbar
+   pulsesuite.PSTD3D.dephasing.ii
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.dephasing.DephasingModule
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.dephasing.Vxx2
+   pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_E2
+   pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_H2
+   pulsesuite.PSTD3D.dephasing.printGam
+   pulsesuite.PSTD3D.dephasing.WriteDephasing
+   pulsesuite.PSTD3D.dephasing.InitializeDephasing
+   pulsesuite.PSTD3D.dephasing.CalcGammaE
+   pulsesuite.PSTD3D.dephasing.CalcGammaH
+   pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_E
+   pulsesuite.PSTD3D.dephasing.CalcOffDiagDeph_H
+   pulsesuite.PSTD3D.dephasing.OffDiagDephasing
+   pulsesuite.PSTD3D.dephasing.OffDiagDephasing2
+
+
+Module Contents
+---------------
+
+.. py:data:: pi
+
+.. py:data:: hbar
+
+.. py:data:: ii
+   :value: 1j
+
+
+.. py:function:: Vxx2(q, V)
+
+   Calculate squared interaction matrix elements.
+
+   Computes V(1+iq, 1)^2 for each momentum q, where iq is the rounded
+   index corresponding to abs(q/dq).
+
+
+.. py:function:: CalcOffDiagDeph_E2(ne, nh, ky, Ee, Eh, gee, geh, VC, Nk)
+
+   Calculate off-diagonal dephasing matrix for electrons (version 2).
+
+   Stateless — takes all inputs as arguments.
+
+
+.. py:function:: CalcOffDiagDeph_H2(ne, nh, ky, Ee, Eh, ghh, geh, VC, Nk)
+
+   Calculate off-diagonal dephasing matrix for holes (version 2).
+
+   Stateless — takes all inputs as arguments.
+
+
+.. py:function:: printGam(Dx, z, n, file)
+
+   Print dephasing rate to file with index number.
+
+   Writes to 'dataQW/{file}{n:05d}.dat'.
+
+
+.. py:function:: WriteDephasing(ky, gamE, gamH, w, xxx)
+
+   Write dephasing rates to files.
+
+   Writes electron and hole dephasing rates with wire index.
+
+
+.. py:class:: DephasingModule
+
+   Dephasing state and calculations.
+
+   Encapsulates all mutable state that was previously at module level:
+   momentum index arrays, energy weighting arrays, and file handles.
+
+   Usage (mirrors Fortran workflow)::
+
+       deph = DephasingModule()
+       deph.InitializeDephasing(ky, me, mh)
+       deph.CalcGammaE(ky, ne0, nh0, VC, GammaE)
+       deph.CalcGammaH(ky, ne0, nh0, VC, GammaH)
+
+
+   .. py:method:: InitializeDephasing(ky, me, mh)
+
+      Initialize the dephasing module.
+
+      Sets up all arrays required for dephasing calculations.
+      Allocates momentum index arrays and opens output files.
+
+      :param ky: Momentum coordinates of quantum wire (1/m), 1D array
+      :type ky: ndarray
+      :param me: Effective electron mass (kg)
+      :type me: float
+      :param mh: Effective hole mass (kg)
+      :type mh: float
+
+
+
+   .. py:method:: CalcGammaE(ky, ne0, nh0, VC, GammaE)
+
+      Calculate electron dephasing rate.
+
+      Computes dephasing for electrons due to e-e and e-h interactions.
+      Modifies GammaE in-place.
+
+
+
+   .. py:method:: CalcGammaH(ky, ne0, nh0, VC, GammaH)
+
+      Calculate hole dephasing rate.
+
+      Computes dephasing for holes due to h-h and e-h interactions.
+      Modifies GammaH in-place.
+
+
+
+   .. py:method:: CalcOffDiagDeph_E(ne0, nh0, ky, Ee0, Eh0, gee, geh, VC)
+
+      Calculate off-diagonal dephasing matrix for electrons.
+
+      Returns 2D array of shape (Nk, Nk).
+
+
+
+   .. py:method:: CalcOffDiagDeph_H(ne0, nh0, ky, Ee0, Eh0, ghh, geh, VC)
+
+      Calculate off-diagonal dephasing matrix for holes.
+
+      Returns 2D array of shape (Nk, Nk).
+
+
+
+   .. py:method:: OffDiagDephasing(ne, nh, p, ky, Ee, Eh, g, VC, x)
+
+      Calculate off-diagonal dephasing contribution.
+
+      Modifies x in-place.
+
+
+
+   .. py:method:: OffDiagDephasing2(ne, nh, p, ky, Ee, Eh, g, VC, t, x)
+
+      Calculate off-diagonal dephasing contribution (version 2).
+
+      Modifies x in-place.  Writes max/min values to output files.
+
+
+
+.. py:function:: InitializeDephasing(ky, me, mh)
+
+.. py:function:: CalcGammaE(ky, ne0, nh0, VC, GammaE)
+
+.. py:function:: CalcGammaH(ky, ne0, nh0, VC, GammaH)
+
+.. py:function:: CalcOffDiagDeph_E(ne0, nh0, ky, Ee0, Eh0, gee, geh, VC)
+
+.. py:function:: CalcOffDiagDeph_H(ne0, nh0, ky, Ee0, Eh0, ghh, geh, VC)
+
+.. py:function:: OffDiagDephasing(ne, nh, p, ky, Ee, Eh, g, VC, x)
+
+.. py:function:: OffDiagDephasing2(ne, nh, p, ky, Ee, Eh, g, VC, t, x)
+
