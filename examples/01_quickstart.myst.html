@@ -314,10 +314,10 @@ Wire Thickness = 5e-09
   Progress: 180/230 (78.3%)
   Progress: 190/230 (82.6%)
   Progress: 200/230 (87.0%)
+  Progress: 210/230 (91.3%)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Progress: 210/230 (91.3%)
-  Progress: 220/230 (95.7%)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Progress: 220/230 (95.7%)
 Finished Calculating Unscreened Coulomb Arrays
 </pre></div>
 </div>
@@ -433,19 +433,31 @@ def _MBCH_core(ne, nh, Veh2, Vhh2, Win, Wout, k3, Ceh, Chh):
   self.I0[w - 1] = CalcI0(
 </pre></div>
 </div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     500 Elec       1.304783e-04       2.638160e-06       6.582184e-13      -5.192877e+02      -3.311274e-29
+     500 Hole       1.304783e-04       2.622998e-06       2.084388e-08      -2.594662e+02      -1.063610e-28
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    1000 Elec       1.458617e-03       3.463166e-05       2.831190e-10      -4.859135e+02      -3.098461e-29
+    1000 Hole       1.458617e-03       3.421813e-05       1.950913e-07      -2.859514e+02      -1.172178e-28
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Step 1000/3000 (10 fs)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    1500 Elec       5.411518e-03       1.448956e-04       1.706842e-09      -3.421537e+03      -2.181766e-28
+    1500 Hole       5.411518e-03       1.416956e-04       5.535595e-07      -3.508286e+01      -1.438125e-29
+</pre></div>
+</div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">40</span>
-<span class="g g-Whitespace">     </span><span class="mi">34</span> <span class="n">Exx</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">E0x</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span>           <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">phase</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">w0</span> <span class="o">*</span> <span class="n">tw</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span>           <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phase</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">37</span>           <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">phase</span><span class="o">**</span><span class="mi">20</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">tw</span> <span class="o">*</span> <span class="n">w0</span><span class="p">)</span><span class="o">**</span><span class="mi">20</span><span class="p">))</span>
-<span class="g g-Whitespace">     </span><span class="mi">39</span> <span class="c1"># Evolve SBEs for subband 1</span>
-<span class="ne">---&gt; </span><span class="mi">40</span> <span class="n">QWCalculator</span><span class="p">(</span><span class="n">Exx</span><span class="p">,</span> <span class="n">Eyy</span><span class="p">,</span> <span class="n">Ezz</span><span class="p">,</span> <span class="n">Vrr_pot</span><span class="p">,</span> <span class="n">rr</span><span class="p">,</span> <span class="n">qrr</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">43</span>
+<span class="g g-Whitespace">     </span><span class="mi">40</span> <span class="n">QWCalculator</span><span class="p">(</span><span class="n">Exx</span><span class="p">,</span> <span class="n">Eyy</span><span class="p">,</span> <span class="n">Ezz</span><span class="p">,</span> <span class="n">Vrr_pot</span><span class="p">,</span> <span class="n">rr</span><span class="p">,</span> <span class="n">qrr</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
 <span class="g g-Whitespace">     </span><span class="mi">41</span>              <span class="n">Pxx1</span><span class="p">,</span> <span class="n">Pyy1</span><span class="p">,</span> <span class="n">Pzz1</span><span class="p">,</span> <span class="n">Rho</span><span class="p">,</span> <span class="n">boolT</span><span class="p">,</span> <span class="n">boolF</span><span class="p">)</span>
 <span class="g g-Whitespace">     </span><span class="mi">42</span> <span class="c1"># Evolve SBEs for subband 2</span>
-<span class="g g-Whitespace">     </span><span class="mi">43</span> <span class="n">QWCalculator</span><span class="p">(</span><span class="n">Exx</span><span class="p">,</span> <span class="n">Eyy</span><span class="p">,</span> <span class="n">Ezz</span><span class="p">,</span> <span class="n">Vrr_pot</span><span class="p">,</span> <span class="n">rr</span><span class="p">,</span> <span class="n">qrr</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+<span class="ne">---&gt; </span><span class="mi">43</span> <span class="n">QWCalculator</span><span class="p">(</span><span class="n">Exx</span><span class="p">,</span> <span class="n">Eyy</span><span class="p">,</span> <span class="n">Ezz</span><span class="p">,</span> <span class="n">Vrr_pot</span><span class="p">,</span> <span class="n">rr</span><span class="p">,</span> <span class="n">qrr</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
 <span class="g g-Whitespace">     </span><span class="mi">44</span>              <span class="n">Pxx2</span><span class="p">,</span> <span class="n">Pyy2</span><span class="p">,</span> <span class="n">Pzz2</span><span class="p">,</span> <span class="n">Rho</span><span class="p">,</span> <span class="n">boolT</span><span class="p">,</span> <span class="n">boolF</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">46</span> <span class="c1"># Record midpoint values</span>
+<span class="g g-Whitespace">     </span><span class="mi">47</span> <span class="n">t_arr</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
 
 <span class="nn">File ~/work/pulsesuite/pulsesuite/src/pulsesuite/PSTD3D/SBEs.py:5987,</span> in <span class="ni">QWCalculator</span><span class="nt">(Exx, Eyy, Ezz, Vrr, rr, q, dt, w, Pxx, Pyy, Pzz, Rho, DoQWP, DoQWDl)</span>
 <span class="g g-Whitespace">   </span><span class="mi">5983</span> <span class="k">def</span><span class="w"> </span><span class="nf">QWCalculator</span><span class="p">(</span>
@@ -463,39 +475,52 @@ def _MBCH_core(ne, nh, Veh2, Vhh2, Win, Wout, k3, Ceh, Chh):
 <span class="g g-Whitespace">   </span><span class="mi">5856</span> <span class="n">RhoE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rr</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
 <span class="g g-Whitespace">   </span><span class="mi">5857</span> <span class="n">RhoH</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rr</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
 
-<span class="nn">File ~/work/pulsesuite/pulsesuite/src/pulsesuite/PSTD3D/SBEs.py:5681,</span> in <span class="ni">SBESolver._sbe_calculator</span><span class="nt">(self, Ex, Ey, Ez, Vr, dt, Px, Py, Pz, Re, Rh, WriteFields, w)</span>
-<span class="g g-Whitespace">   </span><span class="mi">5679</span>     <span class="n">WriteSBESolns</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kr</span><span class="p">,</span> <span class="n">ne3</span><span class="p">,</span> <span class="n">nh3</span><span class="p">,</span> <span class="n">C3</span><span class="p">,</span> <span class="n">D3</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">Ene</span><span class="p">,</span> <span class="n">Enh</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xxx</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">5680</span> <span class="k">if</span> <span class="n">WriteFields</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">DiagDph</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">5681</span>     <span class="n">WriteDephasing</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kr</span><span class="p">,</span> <span class="n">GamE</span><span class="p">,</span> <span class="n">GamH</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xxx</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">5683</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Optics</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">5684</span>     <span class="bp">self</span><span class="o">.</span><span class="n">qw</span><span class="o">.</span><span class="n">QWPolarization3</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">5685</span>         <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">5686</span>         <span class="bp">self</span><span class="o">.</span><span class="n">kr</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>   <span class="mi">5695</span>         <span class="n">w</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">5696</span>     <span class="p">)</span>
+<span class="nn">File ~/work/pulsesuite/pulsesuite/src/pulsesuite/PSTD3D/SBEs.py:5627,</span> in <span class="ni">SBESolver._sbe_calculator</span><span class="nt">(self, Ex, Ey, Ez, Vr, dt, Px, Py, Pz, Re, Rh, WriteFields, w)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5624</span>     <span class="bp">self</span><span class="o">.</span><span class="n">Id</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="g g-Whitespace">   </span><span class="mi">5626</span> <span class="bp">self</span><span class="o">.</span><span class="n">_checkout</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">C1</span><span class="p">,</span> <span class="n">C2</span><span class="p">,</span> <span class="n">D1</span><span class="p">,</span> <span class="n">D2</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">5627</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preparation</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">5628</span>     <span class="n">p2</span><span class="p">,</span> <span class="n">C2</span><span class="p">,</span> <span class="n">D2</span><span class="p">,</span> <span class="n">Ex</span><span class="p">,</span> <span class="n">Ey</span><span class="p">,</span> <span class="n">Ez</span><span class="p">,</span> <span class="n">Vr</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">Heh</span><span class="p">,</span> <span class="n">Hee</span><span class="p">,</span> <span class="n">Hhh</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">E1D</span><span class="p">,</span> <span class="n">GamE</span><span class="p">,</span> <span class="n">GamH</span><span class="p">,</span> <span class="n">OffG</span><span class="p">,</span> <span class="n">Rsp</span>
+<span class="g g-Whitespace">   </span><span class="mi">5629</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5631</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Nk</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">5632</span>     <span class="n">Ene</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">Hee</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">/</span> <span class="n">eV</span>
 
-<span class="nn">File ~/work/pulsesuite/pulsesuite/src/pulsesuite/PSTD3D/dephasing.py:437,</span> in <span class="ni">WriteDephasing</span><span class="nt">(ky, gamE, gamH, w, xxx)</span>
-<span class="g g-Whitespace">    </span><span class="mi">430</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">431</span><span class="sd"> Write dephasing rates to files.</span>
-<span class="g g-Whitespace">    </span><span class="mi">432</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">433</span><span class="sd"> Writes electron and hole dephasing rates with wire index.</span>
-<span class="g g-Whitespace">    </span><span class="mi">434</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">435</span> <span class="n">wire</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">w</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">437</span> <span class="n">printGam</span><span class="p">(</span><span class="n">gamE</span><span class="p">,</span> <span class="n">ky</span><span class="p">,</span> <span class="n">xxx</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Wire/Ge/Ge.</span><span class="si">{</span><span class="n">wire</span><span class="si">}</span><span class="s2">.k.&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">438</span> <span class="n">printGam</span><span class="p">(</span><span class="n">gamH</span><span class="p">,</span> <span class="n">ky</span><span class="p">,</span> <span class="n">xxx</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Wire/Gh/Gh.</span><span class="si">{</span><span class="n">wire</span><span class="si">}</span><span class="s2">.k.&quot;</span><span class="p">)</span>
+<span class="nn">File ~/work/pulsesuite/pulsesuite/src/pulsesuite/PSTD3D/SBEs.py:5181,</span> in <span class="ni">SBESolver._preparation</span><span class="nt">(self, p2, C2, D2, Ex, Ey, Ez, Vr, w, Heh, Hee, Hhh, VC, E1D, GamE, GamH, OffG, Rsp)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5178</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_calc_Meh</span><span class="p">(</span><span class="n">Ex</span><span class="p">,</span> <span class="n">Ey</span><span class="p">,</span> <span class="n">Ez</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">Meh</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5180</span> <span class="n">CalcScreenedArrays</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Screened</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">nh</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">E1D</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">5181</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_H</span><span class="p">(</span><span class="n">Meh</span><span class="p">,</span> <span class="n">Wee</span><span class="p">,</span> <span class="n">Whh</span><span class="p">,</span> <span class="n">C2</span><span class="p">,</span> <span class="n">D2</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">Heh</span><span class="p">,</span> <span class="n">Hee</span><span class="p">,</span> <span class="n">Hhh</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5183</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">DiagDph</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">5184</span>     <span class="n">CalcGammaE</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kr</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">nh</span><span class="p">,</span> <span class="n">VC</span><span class="p">,</span> <span class="n">GamE</span><span class="p">)</span>
 
-<span class="nn">File ~/work/pulsesuite/pulsesuite/src/pulsesuite/PSTD3D/dephasing.py:424,</span> in <span class="ni">printGam</span><span class="nt">(Dx, z, n, file)</span>
-<span class="g g-Whitespace">    </span><span class="mi">418</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">419</span><span class="sd"> Print dephasing rate to file with index number.</span>
-<span class="g g-Whitespace">    </span><span class="mi">420</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">421</span><span class="sd"> Writes to &#39;dataQW/{file}{n:05d}.dat&#39;.</span>
-<span class="g g-Whitespace">    </span><span class="mi">422</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">423</span> <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;dataQW/</span><span class="si">{</span><span class="n">file</span><span class="si">}{</span><span class="n">n</span><span class="si">:</span><span class="s2">05d</span><span class="si">}</span><span class="s2">.dat&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">424</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">425</span>     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)):</span>
-<span class="g g-Whitespace">    </span><span class="mi">426</span>         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">Dx</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nn">File ~/work/pulsesuite/pulsesuite/src/pulsesuite/PSTD3D/SBEs.py:5079,</span> in <span class="ni">SBESolver._calc_H</span><span class="nt">(self, Meh, Wee, Whh, C, D, p, VC, Heh, Hee, Hhh)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5077</span>         <span class="k">pass</span>
+<span class="g g-Whitespace">   </span><span class="mi">5078</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">5079</span>     <span class="n">_CalcH_jit</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">5080</span>         <span class="n">Meh</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5081</span>         <span class="n">Wee</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5082</span>         <span class="n">Whh</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5083</span>         <span class="n">C</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5084</span>         <span class="n">D</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5085</span>         <span class="n">p</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5086</span>         <span class="n">VC</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5087</span>         <span class="n">Heh</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5088</span>         <span class="n">Hee</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5089</span>         <span class="n">Hhh</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5090</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Nk</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5091</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Ee</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5092</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Eh</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5093</span>         <span class="bp">self</span><span class="o">.</span><span class="n">gap</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5094</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Excitons</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5095</span>         <span class="bp">self</span><span class="o">.</span><span class="n">LF</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5096</span>         <span class="bp">self</span><span class="o">.</span><span class="n">FreePot</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5097</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5098</span> <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">5099</span>     <span class="n">_CalcH_fallback</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">5100</span>         <span class="n">Meh</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5101</span>         <span class="n">Wee</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>   <span class="mi">5116</span>         <span class="bp">self</span><span class="o">.</span><span class="n">FreePot</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">5117</span>     <span class="p">)</span>
 
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;dataQW/Wire/Ge/Ge.01.k.00500.dat&#39;
+<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
@@ -530,13 +555,6 @@ the quantum mechanical response of the electron-hole system.</p>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Peak E-field: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Ex_arr</span><span class="p">))</span><span class="o">*</span><span class="mf">1e-6</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MV/m&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Peak polarization: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Px_arr</span><span class="p">))</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> C/m^2&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/d15ab5cbc4a13a7ed860521f36bacb04647143956d095c27e4243762728ba94d.png" src="../_images/d15ab5cbc4a13a7ed860521f36bacb04647143956d095c27e4243762728ba94d.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Peak E-field: 3.2 MV/m
-Peak polarization: 5.47e-09 C/m^2
 </pre></div>
 </div>
 </div>
