@@ -421,6 +421,7 @@ def printGam(Dx, z, n, file):
     Writes to 'dataQW/{file}{n:05d}.dat'.
     """
     filename = f"dataQW/{file}{n:05d}.dat"
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
     with open(filename, "w", encoding="utf-8") as f:
         for i in range(len(z)):
             f.write(f"{np.float32(z[i])} {np.float32(Dx[i])}\n")

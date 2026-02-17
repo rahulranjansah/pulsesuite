@@ -8,6 +8,7 @@ Supports 1D, 2D, and 3D grids with configurable pixel sizes and dielectric const
 Author: Rahul R. Sah
 """
 
+import os
 import sys
 from dataclasses import dataclass
 
@@ -277,6 +278,9 @@ def writespaceparams(filename, space):
     -----
     The file is opened in write mode, written to, and closed automatically.
     """
+    dirpath = os.path.dirname(filename)
+    if dirpath:
+        os.makedirs(dirpath, exist_ok=True)
     with open(filename, "w", encoding="utf-8") as f:
         WriteSpaceParams_sub(f, space)
 
@@ -1202,6 +1206,9 @@ def writefield(fnout, e, space, binmode, single, fnspace=None):
         file_handle = sys.stdout
         close_file = False
     else:
+        dirpath = os.path.dirname(fnout)
+        if dirpath:
+            os.makedirs(dirpath, exist_ok=True)
         if binmode:
             file_handle = open(fnout, "wb")
         else:
