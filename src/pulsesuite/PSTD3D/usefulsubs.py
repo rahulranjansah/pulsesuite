@@ -1853,6 +1853,7 @@ def WriteIT2D(V, file):
     Each element is written on a separate line.
     """
     filename = f"dataQW/{file}.dat"
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
     with open(filename, "w", encoding="utf-8") as f:
         for i in range(V.shape[0]):
             for j in range(V.shape[1]):
@@ -1912,6 +1913,7 @@ def WriteIT1D(V, file):
     Each element is written on a separate line.
     """
     filename = f"dataQW/{file}.dat"
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
     with open(filename, "w", encoding="utf-8") as f:
         for i in range(len(V)):
             f.write(f"{V[i]}\n")
