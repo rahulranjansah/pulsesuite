@@ -693,6 +693,11 @@ def SBETest(
     print("Starting time loop...")
     print("=" * 70)
 
+    from .benchmark import timer_start, timer_stop
+
+    timer_stop("init")
+    timer_start("timeloop")
+
     # Time loop
     t = 0.0
     for n in range(1, Nt + 1):
@@ -947,6 +952,8 @@ def SBETest(
         # Increment time
         t = t + dt
 
+    timer_stop("timeloop")
+
     # Print final statistics
     print("=" * 70)
     print("FINAL FIELD MAX/MIN VALUES OVER ALL TIME STEPS")
@@ -1043,9 +1050,32 @@ def main():
     Main entry point for command-line execution.
 
     Runs the SBE test program with default parameters.
+    Creates a timestamped run directory so each simulation's
+    output is preserved separately.
     """
+    from .benchmark import timer_start, timer_stop, write_summary
+    from .postprocess import organize_all
+    from .rundir import setup_run_directory
+
+    setup_run_directory(input_files=["params", "DC.txt", "params/space.params"])
+    timer_start("total")
+    timer_start("init")
+
     try:
         results = SBETest()
+        organize_all()
+        timer_stop("total")
+        write_summary(
+            sim_params={
+                "Nt": DEFAULT_NT,
+                "dt": f"{DEFAULT_DT:.2e} s",
+                "E0x": f"{DEFAULT_E0X:.2e} V/m",
+                "E0y": f"{DEFAULT_E0Y:.2e} V/m",
+                "E0z": f"{DEFAULT_E0Z:.2e} V/m",
+                "lam": f"{DEFAULT_LAM:.2e} m",
+                "n0": DEFAULT_N0,
+            }
+        )
         print("\nSimulation completed successfully!")
     except Exception as e:
         print(f"\nError during simulation: {e}")

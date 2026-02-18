@@ -14,8 +14,17 @@ import os
 import numpy as np
 from scipy.constants import c as c0_SI
 
+from .benchmark import timer_start, timer_stop, write_summary
 from .SBEs import InitializeSBE, QWCalculator
+from .rundir import setup_run_directory
 from .typespace import GetKArray, GetSpaceArray
+
+# ── Create timestamped run directory ──────────────────────────────────
+# All output (dataQW/, fields/, output/) lands inside runs/<timestamp>/
+# so different simulations never overwrite each other.
+setup_run_directory()
+timer_start("total")
+timer_start("init")
 
 # Physical constants
 c0 = c0_SI  # Speed of light (m/s)
@@ -167,6 +176,8 @@ file_Py_mid = open("fields/Py_mid.dat", "w", encoding="utf-8")
 file_Pz_mid = open("fields/Pz_mid.dat", "w", encoding="utf-8")
 
 # Begin Time-Evolving the SBEs
+timer_stop("init")
+timer_start("timeloop")
 for n in range(1, Nt + 1):
     # Update the user on the command line
     print(n, Nt)
@@ -262,111 +273,30 @@ file_Px_mid.close()
 file_Py_mid.close()
 file_Pz_mid.close()
 
-# Add after line 227 (after closing files):
+# Stop timeloop timer
+timer_stop("timeloop")
 
-# ============================================================================
-# CUDA USAGE STATISTICS SUMMARY
-# ============================================================================
-print("\n" + "=" * 80)
-print("CUDA/JIT USAGE STATISTICS")
-print("=" * 80)
+# Post-process: split multi-column .t.dat files into per-quantity files
+from pulsesuite.PSTD3D.postprocess import organize_all
 
-try:
-    from qwoptics import _HAS_CUDA as qwoptics_cuda, _cuda_stats
-    from SBEs import _HAS_CUDA as sbes_cuda, _sbe_cuda_stats
+organize_all()
 
-    print("\nCUDA Status:")
-    print(
-        f"  qwoptics.py: {'✓ CUDA AVAILABLE' if qwoptics_cuda else '✗ CUDA NOT AVAILABLE'}"
-    )
-    print(
-        f"  SBEs.py:     {'✓ CUDA AVAILABLE' if sbes_cuda else '✗ CUDA NOT AVAILABLE'}"
-    )
-
-    print("\nqwoptics.py Function Calls:")
-    print("  QWPolarization3:")
-    print(f"    CUDA:     {_cuda_stats.get('QWPolarization3_cuda', 0):8d} calls")
-    print(f"    JIT:      {_cuda_stats.get('QWPolarization3_jit', 0):8d} calls")
-    print(f"    Fallback: {_cuda_stats.get('QWPolarization3_fallback', 0):8d} calls")
-    print("  QWRho5:")
-    print(f"    CUDA:     {_cuda_stats.get('QWRho5_cuda', 0):8d} calls")
-    print(f"    JIT:      {_cuda_stats.get('QWRho5_jit', 0):8d} calls")
-    print(f"    Fallback: {_cuda_stats.get('QWRho5_fallback', 0):8d} calls")
-
-    print("\nSBEs.py Function Calls:")
-    print("  dpdt:")
-    print(f"    CUDA:     {_sbe_cuda_stats.get('dpdt_cuda', 0):8d} calls")
-    print(f"    JIT:      {_sbe_cuda_stats.get('dpdt_jit', 0):8d} calls")
-    print(f"    Fallback: {_sbe_cuda_stats.get('dpdt_fallback', 0):8d} calls")
-    print("  dCdt:")
-    print(f"    CUDA:     {_sbe_cuda_stats.get('dCdt_cuda', 0):8d} calls")
-    print(f"    JIT:      {_sbe_cuda_stats.get('dCdt_jit', 0):8d} calls")
-    print(f"    Fallback: {_sbe_cuda_stats.get('dCdt_fallback', 0):8d} calls")
-    print("  dDdt:")
-    print(f"    CUDA:     {_sbe_cuda_stats.get('dDdt_cuda', 0):8d} calls")
-    print(f"    JIT:      {_sbe_cuda_stats.get('dDdt_jit', 0):8d} calls")
-    print(f"    Fallback: {_sbe_cuda_stats.get('dDdt_fallback', 0):8d} calls")
-
-    # Summary
-    total_cuda = (
-        _cuda_stats.get("QWPolarization3_cuda", 0)
-        + _cuda_stats.get("QWRho5_cuda", 0)
-        + _sbe_cuda_stats.get("dpdt_cuda", 0)
-        + _sbe_cuda_stats.get("dCdt_cuda", 0)
-        + _sbe_cuda_stats.get("dDdt_cuda", 0)
-    )
-
-    total_jit = (
-        _cuda_stats.get("QWPolarization3_jit", 0)
-        + _cuda_stats.get("QWRho5_jit", 0)
-        + _sbe_cuda_stats.get("dpdt_jit", 0)
-        + _sbe_cuda_stats.get("dCdt_jit", 0)
-        + _sbe_cuda_stats.get("dDdt_jit", 0)
-    )
-
-    total_fallback = (
-        _cuda_stats.get("QWPolarization3_fallback", 0)
-        + _cuda_stats.get("QWRho5_fallback", 0)
-        + _sbe_cuda_stats.get("dpdt_fallback", 0)
-        + _sbe_cuda_stats.get("dCdt_fallback", 0)
-        + _sbe_cuda_stats.get("dDdt_fallback", 0)
-    )
-
-    total = total_cuda + total_jit + total_fallback
-
-    if total > 0:
-        print("\nSummary:")
-        print(f"  Total function calls: {total}")
-        print(f"  CUDA:     {total_cuda:8d} ({100*total_cuda/total:.1f}%)")
-        print(f"  JIT:      {total_jit:8d} ({100*total_jit/total:.1f}%)")
-        print(f"  Fallback: {total_fallback:8d} ({100*total_fallback/total:.1f}%)")
-
-        if total_cuda > 0:
-            print(f"\n✓ CUDA IS BEING USED! ({total_cuda} calls)")
-            print(
-                "  The 'Grid size' warnings are normal - they indicate CUDA is active."
-            )
-            print(
-                "  Small grid sizes mean your arrays are small, but CUDA still helps."
-            )
-        elif total_jit > 0:
-            print("\nUsing JIT (CPU parallel) - CUDA not available or failed")
-        else:
-            print("\n✗ Using Python fallback - JIT/CUDA not working")
-
-except ImportError as e:
-    print(f"Could not import CUDA statistics: {e}")
-    print("  Statistics may not be available if modules were modified.")
-except Exception as e:
-    print(f"Error reading CUDA statistics: {e}")
-    import traceback
-
-    traceback.print_exc()
-
-print("=" * 80 + "\n")
-
-# deallocate(Exx,Eyy,Ezz,Pxx,Pyy,Pzz,Rho,rr,qrr)
-# Arrays are automatically deallocated when program exits
+# Stop total timer and write run summary
+timer_stop("total")
+write_summary(
+    sim_params={
+        "Nt": Nt,
+        "dt": f"{dt:.2e} s",
+        "Nr": Nr,
+        "drr": f"{drr:.2e} m",
+        "E0x": f"{E0x:.2e} V/m",
+        "E0y": f"{E0y:.2e} V/m",
+        "E0z": f"{E0z:.2e} V/m",
+        "lamX": f"{lamX:.2e} m",
+        "lamY": f"{lamY:.2e} m",
+        "n0": n0,
+    }
+)
 
 
 # """
