@@ -1,0 +1,53 @@
+pulsesuite.PSTD3D.benchmark
+===========================
+
+.. py:module:: pulsesuite.PSTD3D.benchmark
+
+.. autoapi-nested-parse::
+
+   Benchmarking and run-summary for PulseSuite simulations.
+
+   Writes a ``run_summary.txt`` file inside the current working directory
+   (expected to be the timestamped run directory) containing:
+
+   * Wall-clock timing (total, init, time-loop)
+   * Hardware info (CPU, cores, RAM, GPU if present)
+   * Compute backend availability and dispatch chain
+   * Python / NumPy / Numba / CuPy version info
+   * Performance metrics (time per step, steps/s)
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.benchmark.timer_start
+   pulsesuite.PSTD3D.benchmark.timer_stop
+   pulsesuite.PSTD3D.benchmark.write_summary
+
+
+Module Contents
+---------------
+
+.. py:function:: timer_start(label='total')
+
+   Record the start time for *label*.
+
+
+.. py:function:: timer_stop(label='total')
+
+   Record the end time for *label*.
+
+
+.. py:function:: write_summary(filename='run_summary.txt', sim_params=None)
+
+   Write a human-readable run summary to *filename*.
+
+   :param filename: Output file path (default: ``run_summary.txt`` in cwd).
+   :type filename: str
+   :param sim_params: Simulation parameters to include (Nt, dt, Nr, etc.).
+   :type sim_params: dict, optional
+
+

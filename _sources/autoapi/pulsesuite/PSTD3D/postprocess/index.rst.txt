@@ -1,0 +1,53 @@
+pulsesuite.PSTD3D.postprocess
+=============================
+
+.. py:module:: pulsesuite.PSTD3D.postprocess
+
+.. autoapi-nested-parse::
+
+   Post-processing for SBE simulation output data.
+
+   Splits the multi-column time-trace files (info.XX.t.dat, EP.XX.t.dat)
+   into individual per-quantity files in dataQW/Wire/info/ for easy plotting.
+
+   This is the Python equivalent of the legacy scripts/output.sh.
+
+   Author: auto-generated from output.sh
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.postprocess.organize_output
+   pulsesuite.PSTD3D.postprocess.organize_all
+
+
+Module Contents
+---------------
+
+.. py:function:: organize_output(base_dir='dataQW', wire=1)
+
+   Split multi-column time-trace files into individual per-quantity files.
+
+   Reads info.XX.t.dat and EP.XX.t.dat and writes each column as a
+   separate file in {base_dir}/Wire/info/ for easy plotting.
+
+   :param base_dir: Base output directory (default: 'dataQW')
+   :type base_dir: str
+   :param wire: Wire index (default: 1)
+   :type wire: int
+
+
+.. py:function:: organize_all(base_dir='dataQW', max_wires=10)
+
+   Run organize_output for all wire indices that have data files.
+
+   :param base_dir: Base output directory (default: 'dataQW')
+   :type base_dir: str
+   :param max_wires: Maximum wire index to check (default: 10)
+   :type max_wires: int
+
+

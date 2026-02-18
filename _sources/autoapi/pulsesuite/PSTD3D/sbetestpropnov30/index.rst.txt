@@ -379,5 +379,7 @@ Module Contents
    Main entry point for command-line execution.
 
    Runs the SBE test program with default parameters.
+   Creates a timestamped run directory so each simulation's
+   output is preserved separately.
 
 

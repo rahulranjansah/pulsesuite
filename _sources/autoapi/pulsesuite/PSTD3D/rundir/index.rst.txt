@@ -1,0 +1,44 @@
+pulsesuite.PSTD3D.rundir
+========================
+
+.. py:module:: pulsesuite.PSTD3D.rundir
+
+.. autoapi-nested-parse::
+
+   Timestamped run-directory management.
+
+   Creates a ``runs/<YYYY-MM-DD_HH-MM-SS>/`` directory for every simulation
+   run and ``os.chdir`` into it so that all relative output paths
+   (``dataQW/``, ``fields/``, ``output/``) land inside that directory.
+
+   A ``runs/latest`` symlink always points to the most recent run.
+
+   Input files (``params/``, ``DC.txt``) are copied into the run directory
+   so the simulation can find them **and** so there is a permanent record
+   of which parameters produced each data set.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   pulsesuite.PSTD3D.rundir.setup_run_directory
+
+
+Module Contents
+---------------
+
+.. py:function:: setup_run_directory(input_files=None)
+
+   Create a timestamped run directory and chdir into it.
+
+   :param input_files: Relative paths (files or directories) to copy into the run
+                       directory.  Defaults to ``["params", "DC.txt"]``.
+   :type input_files: list of str, optional
+
+   :returns: Absolute path of the new run directory.
+   :rtype: str
+
+

@@ -16,6 +16,7 @@ Submodules
    :maxdepth: 1
 
    /autoapi/pulsesuite/PSTD3D/SBEs/index
+   /autoapi/pulsesuite/PSTD3D/benchmark/index
    /autoapi/pulsesuite/PSTD3D/coulomb/index
    /autoapi/pulsesuite/PSTD3D/dcfield/index
    /autoapi/pulsesuite/PSTD3D/dephasing/index
@@ -23,8 +24,10 @@ Submodules
    /autoapi/pulsesuite/PSTD3D/epsrtl/index
    /autoapi/pulsesuite/PSTD3D/phonons/index
    /autoapi/pulsesuite/PSTD3D/phost/index
+   /autoapi/pulsesuite/PSTD3D/postprocess/index
    /autoapi/pulsesuite/PSTD3D/qwoptics/index
    /autoapi/pulsesuite/PSTD3D/rhoPJ/index
+   /autoapi/pulsesuite/PSTD3D/rundir/index
    /autoapi/pulsesuite/PSTD3D/sbetestprop/index
    /autoapi/pulsesuite/PSTD3D/sbetestpropnov30/index
    /autoapi/pulsesuite/PSTD3D/typespace/index

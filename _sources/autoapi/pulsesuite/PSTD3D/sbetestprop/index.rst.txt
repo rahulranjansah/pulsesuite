@@ -94,7 +94,6 @@ Attributes
    pulsesuite.PSTD3D.sbetestprop.file_Py_mid
    pulsesuite.PSTD3D.sbetestprop.file_Pz_mid
    pulsesuite.PSTD3D.sbetestprop.t
-   pulsesuite.PSTD3D.sbetestprop.total_cuda
 
 
 Functions
@@ -323,6 +322,4 @@ Module Contents
 .. py:data:: t
    :value: 1e-17
 
-
-.. py:data:: total_cuda
 
