@@ -93,7 +93,6 @@ Attributes
    pulsesuite.PSTD3D.sbetestprop.file_Px_mid
    pulsesuite.PSTD3D.sbetestprop.file_Py_mid
    pulsesuite.PSTD3D.sbetestprop.file_Pz_mid
-   pulsesuite.PSTD3D.sbetestprop.t
 
 
 Functions
@@ -318,8 +317,4 @@ Module Contents
 .. py:data:: file_Py_mid
 
 .. py:data:: file_Pz_mid
-
-.. py:data:: t
-   :value: 1e-17
-
 

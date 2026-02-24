@@ -25,6 +25,9 @@ Functions
 
    pulsesuite.PSTD3D.benchmark.timer_start
    pulsesuite.PSTD3D.benchmark.timer_stop
+   pulsesuite.PSTD3D.benchmark.profile_start
+   pulsesuite.PSTD3D.benchmark.profile_record
+   pulsesuite.PSTD3D.benchmark.get_profile_data
    pulsesuite.PSTD3D.benchmark.write_summary
 
 
@@ -39,6 +42,21 @@ Module Contents
 .. py:function:: timer_stop(label='total')
 
    Record the end time for *label*.
+
+
+.. py:function:: profile_start()
+
+   Return a timestamp for use with :func:`profile_record`.
+
+
+.. py:function:: profile_record(label, start_time)
+
+   Accumulate elapsed time since *start_time* under *label*.
+
+
+.. py:function:: get_profile_data()
+
+   Return a copy of the accumulated profile data.
 
 
 .. py:function:: write_summary(filename='run_summary.txt', sim_params=None)

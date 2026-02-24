@@ -129,7 +129,16 @@
 <tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.benchmark.timer_stop" title="pulsesuite.PSTD3D.benchmark.timer_stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timer_stop</span></code></a>([label])</p></td>
 <td><p>Record the end time for <em>label</em>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.benchmark.write_summary" title="pulsesuite.PSTD3D.benchmark.write_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_summary</span></code></a>([filename, sim_params])</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.benchmark.profile_start" title="pulsesuite.PSTD3D.benchmark.profile_start"><code class="xref py py-obj docutils literal notranslate"><span class="pre">profile_start</span></code></a>()</p></td>
+<td><p>Return a timestamp for use with <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.benchmark.profile_record" title="pulsesuite.PSTD3D.benchmark.profile_record"><code class="xref py py-func docutils literal notranslate"><span class="pre">profile_record()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.benchmark.profile_record" title="pulsesuite.PSTD3D.benchmark.profile_record"><code class="xref py py-obj docutils literal notranslate"><span class="pre">profile_record</span></code></a>(label, start_time)</p></td>
+<td><p>Accumulate elapsed time since <em>start_time</em> under <em>label</em>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.benchmark.get_profile_data" title="pulsesuite.PSTD3D.benchmark.get_profile_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_profile_data</span></code></a>()</p></td>
+<td><p>Return a copy of the accumulated profile data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.benchmark.write_summary" title="pulsesuite.PSTD3D.benchmark.write_summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_summary</span></code></a>([filename, sim_params])</p></td>
 <td><p>Write a human-readable run summary to <em>filename</em>.</p></td>
 </tr>
 </tbody>
@@ -147,6 +156,24 @@
 <dt class="sig sig-object py" id="pulsesuite.PSTD3D.benchmark.timer_stop">
 <span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.benchmark.</span></span><span class="sig-name descname"><span class="pre">timer_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'total'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.benchmark.timer_stop" title="Link to this definition">¶</a></dt>
 <dd><p>Record the end time for <em>label</em>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.benchmark.profile_start">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.benchmark.</span></span><span class="sig-name descname"><span class="pre">profile_start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.benchmark.profile_start" title="Link to this definition">¶</a></dt>
+<dd><p>Return a timestamp for use with <a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.benchmark.profile_record" title="pulsesuite.PSTD3D.benchmark.profile_record"><code class="xref py py-func docutils literal notranslate"><span class="pre">profile_record()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.benchmark.profile_record">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.benchmark.</span></span><span class="sig-name descname"><span class="pre">profile_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.benchmark.profile_record" title="Link to this definition">¶</a></dt>
+<dd><p>Accumulate elapsed time since <em>start_time</em> under <em>label</em>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pulsesuite.PSTD3D.benchmark.get_profile_data">
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.benchmark.</span></span><span class="sig-name descname"><span class="pre">get_profile_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.benchmark.get_profile_data" title="Link to this definition">¶</a></dt>
+<dd><p>Return a copy of the accumulated profile data.</p>
 </dd></dl>
 
 <dl class="py function">
