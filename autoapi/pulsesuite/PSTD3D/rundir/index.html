@@ -110,8 +110,8 @@
   <section id="module-pulsesuite.PSTD3D.rundir">
 <span id="pulsesuite-pstd3d-rundir"></span><h1>pulsesuite.PSTD3D.rundir<a class="headerlink" href="#module-pulsesuite.PSTD3D.rundir" title="Link to this heading">¶</a></h1>
 <p>Timestamped run-directory management.</p>
-<p>Creates a <code class="docutils literal notranslate"><span class="pre">runs/&lt;YYYY-MM-DD_HH-MM-SS&gt;/</span></code> directory for every simulation
-run and <code class="docutils literal notranslate"><span class="pre">os.chdir</span></code> into it so that all relative output paths
+<p>Creates a <code class="docutils literal notranslate"><span class="pre">runs/&lt;YYYY-MM-DD_HH-MM-SS_testname&gt;/</span></code> directory for every
+simulation run and <code class="docutils literal notranslate"><span class="pre">os.chdir</span></code> into it so that all relative output paths
 (<code class="docutils literal notranslate"><span class="pre">dataQW/</span></code>, <code class="docutils literal notranslate"><span class="pre">fields/</span></code>, <code class="docutils literal notranslate"><span class="pre">output/</span></code>) land inside that directory.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">runs/latest</span></code> symlink always points to the most recent run.</p>
 <p>Input files (<code class="docutils literal notranslate"><span class="pre">params/</span></code>, <code class="docutils literal notranslate"><span class="pre">DC.txt</span></code>) are copied into the run directory
@@ -121,7 +121,7 @@ of which parameters produced each data set.</p>
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.rundir.setup_run_directory" title="pulsesuite.PSTD3D.rundir.setup_run_directory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_run_directory</span></code></a>([input_files])</p></td>
+<tr class="row-odd"><td><p><a class="hxr-hoverxref hxr-tooltip reference internal" href="#pulsesuite.PSTD3D.rundir.setup_run_directory" title="pulsesuite.PSTD3D.rundir.setup_run_directory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_run_directory</span></code></a>([input_files, test_name])</p></td>
 <td><p>Create a timestamped run directory and chdir into it.</p></td>
 </tr>
 </tbody>
@@ -131,12 +131,17 @@ of which parameters produced each data set.</p>
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="pulsesuite.PSTD3D.rundir.setup_run_directory">
-<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.rundir.</span></span><span class="sig-name descname"><span class="pre">setup_run_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.rundir.setup_run_directory" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pulsesuite.PSTD3D.rundir.</span></span><span class="sig-name descname"><span class="pre">setup_run_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pulsesuite.PSTD3D.rundir.setup_run_directory" title="Link to this definition">¶</a></dt>
 <dd><p>Create a timestamped run directory and chdir into it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>input_files</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Relative paths (files or directories) to copy into the run
-directory.  Defaults to <code class="docutils literal notranslate"><span class="pre">[&quot;params&quot;,</span> <span class="pre">&quot;DC.txt&quot;]</span></code>.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_files</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Relative paths (files or directories) to copy into the run
+directory.  Defaults to <code class="docutils literal notranslate"><span class="pre">[&quot;params&quot;,</span> <span class="pre">&quot;DC.txt&quot;]</span></code>.</p></li>
+<li><p><strong>test_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Short label appended to the timestamp so runs are easy to
+distinguish, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;sbetestprop&quot;</span></code> gives
+<code class="docutils literal notranslate"><span class="pre">runs/2026-02-24_09-30-00_sbetestprop/</span></code>.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Absolute path of the new run directory.</p>
