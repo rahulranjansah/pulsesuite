@@ -22,7 +22,7 @@ from .typespace import GetKArray, GetSpaceArray
 # ── Create timestamped run directory ──────────────────────────────────
 # All output (dataQW/, fields/, output/) lands inside runs/<timestamp>/
 # so different simulations never overwrite each other.
-setup_run_directory()
+setup_run_directory(test_name="sbetestprop")
 timer_start("total")
 timer_start("init")
 

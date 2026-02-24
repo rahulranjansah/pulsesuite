@@ -35,7 +35,7 @@ ii = 1j  # Imaginary unit
 
 # JIT-compatible K0 approximation for modified Bessel function
 # nopython friendly version of K03 which is in usefulsubs.py
-@jit(nopython=True, cache=True)
+@jit(nopython=True, cache=True, fastmath=True)
 def _K03_jit(x):
     """
     JIT-compatible approximation of modified Bessel function K0(x).
@@ -66,7 +66,7 @@ def _K03_jit(x):
         return np.sqrt(np.pi / (2.0 * x)) * np.exp(-x)
 
 
-@jit(nopython=True, cache=True)
+@jit(nopython=True, cache=True, fastmath=True)
 def _Vint_jit(Qyk, y, alphae, alphah, Delta0, N1, N2, Ny):
     """JIT-compiled version of Vint calculation."""
     Vint_val = 0.0
@@ -782,7 +782,7 @@ def GetEps1Dqw(alphae, alphah, Delta0, epsr, me, mh, n1D, q, w):
 ###############################################################################
 
 
-@jit(nopython=True, parallel=True)
+@jit(nopython=True, parallel=True, fastmath=True, cache=True)
 def _CalcMVeh_core(p, Veh, MVeh, k3, UnDel):
     """Core JIT-compiled computation for CalcMVeh."""
     N = p.shape[0]
@@ -809,7 +809,7 @@ def _CalcMVeh_core(p, Veh, MVeh, k3, UnDel):
                             )
 
 
-@jit(nopython=True, parallel=True)
+@jit(nopython=True, parallel=True, fastmath=True, cache=True)
 def _BGRenorm_core(ne, nh, Vee, Vhh, BGR, UnDel):
     """Core JIT-compiled computation for BGRenorm."""
     N = len(ne)
@@ -830,7 +830,7 @@ def _BGRenorm_core(ne, nh, Vee, Vhh, BGR, UnDel):
             BGR[k, kp] = -sum_hh - sum_ee
 
 
-@jit(nopython=True, parallel=True)
+@jit(nopython=True, parallel=True, fastmath=True, cache=True)
 def _EeRenorm_core(ne, Vee, BGR, UnDel):
     """Core JIT-compiled computation for EeRenorm."""
     N = len(ne)
@@ -862,7 +862,7 @@ def _EeRenorm_core(ne, Vee, BGR, UnDel):
             )
 
 
-@jit(nopython=True, parallel=True)
+@jit(nopython=True, parallel=True, fastmath=True, cache=True)
 def _EhRenorm_core(nh, Vhh, BGR, UnDel):
     """Core JIT-compiled computation for EhRenorm."""
     N = len(nh)
@@ -894,7 +894,7 @@ def _EhRenorm_core(nh, Vhh, BGR, UnDel):
             )
 
 
-@jit(nopython=True, parallel=True)
+@jit(nopython=True, parallel=True, fastmath=True, cache=True)
 def _MBCE2_core(ne, nh, Veh2, Vee2, Win, Wout, k3, Ceh, Cee):
     """Core JIT-compiled computation for MBCE2."""
     Nk = len(ne) - 1
@@ -953,7 +953,7 @@ def _MBCE2_core(ne, nh, Veh2, Vee2, Win, Wout, k3, Ceh, Cee):
                     )
 
 
-@jit(nopython=True, parallel=True)
+@jit(nopython=True, parallel=True, fastmath=True, cache=True)
 def _MBCE_core(ne, nh, Veh2, Vee2, Win, Wout, k3, Ceh, Cee):
     """Core JIT-compiled computation for MBCE (identical to MBCE2)."""
     Nk = len(ne) - 1
@@ -1012,7 +1012,7 @@ def _MBCE_core(ne, nh, Veh2, Vee2, Win, Wout, k3, Ceh, Cee):
                     )
 
 
-@jit(nopython=True, parallel=True)
+@jit(nopython=True, parallel=True, fastmath=True, cache=True)
 def _MBCH_core(ne, nh, Veh2, Vhh2, Win, Wout, k3, Ceh, Chh):
     """Core JIT-compiled computation for MBCH."""
     Nk = len(ne) - 1

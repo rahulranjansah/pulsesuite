@@ -1133,7 +1133,7 @@ def spline2_dp(x, y, y2):
 
 
 # Helper function: locate - find position in sorted array
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def locate(xx, x):
     """
     Find the index i such that xx[i] <= x < xx[i+1].

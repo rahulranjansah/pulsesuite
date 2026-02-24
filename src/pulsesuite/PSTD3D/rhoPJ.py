@@ -522,7 +522,7 @@ def CalcJfx(RhoNew, RhoPrev, dt, dx):
     return CalcJfx_result
 
 
-@jit(nopython=True, parallel=True)
+@jit(nopython=True, parallel=True, fastmath=True, cache=True)
 def _ElongfromRho_loop_jit(
     Rho_k,
     Px,
@@ -618,7 +618,7 @@ def _ElongfromRho_loop_jit(
                 EzlfromPRho[i, j, k] = (rho_term + P_term) * qz[k]
 
 
-@jit(nopython=True, parallel=True)
+@jit(nopython=True, parallel=True, fastmath=True, cache=True)
 def _QWPlacement_jit(Fwire, gx, gy, gz, Fgrid, Nx, Ny, Nz):
     """
     JIT-compiled parallel version of QWPlacement loop.

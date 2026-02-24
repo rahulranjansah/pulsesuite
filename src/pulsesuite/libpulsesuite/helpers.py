@@ -442,13 +442,13 @@ def arg_sp(Z: Union[complex, np.ndarray]) -> Union[float, np.ndarray]:
     return np.arctan2(np.imag(Z_arr), np.real(Z_arr))
 
 
-@jit(nopython=True, cache=True)
+@jit(nopython=True, cache=True, fastmath=True)
 def _sech_sp_jit(t: float) -> float:
     """JIT-compiled single precision sech for scalar."""
     return 1.0 / np.cosh(t)
 
 
-@jit(nopython=True, cache=True)
+@jit(nopython=True, cache=True, fastmath=True)
 def _sech_dp_jit(t: float) -> float:
     """JIT-compiled double precision sech for scalar."""
     return 1.0 / np.cosh(t)
@@ -502,13 +502,13 @@ def sech_dp(t: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
         return 1.0 / np.cosh(t_arr)
 
 
-@jit(nopython=True, cache=True)
+@jit(nopython=True, cache=True, fastmath=True)
 def _gauss_dp_jit(x: float) -> float:
     """JIT-compiled double precision gauss for scalar."""
     return np.exp(-x * x)
 
 
-@jit(nopython=True, cache=True)
+@jit(nopython=True, cache=True, fastmath=True)
 def _gauss_sp_jit(x: float) -> float:
     """JIT-compiled single precision gauss for scalar."""
     return np.exp(-x * x)
@@ -566,13 +566,13 @@ def gauss_sp(x: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
         return np.exp(-(x_arr**2))
 
 
-@jit(nopython=True, cache=True)
+@jit(nopython=True, cache=True, fastmath=True)
 def _magsq_dp_jit(z_real: float, z_imag: float) -> float:
     """JIT-compiled double precision magsq for scalar."""
     return z_real * z_real + z_imag * z_imag
 
 
-@jit(nopython=True, cache=True)
+@jit(nopython=True, cache=True, fastmath=True)
 def _magsq_sp_jit(z_real: float, z_imag: float) -> float:
     """JIT-compiled single precision magsq for scalar."""
     return z_real * z_real + z_imag * z_imag
@@ -1227,7 +1227,7 @@ def dfdt_dpc(f: np.ndarray, dt: float, k: int) -> complex:
         return 0.0
 
 
-@jit(nopython=True, cache=True)
+@jit(nopython=True, cache=True, fastmath=True)
 def _dfdt_1D_dp_jit(f: np.ndarray, dt: float) -> np.ndarray:
     """JIT-compiled version of dfdt_1D_dp."""
     N = len(f)
@@ -1252,7 +1252,7 @@ def _dfdt_1D_dp_jit(f: np.ndarray, dt: float) -> np.ndarray:
     return dfdt_arr
 
 
-@jit(nopython=True, cache=True)
+@jit(nopython=True, cache=True, fastmath=True)
 def _dfdt_1D_dpc_jit(f: np.ndarray, dt: float) -> np.ndarray:
     """JIT-compiled version of dfdt_1D_dpc."""
     N = len(f)

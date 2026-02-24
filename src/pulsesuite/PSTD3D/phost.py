@@ -28,7 +28,7 @@ ii = 1j  # Imaginary unit
 # ── JIT kernels (module-level — Numba requirement) ──────────────────
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _CalcNextP_jit(E_size1, E_size2, osc, P1, P2, E, dt, gam, w, B, eps0_val):
     """JIT-compiled version of CalcNextP."""
     CalcNextP = np.zeros((E_size1, E_size2, osc), dtype=np.complex128)
@@ -51,7 +51,7 @@ def _CalcNextP_jit(E_size1, E_size2, osc, P1, P2, E, dt, gam, w, B, eps0_val):
     return CalcNextP
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _CalcMonoP_jit(E_size1, E_size2, osc, E, chi1_real, eps0_val):
     """JIT-compiled version of CalcMonoP."""
     CalcMonoP = np.zeros((E_size1, E_size2, osc), dtype=np.complex128)

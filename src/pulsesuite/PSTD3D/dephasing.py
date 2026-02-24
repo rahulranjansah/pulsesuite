@@ -25,7 +25,7 @@ ii = 1j  # Imaginary unit
 # ── JIT kernels (module-level — Numba requirement) ──────────────────
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _CalcGammaE_jit(
     Vee2, Veh2, ne, nh, se, sh, k_p_q, k_m_q, k1p_m_q, k1p, xe, xh, pi_val, hbar_val
 ):
@@ -64,7 +64,7 @@ def _CalcGammaE_jit(
     return GammaE
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _CalcGammaH_jit(
     Vhh2, Veh2, ne, nh, se, sh, k_p_q, k_m_q, k1_m_q, k1, xe, xh, pi_val, hbar_val
 ):
@@ -103,7 +103,7 @@ def _CalcGammaH_jit(
     return GammaH
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _CalcOffDiagDeph_E_jit(
     ne, nh, Veh2, Vee2, Ee, Eh, k_p_q, k_m_q, gee, geh, pi_val, hbar_val
 ):
@@ -146,7 +146,7 @@ def _CalcOffDiagDeph_E_jit(
     return D * pi_val / hbar_val
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _CalcOffDiagDeph_H_jit(
     ne, nh, Veh2, Vhh2, Ee, Eh, k_p_q, k_m_q, ghh, geh, pi_val, hbar_val
 ):
@@ -189,7 +189,7 @@ def _CalcOffDiagDeph_H_jit(
     return D * pi_val / hbar_val
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _OffDiagDephasing_jit(Dh, De, pt, pp, k_p_q, undel, ii_val, hbar_val):
     """JIT-compiled version of OffDiagDephasing inner loops."""
     Nk = Dh.shape[0]
@@ -217,13 +217,13 @@ def _OffDiagDephasing_jit(Dh, De, pt, pp, k_p_q, undel, ii_val, hbar_val):
     return x * ii_val * hbar_val
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _Lrtz_jit(a, b, pi_val):
     """JIT-compiled version of Lrtz."""
     return (b / pi_val) / (a**2 + b**2)
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _CalcOffDiagDeph_E2_jit(ne, nh, Vsq, Ee, Eh, gee, geh, pi_val, hbar_val):
     """JIT-compiled version of CalcOffDiagDeph_E2."""
     Nk = len(ne)
@@ -270,7 +270,7 @@ def _CalcOffDiagDeph_E2_jit(ne, nh, Vsq, Ee, Eh, gee, geh, pi_val, hbar_val):
     return D * pi_val / hbar_val
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _CalcOffDiagDeph_H2_jit(ne, nh, Vsq, Ee, Eh, ghh, geh, pi_val, hbar_val):
     """JIT-compiled version of CalcOffDiagDeph_H2."""
     Nk = len(ne)
@@ -317,7 +317,7 @@ def _CalcOffDiagDeph_H2_jit(ne, nh, Vsq, Ee, Eh, ghh, geh, pi_val, hbar_val):
     return D * pi_val / hbar_val
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _OffDiagDephasing2_jit(Dh, De, p, pt, undel, ii_val, hbar_val):
     """JIT-compiled version of OffDiagDephasing2 inner loops."""
     Nk = p.shape[0]

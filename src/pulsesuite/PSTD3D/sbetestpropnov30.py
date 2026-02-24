@@ -137,7 +137,7 @@ def initializefields(
     F20[:] = 0.0 + 0.0j
 
 
-@jit(nopython=True, cache=True)
+@jit(nopython=True, cache=True, fastmath=True)
 def _compute_plane_wave_jit(u, Emax0, w0, tw):
     """
     JIT-compiled core computation for plane wave envelope.
@@ -1071,7 +1071,8 @@ def main():
     from .postprocess import organize_all
     from .rundir import setup_run_directory
 
-    setup_run_directory(input_files=["params", "DC.txt", "params/space.params"])
+    setup_run_directory(input_files=["params", "DC.txt", "params/space.params"],
+                        test_name="sbetestpropnov30")
     timer_start("total")
     timer_start("init")
 

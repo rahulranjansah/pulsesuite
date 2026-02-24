@@ -10,8 +10,8 @@ cd $PBS_O_WORKDIR/src/pulsesuite/PSTD3D
 export PATH="$HOME/.local/bin:$PATH"
 
 # Match Numba thread count to PBS allocation
-export NUMBA_NUM_THREADS=8
-export OMP_NUM_THREADS=8
-export MKL_NUM_THREADS=8
+export NUMBA_NUM_THREADS=48
+export OMP_NUM_THREADS=48
+export MKL_NUM_THREADS=48
 
 uv run python -u -m pulsesuite.PSTD3D.sbetestpropnov30

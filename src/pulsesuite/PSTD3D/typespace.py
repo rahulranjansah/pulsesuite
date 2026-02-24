@@ -382,7 +382,7 @@ def GetNz(space):
 # but need to be careful about nopython compatibility
 
 
-@jit
+@jit(nopython=True, fastmath=True, cache=True)
 def _GetDx_core(Nx, dx):
     """
     JIT-compiled core for GetDx.
@@ -428,7 +428,7 @@ def GetDx(space):
             return space.dx
 
 
-@jit
+@jit(nopython=True, fastmath=True, cache=True)
 def _GetDy_core(Ny, dy):
     """
     JIT-compiled core for GetDy.
@@ -474,7 +474,7 @@ def GetDy(space):
             return space.dy
 
 
-@jit
+@jit(nopython=True, fastmath=True, cache=True)
 def _GetDz_core(Nz, dz):
     """
     JIT-compiled core for GetDz.
@@ -520,7 +520,7 @@ def GetDz(space):
             return space.dz
 
 
-@jit
+@jit(nopython=True, fastmath=True, cache=True)
 def _GetEpsr_core(Nz, epsr):
     """
     JIT-compiled core for GetEpsr.
@@ -700,7 +700,7 @@ def SetDz(space, dl):
 # These are simple calculations, JIT may help but not critical
 
 
-@jit
+@jit(nopython=True, fastmath=True, cache=True)
 def _GetXWidth_core(dx, Nx):
     """
     JIT-compiled core for GetXWidth.
@@ -736,7 +736,7 @@ def GetXWidth(space):
         return space.dx * (space.Nx - 1)
 
 
-@jit
+@jit(nopython=True, fastmath=True, cache=True)
 def _GetYWidth_core(dy, Ny):
     """
     JIT-compiled core for GetYWidth.
@@ -772,7 +772,7 @@ def GetYWidth(space):
         return space.dy * (space.Ny - 1)
 
 
-@jit
+@jit(nopython=True, fastmath=True, cache=True)
 def _GetZWidth_core(dz, Nz):
     """
     JIT-compiled core for GetZWidth.

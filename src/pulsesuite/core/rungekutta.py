@@ -95,12 +95,12 @@ def calc_gamma4(field: Field, medium: Medium) -> complex:
 # -----------------------------------------------------------------------------
 # 3.  Nyquist‑friendly time‑domain helpers (Numba JIT)
 # -----------------------------------------------------------------------------
-@njit(fastmath=True)
+@njit(fastmath=True, cache=True)
 def _magsq(z: np.ndarray):
     return z.real * z.real + z.imag * z.imag
 
 
-@njit(parallel=True, fastmath=True)
+@njit(parallel=True, fastmath=True, cache=True)
 def _shock_filter(freq: np.ndarray, w0: float):
     """Return T(w)/U(w) factor used in self‑steepening."""
     out = np.empty_like(freq)
@@ -133,7 +133,7 @@ def raman_conv(e_time: np.ndarray, field: Field, t1=12.2e-15, t2=32e-15, fr=0.18
 # -----------------------------------------------------------------------------
 # 5.  Right‑hand‑side (nonlinear polarisation & plasma) – Numba kernel
 # -----------------------------------------------------------------------------
-@njit(fastmath=True)
+@njit(fastmath=True, cache=True)
 def _rhs_line(
     e: np.ndarray, gamma: complex, gamma4: complex, do_kerr: bool, do_kerr4: bool
 ) -> np.ndarray:

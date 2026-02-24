@@ -142,7 +142,7 @@ def atanhc(x):
     return 0.5 * np.log((1.0 + x) / (1.0 - x))
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _PiT_jit(
     w, me, mh, Te, Th, dk, Ek, Ekq, n00_val, hbar_val, kB_val, twopi_val, pi_val
 ):
@@ -300,7 +300,7 @@ def GetEpsrLEpsrT(n1D, dcv0, Te, Th, me, mh, Eg, ky):
     # Note: stop statement removed in Python version
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _RecordEpsrT_loop_jit(
     ky_size,
     Nw,
@@ -694,7 +694,7 @@ def QqGq(ky, Nk, dk, dw, EpsR, EpsI, eh):
             f.write(f"{ky[q]} {Omega[q]} {Gam[q]}\n")
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _ZeroT_L_loop_jit(
     qy_size, Nw, dw, m, kf, qy, dq, Vc, hbar_val, e0_val, pi_val, ii_real, ii_imag
 ):
@@ -848,7 +848,7 @@ def ZeroT_L(B, m, qy, kf):
                 f.write(f"{eps[qq, ww_idx].real} {eps[qq, ww_idx].imag}\n")
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _ZeroT_T_loop_jit(
     qy_size,
     Nw,
@@ -1066,7 +1066,7 @@ def ZeroT_T(me, mh, Egap, dcv, qy, kf):
                 f.write(f"{Pi2[qq, ww_idx]} {-Pi3[qq, ww_idx].real}\n")
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _RecordEpsrL_loop_jit(
     ky_size,
     Nw,

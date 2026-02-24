@@ -46,6 +46,29 @@ uv sync --all-extras
 pip install -e .
 ```
 
+### GPU Acceleration (optional)
+
+If you have an NVIDIA GPU, install the GPU extra to enable CUDA acceleration.
+This installs `cupy-cuda12x` (GPU array ops) and `numba-cuda` (Numba `@cuda.jit`
+kernels). No separate CUDA toolkit download needed — only an NVIDIA driver
+(version 450+). The code automatically detects GPU availability and falls back
+to CPU if CUDA is not present.
+
+**With uv (recommended):**
+```bash
+uv pip install -e ".[gpu]"
+```
+
+**With pip:**
+```bash
+pip install -e ".[gpu]"
+```
+
+**Manual install (if you only want the packages directly):**
+```bash
+pip install cupy-cuda12x numba-cuda
+```
+
 ### Development
 
 ```bash
@@ -85,9 +108,10 @@ pulsesuite/
 - NumPy ≥1.26.4
 - SciPy ≥1.15.2
 - Matplotlib ≥3.10.0
-- pyFFTW ≥0.15.0 (recommended for performance)
-- Numba ≥0.61.2 (optional, for JIT acceleration)
-- Numba-CUDA==0.23.0 (optional, for CUDA acceleration)
+- pyFFTW ≥0.15.0
+- Numba ≥0.61.2
+- CuPy-CUDA12x ≥13.5.0 (optional, GPU array ops — install via `pip install -e ".[gpu]"`)
+- numba-cuda ≥0.6.0 (optional, Numba CUDA kernels — included in `[gpu]` extra)
 
 ## Running a simulation
 

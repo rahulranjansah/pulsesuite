@@ -1,8 +1,8 @@
 """
 Timestamped run-directory management.
 
-Creates a ``runs/<YYYY-MM-DD_HH-MM-SS>/`` directory for every simulation
-run and ``os.chdir`` into it so that all relative output paths
+Creates a ``runs/<YYYY-MM-DD_HH-MM-SS_testname>/`` directory for every
+simulation run and ``os.chdir`` into it so that all relative output paths
 (``dataQW/``, ``fields/``, ``output/``) land inside that directory.
 
 A ``runs/latest`` symlink always points to the most recent run.
@@ -17,7 +17,7 @@ import shutil
 from datetime import datetime
 
 
-def setup_run_directory(input_files=None):
+def setup_run_directory(input_files=None, test_name=None):
     """
     Create a timestamped run directory and chdir into it.
 
@@ -26,6 +26,10 @@ def setup_run_directory(input_files=None):
     input_files : list of str, optional
         Relative paths (files or directories) to copy into the run
         directory.  Defaults to ``["params", "DC.txt"]``.
+    test_name : str, optional
+        Short label appended to the timestamp so runs are easy to
+        distinguish, e.g. ``"sbetestprop"`` gives
+        ``runs/2026-02-24_09-30-00_sbetestprop/``.
 
     Returns
     -------
@@ -37,7 +41,8 @@ def setup_run_directory(input_files=None):
 
     orig_dir = os.getcwd()
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    run_dir = os.path.join("runs", timestamp)
+    folder = f"{timestamp}_{test_name}" if test_name else timestamp
+    run_dir = os.path.join("runs", folder)
     os.makedirs(run_dir, exist_ok=True)
 
     # Update runs/latest symlink
@@ -46,7 +51,7 @@ def setup_run_directory(input_files=None):
         os.remove(latest_link)
     elif os.path.exists(latest_link):
         os.remove(latest_link)
-    os.symlink(timestamp, latest_link)
+    os.symlink(folder, latest_link)
 
     # Copy input files into the run directory
     for src_name in input_files:

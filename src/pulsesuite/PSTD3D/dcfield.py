@@ -335,7 +335,7 @@ def DC_Step_FD(ne, nh, nemid, nhmid, ky, Edc, dt, me, mh):
 # ============================================================================
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _EkReNorm_jit(n, En, V):
     Nk = len(n)
     Ec = np.zeros(Nk)
@@ -344,7 +344,7 @@ def _EkReNorm_jit(n, En, V):
     return Ec
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _DriftVt_jit(n, Ec, dkk, hbar_val):
     Nk = len(n)
     dEdk = np.zeros(Nk, dtype=np.complex128)
@@ -359,19 +359,19 @@ def _DriftVt_jit(n, Ec, dkk, hbar_val):
     return np.real(v)
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _Lrtz_jit(a, b):
     pi_val = 3.141592653589793
     return (b / pi_val) / (a**2 + b**2)
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _theta_jit(x):
     small = 1e-200
     return (np.abs(x) + x) / 2.0 / (np.abs(x) + small)
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _ThetaEM_jit(Ephn, m, g, ky, n, Cq2, v, N0, q, k, hbar_val, pi_val):
     q_idx = q - 1 if q > 0 else 0
     k_idx = k - 1 if k > 0 else 0
@@ -408,7 +408,7 @@ def _ThetaEM_jit(Ephn, m, g, ky, n, Cq2, v, N0, q, k, hbar_val, pi_val):
     return ThetaEM_val
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _ThetaABS_jit(Ephn, m, g, ky, n, Cq2, v, N0, q, k, hbar_val, pi_val):
     q_idx = q - 1 if q > 0 else 0
     k_idx = k - 1 if k > 0 else 0
@@ -445,7 +445,7 @@ def _ThetaABS_jit(Ephn, m, g, ky, n, Cq2, v, N0, q, k, hbar_val, pi_val):
     return ThetaABS_val
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _dndEk_jit(Ephn, m, q, dndq, hbar_val):
     x0 = Ephn * 2.0 * m / hbar_val**2
     N = len(q)
@@ -455,7 +455,7 @@ def _dndEk_jit(Ephn, m, q, dndq, hbar_val):
     return dndEk
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _ThetaEMABS_jit(Ephn, m, q, dndk, Cq2, v, hbar_val, pi_val):
     x0 = Ephn * 2.0 * m / hbar_val**2
     N = len(q)

@@ -46,7 +46,7 @@ _firsttime = True
 # ══════════════════════════════════════════════════════════════════════
 
 
-@jit(nopython=True, parallel=True)
+@jit(nopython=True, parallel=True, fastmath=True, cache=True)
 def _QWPolarization3_jit(
     y, ky, p, Xvc0, Yvc0, Zvc0, Expikr, Expikrc, QWWindow, yw_val, w, Px, Py, Pz
 ):
@@ -357,7 +357,7 @@ else:
         raise RuntimeError("CUDA not available")
 
 
-@jit(nopython=True, parallel=True)
+@jit(nopython=True, parallel=True, fastmath=True, cache=True)
 def _QWRho5_jit(Nr, Nk, CC, DD, Expikr, Expikrc, QWWindow, L, re, rh):
     """JIT-compiled version of QWRho5 inner loops."""
     for ri in prange(Nr):
@@ -518,7 +518,7 @@ else:
         raise RuntimeError("CUDA not available")
 
 
-@jit(nopython=True, parallel=True)
+@jit(nopython=True, parallel=True, fastmath=True, cache=True)
 def _GetVn1n2_jit(
     Nk, rcv, Hcc, Hvv, Hcv, Hvc, rvc, Vcc, Vvv, Vcv, Vvc, ii_val, hbar_val
 ):

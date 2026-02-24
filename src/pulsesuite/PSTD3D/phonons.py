@@ -33,7 +33,7 @@ _HPT = None
 _idel = None
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _InitializePhonons_loop_jit(Nk, Ee, Eh, NO_val, hbar_val, Gph, Oph):
     """JIT-compiled loop for InitializePhonons."""
     EP = np.zeros((Nk, Nk))
@@ -136,7 +136,7 @@ def InitializePhonons(ky, Ee, Eh, L, epsr, Gph, Oph):
     _Vscale = hbar * Oph * epsr * (1.0 / _epsrINF - 1.0 / _epsr0)
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _MBPE_jit(Nk, Vep, ne, EPT, EP):
     """JIT-compiled version of MBPE."""
     Win = np.zeros(Nk)
@@ -202,7 +202,7 @@ def MBPE(ne, VC, E1D, Win, Wout):
             Wout[k] = Wout[k] + np.sum(Vep[k, :] * (1.0 - ne) * _EP[:, k])
 
 
-@jit(nopython=True)
+@jit(nopython=True, fastmath=True, cache=True)
 def _MBPH_jit(Nk, Vhp, nh, HPT, HP):
     """JIT-compiled version of MBPH."""
     Win = np.zeros(Nk)
