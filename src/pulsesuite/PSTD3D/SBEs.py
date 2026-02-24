@@ -620,23 +620,35 @@ def Preparation(
     #     CalcWnn(-e0, Vr, Wee)
     #     CalcWnn(+e0, np.conj(Vr), Whh)
 
+    from .benchmark import profile_start as _ps, profile_record as _pr
+
     # Calculate screened Coulomb arrays
+    _t0 = _ps()
     CalcScreenedArrays(_Screened, _L, ne, nh, VC, E1D)
+    _pr("CalcScreenedArrays", _t0)
 
     # Calculate Hamiltonian matrix elements
+    _t0 = _ps()
     CalcH(Meh, Wee, Whh, C2, D2, p2, VC, Heh, Hee, Hhh)
+    _pr("CalcH", _t0)
 
     # Calculate diagonal electron dephasing rate
     if _DiagDph:
+        _t0 = _ps()
         CalcGammaE(_kr, ne, nh, VC, GamE)
+        _pr("CalcGammaE", _t0)
 
     # Calculate diagonal hole dephasing rate
     if _DiagDph:
+        _t0 = _ps()
         CalcGammaH(_kr, ne, nh, VC, GamH)
+        _pr("CalcGammaH", _t0)
 
     # Calculate off-diagonal dephasing
     if _OffDiagDph:
+        _t0 = _ps()
         OffDiagDephasing2(ne, nh, p2, _kr, _Ee, _Eh, g, VC, _t, OffG[:, :, 0])
+        _pr("OffDiagDephasing2", _t0)
 
     # Calculate spontaneous emission rate
     if _Recomb:
@@ -1653,9 +1665,15 @@ def Relaxation(ne, nh, VC, E1D, Rsp, dt, w, WriteFields):
     """
     global _EHs, _Phonon, _Recomb, _kr, _xxx, _small
 
+    from .benchmark import profile_start as _ps, profile_record as _pr
+
     if _EHs or _Phonon:
+        _t0 = _ps()
         WinE, WoutE = RelaxationE(ne, nh, VC, E1D)
+        _pr("RelaxationE", _t0)
+        _t0 = _ps()
         WinH, WoutH = RelaxationH(ne, nh, VC, E1D)
+        _pr("RelaxationH", _t0)
 
         if WriteFields:
             wire_str = f"{w:02d}"
@@ -4425,13 +4443,17 @@ def SBECalculator(Ex, Ey, Ez, Vr, dt, Px, Py, Pz, Re, Rh, WriteFields, w):
         _Ia[k, k] = 0.0
         _Id[k, k] = 1.0
 
+    from .benchmark import profile_start, profile_record
+
     # Checkout coherence matrices from module storage
     Checkout(p1, p2, C1, C2, D1, D2, w)
 
     # Prepare the needed arrays for the SBEs
+    _t0 = profile_start()
     Preparation(
         p2, C2, D2, Ex, Ey, Ez, Vr, w, Heh, Hee, Hhh, VC, E1D, GamE, GamH, OffG, Rsp
     )
+    profile_record("Preparation", _t0)
 
     # Extract corrected energies (in eV)
     for k in range(_Nk):
@@ -4439,9 +4461,15 @@ def SBECalculator(Ex, Ey, Ez, Vr, dt, Px, Py, Pz, Re, Rh, WriteFields, w):
         Enh[k] = Hhh[k, k] / eV
 
     # Calculate time derivatives of SBEs
+    _t0 = profile_start()
     dpdt2[:, :] = dpdt(C2, D2, p2, Heh, Hee, Hhh, GamE, GamH, OffG[:, :, 0])
+    profile_record("dpdt", _t0)
+    _t0 = profile_start()
     dCdt2[:, :] = dCdt(C2, D2, p2, Heh, Hee, Hhh, GamE, GamH, OffG[:, :, 1])
+    profile_record("dCdt", _t0)
+    _t0 = profile_start()
     dDdt2[:, :] = dDdt(C2, D2, p2, Heh, Hee, Hhh, GamE, GamH, OffG[:, :, 2])
+    profile_record("dDdt", _t0)
 
     # Time evolve by leapfrog: X3 = X1 + dX/dt * 2*dt
     C3[:, :] = C1 + dCdt2 * dt * 2.0
@@ -4456,7 +4484,9 @@ def SBECalculator(Ex, Ey, Ez, Vr, dt, Px, Py, Pz, Re, Rh, WriteFields, w):
             nh3[k] = D3[k, k]
 
         # Apply relaxation
+        _t0 = profile_start()
         Relaxation(ne3, nh3, VC, E1D, Rsp, dt, w, WriteFields)
+        profile_record("Relaxation", _t0)
 
         # Put populations back into diagonal
         for k in range(_Nk):
@@ -4507,11 +4537,15 @@ def SBECalculator(Ex, Ey, Ez, Vr, dt, Px, Py, Pz, Re, Rh, WriteFields, w):
 
     # Calculate the X, Y, Z components of the QW Polarization
     if _Optics:
+        _t0 = profile_start()
         _qw.QWPolarization3(_r, _kr, p3, _ehint, _area, _L, Px, Py, Pz, _xxx, w)
+        profile_record("QWPolarization3", _t0)
 
     # Calculate new electron and hole charge densities
     if _LF:
+        _t0 = profile_start()
         _qw.QWRho5(_Qr, _kr, _r, _L, _kkp, p3, C3, D3, ne3, nh3, Re, Rh, _xxx, _jjj)
+        profile_record("QWRho5", _t0)
         Re[:] = 2.0 * e0 * Re / _area * _ehint
         Rh[:] = 2.0 * e0 * Rh / _area * _ehint
     else:

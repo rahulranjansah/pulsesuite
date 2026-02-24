@@ -36,3 +36,6 @@ src/pulsesuite/PSTD3D/output/
 src/pulsesuite/PSTD3D/dataQW/
 src/pulsesuite/PSTD3D/sim/
 tests/PSTD3D/dataQW/*
+
+# runs
+runs/

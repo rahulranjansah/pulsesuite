@@ -693,7 +693,7 @@ def SBETest(
     print("Starting time loop...")
     print("=" * 70)
 
-    from .benchmark import timer_start, timer_stop
+    from .benchmark import timer_start, timer_stop, profile_start, profile_record
 
     timer_stop("init")
     timer_start("timeloop")
@@ -705,9 +705,12 @@ def SBETest(
         print(f"Step {n}/{Nt}")
 
         # Create plane wave excitation (Y-direction propagation)
+        _t0 = profile_start()
         MakePlaneWaveY(Ex, space, t, E0x, lam, tw, tp)
+        profile_record("MakePlaneWaveY", _t0)
 
         # Update quantum wire response with full longitudinal field decomposition
+        _t0 = profile_start()
         QuantumWire(
             space,
             dt,
@@ -730,6 +733,7 @@ def SBETest(
             EzlfromRho,
             RhoBound,
         )
+        profile_record("QuantumWire", _t0)
 
         # Check differences (diagnostic)
         if n % 120 == 0:
@@ -744,7 +748,9 @@ def SBETest(
             print(f"  ExlfromRho:  {np.max(np.abs(ExlfromRho)):.4e}")
 
         # Separate longitudinal field components (Helmholtz decomposition stub)
+        _t0 = profile_start()
         ElongSeparate(space, Ex, Ey, Ez, Exl, Eyl, Ezl)
+        profile_record("ElongSeparate", _t0)
 
         # Print diagnostics every 10 steps
         if n % 10 == 0:
@@ -770,6 +776,7 @@ def SBETest(
             print(f"  Rho:    max={Rho_max:.4e}  min={Rho_min:.4e}")
 
         # Update max/min values
+        _t0 = profile_start()
         Ex_max = max(Ex_max, np.max(np.abs(Ex)))
         Ex_min = min(Ex_min, np.min(np.real(Ex)))
         Ey_max = max(Ey_max, np.max(np.abs(Ey)))
@@ -814,7 +821,10 @@ def SBETest(
         EzlRho_max = max(EzlRho_max, np.max(np.real(EzlfromRho)))
         EzlRho_min = min(EzlRho_min, np.min(np.real(EzlfromRho)))
 
+        profile_record("max/min tracking", _t0)
+
         # Write time series data to files
+        _t0 = profile_start()
         file_handles["Ex"].write(f"{t:.15e} {np.real(Ex[0, 0, 0]):.15e}\n")
         file_handles["Ey"].write(f"{t:.15e} {np.real(Ey[0, Ny//2, 0]):.15e}\n")
         file_handles["Ez"].write(f"{t:.15e} {np.real(Ez[0, 0, 0]):.15e}\n")
@@ -854,8 +864,11 @@ def SBETest(
             f"{t:.15e} {np.real(RhoBound[0, Ny//2, 0]):.15e}\n"
         )
 
+        profile_record("file I/O", _t0)
+
         # Write 2D slices at intervals
         if write_2d_slices and (n % slice_interval == 0):
+            _t0 = profile_start()
             # ExlfromPRho slices
             WriteIT2D(np.real(ExlfromPRho[:, :, Nz // 2]), f"ExPRho.{int2str(n)}.z")
             WriteIT2D(np.real(EylfromPRho[:, :, Nz // 2]), f"EyPRho.{int2str(n)}.z")
@@ -917,6 +930,7 @@ def SBETest(
             WriteIT2D(np.real(RhoBound[:, :, Nz // 2]), f"RhoB.{int2str(n)}.z")
             WriteIT2D(np.real(RhoBound[:, Ny // 2, :]), f"RhoB.{int2str(n)}.y")
             WriteIT2D(np.real(RhoBound[Nx // 2, :, :]), f"RhoB.{int2str(n)}.x")
+            profile_record("2D slice I/O", _t0)
 
         # Write max/min summary every 1000 steps
         if n % 1000 == 0:
@@ -1053,7 +1067,7 @@ def main():
     Creates a timestamped run directory so each simulation's
     output is preserved separately.
     """
-    from .benchmark import timer_start, timer_stop, write_summary
+    from .benchmark import timer_start, timer_stop, write_summary, profile_start, profile_record
     from .postprocess import organize_all
     from .rundir import setup_run_directory
 

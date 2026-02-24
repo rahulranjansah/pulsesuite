@@ -42,6 +42,30 @@ def _elapsed(label):
     return None
 
 
+# ── Per-function profiler ────────────────────────────────────────────
+
+_profile_accum: dict = {}  # label -> {"total": float, "calls": int}
+
+
+def profile_start():
+    """Return a timestamp for use with :func:`profile_record`."""
+    return time.perf_counter()
+
+
+def profile_record(label, start_time):
+    """Accumulate elapsed time since *start_time* under *label*."""
+    elapsed = time.perf_counter() - start_time
+    if label not in _profile_accum:
+        _profile_accum[label] = {"total": 0.0, "calls": 0}
+    _profile_accum[label]["total"] += elapsed
+    _profile_accum[label]["calls"] += 1
+
+
+def get_profile_data():
+    """Return a copy of the accumulated profile data."""
+    return dict(_profile_accum)
+
+
 # ── Hardware detection ───────────────────────────────────────────────
 
 def _cpu_info():
@@ -312,6 +336,33 @@ def write_summary(filename="run_summary.txt", sim_params=None):
             lines.append(f"  Time per step:     {loop_time / nt * 1000:.3f} ms")
             lines.append(f"  Steps per second:  {nt / loop_time:.1f}")
             lines.append("")
+
+    # ── Per-function profile breakdown ──
+    pdata = get_profile_data()
+    if pdata:
+        total_time = _elapsed("total") or 1.0
+        lines.append("--- Profile Breakdown ---")
+        # Sort by total time, descending
+        sorted_items = sorted(pdata.items(), key=lambda x: x[1]["total"],
+                              reverse=True)
+        profiled_total = sum(v["total"] for v in pdata.values())
+        lines.append(f"  {'Function':<24s} {'Time (s)':>10s} {'%Total':>8s}"
+                     f"  {'Calls':>8s}  {'Avg (ms)':>10s}")
+        lines.append(f"  {'-'*24} {'-'*10} {'-'*8}  {'-'*8}  {'-'*10}")
+        for label, vals in sorted_items:
+            pct = 100.0 * vals["total"] / total_time
+            avg_ms = vals["total"] / vals["calls"] * 1000 if vals["calls"] else 0
+            lines.append(
+                f"  {label:<24s} {vals['total']:>10.3f} {pct:>7.1f}%"
+                f"  {vals['calls']:>8d}  {avg_ms:>10.3f}"
+            )
+        unaccounted = total_time - profiled_total
+        if unaccounted > 0:
+            pct = 100.0 * unaccounted / total_time
+            lines.append(
+                f"  {'(other/overhead)':<24s} {unaccounted:>10.3f} {pct:>7.1f}%"
+            )
+        lines.append("")
 
     lines.append("=" * 72)
 

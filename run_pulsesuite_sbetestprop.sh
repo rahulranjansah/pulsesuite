@@ -14,4 +14,4 @@ export NUMBA_NUM_THREADS=8
 export OMP_NUM_THREADS=8
 export MKL_NUM_THREADS=8
 
-uv run python -m pulsesuite.PSTD3D.sbetestprop
+uv run python -u -m pulsesuite.PSTD3D.sbetestprop

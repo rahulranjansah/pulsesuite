@@ -10,8 +10,25 @@ Author: auto-generated from output.sh
 """
 
 import os
+import sys
 
 import numpy as np
+
+
+def _fast_loadtxt(filepath):
+    """Load a whitespace-delimited numeric file much faster than np.loadtxt."""
+    with open(filepath, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+    if not lines:
+        return np.empty((0, 0))
+    rows = []
+    for line in lines:
+        stripped = line.strip()
+        if stripped and not stripped.startswith("#"):
+            rows.append([float(x) for x in stripped.split()])
+    if not rows:
+        return np.empty((0, 0))
+    return np.array(rows)
 
 
 # Column definitions for info.XX.t.dat (0-indexed after time column)
@@ -67,7 +84,9 @@ def organize_output(base_dir="dataQW", wire=1):
     # --- Process info.XX.t.dat ---
     info_file = os.path.join(base_dir, f"info.{wire_str}.t.dat")
     if os.path.isfile(info_file):
-        data = np.loadtxt(info_file)
+        sys.stdout.write(f"  Reading info.{wire_str}.t.dat... ")
+        sys.stdout.flush()
+        data = _fast_loadtxt(info_file)
         if data.ndim == 1:
             data = data.reshape(1, -1)
         time_col = data[:, 0]
@@ -77,14 +96,16 @@ def organize_output(base_dir="dataQW", wire=1):
                 outpath = os.path.join(info_dir, f"{name}.dat")
                 np.savetxt(outpath, np.column_stack([time_col, data[:, col_idx]]),
                            fmt="%.6e")
-        print(f"  info.{wire_str}.t.dat -> {len(_INFO_COLUMNS)} files in {info_dir}/")
+        print(f"done -> {len(_INFO_COLUMNS)} files in {info_dir}/")
     else:
         print(f"  WARNING: {info_file} not found, skipping info columns")
 
     # --- Process EP.XX.t.dat ---
     ep_file = os.path.join(base_dir, f"EP.{wire_str}.t.dat")
     if os.path.isfile(ep_file):
-        data = np.loadtxt(ep_file)
+        sys.stdout.write(f"  Reading EP.{wire_str}.t.dat... ")
+        sys.stdout.flush()
+        data = _fast_loadtxt(ep_file)
         if data.ndim == 1:
             data = data.reshape(1, -1)
         time_col = data[:, 0]
@@ -94,14 +115,14 @@ def organize_output(base_dir="dataQW", wire=1):
                 outpath = os.path.join(info_dir, f"{name}.dat")
                 np.savetxt(outpath, np.column_stack([time_col, data[:, col_idx]]),
                            fmt="%.6e")
-        print(f"  EP.{wire_str}.t.dat -> {len(_EP_COLUMNS)} files in {info_dir}/")
+        print(f"done -> {len(_EP_COLUMNS)} files in {info_dir}/")
     else:
         print(f"  WARNING: {ep_file} not found, skipping EP columns")
 
     # --- Derived: total energy vs time ---
     info_file_path = os.path.join(base_dir, f"info.{wire_str}.t.dat")
     if os.path.isfile(info_file_path):
-        data = np.loadtxt(info_file_path)
+        data = _fast_loadtxt(info_file_path)
         if data.ndim == 1:
             data = data.reshape(1, -1)
         if data.shape[1] > 6:

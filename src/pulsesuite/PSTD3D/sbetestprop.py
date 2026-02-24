@@ -14,7 +14,7 @@ import os
 import numpy as np
 from scipy.constants import c as c0_SI
 
-from .benchmark import timer_start, timer_stop, write_summary
+from .benchmark import timer_start, timer_stop, write_summary, profile_start, profile_record
 from .SBEs import InitializeSBE, QWCalculator
 from .rundir import setup_run_directory
 from .typespace import GetKArray, GetSpaceArray
@@ -183,6 +183,7 @@ for n in range(1, Nt + 1):
     print(n, Nt)
 
     # Calculate E-fields
+    _t0 = profile_start()
     Exx[:] = (
         E0x
         * np.exp(-((w0x * (t - tpx)) ** 2) / (w0x * twx) ** 2)
@@ -196,66 +197,39 @@ for n in range(1, Nt + 1):
         * np.cos(w0y * (t - tpy))
         * np.exp(-((w0y * (t - tpy)) ** 20) / (2 * twy * w0y) ** 20)
     )
-
-    # Eyy = E0y * exp(-(t-tpy)**2 / (twy)**2) * cos(w0y*(t-tpy)) * exp(-(t-tpy)**20 / (2*twy)**20)
-    # Ezz = E0z * exp(-(w0z*(t-tpz))**2 / (w0z*twz)**2) * cos(w0z*(t-tpz)) * exp(-(w0z*(t-tpz))**20 / (2*twz*w0z)**20)
+    profile_record("E-field calc", _t0)
 
     # Time-Evolve the SBEs from t(n) to t(n+1)
+    _t0 = profile_start()
     QWCalculator(
         Exx, Eyy, Ezz, Vrr, rr, qrr, dt, 1, Pxx1, Pyy1, Pzz1, Rho, boolT, boolF
     )
     QWCalculator(
         Exx, Eyy, Ezz, Vrr, rr, qrr, dt, 2, Pxx2, Pyy2, Pzz2, Rho, boolT, boolF
     )
+    profile_record("QWCalculator", _t0)
 
-    # Print*, "AAA"
-    # stop
-
+    _t0 = profile_start()
     Pxx_mid[:] = (Pxx1 + Pxx2) * 0.5
     Pyy_mid[:] = (Pyy1 + Pyy2) * 0.5
     Pzz_mid[:] = (Pzz1 + Pzz2) * 0.5
-
-    # Compute mid-point average polarization at each pixel
-    # for i in range(Nr):
-    #     Pxx_mid[i] = (Pxx1[i] + Pxx2[i]) / 2.0
-    #     Pyy_mid[i] = (Pyy1[i] + Pyy2[i]) / 2.0
-    #     Pzz_mid[i] = (Pzz1[i] + Pzz2[i]) / 2.0
+    profile_record("midpoint avg", _t0)
 
     # Print the electric field for the record
-    file_Ex.write(f"{t} {np.real(Exx[Nr // 2])}\n")  # Record to file in 'fields/Ex.dat'
-    file_Ey.write(
-        f"{t} {np.real(Ezz[Nr // 2])}\n"
-    )  # Record to file in 'fields/Ey.dat' (matches Fortran unit=445)
-    file_Ez.write(
-        f"{t} {np.real(Eyy[Nr // 2])}\n"
-    )  # Record to file in 'fields/Ez.dat' (matches Fortran unit=446)
-    file_Px1.write(
-        f"{t} {np.real(Pxx1[Nr // 2])}\n"
-    )  # Record to file in 'fields/Px1.dat'
-    file_Py1.write(
-        f"{t} {np.real(Pyy1[Nr // 2])}\n"
-    )  # Record to file in 'fields/Py1.dat'
-    file_Pz1.write(
-        f"{t} {np.real(Pzz1[Nr // 2])}\n"
-    )  # Record to file in 'fields/Pz1.dat'
-    file_Px2.write(
-        f"{t} {np.real(Pxx2[Nr // 2])}\n"
-    )  # Record to file in 'fields/Px2.dat'
-    file_Py2.write(
-        f"{t} {np.real(Pyy2[Nr // 2])}\n"
-    )  # Record to file in 'fields/Py2.dat'
-    file_Pz2.write(
-        f"{t} {np.real(Pzz2[Nr // 2])}\n"
-    )  # Record to file in 'fields/Pz2.dat'
-    file_Px_mid.write(
-        f"{t} {np.real(Pxx_mid[Nr // 2])}\n"
-    )  # Record to file in 'fields/Px_mid.dat'
-    file_Py_mid.write(
-        f"{t} {np.real(Pyy_mid[Nr // 2])}\n"
-    )  # Record to file in 'fields/Py_mid.dat'
-    file_Pz_mid.write(
-        f"{t} {np.real(Pzz_mid[Nr // 2])}\n"
-    )  # Record to file in 'fields/Pz_mid.dat'
+    _t0 = profile_start()
+    file_Ex.write(f"{t} {np.real(Exx[Nr // 2])}\n")
+    file_Ey.write(f"{t} {np.real(Ezz[Nr // 2])}\n")
+    file_Ez.write(f"{t} {np.real(Eyy[Nr // 2])}\n")
+    file_Px1.write(f"{t} {np.real(Pxx1[Nr // 2])}\n")
+    file_Py1.write(f"{t} {np.real(Pyy1[Nr // 2])}\n")
+    file_Pz1.write(f"{t} {np.real(Pzz1[Nr // 2])}\n")
+    file_Px2.write(f"{t} {np.real(Pxx2[Nr // 2])}\n")
+    file_Py2.write(f"{t} {np.real(Pyy2[Nr // 2])}\n")
+    file_Pz2.write(f"{t} {np.real(Pzz2[Nr // 2])}\n")
+    file_Px_mid.write(f"{t} {np.real(Pxx_mid[Nr // 2])}\n")
+    file_Py_mid.write(f"{t} {np.real(Pyy_mid[Nr // 2])}\n")
+    file_Pz_mid.write(f"{t} {np.real(Pzz_mid[Nr // 2])}\n")
+    profile_record("file I/O", _t0)
 
     t = t + dt
 
