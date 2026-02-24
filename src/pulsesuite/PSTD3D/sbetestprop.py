@@ -14,7 +14,7 @@ import os
 import numpy as np
 from scipy.constants import c as c0_SI
 
-from .benchmark import timer_start, timer_stop, write_summary, profile_start, profile_record
+from .benchmark import timer_start, timer_stop, write_summary, write_preflight, profile_start, profile_record
 from .SBEs import InitializeSBE, QWCalculator
 from .rundir import setup_run_directory
 from .typespace import GetKArray, GetSpaceArray
@@ -23,6 +23,7 @@ from .typespace import GetKArray, GetSpaceArray
 # All output (dataQW/, fields/, output/) lands inside runs/<timestamp>/
 # so different simulations never overwrite each other.
 setup_run_directory(test_name="sbetestprop")
+write_preflight()
 timer_start("total")
 timer_start("init")
 

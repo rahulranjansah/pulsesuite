@@ -218,6 +218,49 @@ def _detect_backends():
     return info
 
 
+# ── Preflight check ──────────────────────────────────────────────────
+
+def write_preflight(filename="preflight.txt"):
+    """
+    Write a quick hardware/backend check before the simulation starts.
+
+    Prints to both stdout and *filename* so the user can decide whether
+    to continue (e.g. abort if CUDA is not detected).
+    """
+    info = _detect_backends()
+
+    lines = []
+    lines.append("=" * 56)
+    lines.append("  PULSESUITE PREFLIGHT CHECK")
+    lines.append("=" * 56)
+    lines.append(f"  Date/Time:    {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    lines.append(f"  Working dir:  {os.getcwd()}")
+    lines.append("")
+    lines.append(f"  CPU:          {_cpu_info()}")
+    lines.append(f"  GPU:          {_gpu_info()}")
+    lines.append(f"  RAM:          {_mem_info()}")
+    lines.append("")
+    lines.append(f"  Python:       {sys.version.split()[0]}")
+    lines.append(f"  NumPy:        {info['numpy_version']}")
+    lines.append(f"  Numba:        {info['numba_version']}")
+    lines.append(f"  CuPy:         {info['cupy_version']}")
+    lines.append("")
+    cuda_env = os.environ.get("PULSESUITE_USE_CUDA", "auto")
+    lines.append(f"  PULSESUITE_USE_CUDA: {cuda_env}")
+    lines.append(f"  CUDA available:     {'YES' if info['cuda_available'] else 'NO'}")
+    lines.append(f"  SBEs CUDA flag:     {'YES' if info['sbes_cuda'] else 'NO'}")
+    lines.append(f"  qwoptics CUDA flag: {'YES' if info['qwoptics_cuda'] else 'NO'}")
+    lines.append("")
+    lines.append(f"  Active backend:  {info['active_backend']}")
+    lines.append("=" * 56)
+
+    text = "\n".join(lines)
+    print(text, flush=True)
+
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write(text + "\n")
+
+
 # ── Summary writer ───────────────────────────────────────────────────
 
 def write_summary(filename="run_summary.txt", sim_params=None):

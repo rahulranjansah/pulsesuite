@@ -1067,12 +1067,13 @@ def main():
     Creates a timestamped run directory so each simulation's
     output is preserved separately.
     """
-    from .benchmark import timer_start, timer_stop, write_summary, profile_start, profile_record
+    from .benchmark import timer_start, timer_stop, write_summary, write_preflight, profile_start, profile_record
     from .postprocess import organize_all
     from .rundir import setup_run_directory
 
     setup_run_directory(input_files=["params", "DC.txt", "params/space.params"],
                         test_name="sbetestpropnov30")
+    write_preflight()
     timer_start("total")
     timer_start("init")
 

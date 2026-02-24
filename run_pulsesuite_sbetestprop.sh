@@ -14,4 +14,7 @@ export NUMBA_NUM_THREADS=8
 export OMP_NUM_THREADS=8
 export MKL_NUM_THREADS=8
 
+# CUDA toggle: set to 1 to use GPU, 0 to force CPU (auto-detect if unset)
+export PULSESUITE_USE_CUDA=0
+
 uv run python -u -m pulsesuite.PSTD3D.sbetestprop

@@ -6,6 +6,8 @@ propagation simulations for a quantum wire.
 
 """
 
+import os
+
 import numpy as np
 from numba import jit, prange
 from scipy.constants import (
@@ -14,6 +16,8 @@ from scipy.constants import (
     hbar as hbar_SI,
     m_e as me0_SI,
 )
+
+_CUDA_OVERRIDE = os.environ.get("PULSESUITE_USE_CUDA", "").strip().lower()
 
 try:
     from numba import cuda
@@ -29,6 +33,13 @@ try:
 except (ImportError, RuntimeError):
     _HAS_CUPY = False
     cp = None
+
+# Allow user to force CUDA on/off via PULSESUITE_USE_CUDA=0 or =1
+if _CUDA_OVERRIDE in ("0", "false", "no", "off"):
+    _HAS_CUDA = False
+    _HAS_CUPY = False
+elif _CUDA_OVERRIDE in ("1", "true", "yes", "on"):
+    pass  # keep auto-detected values
 import os
 
 from ..libpulsesuite.spliner import locate

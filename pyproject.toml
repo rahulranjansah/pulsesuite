@@ -73,8 +73,11 @@ test = [
     "pytest-xdist>=3.0.0",
 ]
 gpu = [
-    "cupy-cuda12x>=13.5.0",    # GPU array ops (requires CUDA 12 driver)
-    "numba-cuda>=0.6.0",       # Numba @cuda.jit kernels
+    "cupy-cuda12x>=13.5.0",           # GPU array ops (requires CUDA 12 driver)
+    "numba-cuda>=0.6.0",              # Numba @cuda.jit kernels
+    "nvidia-cuda-runtime-cu12",        # libcudart.so
+    "nvidia-cuda-nvrtc-cu12",          # libnvrtc.so (runtime compiler)
+    "nvidia-cuda-nvcc-cu12",           # nvvm/nvcc toolchain
 ]
 jupyter = ["notebook", "ipywidgets>=7.6"]
 doc = [

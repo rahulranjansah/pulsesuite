@@ -17,6 +17,8 @@ import os
 import numpy as np
 from numba import jit, prange
 
+_CUDA_OVERRIDE = os.environ.get("PULSESUITE_USE_CUDA", "").strip().lower()
+
 try:
     from numba import cuda
 
@@ -24,6 +26,10 @@ try:
 except (ImportError, RuntimeError):
     _HAS_CUDA = False
     cuda = None
+
+# Allow user to force CUDA on/off via PULSESUITE_USE_CUDA=0 or =1
+if _CUDA_OVERRIDE in ("0", "false", "no", "off"):
+    _HAS_CUDA = False
 
 from scipy.constants import c as c0_SI, e as e0, epsilon_0 as eps0_SI, hbar as hbar_SI
 
