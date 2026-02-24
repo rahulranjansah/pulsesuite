@@ -15,6 +15,13 @@ import sys
 import numpy as np
 
 
+def _parse_real(token):
+    """Parse a numeric token, handling complex strings by taking the real part."""
+    if "j" in token or "J" in token:
+        return complex(token).real
+    return float(token)
+
+
 def _fast_loadtxt(filepath):
     """Load a whitespace-delimited numeric file much faster than np.loadtxt."""
     with open(filepath, "r", encoding="utf-8") as f:
@@ -25,7 +32,7 @@ def _fast_loadtxt(filepath):
     for line in lines:
         stripped = line.strip()
         if stripped and not stripped.startswith("#"):
-            rows.append([float(x) for x in stripped.split()])
+            rows.append([_parse_real(x) for x in stripped.split()])
     if not rows:
         return np.empty((0, 0))
     return np.array(rows)
